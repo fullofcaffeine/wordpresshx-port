@@ -1,0 +1,38 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-700-01-kses-security-corpus",
+  "issue": {
+    "id": "wordpresshx-w91.3.1",
+    "external_ref": "WPHX-700.01",
+    "title": "Expand KSES security corpus and block/feed integration gates"
+  },
+  "recorded_at": "2026-06-20T23:05:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/security/wphx-700-01-kses-security-corpus.v1.json",
+      "role": "KSES security corpus and block/feed integration manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-700-01-kses-security-corpus.v1.json",
+      "role": "external-oracle ownership manifest for KSES promotion gate"
+    },
+    {
+      "path": "tools/security/run-kses-security-corpus.mjs",
+      "role": "security corpus generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run security:kses-corpus",
+    "npm run security:kses-corpus:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 17,
+    "fixture_cases": 8,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}

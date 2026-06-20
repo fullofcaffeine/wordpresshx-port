@@ -1,0 +1,91 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:security/kses-security-corpus",
+  "issue": {
+    "id": "wordpresshx-w91.3.1",
+    "external_ref": "WPHX-700.01"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "KSES security corpus and block/feed integration gate",
+    "area": "wp-includes/kses.php + wp-includes/blocks.php + wp-includes/SimplePie",
+    "public_contract": "WordPress 7.0 KSES security filtering, block attribute sanitization, and the SimplePie feed sanitizer bridge keep observable behavior across local PHP and pinned Docker PHP runtimes before any KSES Haxe ownership promotion."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/http.php",
+      "src/wp-includes/class-wp-token-map.php",
+      "src/wp-includes/html-api/html5-named-character-references.php",
+      "src/wp-includes/html-api/class-wp-html-decoder.php",
+      "src/wp-includes/html-api/class-wp-html-span.php",
+      "src/wp-includes/html-api/class-wp-html-text-replacement.php",
+      "src/wp-includes/html-api/class-wp-html-attribute-token.php",
+      "src/wp-includes/html-api/class-wp-html-doctype-info.php",
+      "src/wp-includes/html-api/class-wp-html-tag-processor.php",
+      "src/wp-includes/class-wp-block-parser-block.php",
+      "src/wp-includes/class-wp-block-parser-frame.php",
+      "src/wp-includes/class-wp-block-parser.php",
+      "src/wp-includes/blocks.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "src/wp-includes/SimplePie"
+    ],
+    "digest": "sha256:63c182d3a5715e69f8b5fb9e2bd7d37f204961315c2c2a24f1700a784632cd70"
+  },
+  "owned_paths": [
+    "tools/security/run-kses-security-corpus.mjs",
+    "manifests/security/wphx-700-01-kses-security-corpus.v1.json",
+    "receipts/security/wphx-700-01-kses-security-corpus.v1.json"
+  ],
+  "generated_paths": [
+    "build/security/wphx-700-01",
+    "manifests/security/wphx-700-01-kses-security-corpus.v1.json",
+    "manifests/ownership/wphx-700-01-kses-security-corpus.v1.json",
+    "receipts/security/wphx-700-01-kses-security-corpus.v1.json"
+  ],
+  "native_boundaries": [
+    {
+      "id": "wordpress-html-api-parser",
+      "reason": "KSES attribute parsing depends on WP_HTML_Tag_Processor and WP_HTML_Decoder. Haxe ownership must either preserve those parser decisions or explicitly reuse the PHP-native parser boundary."
+    },
+    {
+      "id": "block-parser-and-serializer",
+      "reason": "Block attribute sanitization flows through parse_blocks(), filter_block_kses(), and serialize_blocks(), tying KSES security behavior to Gutenberg-compatible block serialization."
+    },
+    {
+      "id": "simplepie-registry-and-encoding",
+      "reason": "The feed sanitizer bridge is registered through the real SimplePie registry and exercises parent sanitizer text/IRI behavior plus Misc::change_encoding()."
+    },
+    {
+      "id": "css-and-protocol-security-allow-lists",
+      "reason": "safecss_filter_attr(), wp_kses_bad_protocol(), and entity normalization are security-sensitive allow-list algorithms whose byte-level behavior is preserved by this gate."
+    }
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run security:kses-corpus",
+      "npm run security:kses-corpus:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-700-01-kses-security-corpus",
+      "receipt:wphx-303-05-kses-fixture"
+    ],
+    "manifest_digest": "sha256:e0143fab77b8d5305e05204117c88996a87401c1c51470e84df5f62ecd871a43"
+  },
+  "notes": "This gate is intentionally a promotion blocker rather than a Haxe candidate. KSES parser, CSS, protocol, block, and feed behavior should remain external-oracle owned until a later candidate passes this broader corpus."
+}
