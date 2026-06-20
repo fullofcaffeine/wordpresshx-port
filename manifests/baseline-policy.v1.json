@@ -1,0 +1,36 @@
+{
+  "schema": "wphx.baseline-policy.v1",
+  "adr": "docs/adr/ADR-002-dual-upstream-baseline-policy.md",
+  "status": "accepted",
+  "profiles": {
+    "wp70-release": {
+      "branch_family": "release/wp-7.0",
+      "distribution_claim": "wordpress-7.0-compatible",
+      "wordpress_baseline": "upstream:wordpress-7.0.0",
+      "wordpress_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "embedded_gutenberg_commit": "a2a354cf35e5b69c3330d6c1cfd42d8dc2efb9fd",
+      "allowed_source_inventory_baselines": [
+        "wordpress-7.0.0",
+        "wordpress-7.0-gutenberg-source"
+      ],
+      "allowed_artifact_baselines": [
+        "wordpress-7.0.0-distribution",
+        "wordpress-7.0-gutenberg-build"
+      ],
+      "forbidden_source_inventory_baselines": [
+        "gutenberg-forward-23.4.0"
+      ]
+    },
+    "gutenberg-forward-23.4": {
+      "branch_family": "forward/gutenberg-23.4",
+      "distribution_claim": null,
+      "forward_baseline": "upstream:gutenberg-forward-23.4.0",
+      "gutenberg_commit": "98a796c8780c480ef7bcfe03c42302d9564d785c",
+      "allowed_source_inventory_baselines": [
+        "gutenberg-forward-23.4.0"
+      ],
+      "allowed_artifact_baselines": [],
+      "forbidden_distribution_claim": "wordpress-7.0-compatible"
+    }
+  }
+}

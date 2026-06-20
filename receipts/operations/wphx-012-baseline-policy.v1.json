@@ -1,0 +1,33 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-012-baseline-policy",
+  "issue": {
+    "id": "wordpresshx-w91.16",
+    "external_ref": "WPHX-012",
+    "title": "Decide release and forward baseline branch policy"
+  },
+  "recorded_at": "2026-06-20T02:40:00Z",
+  "artifacts": [
+    {
+      "path": "docs/adr/ADR-002-dual-upstream-baseline-policy.md",
+      "role": "accepted dual-baseline ADR"
+    },
+    {
+      "path": "manifests/baseline-policy.v1.json",
+      "role": "machine-readable branch and baseline policy"
+    },
+    {
+      "path": "tools/baseline/validate-policy.mjs",
+      "role": "baseline mixing guard"
+    }
+  ],
+  "verification_commands": [
+    "npm run baseline:validate",
+    "npm run precommit"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "wp70_embedded_gutenberg": "a2a354cf35e5b69c3330d6c1cfd42d8dc2efb9fd",
+    "gutenberg_forward": "98a796c8780c480ef7bcfe03c42302d9564d785c"
+  }
+}

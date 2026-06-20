@@ -6,6 +6,8 @@ This project should split dependent work only when the split improves verified p
 
 `gutenberghx` is a good future sibling repository, but it should not be created merely because Gutenberg is large.
 
+Baseline separation is governed by [ADR-002](../adr/ADR-002-dual-upstream-baseline-policy.md). GutenbergHX work may use the forward Gutenberg profile, but WordPress 7.0 distribution claims must stay on the `wp70-release` profile.
+
 Create it when these are true:
 
 - WordPress 7.0's exact pinned Gutenberg build is locked.
@@ -70,4 +72,3 @@ Split a smaller library into its own repo only when at least one is true:
 - multiple agents need to work on it without touching WordPress/Gutenberg-owned paths.
 
 Vendor code should still remain inventoried even when it is not split. A bundled vendor may be a direct Haxe port, a Haxe reimplementation over host primitives, a generated wrapper only when upstream has the same runtime dependency assumption, or a temporary exception with a removal gate.
-
