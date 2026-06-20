@@ -1,0 +1,80 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/pure-formatting-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.7.6",
+    "external_ref": "WPHX-303.06"
+  },
+  "unit": {
+    "kind": "module",
+    "name": "pure formatting helper Haxe parity candidates",
+    "area": "wp-includes/formatting.php",
+    "public_contract": "WordPress-compatible global PHP functions remain callable with the same names/signatures while selected pure helper logic delegates to typed Haxe-generated PHP."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/class-wp-hook.php"
+    ],
+    "digest": "sha256:60bc6a34403381825de3524e3335eff891ceb920f62115c276d17f6345533a64"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/pure-formatting-candidate.hxml",
+    "src/wphx/wp/formatting/PureFormatting.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/PureFormattingCandidateEntry.hx",
+    "tools/wp-core/run-pure-formatting-candidate.mjs",
+    "manifests/wp-core/wphx-303-06-pure-formatting-candidate.v1.json",
+    "receipts/wp-core/wphx-303-06-pure-formatting-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-303-06",
+    "manifests/wp-core/wphx-303-06-pure-formatting-candidate.v1.json",
+    "manifests/ownership/wphx-303-06-pure-formatting-candidate.v1.json",
+    "receipts/wp-core/wphx-303-06-pure-formatting-candidate.v1.json"
+  ],
+  "bridge": {
+    "kind": "generated_shell",
+    "reason": "WordPress plugins and themes call reflection-visible global PHP functions; the candidate keeps that ABI and delegates only the pure helper core to Haxe.",
+    "bounded_by": [
+      "generated candidate wp-includes/formatting.php shell",
+      "WPHX-303.06 oracle comparison receipt",
+      "native apply_filters boundary for sanitize_key"
+    ]
+  },
+  "removal_gate": {
+    "condition": "Promote from generated shell candidate to verified owned distribution only after formatting.php ownership/linker work proves reflection, include timing, and plugin compatibility at distribution surface.",
+    "owner_issue": "WPHX-303",
+    "target_state": "verified_haxe_owned"
+  },
+  "smell_fixes": [
+    {
+      "description": "Extracted the sanitize_key character whitelist and hex color validation from PHP regular expressions into explicit typed Haxe predicates.",
+      "compatibility_evidence": [
+        "sanitize-key:mixed",
+        "sanitize-key:filter",
+        "sanitize-hex-color:valid-invalid",
+        "sanitize-hex-color-no-hash:valid-invalid"
+      ],
+      "behavior_policy": "no_observable_change"
+    }
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-303-pure-formatting",
+      "npm run wp:core:wphx-303-pure-formatting:check",
+      "npm run wp:core:wphx-303-escaping:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-303-06-pure-formatting-candidate",
+      "receipt:wphx-303-02-escaping-sanitization-fixture"
+    ],
+    "manifest_digest": "sha256:2d4b1b582526bc50ac2439079aaf8f3b3c7317fb886ec0c94dd6270c62a78a43"
+  },
+  "notes": "wp_basename remains in the upstream mirror until path/suffix and multibyte filename cases get their own candidate fixture. This slice promotes the WPHX-303.02-covered pure helpers first."
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-303-06-pure-formatting-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.7.6",
+    "external_ref": "WPHX-303.06",
+    "title": "Promote first pure formatting helpers to Haxe parity candidates"
+  },
+  "recorded_at": "2026-06-20T23:35:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-303-06-pure-formatting-candidate.v1.json",
+      "role": "pure formatting Haxe candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-303-06-pure-formatting-candidate.v1.json",
+      "role": "Haxe parity candidate ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-pure-formatting-candidate.mjs",
+      "role": "candidate generator and oracle comparator"
+    },
+    {
+      "path": "src/wphx/wp/formatting/PureFormatting.hx",
+      "role": "typed Haxe pure formatting helper implementation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-303-pure-formatting",
+    "npm run wp:core:wphx-303-pure-formatting:check",
+    "npm run wp:core:wphx-303-escaping:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_pure_formatting_shell",
+    "promoted_symbols": 4,
+    "fixture_cases": 25,
+    "comparisons": 3,
+    "skipped_runtimes": 0,
+    "oracle_behavior_matches_haxe_candidate": true
+  }
+}
