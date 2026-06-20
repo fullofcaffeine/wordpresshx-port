@@ -108,3 +108,23 @@ The fixture compares an oracle original-path tree with a generated Haxe-backed o
 The generated shells own original paths, include timing, top-level side effects, conditional declarations, and PHP return values. Haxe `LoadKernel` owns selected payload helpers behind that boundary.
 
 The committed snapshot is `manifests/php-facade/wphx-106-f5-include-load.v1.json`.
+
+## F6 Template and Caller Scope
+
+WPHX-107 owns the mixed template/caller-scope fixture:
+
+```bash
+npm run php:facade:f6
+npm run php:facade:f6:check
+```
+
+The fixture compares an oracle original-path template tree with a generated Haxe-backed template tree across two isolated scenarios:
+
+- `admin-style`, which includes an admin-like mixed PHP/HTML shell with local variables, escaped output, local array mutation, object mutation, trace side effects, and an include return value;
+- `theme-style`, which includes a theme-like mixed PHP/HTML shell with `$post`-shaped local data, class mutation, `$GLOBALS['wp_query']` mutation, a nested template-part include, partial-created caller locals, rendered output, and include return values.
+
+The generated shells own the mixed PHP/HTML output order, caller-scope visibility, local/global mutation, nested includes, escaping boundary, and return values. Haxe `TemplateKernel` owns only bounded helper payloads behind that shell boundary.
+
+This fixture intentionally does not treat HHX as parity evidence for existing mixed PHP/HTML files. HHX remains appropriate only where Haxe owns the template unit or where the file-segment model has bounded the adoption contract.
+
+The committed snapshot is `manifests/php-facade/wphx-107-f6-template-scope.v1.json`.

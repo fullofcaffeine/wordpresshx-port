@@ -1,0 +1,63 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-107-f6-template-scope",
+  "issue": {
+    "id": "wordpresshx-w91.1.7",
+    "external_ref": "WPHX-107",
+    "title": "WPHX-107 - F6 template/caller-scope fixture suite"
+  },
+  "recorded_at": "2026-06-20T07:15:00Z",
+  "artifacts": [
+    {
+      "path": "fixtures/php-facade/f6-template-scope.hxml",
+      "role": "Haxe PHP template/caller-scope fixture compile file"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/TemplateEntry.hx",
+      "role": "Haxe entry point preserving template helper emission"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/TemplateKernel.hx",
+      "role": "Haxe-owned bounded template helper payloads"
+    },
+    {
+      "path": "fixtures/php-facade/oracle/template-scope",
+      "role": "PHP oracle original-path tree for mixed template and caller-scope contracts"
+    },
+    {
+      "path": "tools/php-facade/run-f6-template-scope.mjs",
+      "role": "deterministic F6 template/caller-scope generator and checker"
+    },
+    {
+      "path": "manifests/php-facade/wphx-107-f6-template-scope.v1.json",
+      "role": "F6 generated-output and template/caller-scope comparison snapshot"
+    },
+    {
+      "path": "docs/operations/php-facade.md",
+      "role": "PHP facade fixture runbook"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:facade:f6",
+    "npm run php:facade:f6:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "haxe_version": "4.3.7",
+    "admin_style_template": true,
+    "theme_style_template": true,
+    "mixed_output_order": true,
+    "caller_local_mutation": true,
+    "object_local_mutation": true,
+    "global_state_mutation": true,
+    "nested_partial_include": true,
+    "include_return_values": true,
+    "comparison_count": 6,
+    "runtime_matrix": [
+      "local-php-cli",
+      "docker-php-8.4-cli",
+      "docker-php-8.5-cli"
+    ],
+    "template_strategy": "Existing mixed PHP/HTML templates remain original-path PHP shells until caller scope, globals, includes, output, and return values are explicitly bounded. HHX is not used as parity evidence for this class of files."
+  }
+}
