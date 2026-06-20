@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-005-gutenberg-forward-baseline",
+  "issue": {
+    "id": "wordpresshx-w91.9",
+    "external_ref": "WPHX-005",
+    "title": "Lock attached Gutenberg 23.4.0 forward ref"
+  },
+  "recorded_at": "2026-06-20T01:58:25Z",
+  "artifacts": [
+    {
+      "path": "manifests/upstream/gutenberg-forward-baseline.v1.json",
+      "role": "Gutenberg forward baseline lock"
+    },
+    {
+      "path": "upstream.lock.json",
+      "role": "starter checkout map with manifest pointer"
+    },
+    {
+      "path": "docs/operations/repositories.md",
+      "role": "human-readable repository map"
+    }
+  ],
+  "observed": {
+    "repo": "../gutenberg",
+    "commit": "98a796c8780c480ef7bcfe03c42302d9564d785c",
+    "tree": "ca453617695fda86c57c4a731475f4ae1c5aad9f",
+    "tag": "v23.4.0",
+    "package_json_version": "23.4.0",
+    "package_lock_version": "23.4.0",
+    "dirty_state": [
+      "untracked: repomix-output.gutenberg.xml.zip",
+      "untracked: repomix-output.xml"
+    ]
+  },
+  "verification_commands": [
+    "jq empty manifests/upstream/gutenberg-forward-baseline.v1.json",
+    "jq empty receipts/upstream/wphx-005-gutenberg-forward-baseline.v1.json",
+    "jq -e '.baseline.version == \"23.4.0\" and .baseline.tag == \"v23.4.0\" and .repository.commit == \"98a796c8780c480ef7bcfe03c42302d9564d785c\"' manifests/upstream/gutenberg-forward-baseline.v1.json",
+    "npm run format:haxe:check",
+    "npm run security:gitleaks",
+    "git diff --check"
+  ]
+}

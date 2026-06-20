@@ -1,0 +1,45 @@
+{
+  "schema": "wphx.upstream-baseline.v1",
+  "id": "upstream:gutenberg-forward-23.4.0",
+  "baseline": {
+    "kind": "forward-package-baseline",
+    "name": "Gutenberg",
+    "version": "23.4.0",
+    "tag": "v23.4.0",
+    "role": "Forward Gutenberg package oracle, separate from the WordPress 7.0 embedded Gutenberg baseline"
+  },
+  "repository": {
+    "relative_path": "../gutenberg",
+    "remote": "git@github.com:WordPress/gutenberg.git",
+    "commit": "98a796c8780c480ef7bcfe03c42302d9564d785c",
+    "tree": "ca453617695fda86c57c4a731475f4ae1c5aad9f",
+    "detached": true,
+    "observed_dirty_state": [
+      "untracked: repomix-output.gutenberg.xml.zip",
+      "untracked: repomix-output.xml"
+    ]
+  },
+  "package": {
+    "name": "gutenberg",
+    "package_json_version": "23.4.0",
+    "package_lock_version": "23.4.0",
+    "package_json_sha256": "6b123339dba60ffbd04e69043d44db13efd4c728c77e72006dea32c9a02b059f",
+    "package_lock_sha256": "fb2f12d97465f7e8d5eb28a8690520fa057f7b96a5b987c5d00172c1bf7e4dd2"
+  },
+  "commit": {
+    "committer_date": "2026-06-17T05:07:56+00:00",
+    "subject": "Bump plugin version to 23.4.0"
+  },
+  "verification": {
+    "recorded_at": "2026-06-20T01:58:25Z",
+    "commands": [
+      "git -C ../gutenberg rev-parse HEAD",
+      "git -C ../gutenberg describe --tags --exact-match HEAD",
+      "git -C ../gutenberg status --short --branch",
+      "jq -r '.version, .name' ../gutenberg/package.json",
+      "jq -r '.version // empty' ../gutenberg/package-lock.json",
+      "git -C ../gutenberg rev-parse HEAD^{tree}",
+      "shasum -a 256 ../gutenberg/package.json ../gutenberg/package-lock.json"
+    ]
+  }
+}

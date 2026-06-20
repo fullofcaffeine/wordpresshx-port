@@ -15,7 +15,9 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
   - Role: WordPress 7.0 distribution and PHP/browser behavior oracle.
   - Local note: detached HEAD with repomix artifacts untracked.
 - `../gutenberg` - Gutenberg checkout.
-  - Current observed ref: `98a796c8780`, tag `v23.4.0`.
+  - Current observed ref: `98a796c8780c480ef7bcfe03c42302d9564d785c`, tree `ca453617695fda86c57c4a731475f4ae1c5aad9f`, tag `v23.4.0`.
+  - Package evidence: `package.json` and `package-lock.json` both report version `23.4.0`.
+  - Manifest: `manifests/upstream/gutenberg-forward-baseline.v1.json`.
   - Role: forward Gutenberg package baseline, separate from the WordPress 7.0 pinned Gutenberg build.
   - Local note: detached HEAD with repomix artifacts untracked.
 
