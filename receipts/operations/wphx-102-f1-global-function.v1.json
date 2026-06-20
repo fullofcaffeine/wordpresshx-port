@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-102-f1-global-function",
+  "issue": {
+    "id": "wordpresshx-w91.1.2",
+    "external_ref": "WPHX-102",
+    "title": "WPHX-102 — F1 global function facade fixture"
+  },
+  "recorded_at": "2026-06-20T05:35:00Z",
+  "artifacts": [
+    {
+      "path": "fixtures/php-facade/f1-global-function.hxml",
+      "role": "Haxe PHP facade compile file"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeEntry.hx",
+      "role": "Haxe entry point preserving facade implementation emission"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
+      "role": "Haxe-owned add_filter implementation target"
+    },
+    {
+      "path": "fixtures/php-facade/oracle/add-filter.php",
+      "role": "PHP oracle shell for add_filter ABI"
+    },
+    {
+      "path": "tools/php-facade/run-f1-global-function.mjs",
+      "role": "deterministic F1 facade generator and checker"
+    },
+    {
+      "path": "manifests/php-facade/wphx-102-f1-global-function.v1.json",
+      "role": "F1 generated-output and ABI comparison snapshot"
+    },
+    {
+      "path": "docs/operations/php-facade.md",
+      "role": "PHP facade fixture runbook"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:facade:f1",
+    "npm run php:facade:f1:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "haxe_version": "4.3.7",
+    "function_name": "add_filter",
+    "number_of_parameters": 4,
+    "number_of_required_parameters": 2,
+    "default_priority": 10,
+    "default_accepted_args": 1,
+    "conditional_availability": true,
+    "second_require_safe": true,
+    "exact_abi_match": true,
+    "comparison_count": 3,
+    "runtime_matrix": [
+      "local-php-cli",
+      "docker-php-8.4-cli",
+      "docker-php-8.5-cli"
+    ]
+  }
+}
