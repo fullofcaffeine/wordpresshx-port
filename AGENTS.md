@@ -51,7 +51,7 @@ Generated target readability is a product surface. If good Haxe source emits wea
 
 ## Documentation
 
-Keep `README.md`, `docs/operations/repositories.md`, `docs/operations/dependent-libraries.md`, `docs/operations/hhx-template-policy.md`, `docs/operations/port-philosophy.md`, `docs/operations/beads.md`, lock manifests, `AGENTS.md`, and Beads current as repo paths, baselines, gates, or operating rules change. Do not let chat history become the only source of truth.
+Keep `README.md`, `docs/operations/repositories.md`, `docs/operations/dependent-libraries.md`, `docs/operations/hhx-template-policy.md`, `docs/operations/port-philosophy.md`, `docs/operations/beads.md`, `docs/operations/agent-instructions.md`, lock manifests, `AGENTS.md`, and Beads current as repo paths, baselines, gates, or operating rules change. Do not let chat history become the only source of truth.
 
 ## Beads Authority
 
