@@ -1,0 +1,121 @@
+name: PHP Conformance
+
+on:
+  pull_request:
+    paths:
+      - ".github/workflows/php-conformance.yml"
+      - "src/**"
+      - "fixtures/**"
+      - "tools/**"
+      - "scripts/**"
+      - "manifests/**"
+      - "receipts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "toolchain.lock.json"
+      - "hxformat.json"
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/php-conformance.yml"
+      - "src/**"
+      - "fixtures/**"
+      - "tools/**"
+      - "scripts/**"
+      - "manifests/**"
+      - "receipts/**"
+      - "package.json"
+      - "package-lock.json"
+      - "toolchain.lock.json"
+      - "hxformat.json"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  php-conformance:
+    name: ${{ matrix.suite }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - suite: hygiene-and-manifests
+            command: |
+              npm run format:haxe:check
+              npm run haxe:escape-hatches:check
+              npm run baseline:validate
+              npm run ci:php-conformance:check
+          - suite: php-feasibility
+            command: |
+              npm run php:smoke:check
+              npm run php:facade:f1:check
+              npm run php:facade:f2:check
+              npm run php:facade:f3:check
+              npm run php:facade:f4:check
+              npm run php:facade:f5:check
+              npm run php:facade:f6:check
+              npm run php:facade:f7:check
+          - suite: wp-abi-and-macros
+            command: |
+              npm run php:abi:check
+              npm run wp:macro:bindings:check
+          - suite: wp-runtime-and-linker
+            command: |
+              npm run wp:boundary:check
+              npm run wp:facade:globals:check
+              npm run wp:linker:check
+              npm run wp:public-types:check
+              npm run wp:debug:sourcemap:check
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.19.3"
+          cache: npm
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.4"
+          coverage: none
+          tools: none
+
+      - name: Set up Haxe
+        uses: krdlab/setup-haxe@v2
+        with:
+          haxe-version: "4.3.7"
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          haxelib setup "$HOME/haxelib"
+          haxelib install formatter 1.18.0 --quiet
+
+      - name: Restore WordPress 7.0 oracle checkout
+        run: |
+          git clone --depth 1 --branch 7.0.0 https://github.com/WordPress/wordpress-develop.git ../wordpress-develop
+          test "$(git -C ../wordpress-develop rev-parse HEAD)" = "26b68024931348d267b70e2a29910e1320d0094f"
+
+      - name: Warm pinned PHP Docker images
+        run: |
+          docker pull library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d
+          docker pull library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e
+
+      - name: Tool versions
+        run: |
+          node --version
+          npm --version
+          haxe --version
+          php -v
+          docker version
+
+      - name: Run conformance suite
+        run: ${{ matrix.command }}
