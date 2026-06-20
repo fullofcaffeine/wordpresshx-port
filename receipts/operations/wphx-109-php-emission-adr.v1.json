@@ -1,0 +1,80 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-109-php-emission-adr",
+  "issue": {
+    "id": "wordpresshx-w91.1.9",
+    "external_ref": "WPHX-109",
+    "title": "WPHX-109 - ADR: macros/linker/backend boundary"
+  },
+  "recorded_at": "2026-06-20T07:45:00Z",
+  "artifacts": [
+    {
+      "path": "docs/adr/ADR-001-php-emission-architecture.md",
+      "role": "accepted PHP emission architecture ADR"
+    },
+    {
+      "path": "receipts/operations/wphx-102-f1-global-function.v1.json",
+      "role": "F1 global function facade evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-103-f2-references.v1.json",
+      "role": "F2 reference boundary evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-104-f3-native-values.v1.json",
+      "role": "F3 native values and globals evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-105-f4-public-class.v1.json",
+      "role": "F4 public class evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-106-f5-include-load.v1.json",
+      "role": "F5 include/load evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-107-f6-template-scope.v1.json",
+      "role": "F6 template/caller-scope evidence"
+    },
+    {
+      "path": "receipts/operations/wphx-108-f7-hook-kernel.v1.json",
+      "role": "F7 hook kernel evidence"
+    },
+    {
+      "path": "manifests/dashboard/gate-index.v1.json",
+      "role": "php-feasibility gate task status index"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:facade:f1:check",
+    "npm run php:facade:f2:check",
+    "npm run php:facade:f3:check",
+    "npm run php:facade:f4:check",
+    "npm run php:facade:f5:check",
+    "npm run php:facade:f6:check",
+    "npm run php:facade:f7:check",
+    "npm run receipts:validate",
+    "npm run dashboard:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "accepted_adr": "docs/adr/ADR-001-php-emission-architecture.md",
+    "fork_required_now": false,
+    "accepted_architecture": "ordinary Haxe implementation plus target-specific APIs and typed macro manifests, assembled into WordPress-facing PHP by a deterministic original-path ABI/file linker",
+    "backend_fork_trigger": "only after a minimized generic blocker proves ordinary Haxe, target APIs, macros, and the linker cannot preserve behavior safely or efficiently",
+    "evidence_refs": [
+      "WPHX-102",
+      "WPHX-103",
+      "WPHX-104",
+      "WPHX-105",
+      "WPHX-106",
+      "WPHX-107",
+      "WPHX-108"
+    ],
+    "runtime_matrix": [
+      "local-php-cli",
+      "docker-php-8.4-cli",
+      "docker-php-8.5-cli"
+    ]
+  }
+}
