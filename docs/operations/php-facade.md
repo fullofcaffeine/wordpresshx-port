@@ -142,7 +142,7 @@ The fixture copies the upstream oracle files from `../wordpress-develop/src/wp-i
 
 The trace covers:
 
-- reflected signatures for `add_filter`, `add_action`, `apply_filters`, `apply_filters_ref_array`, `do_action`, `has_filter`, `remove_filter`, `current_filter`, and `doing_filter`;
+- reflected signatures for the hook/plugin API functions emitted from `plugin.php`;
 - priority ordering and `accepted_args` behavior;
 - `remove_filter` behavior;
 - `all` hook execution;

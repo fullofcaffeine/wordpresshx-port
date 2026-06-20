@@ -107,6 +107,61 @@ final class WP_Hook implements Iterator, ArrayAccess {
 \t\t}
 
 \t\t$this->priorities = array_keys( $this->callbacks );
+
+\t\tif ( $this->nesting_level > 0 ) {
+\t\t\t$this->resort_active_iterations( $priority, $priority_existed );
+\t\t}
+\t}
+
+\tprivate function resort_active_iterations( $new_priority = false, $priority_existed = false ) {
+\t\t$new_priorities = $this->priorities;
+
+\t\tif ( ! $new_priorities ) {
+\t\t\tforeach ( $this->iterations as $index => $iteration ) {
+\t\t\t\t$this->iterations[ $index ] = $new_priorities;
+\t\t\t}
+
+\t\t\treturn;
+\t\t}
+
+\t\t$min = min( $new_priorities );
+
+\t\tforeach ( $this->iterations as $index => &$iteration ) {
+\t\t\t$current = current( $iteration );
+
+\t\t\tif ( false === $current ) {
+\t\t\t\tcontinue;
+\t\t\t}
+
+\t\t\t$iteration = $new_priorities;
+
+\t\t\tif ( $current < $min ) {
+\t\t\t\tarray_unshift( $iteration, $current );
+\t\t\t\tcontinue;
+\t\t\t}
+
+\t\t\twhile ( current( $iteration ) < $current ) {
+\t\t\t\tif ( false === next( $iteration ) ) {
+\t\t\t\t\tbreak;
+\t\t\t\t}
+\t\t\t}
+
+\t\t\tif ( $new_priority === $this->current_priority[ $index ] && ! $priority_existed ) {
+\t\t\t\tif ( false === current( $iteration ) ) {
+\t\t\t\t\t$prev = end( $iteration );
+\t\t\t\t} else {
+\t\t\t\t\t$prev = prev( $iteration );
+\t\t\t\t}
+
+\t\t\t\tif ( false === $prev ) {
+\t\t\t\t\treset( $iteration );
+\t\t\t\t} elseif ( $new_priority !== $prev ) {
+\t\t\t\t\tnext( $iteration );
+\t\t\t\t}
+\t\t\t}
+\t\t}
+
+\t\tunset( $iteration );
 \t}
 
 \tpublic function remove_filter( $hook_name, $callback, $priority ) {
@@ -122,6 +177,9 @@ final class WP_Hook implements Iterator, ArrayAccess {
 \t\t\tif ( ! $this->callbacks[ $priority ] ) {
 \t\t\t\tunset( $this->callbacks[ $priority ] );
 \t\t\t\t$this->priorities = array_keys( $this->callbacks );
+\t\t\t\tif ( $this->nesting_level > 0 ) {
+\t\t\t\t\t$this->resort_active_iterations();
+\t\t\t\t}
 \t\t\t}
 \t\t}
 
@@ -165,9 +223,15 @@ final class WP_Hook implements Iterator, ArrayAccess {
 \t\tif ( false === $priority ) {
 \t\t\t$this->callbacks = array();
 \t\t\t$this->priorities = array();
+\t\t\tif ( $this->nesting_level > 0 ) {
+\t\t\t\t$this->resort_active_iterations();
+\t\t\t}
 \t\t} elseif ( isset( $this->callbacks[ $priority ] ) ) {
 \t\t\tunset( $this->callbacks[ $priority ] );
 \t\t\t$this->priorities = array_keys( $this->callbacks );
+\t\t\tif ( $this->nesting_level > 0 ) {
+\t\t\t\t$this->resort_active_iterations();
+\t\t\t}
 \t\t}
 \t}
 
@@ -302,7 +366,7 @@ if ( ! defined( 'WPHX_F7_HOOK_BOOTSTRAPPED' ) ) {
 \t\\php\\Boot::__hx__init();
 }
 
-global $wp_filter, $wp_actions, $wp_filters, $wp_current_filter;
+global $wp_filter, $wp_actions, $wp_filters, $wp_current_filter, $wp_plugin_paths;
 
 if ( $wp_filter ) {
 \t$wp_filter = WP_Hook::build_preinitialized_hooks( $wp_filter );
@@ -318,6 +382,9 @@ if ( ! isset( $wp_filters ) ) {
 }
 if ( ! isset( $wp_current_filter ) ) {
 \t$wp_current_filter = array();
+}
+if ( ! isset( $wp_plugin_paths ) ) {
+\t$wp_plugin_paths = array();
 }
 
 function add_filter( $hook_name, $callback, $priority = 10, $accepted_args = 1 ) {
@@ -404,6 +471,27 @@ function do_action( $hook_name, ...$arg ) {
 \tarray_pop( $wp_current_filter );
 }
 
+function do_action_ref_array( $hook_name, $args ) {
+\tglobal $wp_filter, $wp_actions, $wp_current_filter;
+\t$wp_actions[ $hook_name ] = isset( $wp_actions[ $hook_name ] ) ? $wp_actions[ $hook_name ] + 1 : 1;
+\tif ( isset( $wp_filter['all'] ) ) {
+\t\t$wp_current_filter[] = $hook_name;
+\t\t$all_args = func_get_args();
+\t\t_wp_call_all_hook( $all_args );
+\t}
+\tif ( ! isset( $wp_filter[ $hook_name ] ) ) {
+\t\tif ( isset( $wp_filter['all'] ) ) {
+\t\t\tarray_pop( $wp_current_filter );
+\t\t}
+\t\treturn;
+\t}
+\tif ( ! isset( $wp_filter['all'] ) ) {
+\t\t$wp_current_filter[] = $hook_name;
+\t}
+\t$wp_filter[ $hook_name ]->do_action( $args );
+\tarray_pop( $wp_current_filter );
+}
+
 function has_filter( $hook_name, $callback = false, $priority = false ) {
 \tglobal $wp_filter;
 \tif ( ! isset( $wp_filter[ $hook_name ] ) ) {
@@ -428,13 +516,32 @@ function remove_filter( $hook_name, $callback, $priority = 10 ) {
 \treturn $r;
 }
 
+function remove_all_filters( $hook_name, $priority = false ) {
+\tglobal $wp_filter;
+\tif ( isset( $wp_filter[ $hook_name ] ) ) {
+\t\t$wp_filter[ $hook_name ]->remove_all_filters( $priority );
+\t\tif ( ! $wp_filter[ $hook_name ]->has_filters() ) {
+\t\t\tunset( $wp_filter[ $hook_name ] );
+\t\t}
+\t}
+\treturn true;
+}
+
 function remove_action( $hook_name, $callback, $priority = 10 ) {
 \treturn remove_filter( $hook_name, $callback, $priority );
+}
+
+function remove_all_actions( $hook_name, $priority = false ) {
+\treturn remove_all_filters( $hook_name, $priority );
 }
 
 function current_filter() {
 \tglobal $wp_current_filter;
 \treturn end( $wp_current_filter );
+}
+
+function current_action() {
+\treturn current_filter();
 }
 
 function doing_filter( $hook_name = null ) {
@@ -459,6 +566,88 @@ function did_action( $hook_name ) {
 \treturn $wp_actions[ $hook_name ] ?? 0;
 }
 
+function apply_filters_deprecated( $hook_name, $args, $version, $replacement = '', $message = '' ) {
+\tif ( ! has_filter( $hook_name ) ) {
+\t\treturn $args[0];
+\t}
+\t_deprecated_hook( $hook_name, $version, $replacement, $message );
+\treturn apply_filters_ref_array( $hook_name, $args );
+}
+
+function do_action_deprecated( $hook_name, $args, $version, $replacement = '', $message = '' ) {
+\tif ( ! has_action( $hook_name ) ) {
+\t\treturn;
+\t}
+\t_deprecated_hook( $hook_name, $version, $replacement, $message );
+\tdo_action_ref_array( $hook_name, $args );
+}
+
+function plugin_basename( $file ) {
+\tglobal $wp_plugin_paths;
+\t$file = wp_normalize_path( $file );
+\tarsort( $wp_plugin_paths );
+\tforeach ( $wp_plugin_paths as $dir => $realdir ) {
+\t\tif ( str_starts_with( $file, $realdir ) ) {
+\t\t\t$file = $dir . substr( $file, strlen( $realdir ) );
+\t\t}
+\t}
+\t$plugin_dir = wp_normalize_path( WP_PLUGIN_DIR );
+\t$mu_plugin_dir = wp_normalize_path( WPMU_PLUGIN_DIR );
+\t$file = preg_replace( '#^' . preg_quote( $plugin_dir, '#' ) . '/|^' . preg_quote( $mu_plugin_dir, '#' ) . '/#', '', $file );
+\t$file = trim( $file, '/' );
+\treturn $file;
+}
+
+function wp_register_plugin_realpath( $file ) {
+\tglobal $wp_plugin_paths;
+\tstatic $wp_plugin_path = null, $wpmu_plugin_path = null;
+\tif ( ! isset( $wp_plugin_path ) ) {
+\t\t$wp_plugin_path = wp_normalize_path( WP_PLUGIN_DIR );
+\t\t$wpmu_plugin_path = wp_normalize_path( WPMU_PLUGIN_DIR );
+\t}
+\t$plugin_path = wp_normalize_path( dirname( $file ) );
+\t$realpath = realpath( $file );
+\t$plugin_realpath = wp_normalize_path( dirname( false === $realpath ? $file : $realpath ) );
+\tif ( $plugin_path === $wp_plugin_path || $plugin_path === $wpmu_plugin_path ) {
+\t\treturn false;
+\t}
+\tif ( $plugin_path !== $plugin_realpath ) {
+\t\t$wp_plugin_paths[ $plugin_path ] = $plugin_realpath;
+\t}
+\treturn true;
+}
+
+function plugin_dir_path( $file ) {
+\treturn trailingslashit( dirname( $file ) );
+}
+
+function plugin_dir_url( $file ) {
+\treturn trailingslashit( plugins_url( '', $file ) );
+}
+
+function register_activation_hook( $file, $callback ) {
+\t$file = plugin_basename( $file );
+\tadd_action( 'activate_' . $file, $callback );
+}
+
+function register_deactivation_hook( $file, $callback ) {
+\t$file = plugin_basename( $file );
+\tadd_action( 'deactivate_' . $file, $callback );
+}
+
+function register_uninstall_hook( $file, $callback ) {
+\tif ( is_array( $callback ) && is_object( $callback[0] ) ) {
+\t\t_doing_it_wrong( __FUNCTION__, __( 'Only a static class method or function can be used in an uninstall hook.' ), '3.1.0' );
+\t\treturn;
+\t}
+\t$uninstallable_plugins = (array) get_option( 'uninstall_plugins' );
+\t$plugin_basename = plugin_basename( $file );
+\tif ( ! isset( $uninstallable_plugins[ $plugin_basename ] ) || $uninstallable_plugins[ $plugin_basename ] !== $callback ) {
+\t\t$uninstallable_plugins[ $plugin_basename ] = $callback;
+\t\tupdate_option( 'uninstall_plugins', $uninstallable_plugins );
+\t}
+}
+
 function _wp_call_all_hook( $args ) {
 \tglobal $wp_filter;
 \t$wp_filter['all']->do_all_hook( $args );
@@ -479,7 +668,7 @@ function _wp_filter_build_unique_id( $hook_name, $callback, $priority ) {
 \tif ( is_string( $callback[0] ) ) {
 \t\treturn $callback[0] . '::' . $callback[1];
 \t}
-\treturn '';
+\treturn null;
 }
 `
   );
@@ -548,7 +737,40 @@ $after = array(
 );
 
 $reflections = array();
-foreach ( array( 'add_filter', 'add_action', 'apply_filters', 'apply_filters_ref_array', 'do_action', 'has_filter', 'remove_filter', 'current_filter', 'doing_filter' ) as $function_name ) {
+foreach (
+\tarray(
+\t\t'_wp_call_all_hook',
+\t\t'_wp_filter_build_unique_id',
+\t\t'add_action',
+\t\t'add_filter',
+\t\t'apply_filters',
+\t\t'apply_filters_deprecated',
+\t\t'apply_filters_ref_array',
+\t\t'current_action',
+\t\t'current_filter',
+\t\t'did_action',
+\t\t'did_filter',
+\t\t'do_action',
+\t\t'do_action_deprecated',
+\t\t'do_action_ref_array',
+\t\t'doing_action',
+\t\t'doing_filter',
+\t\t'has_action',
+\t\t'has_filter',
+\t\t'plugin_basename',
+\t\t'plugin_dir_path',
+\t\t'plugin_dir_url',
+\t\t'register_activation_hook',
+\t\t'register_deactivation_hook',
+\t\t'register_uninstall_hook',
+\t\t'remove_action',
+\t\t'remove_all_actions',
+\t\t'remove_all_filters',
+\t\t'remove_filter',
+\t\t'wp_register_plugin_realpath',
+\t)
+\tas $function_name
+) {
 \t$reflection = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $reflection->getParameters() as $parameter ) {

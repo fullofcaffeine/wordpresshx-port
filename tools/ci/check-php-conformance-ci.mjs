@@ -43,6 +43,7 @@ const REQUIRED_COMMANDS = [
   "npm run wp:boundary:check",
   "npm run wp:bootstrap:trace:check",
   "npm run wp:facade:globals:check",
+  "npm run wp:hooks:surface:check",
   "npm run wp:linker:check",
   "npm run wp:public-types:check",
   "npm run wp:debug:sourcemap:check"
