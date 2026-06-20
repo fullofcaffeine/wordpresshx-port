@@ -1,0 +1,86 @@
+{
+  "schema": "wphx.wp-macro-binding-validator.v1",
+  "issue": "WPHX-202",
+  "generated_at": "2026-06-20T06:05:00.000Z",
+  "generator": "tools/wp-macro/run-binding-validator.mjs",
+  "validator": "src/wphx/wp/macros/BindingValidator.hx",
+  "abi_manifest": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+  "haxe_version": "4.3.7",
+  "fixture_sources": [
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/ValidBindings.hx",
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/InvalidAmbiguousGlobal.hx",
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/InvalidArity.hx",
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/InvalidKind.hx",
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/InvalidMissing.hx",
+    "fixtures/wp-macro/src/wphx/fixtures/wp/macro/InvalidStaticGlobal.hx"
+  ],
+  "results": [
+    {
+      "id": "valid-bindings",
+      "hxml": "fixtures/wp-macro/valid-bindings.hxml",
+      "expect": "success",
+      "expected_diagnostic": "wphx-wp-macro-valid",
+      "status": 0,
+      "passed": true,
+      "stdout_sha256": "sha256:19d2e43b54e606609ed17c66200239810edf2cc906a1220a80049008c8e218db",
+      "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "id": "invalid-ambiguous-global",
+      "hxml": "fixtures/wp-macro/invalid-ambiguous-global.hxml",
+      "expect": "failure",
+      "expected_diagnostic": "WPHX-202: :wp.global(\"add_filter\") is ambiguous; add a source path. Candidates: src/wp-admin/includes/noop.php, src/wp-includes/plugin.php",
+      "status": 1,
+      "passed": true,
+      "stdout_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "sha256:6ffc9f0d62198e4237fb1150bafdf8480fe3653d887720146385bd40cb0e053b"
+    },
+    {
+      "id": "invalid-arity",
+      "hxml": "fixtures/wp-macro/invalid-arity.hxml",
+      "expect": "failure",
+      "expected_diagnostic": "WPHX-202: :wp.global(\"add_filter\", \"src/wp-includes/plugin.php\") expects 2..4 parameters, got 1",
+      "status": 1,
+      "passed": true,
+      "stdout_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "sha256:decda3fa78f36a62ee2fe95c9dee50ade20f1f95c2fbd544a3eb13282e457fea"
+    },
+    {
+      "id": "invalid-kind",
+      "hxml": "fixtures/wp-macro/invalid-kind.hxml",
+      "expect": "failure",
+      "expected_diagnostic": "WPHX-202: :wp.class(\"add_filter\") expected ABI kind class, found function",
+      "status": 1,
+      "passed": true,
+      "stdout_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "sha256:0c2a76f635aedfb058e4b1230fcd5a0c51d46aabd9bb136d4a5a50d510f69088"
+    },
+    {
+      "id": "invalid-missing",
+      "hxml": "fixtures/wp-macro/invalid-missing.hxml",
+      "expect": "failure",
+      "expected_diagnostic": "WPHX-202: :wp.global(\"wphx_definitely_missing\") did not match any ABI entry",
+      "status": 1,
+      "passed": true,
+      "stdout_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "sha256:0e94b45a83643b6cd450a951e11af4c37adb5b6301501a69e6dca944f35ec136"
+    },
+    {
+      "id": "invalid-static-global",
+      "hxml": "fixtures/wp-macro/invalid-static-global.hxml",
+      "expect": "failure",
+      "expected_diagnostic": "WPHX-202: :wp.global(\"add_filter\", \"src/wp-includes/plugin.php\") must annotate a static function",
+      "status": 1,
+      "passed": true,
+      "stdout_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "sha256:20e30bf5a3e3000d7458dafe4260d8206bf9600a133a431e9b0bf0024a659bf9"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cases": 6,
+    "valid_binding_compiles": true,
+    "invalid_bindings_fail_compilation": true,
+    "deterministic_diagnostics": true
+  }
+}
