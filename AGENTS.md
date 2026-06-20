@@ -32,7 +32,7 @@ Record checkout paths, commits, dirty state, and intended authority in `upstream
 
 - Prefer typed Haxe models, abstracts, enums, typedefs, and macros where they strengthen the source without obscuring target behavior.
 - Target-shaped Haxe is allowed when it preserves WordPress PHP, browser, React, or package semantics. Do not add a broad portability abstraction before parity evidence exists.
-- Avoid casual `Dynamic`, `untyped`, raw `php.Syntax.code`, raw JavaScript, broad casts, or generated `any`. Use them only at documented runtime/compiler boundaries, keep the scope tiny, and file follow-up work when the boundary should narrow.
+- Hard rule: do not use `Dynamic`, `untyped`, raw `php.Syntax.code`, raw JavaScript, broad casts, or generated `any` casually. Prefer concrete Haxe types, typedefs, abstracts, enums, or target-native extern types. If one of these escape hatches is truly required, keep it at the smallest runtime/compiler boundary, add a nearby comment explaining why no narrower type works yet, and file follow-up work when the boundary should narrow.
 - Macros should generate deterministic boilerplate, manifests, validators, and ABI bindings. They should not become broad textual rewrites of generated PHP or TypeScript.
 - Public PHP boundaries must preserve native PHP arrays, globals, references, conditional declarations, reflection-visible signatures, classes, traits, include timing, and mixed template behavior.
 - Browser boundaries must preserve package exports, WordPress script handles, globals, object semantics, React/TSX behavior, source maps, and upstream bundling expectations.

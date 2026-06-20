@@ -417,6 +417,7 @@ const manifest = {
     haxe_sources: [
       "fixtures/wp-facade/src/wphx/fixtures/wp/facade/GlobalFacadeEntry.hx",
       "fixtures/wp-facade/src/wphx/fixtures/wp/facade/GlobalBindings.hx",
+      "fixtures/wp-facade/src/wphx/fixtures/wp/facade/GlobalTypes.hx",
       "fixtures/wp-facade/src/wphx/fixtures/wp/facade/GlobalKernel.hx"
     ],
     probe: PROBE

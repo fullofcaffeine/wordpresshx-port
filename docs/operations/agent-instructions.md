@@ -50,6 +50,14 @@ This repo may reference sibling repos as evidence, but it does not inherit their
 
 This keeps WordPressHX as the program authority without pretending that compiler or upstream repositories are subdirectories of this project.
 
+## Dynamic And Escape Hatches
+
+`Dynamic`, `untyped`, raw target syntax, broad casts, and generated `any` are compatibility escape hatches, not default modeling tools. New Haxe code must first try concrete types, structural typedefs, abstracts, enums, `EitherType`, target-native externs such as PHP native arrays, or small macros that preserve type information.
+
+If an escape hatch remains necessary, the code must put it at the boundary and document the reason next to the use. A good justification names the runtime shape that Haxe cannot express yet, for example a PHP callable that may be a closure, function name string, or object/method tuple. Do not widen a whole function or class just because one argument is a native boundary value.
+
+When reviewing or continuing work, treat casual `Dynamic` as a defect. Narrow it immediately when the local context is clear; otherwise file Beads follow-up with the boundary, evidence, and removal condition.
+
 ## Verification
 
 The WPHX-802 receipt is `receipts/operations/wphx-802-agent-instructions.v1.json`.
