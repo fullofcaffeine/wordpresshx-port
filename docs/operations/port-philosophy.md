@@ -14,7 +14,7 @@ The initial typed layer should provide:
 - generated package/export/script-handle metadata;
 - differential test harnesses and receipts.
 
-It should not become a permanent thin wrapper around upstream PHP/JS implementations. Each wrapped upstream behavior needs an ownership state: external oracle, temporary bridge, scaffolded, Haxe-owned parity candidate, or verified Haxe-owned.
+It should not become a permanent thin wrapper around upstream PHP/JS implementations. Each wrapped upstream behavior needs an ownership state: external oracle, temporary bridge, scaffolded Haxe, Haxe parity candidate, or verified Haxe-owned. The machine-readable version of this policy is `manifests/schemas/ownership-manifest.schema.json`; the operating rules are in `docs/operations/ownership-state-model.md`.
 
 ## Fixing Smells
 
@@ -33,4 +33,3 @@ After a subsystem reaches parity, refactor tasks may improve internal design mor
 ## Practical Rule
 
 Start with typed compatibility surfaces where WordPress's dynamic contract is dangerous to translate blindly. Use those surfaces to replace runtime logic with Haxe-owned implementations in small verified slices. Do not stop at wrappers unless a task records an approved temporary exception with a removal gate.
-

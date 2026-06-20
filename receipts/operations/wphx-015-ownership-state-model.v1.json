@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-015-ownership-state-model",
+  "issue": {
+    "id": "wordpresshx-w91.19",
+    "external_ref": "WPHX-015",
+    "title": "Define wrapper-to-Haxe ownership state model"
+  },
+  "recorded_at": "2026-06-20T01:55:11Z",
+  "repository": {
+    "path": "/Users/fullofcaffeine/workspace/code/wordpresshx",
+    "head_before_change": "91f6d8f5c0e9"
+  },
+  "artifacts": [
+    {
+      "path": "manifests/schemas/ownership-manifest.schema.json",
+      "role": "machine-readable ownership state schema"
+    },
+    {
+      "path": "docs/operations/ownership-state-model.md",
+      "role": "human-readable state model and transition policy"
+    },
+    {
+      "path": "docs/task-templates/port-slice.md",
+      "role": "task template requiring wrapper removal gates and smell-fix evidence"
+    }
+  ],
+  "acceptance": {
+    "ownership_states": [
+      "external_oracle",
+      "temporary_bridge",
+      "scaffolded_haxe",
+      "haxe_parity_candidate",
+      "verified_haxe_owned"
+    ],
+    "temporary_wrappers_require_removal_conditions": true,
+    "smell_fix_policy_reflected_in_task_template": true
+  },
+  "verification_commands": [
+    "jq empty manifests/schemas/ownership-manifest.schema.json",
+    "jq empty receipts/operations/wphx-015-ownership-state-model.v1.json",
+    "npm run format:haxe:check",
+    "npm run security:gitleaks",
+    "git diff --check"
+  ]
+}

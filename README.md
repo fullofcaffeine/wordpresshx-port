@@ -16,6 +16,7 @@ Dependent-library split policy, including the future `gutenberghx` repo trigger,
 HHX/template authoring policy is recorded in [docs/operations/hhx-template-policy.md](docs/operations/hhx-template-policy.md).
 Beads operating rules and the pinned bootstrap tool versions are recorded in [docs/operations/beads.md](docs/operations/beads.md) and [toolchain.lock.json](toolchain.lock.json).
 Agent instruction hierarchy and precedent adaptation notes are recorded in [docs/operations/agent-instructions.md](docs/operations/agent-instructions.md).
+Ownership state rules for wrappers, scaffolds, Haxe-owned units, and smell fixes are recorded in [docs/operations/ownership-state-model.md](docs/operations/ownership-state-model.md).
 
 Initial work follows the PRD sequence:
 

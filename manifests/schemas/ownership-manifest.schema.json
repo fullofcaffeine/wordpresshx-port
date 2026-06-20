@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://github.com/fullofcaffeine/wordpress-hx/manifests/schemas/ownership-manifest.schema.json",
+  "title": "WordPressHX Ownership Manifest",
+  "type": "object",
+  "required": [
+    "schema",
+    "manifest_id",
+    "issue",
+    "unit",
+    "ownership_state",
+    "upstream",
+    "owned_paths",
+    "verification"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "wphx.ownership-manifest.v1"
+    },
+    "manifest_id": {
+      "type": "string",
+      "pattern": "^ownership:[a-z0-9][a-z0-9._/-]*$"
+    },
+    "issue": {
+      "type": "object",
+      "required": ["id", "external_ref"],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "external_ref": {
+          "type": "string",
+          "pattern": "^WPHX-[0-9]+$"
+        }
+      }
+    },
+    "unit": {
+      "type": "object",
+      "required": ["kind", "name", "area"],
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["file", "function", "class", "module", "package", "template", "asset", "test", "workset"]
+        },
+        "name": {
+          "type": "string"
+        },
+        "area": {
+          "type": "string"
+        },
+        "public_contract": {
+          "type": "string"
+        }
+      }
+    },
+    "ownership_state": {
+      "enum": [
+        "external_oracle",
+        "temporary_bridge",
+        "scaffolded_haxe",
+        "haxe_parity_candidate",
+        "verified_haxe_owned"
+      ]
+    },
+    "upstream": {
+      "type": "object",
+      "required": ["repo", "ref", "paths"],
+      "additionalProperties": false,
+      "properties": {
+        "repo": {
+          "type": "string"
+        },
+        "ref": {
+          "type": "string"
+        },
+        "paths": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "digest": {
+          "type": "string"
+        }
+      }
+    },
+    "owned_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "generated_paths": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true,
+      "default": []
+    },
+    "bridge": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "kind": {
+          "enum": ["typed_abi", "extern", "raw_template_segment", "runtime_delegate", "generated_shell", "direct_target_escape"]
+        },
+        "reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "bounded_by": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        }
+      }
+    },
+    "removal_gate": {
+      "type": "object",
+      "required": ["condition", "owner_issue"],
+      "additionalProperties": false,
+      "properties": {
+        "condition": {
+          "type": "string",
+          "minLength": 1
+        },
+        "owner_issue": {
+          "type": "string"
+        },
+        "target_state": {
+          "enum": ["scaffolded_haxe", "haxe_parity_candidate", "verified_haxe_owned"]
+        }
+      }
+    },
+    "smell_fixes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["description", "compatibility_evidence", "behavior_policy"],
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "compatibility_evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1
+          },
+          "behavior_policy": {
+            "enum": ["no_observable_change", "adr_approved_behavior_change"]
+          },
+          "adr": {
+            "type": "string"
+          }
+        }
+      },
+      "default": []
+    },
+    "verification": {
+      "type": "object",
+      "required": ["oracle_commands", "receipt_refs"],
+      "additionalProperties": false,
+      "properties": {
+        "oracle_commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "minItems": 1
+        },
+        "receipt_refs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "manifest_digest": {
+          "type": "string"
+        }
+      }
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "ownership_state": {
+            "const": "temporary_bridge"
+          }
+        },
+        "required": ["ownership_state"]
+      },
+      "then": {
+        "required": ["bridge", "removal_gate"]
+      }
+    },
+    {
+      "if": {
+        "required": ["smell_fixes"],
+        "properties": {
+          "smell_fixes": {
+            "minItems": 1
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "verification": {
+            "properties": {
+              "receipt_refs": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}
