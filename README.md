@@ -8,6 +8,8 @@ The product and architecture authority is [docs/prd/wordpress-haxe-port.md](docs
 
 This repository is the program control plane. Upstream WordPress, Gutenberg, genes-ts, and Haxe reference repositories live outside this repo and will be locked through manifests before broad translation begins.
 
+This is a complete porting program, not just a typed wrapper layer over WordPress. The typed compatibility layer is an early scaffold for ABI preservation, inventories, shells, and tests; the destination is Haxe-authored runtime logic with generated target artifacts. See [docs/operations/port-philosophy.md](docs/operations/port-philosophy.md).
+
 Important sibling checkouts are recorded in [docs/operations/repositories.md](docs/operations/repositories.md) and `upstream.lock.json`. The current vanilla WordPress oracle is `../wordpress-develop`.
 
 Dependent-library split policy, including the future `gutenberghx` repo trigger, is recorded in [docs/operations/dependent-libraries.md](docs/operations/dependent-libraries.md).

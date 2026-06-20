@@ -21,10 +21,12 @@ Record checkout paths, commits, dirty state, and intended authority in `upstream
 
 1. Behavioral parity wins. Upstream WordPress and Gutenberg are the oracles; a cleaner Haxe design is not enough to change observable behavior.
 2. Haxe-authored source is authoritative for migrated runtime logic. Generated PHP, TypeScript, TSX, JavaScript, source maps, manifests, and distro files are build artifacts.
-3. Never hand-edit generated target files. Fix Haxe source, macros, the linker, genes-ts, or the Haxe PHP backend.
-4. Do not hide unsupported constructs. Create Beads issues and compiler-pressure records with minimized fixtures, upstream references, fallback, and removal condition.
-5. Keep upstream checkouts as siblings by default. Do not vendor, copy, or submodule WordPress, Gutenberg, genes-ts, or compiler repos unless a Beads task and ADR explicitly choose that path.
-6. Keep CAF out of bootstrap work. Preserve machine-readable boundaries for future ingestion, but do not add CAF commands, gates, or dependencies during the initial program setup.
+3. This is a complete port, not a typed wrapper layer. Typed compatibility surfaces are bootstrap scaffolding for ABI preservation, inventories, shells, and oracle tests; every temporary wrapper needs an ownership state and removal gate.
+4. Fix design smells when evidence and tests protect the compatibility boundary. Before parity, internal improvements must preserve observable behavior; after parity, refactor behind the same oracle gates.
+5. Never hand-edit generated target files. Fix Haxe source, macros, the linker, genes-ts, or the Haxe PHP backend.
+6. Do not hide unsupported constructs. Create Beads issues and compiler-pressure records with minimized fixtures, upstream references, fallback, and removal condition.
+7. Keep upstream checkouts as siblings by default. Do not vendor, copy, or submodule WordPress, Gutenberg, genes-ts, or compiler repos unless a Beads task and ADR explicitly choose that path.
+8. Keep CAF out of bootstrap work. Preserve machine-readable boundaries for future ingestion, but do not add CAF commands, gates, or dependencies during the initial program setup.
 
 ## Haxe and Target Design
 
@@ -49,7 +51,7 @@ Generated target readability is a product surface. If good Haxe source emits wea
 
 ## Documentation
 
-Keep `README.md`, `docs/operations/repositories.md`, `docs/operations/dependent-libraries.md`, `docs/operations/hhx-template-policy.md`, lock manifests, `AGENTS.md`, and Beads current as repo paths, baselines, gates, or operating rules change. Do not let chat history become the only source of truth.
+Keep `README.md`, `docs/operations/repositories.md`, `docs/operations/dependent-libraries.md`, `docs/operations/hhx-template-policy.md`, `docs/operations/port-philosophy.md`, lock manifests, `AGENTS.md`, and Beads current as repo paths, baselines, gates, or operating rules change. Do not let chat history become the only source of truth.
 
 ## Local Hooks and Checks
 
