@@ -1,0 +1,90 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/kses-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.7.5",
+    "external_ref": "WPHX-303.05"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "KSES differential fixture harness",
+    "area": "wp-includes/kses.php",
+    "public_contract": "WordPress 7.0 KSES HTML filtering, allow-list contexts, protocol stripping, entity normalization, attribute parsing, CSS filtering, and the SimplePie feed sanitizer bridge keep observable PHP behavior while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/http.php",
+      "src/wp-includes/class-wp-token-map.php",
+      "src/wp-includes/html-api/html5-named-character-references.php",
+      "src/wp-includes/html-api/class-wp-html-decoder.php",
+      "src/wp-includes/html-api/class-wp-html-span.php",
+      "src/wp-includes/html-api/class-wp-html-text-replacement.php",
+      "src/wp-includes/html-api/class-wp-html-attribute-token.php",
+      "src/wp-includes/html-api/class-wp-html-doctype-info.php",
+      "src/wp-includes/html-api/class-wp-html-tag-processor.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/class-wp-simplepie-sanitize-kses.php"
+    ],
+    "digest": "sha256:37b7496aa0c148dba7a40ada618b70799aaef3f22eb61e224f3a25d3dc1cdef1"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-kses-fixture.mjs",
+    "manifests/wp-core/wphx-303-05-kses-fixture.v1.json",
+    "receipts/wp-core/wphx-303-05-kses-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-303-05",
+    "manifests/wp-core/wphx-303-05-kses-fixture.v1.json",
+    "manifests/ownership/wphx-303-05-kses-fixture.v1.json",
+    "receipts/wp-core/wphx-303-05-kses-fixture.v1.json"
+  ],
+  "native_boundaries": [
+    {
+      "id": "html-api-tokenizer",
+      "reason": "WordPress 7.0 KSES attribute parsing delegates to WP_HTML_Tag_Processor and WP_HTML_Decoder; fixture roots load the upstream HTML API rather than replacing it with ad hoc parsing."
+    },
+    {
+      "id": "kses-global-allow-lists-and-hooks",
+      "reason": "Allowed tags, entities, protocols, and pre_kses/wp_kses_allowed_html filters are global PHP extension points that plugins and themes can mutate."
+    },
+    {
+      "id": "protocol-and-entity-normalization",
+      "reason": "Protocol stripping and entity normalization are security-sensitive string algorithms that must keep WordPress byte-level behavior across PHP runtimes."
+    },
+    {
+      "id": "css-sanitizer-allow-list",
+      "reason": "safecss_filter_attr() has its own property allow-list, URL checks, and custom-property rules that should remain a named boundary until owned by a Haxe candidate."
+    },
+    {
+      "id": "simplepie-sanitize-bridge",
+      "reason": "WP_SimplePie_Sanitize_KSES extends the upstream SimplePie sanitizer; this fixture stubs only the parent class and constants needed to exercise the WordPress KSES bridge."
+    }
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-303-kses",
+      "npm run wp:core:wphx-303-kses:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-303-05-kses-fixture",
+      "receipt:wphx-303-01-error-format-surface"
+    ],
+    "manifest_digest": "sha256:0a00dba1c05e272b1f7e44e1747632f75fa5cd53d959357c4ee7903113d4b24d"
+  },
+  "notes": "This slice intentionally records an external-oracle fixture before porting KSES. Later Haxe ownership should start with pure decision/model helpers, then promote parser/CSS/protocol behavior only behind differential and fuzz gates."
+}

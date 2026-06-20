@@ -1,0 +1,38 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-303-05-kses-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.7.5",
+    "external_ref": "WPHX-303.05",
+    "title": "Build KSES differential fixture harness"
+  },
+  "recorded_at": "2026-06-21T01:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-303-05-kses-fixture.v1.json",
+      "role": "KSES differential fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-303-05-kses-fixture.v1.json",
+      "role": "external-oracle ownership manifest for KSES security boundaries"
+    },
+    {
+      "path": "tools/wp-core/run-kses-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-303-kses",
+    "npm run wp:core:wphx-303-kses:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 15,
+    "fixture_cases": 14,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}

@@ -1,0 +1,79 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-303-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.7",
+    "external_ref": "WPHX-303",
+    "title": "Error, deprecation, formatting, escaping, KSES"
+  },
+  "recorded_at": "2026-06-21T01:30:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-303-01-error-format-surface.v1.json",
+      "role": "domain surface inventory"
+    },
+    {
+      "path": "manifests/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json",
+      "role": "escaping and sanitization differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-303-03-wp-error-candidate.v1.json",
+      "role": "WP_Error typed parity candidate"
+    },
+    {
+      "path": "manifests/wp-core/wphx-303-04-deprecation-error-fixture.v1.json",
+      "role": "deprecation and native error signaling fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-303-05-kses-fixture.v1.json",
+      "role": "KSES differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-303-06-pure-formatting-candidate.v1.json",
+      "role": "pure formatting Haxe parity candidate"
+    },
+    {
+      "path": "receipts/wp-core/wphx-303-05-kses-fixture.v1.json",
+      "role": "latest child verification receipt"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-303-surface:check",
+    "npm run wp:core:wphx-303-escaping:check",
+    "npm run wp:core:wphx-303-wp-error:check",
+    "npm run wp:core:wphx-303-deprecation:check",
+    "npm run wp:core:wphx-303-kses:check",
+    "npm run wp:core:wphx-303-pure-formatting:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "follow_up": [
+    {
+      "issue": "WPHX-700.01",
+      "reason": "Tracks broader KSES security corpus, block attribute sanitization, and full SimplePie feed-stack integration gates beyond the WPHX-303 seed fixture scope."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "closed_child_slices": 6,
+    "fixture_domains": [
+      "surface inventory",
+      "escaping/sanitization",
+      "WP_Error",
+      "deprecation/native error signaling",
+      "KSES",
+      "pure formatting"
+    ],
+    "ownership_summary": {
+      "haxe_parity_candidate": [
+        "WP_Error runtime helper",
+        "selected pure formatting helpers"
+      ],
+      "external_oracle": [
+        "escaping/sanitization fixture seed",
+        "deprecation/native signaling fixture seed",
+        "KSES fixture seed"
+      ]
+    }
+  }
+}
