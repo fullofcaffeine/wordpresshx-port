@@ -1,0 +1,56 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/serialization-cache-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.8.5",
+    "external_ref": "WPHX-304.05"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "serialization/cache salt/invalidation differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "WordPress 7.0 PHP serialization helpers, serialized token predicates, last_changed cache salts, salted cache helper envelopes, and cache suspension/invalidation flags stay observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/cache-compat.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/functions.php"
+    ],
+    "digest": "sha256:812b30c3652269e2d9fd8e410fe29fbdf69b93a40567d44bf3d1a75db463b5b5"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-serialization-cache-fixture.mjs",
+    "manifests/wp-core/wphx-304-05-serialization-cache-fixture.v1.json",
+    "receipts/wp-core/wphx-304-05-serialization-cache-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-304-05-serialization-cache-fixture.v1.json",
+    "manifests/ownership/wphx-304-05-serialization-cache-fixture.v1.json",
+    "receipts/wp-core/wphx-304-05-serialization-cache-fixture.v1.json",
+    "build/wp-core/wphx-304-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-304-serialization-cache",
+      "npm run wp:core:wphx-304-serialization-cache:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-304-05-serialization-cache-fixture"
+    ],
+    "manifest_digest": "sha256:81311737cbfd85e2087ff064d1b47f938012ca4864737f213460b5775f7cc4ac"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-304.05. The probe normalizes microtime-based last_changed salts so the receipt is deterministic while preserving hook shape, previous-time behavior, and salt invalidation outcomes."
+}
