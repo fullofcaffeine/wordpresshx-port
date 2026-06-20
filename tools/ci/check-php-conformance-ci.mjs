@@ -41,6 +41,7 @@ const REQUIRED_COMMANDS = [
   "npm run php:abi:check",
   "npm run wp:macro:bindings:check",
   "npm run wp:boundary:check",
+  "npm run wp:bootstrap:trace:check",
   "npm run wp:facade:globals:check",
   "npm run wp:linker:check",
   "npm run wp:public-types:check",

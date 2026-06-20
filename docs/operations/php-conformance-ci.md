@@ -26,6 +26,7 @@ Each job sets up Node 20.19.3, PHP 8.4, Haxe 4.3.7, the Haxe formatter, and the 
 It also restores `../wordpress-develop` from the WordPress `7.0.0` tag and verifies commit `26b68024931348d267b70e2a29910e1320d0094f`, because the ABI extractor and hook oracle read upstream files from that sibling checkout.
 
 The hygiene suite includes `npm run build:profiles:check` so debug, parity, and release profile drift blocks target/runtime-sensitive changes.
+The runtime/linker suite includes `npm run wp:bootstrap:trace:check` so the first WordPress core bootstrap trace harness stays aligned with the locked oracle.
 
 ## Verification
 

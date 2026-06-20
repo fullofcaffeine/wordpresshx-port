@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp/bootstrap-workset",
+  "issue": {
+    "id": "wordpresshx-l76.1",
+    "external_ref": "WPHX-301"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "bootstrap/load-order/constants/environment",
+    "area": "bootstrap",
+    "public_contract": "normal, SHORTINIT, install, and recovery bootstrap traces"
+  },
+  "ownership_state": "scaffolded_haxe",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-load.php",
+      "src/wp-settings.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/default-constants.php"
+    ],
+    "digest": "sha256:472842d3e205e88616fa99d9f223f75bd7ad6575a81b19b985355a00fd494687"
+  },
+  "owned_paths": [
+    "fixtures/wp-bootstrap/src/wphx/fixtures/wp/bootstrap/BootstrapEntry.hx",
+    "fixtures/wp-bootstrap/src/wphx/fixtures/wp/bootstrap/BootstrapKernel.hx",
+    "fixtures/wp-bootstrap/bootstrap-trace.hxml",
+    "tools/wp-bootstrap/run-bootstrap-traces.mjs"
+  ],
+  "generated_paths": [
+    "build/wp-bootstrap/haxe",
+    "build/wp-bootstrap/probe.php"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:bootstrap:trace",
+      "npm run wp:bootstrap:trace:check"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-301-bootstrap-traces"
+    ],
+    "manifest_digest": "sha256:d1fdbf0a0a8fc933ccec6bf56e6de15086772d2e9956f1c3a842e33111de6e4c"
+  },
+  "notes": "This is the first bootstrap workset scaffold. It records gate and load-order evidence before claiming individual source units as Haxe parity candidates."
+}
