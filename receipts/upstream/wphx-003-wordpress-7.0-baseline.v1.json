@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-003-wordpress-7.0-baseline",
+  "issue": {
+    "id": "wordpresshx-w91.7",
+    "external_ref": "WPHX-003",
+    "title": "Obtain full WordPress 7.0.0 checkout and official distribution"
+  },
+  "recorded_at": "2026-06-20T02:02:18Z",
+  "artifacts": [
+    {
+      "path": "manifests/upstream/wordpress-7.0-baseline.v1.json",
+      "role": "WordPress 7.0 source, distribution, and test baseline lock"
+    },
+    {
+      "path": "upstream.lock.json",
+      "role": "starter checkout map with manifest pointer"
+    },
+    {
+      "path": "docs/operations/repositories.md",
+      "role": "human-readable repository map"
+    }
+  ],
+  "observed": {
+    "source_repo": "../wordpress-develop",
+    "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "tag": "7.0.0",
+    "tag_type": "lightweight",
+    "source_version_constant": "7.0-src",
+    "distribution_version_constant": "7.0",
+    "official_distribution_url": "https://wordpress.org/wordpress-7.0.zip",
+    "official_distribution_md5": "8460cf21c321ed5ededf0f943027558e",
+    "official_distribution_sha256": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+    "test_presence": {
+      "phpunit_config": true,
+      "phpunit_test_files": 1091,
+      "e2e_files": 17,
+      "qunit_files": 34
+    }
+  },
+  "verification_commands": [
+    "jq empty manifests/upstream/wordpress-7.0-baseline.v1.json",
+    "jq empty receipts/upstream/wphx-003-wordpress-7.0-baseline.v1.json",
+    "jq -e '.baseline.version == \"7.0.0\" and .repository.commit == \"26b68024931348d267b70e2a29910e1320d0094f\" and .official_distribution.computed_md5 == .official_distribution.official_md5' manifests/upstream/wordpress-7.0-baseline.v1.json",
+    "npm run format:haxe:check",
+    "npm run security:gitleaks",
+    "git diff --check"
+  ]
+}

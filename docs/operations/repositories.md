@@ -11,7 +11,10 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
 ## Source Oracles
 
 - `../wordpress-develop` - vanilla WordPress checkout.
-  - Current observed ref: `26b6802493`, tag `7.0.0`.
+  - Current observed ref: `26b68024931348d267b70e2a29910e1320d0094f`, tree `f3ad96f2357d2309f64a8d42a5808be502639c70`, lightweight tag `7.0.0`.
+  - Official distribution: `https://wordpress.org/wordpress-7.0.zip`, MD5 `8460cf21c321ed5ededf0f943027558e`, SHA-256 `b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b`.
+  - Test presence: `phpunit.xml.dist`, 1091 PHPUnit test files, 17 E2E files, 34 QUnit files.
+  - Manifest: `manifests/upstream/wordpress-7.0-baseline.v1.json`.
   - Role: WordPress 7.0 distribution and PHP/browser behavior oracle.
   - Local note: detached HEAD with repomix artifacts untracked.
 - `../gutenberg` - Gutenberg checkout.

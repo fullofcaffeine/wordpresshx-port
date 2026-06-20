@@ -1,0 +1,86 @@
+{
+  "schema": "wphx.upstream-baseline.v1",
+  "id": "upstream:wordpress-7.0.0",
+  "baseline": {
+    "kind": "release-source-and-distribution-baseline",
+    "name": "WordPress",
+    "version": "7.0.0",
+    "source_version_constant": "7.0-src",
+    "distribution_version_constant": "7.0",
+    "tag": "7.0.0",
+    "role": "WordPress 7.0 behavior, source, test, and official distribution oracle"
+  },
+  "repository": {
+    "relative_path": "../wordpress-develop",
+    "remote": "git@github.com:WordPress/wordpress-develop.git",
+    "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "tag": "7.0.0",
+    "tag_type": "lightweight",
+    "detached": true,
+    "observed_dirty_state": [
+      "untracked: repomix-output.wordpress.xml",
+      "untracked: repomix-output.wordpress.xml.zip"
+    ]
+  },
+  "commit": {
+    "committer_date": "2026-05-20T17:39:50+00:00",
+    "subject": "Tag 7.0"
+  },
+  "source_package": {
+    "package_json_name": "WordPress",
+    "package_json_version": "7.0.0",
+    "package_lock_version": "7.0.0",
+    "package_json_sha256": "055d9e283704afdb5bbc2d88be5524481807933c9f011ae730f59a968f3b5774",
+    "package_lock_sha256": "3fc88a8805e6550e44681a90817ace1e5b40f208e1dd5513d91df9b16e04bc57",
+    "composer_json_sha256": "0d858d73896d645e6b8c44b6beccf09abdd65cae9b1bea2ad067457f4d9694e6",
+    "phpunit_xml_dist_sha256": "dced074431274c516ac8bd851ef0a10748360924991a55175513632be7437dc5"
+  },
+  "official_distribution": {
+    "url": "https://wordpress.org/wordpress-7.0.zip",
+    "content_length": 31549246,
+    "last_modified": "2026-05-20T17:42:32Z",
+    "content_type": "application/zip",
+    "content_disposition": "attachment; filename=wordpress-7.0.zip",
+    "official_md5_url": "https://wordpress.org/wordpress-7.0.zip.md5",
+    "official_md5": "8460cf21c321ed5ededf0f943027558e",
+    "computed_md5": "8460cf21c321ed5ededf0f943027558e",
+    "computed_sha256": "b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+    "zip_entry_count": 4408,
+    "download_cache_path": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+    "cache_committed": false
+  },
+  "runtime_versions": {
+    "wp_db_version": 61833,
+    "required_php_version": "7.4",
+    "required_mysql_version": "5.5.5"
+  },
+  "tests": {
+    "phpunit_config": "../wordpress-develop/phpunit.xml.dist",
+    "phpunit_tests_path": "../wordpress-develop/tests/phpunit/tests",
+    "phpunit_test_file_count": 1091,
+    "e2e_tests_path": "../wordpress-develop/tests/e2e",
+    "e2e_file_count": 17,
+    "qunit_tests_path": "../wordpress-develop/tests/qunit",
+    "qunit_file_count": 34
+  },
+  "verification": {
+    "recorded_at": "2026-06-20T02:02:18Z",
+    "commands": [
+      "git -C ../wordpress-develop rev-parse HEAD",
+      "git -C ../wordpress-develop describe --tags --exact-match HEAD",
+      "git -C ../wordpress-develop status --short --branch",
+      "git -C ../wordpress-develop rev-parse HEAD^{tree}",
+      "git -C ../wordpress-develop cat-file -t 7.0.0",
+      "curl -fL --retry 3 --retry-delay 2 https://wordpress.org/wordpress-7.0.zip -o /tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "curl -fL --retry 3 --retry-delay 2 https://wordpress.org/wordpress-7.0.zip.md5",
+      "curl -I -L https://wordpress.org/wordpress-7.0.zip",
+      "md5 -q /tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "shasum -a 256 /tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "unzip -p /tmp/wordpresshx-upstream/wordpress-7.0.zip wordpress/wp-includes/version.php",
+      "find ../wordpress-develop/tests/phpunit/tests -type f | wc -l",
+      "find ../wordpress-develop/tests/e2e -type f | wc -l",
+      "find ../wordpress-develop/tests/qunit -type f | wc -l"
+    ]
+  }
+}
