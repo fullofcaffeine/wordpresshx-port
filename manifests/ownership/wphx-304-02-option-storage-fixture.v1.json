@@ -1,0 +1,57 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/option-storage-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.8.2",
+    "external_ref": "WPHX-304.02"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "option storage/autoload differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "WordPress 7.0 single-site option storage, alloptions/notoptions, autoload, and option filter/hook behavior stay observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php"
+    ],
+    "digest": "sha256:5e7b7d1939e99c1f93a1211ca8e0caa4c0d92b075beba3391d88c8f8a3b0e84f"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-option-storage-fixture.mjs",
+    "manifests/wp-core/wphx-304-02-option-storage-fixture.v1.json",
+    "receipts/wp-core/wphx-304-02-option-storage-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-304-02-option-storage-fixture.v1.json",
+    "manifests/ownership/wphx-304-02-option-storage-fixture.v1.json",
+    "receipts/wp-core/wphx-304-02-option-storage-fixture.v1.json",
+    "build/wp-core/wphx-304-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-304-option-storage",
+      "npm run wp:core:wphx-304-option-storage:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-304-02-option-storage-fixture"
+    ],
+    "manifest_digest": "sha256:6261b9e1607f8c09465d4919335523a5715752ab921d1b94306225e6bd9b212e"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-304.02. The probe uses a constrained wpdb option-table test double to exercise WordPress option/cache logic deterministically; real wpdb SQL and storage-engine parity remain WPHX-305."
+}

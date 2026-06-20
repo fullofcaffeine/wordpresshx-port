@@ -1,0 +1,38 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-304-02-option-storage-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.8.2",
+    "external_ref": "WPHX-304.02",
+    "title": "Build option storage/autoload differential fixture harness"
+  },
+  "recorded_at": "2026-06-21T01:55:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-304-02-option-storage-fixture.v1.json",
+      "role": "option storage/autoload differential fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-304-02-option-storage-fixture.v1.json",
+      "role": "external-oracle ownership manifest for the fixture harness"
+    },
+    {
+      "path": "tools/wp-core/run-option-storage-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-304-option-storage",
+    "npm run wp:core:wphx-304-option-storage:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 15,
+    "fixture_cases": 12,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}
