@@ -29,6 +29,7 @@ const ENUMS = {
   sourceKind: new Set(["runtime_source", "build_tooling_source", "test_source", "vendor_source"]),
   testFramework: new Set(["phpunit", "playwright", "qunit", "jest", "php-test", "js-test", "test"])
 };
+const WPHX_REF = /^WPHX-[0-9]+(\.[0-9]+)?$/;
 
 function fail(message) {
   throw new Error(message);
@@ -119,7 +120,7 @@ function validateSource(entries) {
     assert(entry.status === "upstream_oracle_unported", `${context}.status mismatch`);
     assertArray(entry, "haxeOwners", context);
     assertArray(entry, "generatedArtifacts", context);
-    assert(entry.taskExternalRef === null || /^WPHX-[0-9]+$/.test(entry.taskExternalRef), `${context}.taskExternalRef is invalid`);
+    assert(entry.taskExternalRef === null || WPHX_REF.test(entry.taskExternalRef), `${context}.taskExternalRef is invalid`);
     assert(entry.classified === true, `${context}.classified must be true`);
     assertArray(entry, "exceptions", context);
   }

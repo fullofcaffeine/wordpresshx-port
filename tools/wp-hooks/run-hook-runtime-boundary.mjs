@@ -10,15 +10,15 @@ const checkOnly = args.has("--check");
 
 const F7_MANIFEST = "manifests/php-facade/wphx-108-f7-hook-kernel.v1.json";
 const SURFACE_MANIFEST = "manifests/wp-hooks/wphx-302-hook-surface.v1.json";
-const CANDIDATE_MANIFEST = "manifests/wp-hooks/wphx-303-hook-parity-candidate.v1.json";
+const CANDIDATE_MANIFEST = "manifests/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json";
 const GENERATED_ROOT = "build/php-hook-kernel/generated";
 const GENERATED_PLUGIN = `${GENERATED_ROOT}/wp-includes/plugin.php`;
 const GENERATED_HOOK_CLASS = `${GENERATED_ROOT}/wp-includes/class-wp-hook.php`;
 const HAXE_RUNTIME = "src/wphx/wp/hooks/HookRuntime.hx";
 const FACADE_KERNEL = "fixtures/php-facade/src/wphx/fixtures/php/facade/HookKernel.hx";
-const OUT = "manifests/wp-hooks/wphx-304-hook-runtime-boundary.v1.json";
-const OWNERSHIP = "manifests/ownership/wphx-304-hooks-runtime-boundary.v1.json";
-const RECEIPT = "receipts/wp-hooks/wphx-304-hook-runtime-boundary.v1.json";
+const OUT = "manifests/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json";
+const OWNERSHIP = "manifests/ownership/wphx-302-02-hooks-runtime-boundary.v1.json";
+const RECEIPT = "receipts/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json";
 const RECORDED_AT = "2026-06-20T23:05:00.000Z";
 const WP_REF = "26b68024931348d267b70e2a29910e1320d0094f";
 const SOURCE_UNITS = ["src/wp-includes/plugin.php", "src/wp-includes/class-wp-hook.php"];
@@ -116,7 +116,7 @@ function ownershipManifest(manifestSha, upstreamDigest) {
     manifest_id: "ownership:wp/hooks-runtime-boundary",
     issue: {
       id: "wordpresshx-l76.4",
-      external_ref: "WPHX-304"
+      external_ref: "WPHX-302.02"
     },
     unit: {
       kind: "workset",
@@ -156,14 +156,14 @@ function ownershipManifest(manifestSha, upstreamDigest) {
       ],
       receipt_refs: [
         "receipt:wphx-302-hook-surface",
-        "receipt:wphx-303-hook-parity-candidate",
-        "receipt:wphx-304-hook-runtime-boundary",
-        "receipt:wphx-306-hook-distribution-surface"
+        "receipt:wphx-302-01-hook-parity-candidate",
+        "receipt:wphx-302-02-hook-runtime-boundary",
+        "receipt:wphx-302-04-hook-distribution-surface"
       ],
       manifest_digest: manifestSha
     },
     notes:
-      "WPHX-304 replaces bounded hook shell decisions with typed Haxe runtime calls without using broad php.Syntax.code. WPHX-306 approves the remaining PHP-native callbacks, references, globals, reflection-visible declarations, and include timing as public ABI boundaries."
+      "WPHX-302.02 replaces bounded hook shell decisions with typed Haxe runtime calls without using broad php.Syntax.code. WPHX-302.04 approves the remaining PHP-native callbacks, references, globals, reflection-visible declarations, and include timing as public ABI boundaries."
   };
 }
 
@@ -193,7 +193,7 @@ const surfaceManifest = readFileSync(SURFACE_MANIFEST, "utf8");
 const candidateManifest = readFileSync(CANDIDATE_MANIFEST, "utf8");
 const manifest = {
   schema: "wphx.wp-hook-runtime-boundary.v1",
-  issue: "WPHX-304",
+  issue: "WPHX-302.02",
   generated_at: RECORDED_AT,
   generator: "tools/wp-hooks/run-hook-runtime-boundary.mjs",
   inputs: {
@@ -237,7 +237,7 @@ const manifest = {
     public_php_references_remain_native: true,
     public_php_globals_remain_native: true,
     broad_haxe_php_string_port: false,
-    remaining_shell_emission_owner_issue: "WPHX-305"
+    remaining_shell_emission_owner_issue: "WPHX-302.03"
   }
 };
 
@@ -246,8 +246,8 @@ const manifestSha = sha256(manifestText);
 const ownershipText = JSON.stringify(ownershipManifest(manifestSha, upstreamDigest), null, 2) + "\n";
 const receipt = {
   schema: "wphx.wp-hook-runtime-boundary-receipt.v1",
-  id: "receipt:wphx-304-hook-runtime-boundary",
-  issue: "WPHX-304",
+  id: "receipt:wphx-302-02-hook-runtime-boundary",
+  issue: "WPHX-302.02",
   recorded_at: RECORDED_AT,
   command: "npm run wp:hooks:runtime-boundary",
   status: "passed",

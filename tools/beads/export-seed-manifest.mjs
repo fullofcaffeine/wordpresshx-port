@@ -10,8 +10,8 @@ function bd(args) {
 }
 
 function refNumber(ref) {
-  const match = /^WPHX-(\d+)$/.exec(ref ?? "");
-  return match ? Number(match[1]) : Number.MAX_SAFE_INTEGER;
+  const match = /^WPHX-(\d+)(?:\.(\d+))?$/.exec(ref ?? "");
+  return match ? Number(match[1]) * 1000 + Number(match[2] ?? 0) : Number.MAX_SAFE_INTEGER;
 }
 
 const list = bd(["list", "--all", "--json", "--limit", "0"]);

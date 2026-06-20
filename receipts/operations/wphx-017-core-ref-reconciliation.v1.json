@@ -1,0 +1,99 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-017-core-ref-reconciliation",
+  "issue": {
+    "id": "wordpresshx-w91.20",
+    "external_ref": "WPHX-017",
+    "title": "Reconcile WordPress PHP core external refs"
+  },
+  "recorded_at": "2026-06-20T21:28:12Z",
+  "artifacts": [
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "Beads graph with hook-hardening issues reclassified under WPHX-302.x and real WPHX-303 domain task created"
+    },
+    {
+      "path": "manifests/wp-hooks",
+      "role": "renamed hook manifests using WPHX-302.01 through WPHX-302.04 refs"
+    },
+    {
+      "path": "manifests/ownership",
+      "role": "renamed ownership manifests using WPHX-302.01 through WPHX-302.04 refs"
+    },
+    {
+      "path": "receipts/wp-hooks",
+      "role": "renamed hook verification receipts using WPHX-302.01 through WPHX-302.04 refs"
+    },
+    {
+      "path": "tools/beads/validate-graph.mjs",
+      "role": "dotted WPHX external-ref validation"
+    },
+    {
+      "path": "tools/inventory/validate-inventory.mjs",
+      "role": "dotted WPHX taskExternalRef validation"
+    },
+    {
+      "path": "tools/beads/seed-prd-issues.mjs",
+      "role": "dotted WPHX seed ordering"
+    },
+    {
+      "path": "tools/beads/export-seed-manifest.mjs",
+      "role": "dotted WPHX seed export ordering"
+    }
+  ],
+  "ref_reconciliation": {
+    "renumbered_hook_tasks": [
+      {
+        "issue_id": "wordpresshx-l76.3",
+        "from": "WPHX-303",
+        "to": "WPHX-302.01"
+      },
+      {
+        "issue_id": "wordpresshx-l76.4",
+        "from": "WPHX-304",
+        "to": "WPHX-302.02"
+      },
+      {
+        "issue_id": "wordpresshx-l76.5",
+        "from": "WPHX-305",
+        "to": "WPHX-302.03"
+      },
+      {
+        "issue_id": "wordpresshx-l76.6",
+        "from": "WPHX-306",
+        "to": "WPHX-302.04"
+      }
+    ],
+    "prd_domain_task_restored": {
+      "issue_id": "wordpresshx-l76.7",
+      "external_ref": "WPHX-303",
+      "title": "WPHX-303 - Error, deprecation, formatting, escaping, KSES"
+    },
+    "hook_evidence_old_refs_absent_from_hook_surface": true,
+    "dotted_refs_supported": true
+  },
+  "verification_commands": [
+    "rg -n \"WPHX-30[3-6]|wphx-30[3-6]|wphx_30[3-6]|wphx30[3-6]\" tools/wp-hooks docs/operations manifests/wp-hooks manifests/ownership receipts/wp-hooks fixtures src",
+    "npm run wp:hooks:surface:check",
+    "npm run wp:hooks:parity-candidate:check",
+    "npm run wp:hooks:runtime-boundary:check",
+    "npm run wp:hooks:shell-emitter:check",
+    "npm run wp:hooks:distribution-surface:check",
+    "npm run beads:validate",
+    "npm run inventory:validate",
+    "npm run ci:php-conformance:check",
+    "npm run format:haxe:check",
+    "npm run haxe:escape-hatches:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "closed_ref_conflicts_removed": true,
+    "real_wphx_303_issue_exists": true,
+    "hook_checks_passed": true,
+    "inventory_validation_passed": true,
+    "beads_validation_passed": true,
+    "php_conformance_check_passed": true,
+    "haxe_format_check_passed": true,
+    "escape_hatch_check_passed": true
+  }
+}

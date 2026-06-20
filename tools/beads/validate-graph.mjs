@@ -10,9 +10,10 @@ const ready = bd(["ready", "--json"]);
 const blocked = bd(["blocked", "--json"]);
 const refs = new Map();
 const errors = [];
+const WPHX_REF = /^WPHX-[0-9]+(\.[0-9]+)?$/;
 
 for (const issue of all) {
-  if (!/^WPHX-[0-9]+$/.test(issue.external_ref ?? "")) {
+  if (!WPHX_REF.test(issue.external_ref ?? "")) {
     errors.push(`${issue.id} has invalid external_ref ${issue.external_ref}`);
   }
   if (refs.has(issue.external_ref)) {
@@ -28,7 +29,7 @@ for (const issue of ready) {
   if (issue.blocked_by_count || issue.blocked_by?.length) {
     errors.push(`ready issue ${issue.id} is blocked`);
   }
-  if (!/^WPHX-[0-9]+$/.test(issue.external_ref ?? "")) {
+  if (!WPHX_REF.test(issue.external_ref ?? "")) {
     errors.push(`ready issue ${issue.id} has invalid external_ref ${issue.external_ref}`);
   }
 }

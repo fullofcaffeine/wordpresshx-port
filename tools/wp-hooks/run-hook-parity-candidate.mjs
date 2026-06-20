@@ -15,9 +15,9 @@ const HAXE_PROBE = `${OUT_ROOT}/haxe-probe.php`;
 const ORACLE_PROBE = `${OUT_ROOT}/oracle-probe.php`;
 const ORACLE_ROOT = `${OUT_ROOT}/oracle`;
 const ORACLE_PLUGIN = `${ORACLE_ROOT}/wp-includes/plugin.php`;
-const OUT = "manifests/wp-hooks/wphx-303-hook-parity-candidate.v1.json";
-const OWNERSHIP = "manifests/ownership/wphx-303-hooks-decision-model.v1.json";
-const RECEIPT = "receipts/wp-hooks/wphx-303-hook-parity-candidate.v1.json";
+const OUT = "manifests/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json";
+const OWNERSHIP = "manifests/ownership/wphx-302-01-hooks-decision-model.v1.json";
+const RECEIPT = "receipts/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json";
 const RECORDED_AT = "2026-06-20T22:05:00.000Z";
 const WP_REF = "26b68024931348d267b70e2a29910e1320d0094f";
 const SOURCE_UNITS = ["src/wp-includes/plugin.php", "src/wp-includes/class-wp-hook.php"];
@@ -84,8 +84,8 @@ function writeHaxeProbe() {
     HAXE_PROBE,
     `<?php
 
-$wphx_303_lib = __DIR__ . '/haxe/lib';
-set_include_path( get_include_path() . PATH_SEPARATOR . $wphx_303_lib );
+$wphx_302_01_lib = __DIR__ . '/haxe/lib';
+set_include_path( get_include_path() . PATH_SEPARATOR . $wphx_302_01_lib );
 spl_autoload_register(
 \tfunction ( $class ) {
 \t\t$file = stream_resolve_include_path( str_replace( '\\\\', '/', $class ) . '.php' );
@@ -115,12 +115,12 @@ function writeOracleProbe() {
 
 $plugin = $argv[1];
 
-define( 'WP_PLUGIN_DIR', '/tmp/wphx-303/wp-content/plugins' );
-define( 'WPMU_PLUGIN_DIR', '/tmp/wphx-303/wp-content/mu-plugins' );
+define( 'WP_PLUGIN_DIR', '/tmp/wphx-302-01/wp-content/plugins' );
+define( 'WPMU_PLUGIN_DIR', '/tmp/wphx-302-01/wp-content/mu-plugins' );
 define( 'WP_PLUGIN_URL', 'https://example.test/wp-content/plugins' );
 
-$GLOBALS['wphx_303_options'] = array();
-$GLOBALS['wphx_303_wrong'] = array();
+$GLOBALS['wphx_302_01_options'] = array();
+$GLOBALS['wphx_302_01_wrong'] = array();
 $GLOBALS['wp_plugin_paths'] = array();
 
 function wp_normalize_path( $path ) {
@@ -151,7 +151,7 @@ function __( $text ) {
 }
 
 function _doing_it_wrong( $function_name, $message, $version ) {
-\t$GLOBALS['wphx_303_wrong'][] = array(
+\t$GLOBALS['wphx_302_01_wrong'][] = array(
 \t\t'function' => $function_name,
 \t\t'message'  => $message,
 \t\t'version'  => $version,
@@ -159,48 +159,48 @@ function _doing_it_wrong( $function_name, $message, $version ) {
 }
 
 function get_option( $name, $default = false ) {
-\treturn array_key_exists( $name, $GLOBALS['wphx_303_options'] ) ? $GLOBALS['wphx_303_options'][ $name ] : $default;
+\treturn array_key_exists( $name, $GLOBALS['wphx_302_01_options'] ) ? $GLOBALS['wphx_302_01_options'][ $name ] : $default;
 }
 
 function update_option( $name, $value ) {
-\t$GLOBALS['wphx_303_options'][ $name ] = $value;
+\t$GLOBALS['wphx_302_01_options'][ $name ] = $value;
 \treturn true;
 }
 
 require $plugin;
 
-function wphx_303_high( $value = '' ) {
+function wphx_302_01_high( $value = '' ) {
 \treturn $value;
 }
 
-function wphx_303_low( $value = '' ) {
+function wphx_302_01_low( $value = '' ) {
 \treturn $value;
 }
 
-function wphx_303_middle( $value = '', $extra = '' ) {
+function wphx_302_01_middle( $value = '', $extra = '' ) {
 \treturn $value;
 }
 
-function wphx_303_callback_id( $function_name ) {
+function wphx_302_01_callback_id( $function_name ) {
 \t$ids = array(
-\t\t'wphx_303_high'   => 'high',
-\t\t'wphx_303_low'    => 'low',
-\t\t'wphx_303_middle' => 'middle',
+\t\t'wphx_302_01_high'   => 'high',
+\t\t'wphx_302_01_low'    => 'low',
+\t\t'wphx_302_01_middle' => 'middle',
 \t);
 \treturn $ids[ $function_name ] ?? $function_name;
 }
 
-function wphx_303_hook_order( WP_Hook $hook ) {
+function wphx_302_01_hook_order( WP_Hook $hook ) {
 \t$order = array();
 \tforeach ( $hook->callbacks as $callbacks ) {
 \t\tforeach ( $callbacks as $callback ) {
-\t\t\t$order[] = wphx_303_callback_id( $callback['function'] );
+\t\t\t$order[] = wphx_302_01_callback_id( $callback['function'] );
 \t\t}
 \t}
 \treturn $order;
 }
 
-function wphx_303_accepted_arg_counts( WP_Hook $hook ) {
+function wphx_302_01_accepted_arg_counts( WP_Hook $hook ) {
 \t$counts = array();
 \tforeach ( $hook->callbacks as $callbacks ) {
 \t\tforeach ( $callbacks as $callback ) {
@@ -210,23 +210,23 @@ function wphx_303_accepted_arg_counts( WP_Hook $hook ) {
 \treturn $counts;
 }
 
-function wphx_303_priority_keys( WP_Hook $hook ) {
+function wphx_302_01_priority_keys( WP_Hook $hook ) {
 \treturn array_map( 'intval', array_keys( $hook->callbacks ) );
 }
 
 $priority_hook = new WP_Hook();
-$priority_hook->add_filter( 'wphx303/manual', 'wphx_303_high', 20, 1 );
-$priority_hook->add_filter( 'wphx303/manual', 'wphx_303_low', 5, 1 );
-$priority_hook->add_filter( 'wphx303/manual', 'wphx_303_middle', 10, 2 );
+$priority_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_high', 20, 1 );
+$priority_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_low', 5, 1 );
+$priority_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_middle', 10, 2 );
 
 $remove_hook = new WP_Hook();
-$remove_hook->add_filter( 'wphx303/manual', 'wphx_303_high', 20, 1 );
-$remove_hook->add_filter( 'wphx303/manual', 'wphx_303_low', 5, 1 );
-$remove_hook->add_filter( 'wphx303/manual', 'wphx_303_middle', 10, 2 );
+$remove_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_high', 20, 1 );
+$remove_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_low', 5, 1 );
+$remove_hook->add_filter( 'wphx30201/manual', 'wphx_302_01_middle', 10, 2 );
 $remove_hook->remove_all_filters( 10 );
 
 $null_priority_hook = new WP_Hook();
-$null_priority_hook->add_filter( 'wphx303/null', 'wphx_303_low', null, 1 );
+$null_priority_hook->add_filter( 'wphx30201/null', 'wphx_302_01_low', null, 1 );
 $default_priority = ( new ReflectionFunction( 'add_filter' ) )->getParameters()[2]->getDefaultValue();
 
 $stack_snapshot = array();
@@ -261,85 +261,85 @@ $stack_snapshot['actionCountAfterFirst'] = did_action( 'inner_action' );
 apply_filters( 'outer_filter', 'seed' );
 $stack_snapshot['filterCountAfterSecond'] = did_filter( 'outer_filter' );
 
-$GLOBALS['wphx_303_dispatch_counts'] = array();
-function wphx_303_dispatch_no_args() {
-\t$GLOBALS['wphx_303_dispatch_counts']['noArgsAccepted'] = func_num_args();
+$GLOBALS['wphx_302_01_dispatch_counts'] = array();
+function wphx_302_01_dispatch_no_args() {
+\t$GLOBALS['wphx_302_01_dispatch_counts']['noArgsAccepted'] = func_num_args();
 \treturn 'no-args';
 }
-function wphx_303_dispatch_limited( $value, $extra = null ) {
-\t$GLOBALS['wphx_303_dispatch_counts']['limitedArgsAccepted'] = func_num_args();
+function wphx_302_01_dispatch_limited( $value, $extra = null ) {
+\t$GLOBALS['wphx_302_01_dispatch_counts']['limitedArgsAccepted'] = func_num_args();
 \treturn $value;
 }
-function wphx_303_dispatch_all( $value, $extra = null, $third = null ) {
-\t$GLOBALS['wphx_303_dispatch_counts']['allArgsAccepted'] = func_num_args();
+function wphx_302_01_dispatch_all( $value, $extra = null, $third = null ) {
+\t$GLOBALS['wphx_302_01_dispatch_counts']['allArgsAccepted'] = func_num_args();
 \treturn $value;
 }
 
 $dispatch_hook = new WP_Hook();
-$dispatch_hook->add_filter( 'wphx303/dispatch', 'wphx_303_dispatch_no_args', 5, 0 );
-$dispatch_hook->add_filter( 'wphx303/dispatch', 'wphx_303_dispatch_limited', 10, 2 );
-$dispatch_hook->add_filter( 'wphx303/dispatch', 'wphx_303_dispatch_all', 20, 5 );
+$dispatch_hook->add_filter( 'wphx30201/dispatch', 'wphx_302_01_dispatch_no_args', 5, 0 );
+$dispatch_hook->add_filter( 'wphx30201/dispatch', 'wphx_302_01_dispatch_limited', 10, 2 );
+$dispatch_hook->add_filter( 'wphx30201/dispatch', 'wphx_302_01_dispatch_all', 20, 5 );
 $dispatch_hook->apply_filters( 'seed', array( 'seed', 'extra', 'third' ) );
 
-$GLOBALS['wphx_303_write'] = array();
-function wphx_303_filter_write_first( $value ) {
+$GLOBALS['wphx_302_01_write'] = array();
+function wphx_302_01_filter_write_first( $value ) {
 \treturn 'changed';
 }
-function wphx_303_filter_write_second( $value ) {
-\t$GLOBALS['wphx_303_write']['filterWritesValue'] = ( 'changed' === $value );
+function wphx_302_01_filter_write_second( $value ) {
+\t$GLOBALS['wphx_302_01_write']['filterWritesValue'] = ( 'changed' === $value );
 \treturn $value;
 }
-function wphx_303_action_write_first( $value ) {
+function wphx_302_01_action_write_first( $value ) {
 \treturn 'changed';
 }
-function wphx_303_action_write_second( $value ) {
-\t$GLOBALS['wphx_303_write']['actionWritesValue'] = ( 'changed' === $value );
+function wphx_302_01_action_write_second( $value ) {
+\t$GLOBALS['wphx_302_01_write']['actionWritesValue'] = ( 'changed' === $value );
 \treturn $value;
 }
 
 $filter_write_hook = new WP_Hook();
-$filter_write_hook->add_filter( 'wphx303/write-filter', 'wphx_303_filter_write_first', 10, 1 );
-$filter_write_hook->add_filter( 'wphx303/write-filter', 'wphx_303_filter_write_second', 20, 1 );
+$filter_write_hook->add_filter( 'wphx30201/write-filter', 'wphx_302_01_filter_write_first', 10, 1 );
+$filter_write_hook->add_filter( 'wphx30201/write-filter', 'wphx_302_01_filter_write_second', 20, 1 );
 $filter_write_hook->apply_filters( 'original', array( 'original' ) );
 
 $action_write_hook = new WP_Hook();
-$action_write_hook->add_filter( 'wphx303/write-action', 'wphx_303_action_write_first', 10, 1 );
-$action_write_hook->add_filter( 'wphx303/write-action', 'wphx_303_action_write_second', 20, 1 );
+$action_write_hook->add_filter( 'wphx30201/write-action', 'wphx_302_01_action_write_first', 10, 1 );
+$action_write_hook->add_filter( 'wphx30201/write-action', 'wphx_302_01_action_write_second', 20, 1 );
 $action_write_hook->do_action( array( 'original' ) );
 
-$GLOBALS['wphx_303_default_action_args'] = array();
-function wphx_303_default_action( $value ) {
-\t$GLOBALS['wphx_303_default_action_args'] = func_get_args();
+$GLOBALS['wphx_302_01_default_action_args'] = array();
+function wphx_302_01_default_action( $value ) {
+\t$GLOBALS['wphx_302_01_default_action_args'] = func_get_args();
 }
-add_action( 'wphx303/default-action', 'wphx_303_default_action', 10, 1 );
-do_action( 'wphx303/default-action' );
+add_action( 'wphx30201/default-action', 'wphx_302_01_default_action', 10, 1 );
+do_action( 'wphx30201/default-action' );
 
 $plugin_file = WP_PLUGIN_DIR . '/sample/sample.php';
 $mu_file     = WPMU_PLUGIN_DIR . '/loader.php';
 $GLOBALS['wp_plugin_paths'] = array(
-\tWP_PLUGIN_DIR . '/mapped' => '/tmp/wphx-303/real-plugins/mapped',
+\tWP_PLUGIN_DIR . '/mapped' => '/tmp/wphx-302-01/real-plugins/mapped',
 );
-$mapped_file = '/tmp/wphx-303/real-plugins/mapped/mapped.php';
+$mapped_file = '/tmp/wphx-302-01/real-plugins/mapped/mapped.php';
 $basename    = plugin_basename( $plugin_file );
-register_activation_hook( $plugin_file, 'wphx_303_low' );
-register_deactivation_hook( $plugin_file, 'wphx_303_low' );
+register_activation_hook( $plugin_file, 'wphx_302_01_low' );
+register_deactivation_hook( $plugin_file, 'wphx_302_01_low' );
 
 echo json_encode(
 \tarray(
 \t\t'priorities'  => array(
 \t\t\t'defaultPriority'     => $default_priority,
-\t\t\t'nullKernelPriority'  => wphx_303_priority_keys( $null_priority_hook )[0],
-\t\t\t'sortedPriorities'    => wphx_303_priority_keys( $priority_hook ),
-\t\t\t'callbackOrder'       => wphx_303_hook_order( $priority_hook ),
-\t\t\t'afterRemovePriority' => wphx_303_priority_keys( $remove_hook ),
-\t\t\t'acceptedArgCounts'   => wphx_303_accepted_arg_counts( $priority_hook ),
+\t\t\t'nullKernelPriority'  => wphx_302_01_priority_keys( $null_priority_hook )[0],
+\t\t\t'sortedPriorities'    => wphx_302_01_priority_keys( $priority_hook ),
+\t\t\t'callbackOrder'       => wphx_302_01_hook_order( $priority_hook ),
+\t\t\t'afterRemovePriority' => wphx_302_01_priority_keys( $remove_hook ),
+\t\t\t'acceptedArgCounts'   => wphx_302_01_accepted_arg_counts( $priority_hook ),
 \t\t),
 \t\t'stack'       => $stack_snapshot,
 \t\t'dispatch'    => array_merge(
-\t\t\t$GLOBALS['wphx_303_dispatch_counts'],
-\t\t\t$GLOBALS['wphx_303_write'],
+\t\t\t$GLOBALS['wphx_302_01_dispatch_counts'],
+\t\t\t$GLOBALS['wphx_302_01_write'],
 \t\t\tarray(
-\t\t\t\t'actionDefaultArgs' => $GLOBALS['wphx_303_default_action_args'],
+\t\t\t\t'actionDefaultArgs' => $GLOBALS['wphx_302_01_default_action_args'],
 \t\t\t)
 \t\t),
 \t\t'pluginPaths' => array(
@@ -417,7 +417,7 @@ function ownershipManifest(manifestSha, upstreamDigest) {
     manifest_id: "ownership:wp/hooks-decision-model",
     issue: {
       id: "wordpresshx-l76.3",
-      external_ref: "WPHX-303"
+      external_ref: "WPHX-302.01"
     },
     unit: {
       kind: "module",
@@ -442,14 +442,14 @@ function ownershipManifest(manifestSha, upstreamDigest) {
         "npm run wp:hooks:distribution-surface:check"
       ],
       receipt_refs: [
-        "receipt:wphx-303-hook-parity-candidate",
+        "receipt:wphx-302-01-hook-parity-candidate",
         "receipt:wphx-302-hook-surface",
-        "receipt:wphx-306-hook-distribution-surface"
+        "receipt:wphx-302-04-hook-distribution-surface"
       ],
       manifest_digest: manifestSha
     },
     notes:
-      "WPHX-303 promotes the Haxe-authored hook decision model; WPHX-306 verifies it as part of the distribution surface with plugin.php/class-wp-hook.php provenance and approved public ABI boundaries."
+      "WPHX-302.01 promotes the Haxe-authored hook decision model; WPHX-302.04 verifies it as part of the distribution surface with plugin.php/class-wp-hook.php provenance and approved public ABI boundaries."
   };
 }
 
@@ -492,7 +492,7 @@ if (failedComparisons.length > 0) {
 
 const manifest = {
   schema: "wphx.wp-hook-parity-candidate.v1",
-  issue: "WPHX-303",
+  issue: "WPHX-302.01",
   generated_at: RECORDED_AT,
   generator: "tools/wp-hooks/run-hook-parity-candidate.mjs",
   inputs: {
@@ -541,8 +541,8 @@ const manifestSha = sha256(manifestText);
 const ownershipText = JSON.stringify(ownershipManifest(manifestSha, upstreamDigest), null, 2) + "\n";
 const receipt = {
   schema: "wphx.wp-hook-parity-candidate-receipt.v1",
-  id: "receipt:wphx-303-hook-parity-candidate",
-  issue: "WPHX-303",
+  id: "receipt:wphx-302-01-hook-parity-candidate",
+  issue: "WPHX-302.01",
   recorded_at: RECORDED_AT,
   command: "npm run wp:hooks:parity-candidate",
   status: "passed",

@@ -69,12 +69,12 @@ class HookCandidateKernel
 			{id: "middle", priority: 10, acceptedArgs: 2}
 		];
 		final stack = ["outer_filter", "inner_action"];
-		final pluginDir = "/tmp/wphx-303/wp-content/plugins";
-		final muPluginDir = "/tmp/wphx-303/wp-content/mu-plugins";
+		final pluginDir = "/tmp/wphx-302-01/wp-content/plugins";
+		final muPluginDir = "/tmp/wphx-302-01/wp-content/mu-plugins";
 		final pluginFile = pluginDir + "/sample/sample.php";
 		final muPluginFile = muPluginDir + "/loader.php";
-		final mappedFile = "/tmp/wphx-303/real-plugins/mapped/mapped.php";
-		final mappings:Array<PluginPathMapping> = [{dir: pluginDir + "/mapped", realdir: "/tmp/wphx-303/real-plugins/mapped"}];
+		final mappedFile = "/tmp/wphx-302-01/real-plugins/mapped/mapped.php";
+		final mappings:Array<PluginPathMapping> = [{dir: pluginDir + "/mapped", realdir: "/tmp/wphx-302-01/real-plugins/mapped"}];
 
 		return {
 			priorities: {

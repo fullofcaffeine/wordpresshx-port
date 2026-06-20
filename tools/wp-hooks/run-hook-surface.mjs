@@ -537,11 +537,11 @@ function ownershipManifest(manifestSha, upstreamDigest) {
       ],
       receipt_refs: [
         "receipt:wphx-302-hook-surface",
-        "receipt:wphx-306-hook-distribution-surface"
+        "receipt:wphx-302-04-hook-distribution-surface"
       ],
       manifest_digest: manifestSha
     },
-    notes: "WPHX-302 records complete API surface coverage and fixture plugin parity for the hook workset. WPHX-306 promotes the surface to verified Haxe-owned distribution output with approved PHP-native public ABI boundaries."
+    notes: "WPHX-302 records complete API surface coverage and fixture plugin parity for the hook workset. WPHX-302.04 promotes the surface to verified Haxe-owned distribution output with approved PHP-native public ABI boundaries."
   };
 }
 

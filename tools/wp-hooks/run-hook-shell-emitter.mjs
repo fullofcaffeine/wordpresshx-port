@@ -10,13 +10,13 @@ const checkOnly = args.has("--check");
 
 const F7_TOOL = "tools/php-facade/run-f7-hook-kernel.mjs";
 const RUNTIME_BOUNDARY_TOOL = "tools/wp-hooks/run-hook-runtime-boundary.mjs";
-const RUNTIME_BOUNDARY_MANIFEST = "manifests/wp-hooks/wphx-304-hook-runtime-boundary.v1.json";
+const RUNTIME_BOUNDARY_MANIFEST = "manifests/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json";
 const GENERATED_ROOT = "build/php-hook-kernel/generated";
 const GENERATED_PLUGIN = `${GENERATED_ROOT}/wp-includes/plugin.php`;
 const GENERATED_HOOK_CLASS = `${GENERATED_ROOT}/wp-includes/class-wp-hook.php`;
-const OUT = "manifests/wp-hooks/wphx-305-hook-shell-emitter.v1.json";
-const OWNERSHIP = "manifests/ownership/wphx-305-hooks-shell-emitter.v1.json";
-const RECEIPT = "receipts/wp-hooks/wphx-305-hook-shell-emitter.v1.json";
+const OUT = "manifests/wp-hooks/wphx-302-03-hook-shell-emitter.v1.json";
+const OWNERSHIP = "manifests/ownership/wphx-302-03-hooks-shell-emitter.v1.json";
+const RECEIPT = "receipts/wp-hooks/wphx-302-03-hook-shell-emitter.v1.json";
 const RECORDED_AT = "2026-06-20T23:30:00.000Z";
 const WP_REF = "26b68024931348d267b70e2a29910e1320d0094f";
 const SOURCE_UNITS = ["src/wp-includes/plugin.php", "src/wp-includes/class-wp-hook.php"];
@@ -119,7 +119,7 @@ function ownershipManifest(manifestSha, upstreamDigest) {
     manifest_id: "ownership:wp/hooks-shell-emitter",
     issue: {
       id: "wordpresshx-l76.5",
-      external_ref: "WPHX-305"
+      external_ref: "WPHX-302.03"
     },
     unit: {
       kind: "workset",
@@ -155,15 +155,15 @@ function ownershipManifest(manifestSha, upstreamDigest) {
       ],
       receipt_refs: [
         "receipt:wphx-302-hook-surface",
-        "receipt:wphx-303-hook-parity-candidate",
-        "receipt:wphx-304-hook-runtime-boundary",
-        "receipt:wphx-305-hook-shell-emitter",
-        "receipt:wphx-306-hook-distribution-surface"
+        "receipt:wphx-302-01-hook-parity-candidate",
+        "receipt:wphx-302-02-hook-runtime-boundary",
+        "receipt:wphx-302-03-hook-shell-emitter",
+        "receipt:wphx-302-04-hook-distribution-surface"
       ],
       manifest_digest: manifestSha
     },
     notes:
-      "WPHX-305 replaces the broad JS-authored public shell bodies with counted emission transforms over the locked WordPress 7.0 oracle files. WPHX-306 verifies the generated shell as distribution-ready Haxe-owned output with source maps, provenance, and approved PHP-native public ABI boundaries."
+      "WPHX-302.03 replaces the broad JS-authored public shell bodies with counted emission transforms over the locked WordPress 7.0 oracle files. WPHX-302.04 verifies the generated shell as distribution-ready Haxe-owned output with source maps, provenance, and approved PHP-native public ABI boundaries."
   };
 }
 
@@ -183,7 +183,7 @@ const upstreamDigest = sha256(JSON.stringify(sourceUnits.map((unit) => ({ unit: 
 const runtimeBoundaryText = readFileSync(RUNTIME_BOUNDARY_MANIFEST, "utf8");
 const manifest = {
   schema: "wphx.wp-hook-shell-emitter.v1",
-  issue: "WPHX-305",
+  issue: "WPHX-302.03",
   generated_at: RECORDED_AT,
   generator: "tools/wp-hooks/run-hook-shell-emitter.mjs",
   inputs: {
@@ -229,8 +229,8 @@ const manifestSha = sha256(manifestText);
 const ownershipText = JSON.stringify(ownershipManifest(manifestSha, upstreamDigest), null, 2) + "\n";
 const receipt = {
   schema: "wphx.wp-hook-shell-emitter-receipt.v1",
-  id: "receipt:wphx-305-hook-shell-emitter",
-  issue: "WPHX-305",
+  id: "receipt:wphx-302-03-hook-shell-emitter",
+  issue: "WPHX-302.03",
   recorded_at: RECORDED_AT,
   command: "npm run wp:hooks:shell-emitter",
   status: "passed",

@@ -34,15 +34,15 @@ Evidence is recorded in:
 - `manifests/ownership/wphx-302-hooks-workset.v1.json`
 - `receipts/wp-hooks/wphx-302-hook-surface.v1.json`
 
-## WPHX-303 Candidate Model
+## WPHX-302.01 Candidate Model
 
-WPHX-303 adds a typed Haxe parity-candidate model for hook decisions that can be
+WPHX-302.01 adds a typed Haxe parity-candidate model for hook decisions that can be
 tested without copying the generated PHP shell into `php.Syntax.code` strings. The
 candidate covers priority ordering/removal, current hook stack checks, filter/action
 counters, callback arity decisions, and plugin basename/lifecycle hook names.
 
 The public `plugin.php` and `class-wp-hook.php` shell remains a bounded bridge until
-WPHX-304 can replace PHP-observable callback/reference/global behavior with typed Haxe
+WPHX-302.02 can replace PHP-observable callback/reference/global behavior with typed Haxe
 runtime boundaries while keeping generated PHP idiomatic for existing plugins.
 
 Run:
@@ -54,20 +54,20 @@ npm run wp:hooks:parity-candidate:check
 
 Evidence is recorded in:
 
-- `manifests/wp-hooks/wphx-303-hook-parity-candidate.v1.json`
-- `manifests/ownership/wphx-303-hooks-decision-model.v1.json`
-- `receipts/wp-hooks/wphx-303-hook-parity-candidate.v1.json`
+- `manifests/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json`
+- `manifests/ownership/wphx-302-01-hooks-decision-model.v1.json`
+- `receipts/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json`
 
-## WPHX-304 Runtime Boundary
+## WPHX-302.02 Runtime Boundary
 
-WPHX-304 moves bounded hook shell decisions into shared typed Haxe runtime code in
+WPHX-302.02 moves bounded hook shell decisions into shared typed Haxe runtime code in
 `src/wphx/wp/hooks/HookRuntime.hx`. The generated public PHP shell delegates priority
 normalization, counter increments, dispatch arity decisions, filter/action value-write
 decisions, default action args, plugin basename trimming, lifecycle hook names, and
 plugin realpath registration decisions through the typed facade.
 
 The shell intentionally keeps PHP-native callbacks, by-reference arrays, globals,
-reflection-visible declarations, and include timing at the public boundary. WPHX-305 owns
+reflection-visible declarations, and include timing at the public boundary. WPHX-302.03 owns
 moving the remaining broad PHP shell emission out of the JavaScript template and into
 Haxe-owned source, a macro/emitter, a generic Haxe PHP backend improvement, or an
 ADR-approved Reflaxe/custom PHP target.
@@ -81,20 +81,20 @@ npm run wp:hooks:runtime-boundary:check
 
 Evidence is recorded in:
 
-- `manifests/wp-hooks/wphx-304-hook-runtime-boundary.v1.json`
-- `manifests/ownership/wphx-304-hooks-runtime-boundary.v1.json`
-- `receipts/wp-hooks/wphx-304-hook-runtime-boundary.v1.json`
+- `manifests/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json`
+- `manifests/ownership/wphx-302-02-hooks-runtime-boundary.v1.json`
+- `receipts/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json`
 
-## WPHX-305 Shell Emitter
+## WPHX-302.03 Shell Emitter
 
-WPHX-305 removes the broad JavaScript-authored public shell templates from the F7
+WPHX-302.03 removes the broad JavaScript-authored public shell templates from the F7
 generator. The generator now reads the locked WordPress 7.0 `plugin.php` and
 `class-wp-hook.php` oracle files and applies counted source transforms that insert the
 typed Haxe runtime boundary. This keeps the generated public PHP shell idiomatic and close
 to upstream while preventing runtime behavior from being hand-pasted into JavaScript
 templates.
 
-WPHX-306 owns the final verified distribution-surface promotion, including provenance,
+WPHX-302.04 owns the final verified distribution-surface promotion, including provenance,
 source maps, and review of any remaining PHP-native public ABI bridges.
 
 Run:
@@ -106,18 +106,18 @@ npm run wp:hooks:shell-emitter:check
 
 Evidence is recorded in:
 
-- `manifests/wp-hooks/wphx-305-hook-shell-emitter.v1.json`
-- `manifests/ownership/wphx-305-hooks-shell-emitter.v1.json`
-- `receipts/wp-hooks/wphx-305-hook-shell-emitter.v1.json`
+- `manifests/wp-hooks/wphx-302-03-hook-shell-emitter.v1.json`
+- `manifests/ownership/wphx-302-03-hooks-shell-emitter.v1.json`
+- `receipts/wp-hooks/wphx-302-03-hook-shell-emitter.v1.json`
 
-## WPHX-306 Distribution Surface
+## WPHX-302.04 Distribution Surface
 
-WPHX-306 promotes the hook/plugin API workset to `verified_haxe_owned`. The
+WPHX-302.04 promotes the hook/plugin API workset to `verified_haxe_owned`. The
 remaining PHP-native pieces are no longer treated as temporary bridges: callbacks,
 by-reference argument arrays, public globals, reflection-visible declarations, and include
 timing are approved public ABI boundaries because existing plugins observe those details.
 
-The distribution-surface gate verifies WPHX-302 through WPHX-305, checks that the earlier
+The distribution-surface gate verifies WPHX-302 through WPHX-302.03, checks that the earlier
 hook ownership manifests no longer contain temporary `bridge` or `removal_gate` blocks, and
 records generated-shell provenance plus line-range source maps for `plugin.php` and
 `class-wp-hook.php`. Upstream WordPress files remain locked source/provenance oracles; Haxe
@@ -133,6 +133,6 @@ npm run wp:hooks:distribution-surface:check
 
 Evidence is recorded in:
 
-- `manifests/wp-hooks/wphx-306-hook-distribution-surface.v1.json`
-- `manifests/ownership/wphx-306-hooks-distribution-surface.v1.json`
-- `receipts/wp-hooks/wphx-306-hook-distribution-surface.v1.json`
+- `manifests/wp-hooks/wphx-302-04-hook-distribution-surface.v1.json`
+- `manifests/ownership/wphx-302-04-hooks-distribution-surface.v1.json`
+- `receipts/wp-hooks/wphx-302-04-hook-distribution-surface.v1.json`

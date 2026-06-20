@@ -15,9 +15,9 @@ const GENERATED_HOOK_CLASS = `${GENERATED_ROOT}/wp-includes/class-wp-hook.php`;
 const HAXE_RUNTIME = "src/wphx/wp/hooks/HookRuntime.hx";
 const FACADE_KERNEL = "fixtures/php-facade/src/wphx/fixtures/php/facade/HookKernel.hx";
 const F7_TOOL = "tools/php-facade/run-f7-hook-kernel.mjs";
-const OUT = "manifests/wp-hooks/wphx-306-hook-distribution-surface.v1.json";
-const OWNERSHIP = "manifests/ownership/wphx-306-hooks-distribution-surface.v1.json";
-const RECEIPT = "receipts/wp-hooks/wphx-306-hook-distribution-surface.v1.json";
+const OUT = "manifests/wp-hooks/wphx-302-04-hook-distribution-surface.v1.json";
+const OWNERSHIP = "manifests/ownership/wphx-302-04-hooks-distribution-surface.v1.json";
+const RECEIPT = "receipts/wp-hooks/wphx-302-04-hook-distribution-surface.v1.json";
 const RECORDED_AT = "2026-06-21T00:05:00.000Z";
 const WP_REF = "26b68024931348d267b70e2a29910e1320d0094f";
 const SOURCE_UNITS = [
@@ -35,21 +35,21 @@ const SOURCE_UNITS = [
 
 const PRIOR_MANIFESTS = [
   "manifests/wp-hooks/wphx-302-hook-surface.v1.json",
-  "manifests/wp-hooks/wphx-303-hook-parity-candidate.v1.json",
-  "manifests/wp-hooks/wphx-304-hook-runtime-boundary.v1.json",
-  "manifests/wp-hooks/wphx-305-hook-shell-emitter.v1.json"
+  "manifests/wp-hooks/wphx-302-01-hook-parity-candidate.v1.json",
+  "manifests/wp-hooks/wphx-302-02-hook-runtime-boundary.v1.json",
+  "manifests/wp-hooks/wphx-302-03-hook-shell-emitter.v1.json"
 ];
 const PRIOR_OWNERSHIP_MANIFESTS = [
   "manifests/ownership/wphx-302-hooks-workset.v1.json",
-  "manifests/ownership/wphx-303-hooks-decision-model.v1.json",
-  "manifests/ownership/wphx-304-hooks-runtime-boundary.v1.json",
-  "manifests/ownership/wphx-305-hooks-shell-emitter.v1.json"
+  "manifests/ownership/wphx-302-01-hooks-decision-model.v1.json",
+  "manifests/ownership/wphx-302-02-hooks-runtime-boundary.v1.json",
+  "manifests/ownership/wphx-302-03-hooks-shell-emitter.v1.json"
 ];
 const PRIOR_RECEIPTS = [
   "receipt:wphx-302-hook-surface",
-  "receipt:wphx-303-hook-parity-candidate",
-  "receipt:wphx-304-hook-runtime-boundary",
-  "receipt:wphx-305-hook-shell-emitter"
+  "receipt:wphx-302-01-hook-parity-candidate",
+  "receipt:wphx-302-02-hook-runtime-boundary",
+  "receipt:wphx-302-03-hook-shell-emitter"
 ];
 
 const APPROVED_TRANSFORMS = [
@@ -159,31 +159,31 @@ const APPROVED_ABI_BOUNDARIES = [
     id: "php-native-callbacks",
     status: "approved_public_abi_boundary",
     reason: "WordPress plugins pass PHP callables, closures, object methods, and static methods directly into hook APIs; callback identity and invocation remain PHP-observable.",
-    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-304-hook-runtime-boundary"]
+    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-302-02-hook-runtime-boundary"]
   },
   {
     id: "php-reference-arguments",
     status: "approved_public_abi_boundary",
     reason: "apply_filters_ref_array() and do_action_ref_array() expose PHP by-reference array semantics that must remain native for plugin compatibility.",
-    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-305-hook-shell-emitter"]
+    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-302-03-hook-shell-emitter"]
   },
   {
     id: "php-hook-globals",
     status: "approved_public_abi_boundary",
     reason: "$wp_filter, $wp_filters, $wp_actions, and $wp_current_filter are public PHP globals observed by plugins and by reflection/debug tooling.",
-    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-303-hook-parity-candidate"]
+    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-302-01-hook-parity-candidate"]
   },
   {
     id: "reflection-visible-declarations",
     status: "approved_public_abi_boundary",
     reason: "plugin.php functions and WP_Hook declarations must keep WordPress-compatible names, parameters, defaults, class interfaces, and declaration timing.",
-    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-305-hook-shell-emitter"]
+    evidence: ["receipt:wphx-302-hook-surface", "receipt:wphx-302-03-hook-shell-emitter"]
   },
   {
     id: "include-and-bootstrap-timing",
     status: "approved_public_abi_boundary",
     reason: "The shell must initialize the Haxe runtime without changing when plugin.php functions and WP_Hook become available to PHP includes.",
-    evidence: ["receipt:wphx-304-hook-runtime-boundary", "receipt:wphx-305-hook-shell-emitter"]
+    evidence: ["receipt:wphx-302-02-hook-runtime-boundary", "receipt:wphx-302-03-hook-shell-emitter"]
   }
 ];
 
@@ -277,34 +277,34 @@ function classifyGeneratedBoundary(line) {
   if (line.includes("WordPressHX generated shell bootstrap") || line.includes("WPHX_F7_HOOK_BOOTSTRAPPED")) {
     return {
       origin_kind: "approved_php_bootstrap_boundary",
-      owner: "WPHX-306",
+      owner: "WPHX-302.04",
       source: F7_TOOL
     };
   }
   if (line.includes("\\php\\Boot") || line.includes("spl_autoload_register") || line.includes("set_include_path")) {
     return {
       origin_kind: "approved_php_bootstrap_boundary",
-      owner: "WPHX-306",
+      owner: "WPHX-302.04",
       source: F7_TOOL
     };
   }
   if (line.includes("HookKernel::")) {
     return {
       origin_kind: "haxe_runtime_boundary_call",
-      owner: "WPHX-304",
+      owner: "WPHX-302.02",
       source: `${HAXE_RUNTIME} via ${FACADE_KERNEL}`
     };
   }
   if (line.trim() === "") {
     return {
       origin_kind: "generated_spacing",
-      owner: "WPHX-306",
+      owner: "WPHX-302.04",
       source: F7_TOOL
     };
   }
   return {
     origin_kind: "generated_shell_glue",
-    owner: "WPHX-306",
+    owner: "WPHX-302.04",
     source: F7_TOOL
   };
 }
@@ -373,7 +373,7 @@ function lineSourceMap(source) {
       original_line_start: line,
       original_line_end: line,
       origin_kind: "replaced_by_haxe_boundary",
-      owner: "WPHX-306"
+      owner: "WPHX-302.04"
     });
   }
 
@@ -430,8 +430,8 @@ function validatePriorOwnership() {
     }
     if (hasBridge) errors.push(`${path}: still has bridge block`);
     if (hasRemovalGate) errors.push(`${path}: still has removal_gate block`);
-    if (!receiptRefs.includes("receipt:wphx-306-hook-distribution-surface")) {
-      errors.push(`${path}: missing WPHX-306 receipt ref`);
+    if (!receiptRefs.includes("receipt:wphx-302-04-hook-distribution-surface")) {
+      errors.push(`${path}: missing WPHX-302.04 receipt ref`);
     }
     return {
       path,
@@ -484,7 +484,7 @@ function ownershipManifest(manifestSha, upstreamDigest) {
     manifest_id: "ownership:wp/hooks-distribution-surface",
     issue: {
       id: "wordpresshx-l76.6",
-      external_ref: "WPHX-306"
+      external_ref: "WPHX-302.04"
     },
     unit: {
       kind: "workset",
@@ -522,11 +522,11 @@ function ownershipManifest(manifestSha, upstreamDigest) {
         "npm run wp:hooks:shell-emitter:check",
         "npm run wp:hooks:distribution-surface:check"
       ],
-      receipt_refs: [...PRIOR_RECEIPTS, "receipt:wphx-306-hook-distribution-surface"],
+      receipt_refs: [...PRIOR_RECEIPTS, "receipt:wphx-302-04-hook-distribution-surface"],
       manifest_digest: manifestSha
     },
     notes:
-      "WPHX-306 closes the hook/plugin API bridge removal gate. Upstream plugin.php and class-wp-hook.php are now source/provenance oracles for generated distribution shells; executable hook decisions are owned by Haxe HookRuntime/HookKernel, and remaining PHP-native callables, references, globals, reflection-visible declarations, and include timing are approved public ABI boundaries."
+      "WPHX-302.04 closes the hook/plugin API bridge removal gate. Upstream plugin.php and class-wp-hook.php are now source/provenance oracles for generated distribution shells; executable hook decisions are owned by Haxe HookRuntime/HookKernel, and remaining PHP-native callables, references, globals, reflection-visible declarations, and include timing are approved public ABI boundaries."
   };
 }
 
@@ -549,7 +549,7 @@ const priorOwnershipInputs = PRIOR_OWNERSHIP_MANIFESTS.map(inputRecord);
 const generatedFiles = filesUnder(GENERATED_ROOT);
 const manifest = {
   schema: "wphx.wp-hook-distribution-surface.v1",
-  issue: "WPHX-306",
+  issue: "WPHX-302.04",
   generated_at: RECORDED_AT,
   generator: "tools/wp-hooks/run-hook-distribution-surface.mjs",
   inputs: {
@@ -593,8 +593,8 @@ const manifestSha = sha256(manifestText);
 const ownershipText = JSON.stringify(ownershipManifest(manifestSha, upstreamDigest), null, 2) + "\n";
 const receipt = {
   schema: "wphx.wp-hook-distribution-surface-receipt.v1",
-  id: "receipt:wphx-306-hook-distribution-surface",
-  issue: "WPHX-306",
+  id: "receipt:wphx-302-04-hook-distribution-surface",
+  issue: "WPHX-302.04",
   recorded_at: RECORDED_AT,
   command: "npm run wp:hooks:distribution-surface",
   status: "passed",
