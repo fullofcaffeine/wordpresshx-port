@@ -25,3 +25,22 @@ The committed snapshot is `manifests/php-facade/wphx-102-f1-global-function.v1.j
 - behavior parity for a first `add_filter` call.
 
 This fixture intentionally does not implement the full WordPress hook kernel. WPHX-108 owns hook trace parity after references, native globals, class contracts, and include/load behavior are proven.
+
+## F2 References
+
+WPHX-103 owns the reference-boundary fixture:
+
+```bash
+npm run php:facade:f2
+npm run php:facade:f2:check
+```
+
+The fixture compares an oracle PHP shell with a generated Haxe-backed shell for:
+
+- by-reference parameters, using `wphx_reference_param( &$value, $suffix = '-ref' )`;
+- by-reference returns, using `&wphx_reference_return()`;
+- callback invocation with a by-reference argument.
+
+The generated shell still owns the exact procedural PHP reference ABI. Haxe owns the value transformation behind that boundary. This is the current intended shape for WordPress APIs that require PHP references: preserve exact PHP signatures in original-path shells, then cross into Haxe-owned implementation code where the values are no longer references.
+
+The committed snapshot is `manifests/php-facade/wphx-103-f2-references.v1.json`.

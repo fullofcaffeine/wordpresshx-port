@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-103-f2-references",
+  "issue": {
+    "id": "wordpresshx-w91.1.3",
+    "external_ref": "WPHX-103",
+    "title": "WPHX-103 — F2 reference fixture suite"
+  },
+  "recorded_at": "2026-06-20T05:58:00Z",
+  "artifacts": [
+    {
+      "path": "fixtures/php-facade/f2-references.hxml",
+      "role": "Haxe PHP reference fixture compile file"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/ReferenceEntry.hx",
+      "role": "Haxe entry point preserving reference implementation emission"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/ReferenceKernel.hx",
+      "role": "Haxe-owned reference-boundary value transformations"
+    },
+    {
+      "path": "fixtures/php-facade/oracle/references.php",
+      "role": "PHP oracle shell for reference ABI"
+    },
+    {
+      "path": "tools/php-facade/run-f2-references.mjs",
+      "role": "deterministic F2 reference generator and checker"
+    },
+    {
+      "path": "manifests/php-facade/wphx-103-f2-references.v1.json",
+      "role": "F2 generated-output and reference comparison snapshot"
+    },
+    {
+      "path": "docs/operations/php-facade.md",
+      "role": "PHP facade fixture runbook"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:facade:f2",
+    "npm run php:facade:f2:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "haxe_version": "4.3.7",
+    "by_reference_parameter": true,
+    "by_reference_return": true,
+    "by_reference_callback_argument": true,
+    "parameter_mutation_result": "CORE-tail",
+    "return_reference_mutation_result": "changed-through-reference",
+    "callback_reference_mutation_result": "callback-mutated",
+    "comparison_count": 3,
+    "runtime_matrix": [
+      "local-php-cli",
+      "docker-php-8.4-cli",
+      "docker-php-8.5-cli"
+    ],
+    "reference_strategy": "Original-path PHP shells preserve exact reference ABI; Haxe owns value transformations behind the shell boundary."
+  }
+}
