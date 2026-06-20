@@ -1,0 +1,38 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-303-02-escaping-sanitization-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.7.2",
+    "external_ref": "WPHX-303.02",
+    "title": "Build escaping/sanitization differential fixture harness"
+  },
+  "recorded_at": "2026-06-20T22:55:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json",
+      "role": "escaping/sanitization differential fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-303-02-escaping-sanitization-fixture.v1.json",
+      "role": "external-oracle ownership manifest for the fixture harness"
+    },
+    {
+      "path": "tools/wp-core/run-escaping-sanitization-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-303-escaping",
+    "npm run wp:core:wphx-303-escaping:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 16,
+    "fixture_cases": 20,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}

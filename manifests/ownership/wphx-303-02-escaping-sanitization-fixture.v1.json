@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/escaping-sanitization-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.7.2",
+    "external_ref": "WPHX-303.02"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "escaping/sanitization differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "Escaping and sanitization public PHP functions keep WordPress 7.0 observable behavior while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/http.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php"
+    ],
+    "digest": "sha256:60bc6a34403381825de3524e3335eff891ceb920f62115c276d17f6345533a64"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-escaping-sanitization-fixture.mjs",
+    "manifests/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json",
+    "receipts/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json",
+    "manifests/ownership/wphx-303-02-escaping-sanitization-fixture.v1.json",
+    "receipts/wp-core/wphx-303-02-escaping-sanitization-fixture.v1.json",
+    "build/wp-core/wphx-303-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-303-escaping",
+      "npm run wp:core:wphx-303-escaping:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-303-02-escaping-sanitization-fixture"
+    ],
+    "manifest_digest": "sha256:8878e5995f7fb1fdc1a57561f17bc2ccd2aff7a655c4e5b62ca37c9a7f8d8441"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-303.02. Later WPHX-303.06 work replaces selected candidate functions with generated Haxe output behind this same differential harness."
+}
