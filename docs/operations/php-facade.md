@@ -128,3 +128,29 @@ The generated shells own the mixed PHP/HTML output order, caller-scope visibilit
 This fixture intentionally does not treat HHX as parity evidence for existing mixed PHP/HTML files. HHX remains appropriate only where Haxe owns the template unit or where the file-segment model has bounded the adoption contract.
 
 The committed snapshot is `manifests/php-facade/wphx-107-f6-template-scope.v1.json`.
+
+## F7 Hook Kernel
+
+WPHX-108 owns the hook kernel fixture:
+
+```bash
+npm run php:facade:f7
+npm run php:facade:f7:check
+```
+
+The fixture copies the upstream oracle files from `../wordpress-develop/src/wp-includes/plugin.php` and `../wordpress-develop/src/wp-includes/class-wp-hook.php` into `build/php-hook-kernel/oracle`, then compares that oracle against a generated Haxe-backed `wp-includes/plugin.php` and `class-wp-hook.php`.
+
+The trace covers:
+
+- reflected signatures for `add_filter`, `add_action`, `apply_filters`, `apply_filters_ref_array`, `do_action`, `has_filter`, `remove_filter`, `current_filter`, and `doing_filter`;
+- priority ordering and `accepted_args` behavior;
+- `remove_filter` behavior;
+- `all` hook execution;
+- action execution and `did_action`;
+- by-reference filter mutation through `apply_filters_ref_array`;
+- `current_filter` and `doing_filter` during callbacks;
+- native `$wp_filter`, `$wp_filters`, `$wp_actions`, and `$wp_current_filter` globals.
+
+The generated shell keeps PHP callbacks, hook globals, and callback execution native. Haxe `HookKernel` is used only for bounded helper payloads in this fixture. This keeps the first hook proof honest: PHP callable/reference behavior remains observable at the shell boundary, while later kernel work can port more of `WP_Hook` deliberately.
+
+The committed snapshot is `manifests/php-facade/wphx-108-f7-hook-kernel.v1.json`.

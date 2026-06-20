@@ -1,0 +1,69 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-108-f7-hook-kernel",
+  "issue": {
+    "id": "wordpresshx-w91.1.8",
+    "external_ref": "WPHX-108",
+    "title": "WPHX-108 - F7 hook kernel fixture"
+  },
+  "recorded_at": "2026-06-20T07:35:00Z",
+  "artifacts": [
+    {
+      "path": "fixtures/php-facade/f7-hook-kernel.hxml",
+      "role": "Haxe PHP hook kernel fixture compile file"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/HookEntry.hx",
+      "role": "Haxe entry point preserving hook helper emission"
+    },
+    {
+      "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/HookKernel.hx",
+      "role": "Haxe-owned bounded hook helper payloads"
+    },
+    {
+      "path": "../wordpress-develop/src/wp-includes/plugin.php",
+      "role": "vanilla WordPress hook API oracle source copied into build output"
+    },
+    {
+      "path": "../wordpress-develop/src/wp-includes/class-wp-hook.php",
+      "role": "vanilla WordPress WP_Hook oracle source copied into build output"
+    },
+    {
+      "path": "tools/php-facade/run-f7-hook-kernel.mjs",
+      "role": "deterministic F7 hook kernel generator and checker"
+    },
+    {
+      "path": "manifests/php-facade/wphx-108-f7-hook-kernel.v1.json",
+      "role": "F7 generated-output and upstream hook trace comparison snapshot"
+    },
+    {
+      "path": "docs/operations/php-facade.md",
+      "role": "PHP facade fixture runbook"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:facade:f7",
+    "npm run php:facade:f7:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "haxe_version": "4.3.7",
+    "upstream_oracle": true,
+    "reflected_signatures": true,
+    "callback_ordering": true,
+    "callback_removal": true,
+    "accepted_args": true,
+    "all_hook_trace": true,
+    "action_trace": true,
+    "reference_filter": true,
+    "current_filter_stack": true,
+    "native_hook_globals": true,
+    "comparison_count": 3,
+    "runtime_matrix": [
+      "local-php-cli",
+      "docker-php-8.4-cli",
+      "docker-php-8.5-cli"
+    ],
+    "hook_strategy": "The hook public ABI and callback execution remain original-path PHP because PHP callables, references, and globals are observable. Haxe owns only bounded helper payloads in this fixture."
+  }
+}
