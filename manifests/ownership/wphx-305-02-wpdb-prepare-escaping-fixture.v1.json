@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-prepare-escaping-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.9.2",
+    "external_ref": "WPHX-305.02"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "wpdb prepare/escaping differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "WordPress 7.0 wpdb SQL preparation, escaping, placeholder, identifier quoting, and esc_sql() behavior stay observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/class-wpdb.php",
+      "src/wp-includes/formatting.php"
+    ],
+    "digest": "sha256:037aabd621a710a2b2d5a83afddf8b776241cb3ab5b8267f5f502349bf46a62b"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wpdb-prepare-escaping-fixture.mjs",
+    "manifests/wp-core/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+    "receipts/wp-core/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+    "manifests/ownership/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+    "receipts/wp-core/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+    "build/wp-core/wphx-305-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-prepare-escaping",
+      "npm run wp:core:wphx-305-prepare-escaping:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-02-wpdb-prepare-escaping-fixture"
+    ],
+    "manifest_digest": "sha256:f5854112a90800dc0fa804c0dc0f0f752b276b97a0211a52567a21ab14efbacc"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-305.02. The probe intentionally avoids live MySQL by exercising prepare/escaping behavior through wpdb's no-connection fallback and recording the native mysqli boundary as a later WPHX-305 gate."
+}
