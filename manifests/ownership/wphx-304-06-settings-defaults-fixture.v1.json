@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/settings-defaults-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.8.6",
+    "external_ref": "WPHX-304.06"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "settings/default-option registry differential fixture harness",
+    "area": "wp-includes/option.php wp-includes/formatting.php",
+    "public_contract": "WordPress settings registry globals, sanitize/default option filters, deprecated group compatibility, and REST schema warning hooks remain observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/pomo/plural-forms.php",
+      "src/wp-includes/pomo/entry.php",
+      "src/wp-includes/pomo/translations.php",
+      "src/wp-includes/l10n.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php"
+    ],
+    "digest": "sha256:db325a9b02f5c6d9df7fc49da2243a2ad411509b581032dfdec754fb797626ed"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-settings-defaults-fixture.mjs",
+    "manifests/wp-core/wphx-304-06-settings-defaults-fixture.v1.json",
+    "receipts/wp-core/wphx-304-06-settings-defaults-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-304-06-settings-defaults-fixture.v1.json",
+    "manifests/ownership/wphx-304-06-settings-defaults-fixture.v1.json",
+    "receipts/wp-core/wphx-304-06-settings-defaults-fixture.v1.json",
+    "build/wp-core/wphx-304-06"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-304-settings-defaults",
+      "npm run wp:core:wphx-304-settings-defaults:check",
+      "npm run wp:core:wphx-304-option-storage:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-304-06-settings-defaults-fixture",
+      "receipt:wphx-304-02-option-storage-fixture"
+    ],
+    "manifest_digest": "sha256:8eb6962ab6f30eef82748e410e8c627fdc02d5ee8768d5cc925c11412afb5fea"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-304.06. Registry mutation and callbacks stay PHP-native here; later Haxe ownership must preserve the global registry, filter timing, callable ABI, and REST warning hooks."
+}
