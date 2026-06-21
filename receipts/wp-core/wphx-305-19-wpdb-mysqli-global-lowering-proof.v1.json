@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-19-wpdb-mysqli-global-lowering-proof",
+  "issue": {
+    "id": "wordpresshx-l76.9.19",
+    "external_ref": "WPHX-305.19",
+    "title": "Scaffold wpdb PHP target global-function lowering proof"
+  },
+  "recorded_at": "2026-06-21T06:50:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+      "role": "wpdb mysqli @:phpGlobal lowering proof manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+      "role": "stock Haxe PHP global extern proof ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-mysqli-global-lowering-proof.mjs",
+      "role": "runnable compiler/backend proof generator and check-mode validator"
+    },
+    {
+      "path": "src/wphx/wp/db/native/MysqliGlobal.hx",
+      "role": "typed @:phpGlobal mysqli extern scaffold"
+    },
+    {
+      "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/WpdbMysqliGlobalLoweringProofEntry.hx",
+      "role": "typed Haxe call-site proof fixture"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-mysqli-lowering-strategy:check",
+    "npm run wp:core:wphx-305-mysqli-row-traversal-candidate:check",
+    "npm run format:haxe:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "stock_haxe_php_global_extern_lowering_proof",
+    "selected_strategy": "stock-haxe-php-global-externs",
+    "direct_query_call_detected": true,
+    "direct_fetch_object_call_detected": true,
+    "class_static_call_detected": false,
+    "php_lint_passed": true,
+    "source_escape_hatches_found": false,
+    "predecessor_passed": true,
+    "row_traversal_passed": true
+  }
+}

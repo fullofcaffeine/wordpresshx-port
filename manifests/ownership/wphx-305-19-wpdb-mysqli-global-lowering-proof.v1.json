@@ -1,0 +1,79 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-mysqli-global-lowering-proof",
+  "issue": {
+    "id": "wordpresshx-l76.9.19",
+    "external_ref": "WPHX-305.19"
+  },
+  "unit": {
+    "kind": "compiler-backend-proof",
+    "name": "wpdb mysqli @:phpGlobal receiver-less call proof",
+    "area": "wp-includes/class-wpdb.php and Haxe PHP target extern metadata",
+    "public_contract": "Typed Haxe mysqli externs can lower through the stock PHP target to reflection-friendly global PHP calls: mysqli_query($handle, $query) and mysqli_fetch_object($result). The committed WPHX-305.17 live candidate still uses WPHX_305_17_MysqliBoundary until the next wpdb candidate integrates these externs and reruns the live database gates."
+  },
+  "ownership_state": "stock_haxe_php_global_extern_proven",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "paths": [
+      "src/wp-includes/class-wpdb.php"
+    ],
+    "inherited_manifest": "manifests/wp-core/wphx-305-18-wpdb-mysqli-lowering-strategy.v1.json"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/wpdb-mysqli-global-lowering-proof.hxml",
+    "src/wphx/wp/db/native/MysqliHandle.hx",
+    "src/wphx/wp/db/native/MysqliResult.hx",
+    "src/wphx/wp/db/native/MysqliGlobal.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/WpdbMysqliGlobalLoweringProofEntry.hx",
+    "tools/wp-core/run-wpdb-mysqli-global-lowering-proof.mjs",
+    "manifests/wp-core/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+    "manifests/ownership/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+    "receipts/wp-core/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-305-19",
+    "manifests/wp-core/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+    "manifests/ownership/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json",
+    "receipts/wp-core/wphx-305-19-wpdb-mysqli-global-lowering-proof.v1.json"
+  ],
+  "bridge": {
+    "kind": "stock_haxe_php_target_metadata",
+    "reason": "The official PHP stdlib uses @:phpGlobal for global native functions. Applying the same metadata to a typed mysqli extern class emits receiver-less PHP globals and avoids Dynamic, untyped, raw php.Syntax.code, broad casts, and generated PHP postprocessing.",
+    "bounded_by": [
+      "typed MysqliHandle/MysqliResult externs",
+      "@:phpGlobal MysqliGlobal extern class",
+      "generated PHP lint and call-shape proof",
+      "WPHX-305.17 live database row-traversal receipt"
+    ]
+  },
+  "removal_gate": {
+    "condition": "Replace WPHX_305_17_MysqliBoundary in a live wpdb candidate by calling MysqliGlobal.query()/MysqliGlobal.fetchObject() from typed Haxe-owned/native-shell code, then rerun WPHX-305 live MySQL/MariaDB gates.",
+    "owner_issue": "WPHX-305.20",
+    "target_state": "verified_haxe_owned_php_global_mysqli_calls"
+  },
+  "smell_fixes": [
+    {
+      "description": "Reframed the WPHX-305.18 custom-target assumption: no custom PHP target is needed for this specific mysqli global-call shape because stock @:phpGlobal extern metadata emits idiomatic global calls.",
+      "behavior_policy": "no_observable_change"
+    }
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-mysqli-global-lowering-proof",
+      "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+      "npm run wp:core:wphx-305-mysqli-lowering-strategy:check",
+      "npm run wp:core:wphx-305-mysqli-row-traversal-candidate:check",
+      "npm run format:haxe:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-19-wpdb-mysqli-global-lowering-proof",
+      "receipt:wphx-305-18-wpdb-mysqli-lowering-strategy",
+      "receipt:wphx-305-17-wpdb-mysqli-row-traversal-candidate"
+    ],
+    "manifest_digest": "sha256:ffa31f1467e8538d66550285bc9225dc5eee6c9d786040c2443aeede14483866"
+  },
+  "notes": "This is a compiler/backend proof and typed extern scaffold, not yet the live wpdb candidate integration. WPHX-305.20 owns replacing the generated boundary in the live candidate."
+}
