@@ -1,0 +1,105 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-db-connect-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.29",
+    "external_ref": "WPHX-305.29"
+  },
+  "unit": {
+    "kind": "module",
+    "name": "wpdb db connect strategy",
+    "area": "wp-includes",
+    "public_contract": "WordPress-compatible wpdb remains a PHP-visible class/global while typed Haxe owns the decision model for db_connect() construction, DB_HOST parse handoff, native mysqli connection, failure, and success paths. WPHX-305.29 proves constructor/db_connect side effects, db_connect(false) success and failure paths, parse_db_host handoff, inherited WPHX-305.28 query execution behavior, WPHX-305.27 flush()/get_col_info() behavior, declared public properties, dynamic plugin properties, magic accessors, native mysqli handles/results, lazy col_info materialization, and require_wp_db()/db.php replacement behavior."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wpdb.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/wp-db.php"
+    ],
+    "digest": "sha256:ec794003c15c0b4505a92f213cc8b30b294adc520faefe2da8559716e32297d2"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/wpdb-db-connect-strategy-candidate.hxml",
+    "src/wphx/wp/db/WpdbDbConnectStrategy.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/WpdbDbConnectStrategyCandidateEntry.hx",
+    "tools/wp-core/run-wpdb-db-connect-strategy-candidate.mjs",
+    "manifests/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-305-29/haxe",
+    "build/wp-core/wphx-305-29/candidate-shell.php",
+    "build/wp-core/wphx-305-29/db-connect-probe.php",
+    "build/wp-core/wphx-305-29/wp-content/db.php",
+    "build/wp-core/wphx-305-29/dropin-probe.php",
+    "manifests/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+    "manifests/ownership/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json"
+  ],
+  "typed_haxe_ownership": {
+    "strategy": "wphx.wp.db.WpdbDbConnectStrategy",
+    "owns": [
+      "owned wpdb connection-body list for db_connect(), DB_HOST parse handoff, native mysqli connection, connection failure, and connection success decisions",
+      "db_connect() is_mysql/client-flags/mysqli-report setup decisions",
+      "db_connect() DB_HOST parse handoff and IPv6 mysqlnd bracket decisions",
+      "db_connect() debug versus silenced real-connect decision",
+      "db_connect() connect-error, allow_bail, and return-false decisions",
+      "db_connect() charset initialization, has_connected, ready, SQL mode, and database selection decisions",
+      "WPHX-305.28 query execution dependency checks",
+      "WPHX-305.27 flush()/get_col_info() dependency checks",
+      "class-shell/plugin ABI dependency checks"
+    ],
+    "does_not_yet_own": [
+      "prepare(), dbDelta(), and other broad wpdb method bodies",
+      "all upstream PHPUnit wpdb/dbDelta/option cases",
+      "packaged distribution bootstrap"
+    ]
+  },
+  "php_abi_shell": {
+    "preserved": [
+      "class wpdb remains PHP-visible",
+      "global $wpdb can be supplied by wp-content/db.php",
+      "constructor establishes a live mysqli connection",
+      "dbh/result are parent-visible native PHP slots",
+      "col_info remains lazily materialized by WordPress parent logic",
+      "declared public property reflection shape matches wpdb",
+      "dynamic plugin properties remain available",
+      "protected magic writes remain blocked"
+    ],
+    "proof": "WPHX-305.29 provisions mysql-8.4 and mariadb-11.8 from locked images and compares a WPHX_305_29_Wpdb_Db_Connect_Shell subclass against WordPress wpdb for db_connect() success/failure paths, parse_db_host handoff, inherited query() execution paths, get_col_info() paths, flush() resource cleanup, constructor side effects, mysqli_result, lazy col_info, plugin mutation, reflection shape, protected magic write blocks, and db.php replacement."
+  },
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-db-connect-strategy-candidate",
+      "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
+      "npm run wp:core:wphx-305-query-execution-strategy-candidate:check",
+      "npm run wp:core:wphx-305-method-body-strategy-candidate:check",
+      "npm run wp:core:wphx-305-class-shell-resource-strategy-candidate:check",
+      "npm run wp:core:wphx-305-public-state-expanded-storage-adapter-candidate:check",
+      "npm run wp:core:wphx-305-public-state-storage-adapter-candidate:check",
+      "npm run wp:core:wphx-305-public-state-descriptor-candidate:check",
+      "npm run wp:core:wphx-305-row-materialization-candidate:check",
+      "npm run wp:core:wphx-305-mysqli-phpglobal-candidate:check",
+      "npm run format:haxe:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-29-wpdb-db-connect-strategy-candidate",
+      "receipt:wphx-305-28-wpdb-query-execution-strategy-candidate",
+      "receipt:wphx-305-27-wpdb-method-body-strategy-candidate",
+      "receipt:wphx-305-26-wpdb-class-shell-resource-strategy-candidate",
+      "receipt:wphx-305-25-wpdb-public-state-expanded-storage-adapter-candidate",
+      "receipt:wphx-305-24-wpdb-public-state-storage-adapter-candidate",
+      "receipt:wphx-305-23-wpdb-public-state-descriptor-candidate",
+      "receipt:wphx-305-21-wpdb-row-materialization-candidate",
+      "receipt:wphx-305-20-wpdb-mysqli-phpglobal-candidate"
+    ],
+    "manifest_digest": "sha256:e679ab0062f861adb985e34f4486f202ddc967f73f027075e9b93b6082214b64"
+  }
+}

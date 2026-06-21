@@ -1,0 +1,108 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-29-wpdb-db-connect-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.29",
+    "external_ref": "WPHX-305.29",
+    "title": "Move wpdb db_connect native construction beyond the PHP parent shell"
+  },
+  "recorded_at": "2026-06-21T07:50:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+      "role": "typed Haxe wpdb db connect strategy candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+      "role": "db connect strategy ownership manifest"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbDbConnectStrategy.hx",
+      "role": "typed Haxe wpdb db_connect decision policy"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbQueryExecutionStrategy.hx",
+      "role": "predecessor typed Haxe wpdb query execution strategy kept green"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbClassShellStrategy.hx",
+      "role": "predecessor class-shell/native-resource boundary used by the db connect strategy"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-db-connect-strategy-candidate.mjs",
+      "role": "live db_connect/resource/drop-in proof runner"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbPublicStateExpandedStorageAdapter.hx",
+      "role": "predecessor expanded public-state adapter kept green"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbMysqliExecution.hx",
+      "role": "predecessor typed Haxe mysqli @:phpGlobal execution implementation kept green"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbRowMaterialization.hx",
+      "role": "predecessor typed Haxe row materialization implementation kept green"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
+    "npm run wp:core:wphx-305-query-execution-strategy-candidate:check",
+    "npm run wp:core:wphx-305-method-body-strategy-candidate:check",
+    "npm run wp:core:wphx-305-class-shell-resource-strategy-candidate:check",
+    "npm run wp:core:wphx-305-public-state-expanded-storage-adapter-candidate:check",
+    "npm run wp:core:wphx-305-public-state-storage-adapter-candidate:check",
+    "npm run wp:core:wphx-305-public-state-descriptor-candidate:check",
+    "npm run wp:core:wphx-305-row-materialization-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-phpglobal-candidate:check",
+    "npm run format:haxe:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "selected_strategy": "typed-wpdb-db-connect-strategy-and-live-php-abi-shell",
+    "db_runtimes": 2,
+    "runtime_results_passed": true,
+    "constructor_side_effects_preserved": true,
+    "db_connect_success_side_effects_preserved": true,
+    "db_connect_failure_path_preserved": true,
+    "db_host_parse_handoff_preserved": true,
+    "actual_mysqli_query_result_preserved": true,
+    "query_execution_paths_preserved": true,
+    "query_not_ready_and_empty_paths_preserved": true,
+    "query_write_and_insert_id_paths_preserved": true,
+    "query_selected_row_population_preserved": true,
+    "query_error_insert_id_clearing_preserved": true,
+    "get_col_info_all_columns_preserved": true,
+    "get_col_info_single_column_preserved": true,
+    "flush_resource_lifecycle_preserved": true,
+    "lazy_col_info_materialization_preserved": true,
+    "parent_visible_native_resource_bridge_preserved": true,
+    "plugin_dynamic_property_preserved": true,
+    "protected_magic_write_blocks_preserved": true,
+    "reflection_public_properties_preserved": true,
+    "require_wp_db_dropin_replacement_preserved": true,
+    "dropin_db_connect_body_preserved": true,
+    "dropin_method_body_get_col_info_preserved": true,
+    "dropin_method_body_flush_preserved": true,
+    "dropin_query_execution_body_preserved": true,
+    "source_escape_audit_passed": true,
+    "generated_methods_present": true,
+    "strategy_matches_plan": true,
+    "predecessor_statuses": {
+      "query_execution_strategy": "passed",
+      "method_body_strategy": "passed",
+      "class_shell_resource_strategy": "passed",
+      "public_state_expanded_storage_adapter": "passed",
+      "public_state_storage_adapter": "passed",
+      "public_state_descriptor": "passed",
+      "row_materialization": "passed",
+      "mysqli_phpglobal": "passed",
+      "raw_resource": "passed",
+      "mysqli_boundary": "passed"
+    }
+  }
+}
