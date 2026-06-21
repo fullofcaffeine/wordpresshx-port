@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-10-wpdb-dbdelta-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.10",
+    "external_ref": "WPHX-305.10",
+    "title": "Promote next wpdb/dbDelta Haxe candidate slice"
+  },
+  "recorded_at": "2026-06-21T05:45:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-10-wpdb-dbdelta-candidate.v1.json",
+      "role": "wpdb dbDelta live MySQL/MariaDB Haxe candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-10-wpdb-dbdelta-candidate.v1.json",
+      "role": "Haxe parity candidate ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-dbdelta-candidate.mjs",
+      "role": "dbDelta live DB candidate generator and check-mode validator"
+    },
+    {
+      "path": "src/wphx/wp/db/LiveDbSchema.hx",
+      "role": "typed Haxe schema helper decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/DbDeltaPlanner.hx",
+      "role": "typed Haxe dbDelta planning decision implementation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-dbdelta-candidate",
+    "npm run wp:core:wphx-305-dbdelta-candidate:check",
+    "npm run wp:core:wphx-305-live-db-candidate:check",
+    "npm run wp:core:wphx-305-live-db:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_dbdelta_schema_shell",
+    "promoted_symbols": 3,
+    "promoted_decisions": 4,
+    "covered_symbols": 35,
+    "fixture_cases": 13,
+    "db_runtimes": 2,
+    "comparisons": 2,
+    "skipped_runtimes": 0
+  }
+}
