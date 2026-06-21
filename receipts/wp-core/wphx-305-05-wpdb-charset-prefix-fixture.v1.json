@@ -1,0 +1,39 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-05-wpdb-charset-prefix-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.9.5",
+    "external_ref": "WPHX-305.05",
+    "title": "Build charset/collation and prefix fixture harness"
+  },
+  "recorded_at": "2026-06-21T02:05:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+      "role": "wpdb charset/collation and prefix differential fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+      "role": "external-oracle ownership manifest for the fixture harness"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-charset-prefix-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-charset-prefix",
+    "npm run wp:core:wphx-305-charset-prefix:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 20,
+    "fixture_cases": 13,
+    "scenarios": 2,
+    "comparisons": 6,
+    "skipped_runtimes": 0
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-charset-prefix-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.9.5",
+    "external_ref": "WPHX-305.05"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "wpdb charset/collation and prefix differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "WordPress 7.0 wpdb charset/collation setup, table metadata interpretation, safe-collation query checks, table-prefix/bootstrap behavior, multisite blog switching, host parsing, and server capability gates stay observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/class-wpdb.php"
+    ],
+    "digest": "sha256:346e554b7c6f26a08168e2cbf1ad51452edbeb84ca83aea8c9316ef288989547"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wpdb-charset-prefix-fixture.mjs",
+    "manifests/wp-core/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+    "receipts/wp-core/wphx-305-05-wpdb-charset-prefix-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+    "manifests/ownership/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+    "receipts/wp-core/wphx-305-05-wpdb-charset-prefix-fixture.v1.json",
+    "build/wp-core/wphx-305-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-charset-prefix",
+      "npm run wp:core:wphx-305-charset-prefix:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-05-wpdb-charset-prefix-fixture"
+    ],
+    "manifest_digest": "sha256:9f80c4f764728ccad3c5be9df4e5b0111fed3e34800bf8d036ec1a22186a191e"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-305.05. The probe loads WordPress load.php and class-wpdb.php, runs separate single-site and multisite bootstrap scenarios, and isolates only live MySQL metadata/native charset calls behind deterministic table metadata and server-info test doubles."
+}
