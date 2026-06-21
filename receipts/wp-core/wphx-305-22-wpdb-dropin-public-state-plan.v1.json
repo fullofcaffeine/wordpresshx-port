@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-22-wpdb-dropin-public-state-plan",
+  "issue": {
+    "id": "wordpresshx-l76.9.22",
+    "external_ref": "WPHX-305.22",
+    "title": "Prove wpdb drop-in/public state ownership boundary"
+  },
+  "recorded_at": "2026-06-21T06:55:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-22-wpdb-dropin-public-state-plan.v1.json",
+      "role": "wpdb drop-in and public-state boundary plan manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-22-wpdb-dropin-public-state-plan.v1.json",
+      "role": "Haxe port plan ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-dropin-public-state-plan.mjs",
+      "role": "wpdb drop-in/public-state boundary generator and check-mode validator"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbRowMaterialization.hx",
+      "role": "predecessor typed Haxe row materialization implementation kept green"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbMysqliExecution.hx",
+      "role": "predecessor typed Haxe mysqli @:phpGlobal execution implementation kept green"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-dropin-public-state-plan",
+    "npm run wp:core:wphx-305-dropin-public-state-plan:check",
+    "npm run wp:core:wphx-305-row-materialization-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-phpglobal-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "selected_strategy": "typed-wpdb-public-state-descriptor-and-shell-contract",
+    "public_property_count": 46,
+    "magic_visible_internal_property_count": 16,
+    "magic_method_count": 4,
+    "dynamic_properties_required": true,
+    "db_dropin_replacement_required": true,
+    "predecessor_row_materialization_status": "passed",
+    "predecessor_mysqli_phpglobal_status": "passed"
+  }
+}

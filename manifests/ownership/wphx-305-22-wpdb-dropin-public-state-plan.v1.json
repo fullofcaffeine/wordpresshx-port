@@ -1,0 +1,75 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-dropin-public-state-plan",
+  "issue": {
+    "id": "wordpresshx-l76.9.22",
+    "external_ref": "WPHX-305.22"
+  },
+  "unit": {
+    "kind": "design-receipt",
+    "name": "wpdb drop-in and public-state ownership boundary plan",
+    "area": "wp-includes/wp-admin",
+    "public_contract": "WordPress-compatible wpdb remains a PHP-visible class and global object with declared public properties, dynamic property allowance, magic accessors, and db.php replacement timing intact while the next Haxe slice starts with a typed public-state descriptor and shell contract proof."
+  },
+  "ownership_state": "haxe_port_plan",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wpdb.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/wp-db.php",
+      "src/wp-settings.php",
+      "src/wp-admin/install.php",
+      "src/wp-admin/setup-config.php",
+      "src/wp-admin/includes/plugin.php",
+      "src/wp-admin/includes/update-core.php",
+      "src/wp-admin/update-core.php",
+      "src/wp-admin/upgrade.php"
+    ],
+    "digest": "sha256:48edbbc947f95add6951a064bc6c446748a006b769d0c52809b7213820c32043"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wpdb-dropin-public-state-plan.mjs",
+    "manifests/wp-core/wphx-305-22-wpdb-dropin-public-state-plan.v1.json",
+    "receipts/wp-core/wphx-305-22-wpdb-dropin-public-state-plan.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-305-22-wpdb-dropin-public-state-plan.v1.json",
+    "manifests/ownership/wphx-305-22-wpdb-dropin-public-state-plan.v1.json",
+    "receipts/wp-core/wphx-305-22-wpdb-dropin-public-state-plan.v1.json"
+  ],
+  "bridge": {
+    "kind": "public_php_abi_shell",
+    "reason": "The wpdb class is both a core database abstraction and a plugin/drop-in ABI object. WPHX-305.22 keeps the PHP-visible shell and db.php replacement seam authoritative while defining the minimal typed Haxe descriptor slice needed before public mutable state can move behind that shell.",
+    "bounded_by": [
+      "upstream wpdb class AST property/method inventory",
+      "require_wp_db() db.php early-return sequence",
+      "WPHX-305.21 row materialization live candidate receipt",
+      "WPHX-305.20 mysqli @:phpGlobal live candidate receipt",
+      "future WPHX-305.23 typed public-state descriptor candidate"
+    ]
+  },
+  "removal_gate": {
+    "condition": "Do not replace require_wp_db(), class wpdb declaration shape, or global $wpdb instantiation until a typed descriptor/shell proof preserves declared public fields, magic-visible internal state, dynamic properties, db.php replacement, and live WPHX-305 database gates.",
+    "owner_issue": "WPHX-305.23",
+    "target_state": "verified_haxe_owned_public_state_shell"
+  },
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-dropin-public-state-plan",
+      "npm run wp:core:wphx-305-dropin-public-state-plan:check",
+      "npm run wp:core:wphx-305-row-materialization-candidate:check",
+      "npm run wp:core:wphx-305-mysqli-phpglobal-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-22-wpdb-dropin-public-state-plan",
+      "receipt:wphx-305-21-wpdb-row-materialization-candidate",
+      "receipt:wphx-305-20-wpdb-mysqli-phpglobal-candidate"
+    ],
+    "manifest_digest": "sha256:30ec3e1ec84ec6a44d2bc8afc9aab59b0ad40124f156d1ca7f0c552e2810521d"
+  }
+}

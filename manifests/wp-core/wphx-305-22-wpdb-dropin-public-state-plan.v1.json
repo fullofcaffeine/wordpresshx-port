@@ -1,0 +1,1640 @@
+{
+  "schema": "wphx.wp-core-wpdb-dropin-public-state-plan.v1",
+  "issue": "WPHX-305.22",
+  "generated_at": "2026-06-21T06:55:00.000Z",
+  "generator": "tools/wp-core/run-wpdb-dropin-public-state-plan.mjs",
+  "inputs": {
+    "wpdb_surface_manifest": {
+      "path": "manifests/wp-core/wphx-305-01-wpdb-surface.v1.json",
+      "bytes": 146747,
+      "sha256": "sha256:caf57a36d30979862b6f3bcb74fa3668e17d68dac2db7f2776e03b60d6dc8616"
+    },
+    "mysqli_phpglobal_candidate_manifest": {
+      "path": "manifests/wp-core/wphx-305-20-wpdb-mysqli-phpglobal-candidate.v1.json",
+      "bytes": 96632,
+      "sha256": "sha256:df054684218dee8f34a93d5d018838b5fbe4947842c43f6a30f6d6b807f802fa"
+    },
+    "row_materialization_candidate_manifest": {
+      "path": "manifests/wp-core/wphx-305-21-wpdb-row-materialization-candidate.v1.json",
+      "bytes": 103491,
+      "sha256": "sha256:74022c10c23983c6d2d70e7d940a7ec0ebb99642c810f0b8029def6f7b1b30aa"
+    },
+    "source_units": [
+      {
+        "path": "src/wp-includes/class-wpdb.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wpdb.php",
+        "bytes": 118638,
+        "sha256": "sha256:99a30801ae7ed3ddb6faf5feef3b564210c8dc681fc42b8cd1ea7da0904218b5"
+      },
+      {
+        "path": "src/wp-includes/load.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/load.php",
+        "bytes": 56475,
+        "sha256": "sha256:3efd0934bd8a454a8d7076fbbd21504ea097a753125a48e64b8a1dad380d357a"
+      },
+      {
+        "path": "src/wp-includes/wp-db.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/wp-db.php",
+        "bytes": 445,
+        "sha256": "sha256:9d82cf0ad6d04f044da36e20f724b314146edea68dc57f43334082a5ce4dd12e"
+      },
+      {
+        "path": "src/wp-settings.php",
+        "repo_path": "../wordpress-develop/src/wp-settings.php",
+        "bytes": 32650,
+        "sha256": "sha256:e56fb879616515a04ead712bd6c72026c2177ff09bae14efa60d0046e6bb7861"
+      },
+      {
+        "path": "src/wp-admin/install.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/install.php",
+        "bytes": 18337,
+        "sha256": "sha256:0870081ba09fdd86122ddb5afbcca4364c954614ee8d9d07058eabe4e1d8eda3"
+      },
+      {
+        "path": "src/wp-admin/setup-config.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/setup-config.php",
+        "bytes": 17945,
+        "sha256": "sha256:44625b1c354c8f4f8975367ada80fe92edb8fe49d7321b2f0fc1aeef26c7b0ff"
+      },
+      {
+        "path": "src/wp-admin/includes/plugin.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/plugin.php",
+        "bytes": 93281,
+        "sha256": "sha256:794037bced480bf6653098e094b76729d0cc8ba1bca1d6a756f6f32c9864c007"
+      },
+      {
+        "path": "src/wp-admin/includes/update-core.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/update-core.php",
+        "bytes": 72771,
+        "sha256": "sha256:f2ca29198ccb461c9101cf28940c40c20d7b139a85ecefd433de37ddf9f75f3d"
+      },
+      {
+        "path": "src/wp-admin/update-core.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/update-core.php",
+        "bytes": 46202,
+        "sha256": "sha256:eff7c82a67965a93452849328374ef40424d392a9882ae2c6b934c4ba513d940"
+      },
+      {
+        "path": "src/wp-admin/upgrade.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/upgrade.php",
+        "bytes": 6390,
+        "sha256": "sha256:2498f13efeeb2618d342e09ec486fddd777539258bfa5dfe28771c0df63826da"
+      }
+    ],
+    "upstream_digest": "sha256:48edbbc947f95add6951a064bc6c446748a006b769d0c52809b7213820c32043"
+  },
+  "fixture": {
+    "candidate_kind": "design_receipt",
+    "source_domains": [
+      "wpdb class, constants, public state, magic access, errors, and timing",
+      "Database bootstrap, connection, server capability, and unavailable database boundaries",
+      "Query execution, result retrieval, public result state, and query logging"
+    ],
+    "public_state": {
+      "parser": {
+        "package": "php-parser",
+        "errors": []
+      },
+      "class": {
+        "name": "wpdb",
+        "location": {
+          "line": 55,
+          "column": 0,
+          "offset": 1267
+        },
+        "allow_dynamic_properties": true,
+        "doc_declares_db_dropin_replacement": true
+      },
+      "property_counts": {
+        "total": 62,
+        "public": 46,
+        "magic_visible_internal": 16
+      },
+      "method_counts": {
+        "total": 72,
+        "public": 59
+      },
+      "public_properties": [
+        {
+          "name": "base_prefix",
+          "symbol": "wpdb::$base_prefix",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 254,
+            "column": 8,
+            "offset": 5047
+          },
+          "since": "3.0.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "blogid",
+          "symbol": "wpdb::$blogid",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 272,
+            "column": 8,
+            "offset": 5268
+          },
+          "since": "3.0.0",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "blogmeta",
+          "symbol": "wpdb::$blogmeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 481,
+            "column": 8,
+            "offset": 8020
+          },
+          "since": "5.1.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "blogs",
+          "symbol": "wpdb::$blogs",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 472,
+            "column": 8,
+            "offset": 7912
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "charset",
+          "symbol": "wpdb::$charset",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 552,
+            "column": 8,
+            "offset": 9068
+          },
+          "since": "2.2.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "bootstrap_capability_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "collate",
+          "symbol": "wpdb::$collate",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 561,
+            "column": 8,
+            "offset": 9174
+          },
+          "since": "2.2.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "bootstrap_capability_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "commentmeta",
+          "symbol": "wpdb::$commentmeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 369,
+            "column": 8,
+            "offset": 6740
+          },
+          "since": "2.9.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "comments",
+          "symbol": "wpdb::$comments",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 360,
+            "column": 8,
+            "offset": 6631
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "error",
+          "symbol": "wpdb::$error",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 734,
+            "column": 8,
+            "offset": 13305
+          },
+          "since": "2.5.0",
+          "var_type": "WP_Error|string",
+          "default_source": "null",
+          "default_kind": "nullkeyword",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "field_types",
+          "symbol": "wpdb::$field_types",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 543,
+            "column": 8,
+            "offset": 8948
+          },
+          "since": "2.8.0",
+          "var_type": "array",
+          "default_source": "array()",
+          "default_kind": "array",
+          "category": "bootstrap_capability_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "func_call",
+          "symbol": "wpdb::$func_call",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 621,
+            "column": 8,
+            "offset": 9974
+          },
+          "since": "3.0.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "global_tables",
+          "symbol": "wpdb::$global_tables",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 324,
+            "column": 8,
+            "offset": 6061
+          },
+          "since": "3.0.0",
+          "var_type": "string[]",
+          "default_source": "array( 'users', 'usermeta' )",
+          "default_kind": "array",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "insert_id",
+          "symbol": "wpdb::$insert_id",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 120,
+            "column": 8,
+            "offset": 2258
+          },
+          "since": "0.71",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "is_mysql",
+          "symbol": "wpdb::$is_mysql",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 635,
+            "column": 8,
+            "offset": 10369
+          },
+          "since": "3.3.0",
+          "var_type": "bool",
+          "default_source": "null",
+          "default_kind": "nullkeyword",
+          "category": "bootstrap_capability_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "last_error",
+          "symbol": "wpdb::$last_error",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 84,
+            "column": 8,
+            "offset": 1752
+          },
+          "since": "2.5.0",
+          "var_type": "string",
+          "default_source": "''",
+          "default_kind": "string",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "last_query",
+          "symbol": "wpdb::$last_query",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 129,
+            "column": 8,
+            "offset": 2358
+          },
+          "since": "0.71",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "last_result",
+          "symbol": "wpdb::$last_result",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 138,
+            "column": 8,
+            "offset": 2470
+          },
+          "since": "0.71",
+          "var_type": "stdClass[]|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "links",
+          "symbol": "wpdb::$links",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 378,
+            "column": 8,
+            "offset": 6841
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "ms_global_tables",
+          "symbol": "wpdb::$ms_global_tables",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 334,
+            "column": 8,
+            "offset": 6231
+          },
+          "since": "3.0.0",
+          "var_type": "string[]",
+          "default_source": "array(\n\t\t'blogs',\n\t\t'blogmeta',\n\t\t'signups',\n\t\t'site',\n\t\t'sitemeta',\n\t\t'registration_log',\n\t)",
+          "default_kind": "array",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "num_queries",
+          "symbol": "wpdb::$num_queries",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 93,
+            "column": 8,
+            "offset": 1859
+          },
+          "since": "1.2.0",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "num_rows",
+          "symbol": "wpdb::$num_rows",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 102,
+            "column": 8,
+            "offset": 1979
+          },
+          "since": "0.71",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "old_ms_global_tables",
+          "symbol": "wpdb::$old_ms_global_tables",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 351,
+            "column": 8,
+            "offset": 6490
+          },
+          "since": "6.1.0",
+          "var_type": "string[]",
+          "default_source": "array( 'sitecategories' )",
+          "default_kind": "array",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "old_tables",
+          "symbol": "wpdb::$old_tables",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 314,
+            "column": 8,
+            "offset": 5877
+          },
+          "since": "2.9.0",
+          "var_type": "string[]",
+          "default_source": "array( 'categories', 'post2cat', 'link2cat' )",
+          "default_kind": "array",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "options",
+          "symbol": "wpdb::$options",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 387,
+            "column": 8,
+            "offset": 6938
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "postmeta",
+          "symbol": "wpdb::$postmeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 396,
+            "column": 8,
+            "offset": 7043
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "posts",
+          "symbol": "wpdb::$posts",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 405,
+            "column": 8,
+            "offset": 7141
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "prefix",
+          "symbol": "wpdb::$prefix",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 245,
+            "column": 8,
+            "offset": 4940
+          },
+          "since": "2.5.0",
+          "var_type": "string",
+          "default_source": "''",
+          "default_kind": "string",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "queries",
+          "symbol": "wpdb::$queries",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 224,
+            "column": 8,
+            "offset": 4565
+          },
+          "since": "1.5.0",
+          "var_type": "array[] {",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "ready",
+          "symbol": "wpdb::$ready",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 263,
+            "column": 8,
+            "offset": 5182
+          },
+          "since": "2.3.2",
+          "var_type": "bool",
+          "default_source": "false",
+          "default_kind": "boolean",
+          "category": "bootstrap_capability_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "registration_log",
+          "symbol": "wpdb::$registration_log",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 490,
+            "column": 8,
+            "offset": 8134
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "rows_affected",
+          "symbol": "wpdb::$rows_affected",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 111,
+            "column": 8,
+            "offset": 2096
+          },
+          "since": "0.71",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "show_errors",
+          "symbol": "wpdb::$show_errors",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 66,
+            "column": 8,
+            "offset": 1462
+          },
+          "since": "0.71",
+          "var_type": "bool",
+          "default_source": "false",
+          "default_kind": "boolean",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "signups",
+          "symbol": "wpdb::$signups",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 499,
+            "column": 8,
+            "offset": 8247
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "site",
+          "symbol": "wpdb::$site",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 508,
+            "column": 8,
+            "offset": 8349
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "sitecategories",
+          "symbol": "wpdb::$sitecategories",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 517,
+            "column": 8,
+            "offset": 8457
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "siteid",
+          "symbol": "wpdb::$siteid",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 281,
+            "column": 8,
+            "offset": 5351
+          },
+          "since": "3.0.0",
+          "var_type": "int",
+          "default_source": "0",
+          "default_kind": "number",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "sitemeta",
+          "symbol": "wpdb::$sitemeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 526,
+            "column": 8,
+            "offset": 8574
+          },
+          "since": "3.0.0",
+          "var_type": "string|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "suppress_errors",
+          "symbol": "wpdb::$suppress_errors",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 75,
+            "column": 8,
+            "offset": 1617
+          },
+          "since": "2.5.0",
+          "var_type": "bool",
+          "default_source": "false",
+          "default_kind": "boolean",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "tables",
+          "symbol": "wpdb::$tables",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 291,
+            "column": 8,
+            "offset": 5489
+          },
+          "since": "2.5.0",
+          "var_type": "string[]",
+          "default_source": "array(\n\t\t'posts',\n\t\t'comments',\n\t\t'links',\n\t\t'options',\n\t\t'postmeta',\n\t\t'terms',\n\t\t'term_taxonomy',\n\t\t'term_relationships',\n\t\t'termmeta',\n\t\t'commentmeta',\n\t)",
+          "default_kind": "array",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "term_relationships",
+          "symbol": "wpdb::$term_relationships",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 423,
+            "column": 8,
+            "offset": 7344
+          },
+          "since": "2.3.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "term_taxonomy",
+          "symbol": "wpdb::$term_taxonomy",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 432,
+            "column": 8,
+            "offset": 7460
+          },
+          "since": "2.3.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "termmeta",
+          "symbol": "wpdb::$termmeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 441,
+            "column": 8,
+            "offset": 7567
+          },
+          "since": "4.4.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "terms",
+          "symbol": "wpdb::$terms",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 414,
+            "column": 8,
+            "offset": 7236
+          },
+          "since": "2.3.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "time_start",
+          "symbol": "wpdb::$time_start",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 725,
+            "column": 8,
+            "offset": 13171
+          },
+          "since": "1.5.0",
+          "var_type": "float",
+          "default_source": "null",
+          "default_kind": "nullkeyword",
+          "category": "query_result_error_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "usermeta",
+          "symbol": "wpdb::$usermeta",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 454,
+            "column": 8,
+            "offset": 7714
+          },
+          "since": "2.3.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        },
+        {
+          "name": "users",
+          "symbol": "wpdb::$users",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 463,
+            "column": 8,
+            "offset": 7812
+          },
+          "since": "1.5.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "table_prefix_and_table_name_state",
+          "mutation_policy": "direct_public_read_write",
+          "shell_contract": "must remain declared PHP property"
+        }
+      ],
+      "magic_visible_internal_properties": [
+        {
+          "name": "allow_unsafe_unquoted_parameters",
+          "symbol": "wpdb::$allow_unsafe_unquoted_parameters",
+          "visibility": "private",
+          "static": false,
+          "location": {
+            "line": 690,
+            "column": 9,
+            "offset": 12371
+          },
+          "since": "6.2.0",
+          "var_type": "bool",
+          "default_source": "true",
+          "default_kind": "boolean",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_readable_write_blocked_by_wpdb___set",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "check_current_query",
+          "symbol": "wpdb::$check_current_query",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 181,
+            "column": 11,
+            "offset": 3333
+          },
+          "since": "4.2.0",
+          "var_type": "bool",
+          "default_source": "true",
+          "default_kind": "boolean",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_readable_write_blocked_by_wpdb___set",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "checking_collation",
+          "symbol": "wpdb::$checking_collation",
+          "visibility": "private",
+          "static": false,
+          "location": {
+            "line": 191,
+            "column": 9,
+            "offset": 3544
+          },
+          "since": "4.2.0",
+          "var_type": "bool",
+          "default_source": "false",
+          "default_kind": "boolean",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "col_info",
+          "symbol": "wpdb::$col_info",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 200,
+            "column": 11,
+            "offset": 3670
+          },
+          "since": "0.71",
+          "var_type": "array",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_readable_lazy_load_on___get",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "col_meta",
+          "symbol": "wpdb::$col_meta",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 163,
+            "column": 11,
+            "offset": 3033
+          },
+          "since": "4.2.0",
+          "var_type": "array",
+          "default_source": "array()",
+          "default_kind": "array",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_readable_write_blocked_by_wpdb___set",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "dbh",
+          "symbol": "wpdb::$dbh",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 612,
+            "column": 11,
+            "offset": 9842
+          },
+          "since": "0.71",
+          "var_type": "mysqli|false|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "dbhost",
+          "symbol": "wpdb::$dbhost",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 597,
+            "column": 11,
+            "offset": 9551
+          },
+          "since": "3.1.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "dbname",
+          "symbol": "wpdb::$dbname",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 588,
+            "column": 11,
+            "offset": 9460
+          },
+          "since": "3.1.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "dbpassword",
+          "symbol": "wpdb::$dbpassword",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 579,
+            "column": 11,
+            "offset": 9365
+          },
+          "since": "3.1.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "dbuser",
+          "symbol": "wpdb::$dbuser",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 570,
+            "column": 11,
+            "offset": 9270
+          },
+          "since": "2.9.0",
+          "var_type": "string",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "has_connected",
+          "symbol": "wpdb::$has_connected",
+          "visibility": "private",
+          "static": false,
+          "location": {
+            "line": 714,
+            "column": 9,
+            "offset": 12985
+          },
+          "since": "3.9.0",
+          "var_type": "bool",
+          "default_source": "false",
+          "default_kind": "boolean",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "incompatible_modes",
+          "symbol": "wpdb::$incompatible_modes",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 644,
+            "column": 11,
+            "offset": 10490
+          },
+          "since": "3.9.0",
+          "var_type": "string[]",
+          "default_source": "array(\n\t\t'NO_ZERO_DATE',\n\t\t'ONLY_FULL_GROUP_BY',\n\t\t'STRICT_TRANS_TABLES',\n\t\t'STRICT_ALL_TABLES',\n\t\t'TRADITIONAL',\n\t\t'ANSI',\n\t)",
+          "default_kind": "array",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "reconnect_retries",
+          "symbol": "wpdb::$reconnect_retries",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 234,
+            "column": 11,
+            "offset": 4740
+          },
+          "since": "3.9.0",
+          "var_type": "int",
+          "default_source": "5",
+          "default_kind": "number",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "result",
+          "symbol": "wpdb::$result",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 154,
+            "column": 11,
+            "offset": 2891
+          },
+          "since": "0.71",
+          "var_type": "mysqli_result|bool|null",
+          "default_source": null,
+          "default_kind": "implicit_null",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "table_charset",
+          "symbol": "wpdb::$table_charset",
+          "visibility": "protected",
+          "static": false,
+          "location": {
+            "line": 172,
+            "column": 11,
+            "offset": 3170
+          },
+          "since": "4.2.0",
+          "var_type": "string[]",
+          "default_source": "array()",
+          "default_kind": "array",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_readable_write_blocked_by_wpdb___set",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        },
+        {
+          "name": "use_mysqli",
+          "symbol": "wpdb::$use_mysqli",
+          "visibility": "private",
+          "static": false,
+          "location": {
+            "line": 705,
+            "column": 9,
+            "offset": 12841
+          },
+          "since": "3.9.0",
+          "var_type": "bool",
+          "default_source": "true",
+          "default_kind": "boolean",
+          "category": "magic_visible_internal_state",
+          "mutation_policy": "magic_read_write_unset_backward_compat",
+          "shell_contract": "must remain reachable through wpdb magic accessors"
+        }
+      ],
+      "public_magic_methods": [
+        {
+          "name": "__get",
+          "symbol": "wpdb::__get",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 783,
+            "column": 1,
+            "offset": 14419
+          },
+          "since": "3.5.0",
+          "parameters": [
+            {
+              "index": 0,
+              "name": "name",
+              "by_reference": false,
+              "variadic": false,
+              "default_source": null
+            }
+          ]
+        },
+        {
+          "name": "__isset",
+          "symbol": "wpdb::__isset",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 820,
+            "column": 1,
+            "offset": 15218
+          },
+          "since": "3.5.0",
+          "parameters": [
+            {
+              "index": 0,
+              "name": "name",
+              "by_reference": false,
+              "variadic": false,
+              "default_source": null
+            }
+          ]
+        },
+        {
+          "name": "__set",
+          "symbol": "wpdb::__set",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 799,
+            "column": 1,
+            "offset": 14740
+          },
+          "since": "3.5.0",
+          "parameters": [
+            {
+              "index": 0,
+              "name": "name",
+              "by_reference": false,
+              "variadic": false,
+              "default_source": null
+            },
+            {
+              "index": 1,
+              "name": "value",
+              "by_reference": false,
+              "variadic": false,
+              "default_source": null
+            }
+          ]
+        },
+        {
+          "name": "__unset",
+          "symbol": "wpdb::__unset",
+          "visibility": "public",
+          "static": false,
+          "location": {
+            "line": 831,
+            "column": 1,
+            "offset": 15447
+          },
+          "since": "3.5.0",
+          "parameters": [
+            {
+              "index": 0,
+              "name": "name",
+              "by_reference": false,
+              "variadic": false,
+              "default_source": null
+            }
+          ]
+        }
+      ],
+      "public_constructor": {
+        "name": "__construct",
+        "symbol": "wpdb::__construct",
+        "visibility": "public",
+        "static": false,
+        "location": {
+          "line": 751,
+          "column": 1,
+          "offset": 13754
+        },
+        "since": "2.0.8",
+        "parameters": [
+          {
+            "index": 0,
+            "name": "dbuser",
+            "by_reference": false,
+            "variadic": false,
+            "default_source": null
+          },
+          {
+            "index": 1,
+            "name": "dbpassword",
+            "by_reference": false,
+            "variadic": false,
+            "default_source": null
+          },
+          {
+            "index": 2,
+            "name": "dbname",
+            "by_reference": false,
+            "variadic": false,
+            "default_source": null
+          },
+          {
+            "index": 3,
+            "name": "dbhost",
+            "by_reference": false,
+            "variadic": false,
+            "default_source": null
+          }
+        ]
+      }
+    },
+    "bootstrap_dropin_boundary": {
+      "sequence": [
+        {
+          "order": 1,
+          "path": "src/wp-settings.php",
+          "action": "global $wpdb is declared and require_wp_db() is called during bootstrap",
+          "invariant": "distribution must keep this call path PHP-visible before most plugin/theme code observes $wpdb"
+        },
+        {
+          "order": 2,
+          "path": "src/wp-includes/load.php",
+          "action": "require_wp_db() includes wp-includes/class-wpdb.php",
+          "invariant": "class wpdb must remain loadable even when a db.php drop-in supplies the global object"
+        },
+        {
+          "order": 3,
+          "path": "src/wp-includes/load.php",
+          "action": "require_wp_db() includes wp-content/db.php when present",
+          "invariant": "drop-ins can set global $wpdb to a replacement class before core instantiates wpdb"
+        },
+        {
+          "order": 4,
+          "path": "src/wp-includes/load.php",
+          "action": "require_wp_db() returns early when $wpdb is already set",
+          "invariant": "Haxe distribution must not eagerly overwrite a drop-in replacement"
+        },
+        {
+          "order": 5,
+          "path": "src/wp-includes/load.php",
+          "action": "require_wp_db() instantiates new wpdb(DB_USER, DB_PASSWORD, DB_NAME, DB_HOST)",
+          "invariant": "default construction remains the core-owned fallback when no db.php replacement exists"
+        },
+        {
+          "order": 6,
+          "path": "src/wp-includes/load.php",
+          "action": "wp_set_wpdb_vars() mutates $wpdb->field_types and calls $wpdb->set_prefix($table_prefix)",
+          "invariant": "public field_types/table-prefix mutation must stay compatible with direct property assignment"
+        }
+      ],
+      "source_lines": {
+        "wp_settings": [
+          {
+            "line": 134,
+            "text": "global $wpdb;"
+          },
+          {
+            "line": 136,
+            "text": "require_wp_db();"
+          }
+        ],
+        "load_require_wp_db": [
+          {
+            "line": 203,
+            "text": "\t\t&& ! file_exists( $wp_content_dir . '/db.php' )"
+          },
+          {
+            "line": 706,
+            "text": "function require_wp_db() {"
+          },
+          {
+            "line": 709,
+            "text": "\trequire_once ABSPATH . WPINC . '/class-wpdb.php';"
+          },
+          {
+            "line": 711,
+            "text": "\tif ( file_exists( WP_CONTENT_DIR . '/db.php' ) ) {"
+          },
+          {
+            "line": 712,
+            "text": "\t\trequire_once WP_CONTENT_DIR . '/db.php';"
+          },
+          {
+            "line": 715,
+            "text": "\tif ( isset( $wpdb ) ) {"
+          },
+          {
+            "line": 724,
+            "text": "\t$wpdb = new wpdb( $dbuser, $dbpassword, $dbname, $dbhost );"
+          }
+        ],
+        "load_set_wpdb_vars": [
+          {
+            "line": 739,
+            "text": "function wp_set_wpdb_vars() {"
+          },
+          {
+            "line": 746,
+            "text": "\t$wpdb->field_types = array("
+          },
+          {
+            "line": 784,
+            "text": "\t$prefix = $wpdb->set_prefix( $table_prefix );"
+          }
+        ],
+        "admin_db_dropin_checks": [
+          {
+            "line": 44,
+            "text": "require_once ABSPATH . WPINC . '/class-wpdb.php';"
+          },
+          {
+            "line": 238,
+            "text": "$mysql_compat  = version_compare( $mysql_version, $required_mysql_version, '>=' ) || file_exists( WP_CONTENT_DIR . '/db.php' );"
+          },
+          {
+            "line": 317,
+            "text": "if ( ! is_string( $wpdb->base_prefix ) || '' === $wpdb->base_prefix ) {"
+          },
+          {
+            "line": 86,
+            "text": "\t\t\tif ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {"
+          },
+          {
+            "line": 48,
+            "text": "if ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {"
+          },
+          {
+            "line": 71,
+            "text": "\t'wp-admin/admin-db.php',"
+          },
+          {
+            "line": 1187,
+            "text": "\tif ( file_exists( WP_CONTENT_DIR . '/db.php' ) && empty( $wpdb->is_mysql ) ) {"
+          },
+          {
+            "line": 503,
+            "text": "\t\t'db.php'                  => array( __( 'Custom database class.' ), true ),          // Auto on load."
+          }
+        ]
+      }
+    },
+    "selected_next_slice": {
+      "id": "typed-wpdb-public-state-descriptor-and-shell-contract",
+      "target_issue": "WPHX-305.23",
+      "selected_because": "WPHX-305.21 moved row materialization into typed Haxe, but the next risk is not another SQL branch: it is preserving the wpdb class as a PHP ABI object while Haxe starts owning state defaults and mutation policy. The minimal safe implementation slice is a typed Haxe descriptor plus PHP shell adapter proof, leaving require_wp_db()/db.php replacement timing untouched.",
+      "must_preserve": [
+        "class name wpdb and global $wpdb bootstrap semantics",
+        "#[AllowDynamicProperties] behavior for plugin-added fields",
+        "declared public property names and direct assignment/read behavior",
+        "__get/__set/__isset/__unset magic access for protected/private backward compatibility",
+        "db.php drop-in early-return behavior in require_wp_db()",
+        "wp_set_wpdb_vars() direct field_types assignment and set_prefix() call",
+        "WPHX-305.21 row materialization and WPHX-305.20 mysqli @:phpGlobal execution gates"
+      ],
+      "implementation_sketch": [
+        "Add typed Haxe WpdbPublicStateDescriptor constants for declared public properties, magic-visible internals, default-value policy, and protected write-block names.",
+        "Generate a PHP-visible wpdb shell check that verifies declared public properties, AllowDynamicProperties, and magic methods remain reflection-compatible with WordPress 7.0.",
+        "Keep constructor, require_wp_db(), db.php inclusion, and global $wpdb replacement in PHP-visible shell code until the descriptor proof passes under bootstrap/drop-in probes.",
+        "Only after that proof should individual state fields move to Haxe-owned storage helpers behind the shell."
+      ],
+      "not_selected_yet": [
+        {
+          "option": "replace require_wp_db() with generated Haxe bootstrap",
+          "reason": "Too much load-order and drop-in risk before a property/magic/dynamic contract receipt exists."
+        },
+        {
+          "option": "move all wpdb properties into typed Haxe storage immediately",
+          "reason": "Plugins can read/write declared public properties and add dynamic ones; moving storage first would risk reflection and mutation regressions."
+        },
+        {
+          "option": "custom PHP target for full wpdb class emission",
+          "reason": "May still become useful, but WPHX-305.22 shows the next blocker is ABI contract proof, not target lowering."
+        }
+      ],
+      "scope_boundaries": {
+        "public_property_count": 46,
+        "magic_visible_internal_property_count": 16,
+        "magic_methods": [
+          "wpdb::__get",
+          "wpdb::__isset",
+          "wpdb::__set",
+          "wpdb::__unset"
+        ],
+        "dynamic_properties_required": true
+      }
+    },
+    "inherited_mysqli_phpglobal_candidate": {
+      "manifest": "manifests/wp-core/wphx-305-20-wpdb-mysqli-phpglobal-candidate.v1.json",
+      "validation_result": {
+        "status": "passed",
+        "candidate_kind": "haxe_generated_wpdb_mysqli_phpglobal_shell",
+        "selected_strategy": "typed-haxe-phpglobal-mysqli-execution",
+        "direct_query_call_detected": true,
+        "direct_fetch_object_call_detected": true,
+        "generated_mysqli_boundary_detected": false,
+        "shell_uses_query_helper": true,
+        "shell_uses_fetch_helper": true,
+        "promoted_symbols": 14,
+        "promoted_decisions": 32,
+        "covered_symbols": 43,
+        "fixture_cases": 18,
+        "db_runtimes": 2,
+        "comparisons": 2,
+        "skipped_runtimes": 0
+      }
+    },
+    "inherited_row_materialization_candidate": {
+      "manifest": "manifests/wp-core/wphx-305-21-wpdb-row-materialization-candidate.v1.json",
+      "validation_result": {
+        "status": "passed",
+        "candidate_kind": "haxe_generated_wpdb_row_materialization_shell",
+        "selected_strategy": "typed-haxe-row-materialization",
+        "direct_query_call_detected": true,
+        "direct_fetch_object_call_detected": true,
+        "direct_row_is_object_call_detected": true,
+        "direct_row_get_object_vars_call_detected": true,
+        "direct_row_array_values_call_detected": true,
+        "direct_row_array_shift_call_detected": true,
+        "generated_mysqli_boundary_detected": false,
+        "shell_uses_query_helper": true,
+        "shell_uses_fetch_helper": true,
+        "shell_uses_row_materialization_helper": true,
+        "raw_object_vars_in_wpdb_shell": false,
+        "promoted_symbols": 14,
+        "promoted_decisions": 38,
+        "covered_symbols": 43,
+        "fixture_cases": 18,
+        "db_runtimes": 2,
+        "comparisons": 2,
+        "skipped_runtimes": 0
+      }
+    },
+    "public_abi_policy": {
+      "preserve_class_name_wpdb": true,
+      "preserve_global_wpdb": true,
+      "preserve_db_php_dropin_replacement": true,
+      "preserve_declared_public_properties": true,
+      "preserve_magic_accessors": true,
+      "preserve_dynamic_properties": true,
+      "raw_php_syntax_code_used_in_haxe": false,
+      "generated_php_postprocessing_required": false
+    },
+    "closes_gaps_from": [
+      {
+        "manifest": "manifests/wp-core/wphx-305-21-wpdb-row-materialization-candidate.v1.json",
+        "gap": "full-wpdb-drop-in-and-public-state-ownership-not-yet-proven",
+        "resolution": "WPHX-305.22 proves the next ownership boundary as a design receipt: first add a typed public-state descriptor and PHP shell contract proof, preserving db.php replacement timing and PHP-visible wpdb properties before moving individual state storage into Haxe."
+      }
+    ],
+    "remaining_gaps": [
+      {
+        "id": "typed-public-state-descriptor-not-yet-implemented",
+        "owner": "WPHX-305.23",
+        "detail": "This receipt selects the next implementation slice but does not yet add WpdbPublicStateDescriptor or a reflection/drop-in shell candidate."
+      },
+      {
+        "id": "require-wp-db-bootstrap-not-yet-haxe-owned",
+        "owner": "future WPHX-305 bootstrap distribution workset",
+        "detail": "require_wp_db(), db.php inclusion, and global $wpdb replacement remain PHP-visible WordPress shell behavior until the public-state descriptor proof is green."
+      },
+      {
+        "id": "full-upstream-phpunit-not-yet-ported",
+        "owner": "WPHX-305",
+        "detail": "Live database gates cover the current wpdb slices, but full upstream wpdb/dbDelta/option PHPUnit parity remains a domain closure requirement."
+      }
+    ]
+  },
+  "validation_result": {
+    "status": "passed",
+    "selected_strategy": "typed-wpdb-public-state-descriptor-and-shell-contract",
+    "public_property_count": 46,
+    "magic_visible_internal_property_count": 16,
+    "magic_method_count": 4,
+    "dynamic_properties_required": true,
+    "db_dropin_replacement_required": true,
+    "predecessor_row_materialization_status": "passed",
+    "predecessor_mysqli_phpglobal_status": "passed"
+  }
+}
