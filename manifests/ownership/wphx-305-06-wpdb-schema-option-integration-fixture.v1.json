@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wpdb-schema-option-integration-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.9.6",
+    "external_ref": "WPHX-305.06"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "wpdb schema-upgrade and option/transient database integration fixture harness",
+    "area": "wp-includes/wp-admin",
+    "public_contract": "WordPress 7.0 schema upgrade helpers and database-backed option/transient storage paths stay observable through upstream upgrade.php, schema.php, option.php, and a wpdb-subclass integration harness while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wpdb.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php",
+      "src/wp-admin/includes/schema.php",
+      "src/wp-admin/includes/upgrade.php"
+    ],
+    "digest": "sha256:3d637e4ff944dd8783efc2042c0252d18844288936712ec923381843c101255b"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wpdb-schema-option-integration-fixture.mjs",
+    "manifests/wp-core/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json",
+    "receipts/wp-core/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json",
+    "manifests/ownership/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json",
+    "receipts/wp-core/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json",
+    "build/wp-core/wphx-305-06"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-305-schema-option",
+      "npm run wp:core:wphx-305-schema-option:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-305-06-wpdb-schema-option-integration-fixture"
+    ],
+    "manifest_digest": "sha256:e7298014d1a97d13bc50c0887bb196d08fa16de403789c8992e0f47b5ad482f3"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-305.06. The probe loads real WordPress upgrade/schema/option code and replaces only live database execution with a deterministic wpdb subclass; the broad wp-admin include required by upgrade.php is stubbed because the exercised dbDelta/maybe_* helpers do not use it."
+}
