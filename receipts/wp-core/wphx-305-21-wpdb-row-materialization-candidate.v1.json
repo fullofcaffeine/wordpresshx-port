@@ -1,0 +1,118 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-21-wpdb-row-materialization-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.21",
+    "external_ref": "WPHX-305.21",
+    "title": "Type wpdb fetched row object materialization"
+  },
+  "recorded_at": "2026-06-21T06:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-21-wpdb-row-materialization-candidate.v1.json",
+      "role": "wpdb row materialization live MySQL/MariaDB Haxe candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-21-wpdb-row-materialization-candidate.v1.json",
+      "role": "Haxe parity candidate ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-row-materialization-candidate.mjs",
+      "role": "wpdb row materialization live DB candidate generator and check-mode validator"
+    },
+    {
+      "path": "src/wphx/wp/db/LiveDbSchema.hx",
+      "role": "typed Haxe schema helper decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/DbDeltaPlanner.hx",
+      "role": "typed Haxe dbDelta planning decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbResultSelector.hx",
+      "role": "typed Haxe wpdb result-selection decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbQueryState.hx",
+      "role": "typed Haxe wpdb query-state decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbNativeExecution.hx",
+      "role": "typed Haxe wpdb native-execution decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbResultPopulation.hx",
+      "role": "typed Haxe wpdb result-population decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbRawResource.hx",
+      "role": "typed Haxe wpdb raw mysqli resource metadata guard implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbMysqliCallGate.hx",
+      "role": "typed Haxe wpdb mysqli query/fetch call gate decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbMysqliExecution.hx",
+      "role": "typed Haxe wpdb mysqli @:phpGlobal execution implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/native/MysqliGlobal.hx",
+      "role": "typed @:phpGlobal mysqli extern implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbRowTraversal.hx",
+      "role": "typed Haxe wpdb fetched-row traversal decision implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbRowMaterialization.hx",
+      "role": "typed Haxe wpdb fetched-row object and field/value materialization implementation"
+    },
+    {
+      "path": "src/wphx/wp/db/native/RowGlobal.hx",
+      "role": "typed @:phpGlobal row/stdClass/native-array extern implementation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-row-materialization-candidate",
+    "npm run wp:core:wphx-305-row-materialization-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-phpglobal-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-mysqli-row-traversal-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-boundary-candidate:check",
+    "npm run wp:core:wphx-305-raw-resource-candidate:check",
+    "npm run wp:core:wphx-305-result-population-candidate:check",
+    "npm run wp:core:wphx-305-native-execution-candidate:check",
+    "npm run wp:core:wphx-305-query-state-candidate:check",
+    "npm run wp:core:wphx-305-query-result-candidate:check",
+    "npm run wp:core:wphx-305-dbdelta-candidate:check",
+    "npm run wp:core:wphx-305-live-db-candidate:check",
+    "npm run wp:core:wphx-305-live-db:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_wpdb_row_materialization_shell",
+    "selected_strategy": "typed-haxe-row-materialization",
+    "direct_query_call_detected": true,
+    "direct_fetch_object_call_detected": true,
+    "direct_row_is_object_call_detected": true,
+    "direct_row_get_object_vars_call_detected": true,
+    "direct_row_array_values_call_detected": true,
+    "direct_row_array_shift_call_detected": true,
+    "generated_mysqli_boundary_detected": false,
+    "shell_uses_query_helper": true,
+    "shell_uses_fetch_helper": true,
+    "shell_uses_row_materialization_helper": true,
+    "raw_object_vars_in_wpdb_shell": false,
+    "promoted_symbols": 14,
+    "promoted_decisions": 38,
+    "covered_symbols": 43,
+    "fixture_cases": 18,
+    "db_runtimes": 2,
+    "comparisons": 2,
+    "skipped_runtimes": 0
+  }
+}
