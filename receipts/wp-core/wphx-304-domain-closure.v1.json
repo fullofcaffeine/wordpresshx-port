@@ -1,0 +1,101 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-304-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.8",
+    "external_ref": "WPHX-304",
+    "title": "Options, transients, object cache"
+  },
+  "recorded_at": "2026-06-21T06:25:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-304-01-options-cache-surface.v1.json",
+      "role": "options/transients/object-cache surface inventory"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-02-option-storage-fixture.v1.json",
+      "role": "option storage/autoload differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-03-transient-fixture.v1.json",
+      "role": "transient and site-transient differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-04-object-cache-fixture.v1.json",
+      "role": "object-cache runtime/drop-in differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-05-serialization-cache-fixture.v1.json",
+      "role": "serialization/cache salt/invalidation differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-06-settings-defaults-fixture.v1.json",
+      "role": "settings/default-option registry differential fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-304-07-option-cache-candidate.v1.json",
+      "role": "first typed Haxe option/cache parity candidate"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-304-surface:check",
+    "npm run wp:core:wphx-304-option-storage:check",
+    "npm run wp:core:wphx-304-transients:check",
+    "npm run wp:core:wphx-304-object-cache:check",
+    "npm run wp:core:wphx-304-serialization-cache:check",
+    "npm run wp:core:wphx-304-settings-defaults:check",
+    "npm run wp:core:wphx-304-option-cache-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "follow_up": [
+    {
+      "issue": "WPHX-305",
+      "bead": "wordpresshx-l76.9",
+      "reason": "Owns real wpdb/database abstraction parity for option/transient fixtures that currently use deterministic wpdb test doubles."
+    },
+    {
+      "issue": "WPHX-311",
+      "bead": "wordpresshx-l76.10",
+      "reason": "Owns REST API and schema parity, including the show_in_rest settings-controller behavior surfaced by WPHX-304.06."
+    },
+    {
+      "issue": "WPHX-317",
+      "bead": "wordpresshx-l76.11",
+      "reason": "Owns multisite/network behavior, including site-option and site-transient sitemeta paths deferred by WPHX-304."
+    },
+    {
+      "issue": "WPHX-322",
+      "bead": "wordpresshx-l76.12",
+      "reason": "Owns full PHP first-party manifest closure and upstream PHPUnit/domain parity gaps after source-unit domains land."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "closed_child_slices": 7,
+    "fixture_domains": [
+      "surface inventory",
+      "option storage/autoload",
+      "transients/site transients/feed cache",
+      "object-cache runtime/drop-in compatibility",
+      "serialization/cache salt/invalidation",
+      "settings/default-option registry",
+      "typed Haxe option/cache parity candidate"
+    ],
+    "ownership_summary": {
+      "haxe_parity_candidate": [
+        "wp_determine_option_autoload_value",
+        "wp_filter_default_autoload_value_via_option_size",
+        "wp_cache_supports"
+      ],
+      "external_oracle": [
+        "option CRUD/storage fixture seed",
+        "transient fixture seed",
+        "object-cache fixture seed",
+        "serialization/cache salt fixture seed",
+        "settings/defaults fixture seed"
+      ]
+    }
+  }
+}
