@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-08-wpdb-live-db-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.8",
+    "external_ref": "WPHX-305.08",
+    "title": "Add typed Haxe wpdb/schema/option live-DB candidate"
+  },
+  "recorded_at": "2026-06-21T05:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-08-wpdb-live-db-candidate.v1.json",
+      "role": "wpdb live MySQL/MariaDB Haxe candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-08-wpdb-live-db-candidate.v1.json",
+      "role": "Haxe parity candidate ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-live-db-candidate.mjs",
+      "role": "live DB candidate generator and check-mode validator"
+    },
+    {
+      "path": "src/wphx/wp/db/LiveDbSchema.hx",
+      "role": "typed Haxe schema helper decision implementation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-live-db-candidate",
+    "npm run wp:core:wphx-305-live-db-candidate:check",
+    "npm run wp:core:wphx-305-live-db:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_schema_helper_shell",
+    "promoted_symbols": 2,
+    "covered_symbols": 35,
+    "fixture_cases": 13,
+    "db_runtimes": 2,
+    "comparisons": 2,
+    "skipped_runtimes": 0
+  }
+}
