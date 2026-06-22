@@ -1,0 +1,57 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-05-rest-settings-update-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.10.5",
+    "external_ref": "WPHX-311.05",
+    "title": "Promote REST settings update-item routing to Haxe candidate"
+  },
+  "recorded_at": "2026-06-22T10:45:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+      "role": "typed Haxe REST settings update strategy candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+      "role": "Haxe parity-candidate ownership manifest"
+    },
+    {
+      "path": "src/wphx/wp/rest/RestSettingsUpdateStrategy.hx",
+      "role": "typed Haxe REST settings update strategy source"
+    },
+    {
+      "path": "tools/wp-core/run-rest-settings-update-strategy-candidate.mjs",
+      "role": "candidate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-settings-update-candidate",
+    "npm run wp:core:wphx-311-rest-settings-update-candidate:check",
+    "npm run wp:core:wphx-311-rest-settings-controller:check",
+    "npm run wp:core:wphx-311-rest-settings-dispatch:check",
+    "npm run wp:core:wphx-311-rest-settings-schema-candidate:check",
+    "npm run wp:core:wphx-311-rest-settings-value-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-04-rest-settings-value-strategy-candidate",
+    "receipt:wphx-311-03-rest-settings-schema-strategy-candidate",
+    "receipt:wphx-311-02-rest-settings-dispatch-fixture",
+    "receipt:wphx-311-01-rest-settings-controller-fixture"
+  ],
+  "manifest_sha256": "sha256:d8cf5617604f48f332fb436fa2e5b38e66e25a4952ec952a0039e37d026b1efd",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_rest_settings_update_strategy_shell",
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "linked_candidate",
+    "promoted_symbols": 1,
+    "fixture_cases": 5,
+    "comparisons": 3,
+    "skipped_runtimes": 0,
+    "source_escape_audit_passed": true
+  }
+}

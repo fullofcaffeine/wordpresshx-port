@@ -1,0 +1,105 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rest-settings-update-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.10.5",
+    "external_ref": "WPHX-311.05"
+  },
+  "unit": {
+    "kind": "class-method-strategy",
+    "name": "WP_REST_Settings_Controller update_item routing strategy",
+    "area": "wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php",
+    "public_contract": "The REST settings controller must preserve update_item PHP ABI while typed Haxe owns request presence, pre-update skip, null-delete, invalid-stored-value rejection, and update routing decisions."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/pomo/plural-forms.php",
+      "src/wp-includes/pomo/entry.php",
+      "src/wp-includes/pomo/translations.php",
+      "src/wp-includes/l10n.php",
+      "src/wp-includes/class-wp-list-util.php",
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wp-http-response.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/rest-api.php",
+      "src/wp-includes/rest-api/class-wp-rest-request.php",
+      "src/wp-includes/rest-api/class-wp-rest-response.php",
+      "src/wp-includes/rest-api/class-wp-rest-server.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-controller.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php"
+    ],
+    "digest": "sha256:fa9e8eab91c03099ffef9abc64496bee6de6cd3002777ea24ad23ccbbfcbc277"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/rest-settings-update-strategy-candidate.hxml",
+    "src/wphx/wp/rest/RestSettingsSchemaStrategy.hx",
+    "src/wphx/wp/rest/RestSettingsValueStrategy.hx",
+    "src/wphx/wp/rest/RestSettingsUpdateStrategy.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/RestSettingsUpdateStrategyCandidateEntry.hx",
+    "tools/wp-core/run-rest-settings-update-strategy-candidate.mjs",
+    "manifests/wp-core/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+    "manifests/ownership/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-311-05-rest-settings-update-strategy-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+    "manifests/ownership/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-311-05-rest-settings-update-strategy-candidate.v1.json",
+    "build/wp-core/wphx-311-05"
+  ],
+  "abi_policy": {
+    "php_surface_preserved": [
+      "WP_REST_Settings_Controller::update_item remains public",
+      "WP_REST_Request ArrayAccess and get_params() remain native",
+      "rest_pre_update_setting, update_option(), delete_option(), get_option(), and WP_Error remain native WordPress/PHP boundaries"
+    ],
+    "haxe_owned_decisions": [
+      "skip missing request params",
+      "skip default write after pre-update filter",
+      "route null request values to delete_option",
+      "reject null update when stored value is invalid",
+      "route non-null request values to update_option",
+      "refresh response after updates"
+    ],
+    "native_boundaries": [
+      "PHP request/array ABI",
+      "plugin filter callbacks",
+      "option storage functions",
+      "REST schema validation and translated WP_Error message construction"
+    ]
+  },
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-311-rest-settings-update-candidate",
+      "npm run wp:core:wphx-311-rest-settings-update-candidate:check",
+      "npm run wp:core:wphx-311-rest-settings-controller:check",
+      "npm run wp:core:wphx-311-rest-settings-dispatch:check",
+      "npm run wp:core:wphx-311-rest-settings-schema-candidate:check",
+      "npm run wp:core:wphx-311-rest-settings-value-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-311-05-rest-settings-update-strategy-candidate",
+      "receipt:wphx-311-04-rest-settings-value-strategy-candidate",
+      "receipt:wphx-311-03-rest-settings-schema-strategy-candidate",
+      "receipt:wphx-311-02-rest-settings-dispatch-fixture",
+      "receipt:wphx-311-01-rest-settings-controller-fixture"
+    ],
+    "manifest_digest": "sha256:d8cf5617604f48f332fb436fa2e5b38e66e25a4952ec952a0039e37d026b1efd"
+  },
+  "notes": "This slice keeps update_item's public PHP method shell and native WordPress option/filter/schema APIs. Broader WP_REST_Server and HTTP serving remain separate WPHX-311 work."
+}
