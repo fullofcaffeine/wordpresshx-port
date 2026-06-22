@@ -1,0 +1,85 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-07-rest-server-packaged-http",
+  "issue": {
+    "id": "wordpresshx-l76.10.7",
+    "external_ref": "WPHX-311.07",
+    "title": "Add packaged REST server distribution and HTTP serving gate"
+  },
+  "recorded_at": "2026-06-22T12:05:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-311-07-rest-server-packaged-http.v1.json",
+      "role": "REST server packaged HTTP parity and no-fallback manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-07-rest-server-packaged-http.v1.json",
+      "role": "packaged REST server ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-rest-server-packaged-http-gate.mjs",
+      "role": "packaged HTTP gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-server-packaged-http",
+    "npm run wp:core:wphx-311-rest-server-packaged-http:check",
+    "npm run wp:core:wphx-311-rest-server-dispatch-candidate:check",
+    "npm run ci:php-conformance:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-06-rest-server-dispatch-strategy-candidate",
+    "receipt:wphx-311-05-rest-settings-update-strategy-candidate",
+    "receipt:wphx-311-02-rest-settings-dispatch-fixture"
+  ],
+  "manifest_sha256": "sha256:1b9dd0ee5cb948ac4bdf06ddab92269e98de7031fbf7ddce501beb4b17cd5856",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "targeted_semantic_parity",
+      "runtime_abi"
+    ],
+    "artifact_scope": "packaged_distribution",
+    "package_boundaries": [
+      {
+        "id": "local-php-cli:candidate",
+        "runtime": "local-php-cli",
+        "status": "passed",
+        "checks": {
+          "class_declared_in_package": true,
+          "upstream_server_not_included": true,
+          "owned_methods_declared_in_package": true,
+          "haxe_strategy_loaded": true
+        }
+      },
+      {
+        "id": "docker-php-8.4-cli:candidate",
+        "runtime": "docker-php-8.4-cli",
+        "status": "passed",
+        "checks": {
+          "class_declared_in_package": true,
+          "upstream_server_not_included": true,
+          "owned_methods_declared_in_package": true,
+          "haxe_strategy_loaded": true
+        }
+      },
+      {
+        "id": "docker-php-8.5-cli:candidate",
+        "runtime": "docker-php-8.5-cli",
+        "status": "passed",
+        "checks": {
+          "class_declared_in_package": true,
+          "upstream_server_not_included": true,
+          "owned_methods_declared_in_package": true,
+          "haxe_strategy_loaded": true
+        }
+      }
+    ],
+    "package_boundary_runtimes": 3,
+    "fixture_cases": 5,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}

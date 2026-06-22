@@ -1,0 +1,76 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rest-server-packaged-http",
+  "issue": {
+    "id": "wordpresshx-l76.10.7",
+    "external_ref": "WPHX-311.07"
+  },
+  "unit": {
+    "kind": "packaged-distribution-http-gate",
+    "name": "WP_REST_Server packaged dispatch and serve_request gate",
+    "area": "wp-includes/rest-api/class-wp-rest-server.php",
+    "public_contract": "The packaged REST server candidate must own the WP_REST_Server class file without upstream fallback while preserving serve_request() output, status, header intent, CORS header filters, rest_pre_serve_request, and settings endpoint behavior."
+  },
+  "ownership_state": "packaged_distribution_candidate",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/pomo/plural-forms.php",
+      "src/wp-includes/pomo/entry.php",
+      "src/wp-includes/pomo/translations.php",
+      "src/wp-includes/l10n.php",
+      "src/wp-includes/class-wp-list-util.php",
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wp-http-response.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/link-template.php",
+      "src/wp-includes/rest-api.php",
+      "src/wp-includes/rest-api/class-wp-rest-request.php",
+      "src/wp-includes/rest-api/class-wp-rest-response.php",
+      "src/wp-includes/rest-api/class-wp-rest-server.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-controller.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php"
+    ],
+    "digest": "sha256:01edf7de324a2e58856129f000a5773729e202d009abc1b0f1265895e269a6ba"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/rest-server-packaged-http-candidate.hxml",
+    "tools/wp-core/run-rest-server-packaged-http-gate.mjs",
+    "manifests/wp-core/wphx-311-07-rest-server-packaged-http.v1.json",
+    "manifests/ownership/wphx-311-07-rest-server-packaged-http.v1.json",
+    "receipts/wp-core/wphx-311-07-rest-server-packaged-http.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-311-07-rest-server-packaged-http.v1.json",
+    "manifests/ownership/wphx-311-07-rest-server-packaged-http.v1.json",
+    "receipts/wp-core/wphx-311-07-rest-server-packaged-http.v1.json",
+    "build/wp-core/wphx-311-07"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-311-rest-server-packaged-http",
+      "npm run wp:core:wphx-311-rest-server-packaged-http:check",
+      "npm run wp:core:wphx-311-rest-server-dispatch-candidate:check",
+      "npm run ci:php-conformance:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-311-07-rest-server-packaged-http",
+      "receipt:wphx-311-06-rest-server-dispatch-strategy-candidate"
+    ],
+    "manifest_digest": "sha256:1b9dd0ee5cb948ac4bdf06ddab92269e98de7031fbf7ddce501beb4b17cd5856"
+  },
+  "notes": "This gate proves a packaged source-root boundary and CLI-safe HTTP serving traces. Browser/web-server E2E, upstream PHPUnit ratcheting, full auth/capability behavior, and a complete REST server Haxe class port remain separate work."
+}
