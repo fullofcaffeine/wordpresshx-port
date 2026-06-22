@@ -2,7 +2,19 @@
 
 This is a complete porting program, not a typed wrapper layer over WordPress.
 
-The long-term destination is Haxe-authored executable knowledge for WordPress/Gutenberg runtime logic, with generated PHP/TypeScript/JavaScript artifacts preserving the public ecosystem contracts. A typed compatibility layer is useful early, but only as scaffolding: it lets us inventory APIs, prove target semantics, generate ABI shells, run oracles, and move one vertical slice at a time.
+The long-term destination is Haxe-authored executable knowledge for WordPress/Gutenberg runtime logic and public adapter contracts, with generated PHP/TypeScript/JavaScript artifacts preserving the public ecosystem contracts. A typed compatibility layer is useful early, but only as scaffolding: it lets us inventory APIs, prove target semantics, generate ABI shells, run oracles, and move one vertical slice at a time.
+
+PHP remains the required WordPress compatibility target, but it should be one generated adapter over Haxe-owned semantics and ABI metadata. We should not bury behavior or shell contracts in hand-written PHP/JavaScript runner strings, because that makes later retargeting to another runtime or language depend on reverse-engineering PHP scaffolding instead of reusing Haxe source.
+
+PHP is privileged, not symmetric with future native targets. Unmodified plugins and themes execute in PHP and observe PHP engine semantics, so the current parity goal is PHP-hosted, Haxe-authored WordPress. Rust or another native runtime may later provide optional internal kernels behind generated adapters and PHP fallbacks, but "Rust core with PHP plugin compatibility" is an explicit non-goal for the current parity milestone.
+
+The useful split is:
+
+- semantic ownership: Haxe owns migrated WordPress behavior;
+- adapter-contract ownership: Haxe owns the PHP-visible ABI/effect contract;
+- emission strategy: stock Haxe PHP, typed adapter IR, linker emitter, temporary import, or backend improvement;
+- execution provider: PHP/Haxe-generated PHP now, optional native provider later;
+- evidence level: fixture, bridge, installed differential, upstream suite, or ecosystem corpus.
 
 ## Bootstrap Layer vs. Destination
 
@@ -10,6 +22,7 @@ The initial typed layer should provide:
 
 - exact public ABI facades;
 - original-path shells;
+- Haxe-owned metadata for adapter generation;
 - typed access to PHP globals, arrays, references, hooks, includes, and templates;
 - generated package/export/script-handle metadata;
 - differential test harnesses and receipts.
@@ -33,3 +46,5 @@ After a subsystem reaches parity, refactor tasks may improve internal design mor
 ## Practical Rule
 
 Start with typed compatibility surfaces where WordPress's dynamic contract is dangerous to translate blindly. Use those surfaces to replace runtime logic with Haxe-owned implementations in small verified slices. Do not stop at wrappers unless a task records an approved temporary exception with a removal gate.
+
+Preserve PHP where PHP semantics are observable. Use Haxe to own how that PHP is generated. Use native code only where PHP observability ends.

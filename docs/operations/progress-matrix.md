@@ -5,7 +5,7 @@ This document is the durable human-readable rollup for progress toward a WordPre
 Beads remains the task database. This matrix is a status ledger over Beads issues, receipts, manifests, and PRD milestones. Update it in the same change whenever milestone status, scope, evidence gates, Gutenberg split policy, or completion estimates change.
 
 Last updated: 2026-06-22
-Source checkpoint: `WPHX-317.04 artifacts in this change`
+Source checkpoint: `ADR-004 adapter/native-provider policy in this change`
 Tracking issue: `WPHX-000.02`
 
 ## Super Progress
@@ -24,6 +24,8 @@ This is an evidence-weighted program estimate, not source-line completion. It gi
 | Security, performance, reliability, and release closure | 5 | 0 | 0.0 | early security corpus exists, full nonfunctional closure is later-stage work |
 
 The score should move only when evidence moves. A closed task can increase confidence in a slice without implying that the whole source area is ported.
+
+ADR-004 clarifies ownership claims without changing the score: PHP is the privileged compatibility host for current parity, Haxe owns both migrated semantics and adapter intent, and Rust/native providers are future optional internal providers only for narrowly eligible kernels with PHP fallbacks and native-on/native-off evidence. Future ownership rollups should distinguish semantic ownership, adapter-contract ownership, emission strategy, execution provider, and evidence level.
 
 ## PRD Milestone Matrix
 

@@ -9,6 +9,7 @@ WPHX-205 adds the deterministic linker for WordPress-shaped PHP distribution tre
 - The linker rejects unsafe paths and writes files in deterministic path and segment order.
 - PHP shells keep include/load timing, caller-scope template behavior, mixed PHP/HTML output, and conditional declarations at the public edge.
 - Haxe payloads live behind those shells in one shared generated runtime directory.
+- Durable shell files must be generated artifacts, not hand-maintained PHP implementations hidden in test runners. The shell contract should be Haxe-owned as typed source, metadata, macro output, or linker input so the same WordPress ABI knowledge can generate PHP now and another runtime/language adapter later if the program needs it. Temporary shell scaffolding is acceptable only with an ownership state, receipt evidence, and a removal gate that moves the shape into Haxe macros, the linker emitter, or a generic PHP backend/custom-target improvement.
 
 ## Verification
 

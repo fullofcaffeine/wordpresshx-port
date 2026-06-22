@@ -4,6 +4,10 @@ WordPressHX is a complete porting program. A typed layer can start a slice, but 
 
 ## States
 
+Ownership state is a summary, not the full compatibility claim. When a unit crosses public WordPress boundaries, record or infer separate axes for semantic ownership, adapter-contract ownership, emission strategy, execution provider, and evidence level. The weakest axis bounds the claim.
+
+For example, a unit with Haxe-owned helper logic but an upstream-derived transformed PHP shell is a bridge or partial candidate, not fully Haxe-owned. Automation does not establish ownership; provenance and typed source authority do.
+
 `external_oracle`
 
 The unit is upstream-owned evidence only. We read it, hash it, test against it, or compare behavior to it, but do not claim a Haxe implementation yet.
@@ -61,6 +65,7 @@ After parity, refactors can be more aggressive internally, but the public WordPr
 Ownership manifests are evidence, not decoration:
 
 - Update the manifest when a source unit changes state.
+- Do not collapse semantic ownership, adapter-contract ownership, emission strategy, execution provider, and evidence level into one vague label.
 - Keep generated paths separate from Haxe-owned source paths.
 - Reference receipt paths instead of relying on chat history.
 - Do not mark wrappers as Haxe-owned until executable dependency on the upstream runtime is gone or explicitly bounded by an approved exception.

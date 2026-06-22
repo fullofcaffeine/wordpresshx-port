@@ -58,6 +58,18 @@ If an escape hatch remains necessary, the code must put it at the boundary and d
 
 When reviewing or continuing work, treat casual `Dynamic` as a defect. Narrow it immediately when the local context is clear; otherwise file Beads follow-up with the boundary, evidence, and removal condition.
 
+## Generated PHP Shells
+
+PHP shells are allowed because WordPress compatibility depends on original paths, global function names, conditional declarations, class identity, reflection-visible signatures, include timing, globals, references, and mixed PHP/HTML behavior. They are not permission to keep runtime logic or target contracts in hand-written PHP indefinitely.
+
+The intended destination is Haxe-authored implementation plus Haxe-owned ABI/shell specifications that generate WordPress adapters. PHP is the first required adapter because WordPress plugins and themes consume it, but the shell contract should not be encoded only in PHP strings; it should be represented in typed Haxe source, metadata, macros, manifests, or linker inputs so another runtime/language adapter can be produced later without reverse-engineering PHP scaffolding.
+
+A fixture may use a hand-authored or JavaScript-emitted shell while proving a boundary, but it must label that shell as scaffolding, record the ownership state, and name the removal gate. Once a pattern repeats or becomes durable, move shell generation into Haxe macros, a structured linker emitter, or a generic PHP backend/custom-target improvement.
+
+If the stock Haxe PHP target cannot emit an idiomatic shell shape that WordPress plugins can consume, reduce the problem to a generic compiler-pressure fixture. Consider Reflaxe or a custom/forked PHP target only with evidence and an ADR; do not let convenience PHP strings in runners become the architecture.
+
+PHP is the privileged compatibility host for the current WordPress parity milestone. Rust/native providers are future optional internal providers, not peer adapters for unmodified PHP plugins. A native provider must have a PHP fallback, cross only pure value boundaries, and pass native-on/native-off differential evidence before any compatibility claim.
+
 ## Verification
 
 The WPHX-802 receipt is `receipts/operations/wphx-802-agent-instructions.v1.json`.

@@ -105,7 +105,7 @@ The linker owns WordPress-facing PHP files. It must:
 - produce provenance, ABI, file-segment, and generated-output manifests;
 - be deterministic for identical inputs.
 
-Generated shells are not a temporary hack. They are the accepted compatibility boundary for public WordPress PHP.
+Generated PHP adapters are not a temporary hack. The PHP compatibility-adapter role is the accepted compatibility boundary for public WordPress PHP. Per ADR-004, upstream-derived, hand-written, string-generated, or exact-source-transformed shell implementations are temporary migration mechanisms until the adapter contract is Haxe-owned and emitted from typed adapter plans.
 
 ### Backend Fork
 
@@ -164,4 +164,4 @@ Before parity, a smell fix must be marked as no-observable-change and cite oracl
 
 ## Supersession
 
-This ADR may be superseded if later evidence shows that the linker boundary cannot preserve a required public PHP contract or imposes unacceptable measured overhead. Supersession requires a new ADR, a minimized fixture, and updated receipts.
+This ADR is clarified by ADR-004 for Haxe semantic authority, typed adapter ownership, and native-provider policy. It may be superseded further if later evidence shows that the linker boundary cannot preserve a required public PHP contract or imposes unacceptable measured overhead. Supersession requires a new ADR, a minimized fixture, and updated receipts.
