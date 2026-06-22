@@ -1,0 +1,76 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/multisite-network-surface",
+  "issue": {
+    "id": "wordpresshx-0d8",
+    "external_ref": "WPHX-317.01"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "multisite/network surface",
+    "area": "wp-includes/wp-admin",
+    "public_contract": "WordPress 7.0 multisite/network PHP ABI and observable behavior remain oracle-owned until per-slice Haxe parity candidates replace site options, site transients, blog switching, site/network objects, bootstrap routing, signup/lifecycle, and network admin helpers."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/ms-blogs.php",
+      "src/wp-includes/ms-site.php",
+      "src/wp-includes/ms-network.php",
+      "src/wp-includes/ms-load.php",
+      "src/wp-includes/ms-settings.php",
+      "src/wp-includes/ms-functions.php",
+      "src/wp-includes/ms-default-filters.php",
+      "src/wp-includes/ms-default-constants.php",
+      "src/wp-includes/ms-files.php",
+      "src/wp-includes/class-wp-site.php",
+      "src/wp-includes/class-wp-site-query.php",
+      "src/wp-includes/class-wp-network.php",
+      "src/wp-includes/class-wp-network-query.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-admin/includes/network.php",
+      "src/wp-admin/includes/ms.php",
+      "src/wp-admin/includes/ms-admin-filters.php",
+      "src/wp-admin/network.php",
+      "src/wp-admin/network/admin.php",
+      "src/wp-admin/network/sites.php",
+      "src/wp-admin/network/site-new.php",
+      "src/wp-admin/network/settings.php",
+      "src/wp-admin/network/users.php",
+      "src/wp-admin/network/upgrade.php",
+      "src/wp-admin/ms-delete-site.php",
+      "src/wp-admin/ms-options.php",
+      "src/wp-admin/ms-sites.php",
+      "src/wp-admin/ms-themes.php",
+      "src/wp-admin/ms-users.php"
+    ],
+    "digest": "sha256:d7f64cb8384b890c65770537048b70273bb0a958d2f2329c2dc87bf0613c7e82"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-multisite-network-surface.mjs",
+    "manifests/wp-core/wphx-317-01-multisite-network-surface.v1.json",
+    "receipts/wp-core/wphx-317-01-multisite-network-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-317-01-multisite-network-surface.v1.json",
+    "manifests/ownership/wphx-317-01-multisite-network-surface.v1.json",
+    "receipts/wp-core/wphx-317-01-multisite-network-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-317-multisite-surface",
+      "npm run wp:core:wphx-317-multisite-surface:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-317-01-multisite-network-surface"
+    ],
+    "manifest_digest": "sha256:965b7cb5382eef8dc7a2f8b7c3ee4d9501009675c73b78edb84d8fa9b7c96083"
+  },
+  "notes": "This first WPHX-317 slice inventories the oracle surface and fixture entry points only. Runtime multisite/network logic remains external_oracle until later WPHX-317.x slices create Haxe parity candidates and replacement gates."
+}
