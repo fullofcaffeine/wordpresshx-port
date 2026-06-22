@@ -1,0 +1,63 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/multisite-blog-switch-cache-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.11.2",
+    "external_ref": "WPHX-317.03"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "multisite blog switching and cache-group differential fixture harness",
+    "area": "wp-includes",
+    "public_contract": "WordPress 7.0 switch_to_blog(), restore_current_blog(), blog option wrappers, and cache group switching behavior remain observable while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/kses.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/class-wp-network.php",
+      "src/wp-includes/ms-network.php",
+      "src/wp-includes/class-wp-site.php",
+      "src/wp-includes/class-wp-site-query.php",
+      "src/wp-includes/ms-site.php",
+      "src/wp-includes/ms-blogs.php"
+    ],
+    "digest": "sha256:af1c126d1f9b4d1d60073075cdfb167eb1ab3f6acbe449650560455176671e8f"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-multisite-blog-switch-cache-fixture.mjs",
+    "manifests/wp-core/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json",
+    "receipts/wp-core/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json",
+    "manifests/ownership/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json",
+    "receipts/wp-core/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json",
+    "build/wp-core/wphx-317-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-317-blog-switch-cache",
+      "npm run wp:core:wphx-317-blog-switch-cache:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-317-03-multisite-blog-switch-cache-fixture"
+    ],
+    "manifest_digest": "sha256:9f3c18f80c99ebf1d3f3ed704ed2d88cb9cfd452c4324919dffcc8da6c2df47b"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-317.03. The probe enables multisite and supplies deterministic per-blog option tables through a constrained wpdb test double; full installed multisite routing and live database parity remain later WPHX-317 gates."
+}
