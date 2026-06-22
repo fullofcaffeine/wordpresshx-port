@@ -6,7 +6,7 @@
   ],
   "classes": [
     {
-      "name": "WpdbMysqliGlobalLoweringProofEntry",
+      "name": "NativeValueLoweringProofEntry",
       "final": false,
       "abstract": false,
       "extends": null,
@@ -14,7 +14,7 @@
       "properties": [],
       "methods": [
         {
-          "name": "fetchObject",
+          "name": "isRowObject",
           "visibility": "public",
           "static": true,
           "final": false,
@@ -22,7 +22,7 @@
           "returns_by_reference": false,
           "parameters": [
             {
-              "name": "result",
+              "name": "value",
               "position": 0,
               "by_reference": false,
               "variadic": false,
@@ -34,11 +34,11 @@
             "kind": "call",
             "target": {
               "kind": "global_function",
-              "name": "\\mysqli_fetch_object",
+              "name": "\\is_object",
               "resolution": "fqn"
             },
             "arguments": [
-              "$result"
+              "$value"
             ]
           }
         },
@@ -53,7 +53,7 @@
           "return_statement": null
         },
         {
-          "name": "nativeQuery",
+          "name": "rowFields",
           "visibility": "public",
           "static": true,
           "final": false,
@@ -61,16 +61,8 @@
           "returns_by_reference": false,
           "parameters": [
             {
-              "name": "handle",
+              "name": "row",
               "position": 0,
-              "by_reference": false,
-              "variadic": false,
-              "type": null,
-              "default": null
-            },
-            {
-              "name": "query",
-              "position": 1,
               "by_reference": false,
               "variadic": false,
               "type": null,
@@ -81,12 +73,69 @@
             "kind": "call",
             "target": {
               "kind": "global_function",
-              "name": "\\mysqli_query",
+              "name": "\\get_object_vars",
               "resolution": "fqn"
             },
             "arguments": [
-              "$handle",
-              "$query"
+              "$row"
+            ]
+          }
+        },
+        {
+          "name": "rowValues",
+          "visibility": "public",
+          "static": true,
+          "final": false,
+          "abstract": false,
+          "returns_by_reference": false,
+          "parameters": [
+            {
+              "name": "values",
+              "position": 0,
+              "by_reference": false,
+              "variadic": false,
+              "type": null,
+              "default": null
+            }
+          ],
+          "return_statement": {
+            "kind": "call",
+            "target": {
+              "kind": "global_function",
+              "name": "\\array_values",
+              "resolution": "fqn"
+            },
+            "arguments": [
+              "$values"
+            ]
+          }
+        },
+        {
+          "name": "shiftFirst",
+          "visibility": "public",
+          "static": true,
+          "final": false,
+          "abstract": false,
+          "returns_by_reference": false,
+          "parameters": [
+            {
+              "name": "values",
+              "position": 0,
+              "by_reference": true,
+              "variadic": false,
+              "type": null,
+              "default": null
+            }
+          ],
+          "return_statement": {
+            "kind": "call",
+            "target": {
+              "kind": "global_function",
+              "name": "\\array_shift",
+              "resolution": "fqn"
+            },
+            "arguments": [
+              "$values"
             ]
           }
         }
@@ -98,8 +147,8 @@
     {
       "target": "Boot::registerClass",
       "arguments": [
-        "WpdbMysqliGlobalLoweringProofEntry::class",
-        "'wphx.fixtures.wp.core.WpdbMysqliGlobalLoweringProofEntry'"
+        "NativeValueLoweringProofEntry::class",
+        "'wphx.fixtures.wp.core.NativeValueLoweringProofEntry'"
       ]
     }
   ]

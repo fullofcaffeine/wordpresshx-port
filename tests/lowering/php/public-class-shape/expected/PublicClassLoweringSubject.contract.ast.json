@@ -1,0 +1,124 @@
+{
+  "schema": "wphx.php-ast-contract.v1",
+  "namespace": "wphx\\fixtures\\wp\\core",
+  "uses": [
+    "\\php\\Boot"
+  ],
+  "classes": [
+    {
+      "name": "PublicClassLoweringSubject",
+      "final": false,
+      "abstract": false,
+      "extends": "PublicClassLoweringBase",
+      "implements": [
+        "PublicClassLoweringContract"
+      ],
+      "properties": [
+        {
+          "name": "instances",
+          "visibility": "public",
+          "static": true,
+          "final": false,
+          "abstract": false,
+          "readonly": false,
+          "type": null,
+          "default": "0"
+        },
+        {
+          "name": "metaCount",
+          "visibility": "public",
+          "static": false,
+          "final": false,
+          "abstract": false,
+          "readonly": false,
+          "type": null,
+          "default": null
+        },
+        {
+          "name": "name",
+          "visibility": "public",
+          "static": false,
+          "final": false,
+          "abstract": false,
+          "readonly": false,
+          "type": null,
+          "default": null
+        }
+      ],
+      "methods": [
+        {
+          "name": "factory",
+          "visibility": "public",
+          "static": true,
+          "final": false,
+          "abstract": false,
+          "returns_by_reference": false,
+          "parameters": [
+            {
+              "name": "name",
+              "position": 0,
+              "by_reference": false,
+              "variadic": false,
+              "type": null,
+              "default": null
+            }
+          ],
+          "return_statement": {
+            "kind": "new",
+            "source": "new PublicClassLoweringSubject($name, 1)"
+          }
+        },
+        {
+          "name": "__construct",
+          "visibility": "public",
+          "static": false,
+          "final": false,
+          "abstract": false,
+          "returns_by_reference": false,
+          "parameters": [
+            {
+              "name": "name",
+              "position": 0,
+              "by_reference": false,
+              "variadic": false,
+              "type": null,
+              "default": null
+            },
+            {
+              "name": "metaCount",
+              "position": 1,
+              "by_reference": false,
+              "variadic": false,
+              "type": null,
+              "default": "0"
+            }
+          ],
+          "return_statement": null
+        },
+        {
+          "name": "describe",
+          "visibility": "public",
+          "static": false,
+          "final": false,
+          "abstract": false,
+          "returns_by_reference": false,
+          "parameters": [],
+          "return_statement": {
+            "kind": "bin",
+            "source": "$this->name??'null') . \":\" . ($this->metaCount??'null'"
+          }
+        }
+      ]
+    }
+  ],
+  "interfaces": [],
+  "boot_registrations": [
+    {
+      "target": "Boot::registerClass",
+      "arguments": [
+        "PublicClassLoweringSubject::class",
+        "'wphx.fixtures.wp.core.PublicClassLoweringSubject'"
+      ]
+    }
+  ]
+}

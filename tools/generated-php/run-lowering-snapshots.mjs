@@ -13,11 +13,18 @@ const ISSUE = {
   external_ref: "WPHX-700.02",
   title: "WPHX-700.02 — Add generated-PHP lowering snapshot lane"
 };
-const RECORDED_AT = "2026-06-21T19:45:00.000Z";
+const EXPANSION_ISSUE = {
+  id: "wordpresshx-w91.3.7",
+  external_ref: "WPHX-700.07",
+  title: "WPHX-700.07 — Expand generated-PHP lowering snapshot cases"
+};
+const RECORDED_AT = "2026-06-22T00:00:00.000Z";
 const GENERATOR = "tools/generated-php/run-lowering-snapshots.mjs";
 const BUILD_ROOT = "build/generated-php/wphx-700-02";
 const MANIFEST = "manifests/generated-php/wphx-700-02-lowering-snapshots.v1.json";
 const RECEIPT = "receipts/generated-php/wphx-700-02-lowering-snapshots.v1.json";
+const EXPANSION_MANIFEST = "manifests/generated-php/wphx-700-07-lowering-snapshot-expansion.v1.json";
+const EXPANSION_RECEIPT = "receipts/generated-php/wphx-700-07-lowering-snapshot-expansion.v1.json";
 
 const parser = new phpParser.Engine({
   parser: {
@@ -52,7 +59,21 @@ const CASES = [
       {
         generated: "lib/wphx/fixtures/wp/core/WpdbMysqliGlobalLoweringProofEntry.php",
         exact_golden: "tests/lowering/php/mysqli-global-call/expected/WpdbMysqliGlobalLoweringProofEntry.php",
-        ast_contract: "tests/lowering/php/mysqli-global-call/expected/contract.ast.json"
+        ast_contract: "tests/lowering/php/mysqli-global-call/expected/contract.ast.json",
+        expectations: {
+          required_global_calls: [
+            {
+              method: "fetchObject",
+              function: "\\mysqli_fetch_object",
+              arguments: ["$result"]
+            },
+            {
+              method: "nativeQuery",
+              function: "\\mysqli_query",
+              arguments: ["$handle", "$query"]
+            }
+          ]
+        }
       }
     ],
     sources: [
@@ -62,18 +83,6 @@ const CASES = [
       "src/wphx/wp/db/native/MysqliResult.hx"
     ],
     expectations: {
-      required_global_calls: [
-        {
-          method: "fetchObject",
-          function: "\\mysqli_fetch_object",
-          arguments: ["$result"]
-        },
-        {
-          method: "nativeQuery",
-          function: "\\mysqli_query",
-          arguments: ["$handle", "$query"]
-        }
-      ],
       forbidden_patterns: [
         {
           id: "class-static-mysqli-call",
@@ -82,6 +91,204 @@ const CASES = [
         {
           id: "haxe-mysqli-global-static-call",
           pattern: "MysqliGlobal::(query|fetchObject)\\s*\\("
+        }
+      ]
+    }
+  },
+  {
+    id: "php-lowering/public-class-shape",
+    issue: "WPHX-700.07",
+    evidence_class: "generated_shape",
+    artifact_scope: "minimized_fixture",
+    owner: "WPHX-700.07",
+    compile: {
+      args: [
+        "-cp",
+        "src",
+        "-cp",
+        "fixtures/wp-core/src",
+        "-main",
+        "wphx.fixtures.wp.core.PublicClassLoweringProofEntry"
+      ]
+    },
+    selected_outputs: [
+      {
+        generated: "lib/wphx/fixtures/wp/core/PublicClassLoweringContract.php",
+        exact_golden: "tests/lowering/php/public-class-shape/expected/PublicClassLoweringContract.php",
+        ast_contract: "tests/lowering/php/public-class-shape/expected/PublicClassLoweringContract.contract.ast.json",
+        expectations: {
+          required_interfaces: [
+            {
+              name: "PublicClassLoweringContract",
+              methods: [
+                {
+                  name: "describe",
+                  visibility: "public",
+                  static: false,
+                  parameters: []
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        generated: "lib/wphx/fixtures/wp/core/PublicClassLoweringSubject.php",
+        exact_golden: "tests/lowering/php/public-class-shape/expected/PublicClassLoweringSubject.php",
+        ast_contract: "tests/lowering/php/public-class-shape/expected/PublicClassLoweringSubject.contract.ast.json",
+        expectations: {
+          required_classes: [
+            {
+              name: "PublicClassLoweringSubject",
+              extends: "PublicClassLoweringBase",
+              implements: ["PublicClassLoweringContract"],
+              properties: [
+                {
+                  name: "instances",
+                  visibility: "public",
+                  static: true,
+                  default: "0"
+                },
+                {
+                  name: "metaCount",
+                  visibility: "public",
+                  static: false
+                },
+                {
+                  name: "name",
+                  visibility: "public",
+                  static: false
+                }
+              ],
+              methods: [
+                {
+                  name: "factory",
+                  visibility: "public",
+                  static: true,
+                  parameters: [
+                    {
+                      name: "name",
+                      by_reference: false,
+                      variadic: false
+                    }
+                  ]
+                },
+                {
+                  name: "__construct",
+                  visibility: "public",
+                  static: false,
+                  parameters: [
+                    {
+                      name: "name",
+                      by_reference: false,
+                      variadic: false
+                    },
+                    {
+                      name: "metaCount",
+                      by_reference: false,
+                      variadic: false,
+                      default: "0"
+                    }
+                  ]
+                },
+                {
+                  name: "describe",
+                  visibility: "public",
+                  static: false,
+                  parameters: []
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    sources: ["fixtures/wp-core/src/wphx/fixtures/wp/core/PublicClassLoweringProofEntry.hx"],
+    expectations: {
+      forbidden_patterns: [
+        {
+          id: "haxe-runtime-array-wrapper-leak",
+          pattern: "\\bArray_hx\\b"
+        }
+      ]
+    }
+  },
+  {
+    id: "php-lowering/native-object-array-values",
+    issue: "WPHX-700.07",
+    evidence_class: "generated_shape",
+    artifact_scope: "minimized_fixture",
+    owner: "WPHX-700.07",
+    compile: {
+      args: [
+        "-cp",
+        "src",
+        "-cp",
+        "fixtures/wp-core/src",
+        "-main",
+        "wphx.fixtures.wp.core.NativeValueLoweringProofEntry"
+      ]
+    },
+    selected_outputs: [
+      {
+        generated: "lib/wphx/fixtures/wp/core/NativeValueLoweringProofEntry.php",
+        exact_golden: "tests/lowering/php/native-object-array-values/expected/NativeValueLoweringProofEntry.php",
+        ast_contract: "tests/lowering/php/native-object-array-values/expected/contract.ast.json",
+        expectations: {
+          required_global_calls: [
+            {
+              method: "isRowObject",
+              function: "\\is_object",
+              arguments: ["$value"]
+            },
+            {
+              method: "rowFields",
+              function: "\\get_object_vars",
+              arguments: ["$row"]
+            },
+            {
+              method: "rowValues",
+              function: "\\array_values",
+              arguments: ["$values"]
+            },
+            {
+              method: "shiftFirst",
+              function: "\\array_shift",
+              arguments: ["$values"]
+            }
+          ],
+          required_methods: [
+            {
+              class: "NativeValueLoweringProofEntry",
+              name: "shiftFirst",
+              visibility: "public",
+              static: true,
+              parameters: [
+                {
+                  name: "values",
+                  by_reference: true,
+                  variadic: false
+                }
+              ]
+            }
+          ]
+        }
+      }
+    ],
+    sources: [
+      "fixtures/wp-core/src/wphx/fixtures/wp/core/NativeValueLoweringProofEntry.hx",
+      "src/wphx/wp/db/native/RowGlobal.hx",
+      "src/wphx/wp/boundary/NativeValue.hx"
+    ],
+    expectations: {
+      forbidden_patterns: [
+        {
+          id: "haxe-runtime-array-wrapper-leak",
+          pattern: "\\bArray_hx\\b"
+        },
+        {
+          id: "row-global-static-call",
+          pattern: "RowGlobal::(isObject|getObjectVars|arrayValues|arrayShift)\\s*\\("
         }
       ]
     }
@@ -302,6 +509,19 @@ function projectMethod(method) {
   };
 }
 
+function projectPropertyStatement(propertyStatement) {
+  return (propertyStatement.properties ?? []).map((property) => ({
+    name: identifierName(property.name),
+    visibility: propertyStatement.visibility ?? "public",
+    static: propertyStatement.isStatic === true,
+    final: propertyStatement.isFinal === true,
+    abstract: propertyStatement.isAbstract === true,
+    readonly: property.readonly === true,
+    type: sourceOf(property.type),
+    default: sourceOf(property.value)
+  }));
+}
+
 function projectBootRegistration(statement) {
   const expression = statement.expression;
   if (expression?.kind !== "call") return null;
@@ -329,7 +549,17 @@ function projectAst(source) {
       abstract: classNode.isAbstract === true,
       extends: sourceOf(classNode.extends),
       implements: (classNode.implements ?? []).map(sourceOf).filter(Boolean),
+      properties: (classNode.body ?? [])
+        .filter((node) => node.kind === "propertystatement")
+        .flatMap(projectPropertyStatement),
       methods: (classNode.body ?? []).filter((node) => node.kind === "method").map(projectMethod)
+    }));
+  const interfaces = children
+    .filter((node) => node.kind === "interface")
+    .map((interfaceNode) => ({
+      name: identifierName(interfaceNode.name),
+      extends: (interfaceNode.extends ?? []).map(sourceOf).filter(Boolean),
+      methods: (interfaceNode.body ?? []).filter((node) => node.kind === "method").map(projectMethod)
     }));
   const bootRegistrations = children
     .filter((node) => node.kind === "expressionstatement")
@@ -341,6 +571,7 @@ function projectAst(source) {
     namespace: namespaceNode.kind === "namespace" ? namespaceNode.name : null,
     uses: useItems,
     classes,
+    interfaces,
     boot_registrations: bootRegistrations
   };
 }
@@ -353,8 +584,73 @@ function findMethodContract(contract, methodName) {
   return null;
 }
 
+function findClassContract(contract, className) {
+  return (contract.classes ?? []).find((entry) => entry.name === className) ?? null;
+}
+
+function findInterfaceContract(contract, interfaceName) {
+  return (contract.interfaces ?? []).find((entry) => entry.name === interfaceName) ?? null;
+}
+
+function findMethodOnClass(contract, className, methodName) {
+  const classContract = className ? findClassContract(contract, className) : null;
+  if (classContract) {
+    return (classContract.methods ?? []).find((entry) => entry.name === methodName) ?? null;
+  }
+  return findMethodContract(contract, methodName);
+}
+
+function expectedFieldMatches(actual, expected, field) {
+  return !Object.hasOwn(expected, field) || JSON.stringify(actual?.[field] ?? null) === JSON.stringify(expected[field]);
+}
+
+function expectedParameterMatches(actual, expected) {
+  return (
+    actual != null &&
+    expectedFieldMatches(actual, expected, "name") &&
+    expectedFieldMatches(actual, expected, "by_reference") &&
+    expectedFieldMatches(actual, expected, "variadic") &&
+    expectedFieldMatches(actual, expected, "type") &&
+    expectedFieldMatches(actual, expected, "default")
+  );
+}
+
+function expectedMethodMatches(actual, expected) {
+  if (
+    actual == null ||
+    !expectedFieldMatches(actual, expected, "name") ||
+    !expectedFieldMatches(actual, expected, "visibility") ||
+    !expectedFieldMatches(actual, expected, "static") ||
+    !expectedFieldMatches(actual, expected, "final") ||
+    !expectedFieldMatches(actual, expected, "abstract") ||
+    !expectedFieldMatches(actual, expected, "returns_by_reference")
+  ) {
+    return false;
+  }
+  if (!Object.hasOwn(expected, "parameters")) return true;
+  const actualParameters = actual.parameters ?? [];
+  return (
+    actualParameters.length === expected.parameters.length &&
+    expected.parameters.every((parameter, index) => expectedParameterMatches(actualParameters[index], parameter))
+  );
+}
+
+function expectedPropertyMatches(actual, expected) {
+  return (
+    actual != null &&
+    expectedFieldMatches(actual, expected, "name") &&
+    expectedFieldMatches(actual, expected, "visibility") &&
+    expectedFieldMatches(actual, expected, "static") &&
+    expectedFieldMatches(actual, expected, "final") &&
+    expectedFieldMatches(actual, expected, "abstract") &&
+    expectedFieldMatches(actual, expected, "readonly") &&
+    expectedFieldMatches(actual, expected, "type") &&
+    expectedFieldMatches(actual, expected, "default")
+  );
+}
+
 function evaluateCallExpectations(contract, expectations) {
-  return expectations.required_global_calls.map((required) => {
+  return (expectations.required_global_calls ?? []).map((required) => {
     const method = findMethodContract(contract, required.method);
     const target = method?.return_statement?.target;
     const actualArguments = method?.return_statement?.arguments ?? [];
@@ -376,8 +672,67 @@ function evaluateCallExpectations(contract, expectations) {
   });
 }
 
+function evaluateMethodExpectations(contract, expectations) {
+  return (expectations.required_methods ?? []).map((required) => {
+    const method = findMethodOnClass(contract, required.class, required.name);
+    return {
+      ...required,
+      observed: method ?? null,
+      passed: expectedMethodMatches(method, required)
+    };
+  });
+}
+
+function evaluateClassExpectations(contract, expectations) {
+  return (expectations.required_classes ?? []).map((required) => {
+    const classContract = findClassContract(contract, required.name);
+    const properties = required.properties ?? [];
+    const methods = required.methods ?? [];
+    const requiredPropertiesPassed = properties.every((property) =>
+      expectedPropertyMatches((classContract?.properties ?? []).find((entry) => entry.name === property.name), property)
+    );
+    const requiredMethodsPassed = methods.every((method) =>
+      expectedMethodMatches((classContract?.methods ?? []).find((entry) => entry.name === method.name), method)
+    );
+    const passed =
+      classContract != null &&
+      expectedFieldMatches(classContract, required, "name") &&
+      expectedFieldMatches(classContract, required, "final") &&
+      expectedFieldMatches(classContract, required, "abstract") &&
+      expectedFieldMatches(classContract, required, "extends") &&
+      expectedFieldMatches(classContract, required, "implements") &&
+      requiredPropertiesPassed &&
+      requiredMethodsPassed;
+    return {
+      ...required,
+      observed: classContract ?? null,
+      passed
+    };
+  });
+}
+
+function evaluateInterfaceExpectations(contract, expectations) {
+  return (expectations.required_interfaces ?? []).map((required) => {
+    const interfaceContract = findInterfaceContract(contract, required.name);
+    const methods = required.methods ?? [];
+    const requiredMethodsPassed = methods.every((method) =>
+      expectedMethodMatches((interfaceContract?.methods ?? []).find((entry) => entry.name === method.name), method)
+    );
+    const passed =
+      interfaceContract != null &&
+      expectedFieldMatches(interfaceContract, required, "name") &&
+      expectedFieldMatches(interfaceContract, required, "extends") &&
+      requiredMethodsPassed;
+    return {
+      ...required,
+      observed: interfaceContract ?? null,
+      passed
+    };
+  });
+}
+
 function evaluateForbiddenPatterns(source, expectations) {
-  return expectations.forbidden_patterns.map((forbidden) => {
+  return (expectations.forbidden_patterns ?? []).map((forbidden) => {
     const regex = new RegExp(forbidden.pattern);
     return {
       id: forbidden.id,
@@ -385,6 +740,31 @@ function evaluateForbiddenPatterns(source, expectations) {
       detected: regex.test(source)
     };
   });
+}
+
+function expectationsFor(testCase, selected) {
+  return {
+    required_global_calls: [
+      ...(testCase.expectations?.required_global_calls ?? []),
+      ...(selected.expectations?.required_global_calls ?? [])
+    ],
+    required_methods: [
+      ...(testCase.expectations?.required_methods ?? []),
+      ...(selected.expectations?.required_methods ?? [])
+    ],
+    required_classes: [
+      ...(testCase.expectations?.required_classes ?? []),
+      ...(selected.expectations?.required_classes ?? [])
+    ],
+    required_interfaces: [
+      ...(testCase.expectations?.required_interfaces ?? []),
+      ...(selected.expectations?.required_interfaces ?? [])
+    ],
+    forbidden_patterns: [
+      ...(testCase.expectations?.forbidden_patterns ?? []),
+      ...(selected.expectations?.forbidden_patterns ?? [])
+    ]
+  };
 }
 
 function normalizePhpSource(source) {
@@ -402,10 +782,14 @@ function runCase(testCase) {
     const generatedPath = join(first.out, selected.generated);
     const source = normalizePhpSource(readFileSync(generatedPath, "utf8"));
     const contract = projectAst(source);
+    const outputExpectations = expectationsFor(testCase, selected);
     const contractText = JSON.stringify(contract, null, 2) + "\n";
     const exactText = source.endsWith("\n") ? source : `${source}\n`;
-    const callExpectations = evaluateCallExpectations(contract, testCase.expectations);
-    const forbiddenPatterns = evaluateForbiddenPatterns(source, testCase.expectations);
+    const callExpectations = evaluateCallExpectations(contract, outputExpectations);
+    const methodExpectations = evaluateMethodExpectations(contract, outputExpectations);
+    const classExpectations = evaluateClassExpectations(contract, outputExpectations);
+    const interfaceExpectations = evaluateInterfaceExpectations(contract, outputExpectations);
+    const forbiddenPatterns = evaluateForbiddenPatterns(source, outputExpectations);
     const exactGolden = writeOrCheck(selected.exact_golden, exactText, "npm run generated-php:lowering-snapshots");
     const astContract = writeOrCheck(selected.ast_contract, contractText, "npm run generated-php:lowering-snapshots");
     return {
@@ -415,9 +799,15 @@ function runCase(testCase) {
       exact_golden: exactGolden,
       ast_contract: astContract,
       required_global_calls: callExpectations,
+      required_methods: methodExpectations,
+      required_classes: classExpectations,
+      required_interfaces: interfaceExpectations,
       forbidden_patterns: forbiddenPatterns,
       passed:
         callExpectations.every((entry) => entry.passed) &&
+        methodExpectations.every((entry) => entry.passed) &&
+        classExpectations.every((entry) => entry.passed) &&
+        interfaceExpectations.every((entry) => entry.passed) &&
         forbiddenPatterns.every((entry) => !entry.detected)
     };
   });
@@ -452,6 +842,15 @@ function runCase(testCase) {
       call_shape_contracts_passed: selectedOutputs.every((entry) =>
         entry.required_global_calls.every((call) => call.passed)
       ),
+      method_shape_contracts_passed: selectedOutputs.every((entry) =>
+        entry.required_methods.every((method) => method.passed)
+      ),
+      class_shape_contracts_passed: selectedOutputs.every((entry) =>
+        entry.required_classes.every((classContract) => classContract.passed)
+      ),
+      interface_shape_contracts_passed: selectedOutputs.every((entry) =>
+        entry.required_interfaces.every((interfaceContract) => interfaceContract.passed)
+      ),
       forbidden_patterns_absent: selectedOutputs.every((entry) =>
         entry.forbidden_patterns.every((pattern) => !pattern.detected)
       )
@@ -459,14 +858,18 @@ function runCase(testCase) {
   };
 }
 
-function buildManifest(results) {
-  const toolchainLock = JSON.parse(readFileSync("toolchain.lock.json", "utf8"));
-  const selectedArtifacts = results.flatMap((result) =>
+function selectedSnapshotArtifacts(results) {
+  return results.flatMap((result) =>
     result.selected_outputs.flatMap((output) => [output.exact_golden.path, output.ast_contract.path])
   );
+}
+
+function buildManifest(results, issue = ISSUE) {
+  const toolchainLock = JSON.parse(readFileSync("toolchain.lock.json", "utf8"));
+  const selectedArtifacts = selectedSnapshotArtifacts(results);
   return {
     schema: "wphx.generated-php-lowering-snapshots.v1",
-    issue: ISSUE.external_ref,
+    issue: issue.external_ref,
     generated_at: RECORDED_AT,
     generator: GENERATOR,
     evidence_class: "generated_shape",
@@ -500,34 +903,32 @@ function buildManifest(results) {
   };
 }
 
-function buildReceipt(manifest) {
+function artifactRole(path) {
+  if (path.endsWith(".ast.json")) return "stable AST-normalized generated-PHP lowering contract";
+  if (path.endsWith(".php")) return "exact generated-PHP lowering golden";
+  return "generated-PHP lowering evidence artifact";
+}
+
+function buildReceipt(manifest, issue = ISSUE, manifestPath = MANIFEST, receiptPath = RECEIPT) {
   return {
     schema: "wphx.verification-receipt.v1",
-    id: "receipt:wphx-700-02-generated-php-lowering-snapshots",
-    issue: ISSUE,
+    id: `receipt:${issue.external_ref.toLowerCase()}-generated-php-lowering-snapshots`,
+    issue,
     recorded_at: RECORDED_AT,
     artifacts: [
       {
-        path: MANIFEST,
+        path: manifestPath,
         role: "generated-PHP lowering snapshot manifest"
       },
       {
-        path: RECEIPT,
+        path: receiptPath,
         role: "generated-PHP lowering snapshot verification receipt"
       },
       {
         path: GENERATOR,
         role: "reusable generated-PHP snapshot runner"
-      },
-      {
-        path: "tests/lowering/php/mysqli-global-call/expected/WpdbMysqliGlobalLoweringProofEntry.php",
-        role: "exact generated-PHP golden for mysqli global-call lowering"
-      },
-      {
-        path: "tests/lowering/php/mysqli-global-call/expected/contract.ast.json",
-        role: "stable AST-normalized contract for mysqli global-call lowering"
       }
-    ],
+    ].concat(selectedSnapshotArtifacts(manifest.cases).map((path) => ({ path, role: artifactRole(path) }))),
     verification_commands: [
       "npm run generated-php:lowering-snapshots",
       "npm run generated-php:lowering-snapshots:check",
@@ -544,15 +945,30 @@ function buildReceipt(manifest) {
 try {
   const results = CASES.map(runCase);
   const manifest = buildManifest(results);
+  const expansionResults = results.filter((result) => result.owner === EXPANSION_ISSUE.external_ref);
+  const expansionManifest = buildManifest(expansionResults, EXPANSION_ISSUE);
   const manifestText = JSON.stringify(manifest, null, 2) + "\n";
   const receiptText = JSON.stringify(buildReceipt(manifest), null, 2) + "\n";
+  const expansionManifestText = JSON.stringify(expansionManifest, null, 2) + "\n";
+  const expansionReceiptText = JSON.stringify(
+    buildReceipt(expansionManifest, EXPANSION_ISSUE, EXPANSION_MANIFEST, EXPANSION_RECEIPT),
+    null,
+    2
+  ) + "\n";
 
   if (manifest.validation_result.status !== "passed") {
     throw new Error(`Generated-PHP lowering snapshots failed: ${JSON.stringify(manifest.validation_result)}`);
   }
+  if (expansionManifest.validation_result.status !== "passed") {
+    throw new Error(
+      `Generated-PHP lowering snapshot expansion failed: ${JSON.stringify(expansionManifest.validation_result)}`
+    );
+  }
 
   writeOrCheck(MANIFEST, manifestText, "npm run generated-php:lowering-snapshots");
   writeOrCheck(RECEIPT, receiptText, "npm run generated-php:lowering-snapshots");
+  writeOrCheck(EXPANSION_MANIFEST, expansionManifestText, "npm run generated-php:lowering-snapshots");
+  writeOrCheck(EXPANSION_RECEIPT, expansionReceiptText, "npm run generated-php:lowering-snapshots");
 
   console.log(
     JSON.stringify(
@@ -560,7 +976,10 @@ try {
         status: "passed",
         output: MANIFEST,
         receipt: RECEIPT,
+        expansion_output: EXPANSION_MANIFEST,
+        expansion_receipt: EXPANSION_RECEIPT,
         case_count: manifest.validation_result.case_count,
+        expansion_case_count: expansionManifest.validation_result.case_count,
         evidence_class: manifest.evidence_class,
         artifact_scope: manifest.artifact_scope,
         check_mode: checkOnly
