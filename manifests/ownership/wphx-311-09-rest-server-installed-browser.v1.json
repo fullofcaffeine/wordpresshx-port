@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rest-server-installed-browser",
+  "issue": {
+    "id": "wordpresshx-b3q",
+    "external_ref": "WPHX-311.09"
+  },
+  "unit": {
+    "kind": "packaged-distribution-installed-browser-gate",
+    "name": "WP_REST_Server installed entry and browser fetch gate",
+    "area": "wp-includes/rest-api/class-wp-rest-server.php",
+    "public_contract": "The packaged REST server candidate must match vanilla through an installed-style index.php entry and same-origin browser fetch for settings success, mutation, error, permission, HEAD, OPTIONS, and rest_pre_serve_request cases."
+  },
+  "ownership_state": "packaged_distribution_candidate",
+  "owned_paths": [
+    "tools/wp-core/run-rest-server-installed-browser-gate.mjs",
+    "manifests/wp-core/wphx-311-09-rest-server-installed-browser.v1.json",
+    "manifests/ownership/wphx-311-09-rest-server-installed-browser.v1.json",
+    "receipts/wp-core/wphx-311-09-rest-server-installed-browser.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-311-09-rest-server-installed-browser.v1.json",
+    "manifests/ownership/wphx-311-09-rest-server-installed-browser.v1.json",
+    "receipts/wp-core/wphx-311-09-rest-server-installed-browser.v1.json",
+    "build/wp-core/wphx-311-09",
+    "build/wp-core/wphx-311-07/oracle-package/index.php",
+    "build/wp-core/wphx-311-07/candidate-package/index.php"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-311-rest-server-installed-browser",
+      "npm run wp:core:wphx-311-rest-server-installed-browser:check",
+      "npm run wp:core:wphx-311-rest-server-web-e2e:check",
+      "npm run ci:php-conformance:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-311-09-rest-server-installed-browser",
+      "receipt:wphx-311-08-rest-server-web-e2e",
+      "receipt:wphx-311-07-rest-server-packaged-http"
+    ],
+    "manifest_digest": "sha256:a5d8b9095d4dabc0a44fc05c3526108dd2f79d8deab586a314ac21524af6908c"
+  },
+  "notes": "This gate validates browser-visible REST transport through an installed-style entry file. It still uses deterministic settings/wpdb fixtures instead of a full database-backed WordPress install."
+}

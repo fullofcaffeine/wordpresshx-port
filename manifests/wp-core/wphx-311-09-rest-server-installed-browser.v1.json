@@ -1,8 +1,8 @@
 {
-  "schema": "wphx.wp-core-rest-server-web-e2e.v1",
-  "issue": "WPHX-311.08",
-  "generated_at": "2026-06-22T13:20:00.000Z",
-  "generator": "tools/wp-core/run-rest-server-web-e2e-gate.mjs",
+  "schema": "wphx.wp-core-rest-server-installed-browser.v1",
+  "issue": "WPHX-311.09",
+  "generated_at": "2026-06-22T14:10:00.000Z",
+  "generator": "tools/wp-core/run-rest-server-installed-browser-gate.mjs",
   "evidence_classes": [
     "targeted_semantic_parity",
     "runtime_abi",
@@ -11,14 +11,14 @@
   "artifact_scope": "packaged_distribution",
   "inputs": {
     "runner": {
+      "path": "tools/wp-core/run-rest-server-installed-browser-gate.mjs",
+      "bytes": 20213,
+      "sha256": "sha256:f63a8fa8f254c9a081e2739e04500d8037b4f22374849b7222abfd2a081edef9"
+    },
+    "web_runner": {
       "path": "tools/wp-core/run-rest-server-web-e2e-gate.mjs",
       "bytes": 28126,
       "sha256": "sha256:f39ac2a816b08100a39b9f133d8fa95c1d1e0e2aa864429356535296582f8c6f"
-    },
-    "packaged_runner": {
-      "path": "tools/wp-core/run-rest-server-packaged-http-gate.mjs",
-      "bytes": 37314,
-      "sha256": "sha256:e490ca859db9a1c1049527285f2ce9db517e496894c663704f24abe325dd328c"
     },
     "package_json": {
       "path": "package.json",
@@ -26,20 +26,21 @@
       "sha256": "sha256:37fe925adb52c94dc14bef38c93339dc9e4cebe5835da4b3a4a203a6abde09a2"
     },
     "prior_manifest": {
-      "path": "manifests/wp-core/wphx-311-07-rest-server-packaged-http.v1.json",
-      "bytes": 99582,
-      "sha256": "sha256:1b9dd0ee5cb948ac4bdf06ddab92269e98de7031fbf7ddce501beb4b17cd5856"
-    },
-    "upstream_phpunit_groups": {
-      "path": "tests/upstream/phpunit/groups.json",
-      "bytes": 1633,
-      "sha256": "sha256:3cbf0c84dbb36bda72d4743bd3c80abc02e4cde33ae2822219f3621f239ce3f4"
+      "path": "manifests/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+      "bytes": 28997,
+      "sha256": "sha256:e5eb06cc0ab4b60f1da75b25ad11b94637bcdf2e5ebab226c46e2cd0c45bba7c"
     }
   },
-  "web_server": {
-    "executable": "php",
-    "server": "PHP built-in development server",
-    "router": "wphx-rest-web-router.php",
+  "browser": {
+    "engine": "chromium",
+    "channel": "chrome",
+    "launch": "headless",
+    "driver": "playwright"
+  },
+  "installed_entry": {
+    "web_server": "PHP built-in development server",
+    "entry_file": "index.php",
+    "router": "wphx-installed-router.php",
     "oracle_root": "build/wp-core/wphx-311-07/oracle-package",
     "candidate_root": "build/wp-core/wphx-311-07/candidate-package"
   },
@@ -129,6 +130,11 @@
         "path": "build/wp-core/wphx-311-07/candidate-package/haxe/lib/wphx/wp/rest/RestServerDispatchStrategy.php",
         "bytes": 6248,
         "sha256": "sha256:827d18fd850ea5476d2d45252845eb24690a7f47a6233bbd2c4ba27c2af13857"
+      },
+      {
+        "path": "build/wp-core/wphx-311-07/candidate-package/index.php",
+        "bytes": 96,
+        "sha256": "sha256:6c96da818d7f4b0d2c4c6569b3c14618bc8414fc78636b38945d8ad710b3f00d"
       },
       {
         "path": "build/wp-core/wphx-311-07/candidate-package/wp-includes/cache.php",
@@ -256,6 +262,11 @@
         "sha256": "sha256:f06764a8f214a4e3d71cbac4ea5af4d9edeaf07701cfe09436c251a4042db0d7"
       },
       {
+        "path": "build/wp-core/wphx-311-07/candidate-package/wphx-installed-router.php",
+        "bytes": 554,
+        "sha256": "sha256:2c7d906af0669d78582f22d1ebae064dcbd04daa3dc36caeb7181e36939ae7ec"
+      },
+      {
         "path": "build/wp-core/wphx-311-07/candidate-package/wphx-rest-web-router.php",
         "bytes": 10886,
         "sha256": "sha256:96bbd164a83b2f87b431df5f77627a3d25ee5b75e7a9f75884702462a583faf7"
@@ -275,42 +286,48 @@
   "fixture": {
     "cases": [
       {
-        "id": "rest-web:get-settings-success",
+        "id": "rest-browser:get-settings-success",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings",
-        "focus": "real HTTP GET returns REST settings JSON plus transport headers"
+        "focus": "browser fetch sees installed-entry REST settings JSON, HTTP status, and selected response headers"
       },
       {
-        "id": "rest-web:post-settings-update",
+        "id": "rest-browser:post-settings-update",
         "method": "POST",
         "path": "/wp-json/wp/v2/settings",
         "body": "wphx_rest_text=123&renamed_count=19",
         "contentType": "application/x-www-form-urlencoded",
-        "focus": "real HTTP POST body params update deterministic option storage"
+        "focus": "browser fetch form POST mutates deterministic settings storage through installed entry routing"
       },
       {
-        "id": "rest-web:no-route-404",
+        "id": "rest-browser:no-route-404",
         "method": "GET",
         "path": "/wp-json/wp/v2/missing",
-        "focus": "unknown REST route returns HTTP 404 and JSON error body"
+        "focus": "browser fetch observes route miss as HTTP 404 and REST error JSON"
       },
       {
-        "id": "rest-web:head-no-body",
+        "id": "rest-browser:head-no-body",
         "method": "HEAD",
         "path": "/wp-json/wp/v2/settings",
-        "focus": "HEAD request carries status and headers without a body"
+        "focus": "browser HEAD fetch observes status and headers with no response body"
       },
       {
-        "id": "rest-web:permission-denied",
+        "id": "rest-browser:permission-denied",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?deny=1",
-        "focus": "permission callback denial is visible as HTTP error response"
+        "focus": "browser fetch observes permission callback denial as HTTP error response"
       },
       {
-        "id": "rest-web:pre-serve-manual",
+        "id": "rest-browser:pre-serve-manual",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?manual=1",
-        "focus": "rest_pre_serve_request can manually serve transport output"
+        "focus": "browser fetch observes rest_pre_serve_request manual output"
+      },
+      {
+        "id": "rest-browser:options-settings",
+        "method": "OPTIONS",
+        "path": "/wp-json/wp/v2/settings",
+        "focus": "browser fetch observes installed-entry OPTIONS behavior and exposed transport headers"
       }
     ],
     "selected_headers": [
@@ -319,25 +336,30 @@
       "link",
       "x-content-type-options",
       "access-control-expose-headers",
-      "access-control-allow-headers"
+      "access-control-allow-headers",
+      "allow"
     ],
-    "native_boundaries": [
-      {
-        "id": "php-web-server-transport",
-        "reason": "serve_request() emits status, headers, and body through PHP's HTTP transport instead of a CLI capture subclass."
-      },
-      {
-        "id": "deterministic-wpdb-option-store",
-        "reason": "The settings endpoint runs through real REST/settings/option code while deterministic wpdb storage replaces a live database for this web gate."
-      }
+    "browser_transport": [
+      "same-origin fetch",
+      "browser-visible response status",
+      "browser-visible selected headers",
+      "browser-visible JSON/raw response body",
+      "installed-style index.php entry routing"
     ]
   },
   "runs": [
     {
-      "id": "local-web-server:oracle",
+      "id": "installed-browser:oracle",
       "mode": "oracle",
-      "command": "php -S 127.0.0.1:<ephemeral> wphx-rest-web-router.php",
-      "normalized_sha256": "sha256:cee6cba2f57160150ce084603767e7d96e8900f5d79e0a95011717f3ad6da6e6",
+      "command": "php -S 127.0.0.1:<ephemeral> wphx-installed-router.php",
+      "normalized_sha256": "sha256:759f8e3c32bb0d0315f40e8e1f5da52c6d815caa711ae50f2e1fc2d1e5619e5e",
+      "browser": {
+        "location": {
+          "pathname": "/__wphx/browser-harness",
+          "originKind": "local-ephemeral"
+        },
+        "user_agent_family": "chromium"
+      },
       "package_boundary": {
         "classFile": "/Users/fullofcaffeine/workspace/code/wordpresshx/build/wp-core/wphx-311-07/oracle-package/wp-includes/rest-api/class-wp-rest-server.php",
         "expectedClassFile": "/Users/fullofcaffeine/workspace/code/wordpresshx/build/wp-core/wphx-311-07/oracle-package/wp-includes/rest-api/class-wp-rest-server.php",
@@ -365,10 +387,17 @@
       }
     },
     {
-      "id": "local-web-server:candidate",
+      "id": "installed-browser:candidate",
       "mode": "candidate",
-      "command": "php -S 127.0.0.1:<ephemeral> wphx-rest-web-router.php",
-      "normalized_sha256": "sha256:cee6cba2f57160150ce084603767e7d96e8900f5d79e0a95011717f3ad6da6e6",
+      "command": "php -S 127.0.0.1:<ephemeral> wphx-installed-router.php",
+      "normalized_sha256": "sha256:759f8e3c32bb0d0315f40e8e1f5da52c6d815caa711ae50f2e1fc2d1e5619e5e",
+      "browser": {
+        "location": {
+          "pathname": "/__wphx/browser-harness",
+          "originKind": "local-ephemeral"
+        },
+        "user_agent_family": "chromium"
+      },
       "package_boundary": {
         "classFile": "/Users/fullofcaffeine/workspace/code/wordpresshx/build/wp-core/wphx-311-07/candidate-package/wp-includes/rest-api/class-wp-rest-server.php",
         "expectedClassFile": "/Users/fullofcaffeine/workspace/code/wordpresshx/build/wp-core/wphx-311-07/candidate-package/wp-includes/rest-api/class-wp-rest-server.php",
@@ -400,7 +429,7 @@
     "matches": true,
     "oracle": [
       {
-        "id": "rest-web:get-settings-success",
+        "id": "rest-browser:get-settings-success",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -421,7 +450,7 @@
         }
       },
       {
-        "id": "rest-web:post-settings-update",
+        "id": "rest-browser:post-settings-update",
         "method": "POST",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -442,7 +471,7 @@
         }
       },
       {
-        "id": "rest-web:no-route-404",
+        "id": "rest-browser:no-route-404",
         "method": "GET",
         "path": "/wp-json/wp/v2/missing",
         "status": 404,
@@ -466,7 +495,7 @@
         }
       },
       {
-        "id": "rest-web:head-no-body",
+        "id": "rest-browser:head-no-body",
         "method": "HEAD",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -484,7 +513,7 @@
         }
       },
       {
-        "id": "rest-web:permission-denied",
+        "id": "rest-browser:permission-denied",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?deny=1",
         "status": 403,
@@ -508,7 +537,7 @@
         }
       },
       {
-        "id": "rest-web:pre-serve-manual",
+        "id": "rest-browser:pre-serve-manual",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?manual=1",
         "status": 200,
@@ -523,12 +552,36 @@
         "body": {
           "kind": "raw",
           "value": "manual-rest-output"
+        }
+      },
+      {
+        "id": "rest-browser:options-settings",
+        "method": "OPTIONS",
+        "path": "/wp-json/wp/v2/settings",
+        "status": 404,
+        "headers": {
+          "content-type": "application/json; charset=UTF-8",
+          "x-robots-tag": "noindex",
+          "link": "<https://example.test/index.php?rest_route=/>; rel=\"https://api.w.org/\"",
+          "x-content-type-options": "nosniff",
+          "access-control-expose-headers": "X-WP-Total, X-WP-TotalPages, Link",
+          "access-control-allow-headers": "Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type"
+        },
+        "body": {
+          "kind": "json",
+          "value": {
+            "code": "rest_no_route",
+            "message": "No route was found matching the URL and request method.",
+            "data": {
+              "status": 404
+            }
+          }
         }
       }
     ],
     "candidate": [
       {
-        "id": "rest-web:get-settings-success",
+        "id": "rest-browser:get-settings-success",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -549,7 +602,7 @@
         }
       },
       {
-        "id": "rest-web:post-settings-update",
+        "id": "rest-browser:post-settings-update",
         "method": "POST",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -570,7 +623,7 @@
         }
       },
       {
-        "id": "rest-web:no-route-404",
+        "id": "rest-browser:no-route-404",
         "method": "GET",
         "path": "/wp-json/wp/v2/missing",
         "status": 404,
@@ -594,7 +647,7 @@
         }
       },
       {
-        "id": "rest-web:head-no-body",
+        "id": "rest-browser:head-no-body",
         "method": "HEAD",
         "path": "/wp-json/wp/v2/settings",
         "status": 200,
@@ -612,7 +665,7 @@
         }
       },
       {
-        "id": "rest-web:permission-denied",
+        "id": "rest-browser:permission-denied",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?deny=1",
         "status": 403,
@@ -636,7 +689,7 @@
         }
       },
       {
-        "id": "rest-web:pre-serve-manual",
+        "id": "rest-browser:pre-serve-manual",
         "method": "GET",
         "path": "/wp-json/wp/v2/settings?manual=1",
         "status": 200,
@@ -651,14 +704,38 @@
         "body": {
           "kind": "raw",
           "value": "manual-rest-output"
+        }
+      },
+      {
+        "id": "rest-browser:options-settings",
+        "method": "OPTIONS",
+        "path": "/wp-json/wp/v2/settings",
+        "status": 404,
+        "headers": {
+          "content-type": "application/json; charset=UTF-8",
+          "x-robots-tag": "noindex",
+          "link": "<https://example.test/index.php?rest_route=/>; rel=\"https://api.w.org/\"",
+          "x-content-type-options": "nosniff",
+          "access-control-expose-headers": "X-WP-Total, X-WP-TotalPages, Link",
+          "access-control-allow-headers": "Authorization, X-WP-Nonce, Content-Disposition, Content-MD5, Content-Type"
+        },
+        "body": {
+          "kind": "json",
+          "value": {
+            "code": "rest_no_route",
+            "message": "No route was found matching the URL and request method.",
+            "data": {
+              "status": 404
+            }
+          }
         }
       }
     ]
   },
   "package_boundaries": [
     {
-      "id": "local-web-server:candidate",
-      "runtime": "local-php-web-server",
+      "id": "installed-browser:candidate",
+      "runtime": "chromium-fetch-over-php-web-server",
       "status": "passed",
       "checks": {
         "class_declared_in_package": true,
@@ -668,19 +745,16 @@
       }
     }
   ],
-  "upstream_phpunit_ratchet": {
-    "groups_file": "tests/upstream/phpunit/groups.json",
-    "command": "npm run upstream:phpunit-ratchet:check",
-    "expected_rest_groups": [
-      "rest-settings-controller",
-      "rest-server-core"
-    ]
-  },
   "remaining_gaps": [
     {
-      "id": "full-browser-fetch-corpus-deferred",
+      "id": "full-database-backed-install-deferred",
       "owner": "WPHX-311/WPHX-322",
-      "detail": "This gate uses real HTTP transport from Node fetch. Browser automation, installed permalink routing through index.php, and broader REST endpoint corpus remain follow-up work."
+      "detail": "This browser gate uses deterministic REST/settings fixtures. A database-backed installed WordPress root with permalink routing remains broader distribution work."
+    },
+    {
+      "id": "cross-origin-cors-preflight-deferred",
+      "owner": "WPHX-311/WPHX-322",
+      "detail": "This gate captures browser-visible REST headers and OPTIONS through same-origin fetch. Cross-origin CORS preflight remains a separate browser/network matrix."
     },
     {
       "id": "complete-rest-server-haxe-class-deferred",
@@ -688,7 +762,7 @@
       "detail": "The package owns the class file and typed dispatch decisions, but many WP_REST_Server method bodies still mirror WordPress PHP source."
     }
   ],
-  "ownership_manifest": "manifests/ownership/wphx-311-08-rest-server-web-e2e.v1.json",
+  "ownership_manifest": "manifests/ownership/wphx-311-09-rest-server-installed-browser.v1.json",
   "validation_result": {
     "status": "passed",
     "evidence_classes": [
@@ -697,16 +771,17 @@
       "live_integration_parity"
     ],
     "artifact_scope": "packaged_distribution",
-    "fixture_cases": 6,
+    "fixture_cases": 7,
     "selected_headers": [
       "content-type",
       "x-robots-tag",
       "link",
       "x-content-type-options",
       "access-control-expose-headers",
-      "access-control-allow-headers"
+      "access-control-allow-headers",
+      "allow"
     ],
-    "web_server_runs": 2,
+    "browser_runs": 2,
     "package_boundary": {
       "status": "passed",
       "checks": {

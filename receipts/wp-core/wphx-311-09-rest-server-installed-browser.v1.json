@@ -1,0 +1,67 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-09-rest-server-installed-browser",
+  "issue": {
+    "id": "wordpresshx-b3q",
+    "external_ref": "WPHX-311.09",
+    "title": "Add installed/browser REST E2E corpus"
+  },
+  "recorded_at": "2026-06-22T14:10:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-311-09-rest-server-installed-browser.v1.json",
+      "role": "REST server installed browser parity and no-fallback manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-09-rest-server-installed-browser.v1.json",
+      "role": "REST server installed browser ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-rest-server-installed-browser-gate.mjs",
+      "role": "installed-entry Playwright/browser E2E generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-server-installed-browser",
+    "npm run wp:core:wphx-311-rest-server-installed-browser:check",
+    "npm run wp:core:wphx-311-rest-server-web-e2e:check",
+    "npm run ci:php-conformance:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-08-rest-server-web-e2e",
+    "receipt:wphx-311-07-rest-server-packaged-http",
+    "receipt:wphx-311-06-rest-server-dispatch-strategy-candidate"
+  ],
+  "manifest_sha256": "sha256:a5d8b9095d4dabc0a44fc05c3526108dd2f79d8deab586a314ac21524af6908c",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "targeted_semantic_parity",
+      "runtime_abi",
+      "live_integration_parity"
+    ],
+    "artifact_scope": "packaged_distribution",
+    "fixture_cases": 7,
+    "selected_headers": [
+      "content-type",
+      "x-robots-tag",
+      "link",
+      "x-content-type-options",
+      "access-control-expose-headers",
+      "access-control-allow-headers",
+      "allow"
+    ],
+    "browser_runs": 2,
+    "package_boundary": {
+      "status": "passed",
+      "checks": {
+        "class_declared_in_package": true,
+        "upstream_server_not_included": true,
+        "owned_methods_declared_in_package": true,
+        "haxe_strategy_loaded": true
+      }
+    }
+  }
+}
