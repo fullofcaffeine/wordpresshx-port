@@ -79,6 +79,15 @@ jobs:
               npm run wp:linker:check
               npm run wp:public-types:check
               npm run wp:debug:sourcemap:check
+          - suite: wp-core-deterministic-parity
+            command: |
+              npm run generated-php:lowering-snapshots:check
+              npm run wp:core:wphx-303-wp-error:check
+              npm run wp:core:wphx-304-option-cache-candidate:check
+              npm run wp:core:wphx-305-mysqli-global-lowering-proof:check
+          - suite: wp-core-live-db-parity
+            command: |
+              npm run wp:core:wphx-305-db-connect-strategy-candidate:check
 
     steps:
       - name: Checkout
@@ -118,6 +127,12 @@ jobs:
           docker pull library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d
           docker pull library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e
 
+      - name: Warm pinned database Docker images
+        if: matrix.suite == 'wp-core-live-db-parity'
+        run: |
+          docker pull library/mysql@sha256:563602a18ffd5be220968e8508d84c9dcd80fbffe69e28af51572db29e3285b2
+          docker pull library/mariadb@sha256:be1ef4fe5f14589325c08a41c76334097ce66c86264b75e1d28342c742782a61
+
       - name: Tool versions
         run: |
           node --version
@@ -128,3 +143,21 @@ jobs:
 
       - name: Run conformance suite
         run: ${{ matrix.command }}
+
+      - name: Upload conformance artifacts
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: php-conformance-${{ matrix.suite }}
+          if-no-files-found: ignore
+          path: |
+            build/**
+            manifests/ci/**
+            manifests/generated-php/**
+            manifests/operations/**
+            manifests/ownership/**
+            manifests/wp-core/**
+            receipts/ci/**
+            receipts/generated-php/**
+            receipts/operations/**
+            receipts/wp-core/**

@@ -5,7 +5,7 @@
   "generator": "tools/ci/check-php-conformance-ci.mjs",
   "workflow": {
     "path": ".github/workflows/php-conformance.yml",
-    "sha256": "sha256:a5fdbd8365248bf405ddab9d93e44271856a5000e3e25a5cff588aecdfb38198",
+    "sha256": "sha256:5bbbd8bd5a09f284a4e73bfcad8e81ac934f9323be1559799b31b0aef9416ef5",
     "triggers": [
       "pull_request",
       "push:main",
@@ -29,7 +29,9 @@
       "hygiene-and-manifests",
       "php-feasibility",
       "wp-abi-and-macros",
-      "wp-runtime-and-linker"
+      "wp-runtime-and-linker",
+      "wp-core-deterministic-parity",
+      "wp-core-live-db-parity"
     ],
     "required_commands": [
       "npm run format:haxe:check",
@@ -57,7 +59,12 @@
       "npm run wp:hooks:distribution-surface:check",
       "npm run wp:linker:check",
       "npm run wp:public-types:check",
-      "npm run wp:debug:sourcemap:check"
+      "npm run wp:debug:sourcemap:check",
+      "npm run generated-php:lowering-snapshots:check",
+      "npm run wp:core:wphx-303-wp-error:check",
+      "npm run wp:core:wphx-304-option-cache-candidate:check",
+      "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+      "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
     ]
   },
   "toolchain": {
@@ -73,6 +80,14 @@
       {
         "id": "php_8_5_cli",
         "reference": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e"
+      },
+      {
+        "id": "mysql_8_4",
+        "reference": "library/mysql@sha256:563602a18ffd5be220968e8508d84c9dcd80fbffe69e28af51572db29e3285b2"
+      },
+      {
+        "id": "mariadb_11_8",
+        "reference": "library/mariadb@sha256:be1ef4fe5f14589325c08a41c76334097ce66c86264b75e1d28342c742782a61"
       }
     ]
   },
@@ -83,6 +98,8 @@
     "conformance_matrix": true,
     "required_commands_present": true,
     "locked_toolchain_versions_present": true,
-    "pinned_php_docker_images_present": true
+    "pinned_php_docker_images_present": true,
+    "pinned_database_docker_images_present": true,
+    "conformance_artifacts_uploaded": true
   }
 }

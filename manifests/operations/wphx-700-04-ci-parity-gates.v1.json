@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.operation-ci-parity-gates.v1",
+  "issue": "WPHX-700.04",
+  "generated_at": "2026-06-20T19:40:00.000Z",
+  "generator": "tools/ci/check-php-conformance-ci.mjs",
+  "source_manifest": {
+    "path": "manifests/ci/wphx-208-php-conformance-ci.v1.json",
+    "sha256": "sha256:6ec58ec13c1d85e30b6cd3cb451aa039cc6bfd3819f6836a0397ab94e35bc4d3"
+  },
+  "workflow": {
+    "path": ".github/workflows/php-conformance.yml",
+    "sha256": "sha256:5bbbd8bd5a09f284a4e73bfcad8e81ac934f9323be1559799b31b0aef9416ef5",
+    "deterministic_suite": "wp-core-deterministic-parity",
+    "live_db_suite": "wp-core-live-db-parity",
+    "artifact_upload": "actions/upload-artifact@v4"
+  },
+  "evidence_classes": [
+    "generated_shape",
+    "targeted_semantic_parity",
+    "live_integration_parity"
+  ],
+  "artifact_scopes": [
+    "minimized_fixture",
+    "bridge_shell",
+    "linked_candidate"
+  ],
+  "required_parity_commands": [
+    "npm run generated-php:lowering-snapshots:check",
+    "npm run wp:core:wphx-303-wp-error:check",
+    "npm run wp:core:wphx-304-option-cache-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "deterministic_wordpress_core_suite_present": true,
+    "live_db_wordpress_core_suite_present": true,
+    "generated_php_lowering_gate_required": true,
+    "wphx_303_candidate_gate_required": true,
+    "wphx_304_candidate_gate_required": true,
+    "wphx_305_generated_shape_gate_required": true,
+    "wphx_305_live_db_candidate_gate_required": true,
+    "mysql_mariadb_images_pinned": true,
+    "conformance_artifacts_uploaded": true
+  }
+}

@@ -7,6 +7,8 @@ const checkOnly = process.argv.includes("--check");
 const WORKFLOW = ".github/workflows/php-conformance.yml";
 const OUT = "manifests/ci/wphx-208-php-conformance-ci.v1.json";
 const RECEIPT = "receipts/ci/wphx-208-php-conformance-ci.v1.json";
+const PARITY_GATES_OUT = "manifests/operations/wphx-700-04-ci-parity-gates.v1.json";
+const PARITY_GATES_RECEIPT = "receipts/operations/wphx-700-04-ci-parity-gates.v1.json";
 const RECORDED_AT = "2026-06-20T19:40:00.000Z";
 
 const REQUIRED_PATHS = [
@@ -50,10 +52,22 @@ const REQUIRED_COMMANDS = [
   "npm run wp:hooks:distribution-surface:check",
   "npm run wp:linker:check",
   "npm run wp:public-types:check",
-  "npm run wp:debug:sourcemap:check"
+  "npm run wp:debug:sourcemap:check",
+  "npm run generated-php:lowering-snapshots:check",
+  "npm run wp:core:wphx-303-wp-error:check",
+  "npm run wp:core:wphx-304-option-cache-candidate:check",
+  "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+  "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
 ];
 
-const REQUIRED_SUITES = ["hygiene-and-manifests", "php-feasibility", "wp-abi-and-macros", "wp-runtime-and-linker"];
+const REQUIRED_SUITES = [
+  "hygiene-and-manifests",
+  "php-feasibility",
+  "wp-abi-and-macros",
+  "wp-runtime-and-linker",
+  "wp-core-deterministic-parity",
+  "wp-core-live-db-parity"
+];
 
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
@@ -104,6 +118,7 @@ const requiredText = [
   "fail-fast: false",
   "actions/checkout@v4",
   "actions/setup-node@v4",
+  "actions/upload-artifact@v4",
   "shivammathur/setup-php@v2",
   "krdlab/setup-haxe@v2",
   'node-version: "20.19.3"',
@@ -114,7 +129,11 @@ const requiredText = [
   "haxelib install formatter 1.18.0 --quiet",
   "git clone --depth 1 --branch 7.0.0 https://github.com/WordPress/wordpress-develop.git ../wordpress-develop",
   "26b68024931348d267b70e2a29910e1320d0094f",
-  "docker pull"
+  "docker pull",
+  "if-no-files-found: ignore",
+  "build/**",
+  "manifests/wp-core/**",
+  "receipts/wp-core/**"
 ];
 
 for (const needle of requiredText) {
@@ -123,7 +142,12 @@ for (const needle of requiredText) {
   }
 }
 
-for (const image of [toolchain.container_images.php_8_4_cli, toolchain.container_images.php_8_5_cli]) {
+for (const image of [
+  toolchain.container_images.php_8_4_cli,
+  toolchain.container_images.php_8_5_cli,
+  toolchain.container_images.mysql_8_4,
+  toolchain.container_images.mariadb_11_8
+]) {
   const reference = `${image.repository}@${image.index_digest}`;
   if (!workflowText.includes(reference)) {
     errors.push(`workflow missing pinned Docker image ${reference}`);
@@ -162,6 +186,14 @@ const manifest = {
       {
         id: "php_8_5_cli",
         reference: `${toolchain.container_images.php_8_5_cli.repository}@${toolchain.container_images.php_8_5_cli.index_digest}`
+      },
+      {
+        id: "mysql_8_4",
+        reference: `${toolchain.container_images.mysql_8_4.repository}@${toolchain.container_images.mysql_8_4.index_digest}`
+      },
+      {
+        id: "mariadb_11_8",
+        reference: `${toolchain.container_images.mariadb_11_8.repository}@${toolchain.container_images.mariadb_11_8.index_digest}`
       }
     ]
   },
@@ -172,7 +204,9 @@ const manifest = {
     conformance_matrix: true,
     required_commands_present: true,
     locked_toolchain_versions_present: true,
-    pinned_php_docker_images_present: true
+    pinned_php_docker_images_present: true,
+    pinned_database_docker_images_present: true,
+    conformance_artifacts_uploaded: true
   }
 };
 
@@ -192,11 +226,93 @@ const receipt = {
   required_commands: REQUIRED_COMMANDS.length
 };
 const receiptText = JSON.stringify(receipt, null, 2) + "\n";
+const parityGatesManifest = {
+  schema: "wphx.operation-ci-parity-gates.v1",
+  issue: "WPHX-700.04",
+  generated_at: RECORDED_AT,
+  generator: "tools/ci/check-php-conformance-ci.mjs",
+  source_manifest: {
+    path: OUT,
+    sha256: sha256(manifestText)
+  },
+  workflow: {
+    path: WORKFLOW,
+    sha256: workflowSha,
+    deterministic_suite: "wp-core-deterministic-parity",
+    live_db_suite: "wp-core-live-db-parity",
+    artifact_upload: "actions/upload-artifact@v4"
+  },
+  evidence_classes: ["generated_shape", "targeted_semantic_parity", "live_integration_parity"],
+  artifact_scopes: ["minimized_fixture", "bridge_shell", "linked_candidate"],
+  required_parity_commands: [
+    "npm run generated-php:lowering-snapshots:check",
+    "npm run wp:core:wphx-303-wp-error:check",
+    "npm run wp:core:wphx-304-option-cache-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
+  ],
+  validation_result: {
+    status: "passed",
+    deterministic_wordpress_core_suite_present: true,
+    live_db_wordpress_core_suite_present: true,
+    generated_php_lowering_gate_required: true,
+    wphx_303_candidate_gate_required: true,
+    wphx_304_candidate_gate_required: true,
+    wphx_305_generated_shape_gate_required: true,
+    wphx_305_live_db_candidate_gate_required: true,
+    mysql_mariadb_images_pinned: true,
+    conformance_artifacts_uploaded: true
+  }
+};
+const parityGatesManifestText = JSON.stringify(parityGatesManifest, null, 2) + "\n";
+const parityGatesReceipt = {
+  schema: "wphx.verification-receipt.v1",
+  id: "receipt:wphx-700-04-ci-parity-gates",
+  issue: {
+    id: "wordpresshx-w91.3.4",
+    external_ref: "WPHX-700.04",
+    title: "WPHX-700.04 — Add WPHX parity gates to required CI"
+  },
+  recorded_at: RECORDED_AT,
+  artifacts: [
+    {
+      path: PARITY_GATES_OUT,
+      role: "CI parity gate hardening manifest"
+    },
+    {
+      path: OUT,
+      role: "PHP conformance workflow manifest with required WPHX parity suites"
+    },
+    {
+      path: ".github/workflows/php-conformance.yml",
+      role: "GitHub Actions workflow requiring deterministic and live WordPress core parity gates"
+    },
+    {
+      path: "tools/ci/check-php-conformance-ci.mjs",
+      role: "workflow validator that rejects missing parity gates and artifact uploads"
+    }
+  ],
+  verification_commands: [
+    "npm run ci:php-conformance",
+    "npm run ci:php-conformance:check",
+    "npm run generated-php:lowering-snapshots:check",
+    "npm run wp:core:wphx-303-wp-error:check",
+    "npm run wp:core:wphx-304-option-cache-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  validation_result: parityGatesManifest.validation_result
+};
+const parityGatesReceiptText = JSON.stringify(parityGatesReceipt, null, 2) + "\n";
 
 if (checkOnly) {
   for (const [path, text] of [
     [OUT, manifestText],
-    [RECEIPT, receiptText]
+    [RECEIPT, receiptText],
+    [PARITY_GATES_OUT, parityGatesManifestText],
+    [PARITY_GATES_RECEIPT, parityGatesReceiptText]
   ]) {
     if (!existsSync(path)) {
       console.error(JSON.stringify({ status: "failed", error: `${path} does not exist` }, null, 2));
@@ -215,4 +331,8 @@ mkdirSync(dirname(OUT), { recursive: true });
 mkdirSync(dirname(RECEIPT), { recursive: true });
 writeFileSync(OUT, manifestText);
 writeFileSync(RECEIPT, receiptText);
+mkdirSync(dirname(PARITY_GATES_OUT), { recursive: true });
+mkdirSync(dirname(PARITY_GATES_RECEIPT), { recursive: true });
+writeFileSync(PARITY_GATES_OUT, parityGatesManifestText);
+writeFileSync(PARITY_GATES_RECEIPT, parityGatesReceiptText);
 console.log(JSON.stringify({ status: "passed", output: OUT, receipt: RECEIPT, suites: REQUIRED_SUITES.length }, null, 2));

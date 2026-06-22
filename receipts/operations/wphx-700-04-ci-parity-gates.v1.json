@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-700-04-ci-parity-gates",
+  "issue": {
+    "id": "wordpresshx-w91.3.4",
+    "external_ref": "WPHX-700.04",
+    "title": "WPHX-700.04 — Add WPHX parity gates to required CI"
+  },
+  "recorded_at": "2026-06-20T19:40:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/operations/wphx-700-04-ci-parity-gates.v1.json",
+      "role": "CI parity gate hardening manifest"
+    },
+    {
+      "path": "manifests/ci/wphx-208-php-conformance-ci.v1.json",
+      "role": "PHP conformance workflow manifest with required WPHX parity suites"
+    },
+    {
+      "path": ".github/workflows/php-conformance.yml",
+      "role": "GitHub Actions workflow requiring deterministic and live WordPress core parity gates"
+    },
+    {
+      "path": "tools/ci/check-php-conformance-ci.mjs",
+      "role": "workflow validator that rejects missing parity gates and artifact uploads"
+    }
+  ],
+  "verification_commands": [
+    "npm run ci:php-conformance",
+    "npm run ci:php-conformance:check",
+    "npm run generated-php:lowering-snapshots:check",
+    "npm run wp:core:wphx-303-wp-error:check",
+    "npm run wp:core:wphx-304-option-cache-candidate:check",
+    "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "deterministic_wordpress_core_suite_present": true,
+    "live_db_wordpress_core_suite_present": true,
+    "generated_php_lowering_gate_required": true,
+    "wphx_303_candidate_gate_required": true,
+    "wphx_304_candidate_gate_required": true,
+    "wphx_305_generated_shape_gate_required": true,
+    "wphx_305_live_db_candidate_gate_required": true,
+    "mysql_mariadb_images_pinned": true,
+    "conformance_artifacts_uploaded": true
+  }
+}
