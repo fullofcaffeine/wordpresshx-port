@@ -8,7 +8,7 @@ class RestServerDispatchStrategy
 
 	public static function ownedServerBodies():Array<String>
 	{
-		return ["dispatch", "respond_to_request"];
+		return ["serve_request", "dispatch", "respond_to_request"];
 	}
 
 	public static function serverBodyRoute(methodName:String):String
@@ -19,6 +19,90 @@ class RestServerDispatchStrategy
 	public static function ownsServerBody(methodName:String):Bool
 	{
 		return serverBodyRoute(methodName) == ROUTE_TYPED_HAXE_DISPATCH_PLAN;
+	}
+
+	public static function shouldClearUnauthenticatedCurrentUser(currentUserIsWpUser:Bool, currentUserExists:Bool):Bool
+	{
+		return currentUserIsWpUser && !currentUserExists;
+	}
+
+	public static function responseContentType(jsonpCallbackPresent:Bool, jsonpEnabled:Bool):String
+	{
+		return jsonpCallbackPresent && jsonpEnabled ? "application/javascript" : "application/json";
+	}
+
+	public static function shouldSendApiRootLink(apiRootIsEmpty:Bool):Bool
+	{
+		return !apiRootIsEmpty;
+	}
+
+	public static function shouldRejectDisabledJsonp(jsonpCallbackPresent:Bool, jsonpEnabled:Bool):Bool
+	{
+		return jsonpCallbackPresent && !jsonpEnabled;
+	}
+
+	public static function shouldRejectInvalidJsonp(jsonpCallbackPresent:Bool, jsonpCallbackIsValid:Bool):Bool
+	{
+		return jsonpCallbackPresent && !jsonpCallbackIsValid;
+	}
+
+	public static function requestPath(path:Null<String>, pathInfo:Null<String>):String
+	{
+		if (path != null && path != "")
+		{
+			return path;
+		}
+		return pathInfo == null ? "/" : pathInfo;
+	}
+
+	public static function shouldOverrideMethodFromQuery(queryOverridePresent:Bool):Bool
+	{
+		return queryOverridePresent;
+	}
+
+	public static function shouldOverrideMethodFromHeader(queryOverridePresent:Bool, headerOverridePresent:Bool):Bool
+	{
+		return !queryOverridePresent && headerOverridePresent;
+	}
+
+	public static function shouldDispatchAuthenticatedRequest(authenticationIsWpError:Bool):Bool
+	{
+		return !authenticationIsWpError;
+	}
+
+	public static function shouldConvertServeResultError(resultIsWpError:Bool):Bool
+	{
+		return resultIsWpError;
+	}
+
+	public static function shouldEnvelopeResponse(envelopeRequested:Bool):Bool
+	{
+		return envelopeRequested;
+	}
+
+	public static function shouldSendNoCacheHeaders(sendNoCacheHeaders:Bool, methodOverridden:Bool, responseCodeIs4xx:Bool):Bool
+	{
+		return sendNoCacheHeaders || (methodOverridden && responseCodeIs4xx);
+	}
+
+	public static function shouldServeDefaultResponse(preServed:Bool):Bool
+	{
+		return !preServed;
+	}
+
+	public static function shouldReturnWithoutBodyForHead(methodIsHead:Bool):Bool
+	{
+		return methodIsHead;
+	}
+
+	public static function shouldReturnWithoutBodyForStatus(responseCode:Int, responseDataIsNull:Bool):Bool
+	{
+		return responseCode == 204 || responseDataIsNull;
+	}
+
+	public static function shouldEchoJsonp(jsonpCallbackPresent:Bool):Bool
+	{
+		return jsonpCallbackPresent;
 	}
 
 	public static function shouldUsePreDispatchResult(resultIsEmpty:Bool):Bool

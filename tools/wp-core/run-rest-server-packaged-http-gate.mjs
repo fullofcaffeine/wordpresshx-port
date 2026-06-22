@@ -230,6 +230,176 @@ function transformCandidateRestServer() {
   let source = installBootstrap(readFileSync(path, "utf8"));
   source = replaceMethod(
     source,
+    "serve_request",
+    `public function serve_request( $path = null ) {
+\t/* @var WP_User|null $current_user */
+\tglobal $current_user;
+
+\t$dispatch_strategy = '\\\\wphx\\\\wp\\\\rest\\\\RestServerDispatchStrategy';
+
+\t$wphx_current_user_is_wp_user = $current_user instanceof WP_User;
+\t$wphx_current_user_exists     = $wphx_current_user_is_wp_user && $current_user->exists();
+\tif ( $dispatch_strategy::shouldClearUnauthenticatedCurrentUser( $wphx_current_user_is_wp_user, $wphx_current_user_exists ) ) {
+\t\t$current_user = null;
+\t}
+
+\t$jsonp_enabled = apply_filters( 'rest_jsonp_enabled', true );
+
+\t$jsonp_callback = false;
+\tif ( isset( $_GET['_jsonp'] ) ) {
+\t\t$jsonp_callback = $_GET['_jsonp'];
+\t}
+
+\t$wphx_jsonp_callback_present = false !== $jsonp_callback;
+\t$content_type                = $dispatch_strategy::responseContentType( $wphx_jsonp_callback_present, (bool) $jsonp_enabled );
+\t$this->send_header( 'Content-Type', $content_type . '; charset=' . get_option( 'blog_charset' ) );
+\t$this->send_header( 'X-Robots-Tag', 'noindex' );
+
+\t$api_root = get_rest_url();
+\tif ( $dispatch_strategy::shouldSendApiRootLink( empty( $api_root ) ) ) {
+\t\t$this->send_header( 'Link', '<' . sanitize_url( $api_root ) . '>; rel="https://api.w.org/"' );
+\t}
+
+\t$this->send_header( 'X-Content-Type-Options', 'nosniff' );
+
+\tapply_filters_deprecated(
+\t\t'rest_enabled',
+\t\tarray( true ),
+\t\t'4.7.0',
+\t\t'rest_authentication_errors',
+\t\tsprintf(
+\t\t\t/* translators: %s: rest_authentication_errors */
+\t\t\t__( 'The REST API can no longer be completely disabled, the %s filter can be used to restrict access to the API, instead.' ),
+\t\t\t'rest_authentication_errors'
+\t\t)
+\t);
+
+\tif ( $dispatch_strategy::shouldRejectDisabledJsonp( $wphx_jsonp_callback_present, (bool) $jsonp_enabled ) ) {
+\t\techo $this->json_error( 'rest_callback_disabled', __( 'JSONP support is disabled on this site.' ), 400 );
+\t\treturn false;
+\t}
+
+\t$wphx_jsonp_callback_valid = ! $wphx_jsonp_callback_present || wp_check_jsonp_callback( $jsonp_callback );
+\tif ( $dispatch_strategy::shouldRejectInvalidJsonp( $wphx_jsonp_callback_present, $wphx_jsonp_callback_valid ) ) {
+\t\techo $this->json_error( 'rest_callback_invalid', __( 'Invalid JSONP callback function.' ), 400 );
+\t\treturn false;
+\t}
+
+\t$path = $dispatch_strategy::requestPath( $path, $_SERVER['PATH_INFO'] ?? null );
+
+\t$request = new WP_REST_Request( $_SERVER['REQUEST_METHOD'], $path );
+
+\t$request->set_query_params( wp_unslash( $_GET ) );
+\t$request->set_body_params( wp_unslash( $_POST ) );
+\t$request->set_file_params( $_FILES );
+\t$request->set_headers( $this->get_headers( wp_unslash( $_SERVER ) ) );
+\t$request->set_body( self::get_raw_data() );
+
+\t$method_overridden = false;
+\t$wphx_has_query_method_override  = isset( $_GET['_method'] );
+\t$wphx_has_header_method_override = isset( $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] );
+\tif ( $dispatch_strategy::shouldOverrideMethodFromQuery( $wphx_has_query_method_override ) ) {
+\t\t$request->set_method( $_GET['_method'] );
+\t} elseif ( $dispatch_strategy::shouldOverrideMethodFromHeader( $wphx_has_query_method_override, $wphx_has_header_method_override ) ) {
+\t\t$request->set_method( $_SERVER['HTTP_X_HTTP_METHOD_OVERRIDE'] );
+\t\t$method_overridden = true;
+\t}
+
+\t$expose_headers = array( 'X-WP-Total', 'X-WP-TotalPages', 'Link' );
+\t$expose_headers = apply_filters( 'rest_exposed_cors_headers', $expose_headers, $request );
+\t$this->send_header( 'Access-Control-Expose-Headers', implode( ', ', $expose_headers ) );
+
+\t$allow_headers = array(
+\t\t'Authorization',
+\t\t'X-WP-Nonce',
+\t\t'Content-Disposition',
+\t\t'Content-MD5',
+\t\t'Content-Type',
+\t);
+\t$allow_headers = apply_filters( 'rest_allowed_cors_headers', $allow_headers, $request );
+\t$this->send_header( 'Access-Control-Allow-Headers', implode( ', ', $allow_headers ) );
+
+\t$result = $this->check_authentication();
+
+\tif ( $dispatch_strategy::shouldDispatchAuthenticatedRequest( is_wp_error( $result ) ) ) {
+\t\t$result = $this->dispatch( $request );
+\t}
+
+\t$result = rest_ensure_response( $result );
+
+\tif ( $dispatch_strategy::shouldConvertServeResultError( is_wp_error( $result ) ) ) {
+\t\t$result = $this->error_to_response( $result );
+\t}
+
+\t$result = apply_filters( 'rest_post_dispatch', rest_ensure_response( $result ), $this, $request );
+
+\tif ( $dispatch_strategy::shouldEnvelopeResponse( isset( $_GET['_envelope'] ) ) ) {
+\t\t$embed  = isset( $_GET['_embed'] ) ? rest_parse_embed_param( $_GET['_embed'] ) : false;
+\t\t$result = $this->envelope_response( $result, $embed );
+\t}
+
+\t$headers = $result->get_headers();
+\t$this->send_headers( $headers );
+
+\t$code = $result->get_status();
+\t$this->set_status( $code );
+
+\t$send_no_cache_headers = apply_filters( 'rest_send_nocache_headers', is_user_logged_in() );
+\t$wphx_response_code_is_4xx = str_starts_with( (string) $code, '4' );
+\tif ( $dispatch_strategy::shouldSendNoCacheHeaders( (bool) $send_no_cache_headers, (bool) $method_overridden, $wphx_response_code_is_4xx ) ) {
+\t\tforeach ( wp_get_nocache_headers() as $header => $header_value ) {
+\t\t\tif ( empty( $header_value ) ) {
+\t\t\t\t$this->remove_header( $header );
+\t\t\t} else {
+\t\t\t\t$this->send_header( $header, $header_value );
+\t\t\t}
+\t\t}
+\t}
+
+\t$served = apply_filters( 'rest_pre_serve_request', false, $result, $request, $this );
+
+\tif ( $dispatch_strategy::shouldServeDefaultResponse( (bool) $served ) ) {
+\t\tif ( $dispatch_strategy::shouldReturnWithoutBodyForHead( 'HEAD' === $request->get_method() ) ) {
+\t\t\treturn null;
+\t\t}
+
+\t\t$embed  = isset( $_GET['_embed'] ) ? rest_parse_embed_param( $_GET['_embed'] ) : false;
+\t\t$result = $this->response_to_data( $result, $embed );
+
+\t\t$result = apply_filters( 'rest_pre_echo_response', $result, $this, $request );
+
+\t\tif ( $dispatch_strategy::shouldReturnWithoutBodyForStatus( (int) $code, null === $result ) ) {
+\t\t\treturn null;
+\t\t}
+
+\t\t$result = wp_json_encode( $result, $this->get_json_encode_options( $request ) );
+
+\t\t$json_error_message = $this->get_json_last_error();
+
+\t\tif ( $json_error_message ) {
+\t\t\t$this->set_status( 500 );
+\t\t\t$json_error_obj = new WP_Error(
+\t\t\t\t'rest_encode_error',
+\t\t\t\t$json_error_message,
+\t\t\t\tarray( 'status' => 500 )
+\t\t\t);
+
+\t\t\t$result = $this->error_to_response( $json_error_obj );
+\t\t\t$result = wp_json_encode( $result->data, $this->get_json_encode_options( $request ) );
+\t\t}
+
+\t\tif ( $dispatch_strategy::shouldEchoJsonp( $wphx_jsonp_callback_present ) ) {
+\t\t\techo '/**/' . $jsonp_callback . '(' . $result . ')';
+\t\t} else {
+\t\t\techo $result;
+\t\t}
+\t}
+
+\treturn null;
+}`
+  );
+  source = replaceMethod(
+    source,
     "dispatch",
     `public function dispatch( $request ) {
 \t$this->dispatching_requests[] = $request;
