@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-04-rest-settings-value-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.10.4",
+    "external_ref": "WPHX-311.04",
+    "title": "Promote REST settings get-item value strategy to Haxe candidate"
+  },
+  "recorded_at": "2026-06-22T10:05:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+      "role": "typed Haxe REST settings value strategy candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+      "role": "Haxe parity-candidate ownership manifest"
+    },
+    {
+      "path": "src/wphx/wp/rest/RestSettingsValueStrategy.hx",
+      "role": "typed Haxe REST settings value strategy source"
+    },
+    {
+      "path": "tools/wp-core/run-rest-settings-value-strategy-candidate.mjs",
+      "role": "candidate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-settings-value-candidate",
+    "npm run wp:core:wphx-311-rest-settings-value-candidate:check",
+    "npm run wp:core:wphx-311-rest-settings-controller:check",
+    "npm run wp:core:wphx-311-rest-settings-dispatch:check",
+    "npm run wp:core:wphx-311-rest-settings-schema-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-03-rest-settings-schema-strategy-candidate",
+    "receipt:wphx-311-02-rest-settings-dispatch-fixture",
+    "receipt:wphx-311-01-rest-settings-controller-fixture"
+  ],
+  "manifest_sha256": "sha256:6a1d99357397add05602cc98bba326147b84d077a069233f4b9ae4fa955ad8ea",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_generated_rest_settings_value_strategy_shell",
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "linked_candidate",
+    "promoted_symbols": 2,
+    "fixture_cases": 4,
+    "comparisons": 3,
+    "skipped_runtimes": 0,
+    "source_escape_audit_passed": true
+  }
+}

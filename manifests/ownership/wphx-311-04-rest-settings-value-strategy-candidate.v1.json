@@ -1,0 +1,100 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rest-settings-value-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.10.4",
+    "external_ref": "WPHX-311.04"
+  },
+  "unit": {
+    "kind": "class-method-strategy",
+    "name": "WP_REST_Settings_Controller get_item value strategy",
+    "area": "wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php",
+    "public_contract": "The REST settings controller must preserve get_item and prepare_value PHP ABI while typed Haxe owns fallback, validation-null, and sanitize-route decisions."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-hook.php",
+      "src/wp-includes/plugin.php",
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/load.php",
+      "src/wp-includes/pomo/plural-forms.php",
+      "src/wp-includes/pomo/entry.php",
+      "src/wp-includes/pomo/translations.php",
+      "src/wp-includes/l10n.php",
+      "src/wp-includes/class-wp-list-util.php",
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wp-http-response.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/cache.php",
+      "src/wp-includes/class-wp-object-cache.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/option.php",
+      "src/wp-includes/rest-api.php",
+      "src/wp-includes/rest-api/class-wp-rest-request.php",
+      "src/wp-includes/rest-api/class-wp-rest-response.php",
+      "src/wp-includes/rest-api/class-wp-rest-server.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-controller.php",
+      "src/wp-includes/rest-api/endpoints/class-wp-rest-settings-controller.php"
+    ],
+    "digest": "sha256:fa9e8eab91c03099ffef9abc64496bee6de6cd3002777ea24ad23ccbbfcbc277"
+  },
+  "owned_paths": [
+    "fixtures/wp-core/rest-settings-value-strategy-candidate.hxml",
+    "src/wphx/wp/rest/RestSettingsSchemaStrategy.hx",
+    "src/wphx/wp/rest/RestSettingsValueStrategy.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/RestSettingsValueStrategyCandidateEntry.hx",
+    "tools/wp-core/run-rest-settings-value-strategy-candidate.mjs",
+    "manifests/wp-core/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+    "manifests/ownership/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-311-04-rest-settings-value-strategy-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+    "manifests/ownership/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+    "receipts/wp-core/wphx-311-04-rest-settings-value-strategy-candidate.v1.json",
+    "build/wp-core/wphx-311-04"
+  ],
+  "abi_policy": {
+    "php_surface_preserved": [
+      "WP_REST_Settings_Controller::get_item remains public",
+      "WP_REST_Settings_Controller::prepare_value remains protected",
+      "REST filters, get_option(), schema validation, and schema sanitization remain native WordPress/PHP calls"
+    ],
+    "haxe_owned_decisions": [
+      "rest_pre_get_setting null fallback route",
+      "invalid schema values return null",
+      "valid schema values flow to REST sanitization",
+      "null sanitizer input preservation decision"
+    ],
+    "native_boundaries": [
+      "PHP array request/response ABI",
+      "rest_pre_get_setting filter callbacks",
+      "get_option() storage semantics",
+      "rest_validate_value_from_schema() and rest_sanitize_value_from_schema()"
+    ]
+  },
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-311-rest-settings-value-candidate",
+      "npm run wp:core:wphx-311-rest-settings-value-candidate:check",
+      "npm run wp:core:wphx-311-rest-settings-controller:check",
+      "npm run wp:core:wphx-311-rest-settings-dispatch:check",
+      "npm run wp:core:wphx-311-rest-settings-schema-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-311-04-rest-settings-value-strategy-candidate",
+      "receipt:wphx-311-03-rest-settings-schema-strategy-candidate",
+      "receipt:wphx-311-02-rest-settings-dispatch-fixture",
+      "receipt:wphx-311-01-rest-settings-controller-fixture"
+    ],
+    "manifest_digest": "sha256:6a1d99357397add05602cc98bba326147b84d077a069233f4b9ae4fa955ad8ea"
+  },
+  "notes": "This slice keeps native PHP arrays and WordPress schema functions at the boundary. update_item mutation routing remains a later WPHX-311 candidate."
+}
