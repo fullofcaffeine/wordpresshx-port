@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-30-wpdb-prepare-escaping-strategy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.9.30",
+    "external_ref": "WPHX-305.30",
+    "title": "Move wpdb prepare and escaping bodies beyond the PHP parent shell"
+  },
+  "recorded_at": "2026-06-22T05:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-305-30-wpdb-prepare-escaping-strategy-candidate.v1.json",
+      "role": "wpdb prepare/escaping Haxe strategy candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-305-30-wpdb-prepare-escaping-strategy-candidate.v1.json",
+      "role": "Haxe parity candidate ownership manifest"
+    },
+    {
+      "path": "src/wphx/wp/db/WpdbPrepareEscapingStrategy.hx",
+      "role": "typed Haxe prepare/escaping decision strategy"
+    },
+    {
+      "path": "tools/wp-core/run-wpdb-prepare-escaping-strategy-candidate.mjs",
+      "role": "candidate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate",
+    "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
+    "npm run wp:core:wphx-305-prepare-escaping:check",
+    "npm run wp:core:wphx-305-method-body-strategy-candidate:check",
+    "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
+    "npm run format:haxe:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_prepare_escaping_strategy_php_abi_subclass",
+    "covered_symbols": 13,
+    "fixture_cases": 14,
+    "comparisons": 3,
+    "skipped_runtimes": 0,
+    "generated_methods_present": true,
+    "source_escape_audit_passed": true,
+    "preserves_method_body_strategy": true,
+    "preserves_db_connect_strategy": true
+  }
+}

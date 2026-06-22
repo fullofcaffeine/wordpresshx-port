@@ -57,6 +57,7 @@ const REQUIRED_COMMANDS = [
   "npm run wp:core:wphx-303-wp-error:check",
   "npm run wp:core:wphx-304-option-cache-candidate:check",
   "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+  "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
   "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
 ];
 
@@ -249,6 +250,7 @@ const parityGatesManifest = {
     "npm run wp:core:wphx-303-wp-error:check",
     "npm run wp:core:wphx-304-option-cache-candidate:check",
     "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
+    "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
     "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
   ],
   validation_result: {
@@ -259,6 +261,7 @@ const parityGatesManifest = {
     wphx_303_candidate_gate_required: true,
     wphx_304_candidate_gate_required: true,
     wphx_305_generated_shape_gate_required: true,
+    wphx_305_prepare_escaping_strategy_gate_required: true,
     wphx_305_live_db_candidate_gate_required: true,
     mysql_mariadb_images_pinned: true,
     conformance_artifacts_uploaded: true

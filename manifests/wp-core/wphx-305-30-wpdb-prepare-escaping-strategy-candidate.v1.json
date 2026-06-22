@@ -1,19 +1,66 @@
 {
-  "schema": "wphx.wp-core-wpdb-prepare-escaping-fixture.v1",
-  "issue": "WPHX-305.02",
-  "generated_at": "2026-06-21T01:05:00.000Z",
-  "generator": "tools/wp-core/run-wpdb-prepare-escaping-fixture.mjs",
+  "schema": "wphx.wp-core-wpdb-prepare-escaping-strategy-candidate.v1",
+  "issue": "WPHX-305.30",
+  "generated_at": "2026-06-22T05:20:00.000Z",
+  "generator": "tools/wp-core/run-wpdb-prepare-escaping-strategy-candidate.mjs",
   "inputs": {
     "surface_manifest": {
       "path": "manifests/wp-core/wphx-305-01-wpdb-surface.v1.json",
       "bytes": 146747,
       "sha256": "sha256:caf57a36d30979862b6f3bcb74fa3668e17d68dac2db7f2776e03b60d6dc8616"
     },
+    "prepare_escaping_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+      "bytes": 205714,
+      "sha256": "sha256:cd83f5c0ea3df38dd4e84b0d81fad695de9b9ece99356116e67c1f100b370009"
+    },
+    "method_body_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-305-27-wpdb-method-body-strategy-candidate.v1.json",
+      "bytes": 27842,
+      "sha256": "sha256:1aab3977b40911642cf838f93cc9300979857a93019ad6973fca6c9b3261048d"
+    },
+    "db_connect_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-305-29-wpdb-db-connect-strategy-candidate.v1.json",
+      "bytes": 48578,
+      "sha256": "sha256:0b9ba6cb1f9eecadd1d65a4ea682856718a0e3ce21e7f0d1f56d05cca7074b8b"
+    },
     "toolchain_lock": {
       "path": "toolchain.lock.json",
       "bytes": 5811,
       "sha256": "sha256:c27b6be710bad37eda5fb68d8e10e0d0abbd60430daa177b0c919cdcf12aff5c"
     },
+    "hxml": {
+      "path": "fixtures/wp-core/wpdb-prepare-escaping-strategy-candidate.hxml",
+      "bytes": 139,
+      "sha256": "sha256:9fb107ec2be8ec5c688fdc162159d59bc01ca4147c7c9cb43b14f8b6d988d936"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/wpdb-prepare-escaping-strategy-candidate.hxml",
+        "bytes": 139,
+        "sha256": "sha256:9fb107ec2be8ec5c688fdc162159d59bc01ca4147c7c9cb43b14f8b6d988d936"
+      },
+      {
+        "path": "src/wphx/wp/db/WpdbPrepareEscapingStrategy.hx",
+        "bytes": 7754,
+        "sha256": "sha256:91e66195a8af3c7bc6b5ed00b81ac60e52b09627e548e913b8efaf5813dc651c"
+      },
+      {
+        "path": "src/wphx/wp/db/WpdbMethodBodyStrategy.hx",
+        "bytes": 2583,
+        "sha256": "sha256:da8b2bdf14ec5556b63f6b3ae0f0f094458e5354dc55258c7fed7a4f35a44ac7"
+      },
+      {
+        "path": "src/wphx/wp/db/WpdbQueryExecutionStrategy.hx",
+        "bytes": 4418,
+        "sha256": "sha256:03bc9dc686880d34d1aade94955f76452124b6bd44bd50c5f179e162bc7e80f6"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/WpdbPrepareEscapingStrategyCandidateEntry.hx",
+        "bytes": 2705,
+        "sha256": "sha256:03e70e83827f50173ec975f79e33f1af50b349d479322f102144631e8c239963"
+      }
+    ],
     "source_units": [
       {
         "path": "src/wp-includes/class-wp-hook.php",
@@ -43,7 +90,7 @@
     "upstream_digest": "sha256:037aabd621a710a2b2d5a83afddf8b776241cb3ab5b8267f5f502349bf46a62b"
   },
   "fixture": {
-    "candidate_kind": "oracle_source_mirror",
+    "candidate_kind": "haxe_prepare_escaping_strategy_php_abi_subclass",
     "source_domain": "SQL preparation, placeholders, identifier quoting, and escaping",
     "covered_symbols": [
       "wpdb::prepare",
@@ -150,7 +197,82 @@
         "reason": "wpdb::escape_by_ref() mutates non-float values by PHP reference; Haxe candidates must preserve the public reference contract at the generated PHP boundary."
       }
     ],
-    "follow_up_owner": "WPHX-305.03/WPHX-305.04"
+    "haxe_strategy": {
+      "class_name": "wphx.wp.db.WpdbPrepareEscapingStrategy",
+      "generated_php": {
+        "path": "build/wp-core/wphx-305-30/haxe/lib/wphx/wp/db/WpdbPrepareEscapingStrategy.php",
+        "bytes": 17735,
+        "sha256": "sha256:289ab761713e8352a72428ec5533604e4a0107a3d3a127b4f775417daa91a474",
+        "entry_path": "build/wp-core/wphx-305-30/haxe/lib/wphx/fixtures/wp/core/WpdbPrepareEscapingStrategyCandidateEntry.php",
+        "entry_sha256": "sha256:fcc7706967161e56075dc1371f022e94ffa2d40bcd1469cbdb77de4cd8b4b611",
+        "generated_php_postprocessing_required": false,
+        "methods": {
+          "ownedPrepareEscapingBodies": true,
+          "prepareEscapingBodyRoute": true,
+          "ownsPrepareEscapingBody": true,
+          "shouldReturnNullPreparedQuery": true,
+          "shouldWarnPrepareMissingPlaceholder": true,
+          "shouldUnpackSingleArrayArgument": true,
+          "placeholderFormat": true,
+          "placeholderType": true,
+          "shouldUseLegacyUnsafeFloat": true,
+          "legacyUnsafeFloatPlaceholder": true,
+          "shouldForceLocaleUnawareFloat": true,
+          "localeUnawareFloatPlaceholder": true,
+          "isIdentifierPlaceholderType": true,
+          "identifierPlaceholder": true,
+          "shouldTreatPlaceholderAsString": true,
+          "shouldQuoteStringPlaceholder": true,
+          "argIndexForPlaceholder": true,
+          "argumentCountRoute": true,
+          "shouldReturnEmptyForTooFewArgs": true,
+          "shouldRejectUnsupportedPrepareValue": true,
+          "shouldRealEscapeReturnEmpty": true,
+          "shouldEscapeByReference": true,
+          "shouldRegisterPlaceholderFilter": true,
+          "escapeIdentifierValue": true,
+          "quoteIdentifier": true,
+          "escapeLikeText": true
+        }
+      },
+      "source_escape_audits": [
+        {
+          "path": "src/wphx/wp/db/WpdbPrepareEscapingStrategy.hx",
+          "contains_dynamic": false,
+          "contains_untyped": false,
+          "contains_cast": false,
+          "contains_php_syntax_code": false
+        },
+        {
+          "path": "src/wphx/wp/db/WpdbMethodBodyStrategy.hx",
+          "contains_dynamic": false,
+          "contains_untyped": false,
+          "contains_cast": false,
+          "contains_php_syntax_code": false
+        },
+        {
+          "path": "src/wphx/wp/db/WpdbQueryExecutionStrategy.hx",
+          "contains_dynamic": false,
+          "contains_untyped": false,
+          "contains_cast": false,
+          "contains_php_syntax_code": false
+        },
+        {
+          "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/WpdbPrepareEscapingStrategyCandidateEntry.hx",
+          "contains_dynamic": false,
+          "contains_untyped": false,
+          "contains_cast": false,
+          "contains_php_syntax_code": false
+        }
+      ],
+      "haxe_version": "4.3.7"
+    },
+    "dependency_receipts": {
+      "prepare_escaping_fixture": "receipt:wphx-305-02-wpdb-prepare-escaping-fixture",
+      "method_body_strategy": "receipt:wphx-305-27-wpdb-method-body-strategy-candidate",
+      "db_connect_strategy": "receipt:wphx-305-29-wpdb-db-connect-strategy-candidate"
+    },
+    "follow_up_owner": "WPHX-700.08/WPHX-700.05"
   },
   "runtimes": {
     "local": {
@@ -175,61 +297,61 @@
       "id": "local-php-cli:oracle",
       "runtime": "local-php-cli",
       "mode": "oracle",
-      "command": "php build/wp-core/wphx-305-02/probe.php oracle build/wp-core/wphx-305-02/oracle",
+      "command": "php build/wp-core/wphx-305-30/probe.php oracle build/wp-core/wphx-305-30/oracle",
       "image": null,
       "php_version": "8.4.7",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     },
     {
       "id": "local-php-cli:candidate",
       "runtime": "local-php-cli",
       "mode": "candidate",
-      "command": "php build/wp-core/wphx-305-02/probe.php candidate build/wp-core/wphx-305-02/candidate",
+      "command": "php build/wp-core/wphx-305-30/probe.php candidate build/wp-core/wphx-305-30/candidate",
       "image": null,
       "php_version": "8.4.7",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     },
     {
       "id": "docker-php-8.4-cli:oracle",
       "runtime": "docker-php-8.4-cli",
       "mode": "oracle",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-305-02/probe.php oracle /work/build/wp-core/wphx-305-02/oracle",
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-305-30/probe.php oracle /work/build/wp-core/wphx-305-30/oracle",
       "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
       "php_version": "8.4.22",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     },
     {
       "id": "docker-php-8.4-cli:candidate",
       "runtime": "docker-php-8.4-cli",
       "mode": "candidate",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-305-02/probe.php candidate /work/build/wp-core/wphx-305-02/candidate",
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-305-30/probe.php candidate /work/build/wp-core/wphx-305-30/candidate",
       "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
       "php_version": "8.4.22",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     },
     {
       "id": "docker-php-8.5-cli:oracle",
       "runtime": "docker-php-8.5-cli",
       "mode": "oracle",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-305-02/probe.php oracle /work/build/wp-core/wphx-305-02/oracle",
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-305-30/probe.php oracle /work/build/wp-core/wphx-305-30/oracle",
       "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
       "php_version": "8.5.7",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     },
     {
       "id": "docker-php-8.5-cli:candidate",
       "runtime": "docker-php-8.5-cli",
       "mode": "candidate",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-305-02/probe.php candidate /work/build/wp-core/wphx-305-02/candidate",
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-305-30/probe.php candidate /work/build/wp-core/wphx-305-30/candidate",
       "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
       "php_version": "8.5.7",
       "case_count": 14,
-      "result_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145"
+      "result_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a"
     }
   ],
   "trace_samples": [
@@ -355,10 +477,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -371,10 +493,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -490,10 +612,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -506,10 +628,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -656,10 +778,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -672,10 +794,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -777,10 +899,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -793,10 +915,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -1064,10 +1186,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -1080,10 +1202,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -1185,10 +1307,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -1201,10 +1323,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -1738,10 +1860,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -1754,10 +1876,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2025,10 +2147,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2041,10 +2163,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2267,10 +2389,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2283,10 +2405,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2433,10 +2555,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2449,10 +2571,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2554,10 +2676,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2570,10 +2692,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2675,10 +2797,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2691,10 +2813,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2796,10 +2918,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2812,10 +2934,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -2978,10 +3100,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -2994,10 +3116,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -3190,10 +3312,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -3206,10 +3328,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -3311,10 +3433,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -3327,10 +3449,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -3432,10 +3554,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -3448,10 +3570,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -3595,10 +3717,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -3611,10 +3733,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -3919,10 +4041,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -3935,10 +4057,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4040,10 +4162,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -4056,10 +4178,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4161,10 +4283,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -4177,10 +4299,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4282,10 +4404,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -4298,10 +4420,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4403,10 +4525,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -4419,10 +4541,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4699,10 +4821,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB",
-                            "hex": "575048585f3330355f30325f57504442",
+                            "value": "WPHX_305_30_WPDB",
+                            "hex": "575048585f3330355f33305f57504442",
                             "bytes": 16,
-                            "sha256": "37723c25d227818cca9e91b5f43727d99aca82d442cff7161a3a8eda133e92a5"
+                            "sha256": "98ad1f2d588c2c7732f46a587c64c1d4f08506dafa0c94e7b52a1264aeb6ad2a"
                           }
                         },
                         {
@@ -4715,10 +4837,10 @@
                           },
                           "value": {
                             "type": "string",
-                            "value": "WPHX_305_02_WPDB must set a database connection for use with escaping.",
-                            "hex": "575048585f3330355f30325f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
+                            "value": "WPHX_305_30_WPDB must set a database connection for use with escaping.",
+                            "hex": "575048585f3330355f33305f57504442206d75737420736574206120646174616261736520636f6e6e656374696f6e20666f72207573652077697468206573636170696e672e",
                             "bytes": 70,
-                            "sha256": "12e3308c1b807fb41d77237a7a47bf2c2e549549501e41e191747040c216184c"
+                            "sha256": "b776ba07f6e96442e742a88b6f7bf203d26f812902e8f6047465702070082a7d"
                           }
                         },
                         {
@@ -4752,42 +4874,42 @@
     {
       "id": "local-php-cli",
       "matches": true,
-      "oracle_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
-      "candidate_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
+      "oracle_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
+      "candidate_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
       "oracle_case_count": 14,
       "candidate_case_count": 14
     },
     {
       "id": "docker-php-8.4-cli",
       "matches": true,
-      "oracle_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
-      "candidate_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
+      "oracle_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
+      "candidate_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
       "oracle_case_count": 14,
       "candidate_case_count": 14
     },
     {
       "id": "docker-php-8.5-cli",
       "matches": true,
-      "oracle_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
-      "candidate_sha256": "sha256:6b26ba75663d58f83f1e94e8db71289a78658cfd2595bfb5f5924b6a599df145",
+      "oracle_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
+      "candidate_sha256": "sha256:0ad08661047f69d6953ad053f3052570bf6a49115e2eb69f029ac8bcca87e02a",
       "oracle_case_count": 14,
       "candidate_case_count": 14
     }
   ],
   "remaining_gaps": [
     {
-      "id": "haxe-candidate-not-yet-installed",
+      "id": "packaged-distribution-wpdb-not-yet-replaced",
       "owner": "WPHX-305",
-      "detail": "The candidate side is a copied WordPress oracle source tree until database helpers are promoted behind typed Haxe parity candidates."
+      "detail": "The candidate still subclasses upstream wpdb for untouched behavior. A no-fallback packaged-distribution gate is tracked separately once enough method bodies are Haxe-owned."
     },
     {
       "id": "live-mysqli-escape-not-yet-covered",
-      "owner": "WPHX-305.03/WPHX-305.04",
-      "detail": "This fixture avoids real MySQL. Query execution and mysqli-backed escaping need the database runtime harness before Haxe ownership."
+      "owner": "WPHX-305",
+      "detail": "This candidate preserves the deterministic no-connection escaping cases. Full mysqli_real_escape_string() parity belongs with live database execution gates."
     },
     {
       "id": "query-filter-unescape-not-yet-executed-through-query",
-      "owner": "WPHX-305.03",
+      "owner": "WPHX-305",
       "detail": "The fixture verifies query-filter registration and remove_placeholder_escape() round trips, but full wpdb::query() filter execution belongs with query/result fixtures."
     },
     {
@@ -4796,13 +4918,17 @@
       "detail": "This fixture covers seed traces from the upstream db tests. Full upstream wpdb PHPUnit parity remains a domain-level closure requirement."
     }
   ],
-  "ownership_manifest": "manifests/ownership/wphx-305-02-wpdb-prepare-escaping-fixture.v1.json",
+  "ownership_manifest": "manifests/ownership/wphx-305-30-wpdb-prepare-escaping-strategy-candidate.v1.json",
   "validation_result": {
     "status": "passed",
-    "candidate_kind": "oracle_source_mirror",
+    "candidate_kind": "haxe_prepare_escaping_strategy_php_abi_subclass",
     "covered_symbols": 13,
     "fixture_cases": 14,
     "comparisons": 3,
-    "skipped_runtimes": 0
+    "skipped_runtimes": 0,
+    "generated_methods_present": true,
+    "source_escape_audit_passed": true,
+    "preserves_method_body_strategy": true,
+    "preserves_db_connect_strategy": true
   }
 }
