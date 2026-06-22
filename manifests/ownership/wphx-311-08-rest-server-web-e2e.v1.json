@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rest-server-web-e2e",
+  "issue": {
+    "id": "wordpresshx-l76.10.8",
+    "external_ref": "WPHX-311.08"
+  },
+  "unit": {
+    "kind": "packaged-distribution-web-e2e-gate",
+    "name": "WP_REST_Server packaged web transport gate",
+    "area": "wp-includes/rest-api/class-wp-rest-server.php",
+    "public_contract": "The REST server candidate must own the packaged WP_REST_Server class file and match vanilla behavior through real HTTP transport for settings success, update, error, permission, HEAD, and rest_pre_serve_request cases."
+  },
+  "ownership_state": "packaged_distribution_candidate",
+  "owned_paths": [
+    "tools/wp-core/run-rest-server-web-e2e-gate.mjs",
+    "manifests/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+    "manifests/ownership/wphx-311-08-rest-server-web-e2e.v1.json",
+    "receipts/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+    "tests/upstream/phpunit/groups.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+    "manifests/ownership/wphx-311-08-rest-server-web-e2e.v1.json",
+    "receipts/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+    "build/wp-core/wphx-311-08",
+    "build/wp-core/wphx-311-07/oracle-package/wphx-rest-web-router.php",
+    "build/wp-core/wphx-311-07/candidate-package/wphx-rest-web-router.php"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-311-rest-server-web-e2e",
+      "npm run wp:core:wphx-311-rest-server-web-e2e:check",
+      "npm run wp:core:wphx-311-rest-server-packaged-http:check",
+      "npm run upstream:phpunit-ratchet:check",
+      "npm run ci:php-conformance:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-311-08-rest-server-web-e2e",
+      "receipt:wphx-311-07-rest-server-packaged-http",
+      "receipt:wphx-700-05-upstream-phpunit-ratchet"
+    ],
+    "manifest_digest": "sha256:9fc6e8afc8143a5c4796bd33a3189c758d9505235253c4e646132b6a9781da8d"
+  },
+  "notes": "This gate uses PHP's built-in web server over packaged oracle/candidate roots. The candidate package still mirrors many WP_REST_Server methods from upstream PHP while owned dispatch/serve_request/respond_to_request methods are declared from the candidate package file."
+}
