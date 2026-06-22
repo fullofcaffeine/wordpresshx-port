@@ -5,7 +5,7 @@
   "generator": "tools/ci/check-php-conformance-ci.mjs",
   "workflow": {
     "path": ".github/workflows/php-conformance.yml",
-    "sha256": "sha256:198a550e3b09ed67e67ac410358e1fb20d4b9ac31c9bf33b3a00fc54f2ff8a00",
+    "sha256": "sha256:7cfcb42b9f2f234b1d67a3c5089ff12e9c61c574d63ac2ad9c9d6116de17d9af",
     "triggers": [
       "pull_request",
       "push:main",
@@ -66,6 +66,8 @@
       "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
       "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
       "npm run wp:core:wphx-700-wpdb-packaged-abi-no-fallback:check",
+      "npm run php:db-client-images:check",
+      "npm run wp:core:wphx-305-live-db:check",
       "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
     ]
   },
@@ -82,6 +84,18 @@
       {
         "id": "php_8_5_cli",
         "reference": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e"
+      },
+      {
+        "id": "php_8_4_db_client",
+        "reference": "wordpresshx/php-db-client:8.4-cli-mysqli-pdo-mysql",
+        "base_reference": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
+        "dockerfile": "docker/php-db-client/8.4/Dockerfile"
+      },
+      {
+        "id": "php_8_5_db_client",
+        "reference": "wordpresshx/php-db-client:8.5-cli-mysqli-pdo-mysql",
+        "base_reference": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+        "dockerfile": "docker/php-db-client/8.5/Dockerfile"
       },
       {
         "id": "mysql_8_4",

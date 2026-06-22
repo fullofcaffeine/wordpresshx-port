@@ -21,6 +21,7 @@ const OWNERSHIP = "manifests/ownership/wphx-305-07-wpdb-live-db-runtime-gate.v1.
 const RECEIPT = "receipts/wp-core/wphx-305-07-wpdb-live-db-runtime-gate.v1.json";
 const SCHEMA_OPTION_FIXTURE = "manifests/wp-core/wphx-305-06-wpdb-schema-option-integration-fixture.v1.json";
 const WPDB_SURFACE = "manifests/wp-core/wphx-305-01-wpdb-surface.v1.json";
+const PHP_DB_CLIENT_IMAGES = "manifests/toolchain/wphx-305-09-php-db-client-images.v1.json";
 const RECORDED_AT = "2026-06-21T04:05:00.000Z";
 const WP_REF = "26b68024931348d267b70e2a29910e1320d0094f";
 const UPSTREAM_ROOT = "../wordpress-develop";
@@ -722,7 +723,7 @@ $snapshot = array(
 \t'database'              => array(
 \t\t'serverInfo' => $wpdb->db_server_info(),
 \t\t'dbVersion'  => $wpdb->db_version(),
-\t\t'host'       => '127.0.0.1',
+\t\t'host'       => $db_host,
 \t\t'database'   => $db_name,
 \t),
 \t'coveredFunctionExists' => array(
@@ -775,13 +776,16 @@ function normalize(result) {
   };
 }
 
-function runProbe(runtime, mode, root, port) {
-  const output = command("php", [PROBE, mode, root, "127.0.0.1", String(port), DB_USER, DB_PASSWORD, DB_NAME, runtime.id]);
+function runProbe(dbRuntime, phpClient, mode, root, network) {
+  const runtimeId = `${dbRuntime.id}:${phpClient.id}`;
+  const output = runPhpInClient(phpClient, network, [PROBE, mode, root, "db", "3306", DB_USER, DB_PASSWORD, DB_NAME, runtimeId]);
   return {
-    id: `${runtime.id}:${mode}`,
-    runtime: runtime.id,
+    id: `${runtimeId}:${mode}`,
+    runtime: runtimeId,
+    db_runtime: dbRuntime.id,
+    php_client_runtime: phpClient.id,
     mode,
-    command: `php ${PROBE} ${mode} ${root} 127.0.0.1 <port> ${DB_USER} <password> ${DB_NAME} ${runtime.id}`,
+    command: `docker run --rm --network <network> -v <repo>:/work -w /work ${imageRef(phpClient.image_lock)} php ${PROBE} ${mode} ${root} db 3306 ${DB_USER} <password> ${DB_NAME} ${runtimeId}`,
     result: JSON.parse(output)
   };
 }
@@ -807,6 +811,8 @@ function runSummary(run) {
   return {
     id: run.id,
     runtime: run.runtime,
+    db_runtime: run.db_runtime,
+    php_client_runtime: run.php_client_runtime,
     mode: run.mode,
     command: run.command,
     php_version: run.result.phpVersion,
@@ -817,26 +823,34 @@ function runSummary(run) {
 }
 
 function imageRef(image) {
+  if (image.registry === "local") {
+    return `${image.repository}:${image.tag}`;
+  }
   return `${image.repository}@${image.index_digest}`;
 }
 
-function dockerImageInfo(image) {
-  const raw = command("docker", ["image", "inspect", imageRef(image)]);
-  const [info] = JSON.parse(raw);
-  return {
-    image: imageRef(image),
-    id: info.Id,
-    repo_digests: info.RepoDigests ?? [],
-    architecture: info.Architecture,
-    os: info.Os,
-    created: info.Created
-  };
+function runPhpInClient(phpClient, network, phpArgs, options = {}) {
+  const dockerArgs = [
+    "run",
+    "--rm",
+    "--network",
+    network,
+    "-v",
+    `${process.cwd()}:/work`,
+    "-w",
+    "/work"
+  ];
+  for (const [key, value] of Object.entries(options.env ?? {})) {
+    dockerArgs.push("-e", `${key}=${value}`);
+  }
+  dockerArgs.push(imageRef(phpClient.image_lock), "php", ...phpArgs);
+  return command("docker", dockerArgs);
 }
 
-function dbProbe(port) {
+function dbProbe(phpClient, network) {
   const code = `
     mysqli_report(MYSQLI_REPORT_OFF);
-    $mysqli = @new mysqli('127.0.0.1', getenv('WPHX_DB_USER'), getenv('WPHX_DB_PASSWORD'), getenv('WPHX_DB_NAME'), intval(getenv('WPHX_DB_PORT')));
+    $mysqli = @new mysqli(getenv('WPHX_DB_HOST'), getenv('WPHX_DB_USER'), getenv('WPHX_DB_PASSWORD'), getenv('WPHX_DB_NAME'), intval(getenv('WPHX_DB_PORT')));
     if ($mysqli->connect_errno) {
       fwrite(STDERR, $mysqli->connect_error . PHP_EOL);
       exit(2);
@@ -846,12 +860,13 @@ function dbProbe(port) {
     echo json_encode($row, JSON_UNESCAPED_SLASHES) . PHP_EOL;
   `;
   return JSON.parse(
-    command("php", ["-r", code], {
+    runPhpInClient(phpClient, network, ["-r", code], {
       env: {
+        WPHX_DB_HOST: "db",
         WPHX_DB_USER: DB_USER,
         WPHX_DB_PASSWORD: DB_PASSWORD,
         WPHX_DB_NAME: DB_NAME,
-        WPHX_DB_PORT: String(port)
+        WPHX_DB_PORT: "3306"
       }
     })
   );
@@ -882,24 +897,41 @@ function dbRuntimeRecords(lock) {
   ];
 }
 
-async function withDbRuntime(runtime, callback) {
+function phpClientRecords(lock) {
+  return [
+    {
+      id: "php-8.4-db-client",
+      php_minor: "8.4",
+      image_lock: lock.container_images.php_8_4_db_client
+    },
+    {
+      id: "php-8.5-db-client",
+      php_minor: "8.5",
+      image_lock: lock.container_images.php_8_5_db_client
+    }
+  ];
+}
+
+async function withDbRuntime(runtime, readinessClient, callback) {
   const name = `wordpresshx-wphx-305-07-${runtime.id}-${process.pid}`;
+  const network = `wordpresshx-wphx-305-07-${runtime.id}-${process.pid}`;
   let containerId = "";
+  let networkCreated = false;
   try {
-    const dockerArgs = ["run", "-d", "--rm", "--name", name];
+    command("docker", ["network", "create", network]);
+    networkCreated = true;
+    const dockerArgs = ["run", "-d", "--rm", "--name", name, "--network", network, "--network-alias", "db"];
     for (const [key, value] of Object.entries(runtime.env)) {
       dockerArgs.push("-e", `${key}=${value}`);
     }
-    dockerArgs.push("-p", "127.0.0.1::3306", imageRef(runtime.image_lock));
+    dockerArgs.push(imageRef(runtime.image_lock));
     containerId = command("docker", dockerArgs);
-    const portOutput = command("docker", ["port", name, "3306/tcp"]);
-    const port = Number(portOutput.split(":").at(-1));
     let query = null;
     let lastError = "";
     const deadline = Date.now() + 180000;
     while (Date.now() < deadline) {
       try {
-        query = dbProbe(port);
+        query = dbProbe(readinessClient, network);
         break;
       } catch (error) {
         lastError = error.stderr?.toString?.() || error.message;
@@ -909,11 +941,18 @@ async function withDbRuntime(runtime, callback) {
     if (!query) {
       throw new Error(`${runtime.id} did not become ready: ${lastError}`);
     }
-    return await callback({ port, query, image: dockerImageInfo(runtime.image_lock), container: { id: containerId, name } });
+    return await callback({ network, query, container: { id: containerId, name, network } });
   } finally {
     if (containerId) {
       try {
         command("docker", ["stop", name], { stdio: ["ignore", "pipe", "ignore"] });
+      } catch {
+        // Best-effort cleanup for failed startup or interrupted probes.
+      }
+    }
+    if (networkCreated) {
+      try {
+        command("docker", ["network", "rm", network], { stdio: ["ignore", "pipe", "ignore"] });
       } catch {
         // Best-effort cleanup for failed startup or interrupted probes.
       }
@@ -969,14 +1008,16 @@ function ownershipManifest(manifestSha, upstreamDigest, runtimes) {
       manifest_digest: manifestSha
     },
     notes:
-      `The gate provisions ${runtimes.map((runtime) => runtime.id).join(" and ")} containers from locked index digests and runs the WPHX-305.06 seed cases plus live error/transaction/locking checks with local PHP mysqli. The broad wp-admin include remains stubbed because this workset is scoped to database helpers and storage paths.`
+      `The gate provisions ${runtimes.map((runtime) => runtime.id).join(" and ")} containers from locked index digests and runs the WPHX-305.06 seed cases plus live error/transaction/locking checks through the locked WPHX-305.09 PHP DB-client image matrix. The broad wp-admin include remains stubbed because this workset is scoped to database helpers and storage paths.`
   };
 }
 
 const lock = readJson("toolchain.lock.json");
 const schemaOptionFixture = readJson(SCHEMA_OPTION_FIXTURE);
 const wpdbSurface = readJson(WPDB_SURFACE);
+const phpDbClientImages = readJson(PHP_DB_CLIENT_IMAGES);
 const dbRuntimes = dbRuntimeRecords(lock);
+const phpClients = phpClientRecords(lock);
 
 if (!maybeCommand("docker", ["info", "--format", "{{.ServerVersion}}"])) {
   console.error(JSON.stringify({ status: "failed", error: "docker server unavailable; WPHX-305.07 requires live DB containers" }, null, 2));
@@ -991,25 +1032,46 @@ writeProbe();
 const runs = [];
 const comparisons = [];
 const dbRuntimeResults = [];
+const phpClientResults = new Map();
 
 for (const runtime of dbRuntimes) {
-  const result = await withDbRuntime(runtime, async ({ port, query, image }) => {
-    const oracle = runProbe(runtime, "oracle", ORACLE_ROOT, port);
-    const candidate = runProbe(runtime, "candidate", CANDIDATE_ROOT, port);
-    return { oracle, candidate, query, image };
+  const result = await withDbRuntime(runtime, phpClients[0], async ({ network, query }) => {
+    const clientResults = [];
+    for (const phpClient of phpClients) {
+      const clientQuery = dbProbe(phpClient, network);
+      const oracle = runProbe(runtime, phpClient, "oracle", ORACLE_ROOT, network);
+      const candidate = runProbe(runtime, phpClient, "candidate", CANDIDATE_ROOT, network);
+      clientResults.push({ phpClient, oracle, candidate, query: clientQuery });
+    }
+    return { clientResults, query };
   });
-  runs.push(result.oracle, result.candidate);
-  comparisons.push({
-    id: runtime.id,
-    runtime: runtime.id,
-    engine: runtime.engine,
-    ...compare(result.oracle.result, result.candidate.result)
-  });
+  for (const clientResult of result.clientResults) {
+    runs.push(clientResult.oracle, clientResult.candidate);
+    comparisons.push({
+      id: `${runtime.id}:${clientResult.phpClient.id}`,
+      runtime: `${runtime.id}:${clientResult.phpClient.id}`,
+      db_runtime: runtime.id,
+      php_client_runtime: clientResult.phpClient.id,
+      engine: runtime.engine,
+      ...compare(clientResult.oracle.result, clientResult.candidate.result)
+    });
+    phpClientResults.set(clientResult.phpClient.id, {
+      id: clientResult.phpClient.id,
+      php_minor: clientResult.phpClient.php_minor,
+      image_lock: clientResult.phpClient.image_lock,
+      query_samples: [
+        ...(phpClientResults.get(clientResult.phpClient.id)?.query_samples ?? []),
+        {
+          db_runtime: runtime.id,
+          query: clientResult.query
+        }
+      ]
+    });
+  }
   dbRuntimeResults.push({
     id: runtime.id,
     engine: runtime.engine,
     image_lock: runtime.image_lock,
-    image: result.image,
     query: result.query
   });
 }
@@ -1047,6 +1109,7 @@ const manifest = {
   inputs: {
     wpdb_surface_manifest: inputRecord(WPDB_SURFACE),
     schema_option_fixture: inputRecord(SCHEMA_OPTION_FIXTURE),
+    php_db_client_images: inputRecord(PHP_DB_CLIENT_IMAGES),
     toolchain_lock: inputRecord("toolchain.lock.json"),
     source_units: sourceUnits,
     upstream_digest: upstreamDigest
@@ -1062,17 +1125,26 @@ const manifest = {
       linux_amd64_digest: runtime.image_lock.linux_amd64_digest,
       linux_arm64_digest: runtime.image_lock.linux_arm64_digest
     })),
-    php_client: {
-      id: "local-php-cli",
-      executable: lock.tools.php_cli.executable,
-      mysqli_extension: true,
-      pdo_mysql_extension: true
-    },
+    php_clients: phpClients.map((client) => ({
+      id: client.id,
+      php_minor: client.php_minor,
+      image: imageRef(client.image_lock),
+      local_reference: `${client.image_lock.repository}:${client.image_lock.tag}`,
+      dockerfile: client.image_lock.dockerfile,
+      dockerfile_sha256: client.image_lock.dockerfile_sha256,
+      base_image: client.image_lock.base_image,
+      base_index_digest: client.image_lock.base_index_digest,
+      required_extensions: client.image_lock.required_extensions
+    })),
     covered_symbols: COVERED_SYMBOLS,
     cases: FIXTURE_CASES,
     inherited_seed_fixture: {
       manifest: SCHEMA_OPTION_FIXTURE,
       validation_result: schemaOptionFixture.validation_result
+    },
+    php_db_client_image_manifest: {
+      manifest: PHP_DB_CLIENT_IMAGES,
+      validation_result: phpDbClientImages.validation_result
     },
     live_boundaries_covered: [
       "mysqli connection/bootstrap through wpdb::__construct/db_connect",
@@ -1084,11 +1156,6 @@ const manifest = {
       "transaction rollback and LOCK TABLES/UNLOCK TABLES behavior"
     ],
     native_boundaries: [
-      {
-        id: "local-php-mysqli-client",
-        reason:
-          "The locked php:8.4-cli and php:8.5-cli containers do not include mysqli/pdo_mysql in this toolchain. The live DB gate therefore uses the local PHP CLI mysqli client and records this as the client boundary."
-      },
       {
         id: "wp-admin-admin-include-stub",
         reason:
@@ -1106,25 +1173,29 @@ const manifest = {
         gap: "live-mysql-execution-not-yet-covered",
         resolution:
           "WPHX-305.07 runs the WPHX-305.06 schema/option/transient seed cases against locked live MySQL and MariaDB containers and records remaining non-database boundaries separately."
+      },
+      {
+        manifest: PHP_DB_CLIENT_IMAGES,
+        gap: "custom-php-db-client-image-not-yet-locked",
+        resolution:
+          "WPHX-305.09 adds pinned PHP 8.4/8.5 DB-client images with mysqli and pdo_mysql, and this live gate now runs oracle and candidate probes through that client matrix."
       }
     ],
-    follows: ["WPHX-305.06"]
+    follows: ["WPHX-305.06", "WPHX-305.09"]
   },
   runtimes: {
     db: dbRuntimeResults,
-    php_client: {
-      id: "local-php-cli",
-      php_version: runs[0]?.result.phpVersion ?? null,
-      executable: lock.tools.php_cli.executable
-    }
+    php_clients: Array.from(phpClientResults.values())
   },
   run_summaries: runs.map(runSummary),
-  trace_samples: dbRuntimes.map((runtime) => {
-    const run = runs.find((entry) => entry.runtime === runtime.id && entry.mode === "oracle");
+  trace_samples: comparisons.map((comparison) => {
+    const run = runs.find((entry) => entry.runtime === comparison.runtime && entry.mode === "oracle");
     return {
       id: run.id,
-      runtime: runtime.id,
-      engine: runtime.engine,
+      runtime: comparison.runtime,
+      db_runtime: comparison.db_runtime,
+      php_client_runtime: comparison.php_client_runtime,
+      engine: comparison.engine,
       result: normalize(run.result)
     };
   }),
@@ -1134,11 +1205,6 @@ const manifest = {
       id: "haxe-candidate-not-yet-installed",
       owner: "WPHX-305",
       detail: "The candidate side is a copied WordPress oracle source tree until selected wpdb/schema/option helpers move behind typed Haxe parity candidates."
-    },
-    {
-      id: "custom-php-db-client-image-not-yet-locked",
-      owner: "future toolchain gate",
-      detail: "The official locked PHP CLI images do not include mysqli/pdo_mysql. A future custom PHP DB-client image can add PHP-version matrix coverage for this live database gate."
     },
     {
       id: "full-admin-upgrade-surface-deferred",
@@ -1158,6 +1224,7 @@ const manifest = {
     covered_symbols: COVERED_SYMBOLS.length,
     fixture_cases: FIXTURE_CASES.length,
     db_runtimes: dbRuntimes.length,
+    php_client_runtimes: phpClients.length,
     comparisons: comparisons.length,
     skipped_runtimes: 0
   }
@@ -1186,10 +1253,16 @@ const receipt = {
     },
     {
       path: "toolchain.lock.json",
-      role: "locked MySQL and MariaDB DB runtime images"
+      role: "locked MySQL/MariaDB server images and PHP DB-client image build inputs"
+    },
+    {
+      path: PHP_DB_CLIENT_IMAGES,
+      role: "locked PHP DB-client image extension verification"
     }
   ],
   verification_commands: [
+    "npm run php:db-client-images",
+    "npm run php:db-client-images:check",
     "npm run wp:core:wphx-305-live-db",
     "npm run wp:core:wphx-305-live-db:check",
     "npm run beads:validate",
@@ -1218,6 +1291,7 @@ console.log(
       covered_symbols: COVERED_SYMBOLS.length,
       fixture_cases: FIXTURE_CASES.length,
       db_runtimes: dbRuntimes.length,
+      php_client_runtimes: phpClients.length,
       comparisons: comparisons.length,
       skipped_runtimes: 0
     },

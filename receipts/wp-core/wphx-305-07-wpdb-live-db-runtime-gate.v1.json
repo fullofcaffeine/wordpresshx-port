@@ -22,10 +22,16 @@
     },
     {
       "path": "toolchain.lock.json",
-      "role": "locked MySQL and MariaDB DB runtime images"
+      "role": "locked MySQL/MariaDB server images and PHP DB-client image build inputs"
+    },
+    {
+      "path": "manifests/toolchain/wphx-305-09-php-db-client-images.v1.json",
+      "role": "locked PHP DB-client image extension verification"
     }
   ],
   "verification_commands": [
+    "npm run php:db-client-images",
+    "npm run php:db-client-images:check",
     "npm run wp:core:wphx-305-live-db",
     "npm run wp:core:wphx-305-live-db:check",
     "npm run beads:validate",
@@ -37,7 +43,8 @@
     "covered_symbols": 35,
     "fixture_cases": 13,
     "db_runtimes": 2,
-    "comparisons": 2,
+    "php_client_runtimes": 2,
+    "comparisons": 4,
     "skipped_runtimes": 0
   }
 }

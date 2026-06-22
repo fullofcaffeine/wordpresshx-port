@@ -89,6 +89,7 @@ jobs:
               npm run wp:core:wphx-700-wpdb-packaged-abi-no-fallback:check
           - suite: wp-core-live-db-parity
             command: |
+              npm run wp:core:wphx-305-live-db:check
               npm run wp:core:wphx-305-db-connect-strategy-candidate:check
 
     steps:
@@ -134,6 +135,13 @@ jobs:
         run: |
           docker pull library/mysql@sha256:563602a18ffd5be220968e8508d84c9dcd80fbffe69e28af51572db29e3285b2
           docker pull library/mariadb@sha256:be1ef4fe5f14589325c08a41c76334097ce66c86264b75e1d28342c742782a61
+
+      - name: Build pinned PHP DB-client Docker images
+        if: matrix.suite == 'wp-core-live-db-parity'
+        run: |
+          npm run php:db-client-images:check
+          docker image inspect wordpresshx/php-db-client:8.4-cli-mysqli-pdo-mysql >/dev/null
+          docker image inspect wordpresshx/php-db-client:8.5-cli-mysqli-pdo-mysql >/dev/null
 
       - name: Tool versions
         run: |

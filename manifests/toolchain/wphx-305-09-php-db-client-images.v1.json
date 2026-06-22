@@ -1,0 +1,94 @@
+{
+  "schema": "wphx.php-db-client-images.v1",
+  "issue": "WPHX-305.09",
+  "generated_at": "2026-06-21T04:05:00.000Z",
+  "generator": "tools/toolchain/build-php-db-client-images.mjs",
+  "inputs": {
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7167,
+      "sha256": "sha256:9230d83997bb6cc37768adf6b45715721875f7991e0840e2321c18a2c63e5298"
+    },
+    "dockerfiles": [
+      {
+        "path": "docker/php-db-client/8.4/Dockerfile",
+        "bytes": 418,
+        "sha256": "sha256:3debffda6b2155fccd7663b99515bebd384b6791d23758826fcaf1c0d4c988cd"
+      },
+      {
+        "path": "docker/php-db-client/8.5/Dockerfile",
+        "bytes": 418,
+        "sha256": "sha256:096f58ea6810fb308e9a27c2271ad97173f31ecec8ee032693c28c196285ea92"
+      }
+    ]
+  },
+  "evidence_class": "runtime_toolchain_lock",
+  "artifact_scope": "php_db_client_runtime",
+  "images": [
+    {
+      "id": "php_8_4_db_client",
+      "local_reference": "wordpresshx/php-db-client:8.4-cli-mysqli-pdo-mysql",
+      "dockerfile": "docker/php-db-client/8.4/Dockerfile",
+      "dockerfile_sha256": "sha256:3debffda6b2155fccd7663b99515bebd384b6791d23758826fcaf1c0d4c988cd",
+      "base_image": "php_8_4_cli",
+      "base_reference": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
+      "base_index_digest": "sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
+      "base_linux_amd64_digest": "sha256:7d8473102d6197e0f660989595cfa8283b0a239ad2d225048d64f5ac85de48af",
+      "base_linux_arm64_digest": "sha256:087d4397db96b14e9b9df7bb49970e80b0e3a306d4ea3f606f6a998fd3b0340a",
+      "required_extensions": [
+        "mysqli",
+        "pdo_mysql"
+      ],
+      "verification": {
+        "phpVersion": "8.4.22",
+        "loadedExtensions": {
+          "mysqli": true,
+          "pdo_mysql": true
+        },
+        "mysqliClientInfo": "mysqlnd 8.4.22",
+        "pdoDrivers": [
+          "sqlite",
+          "mysql"
+        ]
+      }
+    },
+    {
+      "id": "php_8_5_db_client",
+      "local_reference": "wordpresshx/php-db-client:8.5-cli-mysqli-pdo-mysql",
+      "dockerfile": "docker/php-db-client/8.5/Dockerfile",
+      "dockerfile_sha256": "sha256:096f58ea6810fb308e9a27c2271ad97173f31ecec8ee032693c28c196285ea92",
+      "base_image": "php_8_5_cli",
+      "base_reference": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "base_index_digest": "sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "base_linux_amd64_digest": "sha256:4cdb896d14c1a5d3d585f9725007eb265b483d4e9f1cd5df4f89669acd6c8244",
+      "base_linux_arm64_digest": "sha256:ee6842444379a71fb8a3dfdb397e04b4f6c4182dbef6257faf2cde71fbb49aae",
+      "required_extensions": [
+        "mysqli",
+        "pdo_mysql"
+      ],
+      "verification": {
+        "phpVersion": "8.5.7",
+        "loadedExtensions": {
+          "mysqli": true,
+          "pdo_mysql": true
+        },
+        "mysqliClientInfo": "mysqlnd 8.5.7",
+        "pdoDrivers": [
+          "sqlite",
+          "mysql"
+        ]
+      }
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "image_count": 2,
+    "required_extensions": [
+      "mysqli",
+      "pdo_mysql"
+    ],
+    "build_inputs_locked": true,
+    "extensions_loaded": true,
+    "pdo_mysql_driver_available": true
+  }
+}

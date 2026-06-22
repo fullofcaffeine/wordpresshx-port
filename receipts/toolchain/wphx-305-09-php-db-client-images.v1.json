@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-305-09-php-db-client-images",
+  "issue": {
+    "id": "wordpresshx-l76.9.9",
+    "external_ref": "WPHX-305.09",
+    "title": "Add locked PHP DB-client image for live DB gates"
+  },
+  "recorded_at": "2026-06-21T04:05:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/toolchain/wphx-305-09-php-db-client-images.v1.json",
+      "role": "PHP DB-client image build and extension verification manifest"
+    },
+    {
+      "path": "toolchain.lock.json",
+      "role": "locked PHP DB-client image build inputs"
+    },
+    {
+      "path": "docker/php-db-client/8.4/Dockerfile",
+      "role": "php_8_4_db_client pinned Dockerfile"
+    },
+    {
+      "path": "docker/php-db-client/8.5/Dockerfile",
+      "role": "php_8_5_db_client pinned Dockerfile"
+    },
+    {
+      "path": "tools/toolchain/build-php-db-client-images.mjs",
+      "role": "PHP DB-client image builder and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run php:db-client-images",
+    "npm run php:db-client-images:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "image_count": 2,
+    "required_extensions": [
+      "mysqli",
+      "pdo_mysql"
+    ],
+    "build_inputs_locked": true,
+    "extensions_loaded": true,
+    "pdo_mysql_driver_available": true
+  }
+}

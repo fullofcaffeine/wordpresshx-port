@@ -59,6 +59,8 @@ const REQUIRED_COMMANDS = [
   "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
   "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
   "npm run wp:core:wphx-700-wpdb-packaged-abi-no-fallback:check",
+  "npm run php:db-client-images:check",
+  "npm run wp:core:wphx-305-live-db:check",
   "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
 ];
 
@@ -147,10 +149,12 @@ for (const needle of requiredText) {
 for (const image of [
   toolchain.container_images.php_8_4_cli,
   toolchain.container_images.php_8_5_cli,
+  toolchain.container_images.php_8_4_db_client,
+  toolchain.container_images.php_8_5_db_client,
   toolchain.container_images.mysql_8_4,
   toolchain.container_images.mariadb_11_8
 ]) {
-  const reference = `${image.repository}@${image.index_digest}`;
+  const reference = image.registry === "local" ? `${image.repository}:${image.tag}` : `${image.repository}@${image.index_digest}`;
   if (!workflowText.includes(reference)) {
     errors.push(`workflow missing pinned Docker image ${reference}`);
   }
@@ -188,6 +192,18 @@ const manifest = {
       {
         id: "php_8_5_cli",
         reference: `${toolchain.container_images.php_8_5_cli.repository}@${toolchain.container_images.php_8_5_cli.index_digest}`
+      },
+      {
+        id: "php_8_4_db_client",
+        reference: `${toolchain.container_images.php_8_4_db_client.repository}:${toolchain.container_images.php_8_4_db_client.tag}`,
+        base_reference: `${toolchain.container_images.php_8_4_cli.repository}@${toolchain.container_images.php_8_4_cli.index_digest}`,
+        dockerfile: toolchain.container_images.php_8_4_db_client.dockerfile
+      },
+      {
+        id: "php_8_5_db_client",
+        reference: `${toolchain.container_images.php_8_5_db_client.repository}:${toolchain.container_images.php_8_5_db_client.tag}`,
+        base_reference: `${toolchain.container_images.php_8_5_cli.repository}@${toolchain.container_images.php_8_5_cli.index_digest}`,
+        dockerfile: toolchain.container_images.php_8_5_db_client.dockerfile
       },
       {
         id: "mysql_8_4",
@@ -253,6 +269,7 @@ const parityGatesManifest = {
     "npm run wp:core:wphx-305-mysqli-global-lowering-proof:check",
     "npm run wp:core:wphx-305-prepare-escaping-strategy-candidate:check",
     "npm run wp:core:wphx-700-wpdb-packaged-abi-no-fallback:check",
+    "npm run wp:core:wphx-305-live-db:check",
     "npm run wp:core:wphx-305-db-connect-strategy-candidate:check"
   ],
   validation_result: {
