@@ -1,0 +1,80 @@
+{
+  "schema": "wphx.upstream-phpunit-ratchet.v1",
+  "issue": "WPHX-700.05",
+  "generated_at": "2026-06-21T04:10:00.000Z",
+  "generator": "tools/upstream/run-phpunit-ratchet.mjs",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "inputs": {
+    "runner": {
+      "path": "tools/upstream/run-phpunit-ratchet.mjs",
+      "bytes": 10974,
+      "sha256": "sha256:e668d6272bbf2c78c8f5fe9febbd5f02d8295aa378e9a2e1b3664bc4ae4079e2"
+    },
+    "groups": {
+      "path": "tests/upstream/phpunit/groups.json",
+      "bytes": 936,
+      "sha256": "sha256:b12f7be3efaca0216c9ed315004d4408470dc47af11371e0c3cfe37ecf375660"
+    },
+    "known_deltas": {
+      "path": "tests/upstream/phpunit/known-deltas.json",
+      "bytes": 240,
+      "sha256": "sha256:581ab2c229862441cd7f0f8fb6adff411939e96632e3e669399fcbb7f2b02771"
+    }
+  },
+  "upstream": {
+    "expected_ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "vanilla_root": "/Users/fullofcaffeine/workspace/code/wordpress-develop",
+    "candidate_root": null
+  },
+  "selected_groups": [
+    {
+      "id": "wpdb-core",
+      "owner": "WPHX-305",
+      "files": [
+        "tests/phpunit/tests/db.php",
+        "tests/phpunit/tests/db/realEscape.php",
+        "tests/phpunit/tests/db/charset.php",
+        "tests/phpunit/tests/db/dbDelta.php"
+      ]
+    },
+    {
+      "id": "options-cache",
+      "owner": "WPHX-304",
+      "files": [
+        "tests/phpunit/tests/option/option.php",
+        "tests/phpunit/tests/option/updateOption.php",
+        "tests/phpunit/tests/option/getOptions.php",
+        "tests/phpunit/tests/option/transient.php",
+        "tests/phpunit/tests/option/siteTransient.php",
+        "tests/phpunit/tests/cache.php",
+        "tests/phpunit/tests/query/cacheResults.php"
+      ]
+    }
+  ],
+  "known_deltas": {
+    "schema": "wphx.upstream-phpunit-known-deltas.v1",
+    "issue": "WPHX-700.05",
+    "description": "Owned upstream PHPUnit ratchet deltas. Entries are required before a vanilla-pass/candidate-fail result can be accepted.",
+    "entries": []
+  },
+  "report": {
+    "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+    "sha256": "sha256:c24eb4d8d0f9ad20423eb56c238fa197759840cf5eefb63f048030c8b2e248e2"
+  },
+  "validation_result": {
+    "status": "blocked",
+    "environment_ready": false,
+    "selected_upstream_groups_declared": true,
+    "known_deltas_ledger_present": true,
+    "runs_executed": 0,
+    "classifications_recorded": 0,
+    "rejects_new_vanilla_pass_candidate_fail": true,
+    "blocked_inputs": [
+      "vanilla_phpunit_vendor_missing",
+      "vanilla_wp_tests_config_missing",
+      "candidate_root_env_missing"
+    ]
+  }
+}

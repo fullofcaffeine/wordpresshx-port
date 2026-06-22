@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-700-05-upstream-phpunit-ratchet",
+  "issue": {
+    "id": "wordpresshx-w91.3.5",
+    "external_ref": "WPHX-700.05",
+    "title": "WPHX-700.05 — Start upstream WordPress PHPUnit parity ratchet"
+  },
+  "recorded_at": "2026-06-21T04:10:00.000Z",
+  "command": "npm run upstream:phpunit-ratchet",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "upstream PHPUnit ratchet manifest",
+      "sha256": "sha256:8a5f50608f7d42ff623bd2012f08db203f1375a1fc0be9655c6c1989ddd6a91d"
+    },
+    {
+      "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+      "role": "complete upstream PHPUnit ratchet report",
+      "sha256": "sha256:c24eb4d8d0f9ad20423eb56c238fa197759840cf5eefb63f048030c8b2e248e2"
+    },
+    {
+      "path": "tests/upstream/phpunit/known-deltas.json",
+      "role": "owned known-deltas ledger"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet",
+    "npm run upstream:phpunit-ratchet:check",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "blocked",
+    "environment_ready": false,
+    "selected_upstream_groups_declared": true,
+    "known_deltas_ledger_present": true,
+    "runs_executed": 0,
+    "classifications_recorded": 0,
+    "rejects_new_vanilla_pass_candidate_fail": true,
+    "blocked_inputs": [
+      "vanilla_phpunit_vendor_missing",
+      "vanilla_wp_tests_config_missing",
+      "candidate_root_env_missing"
+    ]
+  }
+}
