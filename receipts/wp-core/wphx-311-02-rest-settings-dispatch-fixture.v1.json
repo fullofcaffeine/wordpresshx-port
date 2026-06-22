@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-02-rest-settings-dispatch-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.10.2",
+    "external_ref": "WPHX-311.02",
+    "title": "Add REST settings server-dispatch fixture"
+  },
+  "recorded_at": "2026-06-22T08:10:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-311-02-rest-settings-dispatch-fixture.v1.json",
+      "role": "REST settings server-dispatch differential fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-02-rest-settings-dispatch-fixture.v1.json",
+      "role": "external-oracle ownership manifest for the dispatch fixture harness"
+    },
+    {
+      "path": "tools/wp-core/run-rest-settings-dispatch-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-settings-dispatch",
+    "npm run wp:core:wphx-311-rest-settings-dispatch:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-01-rest-settings-controller-fixture"
+  ],
+  "manifest_sha256": "sha256:186c341ecc03066b74cd244cbeb5729593e62ff5bcd6864498889e6fee97ab8b",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "helper",
+    "covered_symbols": 12,
+    "fixture_cases": 9,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}
