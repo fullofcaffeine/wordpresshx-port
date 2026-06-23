@@ -195,7 +195,7 @@ function findHaxeStdPhpGlobal(preferredVersions) {
     const source = readFileSync(path, "utf8");
     if (source.includes("@:phpGlobal") && source.includes("extern class Global")) {
       return {
-        path,
+        path: "std/php/Global.hx",
         bytes: statSync(path).size,
         sha256: sha256File(path),
         contains_php_global_meta: true,

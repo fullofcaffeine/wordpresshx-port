@@ -54,8 +54,8 @@
   "toolchain": {
     "haxe_version": "4.3.7",
     "locked_haxe_version": "4.3.7",
-    "php_cli_version": "8.4.7",
-    "docker_server_version": "28.3.2"
+    "php_cli_version_family": "8.4",
+    "docker_available": true
   },
   "build": {
     "command": "haxe fixtures/wp-public-types/public-types.hxml",
@@ -201,26 +201,15 @@
   },
   "runtime_runs": [
     {
-      "id": "local-php-cli:oracle",
       "command": "php build/wp-public-types/probe.php oracle fixtures/wp-public-types/oracle/public-types.php",
+      "id": "local-php-cli:oracle",
       "result": {
-        "mode": "oracle",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
-        },
         "afterSecondRequire": {
+          "classes": {
+            "WPHX_Public_Base": true,
+            "WPHX_Public_Class": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
           "interfaces": {
             "WPHX_Public_Contract": true,
             "WordPress\\WPHX\\Fixture\\NamespacedContract": true
@@ -228,466 +217,466 @@
           "traits": {
             "WPHX_Public_Trait": true,
             "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
-          },
+          }
+        },
+        "before": {
           "classes": {
-            "WPHX_Public_Base": true,
-            "WPHX_Public_Class": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
           }
         },
         "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
           "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
             "constants": {
               "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
             "isInterface": false,
             "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
             "interfaceNames": [
               "WPHX_Public_Contract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
             "traitNames": [
               "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
+            ]
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": true,
             "isTrait": false,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
             "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": false,
             "isTrait": true,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
             "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
             "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
           },
           "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
+            "constants": {
+              "KIND": "namespaced"
+            },
             "interfaceNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedContract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
             "traitNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
           }
         },
         "methods": {
-          "globalInterfaceDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Contract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassConstruct": {
-            "name": "__construct",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 2,
-            "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              },
-              {
-                "name": "meta",
-                "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassFactory": {
-            "name": "factory",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 1,
-            "returnType": "self",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalTraitLabel": {
-            "name": "trait_label",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
           "globalBaseLabel": {
-            "name": "base_label",
             "class": "WPHX_Public_Base",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "base_label",
             "numberOfParameters": 0,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            "parameters": [],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
+            "returnType": "string",
+            "returnsReference": false
           },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
+          "globalClassConstruct": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassConstruct": {
             "name": "__construct",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
+            "numberOfParameters": 2,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
+                "type": "string"
+              },
+              {
                 "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
                 "isPassedByReference": false,
-                "isVariadic": false
+                "isVariadic": false,
+                "name": "meta",
+                "position": 1,
+                "type": "array"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
           },
-          "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "describe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
-          },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            ],
             "returnAllowsNull": false,
-            "returnsReference": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassFactory": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "factory",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "self",
+            "returnsReference": false
+          },
+          "globalInterfaceDescribe": {
+            "class": "WPHX_Public_Contract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalTraitLabel": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "trait_label",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedClassConstruct": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "namespacedClassDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           }
         },
+        "mode": "oracle",
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
+        },
         "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
             "isProtected": false,
-            "isStatic": true,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
             "type": null
           },
-          "globalName": {
-            "name": "name",
+          "globalInstances": {
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
-            "isStatic": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "globalMeta": {
-            "name": "meta",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
             "type": null
           },
           "globalTraitValue": {
-            "name": "traitValue",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
+            "name": "traitValue",
             "type": null
           },
           "namespacedInstances": {
-            "name": "instances",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "namespacedName": {
-            "name": "name",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "name",
             "type": null
           }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
         }
       }
     },
     {
-      "id": "local-php-cli:generated",
       "command": "php build/wp-public-types/probe.php generated build/wp-public-types/generated/wp-includes/class-wphx-public-types.php",
+      "id": "local-php-cli:generated",
       "result": {
-        "mode": "generated",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
-        },
         "afterSecondRequire": {
+          "classes": {
+            "WPHX_Public_Base": true,
+            "WPHX_Public_Class": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
           "interfaces": {
             "WPHX_Public_Contract": true,
             "WordPress\\WPHX\\Fixture\\NamespacedContract": true
@@ -695,467 +684,467 @@
           "traits": {
             "WPHX_Public_Trait": true,
             "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
-          },
+          }
+        },
+        "before": {
           "classes": {
-            "WPHX_Public_Base": true,
-            "WPHX_Public_Class": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
           }
         },
         "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
           "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
             "constants": {
               "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
             "isInterface": false,
             "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
             "interfaceNames": [
               "WPHX_Public_Contract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
             "traitNames": [
               "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
+            ]
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": true,
             "isTrait": false,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
             "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": false,
             "isTrait": true,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
             "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
             "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
           },
           "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
+            "constants": {
+              "KIND": "namespaced"
+            },
             "interfaceNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedContract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
             "traitNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
           }
         },
         "methods": {
-          "globalInterfaceDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Contract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassConstruct": {
-            "name": "__construct",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 2,
-            "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              },
-              {
-                "name": "meta",
-                "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassFactory": {
-            "name": "factory",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 1,
-            "returnType": "self",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalTraitLabel": {
-            "name": "trait_label",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
           "globalBaseLabel": {
-            "name": "base_label",
             "class": "WPHX_Public_Base",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "base_label",
             "numberOfParameters": 0,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            "parameters": [],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
+            "returnType": "string",
+            "returnsReference": false
           },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
+          "globalClassConstruct": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassConstruct": {
             "name": "__construct",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
+            "numberOfParameters": 2,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
+                "type": "string"
+              },
+              {
                 "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
                 "isPassedByReference": false,
-                "isVariadic": false
+                "isVariadic": false,
+                "name": "meta",
+                "position": 1,
+                "type": "array"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
           },
-          "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "describe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
-          },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            ],
             "returnAllowsNull": false,
-            "returnsReference": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassFactory": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "factory",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "self",
+            "returnsReference": false
+          },
+          "globalInterfaceDescribe": {
+            "class": "WPHX_Public_Contract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalTraitLabel": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "trait_label",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedClassConstruct": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "namespacedClassDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           }
         },
+        "mode": "generated",
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
+        },
         "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
             "isProtected": false,
-            "isStatic": true,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
             "type": null
           },
-          "globalName": {
-            "name": "name",
+          "globalInstances": {
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
-            "isStatic": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "globalMeta": {
-            "name": "meta",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
             "type": null
           },
           "globalTraitValue": {
-            "name": "traitValue",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
+            "name": "traitValue",
             "type": null
           },
           "namespacedInstances": {
-            "name": "instances",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "namespacedName": {
-            "name": "name",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "name",
             "type": null
           }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
         }
       }
     },
     {
-      "id": "docker-php-8.4-cli:oracle",
       "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-public-types/probe.php oracle fixtures/wp-public-types/oracle/public-types.php",
+      "id": "docker-php-8.4-cli:oracle",
       "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
       "result": {
-        "mode": "oracle",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
-        },
         "afterSecondRequire": {
+          "classes": {
+            "WPHX_Public_Base": true,
+            "WPHX_Public_Class": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
           "interfaces": {
             "WPHX_Public_Contract": true,
             "WordPress\\WPHX\\Fixture\\NamespacedContract": true
@@ -1163,467 +1152,467 @@
           "traits": {
             "WPHX_Public_Trait": true,
             "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
-          },
+          }
+        },
+        "before": {
           "classes": {
-            "WPHX_Public_Base": true,
-            "WPHX_Public_Class": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
           }
         },
         "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
           "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
             "constants": {
               "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
             "isInterface": false,
             "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
             "interfaceNames": [
               "WPHX_Public_Contract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
             "traitNames": [
               "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
+            ]
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": true,
             "isTrait": false,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
             "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": false,
             "isTrait": true,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
             "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
             "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
           },
           "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
+            "constants": {
+              "KIND": "namespaced"
+            },
             "interfaceNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedContract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
             "traitNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
           }
         },
         "methods": {
-          "globalInterfaceDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Contract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassConstruct": {
-            "name": "__construct",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 2,
-            "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              },
-              {
-                "name": "meta",
-                "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassFactory": {
-            "name": "factory",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 1,
-            "returnType": "self",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalTraitLabel": {
-            "name": "trait_label",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
           "globalBaseLabel": {
-            "name": "base_label",
             "class": "WPHX_Public_Base",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "base_label",
             "numberOfParameters": 0,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            "parameters": [],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
+            "returnType": "string",
+            "returnsReference": false
           },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
+          "globalClassConstruct": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassConstruct": {
             "name": "__construct",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
+            "numberOfParameters": 2,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
+                "type": "string"
+              },
+              {
                 "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
                 "isPassedByReference": false,
-                "isVariadic": false
+                "isVariadic": false,
+                "name": "meta",
+                "position": 1,
+                "type": "array"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
           },
-          "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "describe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
-          },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            ],
             "returnAllowsNull": false,
-            "returnsReference": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassFactory": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "factory",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "self",
+            "returnsReference": false
+          },
+          "globalInterfaceDescribe": {
+            "class": "WPHX_Public_Contract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalTraitLabel": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "trait_label",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedClassConstruct": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "namespacedClassDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           }
         },
+        "mode": "oracle",
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
+        },
         "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
             "isProtected": false,
-            "isStatic": true,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
             "type": null
           },
-          "globalName": {
-            "name": "name",
+          "globalInstances": {
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
-            "isStatic": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "globalMeta": {
-            "name": "meta",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
             "type": null
           },
           "globalTraitValue": {
-            "name": "traitValue",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
+            "name": "traitValue",
             "type": null
           },
           "namespacedInstances": {
-            "name": "instances",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "namespacedName": {
-            "name": "name",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "name",
             "type": null
           }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
         }
       }
     },
     {
-      "id": "docker-php-8.4-cli:generated",
       "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-public-types/probe.php generated build/wp-public-types/generated/wp-includes/class-wphx-public-types.php",
+      "id": "docker-php-8.4-cli:generated",
       "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
       "result": {
-        "mode": "generated",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
-        },
         "afterSecondRequire": {
+          "classes": {
+            "WPHX_Public_Base": true,
+            "WPHX_Public_Class": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
           "interfaces": {
             "WPHX_Public_Contract": true,
             "WordPress\\WPHX\\Fixture\\NamespacedContract": true
@@ -1631,935 +1620,467 @@
           "traits": {
             "WPHX_Public_Trait": true,
             "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
-          },
+          }
+        },
+        "before": {
           "classes": {
-            "WPHX_Public_Base": true,
-            "WPHX_Public_Class": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
           }
         },
         "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
           "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
             "constants": {
               "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
             "isInterface": false,
             "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
             "interfaceNames": [
               "WPHX_Public_Contract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
             "traitNames": [
               "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
+            ]
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": true,
             "isTrait": false,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
             "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": false,
             "isTrait": true,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
             "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
             "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
           },
           "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
+            "constants": {
+              "KIND": "namespaced"
+            },
             "interfaceNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedContract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
             "traitNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
           }
         },
         "methods": {
-          "globalInterfaceDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Contract",
-            "isPublic": true,
+          "globalBaseLabel": {
+            "class": "WPHX_Public_Base",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
+            "name": "base_label",
+            "numberOfParameters": 0,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            "parameters": [],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
+            "returnType": "string",
+            "returnsReference": false
           },
           "globalClassConstruct": {
-            "name": "__construct",
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "__construct",
             "numberOfParameters": 2,
             "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               },
               {
+                "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "meta",
                 "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "array"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           },
           "globalClassFactory": {
-            "name": "factory",
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": true,
+            "name": "factory",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 1,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
             "returnType": "self",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
+            "returnsReference": false
           },
-          "globalClassDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalTraitLabel": {
-            "name": "trait_label",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalBaseLabel": {
-            "name": "base_label",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 0,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
-          },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassConstruct": {
-            "name": "__construct",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          }
-        },
-        "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "type": null
-          },
-          "globalName": {
-            "name": "name",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          },
-          "globalMeta": {
-            "name": "meta",
-            "class": "WPHX_Public_Class",
-            "isPublic": false,
-            "isProtected": true,
-            "isStatic": false,
-            "type": null
-          },
-          "globalTraitValue": {
-            "name": "traitValue",
-            "class": "WPHX_Public_Class",
-            "isPublic": false,
-            "isProtected": true,
-            "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          },
-          "namespacedInstances": {
-            "name": "instances",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "type": null
-          },
-          "namespacedName": {
-            "name": "name",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
-        }
-      }
-    },
-    {
-      "id": "docker-php-8.5-cli:oracle",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-public-types/probe.php oracle fixtures/wp-public-types/oracle/public-types.php",
-      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
-      "result": {
-        "mode": "oracle",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
-        },
-        "afterSecondRequire": {
-          "interfaces": {
-            "WPHX_Public_Contract": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": true
-          },
-          "traits": {
-            "WPHX_Public_Trait": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
-          },
-          "classes": {
-            "WPHX_Public_Base": true,
-            "WPHX_Public_Class": true,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
-          }
-        },
-        "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": {
-              "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
-            "interfaceNames": [
-              "WPHX_Public_Contract"
-            ],
-            "traitNames": [
-              "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
-          },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [
-              "WordPress\\WPHX\\Fixture\\NamespacedContract"
-            ],
-            "traitNames": [
-              "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
-          }
-        },
-        "methods": {
           "globalInterfaceDescribe": {
-            "name": "describe",
             "class": "WPHX_Public_Contract",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassConstruct": {
-            "name": "__construct",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 2,
-            "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              },
-              {
-                "name": "meta",
-                "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassFactory": {
-            "name": "factory",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 1,
-            "returnType": "WPHX_Public_Class",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassDescribe": {
             "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           },
           "globalTraitLabel": {
-            "name": "trait_label",
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "trait_label",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
-          },
-          "globalBaseLabel": {
-            "name": "base_label",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 0,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            ],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
-          },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
             "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
+            "returnsReference": false
           },
           "namespacedClassConstruct": {
-            "name": "__construct",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "__construct",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
           },
           "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "namespacedDescribe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "namespacedDescribe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           }
         },
-        "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "type": null
-          },
-          "globalName": {
-            "name": "name",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          },
-          "globalMeta": {
-            "name": "meta",
-            "class": "WPHX_Public_Class",
-            "isPublic": false,
-            "isProtected": true,
-            "isStatic": false,
-            "type": null
-          },
-          "globalTraitValue": {
-            "name": "traitValue",
-            "class": "WPHX_Public_Class",
-            "isPublic": false,
-            "isProtected": true,
-            "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          },
-          "namespacedInstances": {
-            "name": "instances",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "type": null
-          },
-          "namespacedName": {
-            "name": "name",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "type": null
-          }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
-        }
-      }
-    },
-    {
-      "id": "docker-php-8.5-cli:generated",
-      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-public-types/probe.php generated build/wp-public-types/generated/wp-includes/class-wphx-public-types.php",
-      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
-      "result": {
         "mode": "generated",
-        "before": {
-          "interfaces": {
-            "WPHX_Public_Contract": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
-          },
-          "traits": {
-            "WPHX_Public_Trait": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
-          },
-          "classes": {
-            "WPHX_Public_Base": false,
-            "WPHX_Public_Class": false,
-            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
-          }
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
         },
+        "properties": {
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
+            "type": null
+          },
+          "globalInstances": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
+            "type": null
+          },
+          "globalMeta": {
+            "class": "WPHX_Public_Class",
+            "isProtected": true,
+            "isPublic": false,
+            "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
+            "type": null
+          },
+          "globalTraitValue": {
+            "class": "WPHX_Public_Class",
+            "isProtected": true,
+            "isPublic": false,
+            "isStatic": false,
+            "name": "traitValue",
+            "type": null
+          },
+          "namespacedInstances": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
+            "type": null
+          },
+          "namespacedName": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
+            "type": null
+          }
+        }
+      }
+    },
+    {
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-public-types/probe.php oracle fixtures/wp-public-types/oracle/public-types.php",
+      "id": "docker-php-8.5-cli:oracle",
+      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "result": {
         "afterSecondRequire": {
+          "classes": {
+            "WPHX_Public_Base": true,
+            "WPHX_Public_Class": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
           "interfaces": {
             "WPHX_Public_Contract": true,
             "WordPress\\WPHX\\Fixture\\NamespacedContract": true
@@ -2567,442 +2088,921 @@
           "traits": {
             "WPHX_Public_Trait": true,
             "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
+          }
+        },
+        "before": {
+          "classes": {
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
           },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
+          }
+        },
+        "classes": {
+          "WPHX_Public_Base": {
+            "constants": {
+              "BASE_KIND": "base"
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
+            "interfaceNames": [
+              "WPHX_Public_Contract"
+            ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
+            "traitNames": [
+              "WPHX_Public_Trait"
+            ]
+          },
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
+          },
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
+            "constants": {
+              "KIND": "namespaced"
+            },
+            "interfaceNames": [
+              "WordPress\\WPHX\\Fixture\\NamespacedContract"
+            ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
+            "traitNames": [
+              "WordPress\\WPHX\\Fixture\\NamespacedTrait"
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
+          }
+        },
+        "methods": {
+          "globalBaseLabel": {
+            "class": "WPHX_Public_Base",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "base_label",
+            "numberOfParameters": 0,
+            "numberOfRequiredParameters": 0,
+            "parameters": [],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassConstruct": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 2,
+            "numberOfRequiredParameters": 1,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              },
+              {
+                "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "meta",
+                "position": 1,
+                "type": "array"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassFactory": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "factory",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 1,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "WPHX_Public_Class",
+            "returnsReference": false
+          },
+          "globalInterfaceDescribe": {
+            "class": "WPHX_Public_Contract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalTraitLabel": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "trait_label",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedClassConstruct": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "namespacedClassDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          }
+        },
+        "mode": "oracle",
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
+        },
+        "properties": {
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
+            "type": null
+          },
+          "globalInstances": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
+            "type": null
+          },
+          "globalMeta": {
+            "class": "WPHX_Public_Class",
+            "isProtected": true,
+            "isPublic": false,
+            "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
+            "type": null
+          },
+          "globalTraitValue": {
+            "class": "WPHX_Public_Class",
+            "isProtected": true,
+            "isPublic": false,
+            "isStatic": false,
+            "name": "traitValue",
+            "type": null
+          },
+          "namespacedInstances": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
+            "type": null
+          },
+          "namespacedName": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
+            "type": null
+          }
+        }
+      }
+    },
+    {
+      "command": "docker run --rm -v $PWD:/work -w /work library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-public-types/probe.php generated build/wp-public-types/generated/wp-includes/class-wphx-public-types.php",
+      "id": "docker-php-8.5-cli:generated",
+      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "result": {
+        "afterSecondRequire": {
           "classes": {
             "WPHX_Public_Base": true,
             "WPHX_Public_Class": true,
             "WordPress\\WPHX\\Fixture\\NamespacedImplementation": true
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": true
+          },
+          "traits": {
+            "WPHX_Public_Trait": true,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": true
+          }
+        },
+        "before": {
+          "classes": {
+            "WPHX_Public_Base": false,
+            "WPHX_Public_Class": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedImplementation": false
+          },
+          "interfaces": {
+            "WPHX_Public_Contract": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedContract": false
+          },
+          "traits": {
+            "WPHX_Public_Trait": false,
+            "WordPress\\WPHX\\Fixture\\NamespacedTrait": false
           }
         },
         "classes": {
-          "WPHX_Public_Contract": {
-            "name": "WPHX_Public_Contract",
-            "shortName": "WPHX_Public_Contract",
-            "namespaceName": "",
-            "isInterface": true,
-            "isTrait": false,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
-          "WPHX_Public_Trait": {
-            "name": "WPHX_Public_Trait",
-            "shortName": "WPHX_Public_Trait",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": true,
-            "isInstantiable": false,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
-          },
           "WPHX_Public_Base": {
-            "name": "WPHX_Public_Base",
-            "shortName": "WPHX_Public_Base",
-            "namespaceName": "",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
             "constants": {
               "BASE_KIND": "base"
-            }
-          },
-          "WPHX_Public_Class": {
-            "name": "WPHX_Public_Class",
-            "shortName": "WPHX_Public_Class",
-            "namespaceName": "",
+            },
+            "interfaceNames": [],
+            "isInstantiable": true,
             "isInterface": false,
             "isTrait": false,
-            "isInstantiable": true,
-            "parent": "WPHX_Public_Base",
+            "name": "WPHX_Public_Base",
+            "namespaceName": "",
+            "parent": null,
+            "shortName": "WPHX_Public_Base",
+            "traitNames": []
+          },
+          "WPHX_Public_Class": {
+            "constants": {
+              "BASE_KIND": "base",
+              "KIND": "fixture"
+            },
             "interfaceNames": [
               "WPHX_Public_Contract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WPHX_Public_Class",
+            "namespaceName": "",
+            "parent": "WPHX_Public_Base",
+            "shortName": "WPHX_Public_Class",
             "traitNames": [
               "WPHX_Public_Trait"
-            ],
-            "constants": {
-              "KIND": "fixture",
-              "BASE_KIND": "base"
-            }
+            ]
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "shortName": "NamespacedContract",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Contract": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": true,
             "isTrait": false,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Contract",
+            "namespaceName": "",
             "parent": null,
-            "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "shortName": "WPHX_Public_Contract",
+            "traitNames": []
           },
-          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
-            "shortName": "NamespacedTrait",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
+          "WPHX_Public_Trait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
             "isInterface": false,
             "isTrait": true,
-            "isInstantiable": false,
+            "name": "WPHX_Public_Trait",
+            "namespaceName": "",
             "parent": null,
+            "shortName": "WPHX_Public_Trait",
+            "traitNames": []
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedContract": {
+            "constants": [],
             "interfaceNames": [],
-            "traitNames": [],
-            "constants": []
+            "isInstantiable": false,
+            "isInterface": true,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedContract",
+            "traitNames": []
           },
           "WordPress\\WPHX\\Fixture\\NamespacedImplementation": {
-            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "shortName": "NamespacedImplementation",
-            "namespaceName": "WordPress\\WPHX\\Fixture",
-            "isInterface": false,
-            "isTrait": false,
-            "isInstantiable": true,
-            "parent": null,
+            "constants": {
+              "KIND": "namespaced"
+            },
             "interfaceNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedContract"
             ],
+            "isInstantiable": true,
+            "isInterface": false,
+            "isTrait": false,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedImplementation",
             "traitNames": [
               "WordPress\\WPHX\\Fixture\\NamespacedTrait"
-            ],
-            "constants": {
-              "KIND": "namespaced"
-            }
+            ]
+          },
+          "WordPress\\WPHX\\Fixture\\NamespacedTrait": {
+            "constants": [],
+            "interfaceNames": [],
+            "isInstantiable": false,
+            "isInterface": false,
+            "isTrait": true,
+            "name": "WordPress\\WPHX\\Fixture\\NamespacedTrait",
+            "namespaceName": "WordPress\\WPHX\\Fixture",
+            "parent": null,
+            "shortName": "NamespacedTrait",
+            "traitNames": []
           }
         },
         "methods": {
-          "globalInterfaceDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Contract",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassConstruct": {
-            "name": "__construct",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 2,
-            "numberOfRequiredParameters": 1,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              },
-              {
-                "name": "meta",
-                "position": 1,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": [],
-                "type": "array",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassFactory": {
-            "name": "factory",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": true,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 1,
-            "returnType": "WPHX_Public_Class",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "name",
-                "position": 0,
-                "isOptional": false,
-                "hasDefault": false,
-                "default": null,
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalClassDescribe": {
-            "name": "describe",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "globalTraitLabel": {
-            "name": "trait_label",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "suffix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
           "globalBaseLabel": {
-            "name": "base_label",
             "class": "WPHX_Public_Base",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "base_label",
             "numberOfParameters": 0,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            "parameters": [],
             "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": []
+            "returnType": "string",
+            "returnsReference": false
           },
-          "namespacedInterfaceDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
-            "isPublic": true,
+          "globalClassConstruct": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
-            "parameters": [
-              {
-                "name": "prefix",
-                "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
-              }
-            ]
-          },
-          "namespacedClassConstruct": {
             "name": "__construct",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": null,
-            "returnAllowsNull": null,
-            "returnsReference": false,
+            "numberOfParameters": 2,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "name",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "core",
-                "type": "string",
+                "type": "string"
+              },
+              {
                 "allowsNull": false,
+                "default": [],
+                "hasDefault": true,
+                "isOptional": true,
                 "isPassedByReference": false,
-                "isVariadic": false
+                "isVariadic": false,
+                "name": "meta",
+                "position": 1,
+                "type": "array"
               }
-            ]
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
           },
-          "namespacedClassDescribe": {
-            "name": "namespacedDescribe",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
+          "globalClassDescribe": {
+            "class": "WPHX_Public_Class",
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "describe",
             "numberOfParameters": 1,
             "numberOfRequiredParameters": 0,
-            "returnType": "string",
-            "returnAllowsNull": false,
-            "returnsReference": false,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "prefix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "ns",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
-          },
-          "namespacedTraitLabel": {
-            "name": "namespacedTraitLabel",
-            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
-            "numberOfParameters": 1,
-            "numberOfRequiredParameters": 0,
-            "returnType": "string",
+            ],
             "returnAllowsNull": false,
-            "returnsReference": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalClassFactory": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "factory",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 1,
             "parameters": [
               {
+                "allowsNull": false,
+                "default": null,
+                "hasDefault": false,
+                "isOptional": false,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "WPHX_Public_Class",
+            "returnsReference": false
+          },
+          "globalInterfaceDescribe": {
+            "class": "WPHX_Public_Contract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "describe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "globalTraitLabel": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "trait_label",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
                 "name": "suffix",
                 "position": 0,
-                "isOptional": true,
-                "hasDefault": true,
-                "default": "",
-                "type": "string",
-                "allowsNull": false,
-                "isPassedByReference": false,
-                "isVariadic": false
+                "type": "string"
               }
-            ]
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedClassConstruct": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "__construct",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "core",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "name",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": null,
+            "returnType": null,
+            "returnsReference": false
+          },
+          "namespacedClassDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedInterfaceDescribe": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedContract",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedDescribe",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "ns",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "prefix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
+          },
+          "namespacedTraitLabel": {
+            "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "namespacedTraitLabel",
+            "numberOfParameters": 1,
+            "numberOfRequiredParameters": 0,
+            "parameters": [
+              {
+                "allowsNull": false,
+                "default": "",
+                "hasDefault": true,
+                "isOptional": true,
+                "isPassedByReference": false,
+                "isVariadic": false,
+                "name": "suffix",
+                "position": 0,
+                "type": "string"
+              }
+            ],
+            "returnAllowsNull": false,
+            "returnType": "string",
+            "returnsReference": false
           }
         },
+        "mode": "generated",
+        "objectCases": {
+          "globalBaseLabel": "base:base-core",
+          "globalClassUsesTrait": true,
+          "globalDescribe": "pre:CORE:2",
+          "globalFactoryClass": "WPHX_Public_Class",
+          "globalFactoryDescribe": "FACTORY:1",
+          "globalInstanceOfBase": true,
+          "globalInstanceOfClass": true,
+          "globalInstanceOfInterface": true,
+          "globalMetaExisting": 1,
+          "globalMetaMissing": "fallback",
+          "globalStaticInstances": 2,
+          "globalTraitLabel": "trait:core:suffix",
+          "namespacedClassUsesTrait": true,
+          "namespacedDescribe": "pre:corename",
+          "namespacedInstanceOfClass": true,
+          "namespacedInstanceOfInterface": true,
+          "namespacedStaticInstances": 1,
+          "namespacedTraitLabel": "ns-trait:CoreName:suffix"
+        },
         "properties": {
-          "globalInstances": {
-            "name": "instances",
-            "class": "WPHX_Public_Class",
-            "isPublic": true,
+          "globalBaseValue": {
+            "class": "WPHX_Public_Base",
             "isProtected": false,
-            "isStatic": true,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "baseValue",
             "type": null
           },
-          "globalName": {
-            "name": "name",
+          "globalInstances": {
             "class": "WPHX_Public_Class",
-            "isPublic": true,
             "isProtected": false,
-            "isStatic": false,
+            "isPublic": true,
+            "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "globalMeta": {
-            "name": "meta",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
+            "name": "meta",
+            "type": null
+          },
+          "globalName": {
+            "class": "WPHX_Public_Class",
+            "isProtected": false,
+            "isPublic": true,
+            "isStatic": false,
+            "name": "name",
             "type": null
           },
           "globalTraitValue": {
-            "name": "traitValue",
             "class": "WPHX_Public_Class",
-            "isPublic": false,
             "isProtected": true,
+            "isPublic": false,
             "isStatic": false,
-            "type": null
-          },
-          "globalBaseValue": {
-            "name": "baseValue",
-            "class": "WPHX_Public_Base",
-            "isPublic": true,
-            "isProtected": false,
-            "isStatic": false,
+            "name": "traitValue",
             "type": null
           },
           "namespacedInstances": {
-            "name": "instances",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": true,
+            "name": "instances",
             "type": null
           },
           "namespacedName": {
-            "name": "name",
             "class": "WordPress\\WPHX\\Fixture\\NamespacedImplementation",
-            "isPublic": true,
             "isProtected": false,
+            "isPublic": true,
             "isStatic": false,
+            "name": "name",
             "type": null
           }
-        },
-        "objectCases": {
-          "globalInstanceOfClass": true,
-          "globalInstanceOfBase": true,
-          "globalInstanceOfInterface": true,
-          "globalClassUsesTrait": true,
-          "globalDescribe": "pre:CORE:2",
-          "globalBaseLabel": "base:base-core",
-          "globalTraitLabel": "trait:core:suffix",
-          "globalMetaExisting": 1,
-          "globalMetaMissing": "fallback",
-          "globalFactoryClass": "WPHX_Public_Class",
-          "globalFactoryDescribe": "FACTORY:1",
-          "globalStaticInstances": 2,
-          "namespacedInstanceOfClass": true,
-          "namespacedInstanceOfInterface": true,
-          "namespacedClassUsesTrait": true,
-          "namespacedDescribe": "pre:corename",
-          "namespacedTraitLabel": "ns-trait:CoreName:suffix",
-          "namespacedStaticInstances": 1
         }
       }
     }

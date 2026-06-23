@@ -40,6 +40,24 @@ function maybeCommand(commandName, commandArgs) {
   }
 }
 
+function phpVersionFamily(value = command("php", ["-r", "echo PHP_VERSION;"])) {
+  const [major, minor] = String(value).split(".");
+  return `${major}.${minor}`;
+}
+
+function stableValue(value) {
+  if (Array.isArray(value)) {
+    return value.map(stableValue);
+  }
+  if (value && typeof value === "object") {
+    return Object.fromEntries(Object.keys(value).sort().map((key) => [key, stableValue(value[key])]));
+  }
+  if (typeof value === "string") {
+    return value.replaceAll(process.cwd(), "$WORKSPACE").replaceAll("/work/", "$WORKSPACE/");
+  }
+  return value;
+}
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -508,8 +526,8 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"]),
-    docker_server_version: dockerVersion
+    php_cli_version_family: phpVersionFamily(),
+    docker_available: dockerVersion != null
   },
   build: {
     command: `haxe ${HXML}`,
@@ -522,7 +540,7 @@ const manifest = {
       sha256: sha256File(PROBE)
     }
   },
-  runtime_runs: runs,
+  runtime_runs: runs.map(stableValue),
   comparisons,
   emission_strategy: {
     php_shell_owns_public_type_identity: true,

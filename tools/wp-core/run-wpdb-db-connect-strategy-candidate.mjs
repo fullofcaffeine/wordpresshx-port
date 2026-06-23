@@ -218,6 +218,14 @@ function stableDiagnostics(diagnostics) {
   );
 }
 
+function stableRuntimeImage(image) {
+  if (image == null) return null;
+  return {
+    image: image.image,
+    os: image.os
+  };
+}
+
 function stableLinkedCandidateAbi(abi) {
   if (abi == null) return null;
   return {
@@ -2128,7 +2136,7 @@ const manifest = {
       runtime_results: runtimeResults.map((result) => ({
         id: result.id,
         engine: result.engine,
-        image: result.image,
+        image: stableRuntimeImage(result.image),
         server: result.server,
         class_shell_probe_status: result.class_shell_probe.status,
         dropin_probe_status: result.dropin_probe.dropin_replacement_preserved ? "passed" : "failed",
