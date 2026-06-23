@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/taxonomy-comments-surface",
+  "issue": {
+    "id": "wordpresshx-6z1",
+    "external_ref": "WPHX-308.01"
+  },
+  "unit": {
+    "kind": "surface_inventory",
+    "name": "taxonomy, terms, comments, comment templates, and moderation surface",
+    "area": "wp-includes/taxonomy.php wp-includes/comment.php wp-includes/comment-template.php wp-admin/comment.php wp-admin/term.php",
+    "public_contract": "This slice inventories WordPress taxonomy/comment runtime boundaries and fixture targets. It does not claim migrated runtime behavior or public PHP ABI replacement."
+  },
+  "ownership_state": "oracle_surface_inventory",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_described",
+    "adapter_contract_owner": "not_yet_started",
+    "emission_strategy": "none",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "surface_inventory"
+  },
+  "bridge": {
+    "exists": false,
+    "kind": "not_applicable",
+    "removal_gate": "Promote bounded taxonomy/comment decisions to typed Haxe adapter contracts, then later to typed Adapter IR/original-path PHP with differential and upstream PHPUnit evidence."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-taxonomy-comments-surface.mjs",
+    "manifests/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json",
+    "manifests/ownership/wphx-308-01-taxonomy-comments-surface.v1.json",
+    "receipts/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json",
+    "manifests/ownership/wphx-308-01-taxonomy-comments-surface.v1.json",
+    "receipts/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-308-taxonomy-comments-surface",
+      "npm run wp:core:wphx-308-taxonomy-comments-surface:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-308-01-taxonomy-comments-surface"
+    ],
+    "manifest_digest": "sha256:c70255713a83f53a53a002c31b09e7222c8eb22e686bbbb384f49d0a07048407"
+  }
+}

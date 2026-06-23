@@ -1,0 +1,949 @@
+{
+  "schema": "wphx.wp-core-taxonomy-comments-surface.v1",
+  "issue": "WPHX-308.01",
+  "generated_at": "2026-06-23T18:40:00.000Z",
+  "generator": "tools/wp-core/run-taxonomy-comments-surface.mjs",
+  "inputs": {
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    }
+  },
+  "scope": {
+    "owner": "WPHX-308",
+    "included": "C1 WordPress 7.0 PHP source and distribution artifacts classified to taxonomy, terms, comments, comment templates, comment feeds, and related block/admin bridges by the WPHX-322 owner rules.",
+    "cross_domain_notes": [
+      {
+        "owner": "WPHX-307",
+        "reason": "WP_Query, WP_Tax_Query, WP_Term_Query, WP_Comment_Query, post comment submission, and post comment block paths may be classified to posts/query by current precedence; WPHX-308 fixtures must cover the taxonomy/comment semantics they expose."
+      },
+      {
+        "owner": "WPHX-311",
+        "reason": "REST comments, terms, and taxonomies controllers remain REST transport/domain work even when they exercise taxonomy/comment rules."
+      },
+      {
+        "owner": "WPHX-314",
+        "reason": "Block rendering for comments/terms needs later block-render coordination before broad Gutenberg-facing claims."
+      },
+      {
+        "owner": "WPHX-316",
+        "reason": "Admin comment and term screens are included here where owner rules classify them to WPHX-308, but full admin UX/AJAX parity remains an admin feature-screen gate."
+      },
+      {
+        "owner": "WPHX-304/WPHX-305",
+        "reason": "Term/comment CRUD, counts, relationships, and meta depend on object-cache and wpdb SQL/result behavior that must remain separately evidenced."
+      }
+    ],
+    "semantic_handoff_candidates": [
+      {
+        "path": "src/wp-admin/includes/class-wp-post-comments-list-table.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-comments-post.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-content/themes/twentyeleven/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfifteen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfourteen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfourteen/taxonomy-post_format.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/classes/class-twentynineteen-walker-comment.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyten/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentythirteen/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentythirteen/taxonomy-post_format.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwelve/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/classes/class-twentytwenty-walker-comment.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/hidden-comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentythree/patterns/hidden-comments.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/blocks/comment-author-name.php",
+        "owner": "WPHX-306",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/blocks/post-comments-count.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/blocks/post-comments-form.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/blocks/post-comments-link.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/blocks/post-terms.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/class-wp-comment-query.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/class-wp-term-query.php",
+        "owner": "WPHX-307",
+        "reason": "Current owner rules give query/post precedence; WPHX-308 fixtures must still cover taxonomy/comment semantics exercised through this file."
+      },
+      {
+        "path": "src/wp-includes/rest-api/endpoints/class-wp-rest-comments-controller.php",
+        "owner": "WPHX-311",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/rest-api/endpoints/class-wp-rest-terms-controller.php",
+        "owner": "WPHX-311",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/rest-api/fields/class-wp-rest-comment-meta-fields.php",
+        "owner": "WPHX-311",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/rest-api/fields/class-wp-rest-term-meta-fields.php",
+        "owner": "WPHX-311",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-includes/rest-api/search/class-wp-rest-term-search-handler.php",
+        "owner": "WPHX-311",
+        "reason": "Current owner rules assign this path to another domain; WPHX-308 must coordinate behavior without changing ownership here."
+      }
+    ]
+  },
+  "coverage": {
+    "source_count": 36,
+    "artifact_count": 36,
+    "abi_entry_count": 422,
+    "class_count": 7,
+    "test_count": 80,
+    "source_by_group": {
+      "admin_comment_term_screens": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/edit-comments.php",
+          "src/wp-admin/includes/class-wp-comments-list-table.php",
+          "src/wp-admin/includes/class-wp-terms-list-table.php"
+        ]
+      },
+      "block_comment_term_bridges": {
+        "count": 16,
+        "paths": [
+          "src/wp-includes/blocks/comment-content.php",
+          "src/wp-includes/blocks/comment-date.php",
+          "src/wp-includes/blocks/comment-edit-link.php",
+          "src/wp-includes/blocks/comment-reply-link.php",
+          "src/wp-includes/blocks/comments-pagination-next.php",
+          "src/wp-includes/blocks/comments-pagination-numbers.php",
+          "src/wp-includes/blocks/comments-pagination-previous.php",
+          "src/wp-includes/blocks/comments-pagination.php",
+          "src/wp-includes/blocks/comments-title.php",
+          "src/wp-includes/blocks/comments.php",
+          "src/wp-includes/blocks/latest-comments.php",
+          "src/wp-includes/blocks/term-count.php",
+          "src/wp-includes/blocks/term-description.php",
+          "src/wp-includes/blocks/term-name.php",
+          "src/wp-includes/blocks/term-template.php",
+          "src/wp-includes/theme-compat/comments.php"
+        ]
+      },
+      "comment_feed_output": {
+        "count": 2,
+        "paths": [
+          "src/wp-includes/feed-atom-comments.php",
+          "src/wp-includes/feed-rss2-comments.php"
+        ]
+      },
+      "comment_model_template": {
+        "count": 8,
+        "paths": [
+          "src/wp-admin/comment.php",
+          "src/wp-admin/edit-form-comment.php",
+          "src/wp-admin/includes/comment.php",
+          "src/wp-includes/blocks/comment-template.php",
+          "src/wp-includes/class-walker-comment.php",
+          "src/wp-includes/class-wp-comment.php",
+          "src/wp-includes/comment-template.php",
+          "src/wp-includes/comment.php"
+        ]
+      },
+      "comment_widgets": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/widgets/class-wp-widget-recent-comments.php"
+        ]
+      },
+      "taxonomy_registration": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/includes/taxonomy.php",
+          "src/wp-includes/class-wp-taxonomy.php",
+          "src/wp-includes/taxonomy.php"
+        ]
+      },
+      "term_model_crud_meta": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/term.php",
+          "src/wp-includes/block-bindings/term-data.php",
+          "src/wp-includes/class-wp-term.php"
+        ]
+      }
+    },
+    "artifact_by_group": {
+      "admin_comment_term_screens": {
+        "count": 3,
+        "paths": [
+          "wp-admin/edit-comments.php",
+          "wp-admin/includes/class-wp-comments-list-table.php",
+          "wp-admin/includes/class-wp-terms-list-table.php"
+        ]
+      },
+      "block_comment_term_bridges": {
+        "count": 16,
+        "paths": [
+          "wp-includes/blocks/comment-content.php",
+          "wp-includes/blocks/comment-date.php",
+          "wp-includes/blocks/comment-edit-link.php",
+          "wp-includes/blocks/comment-reply-link.php",
+          "wp-includes/blocks/comments-pagination-next.php",
+          "wp-includes/blocks/comments-pagination-numbers.php",
+          "wp-includes/blocks/comments-pagination-previous.php",
+          "wp-includes/blocks/comments-pagination.php",
+          "wp-includes/blocks/comments-title.php",
+          "wp-includes/blocks/comments.php",
+          "wp-includes/blocks/latest-comments.php",
+          "wp-includes/blocks/term-count.php",
+          "wp-includes/blocks/term-description.php",
+          "wp-includes/blocks/term-name.php",
+          "wp-includes/blocks/term-template.php",
+          "wp-includes/theme-compat/comments.php"
+        ]
+      },
+      "comment_feed_output": {
+        "count": 2,
+        "paths": [
+          "wp-includes/feed-atom-comments.php",
+          "wp-includes/feed-rss2-comments.php"
+        ]
+      },
+      "comment_model_template": {
+        "count": 8,
+        "paths": [
+          "wp-admin/comment.php",
+          "wp-admin/edit-form-comment.php",
+          "wp-admin/includes/comment.php",
+          "wp-includes/blocks/comment-template.php",
+          "wp-includes/class-walker-comment.php",
+          "wp-includes/class-wp-comment.php",
+          "wp-includes/comment-template.php",
+          "wp-includes/comment.php"
+        ]
+      },
+      "comment_widgets": {
+        "count": 1,
+        "paths": [
+          "wp-includes/widgets/class-wp-widget-recent-comments.php"
+        ]
+      },
+      "taxonomy_registration": {
+        "count": 3,
+        "paths": [
+          "wp-admin/includes/taxonomy.php",
+          "wp-includes/class-wp-taxonomy.php",
+          "wp-includes/taxonomy.php"
+        ]
+      },
+      "term_model_crud_meta": {
+        "count": 3,
+        "paths": [
+          "wp-admin/term.php",
+          "wp-includes/block-bindings/term-data.php",
+          "wp-includes/class-wp-term.php"
+        ]
+      }
+    },
+    "abi_by_group": {
+      "admin_comment_term_screens": {
+        "count": 52,
+        "functions": [],
+        "classes": [
+          "WP_Comments_List_Table",
+          "WP_Terms_List_Table"
+        ],
+        "methods": [
+          "WP_Comments_List_Table::__construct",
+          "WP_Comments_List_Table::ajax_user_can",
+          "WP_Comments_List_Table::column_author",
+          "WP_Comments_List_Table::column_cb",
+          "WP_Comments_List_Table::column_comment",
+          "WP_Comments_List_Table::column_date",
+          "WP_Comments_List_Table::column_default",
+          "WP_Comments_List_Table::column_response",
+          "WP_Comments_List_Table::comment_type_dropdown",
+          "WP_Comments_List_Table::current_action",
+          "WP_Comments_List_Table::display",
+          "WP_Comments_List_Table::extra_tablenav",
+          "WP_Comments_List_Table::floated_admin_avatar",
+          "WP_Comments_List_Table::get_bulk_actions",
+          "WP_Comments_List_Table::get_columns",
+          "WP_Comments_List_Table::get_default_primary_column_name",
+          "WP_Comments_List_Table::get_per_page",
+          "WP_Comments_List_Table::get_sortable_columns",
+          "WP_Comments_List_Table::get_views",
+          "WP_Comments_List_Table::handle_row_actions",
+          "WP_Comments_List_Table::no_items",
+          "WP_Comments_List_Table::prepare_items",
+          "WP_Comments_List_Table::single_row",
+          "WP_Terms_List_Table::__construct",
+          "WP_Terms_List_Table::_rows",
+          "WP_Terms_List_Table::ajax_user_can",
+          "WP_Terms_List_Table::column_cb",
+          "WP_Terms_List_Table::column_default",
+          "WP_Terms_List_Table::column_description",
+          "WP_Terms_List_Table::column_links",
+          "WP_Terms_List_Table::column_name",
+          "WP_Terms_List_Table::column_posts",
+          "WP_Terms_List_Table::column_slug",
+          "WP_Terms_List_Table::current_action",
+          "WP_Terms_List_Table::display_rows_or_placeholder",
+          "WP_Terms_List_Table::get_bulk_actions",
+          "WP_Terms_List_Table::get_columns",
+          "WP_Terms_List_Table::get_default_primary_column_name",
+          "WP_Terms_List_Table::get_sortable_columns",
+          "WP_Terms_List_Table::handle_row_actions",
+          "WP_Terms_List_Table::inline_edit",
+          "WP_Terms_List_Table::no_items",
+          "WP_Terms_List_Table::prepare_items",
+          "WP_Terms_List_Table::single_row"
+        ],
+        "properties": [
+          "WP_Comments_List_Table::$checkbox",
+          "WP_Comments_List_Table::$extra_items",
+          "WP_Comments_List_Table::$pending_count",
+          "WP_Comments_List_Table::$user_can",
+          "WP_Terms_List_Table::$callback_args",
+          "WP_Terms_List_Table::$level"
+        ]
+      },
+      "block_comment_term_bridges": {
+        "count": 34,
+        "functions": [
+          "comments_block_form_defaults",
+          "enqueue_legacy_post_comments_block_styles",
+          "register_block_core_comment_content",
+          "register_block_core_comment_date",
+          "register_block_core_comment_edit_link",
+          "register_block_core_comment_reply_link",
+          "register_block_core_comments",
+          "register_block_core_comments_pagination",
+          "register_block_core_comments_pagination_next",
+          "register_block_core_comments_pagination_numbers",
+          "register_block_core_comments_pagination_previous",
+          "register_block_core_comments_title",
+          "register_block_core_latest_comments",
+          "register_block_core_term_count",
+          "register_block_core_term_description",
+          "register_block_core_term_name",
+          "register_block_core_term_template",
+          "register_legacy_post_comments_block",
+          "render_block_core_comment_content",
+          "render_block_core_comment_date",
+          "render_block_core_comment_edit_link",
+          "render_block_core_comment_reply_link",
+          "render_block_core_comments",
+          "render_block_core_comments_pagination",
+          "render_block_core_comments_pagination_next",
+          "render_block_core_comments_pagination_numbers",
+          "render_block_core_comments_pagination_previous",
+          "render_block_core_comments_title",
+          "render_block_core_latest_comments",
+          "render_block_core_term_count",
+          "render_block_core_term_description",
+          "render_block_core_term_name",
+          "render_block_core_term_template",
+          "wp_latest_comments_draft_or_post_title"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "comment_model_template": {
+        "count": 180,
+        "functions": [
+          "_clear_modified_cache_on_transition_comment_status",
+          "_close_comments_for_old_post",
+          "_close_comments_for_old_posts",
+          "_get_comment_reply_id",
+          "_prime_comment_caches",
+          "_wp_batch_update_comment_type",
+          "_wp_check_for_scheduled_update_comment_type",
+          "add_comment_meta",
+          "block_core_comment_template_render_comments",
+          "cancel_comment_reply_link",
+          "check_comment",
+          "check_comment_flood_db",
+          "clean_comment_cache",
+          "comment_ID",
+          "comment_author",
+          "comment_author_IP",
+          "comment_author_email",
+          "comment_author_email_link",
+          "comment_author_link",
+          "comment_author_url",
+          "comment_author_url_link",
+          "comment_class",
+          "comment_date",
+          "comment_excerpt",
+          "comment_exists",
+          "comment_footer_die",
+          "comment_form",
+          "comment_form_title",
+          "comment_id_fields",
+          "comment_reply_link",
+          "comment_text",
+          "comment_time",
+          "comment_type",
+          "comments_link",
+          "comments_number",
+          "comments_open",
+          "comments_popup_link",
+          "comments_template",
+          "delete_comment_meta",
+          "discover_pingback_server_uri",
+          "do_all_enclosures",
+          "do_all_pingbacks",
+          "do_all_pings",
+          "do_all_trackbacks",
+          "do_trackbacks",
+          "edit_comment",
+          "enqueue_comment_hotkeys_js",
+          "floated_admin_avatar",
+          "generic_ping",
+          "get_approved_comments",
+          "get_cancel_comment_reply_link",
+          "get_comment",
+          "get_comment_ID",
+          "get_comment_author",
+          "get_comment_author_IP",
+          "get_comment_author_email",
+          "get_comment_author_email_link",
+          "get_comment_author_link",
+          "get_comment_author_url",
+          "get_comment_author_url_link",
+          "get_comment_class",
+          "get_comment_count",
+          "get_comment_date",
+          "get_comment_excerpt",
+          "get_comment_id_fields",
+          "get_comment_link",
+          "get_comment_meta",
+          "get_comment_pages_count",
+          "get_comment_reply_link",
+          "get_comment_statuses",
+          "get_comment_text",
+          "get_comment_time",
+          "get_comment_to_edit",
+          "get_comment_type",
+          "get_comments",
+          "get_comments_link",
+          "get_comments_number",
+          "get_comments_number_text",
+          "get_default_comment_status",
+          "get_lastcommentmodified",
+          "get_page_of_comment",
+          "get_pending_comments_num",
+          "get_post_reply_link",
+          "get_trackback_url",
+          "pingback",
+          "pingback_ping_source_uri",
+          "pings_open",
+          "post_reply_link",
+          "privacy_ping_filter",
+          "register_block_core_comment_template",
+          "render_block_core_comment_template",
+          "sanitize_comment_cookies",
+          "separate_comments",
+          "trackback",
+          "trackback_rdf",
+          "trackback_url",
+          "update_comment_cache",
+          "update_comment_meta",
+          "weblog_ping",
+          "wp_allow_comment"
+        ],
+        "classes": [
+          "WP_Comment",
+          "Walker_Comment"
+        ],
+        "methods": [
+          "WP_Comment::__construct",
+          "WP_Comment::__get",
+          "WP_Comment::__isset",
+          "WP_Comment::add_child",
+          "WP_Comment::get_child",
+          "WP_Comment::get_children",
+          "WP_Comment::get_instance",
+          "WP_Comment::populated_children",
+          "WP_Comment::to_array",
+          "Walker_Comment::comment",
+          "Walker_Comment::display_element",
+          "Walker_Comment::end_el",
+          "Walker_Comment::end_lvl",
+          "Walker_Comment::filter_comment_text",
+          "Walker_Comment::html5_comment",
+          "Walker_Comment::ping",
+          "Walker_Comment::start_el",
+          "Walker_Comment::start_lvl"
+        ],
+        "properties": [
+          "WP_Comment::$children",
+          "WP_Comment::$comment_ID",
+          "WP_Comment::$comment_agent",
+          "WP_Comment::$comment_approved",
+          "WP_Comment::$comment_author",
+          "WP_Comment::$comment_author_IP",
+          "WP_Comment::$comment_author_email",
+          "WP_Comment::$comment_author_url",
+          "WP_Comment::$comment_content",
+          "WP_Comment::$comment_date",
+          "WP_Comment::$comment_date_gmt",
+          "WP_Comment::$comment_karma",
+          "WP_Comment::$comment_parent",
+          "WP_Comment::$comment_post_ID",
+          "WP_Comment::$comment_type",
+          "WP_Comment::$populated_children",
+          "WP_Comment::$post_fields",
+          "WP_Comment::$user_id",
+          "Walker_Comment::$db_fields",
+          "Walker_Comment::$tree_type"
+        ]
+      },
+      "comment_widgets": {
+        "count": 7,
+        "functions": [],
+        "classes": [
+          "WP_Widget_Recent_Comments"
+        ],
+        "methods": [
+          "WP_Widget_Recent_Comments::__construct",
+          "WP_Widget_Recent_Comments::flush_widget_cache",
+          "WP_Widget_Recent_Comments::form",
+          "WP_Widget_Recent_Comments::recent_comments_style",
+          "WP_Widget_Recent_Comments::update",
+          "WP_Widget_Recent_Comments::widget"
+        ],
+        "properties": []
+      },
+      "taxonomy_registration": {
+        "count": 131,
+        "functions": [
+          "_get_term_children",
+          "_get_term_hierarchy",
+          "_pad_term_counts",
+          "_prime_term_caches",
+          "_split_shared_term",
+          "_update_generic_term_count",
+          "_update_post_term_count",
+          "_wp_batch_split_terms",
+          "_wp_check_for_scheduled_split_terms",
+          "_wp_check_split_default_terms",
+          "_wp_check_split_nav_menu_terms",
+          "_wp_check_split_terms_in_menus",
+          "add_term_meta",
+          "category_exists",
+          "clean_object_term_cache",
+          "clean_taxonomy_cache",
+          "clean_term_cache",
+          "create_initial_taxonomies",
+          "delete_term_meta",
+          "get_ancestors",
+          "get_category_to_edit",
+          "get_object_taxonomies",
+          "get_object_term_cache",
+          "get_objects_in_term",
+          "get_post_taxonomies",
+          "get_tags_to_edit",
+          "get_tax_sql",
+          "get_taxonomies",
+          "get_taxonomy",
+          "get_taxonomy_labels",
+          "get_term",
+          "get_term_by",
+          "get_term_children",
+          "get_term_field",
+          "get_term_link",
+          "get_term_meta",
+          "get_term_to_edit",
+          "get_terms",
+          "get_terms_to_edit",
+          "get_the_taxonomies",
+          "has_term_meta",
+          "is_object_in_taxonomy",
+          "is_object_in_term",
+          "is_taxonomy_hierarchical",
+          "is_taxonomy_viewable",
+          "is_term_publicly_viewable",
+          "register_taxonomy",
+          "register_taxonomy_for_object_type",
+          "register_term_meta",
+          "sanitize_term",
+          "sanitize_term_field",
+          "tag_exists",
+          "taxonomy_exists",
+          "term_exists",
+          "term_is_ancestor_of",
+          "the_taxonomies",
+          "unregister_taxonomy",
+          "unregister_taxonomy_for_object_type",
+          "unregister_term_meta",
+          "update_object_term_cache",
+          "update_term_cache",
+          "update_term_meta",
+          "update_termmeta_cache",
+          "wp_add_object_terms",
+          "wp_cache_set_terms_last_changed",
+          "wp_check_term_hierarchy_for_loops",
+          "wp_check_term_meta_support_prefilter",
+          "wp_count_terms",
+          "wp_create_categories",
+          "wp_create_category",
+          "wp_create_tag",
+          "wp_create_term",
+          "wp_defer_term_counting",
+          "wp_delete_category",
+          "wp_delete_object_term_relationships",
+          "wp_delete_term",
+          "wp_get_object_terms",
+          "wp_get_split_term",
+          "wp_get_split_terms",
+          "wp_get_term_taxonomy_parent_id",
+          "wp_insert_category",
+          "wp_insert_term",
+          "wp_lazyload_term_meta",
+          "wp_remove_object_terms",
+          "wp_set_object_terms",
+          "wp_term_is_shared",
+          "wp_unique_term_slug",
+          "wp_update_category",
+          "wp_update_term",
+          "wp_update_term_count",
+          "wp_update_term_count_now"
+        ],
+        "classes": [
+          "WP_Taxonomy"
+        ],
+        "methods": [
+          "WP_Taxonomy::__construct",
+          "WP_Taxonomy::add_hooks",
+          "WP_Taxonomy::add_rewrite_rules",
+          "WP_Taxonomy::get_default_labels",
+          "WP_Taxonomy::get_rest_controller",
+          "WP_Taxonomy::remove_hooks",
+          "WP_Taxonomy::remove_rewrite_rules",
+          "WP_Taxonomy::reset_default_labels",
+          "WP_Taxonomy::set_props"
+        ],
+        "properties": [
+          "WP_Taxonomy::$_builtin",
+          "WP_Taxonomy::$args",
+          "WP_Taxonomy::$cap",
+          "WP_Taxonomy::$default_labels",
+          "WP_Taxonomy::$default_term",
+          "WP_Taxonomy::$description",
+          "WP_Taxonomy::$hierarchical",
+          "WP_Taxonomy::$label",
+          "WP_Taxonomy::$labels",
+          "WP_Taxonomy::$meta_box_cb",
+          "WP_Taxonomy::$meta_box_sanitize_cb",
+          "WP_Taxonomy::$name",
+          "WP_Taxonomy::$object_type",
+          "WP_Taxonomy::$public",
+          "WP_Taxonomy::$publicly_queryable",
+          "WP_Taxonomy::$query_var",
+          "WP_Taxonomy::$rest_base",
+          "WP_Taxonomy::$rest_controller",
+          "WP_Taxonomy::$rest_controller_class",
+          "WP_Taxonomy::$rest_namespace",
+          "WP_Taxonomy::$rewrite",
+          "WP_Taxonomy::$show_admin_column",
+          "WP_Taxonomy::$show_in_menu",
+          "WP_Taxonomy::$show_in_nav_menus",
+          "WP_Taxonomy::$show_in_quick_edit",
+          "WP_Taxonomy::$show_in_rest",
+          "WP_Taxonomy::$show_tagcloud",
+          "WP_Taxonomy::$show_ui",
+          "WP_Taxonomy::$sort",
+          "WP_Taxonomy::$update_count_callback"
+        ]
+      },
+      "term_model_crud_meta": {
+        "count": 18,
+        "functions": [
+          "_block_bindings_term_data_get_value",
+          "_register_block_bindings_term_data_source"
+        ],
+        "classes": [
+          "WP_Term"
+        ],
+        "methods": [
+          "WP_Term::__construct",
+          "WP_Term::__get",
+          "WP_Term::filter",
+          "WP_Term::get_instance",
+          "WP_Term::to_array"
+        ],
+        "properties": [
+          "WP_Term::$count",
+          "WP_Term::$description",
+          "WP_Term::$filter",
+          "WP_Term::$name",
+          "WP_Term::$parent",
+          "WP_Term::$slug",
+          "WP_Term::$taxonomy",
+          "WP_Term::$term_group",
+          "WP_Term::$term_id",
+          "WP_Term::$term_taxonomy_id"
+        ]
+      }
+    },
+    "classes": [
+      "WP_Comment",
+      "WP_Comments_List_Table",
+      "WP_Taxonomy",
+      "WP_Term",
+      "WP_Terms_List_Table",
+      "WP_Widget_Recent_Comments",
+      "Walker_Comment"
+    ],
+    "abi_risks": {
+      "functions_with_reference_parameters": [
+        "_get_term_children",
+        "_pad_term_counts",
+        "separate_comments"
+      ],
+      "methods_with_reference_parameters": [
+        "WP_Terms_List_Table::_rows",
+        "Walker_Comment::display_element",
+        "Walker_Comment::end_el",
+        "Walker_Comment::end_lvl",
+        "Walker_Comment::start_el",
+        "Walker_Comment::start_lvl"
+      ],
+      "variadic_functions": [],
+      "conditional_functions": []
+    },
+    "test_paths": [
+      "tests/phpunit/data/themedir1/default/comments.php",
+      "tests/phpunit/tests/comment.php",
+      "tests/phpunit/tests/comment/checkComment.php",
+      "tests/phpunit/tests/comment/commentForm.php",
+      "tests/phpunit/tests/comment/commentTime.php",
+      "tests/phpunit/tests/comment/commentsOpen.php",
+      "tests/phpunit/tests/comment/commentsTemplate.php",
+      "tests/phpunit/tests/comment/dateQuery.php",
+      "tests/phpunit/tests/comment/getCommentAuthor.php",
+      "tests/phpunit/tests/comment/getCommentAuthorEmailLink.php",
+      "tests/phpunit/tests/comment/getCommentAuthorLink.php",
+      "tests/phpunit/tests/comment/getCommentAuthorUrl.php",
+      "tests/phpunit/tests/comment/getCommentAuthorUrlLink.php",
+      "tests/phpunit/tests/comment/getCommentClass.php",
+      "tests/phpunit/tests/comment/getCommentCount.php",
+      "tests/phpunit/tests/comment/getCommentExcerpt.php",
+      "tests/phpunit/tests/comment/getCommentLink.php",
+      "tests/phpunit/tests/comment/getCommentReplyLink.php",
+      "tests/phpunit/tests/comment/getCommentsPagesCount.php",
+      "tests/phpunit/tests/comment/getLastCommentModified.php",
+      "tests/phpunit/tests/comment/getPageOfComment.php",
+      "tests/phpunit/tests/comment/isAvatarCommentType.php",
+      "tests/phpunit/tests/comment/metaCache.php",
+      "tests/phpunit/tests/comment/pingback.php",
+      "tests/phpunit/tests/comment/pingsOpen.php",
+      "tests/phpunit/tests/comment/query.php",
+      "tests/phpunit/tests/comment/slashes.php",
+      "tests/phpunit/tests/comment/template.php",
+      "tests/phpunit/tests/comment/walker.php",
+      "tests/phpunit/tests/comment/wpAllowComment.php",
+      "tests/phpunit/tests/comment/wpBatchUpdateCommentType.php",
+      "tests/phpunit/tests/comment/wpCheckCommentDisallowedList.php",
+      "tests/phpunit/tests/comment/wpComment.php",
+      "tests/phpunit/tests/comment/wpCommentsPersonalDataEraser.php",
+      "tests/phpunit/tests/comment/wpCommentsPersonalDataExporter.php",
+      "tests/phpunit/tests/comment/wpCountComments.php",
+      "tests/phpunit/tests/comment/wpHandleCommentSubmission.php",
+      "tests/phpunit/tests/comment/wpListComments.php",
+      "tests/phpunit/tests/comment/wpUpdateCommentCountNow.php",
+      "tests/phpunit/tests/query/commentCount.php",
+      "tests/phpunit/tests/query/commentFeed.php",
+      "tests/phpunit/tests/rest-api/rest-comments-controller.php",
+      "tests/phpunit/tests/rest-api/rest-taxonomies-controller.php",
+      "tests/phpunit/tests/taxonomy.php",
+      "tests/phpunit/tests/taxonomy/cleanTaxonomyCache.php",
+      "tests/phpunit/tests/taxonomy/getObjectTaxonomies.php",
+      "tests/phpunit/tests/taxonomy/isTaxonomyViewable.php",
+      "tests/phpunit/tests/term.php",
+      "tests/phpunit/tests/term/cache.php",
+      "tests/phpunit/tests/term/categoryExists.php",
+      "tests/phpunit/tests/term/getTagLink.php",
+      "tests/phpunit/tests/term/getTerm.php",
+      "tests/phpunit/tests/term/getTermBy.php",
+      "tests/phpunit/tests/term/getTermField.php",
+      "tests/phpunit/tests/term/getTermLink.php",
+      "tests/phpunit/tests/term/getTermParentsList.php",
+      "tests/phpunit/tests/term/getTerms.php",
+      "tests/phpunit/tests/term/getTheTerms.php",
+      "tests/phpunit/tests/term/isObjectInTerm.php",
+      "tests/phpunit/tests/term/isTermPubliclyViewable.php",
+      "tests/phpunit/tests/term/meta.php",
+      "tests/phpunit/tests/term/query.php",
+      "tests/phpunit/tests/term/sanitizeTerm.php",
+      "tests/phpunit/tests/term/slashes.php",
+      "tests/phpunit/tests/term/splitSharedTerm.php",
+      "tests/phpunit/tests/term/taxQuery.php",
+      "tests/phpunit/tests/term/termCounts.php",
+      "tests/phpunit/tests/term/termExists.php",
+      "tests/phpunit/tests/term/wpCreateCategory.php",
+      "tests/phpunit/tests/term/wpDeleteObjectTermRelationships.php",
+      "tests/phpunit/tests/term/wpDeleteTerm.php",
+      "tests/phpunit/tests/term/wpGenerateTagCloud.php",
+      "tests/phpunit/tests/term/wpGetObjectTerms.php",
+      "tests/phpunit/tests/term/wpInsertTerm.php",
+      "tests/phpunit/tests/term/wpRemoveObjectTerms.php",
+      "tests/phpunit/tests/term/wpSetObjectTerms.php",
+      "tests/phpunit/tests/term/wpTaxonomy.php",
+      "tests/phpunit/tests/term/wpTerm.php",
+      "tests/phpunit/tests/term/wpUniqueTermSlug.php",
+      "tests/phpunit/tests/term/wpUpdateTerm.php"
+    ]
+  },
+  "evidence_plan": {
+    "first_haxe_candidate": "A typed taxonomy/comment adapter-contract model for taxonomy registration visibility, term CRUD routing, relationship updates, count/cache invalidation, comment approval/moderation routing, comment query filters, and hook intent.",
+    "required_next_fixtures": [
+      "taxonomy registration and object-type attachment oracle fixture",
+      "term insert/update/delete/slash/sanitize oracle fixture",
+      "object-term relationship and term-count invalidation fixture",
+      "term metadata and cache warmup/invalidation fixture",
+      "comment insert/update/delete/approval/moderation oracle fixture",
+      "WP_Comment_Query and WP_Term_Query runtime ABI/query-state fixture",
+      "comment template/feed/walker output fixture",
+      "live database taxonomy/comment SQL/result parity fixture",
+      "selected upstream PHPUnit taxonomy/term/comment ratchet"
+    ],
+    "claim": "This surface manifest bounds WPHX-308 and names fixture gates. It does not claim public PHP replacement, Haxe-owned runtime logic, live database parity, or installed-distribution taxonomy/comment parity."
+  },
+  "validation_result": {
+    "status": "passed",
+    "source_count": 36,
+    "artifact_count": 36,
+    "abi_entry_count": 422,
+    "class_count": 7,
+    "test_count": 80
+  }
+}
