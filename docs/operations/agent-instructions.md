@@ -58,6 +58,22 @@ If an escape hatch remains necessary, the code must put it at the boundary and d
 
 When reviewing or continuing work, treat casual `Dynamic` as a defect. Narrow it immediately when the local context is clear; otherwise file Beads follow-up with the boundary, evidence, and removal condition.
 
+## Idiomatic Haxe Source
+
+Generated PHP is a compatibility artifact. It must preserve WordPress 7.0 public interfaces, reflection-visible signatures, file paths, declaration timing, native arrays, references, globals, stack/error behavior where claimed, and plugin/theme expectations. Its quality bar is WordPress-compatible PHP: readable, idiomatic enough for the ecosystem, and no worse than the upstream surface it replaces.
+
+Haxe source has a different quality bar. It should not mechanically mimic PHP control flow, naming, duplication, or weak typing when Haxe can express the same behavior more clearly. Prefer modern, typed Haxe source: enums for state machines, abstracts for constrained scalar domains, typedefs for structural records, pattern matching for decision tables, extension methods for readable helpers, small inline functions for repeated policy, and macros for deterministic boilerplate or ABI declarations.
+
+Improvements at the Haxe layer are encouraged when they satisfy all of these constraints:
+
+- observable WordPress behavior and public ABI remain protected by oracle, ABI, fixture, or generated-code evidence;
+- generated PHP remains compatible with existing plugins, themes, reflection, stack traces, and operational tooling for the claimed surface;
+- the abstraction makes ownership, tests, or future refactoring clearer rather than hiding PHP-visible effects;
+- macros generate typed, deterministic structure rather than broad textual rewrites;
+- the change does not introduce speculative portability layers before a concrete second provider or target needs them.
+
+When there is a tension, keep the generated adapter target-shaped and make the Haxe implementation clearer behind it. The desired architecture is not "PHP written in Haxe"; it is Haxe-owned WordPress semantics plus generated compatibility adapters that preserve WordPress behavior.
+
 ## Generated PHP Shells
 
 PHP shells are allowed because WordPress compatibility depends on original paths, global function names, conditional declarations, class identity, reflection-visible signatures, include timing, globals, references, and mixed PHP/HTML behavior. They are not permission to keep runtime logic or target contracts in hand-written PHP indefinitely.

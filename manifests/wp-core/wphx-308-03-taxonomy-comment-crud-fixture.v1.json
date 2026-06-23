@@ -1,0 +1,661 @@
+{
+  "schema": "wphx.wp-core-taxonomy-comment-crud-fixture.v1",
+  "issue": "WPHX-308.03",
+  "generated_at": "2026-06-23T19:45:00.000Z",
+  "generator": "tools/wp-core/run-taxonomy-comment-crud-fixture.mjs",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "source_files": [
+      {
+        "path": "src/wp-includes/class-wp-error.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-error.php",
+        "bytes": 7502,
+        "sha256": "sha256:fe0e54bcb095f3ebb6493cbd558f927234e1bff3f643b2ca00f7e2d74309400c"
+      },
+      {
+        "path": "src/wp-includes/class-wp-taxonomy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-taxonomy.php",
+        "bytes": 18559,
+        "sha256": "sha256:055b2da70596c7d78efb51892b6e078940a35e6c9f0963a16eb43915f87a0805"
+      },
+      {
+        "path": "src/wp-includes/class-wp-term.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-term.php",
+        "bytes": 5263,
+        "sha256": "sha256:4bceedaf4397db32016cc8e8032d4c02c2d1dda2ad966cd56a6b99d75c7f32ef"
+      },
+      {
+        "path": "src/wp-includes/class-wp-comment.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-comment.php",
+        "bytes": 9371,
+        "sha256": "sha256:67216778a97fc448fb404e7cafbf74e7027ca965d082e88f2a7c58e9a3d0f5a7"
+      },
+      {
+        "path": "src/wp-includes/taxonomy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/taxonomy.php",
+        "bytes": 177144,
+        "sha256": "sha256:48af3bc6434c99beb2f274ba309590c4c063ab0c4984c6cc34d3697c5edbb1c3"
+      },
+      {
+        "path": "src/wp-includes/comment.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/comment.php",
+        "bytes": 134085,
+        "sha256": "sha256:77f7874661ff4bf687fc1d2c7bdc84a02264f6bda35fa901e38afd5801b2dd74"
+      }
+    ]
+  },
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json",
+      "bytes": 38734,
+      "sha256": "sha256:c70255713a83f53a53a002c31b09e7222c8eb22e686bbbb384f49d0a07048407"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-308-02-taxonomy-comment-adapter-contract-candidate.v1.json",
+      "bytes": 19551,
+      "sha256": "sha256:5f3c4435f6b8f2b0ff2476d953764bbd9a0579a1b08566d1b66f3bea3dd43343"
+    }
+  },
+  "fixture": {
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "source_files": [
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wp-taxonomy.php",
+      "src/wp-includes/class-wp-term.php",
+      "src/wp-includes/class-wp-comment.php",
+      "src/wp-includes/taxonomy.php",
+      "src/wp-includes/comment.php"
+    ],
+    "covered_symbols": [
+      "register_taxonomy",
+      "wp_insert_term",
+      "wp_update_term",
+      "wp_delete_term",
+      "wp_set_object_terms",
+      "wp_remove_object_terms",
+      "wp_insert_comment",
+      "wp_update_comment",
+      "wp_set_comment_status",
+      "wp_trash_comment",
+      "wp_delete_comment"
+    ],
+    "cases": [
+      {
+        "id": "taxonomy:register",
+        "symbol": "register_taxonomy",
+        "focus": "visibility, hierarchy, REST exposure, object-type binding, and registration hooks"
+      },
+      {
+        "id": "term:insert-update-duplicate-delete",
+        "symbol": "wp_insert_term/wp_update_term/wp_delete_term",
+        "focus": "term creation, slug/name update, duplicate rejection, default-term delete blocking, and term hooks"
+      },
+      {
+        "id": "term:relationships",
+        "symbol": "wp_set_object_terms/wp_remove_object_terms",
+        "focus": "object-term assignment, append/replace/remove behavior, count updates, relationship cache invalidation, and relationship hooks"
+      },
+      {
+        "id": "comment:insert-update-status",
+        "symbol": "wp_insert_comment/wp_update_comment/wp_set_comment_status",
+        "focus": "comment insertion, content update, approval transitions, comment count updates, and status hooks"
+      },
+      {
+        "id": "comment:trash-delete",
+        "symbol": "wp_trash_comment/wp_delete_comment",
+        "focus": "trash metadata, forced delete, delete hooks, cache invalidation, and transition hooks"
+      }
+    ],
+    "candidate_policy": {
+      "public_php_replacement_claimed": false,
+      "haxe_semantic_ownership_claimed": false,
+      "handwritten_production_php_added": false,
+      "live_database_parity_claimed": false,
+      "note": "The candidate side currently mirrors locked upstream source to establish a stable fixture. A later WPHX-308 slice must replace the candidate mirror with generated original-path PHP before ownership can be upgraded."
+    }
+  },
+  "runs": {
+    "oracle": {
+      "mode": "oracle",
+      "command": "php build/wp-core/wphx-308-03/probe.php oracle build/wp-core/wphx-308-03/oracle",
+      "raw_output_sha256": "sha256:7fd89f72dda974eda58c5abfc671d6dc2cd90e7a74baa0be8a528536373989eb",
+      "result": {
+        "mode": "oracle",
+        "observations": {
+          "comment:insert-update-status": {
+            "comment_id": 1,
+            "update": 1,
+            "approve": true,
+            "comment_after": {
+              "comment_ID": 1,
+              "approved": "1",
+              "content": "Updated comment",
+              "post_ID": 101
+            },
+            "post_comment_count": 1,
+            "meta": {
+              "source": "fixture"
+            },
+            "hooks": {
+              "clean_comment_cache": 3,
+              "comment_approved_comment": 1,
+              "comment_unapproved_comment": 1,
+              "comment_unapproved_to_approved": 1,
+              "edit_comment": 1,
+              "edit_post": 2,
+              "edit_post_post": 2,
+              "transition_comment_status": 1,
+              "wp_insert_comment": 1,
+              "wp_set_comment_status": 1,
+              "wp_update_comment_count": 2
+            }
+          },
+          "comment:trash-delete": {
+            "trash": true,
+            "trashed": {
+              "comment_ID": 1,
+              "approved": "trash",
+              "content": "Updated comment",
+              "post_ID": 101
+            },
+            "delete": true,
+            "exists_after_delete": false,
+            "post_comment_count": 0,
+            "hooks": {
+              "clean_comment_cache": 2,
+              "comment_approved_to_trash": 1,
+              "comment_delete_comment": 1,
+              "comment_trash_comment": 1,
+              "comment_trash_to_delete": 1,
+              "delete_comment": 1,
+              "deleted_comment": 1,
+              "edit_post": 1,
+              "edit_post_post": 1,
+              "transition_comment_status": 2,
+              "trash_comment": 1,
+              "trashed_comment": 1,
+              "wp_set_comment_status": 2,
+              "wp_update_comment_count": 1
+            }
+          },
+          "errors": [],
+          "taxonomy:register": {
+            "result": {
+              "name": "fixture_topic",
+              "label": "Categories",
+              "labels": {
+                "name": "Categories",
+                "singular_name": "Category",
+                "search_items": "Search Categories",
+                "popular_items": null,
+                "all_items": "All Categories",
+                "parent_item": "Parent Category",
+                "parent_item_colon": "Parent Category:",
+                "name_field_description": "The name is how it appears on your site.",
+                "slug_field_description": "The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.",
+                "parent_field_description": "Assign a parent term to create a hierarchy. The term Jazz, for example, would be the parent of Bebop and Big Band.",
+                "desc_field_description": "The description is not prominent by default; however, some themes may show it.",
+                "edit_item": "Edit Category",
+                "view_item": "View Category",
+                "update_item": "Update Category",
+                "add_new_item": "Add Category",
+                "new_item_name": "New Category Name",
+                "separate_items_with_commas": null,
+                "add_or_remove_items": null,
+                "choose_from_most_used": null,
+                "not_found": "No categories found.",
+                "no_terms": "No categories",
+                "filter_by_item": "Filter by category",
+                "items_list_navigation": "Categories list navigation",
+                "items_list": "Categories list",
+                "most_used": "Most Used",
+                "back_to_items": "&larr; Go to Categories",
+                "item_link": "Category Link",
+                "item_link_description": "A link to a category.",
+                "menu_name": "Categories",
+                "template_name": "Category Archives"
+              },
+              "description": "",
+              "public": true,
+              "publicly_queryable": true,
+              "hierarchical": true,
+              "show_ui": true,
+              "show_in_menu": true,
+              "show_in_nav_menus": true,
+              "show_tagcloud": true,
+              "show_in_quick_edit": true,
+              "show_admin_column": false,
+              "meta_box_cb": "post_categories_meta_box",
+              "meta_box_sanitize_cb": "taxonomy_meta_box_sanitize_cb_checkboxes",
+              "object_type": [
+                "post"
+              ],
+              "cap": {
+                "manage_terms": "manage_categories",
+                "edit_terms": "manage_categories",
+                "delete_terms": "manage_categories",
+                "assign_terms": "edit_posts"
+              },
+              "rewrite": false,
+              "query_var": "topic",
+              "update_count_callback": "",
+              "show_in_rest": true,
+              "rest_base": false,
+              "rest_namespace": "wp/v2",
+              "rest_controller_class": false,
+              "rest_controller": null,
+              "default_term": null,
+              "sort": null,
+              "args": null,
+              "_builtin": false
+            },
+            "public": true,
+            "hierarchical": true,
+            "show_in_rest": true,
+            "object_type": [
+              "post"
+            ]
+          },
+          "term:crud": {
+            "alpha": {
+              "term_id": 1,
+              "term_taxonomy_id": 1
+            },
+            "beta": {
+              "term_id": 2,
+              "term_taxonomy_id": 2
+            },
+            "duplicate": {
+              "error": "term_exists",
+              "data": 1
+            },
+            "updated": {
+              "term_id": 2,
+              "term_taxonomy_id": 2
+            },
+            "invalid_update": {
+              "error": "invalid_term",
+              "data": null
+            },
+            "beta_after": {
+              "term_id": 2,
+              "slug": "beta-updated",
+              "taxonomy": "fixture_topic",
+              "tt_id": 2,
+              "parent": 1,
+              "count": 0
+            },
+            "hooks": {
+              "clean_taxonomy_cache": 3,
+              "clean_term_cache": 3,
+              "create_fixture_topic": 2,
+              "create_term": 2,
+              "created_fixture_topic": 2,
+              "created_term": 2,
+              "edit_fixture_topic": 1,
+              "edit_term": 1,
+              "edit_term_taxonomy": 1,
+              "edit_terms": 1,
+              "edited_fixture_topic": 1,
+              "edited_term": 1,
+              "edited_term_taxonomy": 1,
+              "edited_terms": 1,
+              "saved_fixture_topic": 3,
+              "saved_term": 3,
+              "wp_error_added": 2
+            }
+          },
+          "term:delete": {
+            "deleted_alpha": true,
+            "delete_missing": false,
+            "remaining_slugs": [
+              "beta-updated",
+              "gamma-term",
+              "delta-term"
+            ],
+            "hooks": {
+              "clean_object_term_cache": 1,
+              "clean_taxonomy_cache": 2,
+              "clean_term_cache": 2,
+              "delete_fixture_topic": 1,
+              "delete_term": 1,
+              "delete_term_taxonomy": 1,
+              "deleted_term_taxonomy": 1,
+              "edit_term_taxonomies": 1,
+              "edited_term_taxonomies": 1,
+              "pre_delete_term": 1
+            }
+          },
+          "term:relationships": {
+            "set_one": [
+              "1",
+              3
+            ],
+            "set_replace": [
+              "2"
+            ],
+            "set_append": [
+              4
+            ],
+            "remove_beta": true,
+            "relationships": [
+              {
+                "object_id": 101,
+                "tt_id": 4
+              }
+            ],
+            "counts": {
+              "alpha-term": 0,
+              "beta-updated": 0,
+              "delta-term": 0,
+              "gamma-term": 0
+            },
+            "hooks": {
+              "add_term_relationship": 4,
+              "added_term_relationship": 4,
+              "clean_taxonomy_cache": 2,
+              "clean_term_cache": 2,
+              "create_fixture_topic": 2,
+              "create_term": 2,
+              "created_fixture_topic": 2,
+              "created_term": 2,
+              "delete_term_relationships": 2,
+              "deleted_term_relationships": 2,
+              "edit_term_taxonomy": 7,
+              "edited_term_taxonomy": 7,
+              "saved_fixture_topic": 2,
+              "saved_term": 2,
+              "set_object_terms": 3,
+              "update_term_count": 7
+            }
+          }
+        }
+      }
+    },
+    "candidate": {
+      "mode": "candidate",
+      "command": "php build/wp-core/wphx-308-03/probe.php candidate build/wp-core/wphx-308-03/candidate",
+      "raw_output_sha256": "sha256:e344c4c840941ce19ad1710ab682d5b95c4b20f01075b1f39df569b866a34fb7",
+      "result": {
+        "mode": "candidate",
+        "observations": {
+          "comment:insert-update-status": {
+            "comment_id": 1,
+            "update": 1,
+            "approve": true,
+            "comment_after": {
+              "comment_ID": 1,
+              "approved": "1",
+              "content": "Updated comment",
+              "post_ID": 101
+            },
+            "post_comment_count": 1,
+            "meta": {
+              "source": "fixture"
+            },
+            "hooks": {
+              "clean_comment_cache": 3,
+              "comment_approved_comment": 1,
+              "comment_unapproved_comment": 1,
+              "comment_unapproved_to_approved": 1,
+              "edit_comment": 1,
+              "edit_post": 2,
+              "edit_post_post": 2,
+              "transition_comment_status": 1,
+              "wp_insert_comment": 1,
+              "wp_set_comment_status": 1,
+              "wp_update_comment_count": 2
+            }
+          },
+          "comment:trash-delete": {
+            "trash": true,
+            "trashed": {
+              "comment_ID": 1,
+              "approved": "trash",
+              "content": "Updated comment",
+              "post_ID": 101
+            },
+            "delete": true,
+            "exists_after_delete": false,
+            "post_comment_count": 0,
+            "hooks": {
+              "clean_comment_cache": 2,
+              "comment_approved_to_trash": 1,
+              "comment_delete_comment": 1,
+              "comment_trash_comment": 1,
+              "comment_trash_to_delete": 1,
+              "delete_comment": 1,
+              "deleted_comment": 1,
+              "edit_post": 1,
+              "edit_post_post": 1,
+              "transition_comment_status": 2,
+              "trash_comment": 1,
+              "trashed_comment": 1,
+              "wp_set_comment_status": 2,
+              "wp_update_comment_count": 1
+            }
+          },
+          "errors": [],
+          "taxonomy:register": {
+            "result": {
+              "name": "fixture_topic",
+              "label": "Categories",
+              "labels": {
+                "name": "Categories",
+                "singular_name": "Category",
+                "search_items": "Search Categories",
+                "popular_items": null,
+                "all_items": "All Categories",
+                "parent_item": "Parent Category",
+                "parent_item_colon": "Parent Category:",
+                "name_field_description": "The name is how it appears on your site.",
+                "slug_field_description": "The &#8220;slug&#8221; is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and hyphens.",
+                "parent_field_description": "Assign a parent term to create a hierarchy. The term Jazz, for example, would be the parent of Bebop and Big Band.",
+                "desc_field_description": "The description is not prominent by default; however, some themes may show it.",
+                "edit_item": "Edit Category",
+                "view_item": "View Category",
+                "update_item": "Update Category",
+                "add_new_item": "Add Category",
+                "new_item_name": "New Category Name",
+                "separate_items_with_commas": null,
+                "add_or_remove_items": null,
+                "choose_from_most_used": null,
+                "not_found": "No categories found.",
+                "no_terms": "No categories",
+                "filter_by_item": "Filter by category",
+                "items_list_navigation": "Categories list navigation",
+                "items_list": "Categories list",
+                "most_used": "Most Used",
+                "back_to_items": "&larr; Go to Categories",
+                "item_link": "Category Link",
+                "item_link_description": "A link to a category.",
+                "menu_name": "Categories",
+                "template_name": "Category Archives"
+              },
+              "description": "",
+              "public": true,
+              "publicly_queryable": true,
+              "hierarchical": true,
+              "show_ui": true,
+              "show_in_menu": true,
+              "show_in_nav_menus": true,
+              "show_tagcloud": true,
+              "show_in_quick_edit": true,
+              "show_admin_column": false,
+              "meta_box_cb": "post_categories_meta_box",
+              "meta_box_sanitize_cb": "taxonomy_meta_box_sanitize_cb_checkboxes",
+              "object_type": [
+                "post"
+              ],
+              "cap": {
+                "manage_terms": "manage_categories",
+                "edit_terms": "manage_categories",
+                "delete_terms": "manage_categories",
+                "assign_terms": "edit_posts"
+              },
+              "rewrite": false,
+              "query_var": "topic",
+              "update_count_callback": "",
+              "show_in_rest": true,
+              "rest_base": false,
+              "rest_namespace": "wp/v2",
+              "rest_controller_class": false,
+              "rest_controller": null,
+              "default_term": null,
+              "sort": null,
+              "args": null,
+              "_builtin": false
+            },
+            "public": true,
+            "hierarchical": true,
+            "show_in_rest": true,
+            "object_type": [
+              "post"
+            ]
+          },
+          "term:crud": {
+            "alpha": {
+              "term_id": 1,
+              "term_taxonomy_id": 1
+            },
+            "beta": {
+              "term_id": 2,
+              "term_taxonomy_id": 2
+            },
+            "duplicate": {
+              "error": "term_exists",
+              "data": 1
+            },
+            "updated": {
+              "term_id": 2,
+              "term_taxonomy_id": 2
+            },
+            "invalid_update": {
+              "error": "invalid_term",
+              "data": null
+            },
+            "beta_after": {
+              "term_id": 2,
+              "slug": "beta-updated",
+              "taxonomy": "fixture_topic",
+              "tt_id": 2,
+              "parent": 1,
+              "count": 0
+            },
+            "hooks": {
+              "clean_taxonomy_cache": 3,
+              "clean_term_cache": 3,
+              "create_fixture_topic": 2,
+              "create_term": 2,
+              "created_fixture_topic": 2,
+              "created_term": 2,
+              "edit_fixture_topic": 1,
+              "edit_term": 1,
+              "edit_term_taxonomy": 1,
+              "edit_terms": 1,
+              "edited_fixture_topic": 1,
+              "edited_term": 1,
+              "edited_term_taxonomy": 1,
+              "edited_terms": 1,
+              "saved_fixture_topic": 3,
+              "saved_term": 3,
+              "wp_error_added": 2
+            }
+          },
+          "term:delete": {
+            "deleted_alpha": true,
+            "delete_missing": false,
+            "remaining_slugs": [
+              "beta-updated",
+              "gamma-term",
+              "delta-term"
+            ],
+            "hooks": {
+              "clean_object_term_cache": 1,
+              "clean_taxonomy_cache": 2,
+              "clean_term_cache": 2,
+              "delete_fixture_topic": 1,
+              "delete_term": 1,
+              "delete_term_taxonomy": 1,
+              "deleted_term_taxonomy": 1,
+              "edit_term_taxonomies": 1,
+              "edited_term_taxonomies": 1,
+              "pre_delete_term": 1
+            }
+          },
+          "term:relationships": {
+            "set_one": [
+              "1",
+              3
+            ],
+            "set_replace": [
+              "2"
+            ],
+            "set_append": [
+              4
+            ],
+            "remove_beta": true,
+            "relationships": [
+              {
+                "object_id": 101,
+                "tt_id": 4
+              }
+            ],
+            "counts": {
+              "alpha-term": 0,
+              "beta-updated": 0,
+              "delta-term": 0,
+              "gamma-term": 0
+            },
+            "hooks": {
+              "add_term_relationship": 4,
+              "added_term_relationship": 4,
+              "clean_taxonomy_cache": 2,
+              "clean_term_cache": 2,
+              "create_fixture_topic": 2,
+              "create_term": 2,
+              "created_fixture_topic": 2,
+              "created_term": 2,
+              "delete_term_relationships": 2,
+              "deleted_term_relationships": 2,
+              "edit_term_taxonomy": 7,
+              "edited_term_taxonomy": 7,
+              "saved_fixture_topic": 2,
+              "saved_term": 2,
+              "set_object_terms": 3,
+              "update_term_count": 7
+            }
+          }
+        }
+      }
+    },
+    "observations_equal": true
+  },
+  "parity": {
+    "status": "passed",
+    "oracle_observation_sha256": "sha256:5b5be2a75af7e600f921de1c54bfd48740150a2886af9bf505f0f8cb17dc8687",
+    "candidate_observation_sha256": "sha256:5b5be2a75af7e600f921de1c54bfd48740150a2886af9bf505f0f8cb17dc8687"
+  },
+  "remaining_gaps": [
+    {
+      "id": "generated-taxonomy-comment-adapter-not-installed",
+      "owner": "WPHX-308",
+      "detail": "Taxonomy/comment CRUD behavior is only proven between upstream mirrors. Generated public PHP and typed Adapter IR are not yet installed."
+    },
+    {
+      "id": "live-db-taxonomy-comment-parity-not-covered",
+      "owner": "WPHX-308",
+      "detail": "The fixture uses deterministic in-memory wpdb behavior. Live MySQL/MariaDB SQL/result parity and upstream PHPUnit ratcheting remain future gates."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-308-03-taxonomy-comment-crud-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "cases": 5,
+    "covered_symbols": 11,
+    "public_php_replacement_claimed": false,
+    "artifact_scope": "oracle_source_mirror_fixture"
+  }
+}
