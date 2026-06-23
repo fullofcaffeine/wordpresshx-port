@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import { filesUnder, sha256File } from "../wp-linker/original-path-linker.mjs";
+import { filesUnder, normalizeGeneratedPhpForManifest, sha256File } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -204,6 +204,14 @@ function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
 
+function generatedPhpRecord(path) {
+  const normalized = normalizeGeneratedPhpForManifest(readFileSync(path, "utf8"));
+  return {
+    bytes: Buffer.byteLength(normalized),
+    sha256: sha256(normalized)
+  };
+}
+
 function writeFile(path, contents) {
   mkdirSync(dirname(path), { recursive: true });
   writeFileSync(path, contents);
@@ -380,7 +388,7 @@ function lineSourceMap(source) {
   return {
     unit: source.unit,
     generated_path: source.generated_path,
-    generated_sha256: `sha256:${sha256File(source.generated_path)}`,
+    generated_sha256: generatedPhpRecord(source.generated_path).sha256,
     source_sha256: `sha256:${sha256File(source.source_path)}`,
     summary: {
       source_line_count: sourceLines.length,

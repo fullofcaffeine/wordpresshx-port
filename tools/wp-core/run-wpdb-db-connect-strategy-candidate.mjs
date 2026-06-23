@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync, spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
-import { filesUnder } from "../wp-linker/original-path-linker.mjs";
+import { filesUnder, normalizeGeneratedPhpForManifest } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -157,6 +157,14 @@ function sourceEscapeAudit(path) {
     contains_untyped: /\buntyped\b/.test(source),
     contains_cast: /\bcast\b/.test(source),
     contains_php_syntax_code: /php\.Syntax\.code/.test(source)
+  };
+}
+
+function generatedPhpRecord(path) {
+  const normalized = normalizeGeneratedPhpForManifest(readFileSync(path, "utf8"));
+  return {
+    bytes: Buffer.byteLength(normalized),
+    sha256: sha256(normalized)
   };
 }
 
@@ -1716,12 +1724,14 @@ function runIsolatedParity(runtime, port) {
 
 function analyzeGeneratedStrategy() {
   const source = readFileSync(STRATEGY_PHP, "utf8");
+  const strategyRecord = generatedPhpRecord(STRATEGY_PHP);
+  const entryRecord = generatedPhpRecord(ENTRY_PHP);
   return {
     path: STRATEGY_PHP,
-    bytes: statSync(STRATEGY_PHP).size,
-    sha256: sha256File(STRATEGY_PHP),
+    bytes: strategyRecord.bytes,
+    sha256: strategyRecord.sha256,
     entry_path: ENTRY_PHP,
-    entry_sha256: sha256File(ENTRY_PHP),
+    entry_sha256: entryRecord.sha256,
     generated_php_postprocessing_required: false,
     methods: {
       owned_connection_bodies: /function ownedConnectionBodies\s*\(/.test(source),

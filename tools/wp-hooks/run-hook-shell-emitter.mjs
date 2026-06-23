@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import { filesUnder, sha256File } from "../wp-linker/original-path-linker.mjs";
+import { filesUnder, normalizeGeneratedPhpForManifest, sha256File } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -58,6 +58,14 @@ function command(commandName, commandArgs, options = {}) {
 
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function generatedPhpRecord(path) {
+  const normalized = normalizeGeneratedPhpForManifest(readFileSync(path, "utf8"));
+  return {
+    bytes: Buffer.byteLength(normalized),
+    sha256: sha256(normalized)
+  };
 }
 
 function writeFile(path, contents) {
@@ -205,11 +213,11 @@ const manifest = {
   generated: {
     plugin: {
       path: GENERATED_PLUGIN,
-      sha256: `sha256:${sha256File(GENERATED_PLUGIN)}`
+      sha256: generatedPhpRecord(GENERATED_PLUGIN).sha256
     },
     hook_class: {
       path: GENERATED_HOOK_CLASS,
-      sha256: `sha256:${sha256File(GENERATED_HOOK_CLASS)}`
+      sha256: generatedPhpRecord(GENERATED_HOOK_CLASS).sha256
     },
     files: filesUnder(GENERATED_ROOT)
   },

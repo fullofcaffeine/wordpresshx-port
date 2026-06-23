@@ -103,6 +103,11 @@ function maybeCommand(commandName, commandArgs) {
   }
 }
 
+function phpVersionFamily(value = command("php", ["-r", "echo PHP_VERSION;"])) {
+  const [major, minor] = String(value).split(".");
+  return `${major}.${minor}`;
+}
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -545,6 +550,16 @@ function runDockerProbe(runtimeId, image, mode, root) {
   };
 }
 
+function stableRun(run) {
+  return {
+    ...run,
+    result: {
+      ...run.result,
+      phpVersion: phpVersionFamily(run.result.phpVersion)
+    }
+  };
+}
+
 function compare(oracleResult, candidateResult) {
   const oracle = normalize(oracleResult);
   const candidate = normalize(candidateResult);
@@ -781,8 +796,8 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"]),
-    docker_server_version: dockerVersion
+    php_cli_version_family: phpVersionFamily(),
+    docker_available: dockerVersion != null
   },
   build: {
     generated_haxe_files: filesUnder(HAXE_OUT),
@@ -794,13 +809,13 @@ const manifest = {
   runtimes: {
     local: {
       id: "local-php-cli",
-      php_version: localOracle.result.phpVersion,
+      php_version_family: phpVersionFamily(localOracle.result.phpVersion),
       executable: lock.tools.php_cli.executable
     },
     docker: dockerImages.map(([id, image]) => ({ id, image })),
     skipped: skippedRuntimes
   },
-  runs,
+  runs: runs.map(stableRun),
   comparisons,
   remaining_gaps: [
     {

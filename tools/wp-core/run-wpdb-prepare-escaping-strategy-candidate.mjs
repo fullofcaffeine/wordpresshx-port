@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { copyFileSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
+import { normalizeGeneratedPhpForManifest } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -107,6 +108,19 @@ function sha256(value) {
 
 function sha256File(path) {
   return `sha256:${createHash("sha256").update(readFileSync(path)).digest("hex")}`;
+}
+
+function phpVersionFamily(value = command("php", ["-r", "echo PHP_VERSION;"])) {
+  const [major, minor] = String(value).split(".");
+  return `${major}.${minor}`;
+}
+
+function generatedPhpRecord(path) {
+  const normalized = normalizeGeneratedPhpForManifest(readFileSync(path, "utf8"));
+  return {
+    bytes: Buffer.byteLength(normalized),
+    sha256: sha256(normalized)
+  };
 }
 
 function inputRecord(path) {
@@ -903,7 +917,7 @@ function runSummary(run) {
     mode: run.mode,
     command: run.command,
     image: run.image ?? null,
-    php_version: run.result.phpVersion,
+    php_version_family: phpVersionFamily(run.result.phpVersion),
     case_count: normalized.cases.length,
     result_sha256: sha256(JSON.stringify(normalized))
   };
@@ -924,6 +938,8 @@ function writeOrCheck(path, contents) {
 
 function analyzeGeneratedStrategy() {
   const source = readFileSync(STRATEGY_PHP, "utf8");
+  const strategyRecord = generatedPhpRecord(STRATEGY_PHP);
+  const entryRecord = generatedPhpRecord(ENTRY_PHP);
   const methodNames = [
     "ownedPrepareEscapingBodies",
     "prepareEscapingBodyRoute",
@@ -954,10 +970,10 @@ function analyzeGeneratedStrategy() {
   ];
   return {
     path: STRATEGY_PHP,
-    bytes: statSync(STRATEGY_PHP).size,
-    sha256: sha256File(STRATEGY_PHP),
+    bytes: strategyRecord.bytes,
+    sha256: strategyRecord.sha256,
     entry_path: ENTRY_PHP,
-    entry_sha256: sha256File(ENTRY_PHP),
+    entry_sha256: entryRecord.sha256,
     generated_php_postprocessing_required: false,
     methods: Object.fromEntries(methodNames.map((name) => [name, new RegExp(`function ${name}\\s*\\(`).test(source)]))
   };
@@ -1164,7 +1180,7 @@ const manifest = {
   runtimes: {
     local: {
       id: "local-php-cli",
-      php_version: localOracle.result.phpVersion,
+      php_version_family: phpVersionFamily(localOracle.result.phpVersion),
       executable: lock.tools.php_cli.executable
     },
     docker: dockerImages.map(([id, image]) => ({ id, image })),

@@ -3,7 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { dirname } from "node:path";
-import { filesUnder, sha256File } from "../wp-linker/original-path-linker.mjs";
+import { filesUnder, normalizeGeneratedPhpForManifest, sha256File } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -51,6 +51,19 @@ function command(commandName, commandArgs, options = {}) {
 
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
+}
+
+function phpVersionFamily(value = command("php", ["-r", "echo PHP_VERSION;"])) {
+  const [major, minor] = String(value).split(".");
+  return `${major}.${minor}`;
+}
+
+function generatedPhpRecord(path) {
+  const normalized = normalizeGeneratedPhpForManifest(readFileSync(path, "utf8"));
+  return {
+    bytes: Buffer.byteLength(normalized),
+    sha256: sha256(normalized)
+  };
 }
 
 function writeFile(path, contents) {
@@ -211,20 +224,20 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"])
+    php_cli_version_family: phpVersionFamily()
   },
   generated: {
     plugin: {
       path: GENERATED_PLUGIN,
-      sha256: `sha256:${sha256File(GENERATED_PLUGIN)}`
+      sha256: generatedPhpRecord(GENERATED_PLUGIN).sha256
     },
     hook_class: {
       path: GENERATED_HOOK_CLASS,
-      sha256: `sha256:${sha256File(GENERATED_HOOK_CLASS)}`
+      sha256: generatedPhpRecord(GENERATED_HOOK_CLASS).sha256
     },
     haxe_runtime: {
       path: generatedRuntimePath,
-      sha256: `sha256:${sha256File(generatedRuntimePath)}`
+      sha256: generatedPhpRecord(generatedRuntimePath).sha256
     },
     generated_files: filesUnder(GENERATED_ROOT)
   },
