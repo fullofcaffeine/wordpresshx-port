@@ -25,12 +25,12 @@ Sibling repositories may have their own `.beads` directories. Treat them as loca
 
 ## Sync Discipline
 
-WPHX-807 configured a Dolt remote at `git+https://github.com/fullofcaffeine/wordpress-hx.git`. Beads state syncs through Dolt refs; `.beads/issues.jsonl` remains a tracked export for review and interchange.
+WPHX-807 configured a Dolt remote at `git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git`. Beads state syncs through Dolt refs; `.beads/issues.jsonl` remains a tracked export for review and interchange. Use SSH because the prior HTTPS GitHub remote repeatedly failed during Dolt pack transfer with HTTP 400.
 
 In `1.0.4`, cross-machine sync should use Dolt remotes:
 
 ```bash
-bd dolt remote add origin <dolt-compatible-remote>
+bd dolt remote add origin-ssh git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git
 bd dolt push
 bd dolt pull
 ```
@@ -43,7 +43,7 @@ bd backup sync
 bd backup restore <backup-destination>
 ```
 
-WPHX-807 owns selecting the durable destination, configuring the remote, and proving restore from a fresh checkout.
+WPHX-807 owns the durable sync destination, backup destination, and restore drill evidence.
 The WPHX-807 runbook is `docs/operations/beads-backup-restore.md`.
 
 Before pushing:
@@ -77,4 +77,4 @@ Expected bootstrap status:
 - Git hooks are installed from `scripts/hooks`.
 - No nested active store is used for this program.
 
-Warnings for missing sync or backup configuration are acceptable only while tracked by WPHX-807.
+Warnings for missing sync or backup configuration are not expected. If they appear, file a Beads operations bug before relying on local-only task state.

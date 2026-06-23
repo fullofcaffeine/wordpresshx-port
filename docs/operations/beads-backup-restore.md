@@ -7,7 +7,7 @@ WPHX-807 configured Beads 1.0.4 sync and backup for the program database.
 The root `.beads/config.yaml` now contains:
 
 ```yaml
-sync.remote: "git+https://github.com/fullofcaffeine/wordpress-hx.git"
+sync.remote: "git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git"
 ```
 
 Push and pull Beads state with:
@@ -17,13 +17,15 @@ bd dolt push
 bd dolt pull
 ```
 
+WPHX-807.01 moved the active remote to SSH after repeated GitHub HTTPS pack-transfer failures. The configured Dolt remote name is `origin-ssh`. SSH authentication must work noninteractively, for example through an already loaded SSH key.
+
 Fresh clones can recover the task graph with:
 
 ```bash
 bd bootstrap --yes
 ```
 
-In the WPHX-807 drill, a fresh clone detected `refs/dolt/data` on GitHub origin, cloned the Dolt database, and reproduced the source issue counts and ready queue.
+In the WPHX-807.01 drill, `bd dolt push` and `bd dolt pull` both succeeded with the SSH remote. A fresh clone detected `refs/dolt/data`, cloned the Dolt database, and reproduced the source issue counts and ready queue.
 
 ## Backup
 
@@ -49,7 +51,7 @@ Machine-local backup state files under `.beads/` are ignored by git. The durable
 
 ## Verified Drill
 
-Source and restored state matched:
+The original WPHX-807 backup drill matched:
 
 - issues: 28;
 - closed tasks: 21;
@@ -59,3 +61,14 @@ Source and restored state matched:
 - ready queue: `WPHX-000`, `WPHX-011`, `WPHX-100`, `WPHX-400`, `WPHX-700`, `WPHX-800`.
 
 The fresh restore path was `/tmp/wordpresshx-wphx807-restore-20260619222425`.
+
+The WPHX-807.01 SSH Dolt drill matched:
+
+- issues: 157;
+- closed tasks: 140;
+- in-progress tasks: 0;
+- open tasks: 17;
+- ready queue size: 17;
+- remote Dolt ref: `refs/dolt/data` at `e7bb51ace2a7d1167c3f271d53f3f5591a19170c`.
+
+The fresh restore path was `/tmp/wordpresshx-wphx807-ssh-restore`.

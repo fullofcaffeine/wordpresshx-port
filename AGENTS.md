@@ -68,7 +68,7 @@ Hard rule: keep `docs/operations/progress-matrix.md` current. Any task that chan
 - From sibling checkouts, nested repos, or task worktrees, use `tools/bd-wphx` from the program root so Beads commands resolve to this repository's root database.
 - Parallel write-capable agents must follow `docs/operations/multi-agent.md`: one claimed Beads issue, one branch, one worktree, non-overlapping owned paths, and a handoff that records discoveries.
 - Beads is on embedded Dolt storage as of WPHX-016. `bd doctor` is not supported in this embedded mode; use `bd info`, `bd dolt status --json`, and `bd backup status --json` until a later Beads release changes that.
-- Beads sync uses the configured Dolt remote in `.beads/config.yaml`; use `bd dolt push` / `bd dolt pull` for task database sync. `bd export -o .beads/issues.jsonl` refreshes the tracked interchange export but is not the durable sync channel.
+- Beads sync uses the configured SSH Dolt remote in `.beads/config.yaml`; use `bd dolt push` / `bd dolt pull` for task database sync. `bd export -o .beads/issues.jsonl` refreshes the tracked interchange export but is not the durable sync channel.
 - Beads backup and restore are documented in `docs/operations/beads-backup-restore.md`.
 
 ## Local Hooks and Checks

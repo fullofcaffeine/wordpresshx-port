@@ -1,0 +1,75 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-807-01-dolt-ssh-remote",
+  "issue": {
+    "id": "wordpresshx-8wx",
+    "external_ref": "WPHX-807.01",
+    "title": "Fix Beads Dolt remote HTTP 400 push failure"
+  },
+  "recorded_at": "2026-06-23T03:53:36.000Z",
+  "artifacts": [
+    {
+      "path": ".beads/config.yaml",
+      "role": "tracked Beads Dolt SSH sync remote configuration"
+    },
+    {
+      "path": "docs/operations/beads.md",
+      "role": "operator sync discipline and health-check documentation"
+    },
+    {
+      "path": "docs/operations/beads-backup-restore.md",
+      "role": "Beads sync and restore runbook"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "agent sync workflow instruction"
+    }
+  ],
+  "verification_commands": [
+    "ssh -T git@github.com </dev/null",
+    "bd dolt push --remote origin-ssh",
+    "bd dolt push",
+    "bd dolt pull",
+    "git ls-remote origin 'refs/dolt/*'",
+    "git clone --quiet git@github.com:fullofcaffeine/wordpress-hx.git /tmp/wordpresshx-wphx807-ssh-restore",
+    "bd bootstrap --yes",
+    "bd info",
+    "bd list --all --json",
+    "bd ready --json",
+    "bd dolt pull"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "configured_remote": "git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git",
+    "configured_remote_name": "origin-ssh",
+    "previous_remote": "git+https://github.com/fullofcaffeine/wordpress-hx.git",
+    "previous_failure": "GitHub HTTPS Dolt pack transfer failed with HTTP 400 during bd dolt push",
+    "ssh_auth": "passed",
+    "dolt_push": "passed",
+    "dolt_pull": "passed",
+    "fresh_clone_bootstrap_match": true,
+    "fresh_clone_path": "/tmp/wordpresshx-wphx807-ssh-restore",
+    "remote_ref": {
+      "name": "refs/dolt/data",
+      "sha": "e7bb51ace2a7d1167c3f271d53f3f5591a19170c"
+    },
+    "source_counts": {
+      "issues": 157,
+      "closed": 140,
+      "in_progress": 0,
+      "open": 17,
+      "ready": 17
+    },
+    "restored_counts": {
+      "issues": 157,
+      "closed": 140,
+      "in_progress": 0,
+      "open": 17,
+      "ready": 17
+    },
+    "warnings": [
+      "Fresh clone .beads permissions were 0755; Beads recommends chmod 700.",
+      "Fresh clone did not have local git config beads.role; source repo has local beads.role=maintainer."
+    ]
+  }
+}
