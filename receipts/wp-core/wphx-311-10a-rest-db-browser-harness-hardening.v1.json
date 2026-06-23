@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-311-10a-rest-db-browser-harness-hardening",
+  "issue": {
+    "id": "wordpresshx-adg",
+    "external_ref": "WPHX-311.10a",
+    "title": "Harden REST DB browser harness fetch stability"
+  },
+  "recorded_at": "2026-06-23T20:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "tools/wp-core/run-rest-server-db-browser-matrix.mjs",
+      "role": "hardened Playwright/browser harness that suppresses automatic favicon traffic and waits for network idle before DB-backed REST fetch cases"
+    },
+    {
+      "path": "manifests/wp-core/wphx-311-10-rest-server-db-browser-matrix.v1.json",
+      "role": "refreshed REST server DB-backed browser matrix manifest after harness hardening"
+    },
+    {
+      "path": "manifests/ownership/wphx-311-10-rest-server-db-browser-matrix.v1.json",
+      "role": "refreshed ownership manifest for the DB-backed REST browser matrix"
+    },
+    {
+      "path": "receipts/wp-core/wphx-311-10-rest-server-db-browser-matrix.v1.json",
+      "role": "refreshed base receipt for WPHX-311.10 evidence after runner hardening"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-311-rest-server-db-browser",
+    "npm run wp:core:wphx-311-rest-server-db-browser:check",
+    "npm run ci:php-conformance:check",
+    "npm run receipts:validate",
+    "npm run precommit"
+  ],
+  "related_receipts": [
+    "receipt:wphx-311-10-rest-server-db-browser-matrix"
+  ],
+  "manifest_sha256": "sha256:1bae27504399784ac5eb8d6383a355e86716b28a64756d94f376aae2a0bfe0de",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "live_integration_parity",
+      "targeted_semantic_parity"
+    ],
+    "artifact_scope": "packaged_distribution",
+    "hardening": "Inline favicon links prevent automatic /favicon.ico traffic, and Playwright navigation waits for networkidle before browser-side fetch cases."
+  }
+}

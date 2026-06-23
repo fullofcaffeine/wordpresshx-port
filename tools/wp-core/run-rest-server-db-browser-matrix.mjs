@@ -416,7 +416,7 @@ wphx_311_10_setup_db();
 
 if ( '/__wphx/browser-harness' === $path ) {
 \theader( 'Content-Type: text/html; charset=UTF-8' );
-\techo '<!doctype html><meta charset="utf-8"><title>WPHX REST DB Browser Matrix</title><main id="wphx-rest-db-browser-matrix">ready</main>';
+\techo '<!doctype html><meta charset="utf-8"><link rel="icon" href="data:,"><title>WPHX REST DB Browser Matrix</title><main id="wphx-rest-db-browser-matrix">ready</main>';
 \treturn true;
 }
 if ( '/__wphx/package-boundary' === $path ) {
@@ -635,7 +635,7 @@ async function startHarnessServer() {
   const server = createHttpServer((request, response) => {
     if (request.url === "/__wphx/cross-origin-harness") {
       response.writeHead(200, { "content-type": "text/html; charset=UTF-8" });
-      response.end("<!doctype html><meta charset=\"utf-8\"><title>WPHX Cross Origin Harness</title>");
+      response.end("<!doctype html><meta charset=\"utf-8\"><link rel=\"icon\" href=\"data:,\"><title>WPHX Cross Origin Harness</title>");
       return;
     }
     response.writeHead(404, { "content-type": "text/plain; charset=UTF-8" });
@@ -726,7 +726,7 @@ async function runBrowserCases(browser, server, mode, db) {
   const page = await browser.newPage();
   const harness = await startHarnessServer();
   try {
-    await page.goto(`${server.baseUrl}/__wphx/browser-harness`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${server.baseUrl}/__wphx/browser-harness`, { waitUntil: "networkidle" });
     const sameOrigin = await page.evaluate(
       async ({ cases, fetchRetries, retryDelayMs, selectedHeaders }) => {
         function sleepInBrowser(ms) {
@@ -780,7 +780,7 @@ async function runBrowserCases(browser, server, mode, db) {
       }
     );
 
-    await page.goto(`${harness.baseUrl}/__wphx/cross-origin-harness`, { waitUntil: "domcontentloaded" });
+    await page.goto(`${harness.baseUrl}/__wphx/cross-origin-harness`, { waitUntil: "networkidle" });
     const crossOrigin = await page.evaluate(
       async ({ apiBase, cases, fetchRetries, retryDelayMs, selectedHeaders }) => {
         function sleepInBrowser(ms) {
