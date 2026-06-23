@@ -96,6 +96,12 @@ function inputRecord(path) {
   };
 }
 
+function stableGeneratedContents(data) {
+  return data
+    .toString("utf8")
+    .replace(/#(?:[A-Za-z]:)?[^#\r\n]*[/\\](std[/\\][^\r\n]*)/g, "#$HAXE_STD_PATH/$1");
+}
+
 function filesUnder(root) {
   const files = [];
   function visit(path) {
@@ -104,10 +110,11 @@ function filesUnder(root) {
       if (entry.isDirectory()) visit(child);
       if (entry.isFile()) {
         const data = readFileSync(child);
+        const stableContents = stableGeneratedContents(data);
         files.push({
           path: relative(root, child),
-          bytes: data.length,
-          sha256: createHash("sha256").update(data).digest("hex")
+          bytes: Buffer.byteLength(stableContents),
+          sha256: createHash("sha256").update(stableContents).digest("hex")
         });
       }
     }
@@ -268,6 +275,7 @@ const manifest = {
     php_cli_profile: command("php", ["-r", "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"])
   },
   build: {
+    generated_file_hash_policy: "normalize_haxe_std_source_map_paths",
     generated_haxe_files: generatedFiles,
     php_lint: generatedPhpLintRecords(generatedFiles)
   },
