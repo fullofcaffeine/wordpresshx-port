@@ -211,7 +211,7 @@ function stableDiagnostics(diagnostics) {
       key,
       {
         path: value.path,
-        bytes: value.bytes,
+        bytes_present: typeof value.bytes === "number" && value.bytes >= 0,
         sha256_present: typeof value.sha256 === "string" && value.sha256.startsWith("sha256:")
       }
     ])

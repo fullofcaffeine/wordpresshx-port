@@ -47,6 +47,11 @@ function maybeCommand(commandName, commandArgs) {
   }
 }
 
+function phpVersionFamily(value = command("php", ["-r", "echo PHP_VERSION;"])) {
+  const [major, minor] = String(value).split(".");
+  return `${major}.${minor}`;
+}
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -410,8 +415,8 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"]),
-    docker_server_version: dockerVersion
+    php_cli_version_family: phpVersionFamily(),
+    docker_available: dockerVersion != null
   },
   build: {
     command: `haxe ${HXML}`,
