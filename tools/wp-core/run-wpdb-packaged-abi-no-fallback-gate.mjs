@@ -469,11 +469,21 @@ function runProbe() {
   }
 
   const parsed = JSON.parse(result.stdout);
+  const stableParsed = stableRuntimeValue(parsed);
+  const stableDiagnostics = {
+    command: stableRuntimeValue(diagnostics.command),
+    exit_code: diagnostics.exit_code,
+    signal: diagnostics.signal,
+    stdout: JSON.stringify(stableParsed, null, 2) + "\n",
+    stderr: normalizeRuntimePath(diagnostics.stderr)
+  };
+  writeFile(DIAGNOSTICS, JSON.stringify(stableDiagnostics, null, 2) + "\n");
+
   if (parsed.status !== "passed") {
     throw new Error(`Packaged wpdb ABI probe reported ${parsed.status}`);
   }
 
-  return { parsed, diagnostics };
+  return { parsed, diagnostics: stableDiagnostics };
 }
 
 function assertLint(paths) {
