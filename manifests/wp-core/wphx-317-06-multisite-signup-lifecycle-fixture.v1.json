@@ -1,0 +1,942 @@
+{
+  "schema": "wphx.wp-core-multisite-signup-lifecycle-fixture.v1",
+  "issue": "WPHX-317.06",
+  "generated_at": "2026-06-23T06:15:00.000Z",
+  "generator": "tools/wp-core/run-multisite-signup-lifecycle-fixture.mjs",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-317-01-multisite-network-surface.v1.json",
+      "bytes": 188430,
+      "sha256": "sha256:965b7cb5382eef8dc7a2f8b7c3ee4d9501009675c73b78edb84d8fa9b7c96083"
+    },
+    "bootstrap_routing_fixture": {
+      "path": "manifests/wp-core/wphx-317-05-multisite-bootstrap-routing-fixture.v1.json",
+      "bytes": 19534,
+      "sha256": "sha256:62ab42066077d36587eab9bd7a59ccf0933bdd5ef79c37f5e55f45e638c6e666"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7167,
+      "sha256": "sha256:9230d83997bb6cc37768adf6b45715721875f7991e0840e2321c18a2c63e5298"
+    },
+    "source_units": [
+      {
+        "path": "src/wp-includes/class-wp-error.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-error.php",
+        "bytes": 7502,
+        "sha256": "sha256:fe0e54bcb095f3ebb6493cbd558f927234e1bff3f643b2ca00f7e2d74309400c"
+      },
+      {
+        "path": "src/wp-includes/ms-functions.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ms-functions.php",
+        "bytes": 91842,
+        "sha256": "sha256:fb0edc671849a3561032981c5896811b9774d5a433f5fc3e0962e25d53780b51"
+      }
+    ],
+    "upstream_digest": "sha256:bd4f621586a2ca2a65945e3dbaf937c34d61f07ece139f5aa4484e1420a45def"
+  },
+  "fixture": {
+    "candidate_kind": "oracle_source_mirror",
+    "source_domain": "multisite signup and lifecycle",
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "oracle_mirror_fixture",
+    "covered_symbols": [
+      "get_sitestats",
+      "get_blog_count",
+      "wpmu_validate_user_signup",
+      "wpmu_validate_blog_signup",
+      "wpmu_signup_blog",
+      "wpmu_signup_user",
+      "wpmu_activate_signup",
+      "wpmu_create_user",
+      "wpmu_create_blog",
+      "newblog_notify_siteadmin",
+      "newuser_notify_siteadmin",
+      "maybe_add_existing_user_to_blog",
+      "domain_exists",
+      "get_upload_space_available",
+      "is_upload_space_available",
+      "upload_size_limit_filter"
+    ],
+    "cases": [
+      {
+        "id": "counts:sitestats-network-options",
+        "symbol": "get_sitestats/get_blog_count/get_user_count",
+        "focus": "network option-backed blog counts and stubbed user count aggregation"
+      },
+      {
+        "id": "validate:user-signup-errors-and-reservations",
+        "symbol": "wpmu_validate_user_signup",
+        "focus": "sanitization, illegal names, limited domains, existing users/emails, pending signup reservations, and stale reservation cleanup"
+      },
+      {
+        "id": "validate:blog-signup-domain-path",
+        "symbol": "wpmu_validate_blog_signup/domain_exists",
+        "focus": "subdirectory path construction, reserved names, page conflicts, existing-domain checks, and pending signup reservations"
+      },
+      {
+        "id": "signup:blog-and-user-inserts",
+        "symbol": "wpmu_signup_blog/wpmu_signup_user",
+        "focus": "signup row shape, activation keys, serialized metadata, and after-signup actions"
+      },
+      {
+        "id": "activate:user-and-blog-branches",
+        "symbol": "wpmu_activate_signup",
+        "focus": "invalid key, active key, user activation, site activation, signup update side effects, and activation hooks"
+      },
+      {
+        "id": "create:user-blog-direct",
+        "symbol": "wpmu_create_user/wpmu_create_blog",
+        "focus": "direct user creation, option cleanup, install-state transition, site insertion payload, and duplicate site errors"
+      },
+      {
+        "id": "notify:site-and-user-admin-mails",
+        "symbol": "newblog_notify_siteadmin/newuser_notify_siteadmin",
+        "focus": "registrationnotification gate, admin email validation, switch/restore behavior, mail subject/body shape, and filter hooks"
+      },
+      {
+        "id": "existing-user:request-key-flow",
+        "symbol": "maybe_add_existing_user_to_blog",
+        "focus": "newbloguser request parsing, option deletion, add_existing_user_to_blog handoff, and wp_die success response"
+      },
+      {
+        "id": "quota:space-available-and-limit",
+        "symbol": "get_upload_space_available/is_upload_space_available/upload_size_limit_filter",
+        "focus": "blog quota, sitewide disabled check, space-used subtraction, and max upload limit filtering"
+      }
+    ],
+    "native_boundaries": [
+      {
+        "id": "wpdb-signup-lifecycle-test-double",
+        "reason": "The probe supplies deterministic wp_signups, wp_blogs, and option behavior so real ms-functions.php signup/lifecycle branches can execute without a live database."
+      },
+      {
+        "id": "mail-action-request-state",
+        "reason": "wp_mail, do_action, apply_filters, request URI, and REMOTE_ADDR are captured as structured observations because plugins and site admins can observe these side effects."
+      },
+      {
+        "id": "wp-die-capture",
+        "reason": "wp_die is converted to a typed exception inside the probe so success/failure messages and response codes can be compared without terminating the runner."
+      }
+    ],
+    "follow_up_owner": "WPHX-317.07"
+  },
+  "runtimes": {
+    "local": {
+      "id": "local-php-cli",
+      "php_version": "8.4.7",
+      "executable": "/opt/homebrew/bin/php"
+    },
+    "docker": [
+      {
+        "id": "docker-php-8.4-cli",
+        "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d"
+      },
+      {
+        "id": "docker-php-8.5-cli",
+        "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e"
+      }
+    ],
+    "skipped": []
+  },
+  "canonical_observations": {
+    "caseCount": 9,
+    "cases": [
+      {
+        "id": "counts:sitestats-network-options",
+        "symbol": "get_sitestats/get_blog_count/get_user_count",
+        "value": {
+          "stats": {
+            "blogs": 12,
+            "users": 34
+          },
+          "networkBlogCount": 12
+        },
+        "meta": []
+      },
+      {
+        "id": "validate:user-signup-errors-and-reservations",
+        "symbol": "wpmu_validate_user_signup",
+        "value": {
+          "invalid": {
+            "user_name": "Admin User",
+            "user_email": "bad@outside.test",
+            "errors": [
+              "user_name",
+              "user_email"
+            ]
+          },
+          "reserved": {
+            "errors": [
+              "user_name",
+              "user_email"
+            ]
+          },
+          "stale": {
+            "errors": []
+          },
+          "deletes": [
+            {
+              "table": "wp_signups",
+              "where": {
+                "user_login": "staleuser"
+              }
+            }
+          ]
+        },
+        "meta": []
+      },
+      {
+        "id": "validate:blog-signup-domain-path",
+        "symbol": "wpmu_validate_blog_signup/domain_exists",
+        "value": {
+          "invalid": {
+            "domain": "network.example.test",
+            "path": "/wp-admin/",
+            "blogname": "wp-admin",
+            "blog_title": "",
+            "errors": [
+              "blogname",
+              "blog_title"
+            ]
+          },
+          "taken": {
+            "domain": "network.example.test",
+            "path": "/taken/",
+            "errors": [
+              "blogname"
+            ]
+          },
+          "reserved": {
+            "errors": [
+              "blogname"
+            ]
+          }
+        },
+        "meta": []
+      },
+      {
+        "id": "signup:blog-and-user-inserts",
+        "symbol": "wpmu_signup_blog/wpmu_signup_user",
+        "value": {
+          "inserts": [
+            {
+              "table": "wp_signups",
+              "data": {
+                "domain": "new.network.example.test",
+                "path": "/",
+                "title": "New Site",
+                "user_login": "newuser",
+                "user_email": "newuser@example.test",
+                "registered": "2026-06-23 00:00:00",
+                "activation_key": "<activation-key>",
+                "meta": "a:1:{s:6:\"public\";i:1;}"
+              }
+            },
+            {
+              "table": "wp_signups",
+              "data": {
+                "domain": "",
+                "path": "",
+                "title": "",
+                "user_login": "inviteuser",
+                "user_email": "invite@example.test",
+                "registered": "2026-06-23 00:00:00",
+                "activation_key": "<activation-key>",
+                "meta": "a:1:{s:6:\"source\";s:7:\"fixture\";}"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "hook": "after_signup_site",
+              "args": [
+                "new.network.example.test",
+                "/",
+                "New Site",
+                "newuser",
+                "newuser@example.test",
+                "<activation-key>",
+                {
+                  "public": 1
+                }
+              ]
+            },
+            {
+              "hook": "after_signup_user",
+              "args": [
+                "inviteuser",
+                "invite@example.test",
+                "<activation-key>",
+                {
+                  "source": "fixture"
+                }
+              ]
+            }
+          ],
+          "filters": [
+            "signup_site_meta",
+            "signup_user_meta"
+          ]
+        },
+        "meta": []
+      },
+      {
+        "id": "activate:user-and-blog-branches",
+        "symbol": "wpmu_activate_signup",
+        "value": {
+          "invalid": {
+            "type": "WP_Error",
+            "codes": [
+              "invalid_key"
+            ],
+            "messages": [
+              "Invalid activation key."
+            ],
+            "data": null
+          },
+          "alreadyActive": {
+            "type": "WP_Error",
+            "codes": [
+              "already_active"
+            ],
+            "messages": [
+              "The user is already active."
+            ],
+            "data": {
+              "type": "stdClass",
+              "vars": {
+                "domain": "",
+                "path": "",
+                "title": "",
+                "user_login": "alreadyactive",
+                "user_email": "already@example.test",
+                "registered": "2026-06-22 00:00:00",
+                "activation_key": "already-active-key",
+                "active": "1",
+                "meta": "a:0:{}"
+              }
+            }
+          },
+          "user": {
+            "user_id": 101,
+            "password": "pppppppppppp",
+            "meta": {
+              "role": "subscriber"
+            }
+          },
+          "blog": {
+            "blog_id": 201,
+            "user_id": 102,
+            "password": "pppppppppppp",
+            "title": "Fresh Site",
+            "meta": {
+              "public": 1,
+              "lang_id": 2
+            }
+          },
+          "updates": [
+            {
+              "table": "wp_signups",
+              "data": {
+                "active": 1,
+                "activated": "2026-06-23 00:00:00"
+              },
+              "where": {
+                "activation_key": "activate-user-key"
+              }
+            },
+            {
+              "table": "wp_signups",
+              "data": {
+                "active": 1,
+                "activated": "2026-06-23 00:00:00"
+              },
+              "where": {
+                "activation_key": "activate-blog-key"
+              }
+            }
+          ],
+          "actions": [
+            {
+              "hook": "wp_error_added",
+              "args": [
+                "invalid_key",
+                "Invalid activation key.",
+                "",
+                {
+                  "type": "WP_Error",
+                  "codes": [
+                    "invalid_key"
+                  ],
+                  "messages": [
+                    "Invalid activation key."
+                  ],
+                  "data": null
+                }
+              ]
+            },
+            {
+              "hook": "wp_error_added",
+              "args": [
+                "already_active",
+                "The user is already active.",
+                {
+                  "type": "stdClass",
+                  "vars": {
+                    "domain": "",
+                    "path": "",
+                    "title": "",
+                    "user_login": "alreadyactive",
+                    "user_email": "already@example.test",
+                    "registered": "2026-06-22 00:00:00",
+                    "activation_key": "already-active-key",
+                    "active": "1",
+                    "meta": "a:0:{}"
+                  }
+                },
+                {
+                  "type": "WP_Error",
+                  "codes": [
+                    "already_active"
+                  ],
+                  "messages": [
+                    "The user is already active."
+                  ],
+                  "data": {
+                    "type": "stdClass",
+                    "vars": {
+                      "domain": "",
+                      "path": "",
+                      "title": "",
+                      "user_login": "alreadyactive",
+                      "user_email": "already@example.test",
+                      "registered": "2026-06-22 00:00:00",
+                      "activation_key": "already-active-key",
+                      "active": "1",
+                      "meta": "a:0:{}"
+                    }
+                  }
+                }
+              ]
+            },
+            {
+              "hook": "wpmu_new_user",
+              "args": [
+                101
+              ]
+            },
+            {
+              "hook": "wpmu_activate_user",
+              "args": [
+                101,
+                "pppppppppppp",
+                {
+                  "role": "subscriber"
+                }
+              ]
+            },
+            {
+              "hook": "wpmu_new_user",
+              "args": [
+                102
+              ]
+            },
+            {
+              "hook": "wp_cache_set_sites_last_changed",
+              "args": []
+            },
+            {
+              "hook": "wpmu_activate_blog",
+              "args": [
+                201,
+                102,
+                "pppppppppppp",
+                "Fresh Site",
+                {
+                  "public": 1,
+                  "lang_id": 2
+                }
+              ]
+            }
+          ],
+          "createdUsers": [
+            {
+              "id": 101,
+              "user_login": "activateuser",
+              "password": "pppppppppppp",
+              "email": "activate@example.test"
+            },
+            {
+              "id": 102,
+              "user_login": "siteowner",
+              "password": "pppppppppppp",
+              "email": "siteowner@example.test"
+            }
+          ],
+          "createdSites": [
+            {
+              "id": 201,
+              "data": {
+                "domain": "fresh.network.example.test",
+                "path": "/",
+                "network_id": 7,
+                "public": 1,
+                "lang_id": 2,
+                "title": "Fresh Site",
+                "user_id": 102,
+                "options": []
+              }
+            }
+          ]
+        },
+        "meta": []
+      },
+      {
+        "id": "create:user-blog-direct",
+        "symbol": "wpmu_create_user/wpmu_create_blog",
+        "value": {
+          "directUser": 103,
+          "directBlog": 202,
+          "duplicateBlog": {
+            "type": "WP_Error",
+            "codes": [
+              "blog_taken"
+            ],
+            "messages": [
+              "Sorry, that site already exists!"
+            ],
+            "data": null
+          },
+          "installing": true,
+          "deletedUserOptions": [
+            {
+              "user_id": 101,
+              "option": "capabilities"
+            },
+            {
+              "user_id": 101,
+              "option": "user_level"
+            },
+            {
+              "user_id": 102,
+              "option": "capabilities"
+            },
+            {
+              "user_id": 102,
+              "option": "user_level"
+            },
+            {
+              "user_id": 103,
+              "option": "capabilities"
+            },
+            {
+              "user_id": 103,
+              "option": "user_level"
+            }
+          ],
+          "createdSites": [
+            {
+              "id": 201,
+              "data": {
+                "domain": "fresh.network.example.test",
+                "path": "/",
+                "network_id": 7,
+                "public": 1,
+                "lang_id": 2,
+                "title": "Fresh Site",
+                "user_id": 102,
+                "options": []
+              }
+            },
+            {
+              "id": 202,
+              "data": {
+                "domain": "direct.network.example.test",
+                "path": "/",
+                "network_id": 7,
+                "public": 1,
+                "title": "Direct",
+                "user_id": 103,
+                "options": {
+                  "blogdescription": "desc"
+                }
+              }
+            }
+          ],
+          "actions": [
+            {
+              "hook": "wpmu_new_user",
+              "args": [
+                103
+              ]
+            },
+            {
+              "hook": "wp_cache_set_sites_last_changed",
+              "args": []
+            },
+            {
+              "hook": "wp_error_added",
+              "args": [
+                "blog_taken",
+                "Sorry, that site already exists!",
+                "",
+                {
+                  "type": "WP_Error",
+                  "codes": [
+                    "blog_taken"
+                  ],
+                  "messages": [
+                    "Sorry, that site already exists!"
+                  ],
+                  "data": null
+                }
+              ]
+            }
+          ]
+        },
+        "meta": []
+      },
+      {
+        "id": "notify:site-and-user-admin-mails",
+        "symbol": "newblog_notify_siteadmin/newuser_notify_siteadmin",
+        "value": {
+          "site": true,
+          "user": true,
+          "mails": [
+            {
+              "to": "network-admin@example.test",
+              "subject": "New Site Registration: https://network.example.test/site-two/",
+              "messageSha256": "2d6ca125caa75e935edcc86ad2e826e2aace878205efa7ad7393e6bd058956fd",
+              "messageContainsRemoteIp": true
+            },
+            {
+              "to": "network-admin@example.test",
+              "subject": "New User Registration: existinglogin",
+              "messageSha256": "4bf44f08b892076a724120d4e496fdacf3c5d2bc1383ba50f0f6cbb857f7dc20",
+              "messageContainsRemoteIp": true
+            }
+          ],
+          "switches": [
+            {
+              "op": "switch",
+              "blog_id": 2
+            },
+            {
+              "op": "restore"
+            }
+          ],
+          "filters": [
+            "newblog_notify_siteadmin",
+            "newuser_notify_siteadmin"
+          ]
+        },
+        "meta": []
+      },
+      {
+        "id": "existing-user:request-key-flow",
+        "symbol": "maybe_add_existing_user_to_blog",
+        "value": {
+          "result": {
+            "threw": true,
+            "title": "WordPress &rsaquo; Success",
+            "args": {
+              "response": 200
+            },
+            "messageContainsSuccess": true
+          },
+          "userMeta": {
+            "44": {
+              "primary_blog": 1,
+              "source_domain": "network.example.test"
+            }
+          },
+          "actions": [
+            {
+              "hook": "add_user_to_blog",
+              "args": [
+                44,
+                "editor",
+                1
+              ]
+            },
+            {
+              "hook": "clean_user_cache",
+              "args": [
+                44
+              ]
+            },
+            {
+              "hook": "wp_cache_delete",
+              "args": [
+                "1_user_count",
+                "blog-details"
+              ]
+            },
+            {
+              "hook": "added_existing_user",
+              "args": [
+                44,
+                true
+              ]
+            }
+          ],
+          "optionRemaining": false
+        },
+        "meta": []
+      },
+      {
+        "id": "quota:space-available-and-limit",
+        "symbol": "get_upload_space_available/is_upload_space_available/upload_size_limit_filter",
+        "value": {
+          "available": 1048576,
+          "bool": true,
+          "limit": 1048576,
+          "disabled": {
+            "available": 3145728,
+            "bool": true,
+            "limit": 1048576
+          }
+        },
+        "meta": []
+      }
+    ],
+    "queryCount": 16,
+    "insertCount": 2,
+    "updateCount": 2,
+    "deleteCount": 1,
+    "queries": [
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_login = 'Admin User'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_email = 'bad@outside.test'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_login = 'reserveduser'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_email = 'reserved@example.test'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_login = 'staleuser'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE user_email = 'fresh@example.test'"
+      },
+      {
+        "operation": "get_var",
+        "query": "SELECT post_name FROM wp_posts WHERE post_type = 'page' AND post_name = 'wp-admin'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE domain = 'network.example.test' AND path = '/wp-admin/'"
+      },
+      {
+        "operation": "get_var",
+        "query": "SELECT post_name FROM wp_posts WHERE post_type = 'page' AND post_name = 'taken'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE domain = 'network.example.test' AND path = '/taken/'"
+      },
+      {
+        "operation": "get_var",
+        "query": "SELECT post_name FROM wp_posts WHERE post_type = 'page' AND post_name = 'reservedsite'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE domain = 'network.example.test' AND path = '/reservedsite/'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE activation_key = 'missing-key'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE activation_key = 'already-active-key'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE activation_key = 'activate-user-key'"
+      },
+      {
+        "operation": "get_row",
+        "query": "SELECT * FROM wp_signups WHERE activation_key = 'activate-blog-key'"
+      }
+    ]
+  },
+  "runs": [
+    {
+      "id": "local-php-cli:oracle",
+      "runtime": "local-php-cli",
+      "mode": "oracle",
+      "command": "php build/wp-core/wphx-317-06/probe.php oracle build/wp-core/wphx-317-06/oracle",
+      "php_version": "8.4.7",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    },
+    {
+      "id": "local-php-cli:candidate",
+      "runtime": "local-php-cli",
+      "mode": "candidate",
+      "command": "php build/wp-core/wphx-317-06/probe.php candidate build/wp-core/wphx-317-06/candidate",
+      "php_version": "8.4.7",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    },
+    {
+      "id": "docker-php-8.4-cli:oracle",
+      "runtime": "docker-php-8.4-cli",
+      "mode": "oracle",
+      "command": "docker run --rm -v /Users/fullofcaffeine/workspace/code/wordpresshx:/workspace -w /workspace library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-317-06/probe.php oracle build/wp-core/wphx-317-06/oracle",
+      "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
+      "php_version": "8.4.22",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    },
+    {
+      "id": "docker-php-8.4-cli:candidate",
+      "runtime": "docker-php-8.4-cli",
+      "mode": "candidate",
+      "command": "docker run --rm -v /Users/fullofcaffeine/workspace/code/wordpresshx:/workspace -w /workspace library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d php build/wp-core/wphx-317-06/probe.php candidate build/wp-core/wphx-317-06/candidate",
+      "image": "library/php@sha256:966621a53c8e75f062fad4e043ffec507cb793822aee3422110e0127fe53952d",
+      "php_version": "8.4.22",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    },
+    {
+      "id": "docker-php-8.5-cli:oracle",
+      "runtime": "docker-php-8.5-cli",
+      "mode": "oracle",
+      "command": "docker run --rm -v /Users/fullofcaffeine/workspace/code/wordpresshx:/workspace -w /workspace library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-317-06/probe.php oracle build/wp-core/wphx-317-06/oracle",
+      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "php_version": "8.5.7",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    },
+    {
+      "id": "docker-php-8.5-cli:candidate",
+      "runtime": "docker-php-8.5-cli",
+      "mode": "candidate",
+      "command": "docker run --rm -v /Users/fullofcaffeine/workspace/code/wordpresshx:/workspace -w /workspace library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e php build/wp-core/wphx-317-06/probe.php candidate build/wp-core/wphx-317-06/candidate",
+      "image": "library/php@sha256:1954ff5cd21f222c992b79d25e403b2600cec829678d5bb7076883f3a44c0d6e",
+      "php_version": "8.5.7",
+      "normalized_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "case_count": 9,
+      "case_ids": [
+        "counts:sitestats-network-options",
+        "validate:user-signup-errors-and-reservations",
+        "validate:blog-signup-domain-path",
+        "signup:blog-and-user-inserts",
+        "activate:user-and-blog-branches",
+        "create:user-blog-direct",
+        "notify:site-and-user-admin-mails",
+        "existing-user:request-key-flow",
+        "quota:space-available-and-limit"
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "local-php-cli",
+      "matches": true,
+      "oracle_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "candidate_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd"
+    },
+    {
+      "id": "docker-php-8.4-cli",
+      "matches": true,
+      "oracle_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "candidate_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd"
+    },
+    {
+      "id": "docker-php-8.5-cli",
+      "matches": true,
+      "oracle_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd",
+      "candidate_sha256": "sha256:ca760e6cccaf2d75ad9b18d62f9d301c6c66a3d10d301b4b1a630748ac2a09dd"
+    }
+  ],
+  "remaining_gaps": [
+    {
+      "id": "haxe-candidate-not-yet-installed",
+      "owner": "WPHX-317.07",
+      "detail": "The candidate side is a copied WordPress oracle source tree until multisite lifecycle functions are emitted from Haxe-owned sources."
+    },
+    {
+      "id": "live-database-not-yet-authoritative",
+      "owner": "WPHX-322",
+      "detail": "This fixture uses deterministic PHP test doubles; live database, email transport, installed signup page, and multisite admin parity remain later installed/distribution gates."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "oracle_source_mirror",
+    "covered_symbols": 16,
+    "fixture_cases": 9,
+    "comparisons": 3,
+    "skipped_runtimes": 0
+  }
+}

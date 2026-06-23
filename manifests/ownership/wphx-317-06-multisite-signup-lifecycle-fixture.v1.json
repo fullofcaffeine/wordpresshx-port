@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/multisite-signup-lifecycle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.11.5",
+    "external_ref": "WPHX-317.06"
+  },
+  "unit": {
+    "kind": "workset",
+    "name": "Multisite signup, lifecycle, counts, quota, and notification fixture harness",
+    "area": "wp-includes/ms-functions.php",
+    "public_contract": "WordPress 7.0 multisite signup and lifecycle helpers preserve validation errors, signup rows, activation branches, create user/blog side effects, network counts, upload quota decisions, admin notifications, and newbloguser request behavior while the candidate side is still an oracle source mirror."
+  },
+  "ownership_state": "external_oracle",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "paths": [
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/ms-functions.php"
+    ],
+    "digest": "sha256:bd4f621586a2ca2a65945e3dbaf937c34d61f07ece139f5aa4484e1420a45def"
+  },
+  "owned_paths": [
+    "tools/wp-core/run-multisite-signup-lifecycle-fixture.mjs",
+    "manifests/wp-core/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+    "receipts/wp-core/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+    "manifests/ownership/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+    "receipts/wp-core/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+    "build/wp-core/wphx-317-06"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-317-signup-lifecycle",
+      "npm run wp:core:wphx-317-signup-lifecycle:check",
+      "npm run beads:validate",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-317-06-multisite-signup-lifecycle-fixture"
+    ],
+    "manifest_digest": "sha256:4c5838cd96a864b96cc0d244d8d9ea150743c61b121f288cf5d48487e5311f75"
+  },
+  "notes": "The candidate fixture root is an oracle source mirror for WPHX-317.06. The probe supplies deterministic database rows, users, options, mail, actions, and request state so real ms-functions.php lifecycle functions can execute without a full installed multisite database."
+}
