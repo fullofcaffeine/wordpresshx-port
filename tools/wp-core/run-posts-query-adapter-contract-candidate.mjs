@@ -265,7 +265,7 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"])
+    php_cli_profile: command("php", ["-r", "echo PHP_MAJOR_VERSION . '.' . PHP_MINOR_VERSION;"])
   },
   build: {
     generated_haxe_files: generatedFiles,
