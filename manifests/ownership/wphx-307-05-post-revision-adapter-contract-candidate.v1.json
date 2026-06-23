@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/post-revision-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-8mp",
+    "external_ref": "WPHX-307.05"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "post revision save, restore, delete, retention, and meta intent",
+    "area": "wp-includes/revision.php wp-includes/post.php",
+    "public_contract": "Haxe owns a typed post revision adapter-contract decision model derived from _wp_post_revision_data(), wp_save_post_revision(), wp_is_post_revision(), wp_is_post_autosave(), _wp_put_post_revision(), wp_restore_post_revision(), wp_delete_post_revision(), wp_revisions_to_keep(), and revisioned meta helpers. Public PHP ABI replacement, SQL behavior, and installed revision behavior are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Install these decisions through typed Adapter IR/original-path generation and pass PHP-authored revision, autosave, restore/delete, revisioned meta, hook, cache, live database, and upstream PHPUnit oracle fixtures before claiming public PHP ABI ownership."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/post-revision-adapter-contract-candidate.hxml",
+    "src/wphx/wp/posts/PostRevisionAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/PostRevisionAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-post-revision-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-307-05-post-revision-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-307-05-post-revision-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-307-05-post-revision-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-307-05-post-revision-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-307-05-post-revision-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-307-05-post-revision-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-307-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-307-post-revision-adapter-contract-candidate",
+      "npm run wp:core:wphx-307-post-revision-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-307-05-post-revision-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:5434cb62185f3ff876276ef98f1b8c3240ce2a81b78647d0795ef81ececc1c04"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate. It adds no native provider, no handwritten production PHP shell, and no public WordPress file replacement."
+}
