@@ -1,0 +1,2262 @@
+{
+  "schema": "wphx.wp-core-wp-query-runtime-fixture.v1",
+  "issue": "WPHX-307.06",
+  "generated_at": "2026-06-23T20:10:00.000Z",
+  "generator": "tools/wp-core/run-wp-query-runtime-fixture.mjs",
+  "evidence_classes": [
+    "runtime_abi",
+    "targeted_semantic_parity"
+  ],
+  "artifact_scope": "oracle_source_mirror_fixture",
+  "baseline": {
+    "upstream_root": "../wordpress-develop",
+    "upstream_ref": "26b68024931348d267b70e2a29910e1320d0094f"
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-wp-query-runtime-fixture.mjs",
+      "bytes": 19700,
+      "sha256": "sha256:036c5a174e74821ec1e92c5d7e1b86a3b72dd7fbe658e3f8f9cd655c1f6e03cc"
+    },
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-307-01-posts-query-surface.v1.json",
+      "bytes": 48364,
+      "sha256": "sha256:6b62dd6147928f2b80ae22fa8c2c9ebd8735d6fcc769783dd47a498e7b9f8387"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+      "bytes": 16585,
+      "sha256": "sha256:47a2f64ca1fc8aa4307cde3af894a79a491451d9baf9ee51d2420c68bc4711f3"
+    },
+    "sources": [
+      {
+        "path": "src/wp-includes/class-wp-tax-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-tax-query.php",
+        "bytes": 19577,
+        "sha256": "sha256:22eb4845078ec33afd9e5123c88817002542ce38f14ade73cf0a498ad5236c39"
+      },
+      {
+        "path": "src/wp-includes/class-wp-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-query.php",
+        "bytes": 163331,
+        "sha256": "sha256:21953b48dc8fe948896ce6cac8cff3b575cf18553dd3ff2f8daec85c1cfe8e7e"
+      }
+    ]
+  },
+  "covered_symbols": [
+    "WP_Query",
+    "WP_Query::parse_query",
+    "WP_Query::fill_query_vars",
+    "WP_Query::parse_tax_query",
+    "WP_Query::set_404",
+    "WP_Tax_Query"
+  ],
+  "fixture_cases": [
+    {
+      "id": "query-state:home-default",
+      "focus": "default query normalization and is_home fallback"
+    },
+    {
+      "id": "query-state:single-post-id",
+      "focus": "scalar p normalization and singular flags"
+    },
+    {
+      "id": "query-state:page-id",
+      "focus": "page_id normalization and page/singular flags"
+    },
+    {
+      "id": "query-state:search-paged",
+      "focus": "search detection, paged normalization, and parsed-query action"
+    },
+    {
+      "id": "query-state:invalid-date-404",
+      "focus": "month bounds, error var, set_404 action, and 404 flags"
+    },
+    {
+      "id": "query-state:post-type-archive",
+      "focus": "post_type sanitization and archive flag routing"
+    },
+    {
+      "id": "query-state:status-array",
+      "focus": "post_status array sanitization and deterministic ordering"
+    },
+    {
+      "id": "query-state:category-tax",
+      "focus": "category query vars, tax_query construction, and category/archive flags"
+    },
+    {
+      "id": "query-state:comment-feed",
+      "focus": "comments feed normalization and comment-feed flags"
+    },
+    {
+      "id": "query-state:robots-favicon",
+      "focus": "robots/favicon request flags and non-home routing"
+    }
+  ],
+  "claims": {
+    "public_php_replacement": false,
+    "haxe_semantic_ownership": false,
+    "live_database_result_parity": false,
+    "sql_execution_parity": false,
+    "runtime_abi_and_query_state_fixture": true
+  },
+  "comparison": {
+    "status": "passed",
+    "oracle": {
+      "reflection": {
+        "class": "WP_Query",
+        "declaring_file": "wp-includes/class-wp-query.php",
+        "attributes": [
+          "AllowDynamicProperties"
+        ],
+        "property_count": 58,
+        "public_property_count": 51,
+        "properties": [
+          {
+            "name": "query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "tax_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "meta_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "date_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "queried_object",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "queried_object_id",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "request",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "posts",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "post_count",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "current_post",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "before_loop",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "in_the_loop",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "post",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comments",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comment_count",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "current_comment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "found_posts",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "max_num_pages",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "max_num_comment_pages",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_single",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_preview",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_page",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_archive",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_date",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_year",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_month",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_day",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_time",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_author",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_category",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_tag",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_tax",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_search",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_feed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_comment_feed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_trackback",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_home",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_privacy_policy",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_404",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_embed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_paged",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_admin",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_attachment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_singular",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_robots",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_favicon",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_posts_page",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_post_type_archive",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars_hash",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars_changed",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "thumbnails_cached",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "allow_query_attachment_by_filename",
+            "visibility": "protected",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "stopwords",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "compat_fields",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "compat_methods",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_cache_key",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          }
+        ],
+        "methods": [
+          {
+            "name": "parse_query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "fill_query_vars",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_vars",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "parse_tax_query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_vars",
+                "position": 0,
+                "optional": false,
+                "by_reference": true
+              }
+            ]
+          },
+          {
+            "name": "set_404",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "get",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_var",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              },
+              {
+                "name": "default_value",
+                "position": 1,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "set",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_var",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              },
+              {
+                "name": "value",
+                "position": 1,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_home",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "is_search",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "is_single",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "post",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_page",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "page",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_archive",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "query-state:home-default",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": true,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:single-post-id",
+          "query_vars": {
+            "p": 42,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": true,
+            "is_page": false,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:page-id",
+          "query_vars": {
+            "p": 0,
+            "page_id": 7,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": true,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:search-paged",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "alpha beta",
+            "paged": 3,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": true,
+            "is_paged": true,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:invalid-date-404",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 2026,
+            "monthnum": 13,
+            "error": "404",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": true,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "set_404",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:post-type-archive",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "post_type": "book",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": true,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": true,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:status-array",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "post_status": [
+              "draft",
+              "draft",
+              "private",
+              "publish"
+            ],
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": true,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:category-tax",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "-2,4,9",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": true,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": true,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [
+              {
+                "taxonomy": "category",
+                "terms": [
+                  4,
+                  9
+                ],
+                "field": "term_id",
+                "operator": "IN",
+                "include_children": true
+              },
+              {
+                "taxonomy": "category",
+                "terms": [
+                  2
+                ],
+                "field": "term_id",
+                "operator": "NOT IN",
+                "include_children": true
+              }
+            ],
+            "queried_terms": {
+              "category": {
+                "terms": [
+                  4,
+                  9
+                ],
+                "field": "term_id"
+              }
+            },
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:comment-feed",
+          "query_vars": {
+            "p": 42,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": "rss2",
+            "withcomments": 1
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": true,
+            "is_page": false,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": true,
+            "is_comment_feed": true,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:robots-favicon",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": "",
+            "robots": "1",
+            "favicon": "1"
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": true,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    },
+    "candidate": {
+      "reflection": {
+        "class": "WP_Query",
+        "declaring_file": "wp-includes/class-wp-query.php",
+        "attributes": [
+          "AllowDynamicProperties"
+        ],
+        "property_count": 58,
+        "public_property_count": 51,
+        "properties": [
+          {
+            "name": "query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "tax_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "meta_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "date_query",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "queried_object",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "queried_object_id",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "request",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "posts",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "post_count",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "current_post",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "before_loop",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "in_the_loop",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "post",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comments",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comment_count",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "current_comment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "comment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "found_posts",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "max_num_pages",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "max_num_comment_pages",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_single",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_preview",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_page",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_archive",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_date",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_year",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_month",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_day",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_time",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_author",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_category",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_tag",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_tax",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_search",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_feed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_comment_feed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_trackback",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_home",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_privacy_policy",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_404",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_embed",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_paged",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_admin",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_attachment",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_singular",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_robots",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_favicon",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_posts_page",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "is_post_type_archive",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars_hash",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_vars_changed",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "thumbnails_cached",
+            "visibility": "public",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "allow_query_attachment_by_filename",
+            "visibility": "protected",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "stopwords",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "compat_fields",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "compat_methods",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          },
+          {
+            "name": "query_cache_key",
+            "visibility": "private",
+            "static": false,
+            "declaring_class": "WP_Query"
+          }
+        ],
+        "methods": [
+          {
+            "name": "parse_query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "fill_query_vars",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_vars",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "parse_tax_query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_vars",
+                "position": 0,
+                "optional": false,
+                "by_reference": true
+              }
+            ]
+          },
+          {
+            "name": "set_404",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "query",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "get",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_var",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              },
+              {
+                "name": "default_value",
+                "position": 1,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "set",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "query_var",
+                "position": 0,
+                "optional": false,
+                "by_reference": false
+              },
+              {
+                "name": "value",
+                "position": 1,
+                "optional": false,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_home",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "is_search",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          },
+          {
+            "name": "is_single",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "post",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_page",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": [
+              {
+                "name": "page",
+                "position": 0,
+                "optional": true,
+                "by_reference": false
+              }
+            ]
+          },
+          {
+            "name": "is_archive",
+            "visibility": "public",
+            "static": false,
+            "returns_reference": false,
+            "declaring_class": "WP_Query",
+            "parameters": []
+          }
+        ]
+      },
+      "cases": [
+        {
+          "id": "query-state:home-default",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": true,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:single-post-id",
+          "query_vars": {
+            "p": 42,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": true,
+            "is_page": false,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:page-id",
+          "query_vars": {
+            "p": 0,
+            "page_id": 7,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": true,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:search-paged",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "alpha beta",
+            "paged": 3,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": true,
+            "is_paged": true,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:invalid-date-404",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 2026,
+            "monthnum": 13,
+            "error": "404",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": true,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "set_404",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:post-type-archive",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "post_type": "book",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": true,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": true,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:status-array",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "post_status": [
+              "draft",
+              "draft",
+              "private",
+              "publish"
+            ],
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": true,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:category-tax",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "-2,4,9",
+            "category__in": [],
+            "tag": "",
+            "feed": ""
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": true,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": true,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [
+              {
+                "taxonomy": "category",
+                "terms": [
+                  4,
+                  9
+                ],
+                "field": "term_id",
+                "operator": "IN",
+                "include_children": true
+              },
+              {
+                "taxonomy": "category",
+                "terms": [
+                  2
+                ],
+                "field": "term_id",
+                "operator": "NOT IN",
+                "include_children": true
+              }
+            ],
+            "queried_terms": {
+              "category": {
+                "terms": [
+                  4,
+                  9
+                ],
+                "field": "term_id"
+              }
+            },
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:comment-feed",
+          "query_vars": {
+            "p": 42,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": "rss2",
+            "withcomments": 1
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": true,
+            "is_page": false,
+            "is_singular": true,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": true,
+            "is_comment_feed": true,
+            "is_robots": false,
+            "is_favicon": false
+          },
+          "tax_query": null,
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "query-state:robots-favicon",
+          "query_vars": {
+            "p": 0,
+            "page_id": 0,
+            "s": "",
+            "paged": 0,
+            "year": 0,
+            "monthnum": 0,
+            "error": "",
+            "cat": "",
+            "category__in": [],
+            "tag": "",
+            "feed": "",
+            "robots": "1",
+            "favicon": "1"
+          },
+          "flags": {
+            "is_home": false,
+            "is_single": false,
+            "is_page": false,
+            "is_singular": false,
+            "is_search": false,
+            "is_paged": false,
+            "is_archive": false,
+            "is_date": false,
+            "is_month": false,
+            "is_404": false,
+            "is_post_type_archive": false,
+            "is_category": false,
+            "is_tag": false,
+            "is_tax": false,
+            "is_feed": false,
+            "is_comment_feed": false,
+            "is_robots": true,
+            "is_favicon": false
+          },
+          "tax_query": {
+            "queries": [],
+            "queried_terms": [],
+            "relation": "AND"
+          },
+          "query_vars_hash_kind": "md5",
+          "query_vars_changed": false,
+          "actions": [
+            {
+              "hook": "parse_tax_query",
+              "arg_count": 1
+            },
+            {
+              "hook": "parse_query",
+              "arg_count": 1
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    }
+  }
+}

@@ -72,6 +72,7 @@ const REQUIRED_COMMANDS = [
   "npm run wp:core:wphx-307-post-crud-status-adapter-contract-candidate:check",
   "npm run wp:core:wphx-307-post-meta-cache-adapter-contract-candidate:check",
   "npm run wp:core:wphx-307-post-revision-adapter-contract-candidate:check",
+  "npm run wp:core:wphx-307-wp-query-runtime-fixture:check",
   "npm run wp:core:wphx-308-taxonomy-comment-adapter-contract-candidate:check",
   "npm run wp:core:wphx-308-taxonomy-comment-crud:check",
   "npm run php:db-client-images:check",
@@ -299,6 +300,7 @@ const parityGatesManifest = {
     "npm run wp:core:wphx-307-post-crud-status-adapter-contract-candidate:check",
     "npm run wp:core:wphx-307-post-meta-cache-adapter-contract-candidate:check",
     "npm run wp:core:wphx-307-post-revision-adapter-contract-candidate:check",
+    "npm run wp:core:wphx-307-wp-query-runtime-fixture:check",
     "npm run wp:core:wphx-305-live-db:check",
     "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
     "npm run wp:core:wphx-311-rest-server-db-browser:check"
@@ -377,6 +379,7 @@ const parityGatesReceipt = {
     "npm run wp:core:wphx-307-post-crud-status-adapter-contract-candidate:check",
     "npm run wp:core:wphx-307-post-meta-cache-adapter-contract-candidate:check",
     "npm run wp:core:wphx-307-post-revision-adapter-contract-candidate:check",
+    "npm run wp:core:wphx-307-wp-query-runtime-fixture:check",
     "npm run wp:core:wphx-700-wpdb-packaged-abi-no-fallback:check",
     "npm run wp:core:wphx-305-db-connect-strategy-candidate:check",
     "npm run beads:validate",

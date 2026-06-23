@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wp-query-runtime-fixture",
+  "issue": {
+    "id": "wordpresshx-t27",
+    "external_ref": "WPHX-307.06"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "WP_Query runtime ABI and query-state fixture",
+    "area": "wp-includes/class-wp-query.php",
+    "public_contract": "Mirrored upstream WP_Query source is executed in a constrained fixture to capture runtime ABI and query-state observations. This does not claim Haxe-owned public PHP replacement or live database result parity."
+  },
+  "ownership_state": "upstream_oracle_source_mirror",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress_oracle",
+    "adapter_contract_owner": "not_claimed",
+    "emission_strategy": "oracle_source_mirror_fixture",
+    "execution_provider": "php",
+    "compatibility_evidence": "runtime_abi_and_query_state_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "fixture-only-upstream-source-mirror",
+    "removal_gate": "Replace with Haxe-owned WP_Query Adapter IR/public PHP output and live database SQL/result parity before claiming migrated WP_Query ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wp-query-runtime-fixture.mjs",
+    "manifests/wp-core/wphx-307-06-wp-query-runtime-fixture.v1.json",
+    "manifests/ownership/wphx-307-06-wp-query-runtime-fixture.v1.json",
+    "receipts/wp-core/wphx-307-06-wp-query-runtime-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-307-06-wp-query-runtime-fixture.v1.json",
+    "manifests/ownership/wphx-307-06-wp-query-runtime-fixture.v1.json",
+    "receipts/wp-core/wphx-307-06-wp-query-runtime-fixture.v1.json",
+    "build/wp-core/wphx-307-06"
+  ],
+  "upstream_mirrored_paths": [
+    "src/wp-includes/class-wp-tax-query.php",
+    "src/wp-includes/class-wp-query.php"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-307-wp-query-runtime-fixture",
+      "npm run wp:core:wphx-307-wp-query-runtime-fixture:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-307-06-wp-query-runtime-fixture"
+    ],
+    "manifest_digest": "sha256:6c05212ce303d6cea926f1e88d12e8c604f38c26a31cb0bccd994c7c180f5f24"
+  }
+}

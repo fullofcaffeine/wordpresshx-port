@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-307-06-wp-query-runtime-fixture",
+  "issue": {
+    "id": "wordpresshx-t27",
+    "external_ref": "WPHX-307.06",
+    "title": "WP_Query runtime ABI and query-state fixture"
+  },
+  "recorded_at": "2026-06-23T20:10:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-307-06-wp-query-runtime-fixture.v1.json",
+      "role": "WP_Query runtime ABI and query-state manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-307-06-wp-query-runtime-fixture.v1.json",
+      "role": "WP_Query runtime fixture ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-wp-query-runtime-fixture.mjs",
+      "role": "deterministic oracle-source-mirror fixture generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-307-wp-query-runtime-fixture",
+    "npm run wp:core:wphx-307-wp-query-runtime-fixture:check",
+    "npm run ci:php-conformance:check",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-307-01-posts-query-surface",
+    "receipt:wphx-307-02-posts-query-adapter-contract-candidate",
+    "receipt:wphx-307-03-post-crud-status-adapter-contract-candidate",
+    "receipt:wphx-307-04-post-meta-cache-adapter-contract-candidate",
+    "receipt:wphx-307-05-post-revision-adapter-contract-candidate"
+  ],
+  "manifest_sha256": "sha256:6c05212ce303d6cea926f1e88d12e8c604f38c26a31cb0bccd994c7c180f5f24",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "runtime_abi",
+      "targeted_semantic_parity"
+    ],
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "covered_symbols": 6,
+    "fixture_cases": 10,
+    "public_php_replacement_claimed": false,
+    "live_database_result_parity_claimed": false
+  }
+}
