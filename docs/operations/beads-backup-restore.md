@@ -69,6 +69,6 @@ The WPHX-807.01 SSH Dolt drill matched:
 - in-progress tasks: 0;
 - open tasks: 17;
 - ready queue size: 17;
-- remote Dolt ref: `refs/dolt/data` at `e7bb51ace2a7d1167c3f271d53f3f5591a19170c`.
+- remote Dolt ref: `refs/dolt/data` was present and usable.
 
 The fresh restore path was `/tmp/wordpresshx-wphx807-ssh-restore`.
