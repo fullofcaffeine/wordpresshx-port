@@ -10,7 +10,7 @@ const ready = bd(["ready", "--json"]);
 const blocked = bd(["blocked", "--json"]);
 const refs = new Map();
 const errors = [];
-const WPHX_REF = /^WPHX-[0-9]+(\.[0-9]+)?$/;
+const WPHX_REF = /^WPHX-(?:[0-9]+(?:\.[0-9]+[a-z]?)?|[A-Z][A-Z0-9-]*)$/;
 
 for (const issue of all) {
   if (!WPHX_REF.test(issue.external_ref ?? "")) {

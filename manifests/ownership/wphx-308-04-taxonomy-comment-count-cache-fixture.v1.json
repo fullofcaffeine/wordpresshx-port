@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/taxonomy-comment-count-cache-fixture",
+  "issue": {
+    "id": "wordpresshx-cf7",
+    "external_ref": "WPHX-308.04"
+  },
+  "unit": {
+    "kind": "oracle_fixture",
+    "name": "taxonomy/comment count and cache invalidation oracle fixture",
+    "area": "wp-includes/taxonomy.php wp-includes/comment.php",
+    "public_contract": "This fixture records vanilla WordPress taxonomy/comment count and cache invalidation behavior that generated Haxe-owned adapters must satisfy. It does not claim Haxe-owned public PHP replacement."
+  },
+  "ownership_state": "oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle",
+    "adapter_contract_owner": "not_claimed",
+    "emission_strategy": "upstream_source_mirror_fixture",
+    "execution_provider": "php_oracle_process",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "oracle-source-mirror-fixture",
+    "removal_gate": "Replace candidate mirror with generated original-path PHP once WPHX-308 public taxonomy/comment adapter contracts exist."
+  },
+  "owned_paths": [
+    "manifests/wp-core/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+    "manifests/ownership/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+    "receipts/wp-core/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+    "tools/wp-core/run-taxonomy-comment-count-cache-fixture.mjs"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-308-04"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-308-taxonomy-comment-count-cache",
+      "npm run wp:core:wphx-308-taxonomy-comment-count-cache:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-308-04-taxonomy-comment-count-cache-fixture"
+    ],
+    "manifest_digest": "sha256:b4ec76edaab3e8ecd0f9178e9309d7696bb69178510c2a4665581eaead91fb41"
+  }
+}

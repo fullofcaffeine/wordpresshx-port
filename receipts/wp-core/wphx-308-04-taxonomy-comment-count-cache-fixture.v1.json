@@ -1,0 +1,37 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-308-04-taxonomy-comment-count-cache-fixture",
+  "issue": {
+    "id": "wordpresshx-cf7",
+    "external_ref": "WPHX-308.04",
+    "title": "Taxonomy/comment count and cache invalidation oracle fixture"
+  },
+  "recorded_at": "2026-06-23T22:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+      "role": "taxonomy/comment count and cache invalidation oracle fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+      "role": "ownership manifest for taxonomy/comment count/cache fixture"
+    },
+    {
+      "path": "tools/wp-core/run-taxonomy-comment-count-cache-fixture.mjs",
+      "role": "fixture generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-308-taxonomy-comment-count-cache",
+    "npm run wp:core:wphx-308-taxonomy-comment-count-cache:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cases": 5,
+    "covered_symbols": 9,
+    "public_php_replacement_claimed": false,
+    "artifact_scope": "oracle_source_mirror_fixture"
+  }
+}
