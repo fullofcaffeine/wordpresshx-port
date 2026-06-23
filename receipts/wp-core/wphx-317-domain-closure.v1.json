@@ -1,0 +1,97 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-317-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.11",
+    "external_ref": "WPHX-317",
+    "title": "Multisite and network"
+  },
+  "recorded_at": "2026-06-23T06:45:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-317-01-multisite-network-surface.v1.json",
+      "role": "multisite and network surface inventory"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-02-multisite-options-transients-fixture.v1.json",
+      "role": "site/network option and site-transient fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-03-multisite-blog-switch-cache-fixture.v1.json",
+      "role": "site/blog switching and cache-group fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-04-site-network-query-fixture.v1.json",
+      "role": "WP_Site and WP_Network ABI/query fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-05-multisite-bootstrap-routing-fixture.v1.json",
+      "role": "multisite bootstrap and domain/path routing fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-06-multisite-signup-lifecycle-fixture.v1.json",
+      "role": "multisite signup, lifecycle, counts, quota, and notification fixture"
+    },
+    {
+      "path": "manifests/wp-core/wphx-317-07-multisite-adapter-contract-candidate.v1.json",
+      "role": "first typed Haxe multisite semantic and adapter-contract candidate"
+    },
+    {
+      "path": "src/wphx/wp/multisite/MultisiteAdapterContract.hx",
+      "role": "typed Haxe multisite semantic and adapter-contract model"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-317-multisite-options-transients:check",
+    "npm run wp:core:wphx-317-blog-switch-cache:check",
+    "npm run wp:core:wphx-317-site-network-query:check",
+    "npm run wp:core:wphx-317-bootstrap-routing:check",
+    "npm run wp:core:wphx-317-signup-lifecycle:check",
+    "npm run wp:core:wphx-317-multisite-adapter-contract-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run beads:validate",
+    "npm run receipts:validate"
+  ],
+  "follow_up": [
+    {
+      "issue": "WPHX-322",
+      "bead": "wordpresshx-l76.12",
+      "reason": "Owns full PHP first-party manifest closure and upstream PHPUnit/domain parity ratcheting after WPHX-301 through WPHX-317 domain slices."
+    },
+    {
+      "issue": "future WPHX-317 installed-distribution slice",
+      "bead": null,
+      "reason": "Needed when multisite public PHP files are emitted from Haxe-owned adapter contracts and tested as an installed distribution without oracle-source fallback."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "closed_child_slices": 7,
+    "fixture_domains": [
+      "multisite/network surface inventory",
+      "site/network options and site transients",
+      "blog switching and cache groups",
+      "WP_Site/WP_Network ABI and query behavior",
+      "bootstrap and domain/path routing",
+      "signup, lifecycle, counts, quota, and notifications",
+      "typed Haxe multisite semantic and adapter-contract candidate"
+    ],
+    "ownership_summary": {
+      "haxe_parity_candidate": [
+        "multisite adapter-contract field definitions",
+        "network/site route and object summary contracts",
+        "site-option and site-transient contract descriptors",
+        "blog-switch and signup/lifecycle contract descriptors"
+      ],
+      "external_oracle": [
+        "public PHP multisite files remain oracle-source mirror fixtures",
+        "live database, installed multisite, email transport, and upstream PHPUnit parity remain WPHX-322 or later distribution gates"
+      ]
+    },
+    "claim_boundaries": {
+      "public_php_replacement_claimed": false,
+      "installed_distribution_claimed": false,
+      "semantic_parity_scope": "targeted oracle/candidate fixtures plus one typed Haxe adapter-contract candidate"
+    }
+  }
+}

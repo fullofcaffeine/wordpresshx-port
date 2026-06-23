@@ -4,8 +4,8 @@ This document is the durable human-readable rollup for progress toward a WordPre
 
 Beads remains the task database. This matrix is a status ledger over Beads issues, receipts, manifests, and PRD milestones. Update it in the same change whenever milestone status, scope, evidence gates, Gutenberg split policy, or completion estimates change.
 
-Last updated: 2026-06-22
-Source checkpoint: `WPHX-317.07 artifacts in this change`
+Last updated: 2026-06-23
+Source checkpoint: `WPHX-317 domain closure receipt`
 Tracking issue: `WPHX-000.02`
 
 ## Super Progress
@@ -18,7 +18,7 @@ This is an evidence-weighted program estimate, not source-line completion. It gi
 | --- | ---: | ---: | ---: | --- |
 | Program governance, baselines, manifests, Beads, receipts | 10 | 95 | 9.5 | `WPHX-000`, `WPHX-800`, baseline receipts, locked sibling repo policy |
 | PHP target feasibility, ABI, linker, public boundary foundation | 20 | 100 | 20.0 | `WPHX-100` and `WPHX-200` closed |
-| WordPress PHP runtime Haxe ownership | 40 | 16 | 6.4 | `WPHX-300` has several verified vertical slices and the first multisite Haxe adapter-contract candidate, but much of Core remains unported |
+| WordPress PHP runtime Haxe ownership | 40 | 17 | 6.8 | `WPHX-300` has several verified vertical slices, multisite/network closure receipts, and the first multisite Haxe adapter-contract candidate, but much of Core remains unported |
 | Installed WordPress distribution behavior and ecosystem gates | 15 | 5 | 0.8 | `WPHX-700` has strong early gates, but complete installed-system parity is not yet closed |
 | Browser, classic JS, Gutenberg package ownership | 10 | 0 | 0.0 | `WPHX-400`, `WPHX-500`, and `WPHX-600` are not yet active implementation tracks |
 | Security, performance, reliability, and release closure | 5 | 0 | 0.0 | early security corpus exists, full nonfunctional closure is later-stage work |
@@ -34,7 +34,7 @@ ADR-004 clarifies ownership claims without changing the score: PHP is the privil
 | `WPHX-000` | Program governance and baseline | open | 16/16 baseline children closed, plus ongoing governance follow-ups | Control-plane baseline is usable; governance remains open for program-level decisions like this matrix | Keep PRD, AGENTS, operations docs, locks, and progress matrix current |
 | `WPHX-100` | PHP target feasibility | closed | 9/9 | Stock PHP target feasibility gates passed | Reopen only through compiler-pressure evidence |
 | `WPHX-200` | PHP ABI, runtime, and linker | closed | 8/8 | ABI extraction, macro contracts, boundary types, facades, linker, public types, source maps, and escape-hatch audit exist | Use this foundation for each migrated Core slice |
-| `WPHX-300` | WordPress PHP core | open | 6/8 direct children closed | Bootstrap, hooks, error/formatting/escaping/KSES, options/cache, wpdb, and REST have verified vertical slices; multisite and full first-party manifest closure remain open | Finish `WPHX-317` and `WPHX-322`; continue replacing shells with Haxe-owned runtime logic |
+| `WPHX-300` | WordPress PHP core | open | 7/8 direct children closed | Bootstrap, hooks, error/formatting/escaping/KSES, options/cache, wpdb, REST, and multisite have verified vertical slices; full first-party manifest closure remains open | Finish `WPHX-322`; continue replacing shells with Haxe-owned runtime logic |
 | `WPHX-400` | genes-ts/browser platform | open | 0/0 | Planning/feasibility track, not active implementation yet | Seed browser platform tasks and prove genes-ts package, React/TSX, exports, source maps, and bundling gates |
 | `WPHX-500` | Gutenberg packages | not seeded | 0/0 | Do not start broad package translation yet | Create after `WPHX-400` package/React feasibility justifies parallelization and an ADR confirms repo protocol |
 | `WPHX-600` | WordPress classic JS and browser vendors | not seeded | 0/0 | Not active | Start after browser platform gates expose the right package/runtime boundaries |
@@ -44,7 +44,7 @@ ADR-004 clarifies ownership claims without changing the score: PHP is the privil
 
 ## WordPress PHP Core Detail
 
-`WPHX-300` currently reports 6 of 8 direct child milestones closed in Beads. Treat that as **milestone slice progress**, not as "75% of WordPress Core is ported."
+`WPHX-300` currently reports 7 of 8 direct child milestones closed in Beads. Treat that as **milestone slice progress**, not as "87.5% of WordPress Core is ported."
 
 | Slice | Status | Current interpretation |
 | --- | --- | --- |
@@ -54,7 +54,7 @@ ADR-004 clarifies ownership claims without changing the score: PHP is the privil
 | `WPHX-304` Options/transients/object cache | closed | Option/cache candidate gates and fixtures exist |
 | `WPHX-305` wpdb/database abstraction | closed | Strong wpdb vertical slice exists, including native mysqli and packaged ABI gates; still not evidence that every related Core DB path is Haxe-owned |
 | `WPHX-311` REST API/schema | closed | Settings and REST server decision slices are typed Haxe strategy candidates; packaged, installed-browser, DB-backed, and cross-origin REST gates cover the active transport surface |
-| `WPHX-317` Multisite/network | open | All 7 child tasks are complete: surface inventory, site/network option plus site-transient fixtures, blog switch/cache fixtures, site/network ABI/query fixtures, bootstrap/domain-path routing fixtures, signup/lifecycle/counts/quota fixtures, and the first typed Haxe multisite adapter-contract candidate. Parent closure still needs an explicit WPHX-317 rollup/closure decision. |
+| `WPHX-317` Multisite/network | closed | Domain closure receipt exists across all 7 child tasks: surface inventory, site/network option plus site-transient fixtures, blog switch/cache fixtures, site/network ABI/query fixtures, bootstrap/domain-path routing fixtures, signup/lifecycle/counts/quota fixtures, and the first typed Haxe multisite adapter-contract candidate. Public PHP replacement and installed multisite distribution claims remain later gates. |
 | `WPHX-322` PHP first-party manifest closure | open | Needed to prove the remaining Core PHP runtime inventory has ownership states and closure gates |
 
 ## Gutenberg Plan
