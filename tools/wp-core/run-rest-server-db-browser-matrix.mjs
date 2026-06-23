@@ -196,10 +196,16 @@ function normalizeHeadersFromObject(headers) {
   for (const header of SELECTED_HEADERS) {
     const value = headers[header] ?? headers[header.toLowerCase()] ?? null;
     if (value !== null) {
-      normalized[header] = String(value).replaceAll(/http:\/\/127\.0\.0\.1:\d+/g, "http://127.0.0.1:<port>");
+      normalized[header] = normalizeHeaderValue(String(value));
     }
   }
   return normalized;
+}
+
+function normalizeHeaderValue(value) {
+  return value
+    .replace(/^X-Powered-By: PHP\/[^\s]+$/i, "X-Powered-By: PHP/<version>")
+    .replaceAll(/http:\/\/127\.0\.0\.1:\d+/g, "http://127.0.0.1:<port>");
 }
 
 function ensureDbRoot(root) {
@@ -698,7 +704,7 @@ function readRequestLog(path) {
       access_control_request_method: entry.access_control_request_method,
       access_control_request_headers: entry.access_control_request_headers,
       status: entry.status,
-      response_headers: entry.response_headers.map((header) => header.replace(/http:\/\/127\.0\.0\.1:\d+/g, "http://127.0.0.1:<port>")),
+      response_headers: entry.response_headers.map(normalizeHeaderValue),
       php_error_count: Array.isArray(entry.php_errors) ? entry.php_errors.length : null
     }));
 }
