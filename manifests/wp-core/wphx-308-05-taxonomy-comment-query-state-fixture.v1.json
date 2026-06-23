@@ -1,0 +1,842 @@
+{
+  "schema": "wphx.wp-core-taxonomy-comment-query-state-fixture.v1",
+  "issue": "WPHX-308.05",
+  "generated_at": "2026-06-23T23:20:00.000Z",
+  "generator": "tools/wp-core/run-taxonomy-comment-query-state-fixture.mjs",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "source_files": [
+      {
+        "path": "src/wp-includes/class-wp-error.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-error.php",
+        "bytes": 7502,
+        "sha256": "sha256:fe0e54bcb095f3ebb6493cbd558f927234e1bff3f643b2ca00f7e2d74309400c"
+      },
+      {
+        "path": "src/wp-includes/class-wp-taxonomy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-taxonomy.php",
+        "bytes": 18559,
+        "sha256": "sha256:055b2da70596c7d78efb51892b6e078940a35e6c9f0963a16eb43915f87a0805"
+      },
+      {
+        "path": "src/wp-includes/class-wp-term.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-term.php",
+        "bytes": 5263,
+        "sha256": "sha256:4bceedaf4397db32016cc8e8032d4c02c2d1dda2ad966cd56a6b99d75c7f32ef"
+      },
+      {
+        "path": "src/wp-includes/class-wp-comment.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-comment.php",
+        "bytes": 9371,
+        "sha256": "sha256:67216778a97fc448fb404e7cafbf74e7027ca965d082e88f2a7c58e9a3d0f5a7"
+      },
+      {
+        "path": "src/wp-includes/class-wp-meta-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-meta-query.php",
+        "bytes": 30507,
+        "sha256": "sha256:22763447b928ceacc9a3f0cb835c9dc094b168ba1f8f8088319bd0381c8dce70"
+      },
+      {
+        "path": "src/wp-includes/class-wp-date-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-date-query.php",
+        "bytes": 35970,
+        "sha256": "sha256:903d70e399388560d76ebe68264df839922ebabd7e05c7a32345c5c53f7312a4"
+      },
+      {
+        "path": "src/wp-includes/class-wp-term-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-term-query.php",
+        "bytes": 40751,
+        "sha256": "sha256:af18376c0aa11cac728190fac6dfe59770a1827fcfeda13ec95b53e4a8c70fbf"
+      },
+      {
+        "path": "src/wp-includes/class-wp-comment-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-comment-query.php",
+        "bytes": 48631,
+        "sha256": "sha256:12e4cb4d7bc822eedac4fd82c5011e66e2919754dcecdaba0fef52a952bb4a3c"
+      },
+      {
+        "path": "src/wp-includes/taxonomy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/taxonomy.php",
+        "bytes": 177144,
+        "sha256": "sha256:48af3bc6434c99beb2f274ba309590c4c063ab0c4984c6cc34d3697c5edbb1c3"
+      },
+      {
+        "path": "src/wp-includes/comment.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/comment.php",
+        "bytes": 134085,
+        "sha256": "sha256:77f7874661ff4bf687fc1d2c7bdc84a02264f6bda35fa901e38afd5801b2dd74"
+      }
+    ]
+  },
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-308-01-taxonomy-comments-surface.v1.json",
+      "bytes": 38734,
+      "sha256": "sha256:c70255713a83f53a53a002c31b09e7222c8eb22e686bbbb384f49d0a07048407"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-308-02-taxonomy-comment-adapter-contract-candidate.v1.json",
+      "bytes": 19551,
+      "sha256": "sha256:5f3c4435f6b8f2b0ff2476d953764bbd9a0579a1b08566d1b66f3bea3dd43343"
+    },
+    "crud_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-308-03-taxonomy-comment-crud-fixture.v1.json",
+      "bytes": 24132,
+      "sha256": "sha256:c0933a93b785fa6e95e6371afc6a44e351dd3c0c1b9e7ad9381a834bd2054391"
+    },
+    "count_cache_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-308-04-taxonomy-comment-count-cache-fixture.v1.json",
+      "bytes": 19950,
+      "sha256": "sha256:b4ec76edaab3e8ecd0f9178e9309d7696bb69178510c2a4665581eaead91fb41"
+    }
+  },
+  "fixture": {
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "source_files": [
+      "src/wp-includes/class-wp-error.php",
+      "src/wp-includes/class-wp-taxonomy.php",
+      "src/wp-includes/class-wp-term.php",
+      "src/wp-includes/class-wp-comment.php",
+      "src/wp-includes/class-wp-meta-query.php",
+      "src/wp-includes/class-wp-date-query.php",
+      "src/wp-includes/class-wp-term-query.php",
+      "src/wp-includes/class-wp-comment-query.php",
+      "src/wp-includes/taxonomy.php",
+      "src/wp-includes/comment.php"
+    ],
+    "covered_symbols": [
+      "WP_Term_Query::__construct",
+      "WP_Term_Query::parse_query",
+      "WP_Term_Query::get_terms",
+      "get_terms",
+      "WP_Comment_Query::__construct",
+      "WP_Comment_Query::parse_query",
+      "WP_Comment_Query::get_comments",
+      "WP_Comment_Query::get_comment_ids",
+      "get_comments"
+    ],
+    "cases": [
+      {
+        "id": "term-query:basic",
+        "symbol": "WP_Term_Query::get_terms",
+        "focus": "taxonomy, hide_empty, fields, orderby, limit, parse hooks, SQL request, and terms_clauses"
+      },
+      {
+        "id": "term-query:include-search-meta",
+        "symbol": "WP_Term_Query::get_terms",
+        "focus": "include ordering, search SQL, meta query joins, cache key path, and selected query vars"
+      },
+      {
+        "id": "term-query:count",
+        "symbol": "WP_Term_Query::get_terms",
+        "focus": "count field request shape and count result path"
+      },
+      {
+        "id": "comment-query:status-type-post",
+        "symbol": "WP_Comment_Query::get_comments",
+        "focus": "status/type/post filters, found rows, paging limits, parse hooks, SQL request, and comments_clauses"
+      },
+      {
+        "id": "comment-query:include-search-date-meta",
+        "symbol": "WP_Comment_Query::get_comments",
+        "focus": "comment__in ordering, search columns, date query, meta query joins, and selected query vars"
+      },
+      {
+        "id": "comment-query:count",
+        "symbol": "WP_Comment_Query::get_comments",
+        "focus": "count request shape and count result path"
+      }
+    ],
+    "candidate_policy": {
+      "public_php_replacement_claimed": false,
+      "haxe_semantic_ownership_claimed": false,
+      "handwritten_production_php_added": false,
+      "live_database_parity_claimed": false,
+      "note": "The candidate side currently mirrors locked upstream source to establish a stable fixture. A later WPHX-308 slice must replace the candidate mirror with generated original-path PHP before ownership can be upgraded."
+    }
+  },
+  "runs": {
+    "oracle": {
+      "mode": "oracle",
+      "command": "php build/wp-core/wphx-308-05/probe.php oracle build/wp-core/wphx-308-05/oracle",
+      "raw_output_sha256": "sha256:729c75be172b974b83e1a9e6b5dadfffe09b867cb385d68056f4ee30ab8fa046",
+      "result": {
+        "mode": "oracle",
+        "observations": {
+          "comment-query:count": {
+            "result": 0,
+            "query_vars": {
+              "fields": "",
+              "orderby": "",
+              "order": "DESC",
+              "search": "",
+              "number": "",
+              "offset": "",
+              "meta_key": "",
+              "meta_value": "",
+              "status": "approve",
+              "type": "comment",
+              "type__in": "",
+              "post_id": 101,
+              "post__in": "",
+              "comment__in": "",
+              "count": true,
+              "no_found_rows": true,
+              "paged": 1,
+              "date_query": null
+            },
+            "request": "SELECT COUNT(*) FROM wp_comments WHERE ( comment_approved = '1' ) AND comment_post_ID = 101 AND comment_type IN ('', 'comment') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt DESC",
+            "sql_clauses": {
+              "from": "FROM wp_comments",
+              "groupby": "",
+              "limits": "",
+              "orderby": "ORDER BY wp_comments.comment_date_gmt DESC",
+              "select": "SELECT COUNT(*)",
+              "where": {
+                "approved": "( comment_approved = '1' )",
+                "post_id": "comment_post_ID = 101",
+                "comment_type__in": "comment_type IN ('', 'comment')",
+                "comment_type__not_in": "comment_type NOT IN ('note')"
+              }
+            },
+            "last_query": "SELECT COUNT(*) FROM wp_comments WHERE ( comment_approved = '1' ) AND comment_post_ID = 101 AND comment_type IN ('', 'comment') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt DESC",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "comment-query:include-search-date-meta": {
+            "result": [],
+            "query_vars": {
+              "fields": "ids",
+              "orderby": "comment__in",
+              "order": "DESC",
+              "search": "Fixture Search",
+              "number": "",
+              "offset": "",
+              "meta_key": "fixture_key",
+              "meta_value": "fixture_value",
+              "status": "all",
+              "type": "",
+              "type__in": "",
+              "post_id": 0,
+              "post__in": "",
+              "comment__in": [
+                303,
+                301,
+                302
+              ],
+              "count": false,
+              "no_found_rows": true,
+              "paged": 1,
+              "date_query": [
+                {
+                  "after": "2026-01-01",
+                  "column": "comment_date_gmt"
+                }
+              ]
+            },
+            "request": "SELECT wp_comments.comment_ID FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id ) WHERE ( ( comment_approved = '0' OR comment_approved = '1' ) ) AND wp_comments.comment_ID IN ( 303,301,302 ) AND comment_type NOT IN ('note') AND (comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%') AND ( ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' ) ) AND ( wp_comments.comment_date_gmt > '2026-01-01 23:59:59' ) /*fixture_comments_clauses*/ GROUP BY wp_comments.comment_ID ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+            "sql_clauses": {
+              "from": "FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id )",
+              "groupby": "GROUP BY wp_comments.comment_ID",
+              "limits": "",
+              "orderby": "ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+              "select": "SELECT wp_comments.comment_ID",
+              "where": {
+                "approved": "( ( comment_approved = '0' OR comment_approved = '1' ) )",
+                "comment__in": "wp_comments.comment_ID IN ( 303,301,302 )",
+                "comment_type__not_in": "comment_type NOT IN ('note')",
+                "search": "(comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%')",
+                "meta_query": "( \n  ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' )\n)",
+                "date_query": "( \n  wp_comments.comment_date_gmt > '2026-01-01 23:59:59'\n)"
+              }
+            },
+            "last_query": "SELECT wp_comments.comment_ID FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id ) WHERE ( ( comment_approved = '0' OR comment_approved = '1' ) ) AND wp_comments.comment_ID IN ( 303,301,302 ) AND comment_type NOT IN ('note') AND (comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%') AND ( ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' ) ) AND ( wp_comments.comment_date_gmt > '2026-01-01 23:59:59' ) /*fixture_comments_clauses*/ GROUP BY wp_comments.comment_ID ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "date_query_valid_columns": 2,
+              "get_date_sql": 1,
+              "get_meta_sql": 1,
+              "meta_query_find_compatible_table_alias": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "comment-query:status-type-post": {
+            "result": [],
+            "query_vars": {
+              "fields": "ids",
+              "orderby": "comment_date_gmt",
+              "order": "ASC",
+              "search": "",
+              "number": 10,
+              "offset": "",
+              "meta_key": "",
+              "meta_value": "",
+              "status": [
+                "approve",
+                "hold"
+              ],
+              "type": "",
+              "type__in": [
+                "comment",
+                "trackback"
+              ],
+              "post_id": 101,
+              "post__in": [
+                101,
+                102
+              ],
+              "comment__in": "",
+              "count": false,
+              "no_found_rows": false,
+              "paged": 2,
+              "date_query": null
+            },
+            "request": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID FROM wp_comments WHERE ( comment_approved = '1' OR comment_approved = '0' ) AND comment_post_ID = 101 AND comment_post_ID IN ( 101,102 ) AND comment_type IN ('', 'comment', 'trackback') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC LIMIT 10,10",
+            "sql_clauses": {
+              "from": "FROM wp_comments",
+              "groupby": "",
+              "limits": "LIMIT 10,10",
+              "orderby": "ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC",
+              "select": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID",
+              "where": {
+                "approved": "( comment_approved = '1' OR comment_approved = '0' )",
+                "post_id": "comment_post_ID = 101",
+                "post__in": "comment_post_ID IN ( 101,102 )",
+                "comment_type__in": "comment_type IN ('', 'comment', 'trackback')",
+                "comment_type__not_in": "comment_type NOT IN ('note')"
+              }
+            },
+            "last_query": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID FROM wp_comments WHERE ( comment_approved = '1' OR comment_approved = '0' ) AND comment_post_ID = 101 AND comment_post_ID IN ( 101,102 ) AND comment_type IN ('', 'comment', 'trackback') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC LIMIT 10,10",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "errors": [
+            {
+              "errno": 2,
+              "message": "Undefined property: WPHX_308_05_WPDB::$users",
+              "file": "class-wp-date-query.php",
+              "line": 528
+            },
+            {
+              "errno": 2,
+              "message": "Undefined property: WPHX_308_05_WPDB::$users",
+              "file": "class-wp-date-query.php",
+              "line": 528
+            }
+          ],
+          "term-query:basic": {
+            "result": [],
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "ids",
+              "include": [],
+              "orderby": "name",
+              "order": "DESC",
+              "hide_empty": false,
+              "slug": [],
+              "search": "",
+              "name__like": "",
+              "number": 5,
+              "offset": 2,
+              "meta_key": "",
+              "meta_value": ""
+            },
+            "request": "SELECT t.term_id FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/ ORDER BY t.name DESC",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "ORDER BY t.name DESC",
+              "select": "SELECT t.term_id",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')"
+              }
+            },
+            "last_query": "SELECT t.term_id FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/ ORDER BY t.name DESC",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          },
+          "term-query:count": {
+            "result": "0",
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "count",
+              "include": [],
+              "orderby": "name",
+              "order": "ASC",
+              "hide_empty": false,
+              "slug": [],
+              "search": "",
+              "name__like": "",
+              "number": 0,
+              "offset": 0,
+              "meta_key": "",
+              "meta_value": ""
+            },
+            "request": "SELECT COUNT(*) FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "",
+              "select": "SELECT COUNT(*)",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')"
+              }
+            },
+            "last_query": "SELECT COUNT(*) FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          },
+          "term-query:include-search-meta": {
+            "result": [],
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "ids",
+              "include": [
+                12,
+                11,
+                12
+              ],
+              "orderby": "include",
+              "order": "ASC",
+              "hide_empty": true,
+              "slug": [],
+              "search": "Alpha Beta",
+              "name__like": "",
+              "number": 0,
+              "offset": 0,
+              "meta_key": "fixture_key",
+              "meta_value": "fixture_value"
+            },
+            "request": "SELECT DISTINCT t.term_id FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') AND t.term_id IN ( 12,11 ) AND ((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%')) AND ( ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' ) ) /*fixture_terms_clauses*/ ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+              "select": "SELECT DISTINCT t.term_id",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')",
+                "inclusions": "t.term_id IN ( 12,11 )",
+                "search": "((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%'))",
+                "meta_query": "( \n  ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' )\n)"
+              }
+            },
+            "last_query": "SELECT DISTINCT t.term_id FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') AND t.term_id IN ( 12,11 ) AND ((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%')) AND ( ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' ) ) /*fixture_terms_clauses*/ ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "meta_query_find_compatible_table_alias": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          }
+        }
+      }
+    },
+    "candidate": {
+      "mode": "candidate",
+      "command": "php build/wp-core/wphx-308-05/probe.php candidate build/wp-core/wphx-308-05/candidate",
+      "raw_output_sha256": "sha256:287ddfca608fdb495ffe81e92b6ebc20addbcf0b39b5c534795eda30f603d0cd",
+      "result": {
+        "mode": "candidate",
+        "observations": {
+          "comment-query:count": {
+            "result": 0,
+            "query_vars": {
+              "fields": "",
+              "orderby": "",
+              "order": "DESC",
+              "search": "",
+              "number": "",
+              "offset": "",
+              "meta_key": "",
+              "meta_value": "",
+              "status": "approve",
+              "type": "comment",
+              "type__in": "",
+              "post_id": 101,
+              "post__in": "",
+              "comment__in": "",
+              "count": true,
+              "no_found_rows": true,
+              "paged": 1,
+              "date_query": null
+            },
+            "request": "SELECT COUNT(*) FROM wp_comments WHERE ( comment_approved = '1' ) AND comment_post_ID = 101 AND comment_type IN ('', 'comment') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt DESC",
+            "sql_clauses": {
+              "from": "FROM wp_comments",
+              "groupby": "",
+              "limits": "",
+              "orderby": "ORDER BY wp_comments.comment_date_gmt DESC",
+              "select": "SELECT COUNT(*)",
+              "where": {
+                "approved": "( comment_approved = '1' )",
+                "post_id": "comment_post_ID = 101",
+                "comment_type__in": "comment_type IN ('', 'comment')",
+                "comment_type__not_in": "comment_type NOT IN ('note')"
+              }
+            },
+            "last_query": "SELECT COUNT(*) FROM wp_comments WHERE ( comment_approved = '1' ) AND comment_post_ID = 101 AND comment_type IN ('', 'comment') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt DESC",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "comment-query:include-search-date-meta": {
+            "result": [],
+            "query_vars": {
+              "fields": "ids",
+              "orderby": "comment__in",
+              "order": "DESC",
+              "search": "Fixture Search",
+              "number": "",
+              "offset": "",
+              "meta_key": "fixture_key",
+              "meta_value": "fixture_value",
+              "status": "all",
+              "type": "",
+              "type__in": "",
+              "post_id": 0,
+              "post__in": "",
+              "comment__in": [
+                303,
+                301,
+                302
+              ],
+              "count": false,
+              "no_found_rows": true,
+              "paged": 1,
+              "date_query": [
+                {
+                  "after": "2026-01-01",
+                  "column": "comment_date_gmt"
+                }
+              ]
+            },
+            "request": "SELECT wp_comments.comment_ID FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id ) WHERE ( ( comment_approved = '0' OR comment_approved = '1' ) ) AND wp_comments.comment_ID IN ( 303,301,302 ) AND comment_type NOT IN ('note') AND (comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%') AND ( ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' ) ) AND ( wp_comments.comment_date_gmt > '2026-01-01 23:59:59' ) /*fixture_comments_clauses*/ GROUP BY wp_comments.comment_ID ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+            "sql_clauses": {
+              "from": "FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id )",
+              "groupby": "GROUP BY wp_comments.comment_ID",
+              "limits": "",
+              "orderby": "ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+              "select": "SELECT wp_comments.comment_ID",
+              "where": {
+                "approved": "( ( comment_approved = '0' OR comment_approved = '1' ) )",
+                "comment__in": "wp_comments.comment_ID IN ( 303,301,302 )",
+                "comment_type__not_in": "comment_type NOT IN ('note')",
+                "search": "(comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%')",
+                "meta_query": "( \n  ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' )\n)",
+                "date_query": "( \n  wp_comments.comment_date_gmt > '2026-01-01 23:59:59'\n)"
+              }
+            },
+            "last_query": "SELECT wp_comments.comment_ID FROM wp_comments INNER JOIN wp_commentmeta ON ( wp_comments.comment_ID = wp_commentmeta.comment_id ) WHERE ( ( comment_approved = '0' OR comment_approved = '1' ) ) AND wp_comments.comment_ID IN ( 303,301,302 ) AND comment_type NOT IN ('note') AND (comment_author LIKE '%Fixture Search%' OR comment_author_email LIKE '%Fixture Search%' OR comment_author_url LIKE '%Fixture Search%' OR comment_author_IP LIKE '%Fixture Search%' OR comment_content LIKE '%Fixture Search%') AND ( ( wp_commentmeta.meta_key = 'fixture_key' AND wp_commentmeta.meta_value = 'fixture_value' ) ) AND ( wp_comments.comment_date_gmt > '2026-01-01 23:59:59' ) /*fixture_comments_clauses*/ GROUP BY wp_comments.comment_ID ORDER BY FIELD( wp_comments.comment_ID, 303,301,302 )",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "date_query_valid_columns": 2,
+              "get_date_sql": 1,
+              "get_meta_sql": 1,
+              "meta_query_find_compatible_table_alias": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "comment-query:status-type-post": {
+            "result": [],
+            "query_vars": {
+              "fields": "ids",
+              "orderby": "comment_date_gmt",
+              "order": "ASC",
+              "search": "",
+              "number": 10,
+              "offset": "",
+              "meta_key": "",
+              "meta_value": "",
+              "status": [
+                "approve",
+                "hold"
+              ],
+              "type": "",
+              "type__in": [
+                "comment",
+                "trackback"
+              ],
+              "post_id": 101,
+              "post__in": [
+                101,
+                102
+              ],
+              "comment__in": "",
+              "count": false,
+              "no_found_rows": false,
+              "paged": 2,
+              "date_query": null
+            },
+            "request": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID FROM wp_comments WHERE ( comment_approved = '1' OR comment_approved = '0' ) AND comment_post_ID = 101 AND comment_post_ID IN ( 101,102 ) AND comment_type IN ('', 'comment', 'trackback') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC LIMIT 10,10",
+            "sql_clauses": {
+              "from": "FROM wp_comments",
+              "groupby": "",
+              "limits": "LIMIT 10,10",
+              "orderby": "ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC",
+              "select": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID",
+              "where": {
+                "approved": "( comment_approved = '1' OR comment_approved = '0' )",
+                "post_id": "comment_post_ID = 101",
+                "post__in": "comment_post_ID IN ( 101,102 )",
+                "comment_type__in": "comment_type IN ('', 'comment', 'trackback')",
+                "comment_type__not_in": "comment_type NOT IN ('note')"
+              }
+            },
+            "last_query": "SELECT SQL_CALC_FOUND_ROWS wp_comments.comment_ID FROM wp_comments WHERE ( comment_approved = '1' OR comment_approved = '0' ) AND comment_post_ID = 101 AND comment_post_ID IN ( 101,102 ) AND comment_type IN ('', 'comment', 'trackback') AND comment_type NOT IN ('note') /*fixture_comments_clauses*/ ORDER BY wp_comments.comment_date_gmt ASC, wp_comments.comment_ID ASC LIMIT 10,10",
+            "found_comments": 0,
+            "max_num_pages": 0,
+            "hooks": {
+              "comments_clauses": 1,
+              "comments_pre_query": 1,
+              "parse_comment_query": 2,
+              "pre_get_comments": 2
+            }
+          },
+          "errors": [
+            {
+              "errno": 2,
+              "message": "Undefined property: WPHX_308_05_WPDB::$users",
+              "file": "class-wp-date-query.php",
+              "line": 528
+            },
+            {
+              "errno": 2,
+              "message": "Undefined property: WPHX_308_05_WPDB::$users",
+              "file": "class-wp-date-query.php",
+              "line": 528
+            }
+          ],
+          "term-query:basic": {
+            "result": [],
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "ids",
+              "include": [],
+              "orderby": "name",
+              "order": "DESC",
+              "hide_empty": false,
+              "slug": [],
+              "search": "",
+              "name__like": "",
+              "number": 5,
+              "offset": 2,
+              "meta_key": "",
+              "meta_value": ""
+            },
+            "request": "SELECT t.term_id FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/ ORDER BY t.name DESC",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "ORDER BY t.name DESC",
+              "select": "SELECT t.term_id",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')"
+              }
+            },
+            "last_query": "SELECT t.term_id FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/ ORDER BY t.name DESC",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          },
+          "term-query:count": {
+            "result": "0",
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "count",
+              "include": [],
+              "orderby": "name",
+              "order": "ASC",
+              "hide_empty": false,
+              "slug": [],
+              "search": "",
+              "name__like": "",
+              "number": 0,
+              "offset": 0,
+              "meta_key": "",
+              "meta_value": ""
+            },
+            "request": "SELECT COUNT(*) FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "",
+              "select": "SELECT COUNT(*)",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')"
+              }
+            },
+            "last_query": "SELECT COUNT(*) FROM wp_terms AS t INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') /*fixture_terms_clauses*/",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          },
+          "term-query:include-search-meta": {
+            "result": [],
+            "query_vars": {
+              "taxonomy": [
+                "fixture_topic"
+              ],
+              "object_ids": [],
+              "fields": "ids",
+              "include": [
+                12,
+                11,
+                12
+              ],
+              "orderby": "include",
+              "order": "ASC",
+              "hide_empty": true,
+              "slug": [],
+              "search": "Alpha Beta",
+              "name__like": "",
+              "number": 0,
+              "offset": 0,
+              "meta_key": "fixture_key",
+              "meta_value": "fixture_value"
+            },
+            "request": "SELECT DISTINCT t.term_id FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') AND t.term_id IN ( 12,11 ) AND ((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%')) AND ( ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' ) ) /*fixture_terms_clauses*/ ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+            "sql_clauses": {
+              "from": "FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id",
+              "limits": "",
+              "orderby": "ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+              "select": "SELECT DISTINCT t.term_id",
+              "where": {
+                "taxonomy": "tt.taxonomy IN ('fixture_topic')",
+                "inclusions": "t.term_id IN ( 12,11 )",
+                "search": "((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%'))",
+                "meta_query": "( \n  ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' )\n)"
+              }
+            },
+            "last_query": "SELECT DISTINCT t.term_id FROM wp_terms AS t INNER JOIN wp_termmeta ON ( t.term_id = wp_termmeta.term_id ) INNER JOIN wp_term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('fixture_topic') AND t.term_id IN ( 12,11 ) AND ((t.name LIKE '%Alpha Beta%') OR (t.slug LIKE '%Alpha Beta%')) AND ( ( wp_termmeta.meta_key = 'fixture_key' AND wp_termmeta.meta_value = 'fixture_value' ) ) /*fixture_terms_clauses*/ ORDER BY FIELD( t.term_id, 12,11 ) ASC",
+            "hooks": {
+              "get_meta_sql": 1,
+              "get_terms_args": 1,
+              "get_terms_defaults": 1,
+              "get_terms_fields": 1,
+              "get_terms_orderby": 1,
+              "list_terms_exclusions": 1,
+              "meta_query_find_compatible_table_alias": 1,
+              "parse_term_query": 2,
+              "pre_get_terms": 2,
+              "terms_clauses": 1,
+              "terms_pre_query": 1
+            }
+          }
+        }
+      }
+    },
+    "observations_equal": true
+  },
+  "parity": {
+    "status": "passed",
+    "oracle_observation_sha256": "sha256:9ee77e2b350d88176487dc6fdbb43590203b021dcf24985200bc97c79a687897",
+    "candidate_observation_sha256": "sha256:9ee77e2b350d88176487dc6fdbb43590203b021dcf24985200bc97c79a687897"
+  },
+  "remaining_gaps": [
+    {
+      "id": "generated-taxonomy-comment-query-adapter-not-installed",
+      "owner": "WPHX-308",
+      "detail": "Query-state behavior is only proven between upstream mirrors. Generated public PHP and typed Adapter IR are not yet installed."
+    },
+    {
+      "id": "live-db-taxonomy-comment-query-parity-not-covered",
+      "owner": "WPHX-308",
+      "detail": "The fixture captures deterministic request/clause state with empty result sets. Live MySQL/MariaDB SQL/result parity and upstream PHPUnit ratcheting remain future gates."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-308-05-taxonomy-comment-query-state-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "cases": 6,
+    "covered_symbols": 9,
+    "public_php_replacement_claimed": false,
+    "artifact_scope": "oracle_source_mirror_fixture"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/taxonomy-comment-query-state-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.15.1",
+    "external_ref": "WPHX-308.05"
+  },
+  "unit": {
+    "kind": "oracle_fixture",
+    "name": "taxonomy/comment query-state oracle fixture",
+    "area": "wp-includes/class-wp-term-query.php wp-includes/class-wp-comment-query.php",
+    "public_contract": "This fixture records vanilla WordPress taxonomy/comment query-state behavior that generated Haxe-owned adapters must satisfy. It does not claim Haxe-owned public PHP replacement."
+  },
+  "ownership_state": "oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle",
+    "adapter_contract_owner": "not_claimed",
+    "emission_strategy": "upstream_source_mirror_fixture",
+    "execution_provider": "php_oracle_process",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "oracle-source-mirror-fixture",
+    "removal_gate": "Replace candidate mirror with generated original-path PHP once WPHX-308 public taxonomy/comment query adapters exist."
+  },
+  "owned_paths": [
+    "manifests/wp-core/wphx-308-05-taxonomy-comment-query-state-fixture.v1.json",
+    "manifests/ownership/wphx-308-05-taxonomy-comment-query-state-fixture.v1.json",
+    "receipts/wp-core/wphx-308-05-taxonomy-comment-query-state-fixture.v1.json",
+    "tools/wp-core/run-taxonomy-comment-query-state-fixture.mjs"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-308-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-308-taxonomy-comment-query-state",
+      "npm run wp:core:wphx-308-taxonomy-comment-query-state:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-308-05-taxonomy-comment-query-state-fixture"
+    ],
+    "manifest_digest": "sha256:c153fcfafc1ec7fc964d1d36a15a91cd489ed01f3c2171c747a1d42ba00ce0ae"
+  }
+}
