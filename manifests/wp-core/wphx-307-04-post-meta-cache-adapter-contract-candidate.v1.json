@@ -1,0 +1,398 @@
+{
+  "schema": "wphx.wp-core-post-meta-cache-adapter-contract-candidate.v1",
+  "issue": "WPHX-307",
+  "generated_at": "2026-06-23T23:35:00.000Z",
+  "generator": "tools/wp-core/run-post-meta-cache-adapter-contract-candidate.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "generated_shape"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "prior_manifest": {
+      "path": "manifests/wp-core/wphx-307-03-post-crud-status-adapter-contract-candidate.v1.json",
+      "bytes": 17356,
+      "sha256": "sha256:03d586cc0bb5e6e00c6b35f61d924eee81bbdcace859e8e4d570b509975d8ff9"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7167,
+      "sha256": "sha256:9230d83997bb6cc37768adf6b45715721875f7991e0840e2321c18a2c63e5298"
+    },
+    "hxml": {
+      "path": "fixtures/wp-core/post-meta-cache-adapter-contract-candidate.hxml",
+      "bytes": 140,
+      "sha256": "sha256:f105c2a85d8fd4c096cd82e3b679082d527b42d087abd1db1280825862c633eb"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/post-meta-cache-adapter-contract-candidate.hxml",
+        "bytes": 140,
+        "sha256": "sha256:f105c2a85d8fd4c096cd82e3b679082d527b42d087abd1db1280825862c633eb"
+      },
+      {
+        "path": "src/wphx/wp/posts/PostMetaCacheAdapterContract.hx",
+        "bytes": 5581,
+        "sha256": "sha256:15e9bb767bd1c674a071f17278927649a7485af428cbc4927198c98d4c9fe594"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.hx",
+        "bytes": 3931,
+        "sha256": "sha256:e41fba24a404d1df21093e8e1d4f955a7ad76b263d977f7e5523d8da99ae61b4"
+      }
+    ]
+  },
+  "fixture": {
+    "candidate_kind": "haxe_post_meta_cache_adapter_contract_candidate",
+    "promoted_contracts": [
+      "post revision metadata redirects to parent post",
+      "post metadata add routing and unique conflict handling",
+      "post metadata update-as-add, no-op, match, and no-match routing",
+      "post metadata delete row/delete-all routing",
+      "post metadata get cache-hit, cache-miss, and default-value routing",
+      "post metadata cache warmup hit/fill routing",
+      "post meta, multi-object meta, post, page, term, archive, and last_changed invalidation intent",
+      "post meta add/update/delete/get/cache and clean_post_cache hook intent"
+    ],
+    "upstream_reference_functions": [
+      "add_post_meta",
+      "update_post_meta",
+      "delete_post_meta",
+      "get_post_meta",
+      "update_postmeta_cache",
+      "update_meta_cache",
+      "wp_is_post_revision",
+      "clean_post_cache"
+    ],
+    "expected_observations": {
+      "object:post": "post_object",
+      "object:revision": "revision_parent_post",
+      "object-id:post": "10",
+      "object-id:revision-parent": "10",
+      "add:invalid": "invalid_meta_request",
+      "add:insert": "add_meta_insert",
+      "add:unique-conflict": "add_meta_unique_conflict",
+      "update:invalid": "invalid_meta_request",
+      "update:add-missing": "update_meta_add_missing",
+      "update:no-change": "update_meta_no_change",
+      "update:matched": "update_meta_rows",
+      "update:no-match": "update_meta_no_change",
+      "delete:invalid": "invalid_meta_request",
+      "delete:no-rows": "delete_meta_no_rows",
+      "delete:rows": "delete_meta_rows",
+      "delete:all": "delete_meta_all_rows",
+      "get:invalid": "get_meta_invalid",
+      "get:cache-miss": "get_meta_cache_miss",
+      "get:all-hit": "get_meta_cache_hit",
+      "get:key-hit": "get_meta_cache_hit",
+      "get:default-single": "get_meta_default_single",
+      "get:default-multi": "get_meta_default_multi",
+      "cache:invalid": "cache_invalid",
+      "cache:all-hit": "cache_all_hit",
+      "cache:sql-fill": "cache_sql_fill",
+      "invalidate:none": "invalidate_none",
+      "invalidate:object": "invalidate_object_meta",
+      "invalidate:multiple": "invalidate_multiple_object_meta",
+      "invalidate:post-full": "invalidate_post_full",
+      "invalidate:page-full": "invalidate_page_full",
+      "hook:add": "add_post_meta_hooks",
+      "hook:update": "update_post_meta_hooks",
+      "hook:delete": "delete_post_meta_hooks",
+      "hook:get": "get_post_meta_filter",
+      "hook:cache": "update_post_metadata_cache_filter",
+      "hook:clean-post": "clean_post_cache_hooks",
+      "hook:short-circuit": "no_meta_hooks"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "adapter_contract_owner": "haxe_typed",
+      "semantic_owner": "haxe",
+      "native_provider_claimed": false,
+      "removal_gate": "Install through typed Adapter IR/original-path generation and run differential PHP post metadata/cache fixtures before claiming public PHP ABI ownership."
+    },
+    "source_escape_audits": [
+      {
+        "path": "src/wphx/wp/posts/PostMetaCacheAdapterContract.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      }
+    ]
+  },
+  "toolchain": {
+    "haxe_version": "4.3.7",
+    "locked_haxe_version": "4.3.7",
+    "php_cli_profile": "8.4"
+  },
+  "build": {
+    "generated_file_hash_policy": "normalize_haxe_std_source_map_paths",
+    "generated_haxe_files": [
+      {
+        "path": "index.php",
+        "bytes": 392,
+        "sha256": "388c6a27d50ab3b9d94607d3c5dc74e2fe5421bd78ca48fd3bd6c9f880e6de0d"
+      },
+      {
+        "path": "lib/Array_hx.php",
+        "bytes": 22828,
+        "sha256": "32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39"
+      },
+      {
+        "path": "lib/haxe/Exception.php",
+        "bytes": 3562,
+        "sha256": "316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1140,
+        "sha256": "6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 481,
+        "sha256": "03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012"
+      },
+      {
+        "path": "lib/haxe/ValueException.php",
+        "bytes": 1008,
+        "sha256": "38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858"
+      },
+      {
+        "path": "lib/php/_Boot/HxAnon.php",
+        "bytes": 1182,
+        "sha256": "ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706"
+      },
+      {
+        "path": "lib/php/_Boot/HxClass.php",
+        "bytes": 2861,
+        "sha256": "74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a"
+      },
+      {
+        "path": "lib/php/_Boot/HxClosure.php",
+        "bytes": 2757,
+        "sha256": "4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb"
+      },
+      {
+        "path": "lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 3952,
+        "sha256": "721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00"
+      },
+      {
+        "path": "lib/php/_Boot/HxEnum.php",
+        "bytes": 1181,
+        "sha256": "f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a"
+      },
+      {
+        "path": "lib/php/_Boot/HxString.php",
+        "bytes": 8211,
+        "sha256": "d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b"
+      },
+      {
+        "path": "lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "lib/php/Boot.php",
+        "bytes": 36175,
+        "sha256": "d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9"
+      },
+      {
+        "path": "lib/Std.php",
+        "bytes": 1104,
+        "sha256": "fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea"
+      },
+      {
+        "path": "lib/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.php",
+        "bytes": 10419,
+        "sha256": "67671202abea37d5040a6efd9f619aa4533550cdb5823eb0b90f411d627480c1"
+      },
+      {
+        "path": "lib/wphx/wp/posts/PostMetaCacheAdapterContract.php",
+        "bytes": 12561,
+        "sha256": "15135ecc3ebcdc78920802411200faf428f793be5c01283f2880aadb059f332e"
+      }
+    ],
+    "php_lint": [
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/index.php",
+        "relative_path": "index.php",
+        "sha256": "sha256:388c6a27d50ab3b9d94607d3c5dc74e2fe5421bd78ca48fd3bd6c9f880e6de0d",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/index.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/Array_hx.php",
+        "relative_path": "lib/Array_hx.php",
+        "sha256": "sha256:32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/Array_hx.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/haxe/Exception.php",
+        "relative_path": "lib/haxe/Exception.php",
+        "sha256": "sha256:316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/haxe/Exception.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayIterator.php",
+        "sha256": "sha256:6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/haxe/iterators/ArrayIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "sha256": "sha256:03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/haxe/ValueException.php",
+        "relative_path": "lib/haxe/ValueException.php",
+        "sha256": "sha256:38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/haxe/ValueException.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxAnon.php",
+        "relative_path": "lib/php/_Boot/HxAnon.php",
+        "sha256": "sha256:ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxAnon.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxClass.php",
+        "relative_path": "lib/php/_Boot/HxClass.php",
+        "sha256": "sha256:74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxClass.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxClosure.php",
+        "relative_path": "lib/php/_Boot/HxClosure.php",
+        "sha256": "sha256:4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxClosure.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "relative_path": "lib/php/_Boot/HxDynamicStr.php",
+        "sha256": "sha256:721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxDynamicStr.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxEnum.php",
+        "relative_path": "lib/php/_Boot/HxEnum.php",
+        "sha256": "sha256:f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxEnum.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxString.php",
+        "relative_path": "lib/php/_Boot/HxString.php",
+        "sha256": "sha256:d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_Boot/HxString.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/_polyfills.php",
+        "relative_path": "lib/php/_polyfills.php",
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/_polyfills.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/php/Boot.php",
+        "relative_path": "lib/php/Boot.php",
+        "sha256": "sha256:d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/php/Boot.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/Std.php",
+        "relative_path": "lib/Std.php",
+        "sha256": "sha256:fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/Std.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.php",
+        "relative_path": "lib/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.php",
+        "sha256": "sha256:67671202abea37d5040a6efd9f619aa4533550cdb5823eb0b90f411d627480c1",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/wphx/fixtures/wp/core/PostMetaCacheAdapterContractCandidateEntry.php"
+      },
+      {
+        "path": "build/wp-core/wphx-307-04/haxe/lib/wphx/wp/posts/PostMetaCacheAdapterContract.php",
+        "relative_path": "lib/wphx/wp/posts/PostMetaCacheAdapterContract.php",
+        "sha256": "sha256:15135ecc3ebcdc78920802411200faf428f793be5c01283f2880aadb059f332e",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-307-04/haxe/lib/wphx/wp/posts/PostMetaCacheAdapterContract.php"
+      }
+    ]
+  },
+  "run": {
+    "command": "php build/wp-core/wphx-307-04/haxe/index.php",
+    "raw_output_sha256": "sha256:8ca8437f5621df0b8b08c0114cdd1b7d08cf79268833932564c5dfb3e145faeb",
+    "observations": {
+      "object:post": "post_object",
+      "object:revision": "revision_parent_post",
+      "object-id:post": "10",
+      "object-id:revision-parent": "10",
+      "add:invalid": "invalid_meta_request",
+      "add:insert": "add_meta_insert",
+      "add:unique-conflict": "add_meta_unique_conflict",
+      "update:invalid": "invalid_meta_request",
+      "update:add-missing": "update_meta_add_missing",
+      "update:no-change": "update_meta_no_change",
+      "update:matched": "update_meta_rows",
+      "update:no-match": "update_meta_no_change",
+      "delete:invalid": "invalid_meta_request",
+      "delete:no-rows": "delete_meta_no_rows",
+      "delete:rows": "delete_meta_rows",
+      "delete:all": "delete_meta_all_rows",
+      "get:invalid": "get_meta_invalid",
+      "get:cache-miss": "get_meta_cache_miss",
+      "get:all-hit": "get_meta_cache_hit",
+      "get:key-hit": "get_meta_cache_hit",
+      "get:default-single": "get_meta_default_single",
+      "get:default-multi": "get_meta_default_multi",
+      "cache:invalid": "cache_invalid",
+      "cache:all-hit": "cache_all_hit",
+      "cache:sql-fill": "cache_sql_fill",
+      "invalidate:none": "invalidate_none",
+      "invalidate:object": "invalidate_object_meta",
+      "invalidate:multiple": "invalidate_multiple_object_meta",
+      "invalidate:post-full": "invalidate_post_full",
+      "invalidate:page-full": "invalidate_page_full",
+      "hook:add": "add_post_meta_hooks",
+      "hook:update": "update_post_meta_hooks",
+      "hook:delete": "delete_post_meta_hooks",
+      "hook:get": "get_post_meta_filter",
+      "hook:cache": "update_post_metadata_cache_filter",
+      "hook:clean-post": "clean_post_cache_hooks",
+      "hook:short-circuit": "no_meta_hooks"
+    },
+    "matches_expected": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "php-authored-post-meta-cache-oracle-fixture-not-yet-built",
+      "owner": "WPHX-307",
+      "detail": "The candidate has not yet run against vanilla WordPress and a packaged candidate through public post metadata APIs, revision redirects, metadata cache warmup, clean_post_cache(), hooks, and database observations."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-307",
+      "detail": "No original-path wp-includes/post.php, wp-includes/meta.php, or wp-includes/revision.php adapter is claimed in this slice."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-307-04-post-meta-cache-adapter-contract-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_post_meta_cache_adapter_contract_candidate",
+    "promoted_contracts": 8,
+    "runtime_runs": 1,
+    "observation_count": 37,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false
+  }
+}

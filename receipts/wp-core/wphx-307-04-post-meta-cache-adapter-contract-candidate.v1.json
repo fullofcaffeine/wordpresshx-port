@@ -1,0 +1,43 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-307-04-post-meta-cache-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.14",
+    "external_ref": "WPHX-307",
+    "title": "Promote post metadata/cache intent to Haxe parity candidate"
+  },
+  "recorded_at": "2026-06-23T23:35:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-307-04-post-meta-cache-adapter-contract-candidate.v1.json",
+      "role": "post metadata/cache Haxe semantic/adapter-contract candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-307-04-post-meta-cache-adapter-contract-candidate.v1.json",
+      "role": "ADR-004-aware ownership manifest for post metadata/cache Haxe candidate"
+    },
+    {
+      "path": "src/wphx/wp/posts/PostMetaCacheAdapterContract.hx",
+      "role": "typed Haxe post metadata/cache semantic and adapter-contract model"
+    },
+    {
+      "path": "tools/wp-core/run-post-meta-cache-adapter-contract-candidate.mjs",
+      "role": "candidate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-307-post-meta-cache-adapter-contract-candidate",
+    "npm run wp:core:wphx-307-post-meta-cache-adapter-contract-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_post_meta_cache_adapter_contract_candidate",
+    "promoted_contracts": 8,
+    "runtime_runs": 1,
+    "observation_count": 37,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false
+  }
+}
