@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/user-capability-role-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.13.1",
+    "external_ref": "WPHX-306.03"
+  },
+  "unit": {
+    "kind": "oracle_fixture",
+    "name": "users/auth capability and role differential fixture",
+    "area": "wp-includes/capabilities.php wp-includes/class-wp-role.php wp-includes/class-wp-roles.php wp-includes/class-wp-user.php",
+    "public_contract": "This fixture records vanilla WordPress capability and role behavior that the Haxe auth adapter must satisfy. It does not claim Haxe-owned public PHP replacement."
+  },
+  "ownership_state": "oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle",
+    "adapter_contract_owner": "not_claimed",
+    "emission_strategy": "upstream_source_mirror_fixture",
+    "execution_provider": "php_oracle_process",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "oracle-source-mirror-fixture",
+    "removal_gate": "Replace candidate mirror with generated original-path PHP once WPHX-306 public adapter contracts exist."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-user-capability-role-fixture.mjs",
+    "manifests/wp-core/wphx-306-03-capability-role-fixture.v1.json",
+    "manifests/ownership/wphx-306-03-capability-role-fixture.v1.json",
+    "receipts/wp-core/wphx-306-03-capability-role-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "build/wp-core/wphx-306-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-306-capability-role",
+      "npm run wp:core:wphx-306-capability-role:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-306-03-capability-role-fixture"
+    ],
+    "manifest_digest": "sha256:230b25d76cb049a3a11068df9f7a6e8f0e1e6777d01cb3e6a6c5e47628a513be"
+  }
+}

@@ -1,0 +1,284 @@
+{
+  "schema": "wphx.wp-core-user-capability-role-fixture.v1",
+  "issue": "WPHX-306.03",
+  "generated_at": "2026-06-23T21:20:00.000Z",
+  "generator": "tools/wp-core/run-user-capability-role-fixture.mjs",
+  "upstream": {
+    "repo": "../wordpress-develop",
+    "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "source_files": [
+      {
+        "path": "src/wp-includes/class-wp-role.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-role.php",
+        "bytes": 2523,
+        "sha256": "sha256:9ab9ad4a29fa3bc9e03c4f9a61fc91b407dbecb3d1f6521f706deaca5ca55b3e"
+      },
+      {
+        "path": "src/wp-includes/class-wp-roles.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-roles.php",
+        "bytes": 9321,
+        "sha256": "sha256:b116231e11cafb3698a39ace2663b69ee7488e4128a0c2ec250f2414094aba12"
+      },
+      {
+        "path": "src/wp-includes/class-wp-user.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-user.php",
+        "bytes": 23016,
+        "sha256": "sha256:5628d507a0979e34a439ad80caba9c5127df53bf8150d86c93b71b1e3d1a5543"
+      },
+      {
+        "path": "src/wp-includes/capabilities.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/capabilities.php",
+        "bytes": 43633,
+        "sha256": "sha256:12e26e9aede307a7ad1eed11137f0ac0ca7db1c9a841ef77d3f83f960c7a7fee"
+      }
+    ]
+  },
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-306-01-user-auth-surface.v1.json",
+      "bytes": 28464,
+      "sha256": "sha256:0337450dd123f7c4007c9af534fbdc937c7675b4a6c3031f644f973d2477c26a"
+    },
+    "foundation_manifest": {
+      "path": "manifests/wp-core/wphx-306-02-auth-adapter-contract-candidate.v1.json",
+      "bytes": 15721,
+      "sha256": "sha256:ad8e6814cae83a4adffd85be774b4ea32bcc5c7e3752c91d29912ba8620a56ce"
+    }
+  },
+  "fixture": {
+    "evidence_class": "targeted_semantic_parity",
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "source_files": [
+      "src/wp-includes/class-wp-role.php",
+      "src/wp-includes/class-wp-roles.php",
+      "src/wp-includes/class-wp-user.php",
+      "src/wp-includes/capabilities.php"
+    ],
+    "covered_symbols": [
+      "map_meta_cap",
+      "current_user_can",
+      "user_can",
+      "user_can_for_site",
+      "wp_roles",
+      "get_role",
+      "add_role",
+      "remove_role",
+      "is_super_admin",
+      "WP_Role::has_cap",
+      "WP_Role::add_cap",
+      "WP_Role::remove_cap",
+      "WP_Roles::add_role",
+      "WP_Roles::remove_role",
+      "WP_Roles::for_site",
+      "WP_User::has_cap",
+      "WP_User::add_role",
+      "WP_User::remove_role",
+      "WP_User::set_role",
+      "WP_User::add_cap",
+      "WP_User::remove_cap"
+    ],
+    "cases": [
+      {
+        "id": "role:numeric-capabilities",
+        "symbol": "add_role/WP_Roles::add_role",
+        "focus": "numeric capability arrays are normalized to true-valued associative caps"
+      },
+      {
+        "id": "role:add-remove-cap",
+        "symbol": "WP_Role::add_cap/remove_cap/has_cap",
+        "focus": "role capability mutation and role_has_cap filter visibility"
+      },
+      {
+        "id": "user:primitive-role-cap",
+        "symbol": "user_can/WP_User::has_cap",
+        "focus": "role-derived primitive capability grants and explicit user-level denial"
+      },
+      {
+        "id": "user:filter-grant",
+        "symbol": "user_has_cap",
+        "focus": "user_has_cap filter can grant a capability before final all-caps check"
+      },
+      {
+        "id": "user:missing-anonymous",
+        "symbol": "user_can",
+        "focus": "missing users become anonymous users with exist but no edit capability"
+      },
+      {
+        "id": "meta:edit-user-self",
+        "symbol": "map_meta_cap",
+        "focus": "edit_user self check maps to no primitive caps"
+      },
+      {
+        "id": "meta:edit-user-missing",
+        "symbol": "map_meta_cap",
+        "focus": "missing/invalid users map edit_user to do_not_allow"
+      },
+      {
+        "id": "multisite:super-admin",
+        "symbol": "is_super_admin/WP_User::has_cap",
+        "focus": "super admin receives all caps except explicit do_not_allow"
+      },
+      {
+        "id": "site:switch-user-can",
+        "symbol": "user_can_for_site",
+        "focus": "site-specific capability lookup switches blog context and restores it"
+      }
+    ],
+    "candidate_policy": {
+      "public_php_replacement_claimed": false,
+      "haxe_semantic_ownership_claimed": false,
+      "handwritten_production_php_added": false,
+      "note": "The candidate side currently mirrors locked upstream source to establish a stable differential fixture. A later WPHX-306 slice must replace the candidate mirror with generated original-path PHP before ownership can be upgraded."
+    }
+  },
+  "runs": {
+    "oracle": {
+      "mode": "oracle",
+      "command": "php build/wp-core/wphx-306-03/probe.php oracle build/wp-core/wphx-306-03/oracle",
+      "raw_output_sha256": "sha256:946593b44f4ad45dd15d7d06d9dc9e511db5f981a02a92b1cff8547a05c7af46",
+      "result": {
+        "mode": "oracle",
+        "observations": {
+          "current-user-can:edit-posts": true,
+          "errors": [],
+          "meta:edit-user-invalid": [
+            "do_not_allow"
+          ],
+          "meta:edit-user-other": [
+            "do_not_allow"
+          ],
+          "meta:edit-user-self": [],
+          "meta:remove-user-self-non-super": [
+            "do_not_allow"
+          ],
+          "role:add-cap": true,
+          "role:filter-grant": true,
+          "role:mixed-capabilities": {
+            "name": "custom_role",
+            "capabilities": {
+              "delete_posts": false,
+              "edit_posts": true,
+              "read": true
+            }
+          },
+          "role:numeric-capabilities": {
+            "name": "numeric_role",
+            "capabilities": {
+              "edit_posts": true,
+              "read": true
+            }
+          },
+          "role:remove-cap": false,
+          "role:removed": true,
+          "site:restored-blog-id": 1,
+          "site:switch-log": [
+            [
+              "switch_to_blog",
+              2
+            ],
+            [
+              "restore_current_blog",
+              1
+            ]
+          ],
+          "site:user-can-for-site": true,
+          "super:do-not-allow": false,
+          "super:is-super-admin": true,
+          "super:manage-network": true,
+          "user:editor-edit-posts": true,
+          "user:filter-grant": true,
+          "user:limited-denied-edit-posts": false,
+          "user:missing-edit-posts": false,
+          "user:missing-exist": true
+        }
+      }
+    },
+    "candidate": {
+      "mode": "candidate",
+      "command": "php build/wp-core/wphx-306-03/probe.php candidate build/wp-core/wphx-306-03/candidate",
+      "raw_output_sha256": "sha256:88e2964b94820a8c269fd265f368eb59507bcce3b52e703801962f812592c75d",
+      "result": {
+        "mode": "candidate",
+        "observations": {
+          "current-user-can:edit-posts": true,
+          "errors": [],
+          "meta:edit-user-invalid": [
+            "do_not_allow"
+          ],
+          "meta:edit-user-other": [
+            "do_not_allow"
+          ],
+          "meta:edit-user-self": [],
+          "meta:remove-user-self-non-super": [
+            "do_not_allow"
+          ],
+          "role:add-cap": true,
+          "role:filter-grant": true,
+          "role:mixed-capabilities": {
+            "name": "custom_role",
+            "capabilities": {
+              "delete_posts": false,
+              "edit_posts": true,
+              "read": true
+            }
+          },
+          "role:numeric-capabilities": {
+            "name": "numeric_role",
+            "capabilities": {
+              "edit_posts": true,
+              "read": true
+            }
+          },
+          "role:remove-cap": false,
+          "role:removed": true,
+          "site:restored-blog-id": 1,
+          "site:switch-log": [
+            [
+              "switch_to_blog",
+              2
+            ],
+            [
+              "restore_current_blog",
+              1
+            ]
+          ],
+          "site:user-can-for-site": true,
+          "super:do-not-allow": false,
+          "super:is-super-admin": true,
+          "super:manage-network": true,
+          "user:editor-edit-posts": true,
+          "user:filter-grant": true,
+          "user:limited-denied-edit-posts": false,
+          "user:missing-edit-posts": false,
+          "user:missing-exist": true
+        }
+      }
+    },
+    "observations_equal": true
+  },
+  "parity": {
+    "status": "passed",
+    "oracle_observation_sha256": "sha256:6ea0ea74f10d7f5fd641fe3a32c834eb1c50d3555f7c0d0e3c1640aeb60515c5",
+    "candidate_observation_sha256": "sha256:6ea0ea74f10d7f5fd641fe3a32c834eb1c50d3555f7c0d0e3c1640aeb60515c5"
+  },
+  "remaining_gaps": [
+    {
+      "id": "generated-auth-adapter-not-installed",
+      "owner": "WPHX-306",
+      "detail": "Capability and role behavior is only proven between upstream mirrors. Generated public PHP and typed Adapter IR are not yet installed."
+    },
+    {
+      "id": "db-backed-role-storage-not-live",
+      "owner": "WPHX-306",
+      "detail": "The fixture uses deterministic in-memory option/user-meta stubs. Installed distribution and upstream PHPUnit gates must later cover live database behavior."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-306-03-capability-role-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "cases": 9,
+    "covered_symbols": 21,
+    "public_php_replacement_claimed": false,
+    "artifact_scope": "oracle_source_mirror_fixture"
+  }
+}
