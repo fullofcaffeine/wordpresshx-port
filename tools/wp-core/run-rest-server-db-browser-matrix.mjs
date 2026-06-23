@@ -49,6 +49,8 @@ const SELECTED_HEADERS = [
   "vary",
   "allow"
 ];
+const BROWSER_FETCH_RETRIES = 8;
+const BROWSER_FETCH_RETRY_DELAY_MS = 250;
 const SAME_ORIGIN_CASES = [
   {
     id: "db-browser:get-settings-seeded",
@@ -726,7 +728,24 @@ async function runBrowserCases(browser, server, mode, db) {
   try {
     await page.goto(`${server.baseUrl}/__wphx/browser-harness`, { waitUntil: "domcontentloaded" });
     const sameOrigin = await page.evaluate(
-      async ({ cases, selectedHeaders }) => {
+      async ({ cases, fetchRetries, retryDelayMs, selectedHeaders }) => {
+        function sleepInBrowser(ms) {
+          return new Promise((resolveSleep) => {
+            setTimeout(resolveSleep, ms);
+          });
+        }
+        async function fetchWithRetry(input, init) {
+          let lastError;
+          for (let attempt = 0; attempt < fetchRetries; attempt += 1) {
+            try {
+              return await fetch(input, init);
+            } catch (error) {
+              lastError = error;
+              await sleepInBrowser(retryDelayMs * (attempt + 1));
+            }
+          }
+          throw lastError;
+        }
         function headersFrom(response) {
           const result = {};
           for (const header of selectedHeaders) {
@@ -738,7 +757,7 @@ async function runBrowserCases(browser, server, mode, db) {
         async function runCase(testCase) {
           const headers = {};
           if (testCase.contentType) headers["content-type"] = testCase.contentType;
-          const response = await fetch(testCase.path, { method: testCase.method, headers, body: testCase.body });
+          const response = await fetchWithRetry(testCase.path, { method: testCase.method, headers, body: testCase.body });
           const text = await response.text();
           return {
             id: testCase.id,
@@ -753,12 +772,34 @@ async function runBrowserCases(browser, server, mode, db) {
         for (const testCase of cases) results.push(await runCase(testCase));
         return results;
       },
-      { cases: SAME_ORIGIN_CASES, selectedHeaders: SELECTED_HEADERS }
+      {
+        cases: SAME_ORIGIN_CASES,
+        fetchRetries: BROWSER_FETCH_RETRIES,
+        retryDelayMs: BROWSER_FETCH_RETRY_DELAY_MS,
+        selectedHeaders: SELECTED_HEADERS
+      }
     );
 
     await page.goto(`${harness.baseUrl}/__wphx/cross-origin-harness`, { waitUntil: "domcontentloaded" });
     const crossOrigin = await page.evaluate(
-      async ({ apiBase, cases, selectedHeaders }) => {
+      async ({ apiBase, cases, fetchRetries, retryDelayMs, selectedHeaders }) => {
+        function sleepInBrowser(ms) {
+          return new Promise((resolveSleep) => {
+            setTimeout(resolveSleep, ms);
+          });
+        }
+        async function fetchWithRetry(input, init) {
+          let lastError;
+          for (let attempt = 0; attempt < fetchRetries; attempt += 1) {
+            try {
+              return await fetch(input, init);
+            } catch (error) {
+              lastError = error;
+              await sleepInBrowser(retryDelayMs * (attempt + 1));
+            }
+          }
+          throw lastError;
+        }
         function headersFrom(response) {
           const result = {};
           for (const header of selectedHeaders) {
@@ -773,7 +814,7 @@ async function runBrowserCases(browser, server, mode, db) {
           for (const [key, value] of Object.entries(testCase.extraHeaders || {})) {
             headers[key] = value;
           }
-          const response = await fetch(`${apiBase}${testCase.path}`, {
+          const response = await fetchWithRetry(`${apiBase}${testCase.path}`, {
             method: testCase.method,
             mode: "cors",
             credentials: "include",
@@ -797,7 +838,13 @@ async function runBrowserCases(browser, server, mode, db) {
           results
         };
       },
-      { apiBase: server.baseUrl, cases: CROSS_ORIGIN_CASES, selectedHeaders: SELECTED_HEADERS }
+      {
+        apiBase: server.baseUrl,
+        cases: CROSS_ORIGIN_CASES,
+        fetchRetries: BROWSER_FETCH_RETRIES,
+        retryDelayMs: BROWSER_FETCH_RETRY_DELAY_MS,
+        selectedHeaders: SELECTED_HEADERS
+      }
     );
 
     const boundaryResponse = await fetch(`${server.baseUrl}/__wphx/package-boundary`);
