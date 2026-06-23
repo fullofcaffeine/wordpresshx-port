@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-03-public-launch",
+  "issue": {
+    "id": "wordpresshx-kwm",
+    "external_ref": "WPHX-000.03",
+    "title": "Prepare repository for public launch"
+  },
+  "recorded_at": "2026-06-23T22:05:00.000Z",
+  "repository": {
+    "url": "https://github.com/fullofcaffeine/wordpress-hx",
+    "visibility": "PUBLIC",
+    "verified_head": "726863839ae0ab54f407f98f9186d137f28c18aa",
+    "latest_green_ci_run": "https://github.com/fullofcaffeine/wordpress-hx/actions/runs/28013383275"
+  },
+  "artifacts": [
+    {
+      "path": "README.md",
+      "role": "public-facing project introduction without internal workflow branding"
+    },
+    {
+      "path": ".github/workflows/php-conformance.yml",
+      "role": "public GitHub Actions conformance workflow"
+    },
+    {
+      "path": "scripts/hooks/pre-commit",
+      "role": "local staged secret scan and Haxe formatting hook"
+    },
+    {
+      "path": "scripts/hooks/pre-push",
+      "role": "local full secret scan and Haxe formatting push hook"
+    },
+    {
+      "path": "scripts/security/run-gitleaks.sh",
+      "role": "full-history and working-tree secret scan wrapper"
+    },
+    {
+      "path": "manifests/ci/wphx-208-php-conformance-ci.v1.json",
+      "role": "validated PHP conformance CI manifest"
+    }
+  ],
+  "verification_commands": [
+    "rg -n \"Codex|Beads|\\\\bbd\\\\b|\\\\.beads\" README.md || true",
+    "gh repo view fullofcaffeine/wordpress-hx --json visibility,url",
+    "npm run precommit",
+    "npm run security:gitleaks",
+    "npm run ci:php-conformance:check",
+    "gh run watch 28013383275 --repo fullofcaffeine/wordpress-hx --exit-status",
+    "git status --short --branch"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "readme_public_language_checked": true,
+    "repository_visibility_public": true,
+    "pre_commit_hook_present": true,
+    "pre_push_hook_present": true,
+    "full_gitleaks_scan_passed": true,
+    "latest_main_ci_green": true,
+    "git_pushed_to_origin": true
+  }
+}

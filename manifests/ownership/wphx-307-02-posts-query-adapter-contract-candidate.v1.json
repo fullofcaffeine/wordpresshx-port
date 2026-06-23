@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/posts-query-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.14",
+    "external_ref": "WPHX-307"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "posts, metadata, revisions, and WP_Query routing decision model",
+    "area": "wp-includes/post.php wp-includes/meta.php wp-includes/class-wp-query.php wp-includes/revision.php",
+    "public_contract": "Haxe owns the first typed posts/query adapter-contract decision model. Public PHP ABI replacement, SQL parity, object-cache parity, and installed post/query behavior are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Move these contracts into typed Adapter IR/original-path generation and pass post CRUD, metadata, revisions, WP_Query, live database, and upstream PHPUnit oracle fixtures before claiming public PHP ABI ownership."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/posts-query-adapter-contract-candidate.hxml",
+    "src/wphx/wp/posts/PostsQueryAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/PostsQueryAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-posts-query-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-307-02-posts-query-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-307-02-posts-query-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-307-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-307-posts-query-adapter-contract-candidate",
+      "npm run wp:core:wphx-307-posts-query-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-307-02-posts-query-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:411e182bccfb550267093a04ebd1ded4648b86b0fb2699e630030d9b6d518938"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate. It adds no native provider and no handwritten production PHP shell."
+}
