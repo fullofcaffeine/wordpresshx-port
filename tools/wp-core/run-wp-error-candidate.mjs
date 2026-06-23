@@ -96,6 +96,10 @@ function maybeCommand(commandName, commandArgs) {
   }
 }
 
+function phpVersionFamily(version) {
+  return version.split(".").slice(0, 2).join(".");
+}
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -812,7 +816,7 @@ function compactRun(run) {
     mode: run.mode,
     command: run.command,
     image: run.image,
-    php_version: run.result.phpVersion,
+    php_version_family: phpVersionFamily(run.result.phpVersion),
     class_exists: run.result.classExists,
     is_wp_error_exists: run.result.isWpErrorExists,
     covered_method_count: run.result.coveredMethodCount,
@@ -885,8 +889,8 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"]),
-    docker_server_version: dockerVersion
+    php_cli_version_family: phpVersionFamily(command("php", ["-r", "echo PHP_VERSION;"])),
+    docker_available: dockerVersion != null
   },
   build: {
     generated_haxe_files: filesUnder(HAXE_OUT),
@@ -895,7 +899,7 @@ const manifest = {
   runtimes: {
     local: {
       id: "local-php-cli",
-      php_version: localOracle.result.phpVersion,
+      php_version_family: phpVersionFamily(localOracle.result.phpVersion),
       executable: lock.tools.php_cli.executable
     },
     docker: dockerImages.map(([id, image]) => ({ id, image })),

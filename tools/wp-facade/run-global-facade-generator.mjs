@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, relative } from "node:path";
+import { filesUnder as stableFilesUnder } from "../wp-linker/original-path-linker.mjs";
 
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
@@ -37,6 +38,10 @@ function maybeCommand(commandName, commandArgs) {
   }
 }
 
+function phpVersionFamily(version) {
+  return version.split(".").slice(0, 2).join(".");
+}
+
 function sha256(value) {
   return `sha256:${createHash("sha256").update(value).digest("hex")}`;
 }
@@ -54,13 +59,7 @@ function walk(dir) {
 }
 
 function filesUnder(dir) {
-  return walk(dir)
-    .map((path) => ({
-      path: relative(dir, path),
-      bytes: statSync(path).size,
-      sha256: sha256File(path)
-    }))
-    .sort((a, b) => a.path.localeCompare(b.path));
+  return stableFilesUnder(dir);
 }
 
 function phpString(value) {
@@ -425,8 +424,8 @@ const manifest = {
   toolchain: {
     haxe_version: command("haxe", ["--version"]),
     locked_haxe_version: lock.tools.haxe.version,
-    php_cli_version: command("php", ["-r", "echo PHP_VERSION;"]),
-    docker_server_version: dockerVersion
+    php_cli_version_family: phpVersionFamily(command("php", ["-r", "echo PHP_VERSION;"])),
+    docker_available: dockerVersion != null
   },
   build: {
     command: `haxe ${spec.hxml}`,

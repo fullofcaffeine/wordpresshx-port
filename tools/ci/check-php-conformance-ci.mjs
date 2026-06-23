@@ -99,6 +99,7 @@ const workflowText = readFileSync(WORKFLOW, "utf8");
 const packageJson = readJson("package.json");
 const toolchain = readJson("toolchain.lock.json");
 const errors = [];
+const lockedPhpCliVersion = toolchain.tools.php_cli.version;
 
 for (const path of REQUIRED_PATHS) {
   if (!workflowText.includes(`"${path}"`)) {
@@ -136,7 +137,7 @@ const requiredText = [
   "shivammathur/setup-php@v2",
   "krdlab/setup-haxe@v2",
   'node-version: "20.19.3"',
-  'php-version: "8.4"',
+  `php-version: "${lockedPhpCliVersion}"`,
   'haxe-version: "4.3.7"',
   "npm ci",
   "haxelib setup",
