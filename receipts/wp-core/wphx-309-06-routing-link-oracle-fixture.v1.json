@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-309-06-routing-link-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-kvm",
+    "external_ref": "WPHX-309.06",
+    "title": "Routing/link oracle-state fixture"
+  },
+  "recorded_at": "2026-06-24T03:20:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-309-06-routing-link-oracle-fixture.v1.json",
+      "role": "routing/link oracle-state manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-309-06-routing-link-oracle-fixture.v1.json",
+      "role": "routing/link oracle-state ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-routing-link-oracle-fixture.mjs",
+      "role": "deterministic oracle-source-mirror fixture generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-309-routing-link-oracle-fixture",
+    "npm run wp:core:wphx-309-routing-link-oracle-fixture:check",
+    "npm run ci:php-conformance:check",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-309-01-routing-template-surface",
+    "receipt:wphx-309-04-routing-template-adapter-contract-candidate"
+  ],
+  "manifest_sha256": "sha256:9b3c0799d32356bd3a64d3c7084843d9561df9891f4fa54941ac58c87503ae5f",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "targeted_semantic_parity",
+      "runtime_abi"
+    ],
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "covered_symbols": 14,
+    "fixture_cases": 6,
+    "public_php_replacement_claimed": false,
+    "canonical_redirect_parity_claimed": false,
+    "template_loader_parity_claimed": false,
+    "installed_frontend_http_parity_claimed": false
+  }
+}

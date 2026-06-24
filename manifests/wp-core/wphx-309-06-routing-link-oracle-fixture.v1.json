@@ -1,0 +1,583 @@
+{
+  "schema": "wphx.wp-core-routing-link-oracle-fixture.v1",
+  "issue": "WPHX-309.06",
+  "generated_at": "2026-06-24T03:20:00.000Z",
+  "generator": "tools/wp-core/run-routing-link-oracle-fixture.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "runtime_abi"
+  ],
+  "artifact_scope": "oracle_source_mirror_fixture",
+  "baseline": {
+    "upstream_root": "../wordpress-develop",
+    "upstream_ref": "26b68024931348d267b70e2a29910e1320d0094f"
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-routing-link-oracle-fixture.mjs",
+      "bytes": 21191,
+      "sha256": "sha256:e5a0d84d3037a4ce52f039197389adb66d5548f6a0012de9e8159e74f8424fb5"
+    },
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-309-01-routing-template-surface.v1.json",
+      "bytes": 51986,
+      "sha256": "sha256:67fe6cd4ba06e16725499e5b4ee27b683b237c9ff2f4c6039df6f19967b1a5b2"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-309-04-routing-template-adapter-contract-candidate.v1.json",
+      "bytes": 18280,
+      "sha256": "sha256:1c1b92167dfcffa7c75bfbe809ee3a32064d9af3f2f8d8fcef52074c29ba75bf"
+    },
+    "sources": [
+      {
+        "path": "src/wp-includes/class-wp-matchesmapregex.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-matchesmapregex.php",
+        "bytes": 1828,
+        "sha256": "sha256:05b09e4e58db2508c90231ca678351b833f535692c7d07e681e99b299c9e0762"
+      },
+      {
+        "path": "src/wp-includes/class-wp-rewrite.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-rewrite.php",
+        "bytes": 63693,
+        "sha256": "sha256:e197e1f2a78b4b6ffffd1687bdedf0c254d2a8cf013f6d8c8e55c0ac53facd3e"
+      },
+      {
+        "path": "src/wp-includes/class-wp.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp.php",
+        "bytes": 26371,
+        "sha256": "sha256:cfbef652f7093d5545a8365bf48fec96649786952ee6f99c55cf3902012bed2f"
+      },
+      {
+        "path": "src/wp-includes/rewrite.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/rewrite.php",
+        "bytes": 19461,
+        "sha256": "sha256:03051a70b5ec18d476611281e89a8262de984bccdb0a3923e93331eb80575c4b"
+      },
+      {
+        "path": "src/wp-includes/link-template.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/link-template.php",
+        "bytes": 160147,
+        "sha256": "sha256:7a3161d051b78c6eb5128b31e5f255f8c39b2ebfe162045bc48c8c1483cbbf35"
+      }
+    ]
+  },
+  "covered_symbols": [
+    "WP",
+    "WP::parse_request",
+    "WP::add_query_var",
+    "WP_Rewrite",
+    "WP_Rewrite::add_rewrite_tag",
+    "WP_Rewrite::add_rule",
+    "WP_Rewrite::add_permastruct",
+    "WP_Rewrite::wp_rewrite_rules",
+    "add_rewrite_rule",
+    "add_rewrite_tag",
+    "add_permastruct",
+    "home_url",
+    "get_home_url",
+    "user_trailingslashit"
+  ],
+  "fixture_cases": [
+    {
+      "id": "rewrite:tag-rule-permastruct",
+      "focus": "rewrite tag, top/bottom rules, external rules, and permastruct state"
+    },
+    {
+      "id": "link:home-url-schemes",
+      "focus": "home_url scheme/path handling and filter observations"
+    },
+    {
+      "id": "link:user-trailingslashit",
+      "focus": "trailing slash policy for slash and non-slash permalink structures"
+    },
+    {
+      "id": "request:matched-rewrite",
+      "focus": "WP::parse_request rewrite match and query-var extraction"
+    },
+    {
+      "id": "request:extra-query-vars",
+      "focus": "extra query vars and custom public query vars"
+    },
+    {
+      "id": "request:404",
+      "focus": "unmatched permalink request error routing"
+    }
+  ],
+  "claims": {
+    "public_php_replacement": false,
+    "haxe_semantic_ownership": false,
+    "rewrite_link_parse_request_oracle_fixture": true,
+    "canonical_redirect_parity": false,
+    "template_loader_parity": false,
+    "installed_frontend_http_parity": false
+  },
+  "comparison": {
+    "status": "passed",
+    "oracle": {
+      "reflection": [
+        {
+          "class": "WP",
+          "declaring_file": "wp-includes/class-wp.php",
+          "public_property_count": 9,
+          "public_method_count": 11
+        },
+        {
+          "class": "WP_Rewrite",
+          "declaring_file": "wp-includes/class-wp-rewrite.php",
+          "public_property_count": 30,
+          "public_method_count": 37
+        }
+      ],
+      "cases": [
+        {
+          "id": "rewrite:tag-rule-permastruct",
+          "public_query_vars_tail": [
+            "embed",
+            "book"
+          ],
+          "rewritecode_tail": [
+            "%search%",
+            "%book%"
+          ],
+          "queryreplace_tail": [
+            "s=",
+            "book="
+          ],
+          "extra_rules_top": {
+            "books/([^/]+)/?$": "index.php?book=$matches[1]"
+          },
+          "extra_rules": [],
+          "non_wp_rules": {
+            "legacy/(.*)$": "legacy.php?path=$matches[1]"
+          },
+          "extra_permastructs": {
+            "book": {
+              "with_front": false,
+              "ep_mask": 0,
+              "paged": true,
+              "feed": false,
+              "forcomments": false,
+              "walk_dirs": true,
+              "endpoints": true,
+              "struct": "library/%book%"
+            }
+          },
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "link:home-url-schemes",
+          "default": "http://example.test/base",
+          "nested": "http://example.test/base/wp-json/wp/v2/posts",
+          "https": "https://example.test/base/admin/",
+          "relative": "/base/feed/",
+          "filters": [
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            }
+          ]
+        },
+        {
+          "id": "link:user-trailingslashit",
+          "slash": "http://example.test/base/path/",
+          "no_slash": "http://example.test/base/path",
+          "filters": [
+            {
+              "hook": "user_trailingslashit",
+              "arg_count": 2
+            },
+            {
+              "hook": "user_trailingslashit",
+              "arg_count": 2
+            }
+          ]
+        },
+        {
+          "id": "request:matched-rewrite",
+          "parsed": true,
+          "request": "books/dune",
+          "matched_rule": "books/([^/]+)/?$",
+          "matched_query": "book=dune",
+          "did_permalink": true,
+          "query_vars": {
+            "book": "dune",
+            "post_type": "book",
+            "name": "dune"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "request:extra-query-vars",
+          "parsed": true,
+          "request": "",
+          "matched_rule": "",
+          "matched_query": "",
+          "did_permalink": false,
+          "query_vars": {
+            "book": "override",
+            "custom": "value",
+            "post_type": "book",
+            "name": "override"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "request:404",
+          "parsed": true,
+          "request": "missing-route",
+          "matched_rule": "",
+          "matched_query": "",
+          "did_permalink": true,
+          "query_vars": {
+            "error": "404"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    },
+    "candidate": {
+      "reflection": [
+        {
+          "class": "WP",
+          "declaring_file": "wp-includes/class-wp.php",
+          "public_property_count": 9,
+          "public_method_count": 11
+        },
+        {
+          "class": "WP_Rewrite",
+          "declaring_file": "wp-includes/class-wp-rewrite.php",
+          "public_property_count": 30,
+          "public_method_count": 37
+        }
+      ],
+      "cases": [
+        {
+          "id": "rewrite:tag-rule-permastruct",
+          "public_query_vars_tail": [
+            "embed",
+            "book"
+          ],
+          "rewritecode_tail": [
+            "%search%",
+            "%book%"
+          ],
+          "queryreplace_tail": [
+            "s=",
+            "book="
+          ],
+          "extra_rules_top": {
+            "books/([^/]+)/?$": "index.php?book=$matches[1]"
+          },
+          "extra_rules": [],
+          "non_wp_rules": {
+            "legacy/(.*)$": "legacy.php?path=$matches[1]"
+          },
+          "extra_permastructs": {
+            "book": {
+              "with_front": false,
+              "ep_mask": 0,
+              "paged": true,
+              "feed": false,
+              "forcomments": false,
+              "walk_dirs": true,
+              "endpoints": true,
+              "struct": "library/%book%"
+            }
+          },
+          "filters": [],
+          "actions": []
+        },
+        {
+          "id": "link:home-url-schemes",
+          "default": "http://example.test/base",
+          "nested": "http://example.test/base/wp-json/wp/v2/posts",
+          "https": "https://example.test/base/admin/",
+          "relative": "/base/feed/",
+          "filters": [
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            }
+          ]
+        },
+        {
+          "id": "link:user-trailingslashit",
+          "slash": "http://example.test/base/path/",
+          "no_slash": "http://example.test/base/path",
+          "filters": [
+            {
+              "hook": "user_trailingslashit",
+              "arg_count": 2
+            },
+            {
+              "hook": "user_trailingslashit",
+              "arg_count": 2
+            }
+          ]
+        },
+        {
+          "id": "request:matched-rewrite",
+          "parsed": true,
+          "request": "books/dune",
+          "matched_rule": "books/([^/]+)/?$",
+          "matched_query": "book=dune",
+          "did_permalink": true,
+          "query_vars": {
+            "book": "dune",
+            "post_type": "book",
+            "name": "dune"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "request:extra-query-vars",
+          "parsed": true,
+          "request": "",
+          "matched_rule": "",
+          "matched_query": "",
+          "did_permalink": false,
+          "query_vars": {
+            "book": "override",
+            "custom": "value",
+            "post_type": "book",
+            "name": "override"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "id": "request:404",
+          "parsed": true,
+          "request": "missing-route",
+          "matched_rule": "",
+          "matched_query": "",
+          "did_permalink": true,
+          "query_vars": {
+            "error": "404"
+          },
+          "filters": [
+            {
+              "hook": "do_parse_request",
+              "arg_count": 3
+            },
+            {
+              "hook": "set_url_scheme",
+              "arg_count": 3
+            },
+            {
+              "hook": "home_url",
+              "arg_count": 4
+            },
+            {
+              "hook": "query_vars",
+              "arg_count": 1
+            },
+            {
+              "hook": "request",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "parse_request",
+              "arg_count": 1
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    }
+  }
+}

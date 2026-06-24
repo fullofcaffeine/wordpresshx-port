@@ -15,13 +15,18 @@ Use HHX only where Haxe owns the template or markup unit.
 
 Do not use HHX as a shortcut to claim parity for existing mixed PHP/HTML files. WordPress templates have observable load order, caller scope, globals, includes, output buffering, and direct-file behavior. Those must first be represented by the PHP file-segment/linker model.
 
+When Haxe does own the template or markup unit, prefer HXX-style typed authoring over PHP-shaped string templates. The goal is not merely to replace PHP templating with equivalent syntax; it is to make the Haxe source safer and more maintainable while still emitting normal WordPress-compatible artifacts. A WordPressHX template layer should adapt the PhoenixHx and RailsHx patterns into WordPress ergonomics: typed locals/context, typed template and partial references, WordPress-aware escaping helpers, route/link helpers, block and shortcode integration where appropriate, explicit children/slot contracts, and deterministic PHP/HTML or TSX lowering.
+
+Inline markup should be the default direction for new Haxe-owned templates once feasibility fixtures prove it. String-based `hxx(...)` or raw template bodies are acceptable for migration fixtures and narrow escapes, but durable source should move toward typed inline markup or typed AST helpers with provenance and receipts.
+
 ## Good Early HHX Candidates
 
 - New Haxe-authored test fixtures for template lowering.
 - Small generated admin/theme fixture templates where caller scope is explicitly bounded.
 - Generated block markup fixtures where the upstream block grammar and saved markup can be compared byte-for-byte after normalization.
+- Haxe-owned WordPress helper components with typed locals and explicit escaping policy.
+- Typed partial/template reference prototypes that prove missing locals, wrong helper inputs, and invalid template paths fail at Haxe compile time.
 - Gutenberg React/TSX-like slices, if genes-ts HHX/TSX support proves equivalent to upstream React behavior.
-- Future Haxe-owned helper components that emit normal WordPress/PHP/HTML artifacts.
 
 ## Not Early HHX Candidates
 
@@ -46,4 +51,3 @@ Before HHX becomes a normal WordPress authoring path, prove:
 - Diagnostics point to useful Haxe source locations.
 - Template output participates in source inventory, artifact provenance, and receipts.
 - Mixed PHP/HTML files can choose renderer, context bridge, or direct script-emission mode without hiding caller-scope behavior.
-

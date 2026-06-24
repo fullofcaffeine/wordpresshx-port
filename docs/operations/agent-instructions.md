@@ -74,6 +74,18 @@ Improvements at the Haxe layer are encouraged when they satisfy all of these con
 
 When there is a tension, keep the generated adapter target-shaped and make the Haxe implementation clearer behind it. The desired architecture is not "PHP written in Haxe"; it is Haxe-owned WordPress semantics plus generated compatibility adapters that preserve WordPress behavior.
 
+## Typed Template Authoring
+
+Haxe-owned WordPress templates and markup should use an HXX-style typed authoring path when that makes the source safer or more ergonomic. The local precedents are:
+
+- PhoenixHx in `../haxe.elixir.codex`, where inline markup and `HXX.hxx(...)` authoring lower to ordinary HEEx-facing artifacts, with stricter modes preferred for new code and raw HEEx treated as an escape hatch.
+- RailsHx in `../haxe.ruby`, where Haxe-owned template classes, typed template references, and `@:railsTemplateAst(...)` lower to normal Rails/ERB artifacts, while existing ERB remains an explicit external/adoption boundary.
+- `../haxe.compilerdev.reference/tink_hxx`, which provides the parser/generator model for inline markup, fragments, children, spreads, attributes, and typed tag resolution.
+
+For WordPressHX, synthesize those patterns into a WordPress-specific template layer rather than copying either framework directly. The target should be the best Haxe/PHP markup authoring path for WordPress: typed locals and context, typed tag/helper registries, typed partial/template references, WordPress-aware escaping and URL helpers, block/admin/theme ergonomics, and deterministic lowering to normal WordPress-compatible artifacts.
+
+This does not relax the compatibility contract. Existing WordPress mixed PHP/HTML files expose caller scope, globals, include order, direct file paths, output buffering, hooks, template-loader decisions, and sometimes stack/error behavior. HXX is appropriate after those effects are modeled or when Haxe owns a new template unit. Raw PHP/HTML template segments remain adoption boundaries with upstream hashes, provenance, ownership state, and removal gates.
+
 ## Generated PHP Shells
 
 PHP shells are allowed because WordPress compatibility depends on original paths, global function names, conditional declarations, class identity, reflection-visible signatures, include timing, globals, references, and mixed PHP/HTML behavior. They are not permission to keep runtime logic or target contracts in hand-written PHP indefinitely.
