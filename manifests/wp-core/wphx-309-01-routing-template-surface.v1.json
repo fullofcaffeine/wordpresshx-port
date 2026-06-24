@@ -1,0 +1,1110 @@
+{
+  "schema": "wphx.wp-core-routing-template-surface.v1",
+  "issue": "WPHX-309.01",
+  "generated_at": "2026-06-24T01:15:00.000Z",
+  "generator": "tools/wp-core/run-routing-template-surface.mjs",
+  "inputs": {
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    }
+  },
+  "scope": {
+    "owner": "WPHX-309",
+    "included": "C1 WordPress 7.0 PHP source and distribution artifacts classified to rewrite rules, request dispatch, canonical redirects, link generation, template loading, and request entrypoint sentinels by the WPHX-322 owner rules.",
+    "excluded": "Theme/template hierarchy internals, feed/embed/HTTP endpoint internals, posts/query semantics, multisite routing internals, and block/theme rendering are inventoried as cross-domain handoffs rather than owned here.",
+    "first_party_closure": {
+      "source_count": 15,
+      "artifact_count": 13,
+      "source_samples": [
+        "src/_index.php",
+        "src/index.php",
+        "src/wp-admin/_index.php",
+        "src/wp-admin/index.php",
+        "src/wp-admin/network/index.php",
+        "src/wp-blog-header.php",
+        "src/wp-content/index.php",
+        "src/wp-includes/blocks/index.php",
+        "src/wp-includes/canonical.php",
+        "src/wp-includes/class-wp-rewrite.php"
+      ],
+      "artifact_samples": [
+        "index.php",
+        "wp-admin/index.php",
+        "wp-admin/network/index.php",
+        "wp-blog-header.php",
+        "wp-content/index.php",
+        "wp-includes/blocks/index.php",
+        "wp-includes/canonical.php",
+        "wp-includes/class-wp-rewrite.php",
+        "wp-includes/class-wp.php",
+        "wp-includes/link-template.php"
+      ]
+    },
+    "cross_domain_notes": [
+      {
+        "owner": "WPHX-301/WPHX-302",
+        "reason": "Request bootstrap and hook dispatch are observable during routing; WPHX-309 fixtures must not treat bootstrap/autoload/hook side effects as invisible plumbing."
+      },
+      {
+        "owner": "WPHX-304/WPHX-305",
+        "reason": "Permalink structures, rewrite rules, and canonical URL behavior depend on options/cache and wpdb-backed state."
+      },
+      {
+        "owner": "WPHX-307",
+        "reason": "WP_Query parse/query-state/conditional behavior is the semantic consumer of request parsing and must remain separately evidenced."
+      },
+      {
+        "owner": "WPHX-310",
+        "reason": "Template hierarchy and theme resolution consume template-loader results but belong to the theme/template domain."
+      },
+      {
+        "owner": "WPHX-312",
+        "reason": "Feeds, embeds, oEmbed, cron, HTTP, and endpoint-specific request handling share route/canonical surfaces but remain external-service/runtime-integration work."
+      },
+      {
+        "owner": "WPHX-314",
+        "reason": "Block template and query-block behavior needs block/render coordination before Gutenberg-facing claims."
+      }
+    ],
+    "semantic_handoff_candidates": [
+      {
+        "path": "src/wp-admin/includes/template.php",
+        "owner": "WPHX-310",
+        "reason": "Theme and template hierarchy internals consume routing/template-loader decisions but remain theme/template-domain work."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfifteen/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfourteen/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfourteen/page-templates/contributors.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyfourteen/page-templates/full-width.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/inc/template-functions.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/content/content-excerpt.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/content/content-none.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/content/content-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/content/content-single.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/content/content.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/footer/footer-widgets.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/header/entry-header.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/header/site-branding.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/post/author-bio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentynineteen/template-parts/post/discussion-meta.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/inc/template-functions.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/footer/footer-widgets.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/footer/site-info.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/header/header-image.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/header/site-branding.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/navigation/navigation-top.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/page/content-front-page-panels.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/page/content-front-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/page/content-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-audio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-excerpt.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-gallery.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-image.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-none.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content-video.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentyseventeen/template-parts/post/content.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/biography.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/content-none.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/content-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/content-search.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/content-single.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentysixteen/template-parts/content.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwelve/page-templates/front-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwelve/page-templates/full-width.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/content-cover.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/content.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/entry-author-bio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/entry-header.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/featured-image.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/footer-menus-widgets.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/modal-menu.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/modal-search.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/navigation.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/pagination.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/templates/template-cover.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/templates/template-full-width.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-404-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-archive-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-archive-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-archive-text-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-archive-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-posts-grid-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-text-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-with-sidebar-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-page-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-page-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-query-loop-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-query-loop-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-query-loop-text-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-query-loop-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-query-loop.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-search-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-search-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-search-text-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-search-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-left-aligned-content.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-news-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-offset.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-photo-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-text-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-vertical-header-blog.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-archive-blogging.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-archive-portfolio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-home-blogging.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-home-business.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-home-portfolio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-index-blogging.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-index-portfolio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-search-blogging.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-search-portfolio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/template-single-portfolio.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/inc/template-functions.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/inc/template-tags.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/template-parts/content/content-excerpt.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/template-parts/content/content-none.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/template-parts/content/content-page.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/template-parts/content/content-single.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-309 must coordinate observable routing behavior without changing ownership here."
+      }
+    ]
+  },
+  "coverage": {
+    "source_count": 15,
+    "artifact_count": 13,
+    "abi_entry_count": 254,
+    "class_count": 3,
+    "test_count": 78,
+    "source_by_group": {
+      "canonical_redirects": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/canonical.php"
+        ]
+      },
+      "link_generation": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/link-template.php"
+        ]
+      },
+      "request_dispatch": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/class-wp.php"
+        ]
+      },
+      "request_entrypoints": {
+        "count": 8,
+        "paths": [
+          "src/_index.php",
+          "src/index.php",
+          "src/wp-admin/_index.php",
+          "src/wp-admin/index.php",
+          "src/wp-admin/network/index.php",
+          "src/wp-blog-header.php",
+          "src/wp-content/index.php",
+          "src/wp-includes/blocks/index.php"
+        ]
+      },
+      "rewrite_rules": {
+        "count": 2,
+        "paths": [
+          "src/wp-includes/class-wp-rewrite.php",
+          "src/wp-includes/rewrite.php"
+        ]
+      },
+      "sitemaps": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/sitemaps/class-wp-sitemaps-index.php"
+        ]
+      },
+      "template_loading": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/template-loader.php"
+        ]
+      }
+    },
+    "artifact_by_group": {
+      "canonical_redirects": {
+        "count": 1,
+        "paths": [
+          "wp-includes/canonical.php"
+        ]
+      },
+      "link_generation": {
+        "count": 1,
+        "paths": [
+          "wp-includes/link-template.php"
+        ]
+      },
+      "request_dispatch": {
+        "count": 1,
+        "paths": [
+          "wp-includes/class-wp.php"
+        ]
+      },
+      "request_entrypoints": {
+        "count": 6,
+        "paths": [
+          "index.php",
+          "wp-admin/index.php",
+          "wp-admin/network/index.php",
+          "wp-blog-header.php",
+          "wp-content/index.php",
+          "wp-includes/blocks/index.php"
+        ]
+      },
+      "rewrite_rules": {
+        "count": 2,
+        "paths": [
+          "wp-includes/class-wp-rewrite.php",
+          "wp-includes/rewrite.php"
+        ]
+      },
+      "sitemaps": {
+        "count": 1,
+        "paths": [
+          "wp-includes/sitemaps/class-wp-sitemaps-index.php"
+        ]
+      },
+      "template_loading": {
+        "count": 1,
+        "paths": [
+          "wp-includes/template-loader.php"
+        ]
+      }
+    },
+    "abi_by_group": {
+      "canonical_redirects": {
+        "count": 6,
+        "functions": [
+          "_remove_qs_args_if_not_in_url",
+          "lowercase_octets",
+          "redirect_canonical",
+          "redirect_guess_404_permalink",
+          "strip_fragment_from_url",
+          "wp_redirect_admin_locations"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "link_generation": {
+        "count": 117,
+        "functions": [
+          "_get_page_link",
+          "_navigation_markup",
+          "adjacent_post_link",
+          "adjacent_posts_rel_link",
+          "adjacent_posts_rel_link_wp_head",
+          "admin_url",
+          "content_url",
+          "edit_bookmark_link",
+          "edit_comment_link",
+          "edit_post_link",
+          "edit_tag_link",
+          "edit_term_link",
+          "get_adjacent_post",
+          "get_adjacent_post_link",
+          "get_adjacent_post_rel_link",
+          "get_admin_url",
+          "get_attachment_link",
+          "get_author_feed_link",
+          "get_avatar_data",
+          "get_avatar_url",
+          "get_boundary_post",
+          "get_category_feed_link",
+          "get_comments_pagenum_link",
+          "get_dashboard_url",
+          "get_day_link",
+          "get_delete_post_link",
+          "get_edit_bookmark_link",
+          "get_edit_comment_link",
+          "get_edit_post_link",
+          "get_edit_profile_url",
+          "get_edit_tag_link",
+          "get_edit_term_link",
+          "get_edit_user_link",
+          "get_feed_link",
+          "get_home_url",
+          "get_month_link",
+          "get_next_comments_link",
+          "get_next_post",
+          "get_next_post_link",
+          "get_next_posts_link",
+          "get_next_posts_page_link",
+          "get_page_link",
+          "get_pagenum_link",
+          "get_parent_theme_file_path",
+          "get_parent_theme_file_uri",
+          "get_permalink",
+          "get_post_comments_feed_link",
+          "get_post_permalink",
+          "get_post_type_archive_feed_link",
+          "get_post_type_archive_link",
+          "get_posts_nav_link",
+          "get_preview_post_link",
+          "get_previous_comments_link",
+          "get_previous_post",
+          "get_previous_post_link",
+          "get_previous_posts_link",
+          "get_previous_posts_page_link",
+          "get_privacy_policy_url",
+          "get_search_comments_feed_link",
+          "get_search_feed_link",
+          "get_search_link",
+          "get_site_url",
+          "get_tag_feed_link",
+          "get_term_feed_link",
+          "get_the_comments_navigation",
+          "get_the_comments_pagination",
+          "get_the_permalink",
+          "get_the_post_navigation",
+          "get_the_posts_navigation",
+          "get_the_posts_pagination",
+          "get_the_privacy_policy_link",
+          "get_theme_file_path",
+          "get_theme_file_uri",
+          "get_year_link",
+          "home_url",
+          "includes_url",
+          "is_avatar_comment_type",
+          "network_admin_url",
+          "network_home_url",
+          "network_site_url",
+          "next_comments_link",
+          "next_post_link",
+          "next_post_rel_link",
+          "next_posts",
+          "next_posts_link",
+          "paginate_comments_links",
+          "permalink_anchor",
+          "plugins_url",
+          "post_comments_feed_link",
+          "posts_nav_link",
+          "prev_post_rel_link",
+          "previous_comments_link",
+          "previous_post_link",
+          "previous_posts",
+          "previous_posts_link",
+          "rel_canonical",
+          "self_admin_url",
+          "set_url_scheme",
+          "site_url",
+          "the_comments_navigation",
+          "the_comments_pagination",
+          "the_feed_link",
+          "the_permalink",
+          "the_post_navigation",
+          "the_posts_navigation",
+          "the_posts_pagination",
+          "the_privacy_policy_link",
+          "the_shortlink",
+          "user_admin_url",
+          "user_trailingslashit",
+          "wp_force_plain_post_permalink",
+          "wp_get_canonical_url",
+          "wp_get_shortlink",
+          "wp_internal_hosts",
+          "wp_is_internal_link",
+          "wp_shortlink_header",
+          "wp_shortlink_wp_head"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "request_dispatch": {
+        "count": 21,
+        "functions": [],
+        "classes": [
+          "WP"
+        ],
+        "methods": [
+          "WP::add_query_var",
+          "WP::build_query_string",
+          "WP::handle_404",
+          "WP::init",
+          "WP::main",
+          "WP::parse_request",
+          "WP::query_posts",
+          "WP::register_globals",
+          "WP::remove_query_var",
+          "WP::send_headers",
+          "WP::set_query_var"
+        ],
+        "properties": [
+          "WP::$did_permalink",
+          "WP::$extra_query_vars",
+          "WP::$matched_query",
+          "WP::$matched_rule",
+          "WP::$private_query_vars",
+          "WP::$public_query_vars",
+          "WP::$query_string",
+          "WP::$query_vars",
+          "WP::$request"
+        ]
+      },
+      "request_entrypoints": {
+        "count": 8,
+        "functions": [
+          "register_core_block_style_handles",
+          "register_core_block_types_from_metadata",
+          "wp_register_core_block_metadata_collection"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "rewrite_rules": {
+        "count": 96,
+        "functions": [
+          "_wp_filter_taxonomy_base",
+          "add_feed",
+          "add_permastruct",
+          "add_rewrite_endpoint",
+          "add_rewrite_rule",
+          "add_rewrite_tag",
+          "flush_rewrite_rules",
+          "remove_permastruct",
+          "remove_rewrite_tag",
+          "url_to_postid",
+          "wp_resolve_numeric_slug_conflicts"
+        ],
+        "classes": [
+          "WP_Rewrite"
+        ],
+        "methods": [
+          "WP_Rewrite::__construct",
+          "WP_Rewrite::add_endpoint",
+          "WP_Rewrite::add_external_rule",
+          "WP_Rewrite::add_permastruct",
+          "WP_Rewrite::add_rewrite_tag",
+          "WP_Rewrite::add_rule",
+          "WP_Rewrite::flush_rules",
+          "WP_Rewrite::generate_rewrite_rule",
+          "WP_Rewrite::generate_rewrite_rules",
+          "WP_Rewrite::get_author_permastruct",
+          "WP_Rewrite::get_category_permastruct",
+          "WP_Rewrite::get_comment_feed_permastruct",
+          "WP_Rewrite::get_date_permastruct",
+          "WP_Rewrite::get_day_permastruct",
+          "WP_Rewrite::get_extra_permastruct",
+          "WP_Rewrite::get_feed_permastruct",
+          "WP_Rewrite::get_month_permastruct",
+          "WP_Rewrite::get_page_permastruct",
+          "WP_Rewrite::get_search_permastruct",
+          "WP_Rewrite::get_tag_permastruct",
+          "WP_Rewrite::get_year_permastruct",
+          "WP_Rewrite::iis7_url_rewrite_rules",
+          "WP_Rewrite::init",
+          "WP_Rewrite::mod_rewrite_rules",
+          "WP_Rewrite::page_rewrite_rules",
+          "WP_Rewrite::page_uri_index",
+          "WP_Rewrite::preg_index",
+          "WP_Rewrite::refresh_rewrite_rules",
+          "WP_Rewrite::remove_permastruct",
+          "WP_Rewrite::remove_rewrite_tag",
+          "WP_Rewrite::rewrite_rules",
+          "WP_Rewrite::set_category_base",
+          "WP_Rewrite::set_permalink_structure",
+          "WP_Rewrite::set_tag_base",
+          "WP_Rewrite::using_index_permalinks",
+          "WP_Rewrite::using_mod_rewrite_permalinks",
+          "WP_Rewrite::using_permalinks",
+          "WP_Rewrite::wp_rewrite_rules"
+        ],
+        "properties": [
+          "WP_Rewrite::$author_base",
+          "WP_Rewrite::$author_structure",
+          "WP_Rewrite::$comment_feed_structure",
+          "WP_Rewrite::$comments_base",
+          "WP_Rewrite::$comments_pagination_base",
+          "WP_Rewrite::$date_structure",
+          "WP_Rewrite::$endpoints",
+          "WP_Rewrite::$extra_permastructs",
+          "WP_Rewrite::$extra_rules",
+          "WP_Rewrite::$extra_rules_top",
+          "WP_Rewrite::$feed_base",
+          "WP_Rewrite::$feed_structure",
+          "WP_Rewrite::$feeds",
+          "WP_Rewrite::$front",
+          "WP_Rewrite::$index",
+          "WP_Rewrite::$matches",
+          "WP_Rewrite::$non_wp_rules",
+          "WP_Rewrite::$page_structure",
+          "WP_Rewrite::$pagination_base",
+          "WP_Rewrite::$permalink_structure",
+          "WP_Rewrite::$queryreplace",
+          "WP_Rewrite::$rewritecode",
+          "WP_Rewrite::$rewritereplace",
+          "WP_Rewrite::$root",
+          "WP_Rewrite::$rules",
+          "WP_Rewrite::$search_base",
+          "WP_Rewrite::$search_structure",
+          "WP_Rewrite::$use_trailing_slashes",
+          "WP_Rewrite::$use_verbose_page_rules",
+          "WP_Rewrite::$use_verbose_rules"
+        ]
+      },
+      "sitemaps": {
+        "count": 6,
+        "functions": [],
+        "classes": [
+          "WP_Sitemaps_Index"
+        ],
+        "methods": [
+          "WP_Sitemaps_Index::__construct",
+          "WP_Sitemaps_Index::get_index_url",
+          "WP_Sitemaps_Index::get_sitemap_list"
+        ],
+        "properties": [
+          "WP_Sitemaps_Index::$max_sitemaps",
+          "WP_Sitemaps_Index::$registry"
+        ]
+      }
+    },
+    "classes": [
+      "WP",
+      "WP_Rewrite",
+      "WP_Sitemaps_Index"
+    ],
+    "abi_risks": {
+      "functions_with_reference_parameters": [],
+      "methods_with_reference_parameters": [],
+      "variadic_functions": [],
+      "conditional_functions": [
+        "lowercase_octets"
+      ]
+    },
+    "test_paths": [
+      "tests/phpunit/data/themedir1/default/template-part.php",
+      "tests/phpunit/data/themedir1/page-templates-child/subdir/template-sub-dir-post-types-child.php",
+      "tests/phpunit/data/themedir1/page-templates-child/template-top-level-post-types-child.php",
+      "tests/phpunit/data/themedir1/page-templates/subdir/template-sub-dir-post-types.php",
+      "tests/phpunit/data/themedir1/page-templates/subdir/template-sub-dir.php",
+      "tests/phpunit/data/themedir1/page-templates/template-header.php",
+      "tests/phpunit/data/themedir1/page-templates/template-top-level-post-types.php",
+      "tests/phpunit/data/themedir1/page-templates/template-top-level.php",
+      "tests/phpunit/tests/canonical.php",
+      "tests/phpunit/tests/canonical/category.php",
+      "tests/phpunit/tests/canonical/customRules.php",
+      "tests/phpunit/tests/canonical/https.php",
+      "tests/phpunit/tests/canonical/noRewrite.php",
+      "tests/phpunit/tests/canonical/pageOnFront.php",
+      "tests/phpunit/tests/canonical/paged.php",
+      "tests/phpunit/tests/canonical/postStatus.php",
+      "tests/phpunit/tests/canonical/robots.php",
+      "tests/phpunit/tests/canonical/sitemaps.php",
+      "tests/phpunit/tests/canonical/stripFragmentFromUrl.php",
+      "tests/phpunit/tests/comment/template.php",
+      "tests/phpunit/tests/formatting/linksAddBaseUrl.php",
+      "tests/phpunit/tests/formatting/linksAddTarget.php",
+      "tests/phpunit/tests/formatting/urlShorten.php",
+      "tests/phpunit/tests/formatting/urlencodeDeep.php",
+      "tests/phpunit/tests/functions/canonicalCharset.php",
+      "tests/phpunit/tests/general/template.php",
+      "tests/phpunit/tests/general/template_CheckedSelectedHelper.php",
+      "tests/phpunit/tests/link.php",
+      "tests/phpunit/tests/link/editTermLink.php",
+      "tests/phpunit/tests/link/getAdjacentPost.php",
+      "tests/phpunit/tests/link/getAdjacentPostLink.php",
+      "tests/phpunit/tests/link/getDashboardUrl.php",
+      "tests/phpunit/tests/link/getEditCommentLink.php",
+      "tests/phpunit/tests/link/getEditPostLink.php",
+      "tests/phpunit/tests/link/getEditTermLink.php",
+      "tests/phpunit/tests/link/getFeedLink.php",
+      "tests/phpunit/tests/link/getNextCommentsLink.php",
+      "tests/phpunit/tests/link/getNextPostsLink.php",
+      "tests/phpunit/tests/link/getPagenumLink.php",
+      "tests/phpunit/tests/link/getPostCommentsFeedLink.php",
+      "tests/phpunit/tests/link/getPostPermalink.php",
+      "tests/phpunit/tests/link/getPostTypeArchiveLink.php",
+      "tests/phpunit/tests/link/getPreviewPostLink.php",
+      "tests/phpunit/tests/link/getPreviousCommentsLink.php",
+      "tests/phpunit/tests/link/getPreviousPostsLink.php",
+      "tests/phpunit/tests/link/getThePostsNavigation.php",
+      "tests/phpunit/tests/link/getThePrivacyPolicyLink.php",
+      "tests/phpunit/tests/link/nextPosts.php",
+      "tests/phpunit/tests/link/previousPosts.php",
+      "tests/phpunit/tests/link/selfAdminUrl.php",
+      "tests/phpunit/tests/link/themeFile.php",
+      "tests/phpunit/tests/link/wpGetCanonicalUrl.php",
+      "tests/phpunit/tests/oembed/template.php",
+      "tests/phpunit/tests/query/conditionals.php",
+      "tests/phpunit/tests/query/parseQuery.php",
+      "tests/phpunit/tests/query/verboseRewriteRules.php",
+      "tests/phpunit/tests/rewrite.php",
+      "tests/phpunit/tests/rewrite/addRewriteEndpoint.php",
+      "tests/phpunit/tests/rewrite/addRewriteRule.php",
+      "tests/phpunit/tests/rewrite/numericSlugs.php",
+      "tests/phpunit/tests/rewrite/oldDateRedirect.php",
+      "tests/phpunit/tests/rewrite/oldSlugRedirect.php",
+      "tests/phpunit/tests/rewrite/permastructs.php",
+      "tests/phpunit/tests/rewrite/rewriteTags.php",
+      "tests/phpunit/tests/rewrite/wpResolveNumericSlugConflicts.php",
+      "tests/phpunit/tests/robots.php",
+      "tests/phpunit/tests/sitemaps/functions.php",
+      "tests/phpunit/tests/sitemaps/sitemaps.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsIndex.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsPosts.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsRegistry.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsRenderer.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsStylesheet.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsTaxonomies.php",
+      "tests/phpunit/tests/sitemaps/wpSitemapsUsers.php",
+      "tests/phpunit/tests/template.php",
+      "tests/phpunit/tests/url.php",
+      "tests/phpunit/tests/url/getPrivacyPolicyUrl.php"
+    ]
+  },
+  "evidence_plan": {
+    "first_haxe_candidate": "A typed routing/template adapter-contract model for rewrite-rule registration, request query-var matching, canonical redirect decisions, link generation policy, and template-loader intent.",
+    "required_next_fixtures": [
+      "rewrite-rule registration and flush oracle fixture",
+      "request parsing and query-var normalization oracle fixture",
+      "canonical redirect oracle fixture",
+      "permalink/link-template generation oracle fixture",
+      "template-loader decision/runtime ABI fixture",
+      "robots and sitemap URL-generation fixture",
+      "front-end HTTP installed-distribution fixture for route/canonical/template observations",
+      "selected upstream PHPUnit rewrite/canonical/link/template ratchet"
+    ],
+    "claim": "This surface manifest bounds WPHX-309 and names fixture gates. It does not claim public PHP replacement, Haxe-owned runtime logic, route/canonical parity, template-loader parity, or installed-distribution parity."
+  },
+  "validation_result": {
+    "status": "passed",
+    "source_count": 15,
+    "artifact_count": 13,
+    "abi_entry_count": 254,
+    "class_count": 3,
+    "test_count": 78,
+    "closure_source_count": 15,
+    "closure_artifact_count": 13
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/routing-template-surface",
+  "issue": {
+    "id": "wordpresshx-s0e",
+    "external_ref": "WPHX-309.01"
+  },
+  "unit": {
+    "kind": "surface_inventory",
+    "name": "rewrite, routing, canonical URL, link generation, and template-loader surface",
+    "area": "wp-includes/class-wp.php wp-includes/class-wp-rewrite.php wp-includes/canonical.php wp-includes/link-template.php wp-includes/template-loader.php wp-blog-header.php index.php",
+    "public_contract": "This slice inventories WordPress routing/template-loader runtime boundaries and fixture targets. It does not claim migrated runtime behavior or public PHP ABI replacement."
+  },
+  "ownership_state": "oracle_surface_inventory",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_described",
+    "adapter_contract_owner": "not_yet_started",
+    "emission_strategy": "none",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "surface_inventory"
+  },
+  "bridge": {
+    "exists": false,
+    "kind": "not_applicable",
+    "removal_gate": "Promote bounded routing/template decisions to typed Haxe adapter contracts, then later to typed Adapter IR/original-path PHP with differential, HTTP, and upstream PHPUnit evidence."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-routing-template-surface.mjs",
+    "manifests/wp-core/wphx-309-01-routing-template-surface.v1.json",
+    "manifests/ownership/wphx-309-01-routing-template-surface.v1.json",
+    "receipts/wp-core/wphx-309-01-routing-template-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-309-01-routing-template-surface.v1.json",
+    "manifests/ownership/wphx-309-01-routing-template-surface.v1.json",
+    "receipts/wp-core/wphx-309-01-routing-template-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-309-routing-template-surface",
+      "npm run wp:core:wphx-309-routing-template-surface:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-309-01-routing-template-surface"
+    ],
+    "manifest_digest": "sha256:67fe6cd4ba06e16725499e5b4ee27b683b237c9ff2f4c6039df6f19967b1a5b2"
+  }
+}
