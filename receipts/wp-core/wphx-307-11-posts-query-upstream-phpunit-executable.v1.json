@@ -1,0 +1,60 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-307-11-posts-query-upstream-phpunit-executable",
+  "issue": {
+    "id": "wordpresshx-l76.14.1",
+    "external_ref": "WPHX-307.11",
+    "title": "WPHX-307.11 — Record executable posts/query upstream PHPUnit ratchet evidence"
+  },
+  "recorded_at": "2026-06-26T00:00:00.000Z",
+  "command": "npm run upstream:phpunit-ratchet:provision",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+      "role": "provisioned upstream PHPUnit ratchet report with WPHX-307 pass/pass classifications",
+      "sha256": "sha256:31e2435dd2d50b92e7f1d448cf49c7f74c8a3f5297a4fda8519279617ed630e4"
+    },
+    {
+      "path": "tests/upstream/phpunit/groups.json",
+      "role": "selected upstream PHPUnit group registry containing WPHX-307 groups",
+      "sha256": "sha256:36c22548e92c5e93c7d68961d33d608b83fe33cf0c3cd11f944bbbdd57443cc1"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "environment_ready": true,
+    "selected_wphx_307_group_count": 3,
+    "selected_wphx_307_groups": [
+      {
+        "group": "posts-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "posts-meta-revisions-cache",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "wp-query-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    ],
+    "global_ratchet_status": "failed",
+    "global_ratchet_blocker": "WPHX-700.10 tracks unrelated WPHX-311 REST fail/fail upstream baseline classifications.",
+    "installed_distribution_post_query_claimed": false
+  }
+}
