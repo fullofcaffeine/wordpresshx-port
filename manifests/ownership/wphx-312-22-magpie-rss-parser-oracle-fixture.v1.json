@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/magpie-rss-parser-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.22",
+    "external_ref": "WPHX-312.22"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "MagpieRSS parser and pure helper behavior",
+    "area": "src/wp-includes/rss.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/rss.php in PHP CLI with deterministic RSS/RDF/Atom XML strings and local WordPress stubs. It observes parser normalization, response header handoff, W3C date parsing, status helpers, and pure RSSCache helpers without remote HTTP fetching, transients, wp_rss/get_rss display output, or installed feed behavior."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-wordpress-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass remote fetch/cache/display behavior, installed feed widgets/routes, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-magpie-rss-parser-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-22"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-magpie-rss-parser-oracle-fixture",
+      "npm run wp:core:wphx-312-magpie-rss-parser-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-22-magpie-rss-parser-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:b36b31626503361676872a352f6a903151cb5e25862f5bafbd8a9ebd3c4d1b8a"
+  }
+}
