@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/oembed-rest-controller-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-k2t",
+    "external_ref": "WPHX-312.31"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "WP_oEmbed_Controller REST route and proxy behavior",
+    "area": "src/wp-includes/class-wp-oembed-controller.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/class-wp-oembed-controller.php in isolated PHP CLI probes with deterministic REST route/request, permission, transient, local oEmbed, remote oEmbed, WP_Embed, and script registry stubs. It observes route registration, get_item success/error behavior, proxy permission checks, transient cache hits, local response short-circuit, remote data fetch/cache, classic embed handler fallback, and proxy invalid-url errors without claiming full REST server dispatch, live network/discovery, installed rendering, editor/admin flows, database-backed transients, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-rest-and-oembed-runtime-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass full REST server dispatch, live/recorded oEmbed provider behavior, installed browser rendering, editor/admin flows, database-backed transient/cache behavior, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-oembed-rest-controller-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-31"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-oembed-rest-controller-oracle-fixture",
+      "npm run wp:core:wphx-312-oembed-rest-controller-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-31-oembed-rest-controller-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:7d7075c1e90be980dfd15ad41bab99dedae4202f55de8a0e273058a3e6205739"
+  }
+}

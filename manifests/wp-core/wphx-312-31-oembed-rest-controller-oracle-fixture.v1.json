@@ -1,0 +1,933 @@
+{
+  "schema": "wphx.wp-core-oembed-rest-controller-oracle-fixture.v1",
+  "issue": "WPHX-312.31",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-oembed-rest-controller-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "remote_oembed_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-08-remote-fetch-oembed-oracle-fixture.v1.json",
+      "bytes": 29193,
+      "sha256": "sha256:3732343ca7f8a0e5a1a6b18d5331953d72fc98e30a7dbc82f91703951c645f52"
+    },
+    "oembed_registry_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-29-oembed-provider-registry-oracle-fixture.v1.json",
+      "bytes": 13466,
+      "sha256": "sha256:db871ca386e1cb664ba9ecf96a99af0f06ddd15882296e18d4239517ef281eb8"
+    },
+    "wp_embed_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-30-wp-embed-cache-autoembed-oracle-fixture.v1.json",
+      "bytes": 21708,
+      "sha256": "sha256:167c7f44c2001a1692b08120dbb5aa9b97173070ee27da85fa06524ea62d2acf"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-oembed-rest-controller-oracle-fixture.mjs",
+      "bytes": 26371,
+      "sha256": "sha256:c9c41bc5e5b1c7fe98d9d91c29dbb2785a4cd57e77bb76913786a8073788afe1"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-oembed-controller.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-oembed-controller.php",
+        "bytes": 6905,
+        "sha256": "sha256:6cce56b04bab7d6e6eb4100223c097f5c3d843c069b9853336ce4e5d8bc8769a"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "oembed-rest:register-routes",
+        "focus": "register_routes records embed/proxy REST routes and filtered maxwidth defaults"
+      },
+      {
+        "id": "oembed-rest:get-item-success",
+        "focus": "get_item maps URL to post ID, applies post-id filter, and returns oEmbed response data"
+      },
+      {
+        "id": "oembed-rest:get-item-invalid",
+        "focus": "get_item returns oembed_invalid_url when response data is unavailable"
+      },
+      {
+        "id": "oembed-rest:proxy-permissions",
+        "focus": "proxy permission check returns rest_forbidden for users without edit_posts"
+      },
+      {
+        "id": "oembed-rest:proxy-cache-hit",
+        "focus": "get_proxy_item returns cached transient data before local or remote resolution"
+      },
+      {
+        "id": "oembed-rest:proxy-local-short-circuit",
+        "focus": "get_proxy_item returns local oEmbed response data for current-site URLs"
+      },
+      {
+        "id": "oembed-rest:proxy-remote-success-cache",
+        "focus": "get_proxy_item fetches remote data, renders html, applies TTL, and sets transient cache"
+      },
+      {
+        "id": "oembed-rest:proxy-handler-fallback",
+        "focus": "get_proxy_item falls back to classic embed handlers and includes enqueued scripts"
+      },
+      {
+        "id": "oembed-rest:proxy-invalid-error",
+        "focus": "get_proxy_item returns oembed_invalid_url when remote and handler paths fail"
+      }
+    ],
+    "covered_symbols": [
+      "class-wp-oembed-controller.php",
+      "WP_oEmbed_Controller::register_routes",
+      "WP_oEmbed_Controller::get_item",
+      "WP_oEmbed_Controller::get_proxy_item_permissions_check",
+      "WP_oEmbed_Controller::get_proxy_item",
+      "register_rest_route",
+      "WP_REST_Server::READABLE",
+      "url_to_postid",
+      "get_oembed_response_data",
+      "get_oembed_response_data_for_url",
+      "_wp_oembed_get_object",
+      "WP_Embed::get_embed_handler_html",
+      "get_transient",
+      "set_transient",
+      "rest_oembed_ttl"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-oembed-controller.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "REST routing/request, permissions, transients, local response data, remote oEmbed object, WP_Embed handler fallback, and script registry are deterministic stubs; copied class-wp-oembed-controller.php remains the executed public controller source."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-31/oracle",
+    "candidate_root": "build/wp-core/wphx-312-31/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-oembed-controller.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-31/oracle/wp-includes/class-wp-oembed-controller.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-31/candidate/wp-includes/class-wp-oembed-controller.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "oembed-rest:register-routes": {
+        "case": "oembed-rest:register-routes",
+        "routes": [
+          {
+            "namespace": "oembed/1.0",
+            "route": "/embed",
+            "methods": "GET",
+            "callback": [
+              "WP_oEmbed_Controller",
+              "get_item"
+            ],
+            "permission_callback": "__return_true",
+            "args": {
+              "url": {
+                "description": "The URL of the resource for which to fetch oEmbed data.",
+                "required": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "format": {
+                "default": "json",
+                "sanitize_callback": "wp_oembed_ensure_format"
+              },
+              "maxwidth": {
+                "default": 480,
+                "sanitize_callback": "absint"
+              }
+            }
+          },
+          {
+            "namespace": "oembed/1.0",
+            "route": "/proxy",
+            "methods": "GET",
+            "callback": [
+              "WP_oEmbed_Controller",
+              "get_proxy_item"
+            ],
+            "permission_callback": [
+              "WP_oEmbed_Controller",
+              "get_proxy_item_permissions_check"
+            ],
+            "args": {
+              "url": {
+                "description": "The URL of the resource for which to fetch oEmbed data.",
+                "required": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "format": {
+                "description": "The oEmbed format to use.",
+                "type": "string",
+                "default": "json",
+                "enum": [
+                  "json",
+                  "xml"
+                ]
+              },
+              "maxwidth": {
+                "description": "The maximum width of the embed frame in pixels.",
+                "type": "integer",
+                "default": 480,
+                "sanitize_callback": "absint"
+              },
+              "maxheight": {
+                "description": "The maximum height of the embed frame in pixels.",
+                "type": "integer",
+                "sanitize_callback": "absint"
+              },
+              "discover": {
+                "description": "Whether to perform an oEmbed discovery request for unsanctioned providers.",
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        ],
+        "filters": [
+          {
+            "hook": "oembed_default_width",
+            "value": 600,
+            "arg_count": 1
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:get-item-success": {
+        "case": "oembed-rest:get-item-success",
+        "response": {
+          "type": "rich",
+          "post_id": 17,
+          "maxwidth": 321,
+          "html": "<iframe data-post=\"17\"></iframe>"
+        },
+        "filters": [
+          {
+            "hook": "oembed_request_post_id",
+            "value": 7,
+            "arg_count": 2
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:get-item-invalid": {
+        "case": "oembed-rest:get-item-invalid",
+        "response": {
+          "wp_error": true,
+          "code": "oembed_invalid_url",
+          "message": "Not Found",
+          "data": {
+            "status": 404
+          }
+        },
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-permissions": {
+        "case": "oembed-rest:proxy-permissions",
+        "denied": {
+          "wp_error": true,
+          "code": "rest_forbidden",
+          "message": "Sorry, you are not allowed to make proxied oEmbed requests.",
+          "data": {
+            "status": 401
+          }
+        },
+        "allowed": true,
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-cache-hit": {
+        "case": "oembed-rest:proxy-cache-hit",
+        "response": {
+          "provider_name": "Cached Provider",
+          "html": "<iframe data-cache=\"hit\"></iframe>"
+        },
+        "transient_gets": [
+          "oembed_9d458b1f4832e40e7da13b4d5f2b285d"
+        ],
+        "local_oembed": [],
+        "remote_oembed": [],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-local-short-circuit": {
+        "case": "oembed-rest:proxy-local-short-circuit",
+        "response": {
+          "type": "rich",
+          "provider_name": "Local Provider",
+          "html": "<iframe data-local=\"1\"></iframe>"
+        },
+        "local_oembed": [
+          {
+            "url": "https://local.example/post",
+            "args": {
+              "maxwidth": 400,
+              "maxheight": 200,
+              "width": 400,
+              "height": 200
+            }
+          }
+        ],
+        "remote_oembed": [],
+        "transient_sets": [],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-remote-success-cache": {
+        "case": "oembed-rest:proxy-remote-success-cache",
+        "response": {
+          "type": "rich",
+          "provider_name": "Remote Provider",
+          "html": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe><!-- filtered-oembed-result -->"
+        },
+        "local_oembed": [
+          {
+            "url": "https://remote-success.example/post",
+            "args": {
+              "maxwidth": 500,
+              "maxheight": 250,
+              "discover": false,
+              "width": 500,
+              "height": 250
+            }
+          }
+        ],
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://remote-success.example/post",
+            "args": {
+              "maxwidth": 500,
+              "maxheight": 250,
+              "discover": false,
+              "width": 500,
+              "height": 250
+            }
+          },
+          {
+            "method": "data2html",
+            "url": "https://remote-success.example/post",
+            "type": "rich"
+          }
+        ],
+        "transient_gets": [
+          "oembed_245e77f3e6856b1fbeeb6389766bc278"
+        ],
+        "transient_sets": [
+          {
+            "key": "oembed_245e77f3e6856b1fbeeb6389766bc278",
+            "value": {
+              "type": "rich",
+              "provider_name": "Remote Provider",
+              "html": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe><!-- filtered-oembed-result -->"
+            },
+            "expiration": 123
+          }
+        ],
+        "filters": [
+          {
+            "hook": "oembed_result",
+            "value": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe>",
+            "arg_count": 3
+          },
+          {
+            "hook": "rest_oembed_ttl",
+            "value": 86400,
+            "arg_count": 3
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-handler-fallback": {
+        "case": "oembed-rest:proxy-handler-fallback",
+        "response": {
+          "provider_name": "Embed Handler",
+          "html": "<blockquote data-handler=\"classic\">https://handler.example/video</blockquote>",
+          "scripts": [
+            "https://cdn.example/handler-a.js",
+            "/wp-includes/js/handler-b.js"
+          ]
+        },
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://handler.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "handler_calls": [
+          {
+            "url": "https://handler.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-invalid-error": {
+        "case": "oembed-rest:proxy-invalid-error",
+        "response": {
+          "wp_error": true,
+          "code": "oembed_invalid_url",
+          "message": "Not Found",
+          "data": {
+            "status": 404
+          }
+        },
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://invalid.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "handler_calls": [
+          {
+            "url": "https://invalid.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      }
+    },
+    "candidate": {
+      "oembed-rest:register-routes": {
+        "case": "oembed-rest:register-routes",
+        "routes": [
+          {
+            "namespace": "oembed/1.0",
+            "route": "/embed",
+            "methods": "GET",
+            "callback": [
+              "WP_oEmbed_Controller",
+              "get_item"
+            ],
+            "permission_callback": "__return_true",
+            "args": {
+              "url": {
+                "description": "The URL of the resource for which to fetch oEmbed data.",
+                "required": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "format": {
+                "default": "json",
+                "sanitize_callback": "wp_oembed_ensure_format"
+              },
+              "maxwidth": {
+                "default": 480,
+                "sanitize_callback": "absint"
+              }
+            }
+          },
+          {
+            "namespace": "oembed/1.0",
+            "route": "/proxy",
+            "methods": "GET",
+            "callback": [
+              "WP_oEmbed_Controller",
+              "get_proxy_item"
+            ],
+            "permission_callback": [
+              "WP_oEmbed_Controller",
+              "get_proxy_item_permissions_check"
+            ],
+            "args": {
+              "url": {
+                "description": "The URL of the resource for which to fetch oEmbed data.",
+                "required": true,
+                "type": "string",
+                "format": "uri"
+              },
+              "format": {
+                "description": "The oEmbed format to use.",
+                "type": "string",
+                "default": "json",
+                "enum": [
+                  "json",
+                  "xml"
+                ]
+              },
+              "maxwidth": {
+                "description": "The maximum width of the embed frame in pixels.",
+                "type": "integer",
+                "default": 480,
+                "sanitize_callback": "absint"
+              },
+              "maxheight": {
+                "description": "The maximum height of the embed frame in pixels.",
+                "type": "integer",
+                "sanitize_callback": "absint"
+              },
+              "discover": {
+                "description": "Whether to perform an oEmbed discovery request for unsanctioned providers.",
+                "type": "boolean",
+                "default": true
+              }
+            }
+          }
+        ],
+        "filters": [
+          {
+            "hook": "oembed_default_width",
+            "value": 600,
+            "arg_count": 1
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:get-item-success": {
+        "case": "oembed-rest:get-item-success",
+        "response": {
+          "type": "rich",
+          "post_id": 17,
+          "maxwidth": 321,
+          "html": "<iframe data-post=\"17\"></iframe>"
+        },
+        "filters": [
+          {
+            "hook": "oembed_request_post_id",
+            "value": 7,
+            "arg_count": 2
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:get-item-invalid": {
+        "case": "oembed-rest:get-item-invalid",
+        "response": {
+          "wp_error": true,
+          "code": "oembed_invalid_url",
+          "message": "Not Found",
+          "data": {
+            "status": 404
+          }
+        },
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-permissions": {
+        "case": "oembed-rest:proxy-permissions",
+        "denied": {
+          "wp_error": true,
+          "code": "rest_forbidden",
+          "message": "Sorry, you are not allowed to make proxied oEmbed requests.",
+          "data": {
+            "status": 401
+          }
+        },
+        "allowed": true,
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-cache-hit": {
+        "case": "oembed-rest:proxy-cache-hit",
+        "response": {
+          "provider_name": "Cached Provider",
+          "html": "<iframe data-cache=\"hit\"></iframe>"
+        },
+        "transient_gets": [
+          "oembed_9d458b1f4832e40e7da13b4d5f2b285d"
+        ],
+        "local_oembed": [],
+        "remote_oembed": [],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-local-short-circuit": {
+        "case": "oembed-rest:proxy-local-short-circuit",
+        "response": {
+          "type": "rich",
+          "provider_name": "Local Provider",
+          "html": "<iframe data-local=\"1\"></iframe>"
+        },
+        "local_oembed": [
+          {
+            "url": "https://local.example/post",
+            "args": {
+              "maxwidth": 400,
+              "maxheight": 200,
+              "width": 400,
+              "height": 200
+            }
+          }
+        ],
+        "remote_oembed": [],
+        "transient_sets": [],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-remote-success-cache": {
+        "case": "oembed-rest:proxy-remote-success-cache",
+        "response": {
+          "type": "rich",
+          "provider_name": "Remote Provider",
+          "html": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe><!-- filtered-oembed-result -->"
+        },
+        "local_oembed": [
+          {
+            "url": "https://remote-success.example/post",
+            "args": {
+              "maxwidth": 500,
+              "maxheight": 250,
+              "discover": false,
+              "width": 500,
+              "height": 250
+            }
+          }
+        ],
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://remote-success.example/post",
+            "args": {
+              "maxwidth": 500,
+              "maxheight": 250,
+              "discover": false,
+              "width": 500,
+              "height": 250
+            }
+          },
+          {
+            "method": "data2html",
+            "url": "https://remote-success.example/post",
+            "type": "rich"
+          }
+        ],
+        "transient_gets": [
+          "oembed_245e77f3e6856b1fbeeb6389766bc278"
+        ],
+        "transient_sets": [
+          {
+            "key": "oembed_245e77f3e6856b1fbeeb6389766bc278",
+            "value": {
+              "type": "rich",
+              "provider_name": "Remote Provider",
+              "html": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe><!-- filtered-oembed-result -->"
+            },
+            "expiration": 123
+          }
+        ],
+        "filters": [
+          {
+            "hook": "oembed_result",
+            "value": "<iframe data-rendered=\"https://remote-success.example/post\"></iframe>",
+            "arg_count": 3
+          },
+          {
+            "hook": "rest_oembed_ttl",
+            "value": 86400,
+            "arg_count": 3
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-handler-fallback": {
+        "case": "oembed-rest:proxy-handler-fallback",
+        "response": {
+          "provider_name": "Embed Handler",
+          "html": "<blockquote data-handler=\"classic\">https://handler.example/video</blockquote>",
+          "scripts": [
+            "https://cdn.example/handler-a.js",
+            "/wp-includes/js/handler-b.js"
+          ]
+        },
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://handler.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "handler_calls": [
+          {
+            "url": "https://handler.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      },
+      "oembed-rest:proxy-invalid-error": {
+        "case": "oembed-rest:proxy-invalid-error",
+        "response": {
+          "wp_error": true,
+          "code": "oembed_invalid_url",
+          "message": "Not Found",
+          "data": {
+            "status": 404
+          }
+        },
+        "remote_oembed": [
+          {
+            "method": "get_data",
+            "url": "https://invalid.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "handler_calls": [
+          {
+            "url": "https://invalid.example/video",
+            "args": {
+              "maxwidth": 410,
+              "width": 410
+            }
+          }
+        ],
+        "assertions": {
+          "routes_registered": true,
+          "get_item_success": true,
+          "get_item_invalid": true,
+          "permission_check": true,
+          "proxy_cache_hit": true,
+          "proxy_local_short_circuit": true,
+          "proxy_remote_success_cache": true,
+          "proxy_handler_fallback": true,
+          "proxy_invalid_error": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:42355703a6af2acefbdad44768b0e19d96bfd3a9b3d82b19a05843e40a10971a",
+    "candidate_sha256": "sha256:42355703a6af2acefbdad44768b0e19d96bfd3a9b3d82b19a05843e40a10971a",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "full-rest-server-dispatch-not-executed",
+      "owner": "WPHX-312.31",
+      "detail": "The fixture calls controller methods directly with a minimal request object. Full WP_REST_Server route dispatch, schema validation, response serialization, and installed REST routing remain WPHX-311/WPHX-312 distribution gates."
+    },
+    {
+      "id": "live-oembed-network-not-executed",
+      "owner": "WPHX-312.31",
+      "detail": "Remote oEmbed data and classic handler fallback are deterministic stubs. Live/recorded provider discovery, remote fetch transport, browser rendering, and editor/admin flows remain later gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.31",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-31-oembed-rest-controller-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 9,
+    "covered_symbols": 15,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "full_rest_dispatch_claimed": false,
+    "live_oembed_fetch_claimed": false
+  }
+}
