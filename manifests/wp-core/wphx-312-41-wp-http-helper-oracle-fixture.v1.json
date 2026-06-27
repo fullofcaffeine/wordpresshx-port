@@ -1,0 +1,549 @@
+{
+  "schema": "wphx.wp-core-wp-http-helper-oracle-fixture.v1",
+  "issue": "WPHX-312.41",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-wp-http-helper-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "http_core_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-03-http-cron-mail-oracle-fixture.v1.json",
+      "bytes": 38945,
+      "sha256": "sha256:017e1d13c9f442eb5f02a3c37bb3ab6ba9edc661d9c0c6b87aab429e3d7b325a"
+    },
+    "http_cookie_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+      "bytes": 16186,
+      "sha256": "sha256:00588999d36cddd752353945676f036bb47409e026063d847cb313f9977c0f01"
+    },
+    "http_encoding_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+      "bytes": 13816,
+      "sha256": "sha256:abafe54cd8b81a6de06619843743f439146a02f66224d5f36b7e1326489154f2"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-wp-http-helper-oracle-fixture.mjs",
+      "bytes": 26781,
+      "sha256": "sha256:b223f85a5018610033c8066f68750de046f9d51464d139989b8dab35d026e92d"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http.php",
+        "bytes": 41648,
+        "sha256": "sha256:031eca4a468d625c82fe75b732a791ae4331fa63b5b243ffbee71930e64152ee"
+      },
+      {
+        "path": "src/wp-includes/class-wp-http-cookie.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php",
+        "bytes": 7269,
+        "sha256": "sha256:d0b26c3bbd217273eb1b5074519194b804f47bd5712a8472bfd3bb5210d25607"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "wp-http:normalize-cookies",
+        "focus": "WP_Http_Cookie and scalar cookies convert into Requests cookies while non-cookie objects are ignored"
+      },
+      {
+        "id": "wp-http:browser-redirect-compatibility",
+        "focus": "302 redirects switch POST to GET while other redirect statuses preserve request type"
+      },
+      {
+        "id": "wp-http:validate-redirects",
+        "focus": "redirect validation accepts safe URLs and throws the Requests exception/type for invalid URLs"
+      },
+      {
+        "id": "wp-http:make-absolute-url",
+        "focus": "absolute, schemeless, root-relative, relative-parent, query, fragment, empty-base, and parse-failure URL resolution"
+      },
+      {
+        "id": "wp-http:handle-redirects",
+        "focus": "redirect guards, too-many-redirects error, last Location selection, POST-to-GET conversion, cookie filtering, and wp_remote_request handoff"
+      },
+      {
+        "id": "wp-http:is-ip-address",
+        "focus": "IPv4, IPv6, bracketed IPv6, host, and regex-shaped invalid IPv4 detection"
+      }
+    ],
+    "covered_symbols": [
+      "WP_Http::normalize_cookies",
+      "WP_Http::browser_redirect_compatibility",
+      "WP_Http::validate_redirects",
+      "WP_Http::make_absolute_url",
+      "WP_Http::handle_redirects",
+      "WP_Http::is_ip_address",
+      "WP_Http_Cookie",
+      "WpOrg\\Requests\\Cookie\\Jar",
+      "WpOrg\\Requests\\Cookie",
+      "WpOrg\\Requests\\Response",
+      "WpOrg\\Requests\\Exception",
+      "WpOrg\\Requests\\Requests::GET",
+      "wp_http_validate_url",
+      "wp_parse_url",
+      "wp_remote_request",
+      "WP_Error",
+      "__"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http.php",
+      "src/wp-includes/class-wp-http-cookie.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-41/probe.php",
+      "sha256": "sha256:1b60057644152e21cfe8d22508b0387d11dd96a85437264e9463a6f939044c4f"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "Requests Autoload, Requests, Response, Exception, Cookie, and Cookie\\Jar are deterministic structural stubs; WordPress functions __, apply_filters, wp_parse_url, wp_http_validate_url, is_wp_error, and wp_remote_request are deterministic stubs; copied class-wp-http.php and class-wp-http-cookie.php remain the executed public HTTP helper sources."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-41/oracle",
+    "candidate_root": "build/wp-core/wphx-312-41/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-41/oracle/wp-includes/class-wp-http.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-41/candidate/wp-includes/class-wp-http.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-http-cookie.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-41/oracle/wp-includes/class-wp-http-cookie.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-41/candidate/wp-includes/class-wp-http-cookie.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "wp-http:normalize-cookies": {
+        "case": "wp-http:normalize-cookies",
+        "jar": {
+          "class": "WpOrg\\Requests\\Cookie\\Jar",
+          "count": 3,
+          "cookies": {
+            "auth": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "auth",
+              "value": "token",
+              "attributes": {
+                "expires": 1893456000,
+                "path": "/wp/",
+                "domain": "example.test"
+              },
+              "flags": {
+                "host-only": false
+              }
+            },
+            "scalar": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "scalar",
+              "value": "plain",
+              "attributes": [],
+              "flags": []
+            },
+            "int": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "int",
+              "value": "42",
+              "attributes": [],
+              "flags": []
+            }
+          }
+        },
+        "assertions": {
+          "count": true,
+          "wp_cookie_keyed_by_cookie_name": true,
+          "wp_cookie_attributes_and_flags": true,
+          "scalar_values_stringified": true,
+          "ignored_values_absent": true
+        }
+      },
+      "wp-http:browser-redirect-compatibility": {
+        "case": "wp-http:browser-redirect-compatibility",
+        "options_302": {
+          "type": "GET"
+        },
+        "options_301": {
+          "type": "POST"
+        },
+        "assertions": {
+          "status_302_switches_to_get": true,
+          "status_301_preserves_type": true
+        }
+      },
+      "wp-http:validate-redirects": {
+        "case": "wp-http:validate-redirects",
+        "valid": "no-throw",
+        "error": {
+          "class": "WpOrg\\Requests\\Exception",
+          "message": "A valid URL was not provided.",
+          "type": "wp_http.redirect_failed_validation"
+        },
+        "assertions": {
+          "valid_no_throw": true,
+          "invalid_exception": true
+        }
+      },
+      "wp-http:make-absolute-url": {
+        "case": "wp-http:make-absolute-url",
+        "urls": {
+          "absolute": "https://other.test/x",
+          "schemeless": "https://cdn.example.test:8443/lib.js",
+          "root_relative": "https://example.test/assets/app.js?ver=1#top",
+          "relative_parent": "https://example.test/wp-admin/img/logo.png?x=1#frag",
+          "query_fragment": "https://example.test/wp-admin/css/edit.css?updated=1#section",
+          "empty_base": "relative/file.txt",
+          "base_parse_fail": "relative/file.txt",
+          "relative_parse_fail": "fixture://relative-parse-fail"
+        },
+        "assertions": {
+          "absolute": true,
+          "schemeless": true,
+          "root_relative": true,
+          "relative_parent": true,
+          "query_fragment": true,
+          "parse_failures_passthrough": true
+        }
+      },
+      "wp-http:handle-redirects": {
+        "case": "wp-http:handle-redirects",
+        "guards": {
+          "no_location": false,
+          "non_3xx": false,
+          "no_redirection_requested": false
+        },
+        "too_many": {
+          "class": "WP_Error",
+          "code": "http_request_failed",
+          "message": "Too many redirects."
+        },
+        "success": {
+          "fixture_remote_request": {
+            "url": "https://example.test/next?x=1",
+            "args": {
+              "_redirection": 5,
+              "redirection": 1,
+              "method": "GET",
+              "cookies": [
+                {
+                  "class": "WP_Http_Cookie",
+                  "name": "session",
+                  "value": "ok",
+                  "expires": 1893456000,
+                  "path": "/",
+                  "domain": "example.test",
+                  "port": null,
+                  "host_only": null,
+                  "attributes": {
+                    "expires": 1893456000,
+                    "path": "/",
+                    "domain": "example.test"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "remote_requests": [
+          {
+            "url": "https://example.test/next?x=1",
+            "args": {
+              "_redirection": 5,
+              "redirection": 1,
+              "method": "GET",
+              "cookies": [
+                {
+                  "class": "WP_Http_Cookie",
+                  "name": "session",
+                  "value": "ok",
+                  "expires": 1893456000,
+                  "path": "/",
+                  "domain": "example.test",
+                  "port": null,
+                  "host_only": null,
+                  "attributes": {
+                    "expires": 1893456000,
+                    "path": "/",
+                    "domain": "example.test"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "assertions": {
+          "guards_false": true,
+          "too_many_error": true,
+          "remote_called_once": true,
+          "last_location_and_absolute": true,
+          "post_302_converted_to_get": true,
+          "matching_cookie_only": true
+        }
+      },
+      "wp-http:is-ip-address": {
+        "case": "wp-http:is-ip-address",
+        "addresses": {
+          "ipv4": 4,
+          "ipv6": 6,
+          "bracketed_ipv6": 6,
+          "host": false,
+          "regex_shaped_invalid_ipv4": 4
+        },
+        "assertions": {
+          "ipv4": true,
+          "ipv6": true,
+          "host_false": true,
+          "regex_shaped_invalid_ipv4_returns_4": true
+        }
+      }
+    },
+    "candidate": {
+      "wp-http:normalize-cookies": {
+        "case": "wp-http:normalize-cookies",
+        "jar": {
+          "class": "WpOrg\\Requests\\Cookie\\Jar",
+          "count": 3,
+          "cookies": {
+            "auth": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "auth",
+              "value": "token",
+              "attributes": {
+                "expires": 1893456000,
+                "path": "/wp/",
+                "domain": "example.test"
+              },
+              "flags": {
+                "host-only": false
+              }
+            },
+            "scalar": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "scalar",
+              "value": "plain",
+              "attributes": [],
+              "flags": []
+            },
+            "int": {
+              "class": "WpOrg\\Requests\\Cookie",
+              "name": "int",
+              "value": "42",
+              "attributes": [],
+              "flags": []
+            }
+          }
+        },
+        "assertions": {
+          "count": true,
+          "wp_cookie_keyed_by_cookie_name": true,
+          "wp_cookie_attributes_and_flags": true,
+          "scalar_values_stringified": true,
+          "ignored_values_absent": true
+        }
+      },
+      "wp-http:browser-redirect-compatibility": {
+        "case": "wp-http:browser-redirect-compatibility",
+        "options_302": {
+          "type": "GET"
+        },
+        "options_301": {
+          "type": "POST"
+        },
+        "assertions": {
+          "status_302_switches_to_get": true,
+          "status_301_preserves_type": true
+        }
+      },
+      "wp-http:validate-redirects": {
+        "case": "wp-http:validate-redirects",
+        "valid": "no-throw",
+        "error": {
+          "class": "WpOrg\\Requests\\Exception",
+          "message": "A valid URL was not provided.",
+          "type": "wp_http.redirect_failed_validation"
+        },
+        "assertions": {
+          "valid_no_throw": true,
+          "invalid_exception": true
+        }
+      },
+      "wp-http:make-absolute-url": {
+        "case": "wp-http:make-absolute-url",
+        "urls": {
+          "absolute": "https://other.test/x",
+          "schemeless": "https://cdn.example.test:8443/lib.js",
+          "root_relative": "https://example.test/assets/app.js?ver=1#top",
+          "relative_parent": "https://example.test/wp-admin/img/logo.png?x=1#frag",
+          "query_fragment": "https://example.test/wp-admin/css/edit.css?updated=1#section",
+          "empty_base": "relative/file.txt",
+          "base_parse_fail": "relative/file.txt",
+          "relative_parse_fail": "fixture://relative-parse-fail"
+        },
+        "assertions": {
+          "absolute": true,
+          "schemeless": true,
+          "root_relative": true,
+          "relative_parent": true,
+          "query_fragment": true,
+          "parse_failures_passthrough": true
+        }
+      },
+      "wp-http:handle-redirects": {
+        "case": "wp-http:handle-redirects",
+        "guards": {
+          "no_location": false,
+          "non_3xx": false,
+          "no_redirection_requested": false
+        },
+        "too_many": {
+          "class": "WP_Error",
+          "code": "http_request_failed",
+          "message": "Too many redirects."
+        },
+        "success": {
+          "fixture_remote_request": {
+            "url": "https://example.test/next?x=1",
+            "args": {
+              "_redirection": 5,
+              "redirection": 1,
+              "method": "GET",
+              "cookies": [
+                {
+                  "class": "WP_Http_Cookie",
+                  "name": "session",
+                  "value": "ok",
+                  "expires": 1893456000,
+                  "path": "/",
+                  "domain": "example.test",
+                  "port": null,
+                  "host_only": null,
+                  "attributes": {
+                    "expires": 1893456000,
+                    "path": "/",
+                    "domain": "example.test"
+                  }
+                }
+              ]
+            }
+          }
+        },
+        "remote_requests": [
+          {
+            "url": "https://example.test/next?x=1",
+            "args": {
+              "_redirection": 5,
+              "redirection": 1,
+              "method": "GET",
+              "cookies": [
+                {
+                  "class": "WP_Http_Cookie",
+                  "name": "session",
+                  "value": "ok",
+                  "expires": 1893456000,
+                  "path": "/",
+                  "domain": "example.test",
+                  "port": null,
+                  "host_only": null,
+                  "attributes": {
+                    "expires": 1893456000,
+                    "path": "/",
+                    "domain": "example.test"
+                  }
+                }
+              ]
+            }
+          }
+        ],
+        "assertions": {
+          "guards_false": true,
+          "too_many_error": true,
+          "remote_called_once": true,
+          "last_location_and_absolute": true,
+          "post_302_converted_to_get": true,
+          "matching_cookie_only": true
+        }
+      },
+      "wp-http:is-ip-address": {
+        "case": "wp-http:is-ip-address",
+        "addresses": {
+          "ipv4": 4,
+          "ipv6": 6,
+          "bracketed_ipv6": 6,
+          "host": false,
+          "regex_shaped_invalid_ipv4": 4
+        },
+        "assertions": {
+          "ipv4": true,
+          "ipv6": true,
+          "host_false": true,
+          "regex_shaped_invalid_ipv4_returns_4": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:92a4d4097c39b3fee580753b987bcbcb2af5e45690ce867f34af3905fab6dd92",
+    "candidate_sha256": "sha256:92a4d4097c39b3fee580753b987bcbcb2af5e45690ce867f34af3905fab6dd92",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "live-http-transport-not-executed",
+      "owner": "WPHX-312.41",
+      "detail": "The fixture observes WP_Http helpers in isolation. Live Requests transport, cURL/streams behavior, DNS/proxy/TLS behavior, network I/O, timeout races, and response streaming remain later WPHX-312 gates."
+    },
+    {
+      "id": "requests-network-redirects-not-executed",
+      "owner": "WPHX-312.41",
+      "detail": "The fixture structurally stubs the Requests classes and records helper-level redirect callbacks and handoff. It does not execute real Requests redirect dispatch, cookie jar internals, or transport-level redirect safety."
+    },
+    {
+      "id": "installed-distribution-behavior-not-executed",
+      "owner": "WPHX-312.41",
+      "detail": "The fixture uses PHP CLI with deterministic stubs rather than an installed WordPress distribution, live plugin filters, or ecosystem HTTP callers."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.41",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-41-wp-http-helper-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 17,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_http_claimed": false,
+    "requests_network_io_claimed": false,
+    "redirect_safety_claimed": false
+  }
+}
