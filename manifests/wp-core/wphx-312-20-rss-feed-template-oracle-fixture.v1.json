@@ -1,0 +1,303 @@
+{
+  "schema": "wphx.wp-core-rss-feed-template-oracle-fixture.v1",
+  "issue": "WPHX-312.20",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-rss-feed-template-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "http_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "rss2_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+      "bytes": 33544,
+      "sha256": "sha256:c1d990a1a709c47727b7f35809c992fbc009f4730e8cfda3cd9ef8fc9ba0736f"
+    },
+    "rdf_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-19-rdf-feed-template-oracle-fixture.v1.json",
+      "bytes": 29874,
+      "sha256": "sha256:3ba96872934a64ceb2a6814daca0f5ed9dc908d5427187819a36424670016021"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-rss-feed-template-oracle-fixture.mjs",
+      "bytes": 16615,
+      "sha256": "sha256:0de094fe7ac5aa59e68166cad625bd1d2bdc86818b239bc733c0c19083bd5d19"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/feed-rss.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/feed-rss.php",
+        "bytes": 1189,
+        "sha256": "sha256:dac5014f327da3f8dea8ea61bcecc47318c0752df72872ee5b8bb1cc1c9e4496"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "rss092:single",
+        "path": "/wp-includes/feed-rss.php?case=single",
+        "focus": "RSS 0.92 channel metadata, header hook, one item, excerpt, permalink, and item hook output"
+      },
+      {
+        "id": "rss092:multi",
+        "path": "/wp-includes/feed-rss.php?case=multi",
+        "focus": "post loop renders multiple RSS 0.92 items with per-post titles, descriptions, links, and hook markers"
+      },
+      {
+        "id": "rss092:special-chars",
+        "path": "/wp-includes/feed-rss.php?case=special",
+        "focus": "title/excerpt/link escaping boundaries remain observable in RSS 0.92 output"
+      },
+      {
+        "id": "rss092:empty-excerpt",
+        "path": "/wp-includes/feed-rss.php?case=empty-excerpt",
+        "focus": "empty excerpt branch emits an empty CDATA description without suppressing item output"
+      },
+      {
+        "id": "rss092:no-posts",
+        "path": "/wp-includes/feed-rss.php?case=empty",
+        "focus": "empty post loop still emits channel metadata and header hook without items"
+      }
+    ],
+    "covered_symbols": [
+      "feed-rss.php",
+      "feed_content_type",
+      "wp_title_rss",
+      "bloginfo_rss",
+      "get_feed_build_date",
+      "rss_head",
+      "have_posts",
+      "the_post",
+      "the_title_rss",
+      "the_excerpt_rss",
+      "the_permalink_rss",
+      "rss_item"
+    ],
+    "source_files": [
+      "src/wp-includes/feed-rss.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_builtin_server": true,
+      "auto_prepend_stub": "rss-prepend.php supplies deterministic feed-loop functions; copied feed-rss.php remains the executed template."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-20/oracle",
+    "candidate_root": "build/wp-core/wphx-312-20/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/feed-rss.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-20/oracle/wp-includes/feed-rss.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-20/candidate/wp-includes/feed-rss.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "rss092:single": {
+        "case": "rss092:single",
+        "request_path": "/wp-includes/feed-rss.php?case=single",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:6f91fd0a48f4cb800d67e8f9cfb71a825253dc9d47a60c34d925b6b8c4b9de8e",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      },
+      "rss092:multi": {
+        "case": "rss092:multi",
+        "request_path": "/wp-includes/feed-rss.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:79eaabad282b533fc4db6fca77d68c986b615915388d7b14a21c9b7f7f961166",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t<item>\n\t\t<title>Beta RSS</title>\n\t\t<description><![CDATA[Beta rss excerpt]]></description>\n\t\t<link>https://example.test/posts/beta-rss</link>\n\t\t\t\t<fixture:item marker=\"202\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": true
+      },
+      "rss092:special-chars": {
+        "case": "rss092:special-chars",
+        "request_path": "/wp-includes/feed-rss.php?case=special",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:6366ee6529a47898782a404fd7062509a03f8f0c5a3a1a26bd3fa2ebabdb51aa",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha &amp; RSS &lt;One&gt;</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": true,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      },
+      "rss092:empty-excerpt": {
+        "case": "rss092:empty-excerpt",
+        "request_path": "/wp-includes/feed-rss.php?case=empty-excerpt",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:e932072caeaa4ea39dc4a0f86c6f40e6c57a3845ecabd4f3db0ecc781ec51fcb",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": true,
+        "has_multi_output": false
+      },
+      "rss092:no-posts": {
+        "case": "rss092:no-posts",
+        "request_path": "/wp-includes/feed-rss.php?case=empty",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:d84ba239ff750a1ebeb4d0e23e56bf88e4335b43640033bbc0fc276bde49d4c7",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n</channel>\n</rss>\n",
+        "item_count": 0,
+        "has_header_action_output": true,
+        "has_item_action_output": false,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      }
+    },
+    "candidate": {
+      "rss092:single": {
+        "case": "rss092:single",
+        "request_path": "/wp-includes/feed-rss.php?case=single",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:6f91fd0a48f4cb800d67e8f9cfb71a825253dc9d47a60c34d925b6b8c4b9de8e",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      },
+      "rss092:multi": {
+        "case": "rss092:multi",
+        "request_path": "/wp-includes/feed-rss.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:79eaabad282b533fc4db6fca77d68c986b615915388d7b14a21c9b7f7f961166",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t<item>\n\t\t<title>Beta RSS</title>\n\t\t<description><![CDATA[Beta rss excerpt]]></description>\n\t\t<link>https://example.test/posts/beta-rss</link>\n\t\t\t\t<fixture:item marker=\"202\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": true
+      },
+      "rss092:special-chars": {
+        "case": "rss092:special-chars",
+        "request_path": "/wp-includes/feed-rss.php?case=special",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:6366ee6529a47898782a404fd7062509a03f8f0c5a3a1a26bd3fa2ebabdb51aa",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha &amp; RSS &lt;One&gt;</title>\n\t\t<description><![CDATA[Alpha rss excerpt]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": true,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      },
+      "rss092:empty-excerpt": {
+        "case": "rss092:empty-excerpt",
+        "request_path": "/wp-includes/feed-rss.php?case=empty-excerpt",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:e932072caeaa4ea39dc4a0f86c6f40e6c57a3845ecabd4f3db0ecc781ec51fcb",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n\t<item>\n\t\t<title>Alpha RSS</title>\n\t\t<description><![CDATA[]]></description>\n\t\t<link>https://example.test/posts/alpha-rss</link>\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_header_action_output": true,
+        "has_item_action_output": true,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": true,
+        "has_multi_output": false
+      },
+      "rss092:no-posts": {
+        "case": "rss092:no-posts",
+        "request_path": "/wp-includes/feed-rss.php?case=empty",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:d84ba239ff750a1ebeb4d0e23e56bf88e4335b43640033bbc0fc276bde49d4c7",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?><rss version=\"0.92\">\n<channel>\n\t<title>Fixture RSS 0.92 &amp; Title</title>\n\t<link>https://example.test</link>\n\t<description>Fixture RSS description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<docs>http://backend.userland.com/rss092</docs>\n\t<language>en-US</language>\n\t\t<fixture:head>rss092</fixture:head>\n\n</channel>\n</rss>\n",
+        "item_count": 0,
+        "has_header_action_output": true,
+        "has_item_action_output": false,
+        "has_channel_metadata": true,
+        "has_special_title": false,
+        "has_empty_excerpt": false,
+        "has_multi_output": false
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:a79c53ed7a8f2bf15f0981c254709b067cd8de913195b21375e2845b7ba21c28",
+    "candidate_sha256": "sha256:a79c53ed7a8f2bf15f0981c254709b067cd8de913195b21375e2845b7ba21c28"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-rss-feed-routing-not-executed",
+      "owner": "WPHX-312.20",
+      "detail": "The fixture executes the RSS 0.92 template directly through a local PHP server. do_feed_rss routing, query resolution, canonical URL behavior, and browser-observed installed routing remain later gates."
+    },
+    {
+      "id": "database-backed-post-loop-not-executed",
+      "owner": "WPHX-312.20",
+      "detail": "The fixture stubs the post loop, titles, excerpts, links, and dates. Database-backed WP_Query, post cache, and content filter behavior remain covered by other domains or later integration gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.20",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-20-rss-feed-template-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 12,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "database_backed_feed_loop_claimed": false
+  }
+}
