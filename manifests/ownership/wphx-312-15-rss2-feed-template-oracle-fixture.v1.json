@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/rss2-feed-template-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.15",
+    "external_ref": "WPHX-312.15"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "RSS2 post feed template output behavior",
+    "area": "src/wp-includes/feed-rss2.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/feed-rss2.php through PHP's built-in HTTP server with a deterministic auto-prepended feed-loop stub. It observes content-type headers and RSS2 XML output without database-backed WP_Query, installed feed routing, or live network behavior."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-feed-loop-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass installed feed routing, database-backed WP_Query/post/comment/enclosure behavior, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-rss2-feed-template-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-15"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-rss2-feed-template-oracle-fixture",
+      "npm run wp:core:wphx-312-rss2-feed-template-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-15-rss2-feed-template-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:c1d990a1a709c47727b7f35809c992fbc009f4730e8cfda3cd9ef8fc9ba0736f"
+  }
+}

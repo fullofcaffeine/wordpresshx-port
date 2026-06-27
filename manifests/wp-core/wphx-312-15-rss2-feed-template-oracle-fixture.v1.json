@@ -1,0 +1,355 @@
+{
+  "schema": "wphx.wp-core-rss2-feed-template-oracle-fixture.v1",
+  "issue": "WPHX-312.15",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-rss2-feed-template-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "http_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "feed_embed_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+      "bytes": 18811,
+      "sha256": "sha256:9005553a3798994fcdc2a4d407e9db2ba4df533138a2da5314c3530197de87d9"
+    },
+    "installed_gate_manifest": {
+      "path": "manifests/wp-core/wphx-312-09-http-mail-feed-embed-installed-gate.v1.json",
+      "bytes": 33734,
+      "sha256": "sha256:d07f7fde8fa0c6574367a3b56e8fdd4735c3b5234bbced76067e4e17280c9e56"
+    },
+    "opml_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+      "bytes": 20795,
+      "sha256": "sha256:a8e16afe4547e7d5ca6a044b179ddbeb40f046e78e257c44d4c4af6ec78dc81e"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-rss2-feed-template-oracle-fixture.mjs",
+      "bytes": 20077,
+      "sha256": "sha256:38bbe083ed0f6f601212d49c7a2e3ff1c1ffe2fe199cadae31eea172bf85fb2d"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/feed-rss2.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/feed-rss2.php",
+        "bytes": 3799,
+        "sha256": "sha256:266c408a89aa1b102ab851fa16c7207c0d4af57b5acff610d589f02b4c88ec32"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "rss2:full-content-comments",
+        "path": "/wp-includes/feed-rss2.php?case=full",
+        "focus": "RSS2 emits channel metadata, namespaces, comments links, full content, enclosures, and item hook output"
+      },
+      {
+        "id": "rss2:excerpt-option",
+        "path": "/wp-includes/feed-rss2.php?case=excerpt",
+        "focus": "rss_use_excerpt skips content:encoded while retaining description output"
+      },
+      {
+        "id": "rss2:empty-content-fallback",
+        "path": "/wp-includes/feed-rss2.php?case=empty-content",
+        "focus": "empty content feed branch falls back to excerpt inside content:encoded"
+      },
+      {
+        "id": "rss2:no-comments",
+        "path": "/wp-includes/feed-rss2.php?case=no-comments",
+        "focus": "items without comments or open comment status omit comments/commentRss/slash output"
+      },
+      {
+        "id": "rss2:multi-post",
+        "path": "/wp-includes/feed-rss2.php?case=multi",
+        "focus": "feed loop renders multiple items with per-post categories, GUIDs, authors, dates, and item hooks"
+      }
+    ],
+    "covered_symbols": [
+      "feed-rss2.php",
+      "feed_content_type",
+      "wp_title_rss",
+      "self_link",
+      "bloginfo_rss",
+      "get_feed_build_date",
+      "rss_update_period",
+      "rss_update_frequency",
+      "rss2_ns",
+      "rss2_head",
+      "have_posts",
+      "the_post",
+      "the_title_rss",
+      "the_permalink_rss",
+      "comments_link_feed",
+      "the_category_rss",
+      "get_the_content_feed",
+      "rss_enclosure",
+      "rss2_item"
+    ],
+    "source_files": [
+      "src/wp-includes/feed-rss2.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_builtin_server": true,
+      "auto_prepend_stub": "rss2-prepend.php supplies deterministic feed-loop functions; copied feed-rss2.php remains the executed template."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-15/oracle",
+    "candidate_root": "build/wp-core/wphx-312-15/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/feed-rss2.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-15/oracle/wp-includes/feed-rss2.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-15/candidate/wp-includes/feed-rss2.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "rss2:full-content-comments": {
+        "case": "rss2:full-content-comments",
+        "request_path": "/wp-includes/feed-rss2.php?case=full",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:0cad7c7ec05899d9e8b654c53251e7974de8bbefecef8bf36a5a204d1444fd0f",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:excerpt-option": {
+        "case": "rss2:excerpt-option",
+        "request_path": "/wp-includes/feed-rss2.php?case=excerpt",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:7abc619ae432042c6150a174954663d9fe4f19940fa92220162cd1b4553637f2",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": false,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:empty-content-fallback": {
+        "case": "rss2:empty-content-fallback",
+        "request_path": "/wp-includes/feed-rss2.php?case=empty-content",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:5531ac859a3b387a7af5a940548daf957e7ae240441593eb5592b88c0fd5bf8a",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[Alpha excerpt]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": true,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:no-comments": {
+        "case": "rss2:no-comments",
+        "request_path": "/wp-includes/feed-rss2.php?case=no-comments",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:687e1297714f354237a66e45816a25db2882ccdde11f2548da4e4ca67ce31e89",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": false,
+        "has_slash_comments": false,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:multi-post": {
+        "case": "rss2:multi-post",
+        "request_path": "/wp-includes/feed-rss2.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:19d30194dea9b87be5ea2660f664338c10fe39c3282440e36310dbd3d12dd321",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t\t<item>\n\t\t<title>Beta Post</title>\n\t\t<link>https://example.test/posts/beta</link>\n\t\t\n\t\t<dc:creator><![CDATA[Second Author]]></dc:creator>\n\t\t<pubDate>Tue, 02 Jun 2026 02:03:04 +0000</pubDate>\n\t\t\t\t<category><![CDATA[Second Category]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-202</guid>\n\n\t\t\t\t\t<description><![CDATA[Beta excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Beta full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\n\t\t\n\t\t\t\t<fixture:item marker=\"202\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      }
+    },
+    "candidate": {
+      "rss2:full-content-comments": {
+        "case": "rss2:full-content-comments",
+        "request_path": "/wp-includes/feed-rss2.php?case=full",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:0cad7c7ec05899d9e8b654c53251e7974de8bbefecef8bf36a5a204d1444fd0f",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:excerpt-option": {
+        "case": "rss2:excerpt-option",
+        "request_path": "/wp-includes/feed-rss2.php?case=excerpt",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:7abc619ae432042c6150a174954663d9fe4f19940fa92220162cd1b4553637f2",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": false,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:empty-content-fallback": {
+        "case": "rss2:empty-content-fallback",
+        "request_path": "/wp-includes/feed-rss2.php?case=empty-content",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:5531ac859a3b387a7af5a940548daf957e7ae240441593eb5592b88c0fd5bf8a",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[Alpha excerpt]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": true,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:no-comments": {
+        "case": "rss2:no-comments",
+        "request_path": "/wp-includes/feed-rss2.php?case=no-comments",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:687e1297714f354237a66e45816a25db2882ccdde11f2548da4e4ca67ce31e89",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_content_encoded": true,
+        "has_comment_rss": false,
+        "has_slash_comments": false,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      },
+      "rss2:multi-post": {
+        "case": "rss2:multi-post",
+        "request_path": "/wp-includes/feed-rss2.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:19d30194dea9b87be5ea2660f664338c10fe39c3282440e36310dbd3d12dd321",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2 -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:wfw=\"http://wellformedweb.org/CommentAPI/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:slash=\"http://purl.org/rss/1.0/modules/slash/\"\n\txmlns:fixture=\"https://fixture.example/rss2\">\n\n<channel>\n\t<title>Fixture Feed &amp; Title</title>\n\t<atom:link href=\"https://example.test/feed/?fixture=rss2\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture feed description</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<language>en-US</language>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>yes</fixture:head>\n\t<item>\n\t\t<title>Alpha &amp; Feed</title>\n\t\t<link>https://example.test/posts/alpha</link>\n\t\t\t\t\t<comments>https://example.test/posts/alpha#comments</comments>\n\t\t\n\t\t<dc:creator><![CDATA[Fixture Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 01:02:03 +0000</pubDate>\n\t\t\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Haxe <Compiler>]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-101</guid>\n\n\t\t\t\t\t<description><![CDATA[Alpha excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Alpha full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\t\t\t<wfw:commentRss>https://example.test/posts/alpha/comments/feed</wfw:commentRss>\n\t\t\t<slash:comments>3</slash:comments>\n\t\t\n\t\t\t\t<enclosure url=\"https://media.example.test/alpha.mp3\" length=\"1234\" type=\"audio/mpeg\" />\n\n\t\t\t\t<fixture:item marker=\"101\" />\n\t</item>\n\t\t<item>\n\t\t<title>Beta Post</title>\n\t\t<link>https://example.test/posts/beta</link>\n\t\t\n\t\t<dc:creator><![CDATA[Second Author]]></dc:creator>\n\t\t<pubDate>Tue, 02 Jun 2026 02:03:04 +0000</pubDate>\n\t\t\t\t<category><![CDATA[Second Category]]></category>\n\t\t<guid isPermaLink=\"false\">fixture-guid-202</guid>\n\n\t\t\t\t\t<description><![CDATA[Beta excerpt]]></description>\n\t\t\t\t\t\t\t\t\t\t<content:encoded><![CDATA[<p>Beta full content</p>]]></content:encoded>\n\t\t\t\t\t\n\t\t\n\t\t\n\t\t\t\t<fixture:item marker=\"202\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_content_encoded": true,
+        "has_comment_rss": true,
+        "has_slash_comments": true,
+        "has_enclosure": true,
+        "has_fixture_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_excerpt_fallback_content": false,
+        "update_period": true,
+        "update_frequency": true
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:232dc0b86c9e91e45891150c1d7754d0789767e6890b8c2c8e8d3fd0782f7a0d",
+    "candidate_sha256": "sha256:232dc0b86c9e91e45891150c1d7754d0789767e6890b8c2c8e8d3fd0782f7a0d"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-feed-routing-not-executed",
+      "owner": "WPHX-312.15",
+      "detail": "The fixture executes the RSS2 template directly through a local PHP server. do_feed_rss2 routing, query resolution, canonical URL behavior, and browser-observed installed routing remain later gates."
+    },
+    {
+      "id": "database-backed-post-comment-loop-not-executed",
+      "owner": "WPHX-312.15",
+      "detail": "The fixture stubs the post loop, comments, categories, dates, and enclosures. Database-backed WP_Query, comment, taxonomy, media/enclosure, and cache behavior remain covered by other domains or later integration gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.15",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 19,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "database_backed_feed_loop_claimed": false
+  }
+}
