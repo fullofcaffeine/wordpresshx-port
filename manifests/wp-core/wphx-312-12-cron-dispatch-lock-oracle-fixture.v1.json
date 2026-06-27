@@ -1,0 +1,769 @@
+{
+  "schema": "wphx.wp-core-cron-dispatch-lock-oracle-fixture.v1",
+  "issue": "WPHX-312.12",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-cron-dispatch-lock-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "http_cron_mail_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-03-http-cron-mail-oracle-fixture.v1.json",
+      "bytes": 38945,
+      "sha256": "sha256:017e1d13c9f442eb5f02a3c37bb3ab6ba9edc661d9c0c6b87aab429e3d7b325a"
+    },
+    "installed_gate_manifest": {
+      "path": "manifests/wp-core/wphx-312-09-http-mail-feed-embed-installed-gate.v1.json",
+      "bytes": 33734,
+      "sha256": "sha256:d07f7fde8fa0c6574367a3b56e8fdd4735c3b5234bbced76067e4e17280c9e56"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-cron-dispatch-lock-oracle-fixture.mjs",
+      "bytes": 21343,
+      "sha256": "sha256:b6c66fb2bfa00e7a1ae9b91a7b76d9ee4099a7ad1d7bf7ef9bd28eeb64f8998b"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/cron.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/cron.php",
+        "bytes": 44996,
+        "sha256": "sha256:9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+      },
+      {
+        "path": "src/wp-cron.php",
+        "repo_path": "../wordpress-develop/src/wp-cron.php",
+        "bytes": 5617,
+        "sha256": "sha256:dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "cron:ready-jobs-filtered",
+        "focus": "wp_get_ready_cron_jobs filters due timestamps from the stored cron option without future events"
+      },
+      {
+        "id": "cron:spawn-loopback-request",
+        "focus": "spawn_cron sets the doing_cron lock and builds the non-blocking loopback request through cron_request filters"
+      },
+      {
+        "id": "cron:spawn-lock-held",
+        "focus": "spawn_cron refuses to spawn when the doing_cron transient lock is still active"
+      },
+      {
+        "id": "cron:wp-cron-registration",
+        "focus": "wp_cron registers _wp_cron on shutdown and dispatches immediately when already doing shutdown"
+      },
+      {
+        "id": "cron:daemon-dispatch",
+        "focus": "wp-cron.php validates the lock, reschedules recurring events, unschedules due events, fires callbacks, and clears the lock"
+      }
+    ],
+    "covered_symbols": [
+      "wp_get_ready_cron_jobs",
+      "spawn_cron",
+      "wp_cron",
+      "_wp_cron",
+      "_get_cron_array",
+      "_set_cron_array",
+      "_get_cron_lock",
+      "wp_reschedule_event",
+      "wp_unschedule_event",
+      "do_action_ref_array",
+      "wp_remote_post",
+      "set_transient",
+      "get_transient",
+      "delete_transient"
+    ],
+    "source_files": [
+      "src/wp-includes/cron.php",
+      "src/wp-cron.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-12/probe.php",
+      "sha256": "sha256:7a5cfd26e6b6e267985086ba19b3ae9c44df35e386f3a22f820908fac42ea707"
+    },
+    "side_effect_policy": {
+      "live_loopback_http": false,
+      "real_cron_timing_races": false,
+      "persistent_option_or_transient_storage": false,
+      "daemon_callbacks_observed_in_process": true
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-12/oracle",
+    "candidate_root": "build/wp-core/wphx-312-12/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/cron.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-12/oracle/wp-includes/cron.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-12/candidate/wp-includes/cron.php"
+      },
+      {
+        "path": "src/wp-cron.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-12/oracle/wp-cron.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-12/candidate/wp-cron.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "ready-jobs-filtered": {
+        "case": "ready-jobs-filtered",
+        "result": {
+          "ready_timestamps": [
+            "1000"
+          ],
+          "ready_hooks": [
+            "wphx_due_single",
+            "wphx_due_recurring"
+          ],
+          "future_present": false
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [],
+        "locks": [],
+        "remote_posts": [],
+        "actions": [],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          }
+        ],
+        "php_errors": []
+      },
+      "spawn-loopback-request": {
+        "case": "spawn-loopback-request",
+        "result": {
+          "spawned": true
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "set",
+            "name": "doing_cron",
+            "value": "normalized-lock",
+            "expiration": 0
+          }
+        ],
+        "locks": {
+          "doing_cron": "normalized-lock"
+        },
+        "remote_posts": [
+          {
+            "url": "https://example.test/wp-cron.php?doing_wp_cron=normalized",
+            "args": {
+              "timeout": 0.01,
+              "blocking": false,
+              "sslverify": false,
+              "headers": {
+                "X-WPHX-Fixture": "cron"
+              }
+            }
+          }
+        ],
+        "actions": [],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "https_local_ssl_verify",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_request",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      },
+      "spawn-lock-held": {
+        "case": "spawn-lock-held",
+        "result": {
+          "spawned": false
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [],
+        "locks": {
+          "doing_cron": 2000
+        },
+        "remote_posts": [],
+        "actions": [],
+        "filters": [],
+        "php_errors": []
+      },
+      "wp-cron-registration": {
+        "case": "wp-cron-registration",
+        "result": {
+          "registered_actions": [
+            {
+              "hook": "add_action",
+              "target": "shutdown",
+              "callback": "_wp_cron",
+              "priority": 10
+            }
+          ],
+          "after_shutdown_action_count": 1
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "set",
+            "name": "doing_cron",
+            "value": "normalized-lock",
+            "expiration": 0
+          }
+        ],
+        "locks": {
+          "doing_cron": "normalized-lock"
+        },
+        "remote_posts": [
+          {
+            "url": "https://example.test/wp-cron.php?doing_wp_cron=normalized",
+            "args": {
+              "timeout": 0.01,
+              "blocking": false,
+              "sslverify": false
+            }
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action",
+            "target": "shutdown",
+            "callback": "_wp_cron",
+            "priority": 10
+          }
+        ],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "https_local_ssl_verify",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_request",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      },
+      "daemon-dispatch": {
+        "case": "daemon-dispatch",
+        "result": {
+          "daemon_completed": true
+        },
+        "cron_summary": [
+          {
+            "timestamp": "dynamic",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "delete",
+            "name": "doing_cron"
+          }
+        ],
+        "locks": [],
+        "remote_posts": [],
+        "actions": [
+          {
+            "hook": "wphx_due_single",
+            "args": [
+              "single"
+            ]
+          },
+          {
+            "hook": "wphx_due_recurring",
+            "args": [
+              "recurring"
+            ]
+          }
+        ],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_unschedule_event",
+            "arg_count": 5
+          },
+          {
+            "hook": "wphx_due_single",
+            "arg_count": 2
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_reschedule_event",
+            "arg_count": 3
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_schedule_event",
+            "arg_count": 3
+          },
+          {
+            "hook": "schedule_event",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_unschedule_event",
+            "arg_count": 5
+          },
+          {
+            "hook": "wphx_due_recurring",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      }
+    },
+    "candidate": {
+      "ready-jobs-filtered": {
+        "case": "ready-jobs-filtered",
+        "result": {
+          "ready_timestamps": [
+            "1000"
+          ],
+          "ready_hooks": [
+            "wphx_due_single",
+            "wphx_due_recurring"
+          ],
+          "future_present": false
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [],
+        "locks": [],
+        "remote_posts": [],
+        "actions": [],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          }
+        ],
+        "php_errors": []
+      },
+      "spawn-loopback-request": {
+        "case": "spawn-loopback-request",
+        "result": {
+          "spawned": true
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "set",
+            "name": "doing_cron",
+            "value": "normalized-lock",
+            "expiration": 0
+          }
+        ],
+        "locks": {
+          "doing_cron": "normalized-lock"
+        },
+        "remote_posts": [
+          {
+            "url": "https://example.test/wp-cron.php?doing_wp_cron=normalized",
+            "args": {
+              "timeout": 0.01,
+              "blocking": false,
+              "sslverify": false,
+              "headers": {
+                "X-WPHX-Fixture": "cron"
+              }
+            }
+          }
+        ],
+        "actions": [],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "https_local_ssl_verify",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_request",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      },
+      "spawn-lock-held": {
+        "case": "spawn-lock-held",
+        "result": {
+          "spawned": false
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [],
+        "locks": {
+          "doing_cron": 2000
+        },
+        "remote_posts": [],
+        "actions": [],
+        "filters": [],
+        "php_errors": []
+      },
+      "wp-cron-registration": {
+        "case": "wp-cron-registration",
+        "result": {
+          "registered_actions": [
+            {
+              "hook": "add_action",
+              "target": "shutdown",
+              "callback": "_wp_cron",
+              "priority": 10
+            }
+          ],
+          "after_shutdown_action_count": 1
+        },
+        "cron_summary": [
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_single",
+            "event_count": 1
+          },
+          {
+            "timestamp": "1000",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "set",
+            "name": "doing_cron",
+            "value": "normalized-lock",
+            "expiration": 0
+          }
+        ],
+        "locks": {
+          "doing_cron": "normalized-lock"
+        },
+        "remote_posts": [
+          {
+            "url": "https://example.test/wp-cron.php?doing_wp_cron=normalized",
+            "args": {
+              "timeout": 0.01,
+              "blocking": false,
+              "sslverify": false
+            }
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action",
+            "target": "shutdown",
+            "callback": "_wp_cron",
+            "priority": 10
+          }
+        ],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "https_local_ssl_verify",
+            "arg_count": 1
+          },
+          {
+            "hook": "cron_request",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      },
+      "daemon-dispatch": {
+        "case": "daemon-dispatch",
+        "result": {
+          "daemon_completed": true
+        },
+        "cron_summary": [
+          {
+            "timestamp": "dynamic",
+            "hook": "wphx_due_recurring",
+            "event_count": 1
+          },
+          {
+            "timestamp": "future",
+            "hook": "wphx_future",
+            "event_count": 1
+          }
+        ],
+        "transient_writes": [
+          {
+            "op": "delete",
+            "name": "doing_cron"
+          }
+        ],
+        "locks": [],
+        "remote_posts": [],
+        "actions": [
+          {
+            "hook": "wphx_due_single",
+            "args": [
+              "single"
+            ]
+          },
+          {
+            "hook": "wphx_due_recurring",
+            "args": [
+              "recurring"
+            ]
+          }
+        ],
+        "filters": [
+          {
+            "hook": "pre_get_ready_cron_jobs",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_unschedule_event",
+            "arg_count": 5
+          },
+          {
+            "hook": "wphx_due_single",
+            "arg_count": 2
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_reschedule_event",
+            "arg_count": 3
+          },
+          {
+            "hook": "cron_schedules",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_schedule_event",
+            "arg_count": 3
+          },
+          {
+            "hook": "schedule_event",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_unschedule_event",
+            "arg_count": 5
+          },
+          {
+            "hook": "wphx_due_recurring",
+            "arg_count": 2
+          }
+        ],
+        "php_errors": []
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:3d0a61c64896f51559102469c0a2816be25fb651cb13d3802d3bfb9f8ff4112c",
+    "candidate_sha256": "sha256:3d0a61c64896f51559102469c0a2816be25fb651cb13d3802d3bfb9f8ff4112c"
+  },
+  "remaining_gaps": [
+    {
+      "id": "live-loopback-http-not-executed",
+      "owner": "WPHX-312.12",
+      "detail": "spawn_cron records the wp_remote_post loopback request through an in-process stub. Real HTTP client behavior, DNS/TLS, web-server routing, timeout enforcement, and process isolation remain later gates."
+    },
+    {
+      "id": "persistent-cron-storage-and-races-not-executed",
+      "owner": "WPHX-312.12",
+      "detail": "Cron options, transients, cache reads, and locks are deterministic in-process state. Persistent database/object-cache behavior and concurrent timing races remain later gates."
+    },
+    {
+      "id": "installed-cron-daemon-routing-not-executed",
+      "owner": "WPHX-312.12",
+      "detail": "wp-cron.php is included inside a fixture probe. Installed web entrypoint routing, server headers, alternate cron redirect flushing, and operational scheduling remain later distribution work."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.12",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 14,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/cron-dispatch-lock-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.12",
+    "external_ref": "WPHX-312.12"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "cron ready-job, spawn lock, loopback request, and daemon dispatch behavior",
+    "area": "src/wp-includes/cron.php src/wp-cron.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 cron source and wp-cron.php daemon source against deterministic in-process option, transient, HTTP loopback, and hook stubs. It records readiness, spawn locks, non-blocking loopback request arguments, shutdown registration, daemon reschedule/unschedule behavior, callback firing, and lock cleanup without performing live loopback HTTP."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-cron-dispatch-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass real loopback HTTP, persistent cron option/transient, timing-race, selected upstream PHPUnit, installed distribution, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-cron-dispatch-lock-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-12"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-cron-dispatch-lock-oracle-fixture",
+      "npm run wp:core:wphx-312-cron-dispatch-lock-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-12-cron-dispatch-lock-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:39493aac1eddcbcff01751ec16f4c86ecb07e289c9f5ad2041fd772e2ef478e5"
+  }
+}
