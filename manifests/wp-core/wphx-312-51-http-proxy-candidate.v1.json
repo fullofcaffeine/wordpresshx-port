@@ -1,0 +1,852 @@
+{
+  "schema": "wphx.wp-core-http-proxy-candidate.v1",
+  "issue": "WPHX-312.51",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-http-proxy-candidate.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "haxe_generated_candidate",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "candidate",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "proxy_oracle_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-32-http-proxy-oracle-fixture.v1.json",
+      "bytes": 25219,
+      "sha256": "sha256:f532ee66c44a8006a21392629e5bd177ef46a6785d3350ebf34ec1f42fed9529"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-http-proxy-candidate.mjs",
+      "bytes": 23187,
+      "sha256": "sha256:0f93f962c9df9b7881565c4a949e5d32fc931de1bd0dfd0ae6424beb59a3ad63"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/http-proxy-candidate.hxml",
+        "bytes": 121,
+        "sha256": "sha256:9c4f33c75135e6af6699f28c6d3fe9a65a82a2c995db73459278d68229ed70c6"
+      },
+      {
+        "path": "src/wphx/wp/http/HttpProxyStrategy.hx",
+        "bytes": 2223,
+        "sha256": "sha256:c3b04426dba91e86042c63eaf903a2a7abe8834b6bc7d5ad1fb67b3271f455c4"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProxyCandidateEntry.hx",
+        "bytes": 346,
+        "sha256": "sha256:d509ade6ed9a201fbf8eb1b6028948ab741c6e3a59cc4ddc0232506d50e06afe"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http-proxy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http-proxy.php",
+        "bytes": 5980,
+        "sha256": "sha256:2acfbf49118490c07c53a6f712d7146be41bd729bff43a6bcf960bbf0f2594fb"
+      }
+    ]
+  },
+  "candidate": {
+    "kind": "haxe_generated_http_proxy_routing_strategy",
+    "hxml": "fixtures/wp-core/http-proxy-candidate.hxml",
+    "promoted_symbols": [
+      "WP_HTTP_Proxy::send_through_proxy post-filter routing decision"
+    ],
+    "public_shell": "build/wp-core/wphx-312-51/candidate/wp-includes/class-wp-http-proxy.php",
+    "generated_php_files": [
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/index.php",
+        "bytes": 354,
+        "sha256": "sha256:d56f43bcb7228766725f9d2141ea23972781e01564dfaae22278c7c550191a3c"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/Array_hx.php",
+        "bytes": 25987,
+        "sha256": "sha256:85541b117ee4e10fc842caa78aed084979aa5561cc934dcbbf770aa56b7b52d4"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/EReg.php",
+        "bytes": 3688,
+        "sha256": "sha256:aaa4c33c09b21bab88e305ce35d53f06a9bf17d71317c7b49cf779a79654ccd3"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/Std.php",
+        "bytes": 1131,
+        "sha256": "sha256:2daaabae2bfb53ef829ed29dd9fb54109f02ce941b69c489d41f9e0b2af6eb85"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/StringBuf.php",
+        "bytes": 1898,
+        "sha256": "sha256:b8fd5d3285b6bf20e78274506fd346e31bd551248b21839ad1986116d3178ce5"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/haxe/Exception.php",
+        "bytes": 3913,
+        "sha256": "sha256:9b93b5c44421cd720928e124d3a92ed0a82e0785bf8fe383343508a0c82fc2e2"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/haxe/ValueException.php",
+        "bytes": 1062,
+        "sha256": "sha256:647fad61498740cad91633748bb07a6bbe8ff514aa73d90058c3c069dfd67d21"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1248,
+        "sha256": "sha256:9fe08304f6fc267231424a61fd632408d7b4207d52f470fbdc28d9e6fecfe75a"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 508,
+        "sha256": "sha256:3698386d389c477062751a439a526e5ea53c4e77849b782ad4a1aef4f37c762f"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/Boot.php",
+        "bytes": 42682,
+        "sha256": "sha256:9311f59757bd1d9427b50cf91676ebffc9ea499e74e09e80d1103861282a0061"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxAnon.php",
+        "bytes": 1398,
+        "sha256": "sha256:c6ffb7766fe18cefbb5bc15984e317dcceb39e6ede30e4bd6f5dcfc9415cd69c"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxClass.php",
+        "bytes": 3266,
+        "sha256": "sha256:1d49d8cba3ce19738b81fe8cf644d4265906d307591c9aa6ecbd1d9fcda56af3"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxClosure.php",
+        "bytes": 3162,
+        "sha256": "sha256:a257a7165bf4aff93ecad50df3deaf5d944e038b911b0ccb9b797fa9dfbfa251"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 4438,
+        "sha256": "sha256:c2d75fb17828147656a0c7a0040806959102d6d30ee10f1e247d2c7d8cf14a72"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxEnum.php",
+        "bytes": 1316,
+        "sha256": "sha256:f695164d87501468a0d0b192c96f457c76931ce377075d530173df64bddf19f3"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_Boot/HxString.php",
+        "bytes": 9912,
+        "sha256": "sha256:1e93ea8f6836613e951fd91cd95ec2bb8e56a66cc1f640cf1392077ad769b4e6"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/wphx/fixtures/wp/core/HttpProxyCandidateEntry.php",
+        "bytes": 723,
+        "sha256": "sha256:36f2ccc0ddd9958286aa35cb902399354b69eb264a01d1bcc4b1cdc44a186104"
+      },
+      {
+        "path": "build/wp-core/wphx-312-51/haxe/lib/wphx/wp/http/HttpProxyStrategy.php",
+        "bytes": 6520,
+        "sha256": "sha256:83181869073977e6247501aeab4c30aa4fe6eb8ad5edfc60c566bd00cb555cf6"
+      }
+    ],
+    "boundary_notes": [
+      "PHP-native parse_url, get_option('siteurl'), pre_http_send_through_proxy, and wp-config constants remain in the public shell.",
+      "Haxe owns the deterministic localhost/site-host, exact bypass, and wildcard bypass routing decision after native PHP preemption."
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "http-proxy:disabled-defaults",
+        "focus": "proxy constants absent returns disabled state and empty authentication accessors"
+      },
+      {
+        "id": "http-proxy:enabled-auth",
+        "focus": "proxy host/port and authentication constants drive accessors, auth string, header, and external proxy routing"
+      },
+      {
+        "id": "http-proxy:bypass-local-site",
+        "focus": "localhost and current site URL hosts bypass proxy while external hosts use it"
+      },
+      {
+        "id": "http-proxy:bypass-exact",
+        "focus": "WP_PROXY_BYPASS_HOSTS exact host list bypasses configured hosts only"
+      },
+      {
+        "id": "http-proxy:bypass-wildcard",
+        "focus": "WP_PROXY_BYPASS_HOSTS wildcard patterns bypass matching hosts and do not match bare domains"
+      },
+      {
+        "id": "http-proxy:filter-overrides",
+        "focus": "pre_http_send_through_proxy true/false overrides proxy routing before default host rules"
+      },
+      {
+        "id": "http-proxy:malformed-url",
+        "focus": "malformed parse_url failure passes through proxy decision without filters or host checks"
+      }
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http-proxy.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-51/probe.php",
+      "sha256": "sha256:0562be3e3800c4f38b56dad92fb2f9b020617e4b16b873a608399ec35b7965ce"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "get_option('siteurl') and pre_http_send_through_proxy are deterministic stubs. Oracle executes copied class-wp-http-proxy.php; candidate executes the same public class shell with send_through_proxy's post-filter routing decision delegated to generated Haxe PHP."
+    }
+  },
+  "build": {
+    "haxe_out": "build/wp-core/wphx-312-51/haxe",
+    "oracle_root": "build/wp-core/wphx-312-51/oracle",
+    "candidate_root": "build/wp-core/wphx-312-51/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http-proxy.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-51/oracle/wp-includes/class-wp-http-proxy.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-51/candidate/wp-includes/class-wp-http-proxy.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "http-proxy:disabled-defaults": {
+        "case": "http-proxy:disabled-defaults",
+        "state": {
+          "is_enabled": false,
+          "use_authentication": false,
+          "host": "",
+          "port": "",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": [],
+        "filters": [],
+        "assertions": {
+          "disabled": true,
+          "auth_disabled": true,
+          "empty_accessors": true,
+          "empty_auth_pair": true,
+          "empty_auth_header": true
+        }
+      },
+      "http-proxy:enabled-auth": {
+        "case": "http-proxy:enabled-auth",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": true,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "proxy-user",
+          "password": "proxy-pass",
+          "authentication": "proxy-user:proxy-pass",
+          "authentication_header": "Proxy-Authorization: Basic cHJveHktdXNlcjpwcm94eS1wYXNz"
+        },
+        "send_through_proxy": {
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/path",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "enabled": true,
+          "auth_enabled": true,
+          "accessors": true,
+          "auth_pair": true,
+          "auth_header": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-local-site": {
+        "case": "http-proxy:bypass-local-site",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "localhost": false,
+          "site": false,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "http://localhost/wp-cron.php",
+            "check_host": "localhost",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://site.example.test/wp-json/",
+            "check_host": "site.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "localhost_bypasses": true,
+          "site_bypasses": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-exact": {
+        "case": "http-proxy:bypass-exact",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "api": false,
+          "static": false,
+          "subdomain": true,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://api.example.test/v1",
+            "check_host": "api.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://static.example.test/file.css",
+            "check_host": "static.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://cdn.api.example.test/v1",
+            "check_host": "cdn.api.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "api_bypasses": true,
+          "static_bypasses": true,
+          "subdomain_not_exact": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-wildcard": {
+        "case": "http-proxy:bypass-wildcard",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "wordpress_subdomain": false,
+          "api_subdomain": false,
+          "wordpress_bare": true,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://downloads.wordpress.org/plugin.zip",
+            "check_host": "downloads.wordpress.org",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://api.v1.example.test/path",
+            "check_host": "api.v1.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://wordpress.org/path",
+            "check_host": "wordpress.org",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "wordpress_subdomain_bypasses": true,
+          "api_subdomain_bypasses": true,
+          "bare_domain_not_wildcard": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:filter-overrides": {
+        "case": "http-proxy:filter-overrides",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "force_bypass": false,
+          "force_proxy": true,
+          "neutral_external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://force-bypass.example/path",
+            "check_host": "force-bypass.example",
+            "home_host": "site.example.test",
+            "return": false
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://force-proxy.example/path",
+            "check_host": "force-proxy.example",
+            "home_host": "site.example.test",
+            "return": true
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://neutral.example/path",
+            "check_host": "neutral.example",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "force_bypass": true,
+          "force_proxy": true,
+          "neutral_external": true,
+          "filters_recorded": true
+        }
+      },
+      "http-proxy:malformed-url": {
+        "case": "http-proxy:malformed-url",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "malformed": true
+        },
+        "filters": [],
+        "assertions": {
+          "malformed_passthrough": true,
+          "malformed_short_circuits_filters": true
+        }
+      }
+    },
+    "candidate": {
+      "http-proxy:disabled-defaults": {
+        "case": "http-proxy:disabled-defaults",
+        "state": {
+          "is_enabled": false,
+          "use_authentication": false,
+          "host": "",
+          "port": "",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": [],
+        "filters": [],
+        "assertions": {
+          "disabled": true,
+          "auth_disabled": true,
+          "empty_accessors": true,
+          "empty_auth_pair": true,
+          "empty_auth_header": true
+        }
+      },
+      "http-proxy:enabled-auth": {
+        "case": "http-proxy:enabled-auth",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": true,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "proxy-user",
+          "password": "proxy-pass",
+          "authentication": "proxy-user:proxy-pass",
+          "authentication_header": "Proxy-Authorization: Basic cHJveHktdXNlcjpwcm94eS1wYXNz"
+        },
+        "send_through_proxy": {
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/path",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "enabled": true,
+          "auth_enabled": true,
+          "accessors": true,
+          "auth_pair": true,
+          "auth_header": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-local-site": {
+        "case": "http-proxy:bypass-local-site",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "localhost": false,
+          "site": false,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "http://localhost/wp-cron.php",
+            "check_host": "localhost",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://site.example.test/wp-json/",
+            "check_host": "site.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "localhost_bypasses": true,
+          "site_bypasses": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-exact": {
+        "case": "http-proxy:bypass-exact",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "api": false,
+          "static": false,
+          "subdomain": true,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://api.example.test/v1",
+            "check_host": "api.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://static.example.test/file.css",
+            "check_host": "static.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://cdn.api.example.test/v1",
+            "check_host": "cdn.api.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "api_bypasses": true,
+          "static_bypasses": true,
+          "subdomain_not_exact": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:bypass-wildcard": {
+        "case": "http-proxy:bypass-wildcard",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "wordpress_subdomain": false,
+          "api_subdomain": false,
+          "wordpress_bare": true,
+          "external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://downloads.wordpress.org/plugin.zip",
+            "check_host": "downloads.wordpress.org",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://api.v1.example.test/path",
+            "check_host": "api.v1.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://wordpress.org/path",
+            "check_host": "wordpress.org",
+            "home_host": "site.example.test",
+            "return": null
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://external.example.test/",
+            "check_host": "external.example.test",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "wordpress_subdomain_bypasses": true,
+          "api_subdomain_bypasses": true,
+          "bare_domain_not_wildcard": true,
+          "external_uses_proxy": true
+        }
+      },
+      "http-proxy:filter-overrides": {
+        "case": "http-proxy:filter-overrides",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "force_bypass": false,
+          "force_proxy": true,
+          "neutral_external": true
+        },
+        "filters": [
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://force-bypass.example/path",
+            "check_host": "force-bypass.example",
+            "home_host": "site.example.test",
+            "return": false
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://force-proxy.example/path",
+            "check_host": "force-proxy.example",
+            "home_host": "site.example.test",
+            "return": true
+          },
+          {
+            "hook": "pre_http_send_through_proxy",
+            "value": null,
+            "uri": "https://neutral.example/path",
+            "check_host": "neutral.example",
+            "home_host": "site.example.test",
+            "return": null
+          }
+        ],
+        "assertions": {
+          "force_bypass": true,
+          "force_proxy": true,
+          "neutral_external": true,
+          "filters_recorded": true
+        }
+      },
+      "http-proxy:malformed-url": {
+        "case": "http-proxy:malformed-url",
+        "state": {
+          "is_enabled": true,
+          "use_authentication": false,
+          "host": "proxy.example",
+          "port": "8080",
+          "username": "",
+          "password": "",
+          "authentication": ":",
+          "authentication_header": "Proxy-Authorization: Basic Og=="
+        },
+        "send_through_proxy": {
+          "malformed": true
+        },
+        "filters": [],
+        "assertions": {
+          "malformed_passthrough": true,
+          "malformed_short_circuits_filters": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:3fe68ec646b6862fbe7478aba30cec8cb47dde71ee70695569af3fcf579b026e",
+    "candidate_sha256": "sha256:3fe68ec646b6862fbe7478aba30cec8cb47dde71ee70695569af3fcf579b026e",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "public-original-path-adapter-not-yet-generated",
+      "owner": "WPHX-312.51",
+      "detail": "The candidate shell is transformed in the fixture build root. Durable class-wp-http-proxy.php generation through the linker/original-path adapter remains later work."
+    },
+    {
+      "id": "live-http-transport-proxy-routing-not-executed",
+      "owner": "WPHX-312.51",
+      "detail": "The fixture calls WP_HTTP_Proxy directly and does not execute Requests, cURL, fsockopen, streams, TLS CONNECT, or proxy authentication negotiation."
+    },
+    {
+      "id": "installed-distribution-behavior-not-executed",
+      "owner": "WPHX-312.51",
+      "detail": "The candidate is compared in a PHP CLI fixture rather than an installed WordPress distribution."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-51-http-proxy-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 7,
+    "promoted_symbols": 1,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_proxy_transport_claimed": false
+  }
+}

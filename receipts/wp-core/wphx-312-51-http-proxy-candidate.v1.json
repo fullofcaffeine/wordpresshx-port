@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-51-http-proxy-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.18.38",
+    "external_ref": "WPHX-312.51",
+    "title": "WPHX-312.51 - Promote WP_HTTP_Proxy bypass routing to Haxe candidate"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-312-51-http-proxy-candidate.v1.json",
+      "role": "WP_HTTP_Proxy Haxe parity candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-312-51-http-proxy-candidate.v1.json",
+      "role": "ownership manifest for Haxe-backed HTTP proxy routing candidate"
+    },
+    {
+      "path": "tools/wp-core/run-http-proxy-candidate.mjs",
+      "role": "candidate generator and oracle comparator"
+    },
+    {
+      "path": "src/wphx/wp/http/HttpProxyStrategy.hx",
+      "role": "Haxe-owned HTTP proxy routing source"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-312-http-proxy-candidate",
+    "npm run wp:core:wphx-312-http-proxy-candidate:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-312-01-http-cron-mail-feed-embed-surface",
+    "receipt:wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate",
+    "receipt:wphx-312-32-http-proxy-oracle-fixture"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 7,
+    "promoted_symbols": 1,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_proxy_transport_claimed": false
+  }
+}
