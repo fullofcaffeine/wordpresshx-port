@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/privacy-request-mail-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.7",
+    "external_ref": "WPHX-312.07"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "privacy request export, confirmation, and erasure notification mail behavior",
+    "area": "src/wp-includes/class-wp-user-request.php src/wp-includes/user.php src/wp-admin/includes/privacy-tools.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 privacy request mail source against deterministic in-process post, metadata, URL, locale, filter, and mail stubs. It does not perform real email delivery, admin list-table rendering, installed confirmation/management routing, upstream PHPUnit parity, or generated public PHP replacement."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-haxe-adapter-contract-foundation",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass installed privacy request confirmation, admin management, mail delivery, selected upstream tests, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-privacy-request-mail-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-07"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-privacy-request-mail-oracle-fixture",
+      "npm run wp:core:wphx-312-privacy-request-mail-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-07-privacy-request-mail-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:5c88795e06e49ff2fac68353e9f71ad45e27159c15d9339625fa934834114d35"
+  }
+}

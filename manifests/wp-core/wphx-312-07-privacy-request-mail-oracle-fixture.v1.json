@@ -1,0 +1,608 @@
+{
+  "schema": "wphx.wp-core-privacy-request-mail-oracle-fixture.v1",
+  "issue": "WPHX-312.07",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-privacy-request-mail-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "trackback_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-06-trackback-oracle-fixture.v1.json",
+      "bytes": 18405,
+      "sha256": "sha256:9d22549a38d6a42adb90711503b7923fc088635b6cebc372a9531ebd33785531"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-privacy-request-mail-oracle-fixture.mjs",
+      "bytes": 21157,
+      "sha256": "sha256:9d5d449db43c9d0b7c0e8629aa425f6015822b2885845c7543321ba7d9a29315"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-user-request.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-user-request.php",
+        "bytes": 2305,
+        "sha256": "sha256:c4d49a59c41793c2aab4b5c9820bf1d2a4936abf2245858a4168e82a72705230"
+      },
+      {
+        "path": "src/wp-includes/user.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/user.php",
+        "bytes": 178824,
+        "sha256": "sha256:3394b3ce03a8f5ca9ba28af276bb1a22b87d77a2fb031b467991d3ec4e241387"
+      },
+      {
+        "path": "src/wp-admin/includes/privacy-tools.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/privacy-tools.php",
+        "bytes": 33441,
+        "sha256": "sha256:3a2ee04b7bf10a5a87c2af9db9052240ac6c9e8829e580cacab22728f2124ebb"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "privacy:export-email-success",
+        "focus": "export request mail builds recipient, subject, content placeholders, headers, locale switch, and wp_mail payload"
+      },
+      {
+        "id": "privacy:export-email-invalid",
+        "focus": "invalid export request returns invalid_request without mail dispatch"
+      },
+      {
+        "id": "privacy:request-confirmed-admin",
+        "focus": "confirmed export request notifies admin and records _wp_admin_notified meta"
+      },
+      {
+        "id": "privacy:request-confirmed-already-notified",
+        "focus": "confirmed request with existing admin notification skips mail and meta writes"
+      },
+      {
+        "id": "privacy:erasure-fulfilled-user",
+        "focus": "completed erasure request notifies user, includes privacy policy URL, restores locale, and records _wp_user_notified meta"
+      }
+    ],
+    "covered_symbols": [
+      "WP_User_Request::__construct",
+      "wp_get_user_request",
+      "wp_user_request_action_description",
+      "wp_privacy_send_personal_data_export_email",
+      "_wp_privacy_send_request_confirmation_notification",
+      "_wp_privacy_send_erasure_fulfillment_notification",
+      "wp_privacy_personal_data_email_to",
+      "wp_privacy_personal_data_email_subject",
+      "wp_privacy_personal_data_email_content",
+      "wp_privacy_personal_data_email_headers",
+      "user_request_confirmed_email_to",
+      "user_request_confirmed_email_subject",
+      "user_request_confirmed_email_content",
+      "user_request_confirmed_email_headers",
+      "user_erasure_fulfillment_email_to",
+      "user_erasure_fulfillment_email_subject",
+      "user_erasure_fulfillment_email_content",
+      "user_erasure_fulfillment_email_headers",
+      "wp_mail",
+      "update_post_meta"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-user-request.php",
+      "src/wp-includes/user.php",
+      "src/wp-admin/includes/privacy-tools.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-07/probe.php",
+      "sha256": "sha256:af3bd7eeaa59f4731e36a6907ad6c69303d4885aaa005c126a7f4832a749ba42"
+    },
+    "side_effect_policy": {
+      "real_email_delivery": false,
+      "installed_request_confirmation_routing": false,
+      "admin_list_table_rendering": false,
+      "real_database_writes": false
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-07/oracle",
+    "candidate_root": "build/wp-core/wphx-312-07/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-user-request.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-07/oracle/wp-includes/class-wp-user-request.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-07/candidate/wp-includes/class-wp-user-request.php"
+      },
+      {
+        "path": "src/wp-includes/user.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-07/oracle/wp-includes/user.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-07/candidate/wp-includes/user.php"
+      },
+      {
+        "path": "src/wp-admin/includes/privacy-tools.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-07/oracle/wp-admin/includes/privacy-tools.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-07/candidate/wp-admin/includes/privacy-tools.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "export-email-success": {
+        "case": "export-email-success",
+        "result": true,
+        "mail": [
+          {
+            "to": "export-recipient@example.test",
+            "subject": "[Fixture Site] Export Ready",
+            "message": "EXPORT export-recipient@example.test July 1, 2026 https://example.test/wp-content/uploads/wp-personal-data-exports/wp-personal-data-file.zip Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: export"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "643541aeaba93c38b35736bb10c81c405988530168f8ad69e73ab47d81fa08c7"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "wp_privacy_export_expiration",
+            "value_type": "integer",
+            "arg_count": 0
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_content",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [],
+        "locale": [
+          {
+            "switch_to_user_locale": 9
+          },
+          {
+            "restore_previous_locale": true
+          }
+        ],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "export-email-invalid": {
+        "case": "export-email-invalid",
+        "result": {
+          "wp_error": "invalid_request",
+          "message": "Invalid request ID when sending personal data export email."
+        },
+        "mail": [],
+        "filters": [],
+        "deprecated_filters": [],
+        "locale": [],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "request-confirmed-admin": {
+        "case": "request-confirmed-admin",
+        "result": true,
+        "mail": [
+          {
+            "to": "privacy-admin@example.test",
+            "subject": "[Fixture Site] Request Confirmed",
+            "message": "CONFIRMED confirmed-user@example.test Fixture Export Personal Data https://example.test/wp-admin/export-personal-data.php Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: confirmed"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "d843125969bc2756580502e49d65c722f283bc88b741f016ab7c74e8c5d30350"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_action_description",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_request_confirmed_email_content",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [
+          {
+            "hook": "user_confirmed_action_email_content",
+            "version": "5.8.0",
+            "replacement": "user_request_confirmed_email_content or user_erasure_fulfillment_email_content",
+            "arg_count": 2
+          }
+        ],
+        "locale": [],
+        "meta_updates": [
+          {
+            "post_id": 703,
+            "key": "_wp_admin_notified",
+            "value": true
+          }
+        ],
+        "php_errors": []
+      },
+      "request-confirmed-already-notified": {
+        "case": "request-confirmed-already-notified",
+        "result": true,
+        "mail": [],
+        "filters": [],
+        "deprecated_filters": [],
+        "locale": [],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "erasure-fulfilled-user": {
+        "case": "erasure-fulfilled-user",
+        "result": null,
+        "mail": [
+          {
+            "to": "erasure-recipient@example.test",
+            "subject": "[Fixture Site] Erasure Complete",
+            "message": "ERASURE https://example.test/privacy-policy/ Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: erasure"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "4338165723e2d6978e13de6f6ca92bef5c14b60f55deaa7d9919d694e93fa0a8"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_erasure_fulfillment_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_content",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [
+          {
+            "hook": "user_erasure_complete_email_subject",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_subject",
+            "arg_count": 3
+          },
+          {
+            "hook": "user_confirmed_action_email_content",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_content or user_request_confirmed_email_content",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_erasure_complete_email_headers",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_headers",
+            "arg_count": 5
+          }
+        ],
+        "locale": [
+          {
+            "switch_to_user_locale": 13
+          },
+          {
+            "restore_previous_locale": true
+          }
+        ],
+        "meta_updates": [
+          {
+            "post_id": 705,
+            "key": "_wp_user_notified",
+            "value": true
+          }
+        ],
+        "php_errors": []
+      }
+    },
+    "candidate": {
+      "export-email-success": {
+        "case": "export-email-success",
+        "result": true,
+        "mail": [
+          {
+            "to": "export-recipient@example.test",
+            "subject": "[Fixture Site] Export Ready",
+            "message": "EXPORT export-recipient@example.test July 1, 2026 https://example.test/wp-content/uploads/wp-personal-data-exports/wp-personal-data-file.zip Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: export"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "643541aeaba93c38b35736bb10c81c405988530168f8ad69e73ab47d81fa08c7"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "wp_privacy_export_expiration",
+            "value_type": "integer",
+            "arg_count": 0
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_content",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_privacy_personal_data_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [],
+        "locale": [
+          {
+            "switch_to_user_locale": 9
+          },
+          {
+            "restore_previous_locale": true
+          }
+        ],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "export-email-invalid": {
+        "case": "export-email-invalid",
+        "result": {
+          "wp_error": "invalid_request",
+          "message": "Invalid request ID when sending personal data export email."
+        },
+        "mail": [],
+        "filters": [],
+        "deprecated_filters": [],
+        "locale": [],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "request-confirmed-admin": {
+        "case": "request-confirmed-admin",
+        "result": true,
+        "mail": [
+          {
+            "to": "privacy-admin@example.test",
+            "subject": "[Fixture Site] Request Confirmed",
+            "message": "CONFIRMED confirmed-user@example.test Fixture Export Personal Data https://example.test/wp-admin/export-personal-data.php Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: confirmed"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "d843125969bc2756580502e49d65c722f283bc88b741f016ab7c74e8c5d30350"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_action_description",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_request_confirmed_email_content",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_request_confirmed_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [
+          {
+            "hook": "user_confirmed_action_email_content",
+            "version": "5.8.0",
+            "replacement": "user_request_confirmed_email_content or user_erasure_fulfillment_email_content",
+            "arg_count": 2
+          }
+        ],
+        "locale": [],
+        "meta_updates": [
+          {
+            "post_id": 703,
+            "key": "_wp_admin_notified",
+            "value": true
+          }
+        ],
+        "php_errors": []
+      },
+      "request-confirmed-already-notified": {
+        "case": "request-confirmed-already-notified",
+        "result": true,
+        "mail": [],
+        "filters": [],
+        "deprecated_filters": [],
+        "locale": [],
+        "meta_updates": [],
+        "php_errors": []
+      },
+      "erasure-fulfilled-user": {
+        "case": "erasure-fulfilled-user",
+        "result": null,
+        "mail": [
+          {
+            "to": "erasure-recipient@example.test",
+            "subject": "[Fixture Site] Erasure Complete",
+            "message": "ERASURE https://example.test/privacy-policy/ Fixture & Site https://example.test",
+            "headers": [
+              "X-Fixture: erasure"
+            ],
+            "attachments": [],
+            "embeds": [],
+            "message_sha256": "4338165723e2d6978e13de6f6ca92bef5c14b60f55deaa7d9919d694e93fa0a8"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_erasure_fulfillment_email_to",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_subject",
+            "value_type": "string",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_content",
+            "value_type": "string",
+            "arg_count": 1
+          },
+          {
+            "hook": "user_erasure_fulfillment_email_headers",
+            "value_type": "string",
+            "arg_count": 4
+          }
+        ],
+        "deprecated_filters": [
+          {
+            "hook": "user_erasure_complete_email_subject",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_subject",
+            "arg_count": 3
+          },
+          {
+            "hook": "user_confirmed_action_email_content",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_content or user_request_confirmed_email_content",
+            "arg_count": 2
+          },
+          {
+            "hook": "user_erasure_complete_email_headers",
+            "version": "5.8.0",
+            "replacement": "user_erasure_fulfillment_email_headers",
+            "arg_count": 5
+          }
+        ],
+        "locale": [
+          {
+            "switch_to_user_locale": 13
+          },
+          {
+            "restore_previous_locale": true
+          }
+        ],
+        "meta_updates": [
+          {
+            "post_id": 705,
+            "key": "_wp_user_notified",
+            "value": true
+          }
+        ],
+        "php_errors": []
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:5f0688db3d38bc312220ec039ddb86fe700f9c644f929a63b0d01b62fb9636dd",
+    "candidate_sha256": "sha256:5f0688db3d38bc312220ec039ddb86fe700f9c644f929a63b0d01b62fb9636dd"
+  },
+  "remaining_gaps": [
+    {
+      "id": "real-email-delivery-not-executed",
+      "owner": "WPHX-312.07",
+      "detail": "The fixture records wp_mail payloads through an in-process stub. SMTP/PHPMailer transport, mail headers normalization beyond the captured inputs, and operational delivery remain later gates."
+    },
+    {
+      "id": "installed-privacy-request-flow-not-executed",
+      "owner": "WPHX-312.07",
+      "detail": "The fixture bypasses request-confirmation URLs, nonce flow, admin pages, and list-table rendering. Installed export/erase request management remains later distribution work."
+    },
+    {
+      "id": "database-backed-request-state-not-executed",
+      "owner": "WPHX-312.07",
+      "detail": "User request posts and metadata are deterministic stubs. Real posts table reads/writes, status transitions, permissions, and plugin side effects remain later gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.07",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 20,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
