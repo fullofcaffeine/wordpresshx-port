@@ -1,0 +1,394 @@
+{
+  "schema": "wphx.wp-core-theme-support-template-oracle-fixture.v1",
+  "issue": "WPHX-310.03",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-theme-support-template-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-310-01-themes-template-surface.v1.json",
+      "bytes": 133083,
+      "sha256": "sha256:04de8bdb20ee33e27e112b580c352dabad87049e7569c451dd2eeac3548657d3"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "bytes": 18550,
+      "sha256": "sha256:b6cb9b2cffcf14108f7795b139f98fafa7a37934b66e612ada59b44970817aa7"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-theme-support-template-oracle-fixture.mjs",
+      "bytes": 19471,
+      "sha256": "sha256:8aaac0cc34033b8e6ff64b9de3f6314fbfa8212136135888abd20adb698fc0f0"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/theme.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/theme.php",
+        "bytes": 134631,
+        "sha256": "sha256:74cd43c0b1695eb27baec7fc4b36079f20af77862eedc64776828e87da8a209a"
+      },
+      {
+        "path": "src/wp-includes/template.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/template.php",
+        "bytes": 36824,
+        "sha256": "sha256:578e56453cdf93c67c8f968b7fa53bf9a6f138ad8792e4e36d3bf567ca427be5"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "support:post-thumbnails-merge",
+        "focus": "add_theme_support merges post-thumbnail post type lists and current_theme_supports checks content type"
+      },
+      {
+        "id": "support:html5-defaults",
+        "focus": "html5 support back-compat defaults plus per-type checks"
+      },
+      {
+        "id": "support:custom-logo-defaults",
+        "focus": "custom-logo defaults enable flex dimensions when no size is specified"
+      },
+      {
+        "id": "support:register-feature-rest-schema",
+        "focus": "register_theme_feature fills REST schema defaults and additionalProperties policy"
+      },
+      {
+        "id": "support:block-theme-defaults",
+        "focus": "_add_default_theme_supports adds block-theme default supports and asset filters"
+      },
+      {
+        "id": "template:classic-hierarchy",
+        "focus": "get_query_template sanitizes type, filters hierarchy, locates first matching classic template, and applies template filter"
+      },
+      {
+        "id": "template:locate-load-args",
+        "focus": "locate_template(load=true) loads selected template with args and before/after hooks"
+      },
+      {
+        "id": "template:theme-compat-fallback",
+        "focus": "locate_template falls back to wp-includes/theme-compat when the active theme lacks the template"
+      }
+    ],
+    "covered_symbols": [
+      "add_theme_support",
+      "get_theme_support",
+      "current_theme_supports",
+      "remove_theme_support",
+      "register_theme_feature",
+      "get_registered_theme_feature",
+      "_add_default_theme_supports",
+      "get_query_template",
+      "locate_template",
+      "load_template"
+    ],
+    "source_files": [
+      "src/wp-includes/theme.php",
+      "src/wp-includes/template.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-310-03/probe.php",
+      "sha256": "sha256:d282feebba3622cba7e31ed5cd023cdb0575d037c3c8e9b36c78a1ca18e9482f"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-310-03/oracle",
+    "candidate_root": "build/wp-core/wphx-310-03/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/theme.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-03/oracle/wp-includes/theme.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-03/candidate/wp-includes/theme.php"
+      },
+      {
+        "path": "src/wp-includes/template.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-03/oracle/wp-includes/template.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-03/candidate/wp-includes/template.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "cases": {
+        "support:block-theme-defaults": {
+          "post_thumbnails": true,
+          "responsive_embeds": true,
+          "editor_styles": true,
+          "html5_script": true,
+          "asset_filters": [
+            "should_load_separate_core_block_assets",
+            "should_load_block_assets_on_demand",
+            "customize_panel_active"
+          ]
+        },
+        "support:custom-logo-defaults": [
+          {
+            "width": null,
+            "height": null,
+            "flex-width": true,
+            "flex-height": true,
+            "header-text": "",
+            "unlink-homepage-logo": false
+          }
+        ],
+        "support:html5-defaults": {
+          "support": [
+            [
+              "comment-list",
+              "comment-form",
+              "search-form"
+            ]
+          ],
+          "comment_form": true,
+          "script": false,
+          "actions": [
+            {
+              "hook": "doing_it_wrong",
+              "function": "add_theme_support( 'html5' )",
+              "version": "3.6.1"
+            }
+          ]
+        },
+        "support:post-thumbnails-merge": {
+          "support": [
+            [
+              "post",
+              "page",
+              "book"
+            ]
+          ],
+          "post": true,
+          "book": true,
+          "attachment": false,
+          "filters": []
+        },
+        "support:register-feature-rest-schema": {
+          "registered": "true",
+          "feature": {
+            "type": "object",
+            "variadic": false,
+            "description": "Fixture feature.",
+            "show_in_rest": {
+              "schema": {
+                "description": "Fixture feature.",
+                "type": [
+                  "boolean",
+                  "object"
+                ],
+                "default": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "name": "wphx-feature",
+              "prepare_callback": null
+            }
+          }
+        },
+        "template:classic-hierarchy": {
+          "page": "wp-content/themes/wphx-theme/page-special.php",
+          "block": "wp-content/themes/wphx-theme/page-special.php",
+          "filters": [
+            {
+              "hook": "pagespecial_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "pagespecial_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "page_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "page_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        "template:locate-load-args": {
+          "located": "wp-content/themes/wphx-theme/partial.php",
+          "output": "partial:loaded",
+          "actions": [
+            {
+              "hook": "wp_before_load_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_after_load_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        "template:theme-compat-fallback": {
+          "located": "wp-includes/theme-compat/fallback.php"
+        }
+      },
+      "php_errors": []
+    },
+    "candidate": {
+      "cases": {
+        "support:block-theme-defaults": {
+          "post_thumbnails": true,
+          "responsive_embeds": true,
+          "editor_styles": true,
+          "html5_script": true,
+          "asset_filters": [
+            "should_load_separate_core_block_assets",
+            "should_load_block_assets_on_demand",
+            "customize_panel_active"
+          ]
+        },
+        "support:custom-logo-defaults": [
+          {
+            "width": null,
+            "height": null,
+            "flex-width": true,
+            "flex-height": true,
+            "header-text": "",
+            "unlink-homepage-logo": false
+          }
+        ],
+        "support:html5-defaults": {
+          "support": [
+            [
+              "comment-list",
+              "comment-form",
+              "search-form"
+            ]
+          ],
+          "comment_form": true,
+          "script": false,
+          "actions": [
+            {
+              "hook": "doing_it_wrong",
+              "function": "add_theme_support( 'html5' )",
+              "version": "3.6.1"
+            }
+          ]
+        },
+        "support:post-thumbnails-merge": {
+          "support": [
+            [
+              "post",
+              "page",
+              "book"
+            ]
+          ],
+          "post": true,
+          "book": true,
+          "attachment": false,
+          "filters": []
+        },
+        "support:register-feature-rest-schema": {
+          "registered": "true",
+          "feature": {
+            "type": "object",
+            "variadic": false,
+            "description": "Fixture feature.",
+            "show_in_rest": {
+              "schema": {
+                "description": "Fixture feature.",
+                "type": [
+                  "boolean",
+                  "object"
+                ],
+                "default": false,
+                "properties": {
+                  "enabled": {
+                    "type": "boolean"
+                  }
+                },
+                "additionalProperties": false
+              },
+              "name": "wphx-feature",
+              "prepare_callback": null
+            }
+          }
+        },
+        "template:classic-hierarchy": {
+          "page": "wp-content/themes/wphx-theme/page-special.php",
+          "block": "wp-content/themes/wphx-theme/page-special.php",
+          "filters": [
+            {
+              "hook": "pagespecial_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "pagespecial_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "page_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "page_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        "template:locate-load-args": {
+          "located": "wp-content/themes/wphx-theme/partial.php",
+          "output": "partial:loaded",
+          "actions": [
+            {
+              "hook": "wp_before_load_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_after_load_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        "template:theme-compat-fallback": {
+          "located": "wp-includes/theme-compat/fallback.php"
+        }
+      },
+      "php_errors": []
+    },
+    "match": true,
+    "oracle_sha256": "sha256:a6ba9d7a39c33625283f756f6aab7383e4e9e729fc01f2f464af680965d995e7",
+    "candidate_sha256": "sha256:a6ba9d7a39c33625283f756f6aab7383e4e9e729fc01f2f464af680965d995e7"
+  },
+  "remaining_gaps": [
+    {
+      "id": "theme-json-merge-not-executed",
+      "owner": "WPHX-310.03",
+      "detail": "This fixture records theme-feature/default-support and template-location behavior. Full WP_Theme_JSON resolver merge, stylesheet generation, variation, and global-styles post behavior remain later WPHX-310 gates."
+    },
+    {
+      "id": "customizer-admin-installed-behavior-not-executed",
+      "owner": "WPHX-310.03",
+      "detail": "Customizer transactions, admin-visible theme state, nav-menu/widget admin screens, and installed front-end rendering are not claimed by this fixture."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-310.03",
+      "detail": "theme.php and template.php are copied oracle PHP in this fixture; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-310-03-theme-support-template-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 8,
+    "covered_symbols": 10,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
