@@ -1,0 +1,343 @@
+{
+  "schema": "wphx.wp-core-rss2-comments-feed-template-oracle-fixture.v1",
+  "issue": "WPHX-312.17",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-rss2-comments-feed-template-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "http_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "rss2_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-15-rss2-feed-template-oracle-fixture.v1.json",
+      "bytes": 33544,
+      "sha256": "sha256:c1d990a1a709c47727b7f35809c992fbc009f4730e8cfda3cd9ef8fc9ba0736f"
+    },
+    "atom_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-16-atom-feed-template-oracle-fixture.v1.json",
+      "bytes": 33464,
+      "sha256": "sha256:2649da6144e501cb697422afda710df34b8bdd84725b7864bc2a2118ab09b8e1"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-rss2-comments-feed-template-oracle-fixture.mjs",
+      "bytes": 19963,
+      "sha256": "sha256:eacd7ba79a8a4df0c61fa50cf4e7d9d71bfd2042d358265d313e316e7340d520"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/feed-rss2-comments.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/feed-rss2-comments.php",
+        "bytes": 4136,
+        "sha256": "sha256:2d0dab01787ea4b11552b982beb38c12be04e1dec5150216f9e3737c5c748c67"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "rss2-comments:default",
+        "path": "/wp-includes/feed-rss2-comments.php?case=default",
+        "focus": "default site comments feed title, channel metadata, namespace actions, update filters, and comment item output"
+      },
+      {
+        "id": "rss2-comments:singular",
+        "path": "/wp-includes/feed-rss2-comments.php?case=singular",
+        "focus": "singular comments feed title and item title use post/comment-author branches"
+      },
+      {
+        "id": "rss2-comments:search",
+        "path": "/wp-includes/feed-rss2-comments.php?case=search",
+        "focus": "search comments feed title includes site title and search query"
+      },
+      {
+        "id": "rss2-comments:protected",
+        "path": "/wp-includes/feed-rss2-comments.php?case=protected",
+        "focus": "protected comment branch emits protected description and password form content"
+      },
+      {
+        "id": "rss2-comments:multi",
+        "path": "/wp-includes/feed-rss2-comments.php?case=multi",
+        "focus": "comment loop renders multiple comments with post lookup, authors, dates, GUIDs, and item hooks"
+      }
+    ],
+    "covered_symbols": [
+      "feed-rss2-comments.php",
+      "feed_content_type",
+      "rss_tag_pre",
+      "rss2_ns",
+      "rss2_comments_ns",
+      "is_singular",
+      "is_search",
+      "get_bloginfo_rss",
+      "get_wp_title_rss",
+      "commentsrss2_head",
+      "have_comments",
+      "the_comment",
+      "get_post",
+      "the_title_rss",
+      "the_title_rss filter",
+      "get_comment_author_rss",
+      "comment_link",
+      "comment_guid",
+      "post_password_required",
+      "comment_text_rss",
+      "comment_text",
+      "commentrss2_item"
+    ],
+    "source_files": [
+      "src/wp-includes/feed-rss2-comments.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_builtin_server": true,
+      "auto_prepend_stub": "rss2-comments-prepend.php supplies deterministic comment-loop functions; copied feed-rss2-comments.php remains the executed template."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-17/oracle",
+    "candidate_root": "build/wp-core/wphx-312-17/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/feed-rss2-comments.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-17/oracle/wp-includes/feed-rss2-comments.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-17/candidate/wp-includes/feed-rss2-comments.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "rss2-comments:default": {
+        "case": "rss2-comments:default",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=default",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:21919b93407ace96c5a90b50184d83bdb2d61010748e11f720069320963ec4c2",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site Comments\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:singular": {
+        "case": "rss2-comments:singular",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=singular",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:dc7569fa5c5bf142a72cdab1a6ec707da8e4759489e8687ca1464d9709b83914",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments on: Alpha &amp; Commented\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test/posts/alpha</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tBy: Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": true,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:search": {
+        "case": "rss2-comments:search",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=search",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:93ff9fe3e0247017553f8f5e00aaa7c18d36471c19a2fe8ff754f03646fa3e0f",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site searching on haxe ports\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": true,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:protected": {
+        "case": "rss2-comments:protected",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=protected",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:992b4c77ed1a45eebe03c2d00d3d7169cef64e77514c1f65f464d514cb82bc45",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments on: Alpha &amp; Commented\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test/posts/alpha</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tBy: Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description>Protected Comments: Please enter your password to view comments.</description>\n\t\t\t<content:encoded><![CDATA[<form>Password</form>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": true,
+        "has_protected_description": true,
+        "has_password_form": true,
+        "has_comment_content": false
+      },
+      "rss2-comments:multi": {
+        "case": "rss2-comments:multi",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:41dc0f3537d67a109eb8de2f7c619fcb62d1b7601f5836b195515970d43dcab4",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site Comments\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t\t<item>\n\t\t<title>\n\t\tComment on Filtered Beta Commented by Bob Author\t\t</title>\n\t\t<link>https://example.test/comments/502</link>\n\n\t\t<dc:creator><![CDATA[Bob Author]]></dc:creator>\n\t\t<pubDate>Tue, 02 Jun 2026 04:05:06 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-502</guid>\n\n\t\t\t\t\t<description><![CDATA[Bob rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Bob html</p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"502:202\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      }
+    },
+    "candidate": {
+      "rss2-comments:default": {
+        "case": "rss2-comments:default",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=default",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:21919b93407ace96c5a90b50184d83bdb2d61010748e11f720069320963ec4c2",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site Comments\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:singular": {
+        "case": "rss2-comments:singular",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=singular",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:dc7569fa5c5bf142a72cdab1a6ec707da8e4759489e8687ca1464d9709b83914",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments on: Alpha &amp; Commented\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test/posts/alpha</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tBy: Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": true,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:search": {
+        "case": "rss2-comments:search",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=search",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:93ff9fe3e0247017553f8f5e00aaa7c18d36471c19a2fe8ff754f03646fa3e0f",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site searching on haxe ports\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": true,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      },
+      "rss2-comments:protected": {
+        "case": "rss2-comments:protected",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=protected",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:992b4c77ed1a45eebe03c2d00d3d7169cef64e77514c1f65f464d514cb82bc45",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments on: Alpha &amp; Commented\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test/posts/alpha</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tBy: Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description>Protected Comments: Please enter your password to view comments.</description>\n\t\t\t<content:encoded><![CDATA[<form>Password</form>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 1,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": true,
+        "has_protected_description": true,
+        "has_password_form": true,
+        "has_comment_content": false
+      },
+      "rss2-comments:multi": {
+        "case": "rss2-comments:multi",
+        "request_path": "/wp-includes/feed-rss2-comments.php?case=multi",
+        "status": 200,
+        "content_type": "application/rss+xml; charset=UTF-8",
+        "body_sha256": "sha256:41dc0f3537d67a109eb8de2f7c619fcb62d1b7601f5836b195515970d43dcab4",
+        "body": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!-- rss_tag_pre:rss2-comments -->\n<rss version=\"2.0\"\n\txmlns:content=\"http://purl.org/rss/1.0/modules/content/\"\n\txmlns:dc=\"http://purl.org/dc/elements/1.1/\"\n\txmlns:atom=\"http://www.w3.org/2005/Atom\"\n\txmlns:sy=\"http://purl.org/rss/1.0/modules/syndication/\"\n\txmlns:fixture=\"https://fixture.example/rss2-comments\"\n\t\n\txmlns:commentsfixture=\"https://fixture.example/rss2-comments/ns\">\n<channel>\n\t<title>\n\tComments for Fixture Site Comments\t</title>\n\t<atom:link href=\"https://example.test/comments/feed/\" rel=\"self\" type=\"application/rss+xml\" />\n\t<link>https://example.test</link>\n\t<description>Fixture comments feed</description>\n\t<lastBuildDate>Sat, 27 Jun 2026 00:00:00 +0000</lastBuildDate>\n\t<sy:updatePeriod>\n\tdaily\t</sy:updatePeriod>\n\t<sy:updateFrequency>\n\t2\t</sy:updateFrequency>\n\t\t<fixture:head>comments</fixture:head>\n\t<item>\n\t\t<title>\n\t\tComment on Filtered Alpha & Commented by Alice & Author\t\t</title>\n\t\t<link>https://example.test/comments/501</link>\n\n\t\t<dc:creator><![CDATA[Alice & Author]]></dc:creator>\n\t\t<pubDate>Mon, 01 Jun 2026 03:04:05 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-501</guid>\n\n\t\t\t\t\t<description><![CDATA[Alice rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Alice <strong>html</strong></p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"501:101\" />\n\t</item>\n\t\t<item>\n\t\t<title>\n\t\tComment on Filtered Beta Commented by Bob Author\t\t</title>\n\t\t<link>https://example.test/comments/502</link>\n\n\t\t<dc:creator><![CDATA[Bob Author]]></dc:creator>\n\t\t<pubDate>Tue, 02 Jun 2026 04:05:06 +0000</pubDate>\n\t\t<guid isPermaLink=\"false\">comment-guid-502</guid>\n\n\t\t\t\t\t<description><![CDATA[Bob rss text]]></description>\n\t\t\t<content:encoded><![CDATA[<p>Bob html</p>]]></content:encoded>\n\t\t\n\t\t\t\t<fixture:comment marker=\"502:202\" />\n\t</item>\n\t</channel>\n</rss>\n",
+        "item_count": 2,
+        "has_fixture_namespace": true,
+        "has_comments_namespace": true,
+        "has_head_action_output": true,
+        "has_item_action_output": true,
+        "has_search_title": false,
+        "has_singular_title": false,
+        "has_protected_description": false,
+        "has_password_form": false,
+        "has_comment_content": true
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:4c1d184e0fcd74835d7f67938ac7f86a87b8fdd7be71911e170bb73326615e81",
+    "candidate_sha256": "sha256:4c1d184e0fcd74835d7f67938ac7f86a87b8fdd7be71911e170bb73326615e81"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-comments-feed-routing-not-executed",
+      "owner": "WPHX-312.17",
+      "detail": "The fixture executes the RSS2 comments template directly through a local PHP server. do_feed_rss2_comments routing, query resolution, canonical URL behavior, and browser-observed installed routing remain later gates."
+    },
+    {
+      "id": "database-backed-comment-post-loop-not-executed",
+      "owner": "WPHX-312.17",
+      "detail": "The fixture stubs comments, posts, title/search/singular state, protected-post checks, dates, and content. Database-backed comment, post, password, taxonomy, and cache behavior remain covered by other domains or later integration gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.17",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-17-rss2-comments-feed-template-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 22,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "database_backed_comment_loop_claimed": false
+  }
+}
