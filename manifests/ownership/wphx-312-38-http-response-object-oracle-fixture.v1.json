@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-response-object-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.25",
+    "external_ref": "WPHX-312.38"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "WP_HTTP_Response object state behavior",
+    "area": "src/wp-includes/class-wp-http-response.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/class-wp-http-response.php in isolated PHP CLI probes with a deterministic absint stub. It observes constructor data/status/header initialization, absint status coercion, get/set data and headers, single-header replace behavior, single-header append behavior when replace=false, direct jsonSerialize handoff to current response data, and json_encode public-property serialization without claiming REST server dispatch, Requests transport integration, live HTTP behavior, installed distribution behavior, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-absint-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass REST dispatch, Requests bridge, installed HTTP routes, selected upstream HTTP/REST PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-http-response-object-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-38-http-response-object-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-38-http-response-object-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-38-http-response-object-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-38-http-response-object-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-38-http-response-object-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-38-http-response-object-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-38"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-response-object-oracle-fixture",
+      "npm run wp:core:wphx-312-http-response-object-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-38-http-response-object-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:bf2edebe34f0272f8e01b12bbdea8383da08795838afbbf8013be1a3da9f72f7"
+  }
+}
