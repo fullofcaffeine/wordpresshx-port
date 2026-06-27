@@ -1,0 +1,341 @@
+{
+  "schema": "wphx.wp-core-canonical-template-oracle-fixture.v1",
+  "issue": "WPHX-309.09",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-canonical-template-oracle-fixture.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "runtime_abi"
+  ],
+  "artifact_scope": "oracle_source_mirror_fixture",
+  "baseline": {
+    "upstream_root": "../wordpress-develop",
+    "upstream_ref": "26b68024931348d267b70e2a29910e1320d0094f"
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-canonical-template-oracle-fixture.mjs",
+      "bytes": 24329,
+      "sha256": "sha256:b414d42753c3d9500aaccc3597a7e88dfac71ffee70ab8b30d663a5449fad49b"
+    },
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-309-01-routing-template-surface.v1.json",
+      "bytes": 51986,
+      "sha256": "sha256:67fe6cd4ba06e16725499e5b4ee27b683b237c9ff2f4c6039df6f19967b1a5b2"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-309-04-routing-template-adapter-contract-candidate.v1.json",
+      "bytes": 18280,
+      "sha256": "sha256:1c1b92167dfcffa7c75bfbe809ee3a32064d9af3f2f8d8fcef52074c29ba75bf"
+    },
+    "routing_link_manifest": {
+      "path": "manifests/wp-core/wphx-309-06-routing-link-oracle-fixture.v1.json",
+      "bytes": 15696,
+      "sha256": "sha256:9b3c0799d32356bd3a64d3c7084843d9561df9891f4fa54941ac58c87503ae5f"
+    },
+    "sources": [
+      {
+        "path": "src/wp-includes/canonical.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/canonical.php",
+        "bytes": 34645,
+        "sha256": "sha256:7437d2a223331170810aa737204be512454c564f8645908a2b25a652862c177d"
+      },
+      {
+        "path": "src/wp-includes/template-loader.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/template-loader.php",
+        "bytes": 4267,
+        "sha256": "sha256:29419e3e5fc3c20842395822b230d851c41e5ced70121431ffee7bf0dd917372"
+      },
+      {
+        "path": "src/wp-includes/template.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/template.php",
+        "bytes": 36824,
+        "sha256": "sha256:578e56453cdf93c67c8f968b7fa53bf9a6f138ad8792e4e36d3bf567ca427be5"
+      },
+      {
+        "path": "src/wp-includes/link-template.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/link-template.php",
+        "bytes": 160147,
+        "sha256": "sha256:7a3161d051b78c6eb5128b31e5f255f8c39b2ebfe162045bc48c8c1483cbbf35"
+      },
+      {
+        "path": "src/wp-includes/class-wp.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp.php",
+        "bytes": 26371,
+        "sha256": "sha256:cfbef652f7093d5545a8365bf48fec96649786952ee6f99c55cf3902012bed2f"
+      },
+      {
+        "path": "src/wp-includes/class-wp-query.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-query.php",
+        "bytes": 163331,
+        "sha256": "sha256:21953b48dc8fe948896ce6cac8cff3b575cf18553dd3ff2f8daec85c1cfe8e7e"
+      }
+    ]
+  },
+  "covered_symbols": [
+    "redirect_canonical",
+    "_remove_qs_args_if_not_in_url",
+    "strip_fragment_from_url",
+    "get_query_template",
+    "locate_template",
+    "load_template",
+    "get_single_template",
+    "template-loader.php",
+    "template_redirect",
+    "template_include",
+    "wp_before_include_template"
+  ],
+  "fixture_cases": [
+    {
+      "id": "canonical:post-method-bail",
+      "focus": "redirect_canonical returns early for non-GET/HEAD requests"
+    },
+    {
+      "id": "canonical:invalid-url-bail",
+      "focus": "redirect_canonical rejects unparsable requested URLs before redirect output"
+    },
+    {
+      "id": "canonical:query-arg-removal-helper",
+      "focus": "_remove_qs_args_if_not_in_url removes canonical-only query vars"
+    },
+    {
+      "id": "canonical:strip-fragment-helper",
+      "focus": "strip_fragment_from_url normalizes fragments for same-URL redirect comparison"
+    },
+    {
+      "id": "template:query-template-hierarchy",
+      "focus": "get_query_template applies hierarchy and template filters around locate_template"
+    },
+    {
+      "id": "template:locate-and-load",
+      "focus": "locate_template(load=true) invokes load_template and before/after load hooks with args"
+    },
+    {
+      "id": "template-loader:single-include",
+      "focus": "template-loader chooses a single template, filters it, and includes a readable PHP template"
+    },
+    {
+      "id": "template-loader:robots-return",
+      "focus": "template-loader returns through robots action without including a theme template"
+    }
+  ],
+  "claims": {
+    "public_php_replacement": false,
+    "haxe_semantic_ownership": false,
+    "canonical_template_oracle_fixture": true,
+    "complete_canonical_redirect_parity": false,
+    "complete_template_loader_parity": false,
+    "installed_frontend_http_parity": false
+  },
+  "comparison": {
+    "status": "passed",
+    "oracle": {
+      "cases": [
+        {
+          "result": null,
+          "id": "canonical:post-method-bail",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "result": null,
+          "id": "canonical:invalid-url-bail",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "input": "p=1&feed=rss&keep=1",
+          "result": "keep=1",
+          "id": "canonical:query-arg-removal-helper",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "result": "http://example.test/post/",
+          "id": "canonical:strip-fragment-helper",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "template": "wp-content/themes/wphx-fixture/single-book-dune.php",
+          "id": "template:query-template-hierarchy",
+          "filters": [
+            {
+              "hook": "single_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "single_template",
+              "arg_count": 3
+            }
+          ],
+          "actions": []
+        },
+        {
+          "located": "wp-content/themes/wphx-fixture/partial.php",
+          "output": "partial:loaded",
+          "id": "template:locate-and-load",
+          "filters": [],
+          "actions": [
+            {
+              "hook": "wp_before_load_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_after_load_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        {
+          "output": "template:single-book-dune",
+          "id": "template-loader:single-include",
+          "filters": [
+            {
+              "hook": "single_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "single_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "template_include",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "template_redirect",
+              "arg_count": 0
+            },
+            {
+              "hook": "wp_before_include_template",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "output": "",
+          "id": "template-loader:robots-return",
+          "filters": [],
+          "actions": [
+            {
+              "hook": "template_redirect",
+              "arg_count": 0
+            },
+            {
+              "hook": "do_robots",
+              "arg_count": 0
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    },
+    "candidate": {
+      "cases": [
+        {
+          "result": null,
+          "id": "canonical:post-method-bail",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "result": null,
+          "id": "canonical:invalid-url-bail",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "input": "p=1&feed=rss&keep=1",
+          "result": "keep=1",
+          "id": "canonical:query-arg-removal-helper",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "result": "http://example.test/post/",
+          "id": "canonical:strip-fragment-helper",
+          "filters": [],
+          "actions": []
+        },
+        {
+          "template": "wp-content/themes/wphx-fixture/single-book-dune.php",
+          "id": "template:query-template-hierarchy",
+          "filters": [
+            {
+              "hook": "single_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "single_template",
+              "arg_count": 3
+            }
+          ],
+          "actions": []
+        },
+        {
+          "located": "wp-content/themes/wphx-fixture/partial.php",
+          "output": "partial:loaded",
+          "id": "template:locate-and-load",
+          "filters": [],
+          "actions": [
+            {
+              "hook": "wp_before_load_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_after_load_template",
+              "arg_count": 3
+            }
+          ]
+        },
+        {
+          "output": "template:single-book-dune",
+          "id": "template-loader:single-include",
+          "filters": [
+            {
+              "hook": "single_template_hierarchy",
+              "arg_count": 1
+            },
+            {
+              "hook": "single_template",
+              "arg_count": 3
+            },
+            {
+              "hook": "template_include",
+              "arg_count": 1
+            }
+          ],
+          "actions": [
+            {
+              "hook": "template_redirect",
+              "arg_count": 0
+            },
+            {
+              "hook": "wp_before_include_template",
+              "arg_count": 1
+            }
+          ]
+        },
+        {
+          "output": "",
+          "id": "template-loader:robots-return",
+          "filters": [],
+          "actions": [
+            {
+              "hook": "template_redirect",
+              "arg_count": 0
+            },
+            {
+              "hook": "do_robots",
+              "arg_count": 0
+            }
+          ]
+        }
+      ],
+      "php_errors": []
+    }
+  }
+}

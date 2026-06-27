@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-309-09-canonical-template-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.16.1",
+    "external_ref": "WPHX-309.09",
+    "title": "WPHX-309.09 — Add canonical/template-loader oracle fixture"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+      "role": "canonical/template oracle fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+      "role": "canonical/template oracle fixture ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-canonical-template-oracle-fixture.mjs",
+      "role": "deterministic canonical/template oracle-source-mirror fixture generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-309-canonical-template-oracle-fixture",
+    "npm run wp:core:wphx-309-canonical-template-oracle-fixture:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-309-01-routing-template-surface",
+    "receipt:wphx-309-04-routing-template-adapter-contract-candidate",
+    "receipt:wphx-309-06-routing-link-oracle-fixture"
+  ],
+  "manifest_sha256": "sha256:93f3bd96b970928adcc19d3ad18e429d2e71d2d90c24100f0283def7ab3bc643",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "targeted_semantic_parity",
+      "runtime_abi"
+    ],
+    "artifact_scope": "oracle_source_mirror_fixture",
+    "covered_symbols": 11,
+    "fixture_cases": 8,
+    "public_php_replacement_claimed": false,
+    "complete_canonical_redirect_parity_claimed": false,
+    "complete_template_loader_parity_claimed": false,
+    "installed_frontend_http_parity_claimed": false
+  }
+}

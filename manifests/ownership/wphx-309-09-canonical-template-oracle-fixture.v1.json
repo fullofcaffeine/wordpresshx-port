@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/canonical-template-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.16.1",
+    "external_ref": "WPHX-309.09"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "canonical URL and template-loader oracle fixture",
+    "area": "wp-includes/canonical.php wp-includes/template.php wp-includes/template-loader.php",
+    "public_contract": "Mirrored upstream canonical/template source is executed in a constrained fixture to capture selected redirect_canonical helper, template hierarchy, locate/load, and template-loader observations. This does not claim Haxe-owned public PHP replacement, complete canonical redirect parity, full template include behavior, or installed front-end HTTP parity."
+  },
+  "ownership_state": "upstream_oracle_source_mirror",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress_oracle",
+    "adapter_contract_owner": "not_claimed",
+    "emission_strategy": "oracle_source_mirror_fixture",
+    "execution_provider": "php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "fixture-only-upstream-source-mirror",
+    "removal_gate": "Replace with Haxe-owned routing/template Adapter IR/public PHP output and installed front-end canonical/template evidence before claiming migrated WPHX-309 ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-canonical-template-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+    "build/wp-core/wphx-309-09"
+  ],
+  "upstream_mirrored_paths": [
+    "src/wp-includes/canonical.php",
+    "src/wp-includes/template-loader.php",
+    "src/wp-includes/template.php",
+    "src/wp-includes/link-template.php",
+    "src/wp-includes/class-wp.php",
+    "src/wp-includes/class-wp-query.php"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-309-canonical-template-oracle-fixture",
+      "npm run wp:core:wphx-309-canonical-template-oracle-fixture:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-309-09-canonical-template-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:93f3bd96b970928adcc19d3ad18e429d2e71d2d90c24100f0283def7ab3bc643"
+  }
+}
