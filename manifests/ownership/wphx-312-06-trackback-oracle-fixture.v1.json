@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/trackback-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.6",
+    "external_ref": "WPHX-312.06"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "trackback endpoint sanitization, duplicate detection, comment insertion, hooks, and XML responses",
+    "area": "src/wp-trackback.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-trackback.php against deterministic in-process bootstrap, database, comment, redirect, and hook stubs. It does not perform real database writes, live HTTP pings, installed request routing, privacy request mail/list-table behavior, upstream PHPUnit parity, or generated public PHP replacement."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-haxe-adapter-contract-foundation",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass installed trackback routing, database-backed duplicate/comment behavior, selected upstream tests, and ecosystem ping fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-trackback-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-06-trackback-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-06-trackback-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-06-trackback-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-06-trackback-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-06-trackback-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-06-trackback-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-06"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-trackback-oracle-fixture",
+      "npm run wp:core:wphx-312-trackback-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-06-trackback-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:9d22549a38d6a42adb90711503b7923fc088635b6cebc372a9531ebd33785531"
+  }
+}

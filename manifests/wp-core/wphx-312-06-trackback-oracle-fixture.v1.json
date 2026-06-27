@@ -1,0 +1,545 @@
+{
+  "schema": "wphx.wp-core-trackback-oracle-fixture.v1",
+  "issue": "WPHX-312.06",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-trackback-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "ai_http_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+      "bytes": 80319,
+      "sha256": "sha256:56d8339fb652af9bd53d9a56b97872e2d3b2077e32c6c34af373cdfccae2d1e5"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-trackback-oracle-fixture.mjs",
+      "bytes": 16750,
+      "sha256": "sha256:41589b31cbec99d81c019f041bbdd32a346f966444ccd6149700e64ef5b690ad"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-trackback.php",
+        "repo_path": "../wordpress-develop/src/wp-trackback.php",
+        "bytes": 5214,
+        "sha256": "sha256:a32bf25a48af109caf79eaad1b262c2589cdfef1238c1ca65a71fd54514df51f"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "trackback:success",
+        "focus": "valid trackback creates a comment, fires pre/post hooks, and emits success XML"
+      },
+      {
+        "id": "trackback:closed",
+        "focus": "closed pings emit trackback error XML before comment insertion"
+      },
+      {
+        "id": "trackback:duplicate",
+        "focus": "duplicate author URL lookup emits duplicate ping error XML"
+      },
+      {
+        "id": "trackback:new-comment-error",
+        "focus": "wp_new_comment WP_Error is converted into trackback error XML"
+      },
+      {
+        "id": "trackback:missing-id",
+        "focus": "missing post ID emits the expected trackback error XML"
+      },
+      {
+        "id": "trackback:utf7-rejected",
+        "focus": "UTF-7 charset is rejected through the endpoint's silent die path"
+      }
+    ],
+    "covered_symbols": [
+      "trackback_response",
+      "wp_set_current_user",
+      "sanitize_url",
+      "sanitize_text_field",
+      "sanitize_textarea_field",
+      "wp_unslash",
+      "wp_slash",
+      "is_single",
+      "pings_open",
+      "wp_html_excerpt",
+      "wpdb::prepare",
+      "wpdb::get_results",
+      "wp_new_comment",
+      "do_action:pre_trackback_post",
+      "do_action:trackback_post"
+    ],
+    "source_files": [
+      "src/wp-trackback.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-06/probe.php",
+      "sha256": "sha256:86e5745a058cf29398fc13c33bc85578c73383fd0f4f3319554c22d6cf99cdd3"
+    },
+    "side_effect_policy": {
+      "real_database_writes": false,
+      "live_http_pings": false,
+      "installed_request_routing": false,
+      "privacy_request_mail": false
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-06/oracle",
+    "candidate_root": "build/wp-core/wphx-312-06/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-trackback.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-06/oracle/wp-trackback.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-06/candidate/wp-trackback.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "success": {
+        "case": "success",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>0</error>\n</response>",
+        "output_sha256": "51b18ab5aff80b4d5caf108c9227f3d374f792df7c334966abc0b93693af7f81",
+        "response_error": "0",
+        "response_message": null,
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          },
+          {
+            "hook": "trackback_post",
+            "args": [
+              777
+            ]
+          }
+        ],
+        "new_comments": [
+          {
+            "comment_post_ID": 123,
+            "comment_author": "Sender Blog",
+            "comment_author_email": "",
+            "comment_author_url": "https://sender.example/post",
+            "comment_content": "<strong>Sender Title</strong>\n\nExcerpt with slashes and markup",
+            "comment_type": "trackback"
+          }
+        ],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "closed": {
+        "case": "closed",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>Sorry, trackbacks are closed for this item.</message>\n</response>",
+        "output_sha256": "1dbb617cdb1f899c7579d13d0a171c74d78bead2775a6ec75a4444d6ac610209",
+        "response_error": "1",
+        "response_message": "Sorry, trackbacks are closed for this item.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "duplicate": {
+        "case": "duplicate",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>There is already a ping from that URL for this post.</message>\n</response>",
+        "output_sha256": "db17264d72e4b63d8c5f78a11bfb225e7ec20d055343fd3e145b69ccc526c7f7",
+        "response_error": "1",
+        "response_message": "There is already a ping from that URL for this post.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "new-comment-error": {
+        "case": "new-comment-error",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>Comment insertion failed.</message>\n</response>",
+        "output_sha256": "ef7843fcdc9ae0dc021d6b9e92f3bc815e1d83615d1de09c6dd97a7b1d904a8e",
+        "response_error": "1",
+        "response_message": "Comment insertion failed.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [
+          {
+            "comment_post_ID": 123,
+            "comment_author": "Sender Blog",
+            "comment_author_email": "",
+            "comment_author_url": "https://sender.example/post",
+            "comment_content": "<strong>Sender Title</strong>\n\nExcerpt with slashes and markup",
+            "comment_type": "trackback"
+          }
+        ],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "missing-id": {
+        "case": "missing-id",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>I really need an ID for this to work.</message>\n</response>",
+        "output_sha256": "8601a842969f03f5f16092b42f49b0e701d620f7628e99ecfcb2fb0faf50448a",
+        "response_error": "1",
+        "response_message": "I really need an ID for this to work.",
+        "actions": [],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "utf7-rejected": {
+        "case": "utf7-rejected",
+        "output": "",
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_error": null,
+        "response_message": null,
+        "actions": [],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      }
+    },
+    "candidate": {
+      "success": {
+        "case": "success",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>0</error>\n</response>",
+        "output_sha256": "51b18ab5aff80b4d5caf108c9227f3d374f792df7c334966abc0b93693af7f81",
+        "response_error": "0",
+        "response_message": null,
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          },
+          {
+            "hook": "trackback_post",
+            "args": [
+              777
+            ]
+          }
+        ],
+        "new_comments": [
+          {
+            "comment_post_ID": 123,
+            "comment_author": "Sender Blog",
+            "comment_author_email": "",
+            "comment_author_url": "https://sender.example/post",
+            "comment_content": "<strong>Sender Title</strong>\n\nExcerpt with slashes and markup",
+            "comment_type": "trackback"
+          }
+        ],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "closed": {
+        "case": "closed",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>Sorry, trackbacks are closed for this item.</message>\n</response>",
+        "output_sha256": "1dbb617cdb1f899c7579d13d0a171c74d78bead2775a6ec75a4444d6ac610209",
+        "response_error": "1",
+        "response_message": "Sorry, trackbacks are closed for this item.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "duplicate": {
+        "case": "duplicate",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>There is already a ping from that URL for this post.</message>\n</response>",
+        "output_sha256": "db17264d72e4b63d8c5f78a11bfb225e7ec20d055343fd3e145b69ccc526c7f7",
+        "response_error": "1",
+        "response_message": "There is already a ping from that URL for this post.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "new-comment-error": {
+        "case": "new-comment-error",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>Comment insertion failed.</message>\n</response>",
+        "output_sha256": "ef7843fcdc9ae0dc021d6b9e92f3bc815e1d83615d1de09c6dd97a7b1d904a8e",
+        "response_error": "1",
+        "response_message": "Comment insertion failed.",
+        "actions": [
+          {
+            "hook": "pre_trackback_post",
+            "args": [
+              123,
+              "https://sender.example/post",
+              "UTF-8",
+              "Sender Title",
+              "Excerpt with slashes and markup",
+              "Sender Blog"
+            ]
+          }
+        ],
+        "new_comments": [
+          {
+            "comment_post_ID": 123,
+            "comment_author": "Sender Blog",
+            "comment_author_email": "",
+            "comment_author_url": "https://sender.example/post",
+            "comment_content": "<strong>Sender Title</strong>\n\nExcerpt with slashes and markup",
+            "comment_type": "trackback"
+          }
+        ],
+        "db": {
+          "prepare": [
+            {
+              "query": "SELECT * FROM wp_comments WHERE comment_post_ID = %d AND comment_author_url = %s",
+              "args": [
+                123,
+                "https://sender.example/post"
+              ]
+            }
+          ],
+          "get_results": [
+            {
+              "query": "prepared-trackback-dupe-query"
+            }
+          ]
+        },
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "missing-id": {
+        "case": "missing-id",
+        "output": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<response>\n<error>1</error>\n<message>I really need an ID for this to work.</message>\n</response>",
+        "output_sha256": "8601a842969f03f5f16092b42f49b0e701d620f7628e99ecfcb2fb0faf50448a",
+        "response_error": "1",
+        "response_message": "I really need an ID for this to work.",
+        "actions": [],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      },
+      "utf7-rejected": {
+        "case": "utf7-rejected",
+        "output": "",
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "response_error": null,
+        "response_message": null,
+        "actions": [],
+        "new_comments": [],
+        "db": [],
+        "current_user": 0,
+        "redirects": [],
+        "php_errors": []
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:4f86c99497665e889bfc12ccac28a9fe83cf79b0b2ecd4acb57e91031566c017",
+    "candidate_sha256": "sha256:4f86c99497665e889bfc12ccac28a9fe83cf79b0b2ecd4acb57e91031566c017"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-trackback-routing-not-executed",
+      "owner": "WPHX-312.06",
+      "detail": "The fixture bypasses wp-load.php and WordPress request parsing with deterministic stubs. Installed route dispatch, query integration, and real HTTP request/response headers remain later gates."
+    },
+    {
+      "id": "database-backed-trackback-side-effects-not-executed",
+      "owner": "WPHX-312.06",
+      "detail": "Duplicate lookup and wp_new_comment are stubbed. Real comments table reads/writes, moderation, cache invalidation, and plugin side effects remain later gates."
+    },
+    {
+      "id": "privacy-request-mail-not-executed",
+      "owner": "WPHX-312.06",
+      "detail": "Privacy request mail/list-table behavior is still outside this fixture."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.06",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-06-trackback-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 15,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
