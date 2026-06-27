@@ -1,0 +1,70 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-309-12-routing-template-upstream-phpunit-executable",
+  "issue": {
+    "id": "wordpresshx-l76.16.4",
+    "external_ref": "WPHX-309.12",
+    "title": "WPHX-309.12 — Record executable routing/template upstream PHPUnit ratchet evidence"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "command": "npm run upstream:phpunit-ratchet:provision",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": true,
+  "artifacts": [
+    {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "provisioned executable upstream PHPUnit ratchet manifest with WPHX-309 groups",
+      "sha256": "sha256:bc4c52e40cb87a0b9a66138757102b2edce1a67cee6cb01fab8eba1e662a074e"
+    },
+    {
+      "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+      "role": "runtime ratchet report with rewrite-routing-core and canonical-link-template-core pass/pass classifications",
+      "sha256": "sha256:6c1d3d3aab9c66c5ca2724ed37d516b41f19ebcda912f862bbdfa40cbc835989"
+    },
+    {
+      "path": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "refreshed provisioned upstream PHPUnit ratchet environment receipt",
+      "sha256": "sha256:7c629c94e87fe24bc39425c75ed6139d503135edf41cb22252fff39cdc78b4d4"
+    },
+    {
+      "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet-provisioned.v1.json",
+      "role": "refreshed provisioned upstream PHPUnit ratchet receipt",
+      "sha256": "sha256:737a98789321128238593f459e66a9d2d7ba87bd5b2b87f18895f2b465915535"
+    },
+    {
+      "path": "tests/upstream/phpunit/groups.json",
+      "role": "selected upstream PHPUnit group registry including WPHX-309 groups",
+      "sha256": "sha256:885aa25a36eb284221fde052f6aaa466d2cad6e7b31ee5e4f05b1ac803a80392"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-309.12 progress interpretation",
+      "sha256": "sha256:62385a07a3d931e4c0fbfec378ed92e657b1de77151d000990a11e399c748ffe"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "environment_ready": true,
+    "ratchet_runs_executed": 22,
+    "all_classifications_parity_pass": true,
+    "rewrite_routing_core": {
+      "vanilla_status": "pass",
+      "candidate_status": "pass",
+      "classification": "parity_pass"
+    },
+    "canonical_link_template_core": {
+      "vanilla_status": "pass",
+      "candidate_status": "pass",
+      "classification": "parity_pass"
+    },
+    "rejects_new_vanilla_pass_candidate_fail": true,
+    "behavior_parity_claimed": true
+  }
+}

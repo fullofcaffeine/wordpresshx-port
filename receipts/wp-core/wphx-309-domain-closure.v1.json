@@ -1,0 +1,82 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-309-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.16",
+    "external_ref": "WPHX-309",
+    "title": "WPHX-309 — Rewrite, routing, canonical URLs, templates"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "command": "domain closure audit over WPHX-309.01 through WPHX-309.12 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, packaged_distribution, upstream_suite_parity",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-309-01-routing-template-surface.v1.json",
+      "role": "routing/template source, distribution, ABI, and upstream test surface inventory",
+      "sha256": "sha256:d517e1966380c351443a1a81e5bb3da709f0cabf106d22eb4ff58ca22a112340"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-04-routing-template-adapter-contract-candidate.v1.json",
+      "role": "typed Haxe routing/template adapter-contract evidence",
+      "sha256": "sha256:e9caf2db010aee193a7dab3fc7a70a895385fe2c6909bbc230c38588fbbdd1eb"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-06-routing-link-oracle-fixture.v1.json",
+      "role": "deterministic rewrite/link/request oracle-source-mirror evidence",
+      "sha256": "sha256:421583326717d6ffc9472dc10f0fcf3d2c6e5f26097792d387413db42bc536ee"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-09-canonical-template-oracle-fixture.v1.json",
+      "role": "deterministic canonical/template-loader oracle-source-mirror evidence",
+      "sha256": "sha256:7c4b00e2a61693cb5194b9a97f35d824d1d4f3cbf88519b8c967e05e6db42bf1"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json",
+      "role": "installed-distribution routing/template HTTP gate evidence",
+      "sha256": "sha256:c2bd0e46f57271525c8529e6aabd8d330c74915dc91ad8fb45c35f89e5129235"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-11-routing-template-upstream-phpunit-ratchet-groups.v1.json",
+      "role": "selected upstream rewrite/routing/canonical/link/template PHPUnit ratchet group scope",
+      "sha256": "sha256:9680d032b97f7013080f078f7628af5d4b7dd2696e295909062082a24b56a2d5"
+    },
+    {
+      "path": "receipts/wp-core/wphx-309-12-routing-template-upstream-phpunit-executable.v1.json",
+      "role": "provisioned upstream rewrite/routing/canonical/link/template pass/pass evidence",
+      "sha256": "sha256:e9831457560fa60d2c950991ab3e66ae2bc747444f3edf6acab9c4c173686d37"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-309 closure interpretation",
+      "sha256": "sha256:23b8fe71f0128f40b116e1e1f819d9c782a5e5dc015972fde8ad77ee9ff695f8"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-309-routing-template-installed:check",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "RoutingTemplateAdapterContract"
+    ],
+    "fixtures_cover": [
+      "rewrite tags, rules, permastructs, and parse_request observations",
+      "home_url and trailing slash link observations",
+      "canonical helper and template-loader observations",
+      "front-end pretty permalink, archive, canonical, robots, and 404 installed-style HTTP observations",
+      "template selection and include observations",
+      "selected upstream rewrite/routing/canonical/link/template pass/pass classifications"
+    ],
+    "remaining_gaps": [
+      "Generated public PHP replacement for WP, WP_Rewrite, canonical.php, link-template.php, template.php, and template-loader.php is not claimed.",
+      "Full database-backed installed routing/canonical/template behavior is deferred to later distribution work.",
+      "This closes the WPHX-309 source-domain evidence slice, not the whole WordPress routing/template subsystem."
+    ]
+  }
+}
