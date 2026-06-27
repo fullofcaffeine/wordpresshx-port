@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/theme-template-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.17.2",
+    "external_ref": "WPHX-310.02"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "theme support, theme JSON, template hierarchy, customizer, nav menu, widget, and hook intent",
+    "area": "wp-includes/theme.php wp-includes/class-wp-theme.php wp-includes/class-wp-theme-json.php wp-includes/class-wp-theme-json-resolver.php wp-includes/template.php wp-includes/block-template.php wp-includes/customize wp-includes/nav-menu.php wp-includes/widgets.php",
+    "public_contract": "Haxe owns the first typed theme/template adapter-contract decision model. Public PHP ABI replacement, theme filesystem scanning, theme.json merge behavior, customizer transactions, rendered templates, admin screens, and installed theme behavior are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Install these decisions through typed Adapter IR/original-path generation and pass PHP-authored theme support, theme.json/global styles, template hierarchy, customizer, nav-menu, widget, installed HTTP/admin, and upstream PHPUnit oracle fixtures before claiming public PHP ABI ownership."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/theme-template-adapter-contract-candidate.hxml",
+    "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/ThemeTemplateAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-theme-template-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-310-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-310-theme-template-adapter-contract-candidate",
+      "npm run wp:core:wphx-310-theme-template-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-310-02-theme-template-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:b6cb9b2cffcf14108f7795b139f98fafa7a37934b66e612ada59b44970817aa7"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate. It adds no native provider, no handwritten production PHP shell, and no public WordPress file replacement."
+}
