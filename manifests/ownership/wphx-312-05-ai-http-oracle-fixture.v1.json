@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/ai-http-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.5",
+    "external_ref": "WPHX-312.05"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "bundled PHP AI Client HTTP DTO, utility, transporter, and WordPress HTTP adapter behavior",
+    "area": "src/wp-includes/php-ai-client/autoload.php src/wp-includes/php-ai-client/src/Providers/Http/Collections/HeadersCollection.php src/wp-includes/php-ai-client/src/Providers/Http/DTO/Request.php src/wp-includes/php-ai-client/src/Providers/Http/DTO/RequestOptions.php src/wp-includes/php-ai-client/src/Providers/Http/DTO/Response.php src/wp-includes/php-ai-client/src/Providers/Http/Enums/HttpMethodEnum.php src/wp-includes/php-ai-client/src/Providers/Http/HttpTransporter.php src/wp-includes/php-ai-client/src/Providers/Http/HttpTransporterFactory.php src/wp-includes/php-ai-client/src/Providers/Http/Util/ErrorMessageExtractor.php src/wp-includes/php-ai-client/src/Providers/Http/Util/ResponseUtil.php src/wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 php-ai-client HTTP source and the WordPress AI HTTP adapter against fake in-process PSR-18 and WordPress HTTP transports. It does not perform live network I/O, external provider discovery, provider model generation, installed behavior, upstream PHPUnit parity, or generated public PHP replacement."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-haxe-adapter-contract-foundation",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass real WordPress HTTP transport, provider discovery, model operation, installed distribution, and selected upstream PHPUnit gates before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-ai-http-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-ai-http-oracle-fixture",
+      "npm run wp:core:wphx-312-ai-http-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-05-ai-http-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:56d8339fb652af9bd53d9a56b97872e2d3b2077e32c6c34af373cdfccae2d1e5"
+  }
+}
