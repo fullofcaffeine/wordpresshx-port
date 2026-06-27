@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/opml-links-output-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.14",
+    "external_ref": "WPHX-312.14"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "wp-links-opml.php OPML link category and bookmark output behavior",
+    "area": "src/wp-links-opml.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-links-opml.php through PHP's built-in HTTP server against deterministic wp-load.php stubs for options, link categories, bookmarks, filters, and the opml_head action. It observes content-type headers and normalized XML output without a database or installed link manager."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-link-data-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass installed feed template rendering, database-backed bookmark/link manager, OPML endpoint, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-opml-links-output-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-14-opml-links-output-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-14"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-opml-links-output-oracle-fixture",
+      "npm run wp:core:wphx-312-opml-links-output-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-14-opml-links-output-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:a8e16afe4547e7d5ca6a044b179ddbeb40f046e78e257c44d4c4af6ec78dc81e"
+  }
+}

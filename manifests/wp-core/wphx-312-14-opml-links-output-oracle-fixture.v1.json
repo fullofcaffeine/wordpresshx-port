@@ -1,0 +1,307 @@
+{
+  "schema": "wphx.wp-core-opml-links-output-oracle-fixture.v1",
+  "issue": "WPHX-312.14",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-opml-links-output-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "http_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "feed_embed_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+      "bytes": 18811,
+      "sha256": "sha256:9005553a3798994fcdc2a4d407e9db2ba4df533138a2da5314c3530197de87d9"
+    },
+    "remote_fetch_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-08-remote-fetch-oembed-oracle-fixture.v1.json",
+      "bytes": 29193,
+      "sha256": "sha256:3732343ca7f8a0e5a1a6b18d5331953d72fc98e30a7dbc82f91703951c645f52"
+    },
+    "installed_gate_manifest": {
+      "path": "manifests/wp-core/wphx-312-09-http-mail-feed-embed-installed-gate.v1.json",
+      "bytes": 33734,
+      "sha256": "sha256:d07f7fde8fa0c6574367a3b56e8fdd4735c3b5234bbced76067e4e17280c9e56"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-opml-links-output-oracle-fixture.mjs",
+      "bytes": 17679,
+      "sha256": "sha256:2ab7fdf526debb7e36d055de3b26c83c77fd09413f7d30ee6ffe961bfa2af325"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-links-opml.php",
+        "repo_path": "../wordpress-develop/src/wp-links-opml.php",
+        "bytes": 2493,
+        "sha256": "sha256:228a4d22e3b885647963a6ac5209efa903f2692e5e2c21faecb598602ced3ea4"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "opml:default-all-categories",
+        "path": "/wp-links-opml.php",
+        "focus": "default request emits all link categories, OPML header action output, escaped titles, link URLs, and updated timestamps"
+      },
+      {
+        "id": "opml:numeric-category",
+        "path": "/wp-links-opml.php?link_cat=2",
+        "focus": "numeric link_cat request narrows get_categories include and returns only that category"
+      },
+      {
+        "id": "opml:encoded-category",
+        "path": "/wp-links-opml.php?link_cat=2%20fixture",
+        "focus": "encoded link_cat is urldecoded and absint-normalized before include selection"
+      },
+      {
+        "id": "opml:all-category-token",
+        "path": "/wp-links-opml.php?link_cat=all",
+        "focus": "the all token is preserved through include selection and treated as all categories by the fixture data provider"
+      },
+      {
+        "id": "opml:zero-category-token",
+        "path": "/wp-links-opml.php?link_cat=0",
+        "focus": "the zero token is empty under PHP rules and falls back to the default all-category query"
+      }
+    ],
+    "covered_symbols": [
+      "wp-links-opml.php",
+      "get_option",
+      "get_bloginfo",
+      "get_categories",
+      "get_bookmarks",
+      "apply_filters('link_category')",
+      "apply_filters('link_title')",
+      "do_action('opml_head')",
+      "esc_attr",
+      "esc_url",
+      "absint"
+    ],
+    "source_files": [
+      "src/wp-links-opml.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_builtin_server": true,
+      "timestamp_normalization": "dateCreated is normalized to <normalized-date> while preserving OPML shape"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-14/oracle",
+    "candidate_root": "build/wp-core/wphx-312-14/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-links-opml.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-14/oracle/wp-links-opml.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-14/candidate/wp-links-opml.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "opml:default-all-categories": {
+        "case": "opml:default-all-categories",
+        "request_path": "/wp-links-opml.php",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      },
+      "opml:numeric-category": {
+        "case": "opml:numeric-category",
+        "request_path": "/wp-links-opml.php?link_cat=2",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:a22a1c0a99dcd8728d26b895357706a9e1c43189559dcdf0389b95d1bbcc9236",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 1,
+        "link_outline_count": 1,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": false,
+        "has_updated_timestamp": true
+      },
+      "opml:encoded-category": {
+        "case": "opml:encoded-category",
+        "request_path": "/wp-links-opml.php?link_cat=2%20fixture",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:a22a1c0a99dcd8728d26b895357706a9e1c43189559dcdf0389b95d1bbcc9236",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 1,
+        "link_outline_count": 1,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": false,
+        "has_updated_timestamp": true
+      },
+      "opml:all-category-token": {
+        "case": "opml:all-category-token",
+        "request_path": "/wp-links-opml.php?link_cat=all",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      },
+      "opml:zero-category-token": {
+        "case": "opml:zero-category-token",
+        "request_path": "/wp-links-opml.php?link_cat=0",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      }
+    },
+    "candidate": {
+      "opml:default-all-categories": {
+        "case": "opml:default-all-categories",
+        "request_path": "/wp-links-opml.php",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      },
+      "opml:numeric-category": {
+        "case": "opml:numeric-category",
+        "request_path": "/wp-links-opml.php?link_cat=2",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:a22a1c0a99dcd8728d26b895357706a9e1c43189559dcdf0389b95d1bbcc9236",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 1,
+        "link_outline_count": 1,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": false,
+        "has_updated_timestamp": true
+      },
+      "opml:encoded-category": {
+        "case": "opml:encoded-category",
+        "request_path": "/wp-links-opml.php?link_cat=2%20fixture",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:a22a1c0a99dcd8728d26b895357706a9e1c43189559dcdf0389b95d1bbcc9236",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 1,
+        "link_outline_count": 1,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": false,
+        "has_updated_timestamp": true
+      },
+      "opml:all-category-token": {
+        "case": "opml:all-category-token",
+        "request_path": "/wp-links-opml.php?link_cat=all",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      },
+      "opml:zero-category-token": {
+        "case": "opml:zero-category-token",
+        "request_path": "/wp-links-opml.php?link_cat=0",
+        "status": 200,
+        "content_type": "text/xml; charset=UTF-8",
+        "body_sha256": "sha256:603374249625f6c50b99921eb9e141439bc6b18f71291c9f643514eae03f1a72",
+        "body": "<?xml version=\"1.0\"?>\n<opml version=\"1.0\">\n\t<head>\n\t\t<title>\n\t\tLinks for Fixture &amp; Links &lt;Site&gt;\t\t</title>\n\t\t<dateCreated><normalized-date> GMT</dateCreated>\n\t\t\t\t<ownerName>Fixture OPML Head</ownerName>\n\t</head>\n\t<body>\n<outline type=\"category\" title=\"Filtered News &amp; Updates\">\n\t<outline text=\"Filtered Alpha &amp; Omega\" type=\"link\" xmlUrl=\"https://feeds.example.test/alpha.xml\" htmlUrl=\"https://example.test/alpha?x=1&y=2\" updated=\"\n\t\t\t\t\t\t\t2026-06-01 02:03:04\" />\n\t\t<outline text=\"Filtered Unsafe URL\" type=\"link\" xmlUrl=\"\" htmlUrl=\"\" updated=\"\n\t\t\t\t\t\t\t\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Dev &lt;Links&gt;\">\n\t<outline text=\"Filtered Haxe &lt;Compiler&gt;\" type=\"link\" xmlUrl=\"https://feeds.example.test/haxe.xml\" htmlUrl=\"https://haxe.example.test/\" updated=\"\n\t\t\t\t\t\t\t2026-06-02 03:04:05\" />\n\t\t</outline>\n\t<outline type=\"category\" title=\"Filtered Empty Category\">\n\t</outline>\n\t</body>\n</opml>\n",
+        "category_outline_count": 3,
+        "link_outline_count": 3,
+        "has_opml_head_action_output": true,
+        "has_filtered_category": true,
+        "has_filtered_link_title": true,
+        "has_empty_unsafe_url": true,
+        "has_updated_timestamp": true
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:75bf62b35cabc6139cb6ba408408dd6ac958bb757d410ce1a74cd73f4f50ad68",
+    "candidate_sha256": "sha256:75bf62b35cabc6139cb6ba408408dd6ac958bb757d410ce1a74cd73f4f50ad68"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-feed-template-rendering-not-executed",
+      "owner": "WPHX-312.14",
+      "detail": "The fixture executes only wp-links-opml.php with deterministic link stubs. RSS/Atom feed templates, post embed rendering, REST oEmbed dispatch, and browser-observed installed routing remain later gates."
+    },
+    {
+      "id": "bookmark-database-link-manager-not-executed",
+      "owner": "WPHX-312.14",
+      "detail": "The fixture stubs get_categories and get_bookmarks. Database-backed bookmark storage, admin link-manager workflows, and legacy ecosystem behavior remain later coverage."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.14",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-14-opml-links-output-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 11,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "database_backed_bookmarks_claimed": false
+  }
+}
