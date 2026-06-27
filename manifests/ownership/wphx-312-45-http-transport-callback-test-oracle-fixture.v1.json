@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-transport-callback-test-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.32",
+    "external_ref": "WPHX-312.45"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "HTTP streams/cURL transport test and private callback behavior",
+    "area": "src/wp-includes/class-wp-http-streams.php src/wp-includes/class-wp-http-curl.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 HTTP streams and cURL transport classes in isolated PHP CLI probes. It observes transport capability gates, transport filters, WP_HTTP_Fsockopen inheritance, and private cURL header/body callback state through reflection without claiming live HTTP transport, socket/cURL execution, DNS/TLS/proxy behavior, certificate verification, redirect handling, streaming download over network, installed distribution behavior, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-deterministic-hook-and-reflection-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass transport capability, callback, selected upstream HTTP PHPUnit, installed distribution, and live/recorded network parity gates before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-http-transport-callback-test-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-45"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-transport-callback-test-oracle-fixture",
+      "npm run wp:core:wphx-312-http-transport-callback-test-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-45-http-transport-callback-test-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:75a4fc050c79283057c3e06f92ca028ef96928a664327e0227d907e259e28a64"
+  }
+}
