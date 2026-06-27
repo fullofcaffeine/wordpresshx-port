@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 123,
+  "scanned_file_count": 127,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -25,6 +25,8 @@
     "fixtures/wp-boundary/src/wphx/fixtures/wp/boundary/BoundaryEntry.hx",
     "fixtures/wp-boundary/src/wphx/fixtures/wp/boundary/BoundaryKernel.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/AuthAdapterContractCandidateEntry.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpEncodingCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/MultisiteAdapterContractCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/NativeValueLoweringProofEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/OptionCacheCandidateEntry.hx",
@@ -114,6 +116,8 @@
     "src/wphx/wp/error/WpErrorRuntime.hx",
     "src/wphx/wp/formatting/PureFormatting.hx",
     "src/wphx/wp/hooks/HookRuntime.hx",
+    "src/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.hx",
+    "src/wphx/wp/http/HttpEncodingStrategy.hx",
     "src/wphx/wp/macros/BindingValidator.hx",
     "src/wphx/wp/multisite/MultisiteAdapterContract.hx",
     "src/wphx/wp/options/PureOptionCache.hx",
@@ -130,7 +134,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 34,
+  "occurrence_count": 49,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -463,6 +467,156 @@
       "justification": "WPHX-211: Snapshot shape is a PHP-native array for oracle comparison."
     },
     {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 124,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"@gzdeflate({0}, {1})\", raw, level);",
+      "source_sha256": "sha256:5f468ce2fab97fb09d803bf3daa49ad77d1c0267f7025738dea17c97d87afaa5",
+      "justification": "WPHX-211: zlib functions are PHP-native transfer-encoding primitives."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 130,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"@gzinflate({0})\", compressed);",
+      "source_sha256": "sha256:9bfb3d1a714e68ebe18264c70b5daeac98ed95f7ab473484f56dfa89300bde36",
+      "justification": "WPHX-211: zlib functions return false on failure and binary strings on success."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 136,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"@gzuncompress({0})\", compressed);",
+      "source_sha256": "sha256:9299fcf9ba3991413a567f35aea5099bd96f0e80165445ce83c694a24c7fe2da",
+      "justification": "WPHX-211: WordPress preserves PHP's gzuncompress fallback behavior."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 142,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"@gzdecode({0})\", compressed);",
+      "source_sha256": "sha256:1f3311513714bc285c054a8ef417d4cea5b845445643cd32bf47ec1dc875a8d0",
+      "justification": "WPHX-211: gzdecode can be disabled independently, so availability is checked first."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 148,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"function_exists({0})\", name);",
+      "source_sha256": "sha256:1b58877eda7dc6931b48259d25845d7e88f884abee9b252eef237d86f2b245e1",
+      "justification": "WPHX-211: function_exists reflects the PHP runtime extension surface."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 158,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"str_starts_with({0}, \\\"\\\\x1f\\\\x8b\\\\x08\\\")\", value);",
+      "source_sha256": "sha256:8e185febf64f98fa290f8823bd1965f57cf1bb11a97176359097ad18c46d09b0",
+      "justification": "WPHX-211: WordPress' gzip compatibility parser uses byte-oriented PHP string offsets."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 164,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return length == null ? php.Syntax.code(\"substr({0}, {1})\", value, offset) : php.Syntax.code(\"substr({0}, {1}, {2})\", value, offset, length);",
+      "source_sha256": "sha256:7b9df86461a9282ba2c5ac4a851ba1baa210da0d89cf33a5241dc2a0f16eb5cd",
+      "justification": "WPHX-211: WordPress' gzip compatibility parser uses byte-oriented PHP string offsets."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 170,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"substr({0}, {1}, {2})\", value, offset, length);",
+      "source_sha256": "sha256:844c802441c093edb42125a497dbbaf5b1e6000bcf936a3d223c4abe8f4215ae",
+      "justification": "WPHX-211: negative PHP substr lengths preserve the gzip trailer stripping contract."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 176,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"ord({0})\", value);",
+      "source_sha256": "sha256:025c7ebff851814ac8769b580687cda8c5a99449d6f340f9b5b3c1551bd0f59e",
+      "justification": "WPHX-211: ord(substr(...)) mirrors the upstream gzip flag parser."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 182,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array_values(unpack('v', {0}))[0]\", value);",
+      "source_sha256": "sha256:6e1525aa58f66fc80b8b47d349242c2547e156bc6e7357d1cf43d9447280ea03",
+      "justification": "WPHX-211: unpack('v', ...) is the PHP-native little-endian short parser used upstream."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 188,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"strpos({0}, {1}, {2})\", haystack, needle, offset);",
+      "source_sha256": "sha256:15082a293ffe5edb58614b4158c91c2d8c9043984bcb1a07fe7936f29b310d7a",
+      "justification": "WPHX-211: PHP strpos returns false, but WordPress uses it only on known-present gzip fields here."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 194,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"stripos({0}, {1})\", haystack, needle);",
+      "source_sha256": "sha256:138b9a4a35ca7949ffe8d0b63f3ca9a6b435df909b885acc99921598d886d5d6",
+      "justification": "WPHX-211: stripos preserves PHP's false-or-int return contract for header scanning."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 204,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array_key_exists({0}, {1})\", key, array);",
+      "source_sha256": "sha256:6d399bfaec8e91dbdbead4fc6d8c01b190044035b9f18a5521e4a6a9f5ada417",
+      "justification": "WPHX-211: headers arrive as native PHP arrays at the public class boundary."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 210,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"{1}[{0}]\", key, array);",
+      "source_sha256": "sha256:05aa3ca35050cc20f55d0829b3f72e9cbf216ceadadf782e009fe3c638171251",
+      "justification": "WPHX-211: native array indexing preserves PHP associative array behavior."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
+      "line": 220,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"empty({0})\", value);",
+      "source_sha256": "sha256:b07fbb5a2c5af695dfea9ebeafeea5615be50348dfae60942349006d6fd6eabd",
+      "justification": "WPHX-211: PHP empty() semantics are required for content-encoding header checks."
+    },
+    {
       "path": "src/wphx/wp/macros/BindingValidator.hx",
       "line": 291,
       "kinds": [
@@ -475,7 +629,7 @@
   ],
   "by_kind": {
     "Dynamic": 7,
-    "php.Syntax.code": 27
+    "php.Syntax.code": 42
   },
   "validation_result": {
     "status": "passed",

@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-encoding-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.18.37",
+    "external_ref": "WPHX-312.50"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http_Encoding Haxe parity candidate",
+    "area": "src/wp-includes/class-wp-http-encoding.php public class shell backed by src/wphx/wp/http/HttpEncodingStrategy.hx",
+    "public_contract": "The candidate preserves the WP_Http_Encoding public PHP class/method ABI while delegating promoted encoding helpers to generated Haxe PHP. The Haxe strategy owns compression/decompression fallback order, gzip-compatible inflation, content-encoding, should-decode checks, and zlib availability decisions for the bounded fixture cases."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "bridge": {
+    "exists": true,
+    "kind": "generated-haxe-php-behind-public-php-class-shell",
+    "removal_gate": "Promote from candidate shell to generated original-path adapter only after class-wp-http-encoding.php ownership/linker work proves reflection, include timing, selected upstream HTTP PHPUnit, installed distribution behavior, and live/recorded transfer-encoding parity."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/http-encoding-candidate.hxml",
+    "src/wphx/wp/http/HttpEncodingStrategy.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpEncodingCandidateEntry.hx",
+    "tools/wp-core/run-http-encoding-candidate.mjs",
+    "manifests/wp-core/wphx-312-50-http-encoding-candidate.v1.json",
+    "manifests/ownership/wphx-312-50-http-encoding-candidate.v1.json",
+    "receipts/wp-core/wphx-312-50-http-encoding-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-50-http-encoding-candidate.v1.json",
+    "manifests/ownership/wphx-312-50-http-encoding-candidate.v1.json",
+    "receipts/wp-core/wphx-312-50-http-encoding-candidate.v1.json",
+    "build/wp-core/wphx-312-50"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-encoding-candidate",
+      "npm run wp:core:wphx-312-http-encoding-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-50-http-encoding-candidate",
+      "receipt:wphx-312-40-http-encoding-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:50ebc2c901c43f5f35eff75d3ecfb611435c80d89b30094464cdb25f4086f6d9"
+  }
+}
