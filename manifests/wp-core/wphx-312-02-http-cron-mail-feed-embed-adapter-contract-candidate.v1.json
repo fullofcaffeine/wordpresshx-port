@@ -1,0 +1,417 @@
+{
+  "schema": "wphx.wp-core-http-cron-mail-feed-embed-adapter-contract-candidate.v1",
+  "issue": "WPHX-312.02",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-http-cron-mail-feed-embed-adapter-contract-candidate.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "generated_shape"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "prior_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7167,
+      "sha256": "sha256:9230d83997bb6cc37768adf6b45715721875f7991e0840e2321c18a2c63e5298"
+    },
+    "hxml": {
+      "path": "fixtures/wp-core/http-cron-mail-feed-embed-adapter-contract-candidate.hxml",
+      "bytes": 148,
+      "sha256": "sha256:ddddd8336ded1cf8375b3f5eaaf25ab8db91b40b5d4058318f7fc0c6495ded2f"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/http-cron-mail-feed-embed-adapter-contract-candidate.hxml",
+        "bytes": 148,
+        "sha256": "sha256:ddddd8336ded1cf8375b3f5eaaf25ab8db91b40b5d4058318f7fc0c6495ded2f"
+      },
+      {
+        "path": "src/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.hx",
+        "bytes": 6437,
+        "sha256": "sha256:e7c5ff7e84e1b588f1d89d9e0c68d071ebd935b16228d9d555a0900b4967c5a1"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.hx",
+        "bytes": 4661,
+        "sha256": "sha256:e4f81b01f7913be1fd9e21005900622e3731a963e233b0819b6c29af56b478e5"
+      }
+    ]
+  },
+  "fixture": {
+    "candidate_kind": "haxe_http_cron_mail_feed_embed_adapter_contract_candidate",
+    "promoted_contracts": [
+      "HTTP transport intent for preemption, policy blocking, cURL, streams, and error routes",
+      "cron scheduling intent for due events, recurring reschedule, lock handling, spawn requests, and no-op paths",
+      "mail dispatch intent for short-circuit, invalid recipients, attachments, recovery emails, and standard mail",
+      "feed/OPML/fetch intent for Atom, RSS2, comment feeds, OPML, remote fetch, and unknown feed types",
+      "embed/oEmbed intent for REST responses, discovery, shortcode handling, template requests, and disabled embeds",
+      "HTTPS detection/migration intent for already-HTTPS, migration, detection, and no-op routes",
+      "privacy request mail, AI-client HTTP, trackback, and hook intent"
+    ],
+    "upstream_reference_functions": [
+      "wp_remote_request",
+      "WP_Http::request",
+      "wp_schedule_event",
+      "spawn_cron",
+      "wp_mail",
+      "fetch_feed",
+      "do_feed_rss2",
+      "WP_oEmbed",
+      "WP_Embed",
+      "wp_update_https_detection_errors",
+      "wp_privacy_send_personal_data_export_email",
+      "wp_trackback"
+    ],
+    "expected_observations": {
+      "http:preempt": "http_preempt",
+      "http:blocked": "http_blocked",
+      "http:curl": "http_curl",
+      "http:streams": "http_streams",
+      "http:error": "http_error",
+      "cron:recurring": "cron_reschedule_recurring",
+      "cron:due": "cron_run_due",
+      "cron:locked": "cron_spawn_locked",
+      "cron:spawn": "cron_spawn_request",
+      "cron:noop": "cron_noop",
+      "mail:short-circuit": "mail_short_circuit",
+      "mail:invalid": "mail_invalid_recipients",
+      "mail:attachments": "mail_with_attachments",
+      "mail:recovery": "mail_recovery",
+      "mail:standard": "mail_standard",
+      "feed:atom": "feed_atom",
+      "feed:rss2": "feed_rss2",
+      "feed:comments": "feed_comments",
+      "feed:opml": "feed_opml",
+      "feed:remote": "feed_fetch_remote",
+      "feed:unknown": "feed_unknown",
+      "embed:rest": "embed_rest_response",
+      "embed:template": "embed_template",
+      "embed:shortcode": "embed_shortcode",
+      "embed:discovery": "embed_discovery",
+      "embed:disabled": "embed_disabled",
+      "https:already": "https_already",
+      "https:migrate": "https_migrate",
+      "https:detect": "https_detect",
+      "https:noop": "https_noop",
+      "privacy:export-mail": "privacy_export_mail",
+      "privacy:erasure-mail": "privacy_erasure_mail",
+      "privacy:list-table": "privacy_list_table",
+      "ai-http:authenticated": "ai_http_authenticated",
+      "ai-http:discovery": "ai_http_discovery",
+      "ai-http:transport": "ai_http_transport",
+      "trackback:reject": "trackback_reject",
+      "trackback:accept": "trackback_accept",
+      "trackback:ping": "trackback_ping",
+      "hook:http": "http_hooks",
+      "hook:cron": "cron_hooks",
+      "hook:mail": "mail_hooks",
+      "hook:feed": "feed_hooks",
+      "hook:embed": "embed_hooks",
+      "hook:failed": "http_cron_mail_feed_embed_no_hooks"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "adapter_contract_owner": "haxe_typed",
+      "semantic_owner": "haxe",
+      "native_provider_claimed": false,
+      "removal_gate": "Install through typed Adapter IR/original-path generation and run differential PHP HTTP, cron, mail, feed, embed/oEmbed, and side-effect fixtures before claiming public PHP ABI ownership."
+    },
+    "source_escape_audits": [
+      {
+        "path": "src/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      }
+    ]
+  },
+  "toolchain": {
+    "haxe_version": "4.3.7",
+    "locked_haxe_version": "4.3.7",
+    "php_cli_profile": "8.4"
+  },
+  "build": {
+    "generated_file_hash_policy": "normalize_haxe_std_source_map_paths",
+    "generated_haxe_files": [
+      {
+        "path": "index.php",
+        "bytes": 408,
+        "sha256": "a658d2ba28f9418c6aaa38dd19b561d44c9c4f8a37ee4ea2dd34f4d928b44258"
+      },
+      {
+        "path": "lib/Array_hx.php",
+        "bytes": 22828,
+        "sha256": "32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39"
+      },
+      {
+        "path": "lib/haxe/Exception.php",
+        "bytes": 3562,
+        "sha256": "316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1140,
+        "sha256": "6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 481,
+        "sha256": "03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012"
+      },
+      {
+        "path": "lib/haxe/ValueException.php",
+        "bytes": 1008,
+        "sha256": "38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858"
+      },
+      {
+        "path": "lib/php/_Boot/HxAnon.php",
+        "bytes": 1182,
+        "sha256": "ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706"
+      },
+      {
+        "path": "lib/php/_Boot/HxClass.php",
+        "bytes": 2861,
+        "sha256": "74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a"
+      },
+      {
+        "path": "lib/php/_Boot/HxClosure.php",
+        "bytes": 2757,
+        "sha256": "4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb"
+      },
+      {
+        "path": "lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 3952,
+        "sha256": "721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00"
+      },
+      {
+        "path": "lib/php/_Boot/HxEnum.php",
+        "bytes": 1181,
+        "sha256": "f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a"
+      },
+      {
+        "path": "lib/php/_Boot/HxString.php",
+        "bytes": 8211,
+        "sha256": "d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b"
+      },
+      {
+        "path": "lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "lib/php/Boot.php",
+        "bytes": 36175,
+        "sha256": "d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9"
+      },
+      {
+        "path": "lib/Std.php",
+        "bytes": 1104,
+        "sha256": "fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea"
+      },
+      {
+        "path": "lib/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.php",
+        "bytes": 12916,
+        "sha256": "bae472a6167a93e3d533e06b6de741b13091ac86aa398e9b00df61ca784dd567"
+      },
+      {
+        "path": "lib/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.php",
+        "bytes": 15298,
+        "sha256": "464a7eca16543e7bb44efcaa89ee0d75e35283613065f11c39ced3673376a348"
+      }
+    ],
+    "php_lint": [
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/index.php",
+        "relative_path": "index.php",
+        "sha256": "sha256:a658d2ba28f9418c6aaa38dd19b561d44c9c4f8a37ee4ea2dd34f4d928b44258",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/index.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/Array_hx.php",
+        "relative_path": "lib/Array_hx.php",
+        "sha256": "sha256:32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/Array_hx.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/haxe/Exception.php",
+        "relative_path": "lib/haxe/Exception.php",
+        "sha256": "sha256:316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/haxe/Exception.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayIterator.php",
+        "sha256": "sha256:6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/haxe/iterators/ArrayIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "sha256": "sha256:03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/haxe/ValueException.php",
+        "relative_path": "lib/haxe/ValueException.php",
+        "sha256": "sha256:38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/haxe/ValueException.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxAnon.php",
+        "relative_path": "lib/php/_Boot/HxAnon.php",
+        "sha256": "sha256:ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxAnon.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxClass.php",
+        "relative_path": "lib/php/_Boot/HxClass.php",
+        "sha256": "sha256:74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxClass.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxClosure.php",
+        "relative_path": "lib/php/_Boot/HxClosure.php",
+        "sha256": "sha256:4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxClosure.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "relative_path": "lib/php/_Boot/HxDynamicStr.php",
+        "sha256": "sha256:721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxDynamicStr.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxEnum.php",
+        "relative_path": "lib/php/_Boot/HxEnum.php",
+        "sha256": "sha256:f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxEnum.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxString.php",
+        "relative_path": "lib/php/_Boot/HxString.php",
+        "sha256": "sha256:d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_Boot/HxString.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/_polyfills.php",
+        "relative_path": "lib/php/_polyfills.php",
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/_polyfills.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/php/Boot.php",
+        "relative_path": "lib/php/Boot.php",
+        "sha256": "sha256:d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/php/Boot.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/Std.php",
+        "relative_path": "lib/Std.php",
+        "sha256": "sha256:fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/Std.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.php",
+        "relative_path": "lib/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.php",
+        "sha256": "sha256:bae472a6167a93e3d533e06b6de741b13091ac86aa398e9b00df61ca784dd567",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.php"
+      },
+      {
+        "path": "build/wp-core/wphx-312-02/haxe/lib/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.php",
+        "relative_path": "lib/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.php",
+        "sha256": "sha256:464a7eca16543e7bb44efcaa89ee0d75e35283613065f11c39ced3673376a348",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-312-02/haxe/lib/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.php"
+      }
+    ]
+  },
+  "run": {
+    "command": "php build/wp-core/wphx-312-02/haxe/index.php",
+    "raw_output_sha256": "sha256:b07c027f1cadf6c06b49fb842801df278da3dc1f5ce0c442b61c167235544f14",
+    "observations": {
+      "http:preempt": "http_preempt",
+      "http:blocked": "http_blocked",
+      "http:curl": "http_curl",
+      "http:streams": "http_streams",
+      "http:error": "http_error",
+      "cron:recurring": "cron_reschedule_recurring",
+      "cron:due": "cron_run_due",
+      "cron:locked": "cron_spawn_locked",
+      "cron:spawn": "cron_spawn_request",
+      "cron:noop": "cron_noop",
+      "mail:short-circuit": "mail_short_circuit",
+      "mail:invalid": "mail_invalid_recipients",
+      "mail:attachments": "mail_with_attachments",
+      "mail:recovery": "mail_recovery",
+      "mail:standard": "mail_standard",
+      "feed:atom": "feed_atom",
+      "feed:rss2": "feed_rss2",
+      "feed:comments": "feed_comments",
+      "feed:opml": "feed_opml",
+      "feed:remote": "feed_fetch_remote",
+      "feed:unknown": "feed_unknown",
+      "embed:rest": "embed_rest_response",
+      "embed:template": "embed_template",
+      "embed:shortcode": "embed_shortcode",
+      "embed:discovery": "embed_discovery",
+      "embed:disabled": "embed_disabled",
+      "https:already": "https_already",
+      "https:migrate": "https_migrate",
+      "https:detect": "https_detect",
+      "https:noop": "https_noop",
+      "privacy:export-mail": "privacy_export_mail",
+      "privacy:erasure-mail": "privacy_erasure_mail",
+      "privacy:list-table": "privacy_list_table",
+      "ai-http:authenticated": "ai_http_authenticated",
+      "ai-http:discovery": "ai_http_discovery",
+      "ai-http:transport": "ai_http_transport",
+      "trackback:reject": "trackback_reject",
+      "trackback:accept": "trackback_accept",
+      "trackback:ping": "trackback_ping",
+      "hook:http": "http_hooks",
+      "hook:cron": "cron_hooks",
+      "hook:mail": "mail_hooks",
+      "hook:feed": "feed_hooks",
+      "hook:embed": "embed_hooks",
+      "hook:failed": "http_cron_mail_feed_embed_no_hooks"
+    },
+    "matches_expected": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "php-authored-http-cron-mail-feed-embed-oracle-fixtures-not-yet-built",
+      "owner": "WPHX-312.02",
+      "detail": "The candidate has not yet run through vanilla WordPress and packaged candidate public HTTP transport, cron option/lock/spawn, PHPMailer, feed XML, oEmbed/embed, HTTPS migration, privacy mail, trackback, hook, and cache observations."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.02",
+      "detail": "No original-path HTTP, cron, mail, feed, embed/oEmbed, HTTPS, privacy request, AI-client HTTP, OPML, or trackback adapter is claimed in this slice."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_http_cron_mail_feed_embed_adapter_contract_candidate",
+    "promoted_contracts": 7,
+    "runtime_runs": 1,
+    "observation_count": 45,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false
+  }
+}
