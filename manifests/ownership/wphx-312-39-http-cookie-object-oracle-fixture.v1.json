@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-cookie-object-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.26",
+    "external_ref": "WPHX-312.39"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "WP_Http_Cookie object parsing and matching behavior",
+    "area": "src/wp-includes/class-wp-http-cookie.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/class-wp-http-cookie.php in isolated PHP CLI probes with a deterministic apply_filters stub. It observes header-string parsing, array construction and requested-URL defaults, expires parsing, path/domain/port matching in test(), expired and nameless cookie rejection, getHeaderValue/getFullHeader behavior through wp_http_cookie_value filtering, and get_attributes output without claiming live HTTP transport, Requests cookie jar behavior, browser cookie policy, installed distribution behavior, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-filter-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass live/recorded HTTP transport, Requests cookie jar conversion, redirect/cookie propagation, selected upstream HTTP PHPUnit, installed distribution routes, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-http-cookie-object-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-39"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-cookie-object-oracle-fixture",
+      "npm run wp:core:wphx-312-http-cookie-object-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-39-http-cookie-object-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:00588999d36cddd752353945676f036bb47409e026063d847cb313f9977c0f01"
+  }
+}
