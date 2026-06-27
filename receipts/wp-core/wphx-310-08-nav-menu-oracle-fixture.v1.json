@@ -1,0 +1,43 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-310-08-nav-menu-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.17.8",
+    "external_ref": "WPHX-310.08",
+    "title": "WPHX-310.08 — Add nav-menu oracle fixture"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+      "role": "nav-menu oracle-source-mirror fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+      "role": "ownership manifest for copied-oracle nav-menu boundary"
+    },
+    {
+      "path": "tools/wp-core/run-nav-menu-oracle-fixture.mjs",
+      "role": "deterministic oracle/candidate fixture generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-310-nav-menu-oracle-fixture",
+    "npm run wp:core:wphx-310-nav-menu-oracle-fixture:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-310-01-themes-template-surface",
+    "receipt:wphx-310-02-theme-template-adapter-contract-candidate",
+    "receipt:wphx-310-06-theme-customizer-widget-nav-surface",
+    "receipt:wphx-310-07-widget-sidebar-oracle-fixture"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 15,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}

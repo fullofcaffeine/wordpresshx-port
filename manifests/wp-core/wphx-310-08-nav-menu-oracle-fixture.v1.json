@@ -1,0 +1,1116 @@
+{
+  "schema": "wphx.wp-core-nav-menu-oracle-fixture.v1",
+  "issue": "WPHX-310.08",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-nav-menu-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-310-01-themes-template-surface.v1.json",
+      "bytes": 133083,
+      "sha256": "sha256:04de8bdb20ee33e27e112b580c352dabad87049e7569c451dd2eeac3548657d3"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "bytes": 18550,
+      "sha256": "sha256:b6cb9b2cffcf14108f7795b139f98fafa7a37934b66e612ada59b44970817aa7"
+    },
+    "nav_surface_manifest": {
+      "path": "manifests/wp-core/wphx-310-06-theme-customizer-widget-nav-surface.v1.json",
+      "bytes": 114736,
+      "sha256": "sha256:9b6f8a8b037a6568232dc4229e27f2d6b3459dbf852d4f440b75f9e4f11d7e30"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-nav-menu-oracle-fixture.mjs",
+      "bytes": 23987,
+      "sha256": "sha256:5e04e7be417a836c3a67f31b33ba0684f894f882d10294a80513bb4ca49aa082"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-walker.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-walker.php",
+        "bytes": 13322,
+        "sha256": "sha256:9ae48531bc60636947cfc163671e354746ee05693169f643ee539660f8665755"
+      },
+      {
+        "path": "src/wp-includes/class-walker-nav-menu.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-walker-nav-menu.php",
+        "bytes": 12044,
+        "sha256": "sha256:8e36fdcdacb40c17e230bd276c3aff69240e04be161991677f4196dffb33b3ae"
+      },
+      {
+        "path": "src/wp-includes/nav-menu.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/nav-menu.php",
+        "bytes": 44269,
+        "sha256": "sha256:ac0b7d23b3839121ca36c39480a6ff5eeca5b22c97ae69b75da74428e69ecadb"
+      },
+      {
+        "path": "src/wp-includes/nav-menu-template.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/nav-menu-template.php",
+        "bytes": 25990,
+        "sha256": "sha256:38b4e201499a218c5bdca55c234d2d2320709a900bc52ca54e8132ca08165061"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "locations:registration-and-name",
+        "focus": "registered menu locations, assigned menu detection, and location name lookup"
+      },
+      {
+        "id": "menu:object-lookup",
+        "focus": "wp_get_nav_menu_object resolves menus by id, slug, name, and object"
+      },
+      {
+        "id": "items:setup-and-sort",
+        "focus": "wp_get_nav_menu_items decorates custom link posts, filters invalid items, and normalizes menu_order"
+      },
+      {
+        "id": "render:wp-nav-menu",
+        "focus": "wp_nav_menu renders container, list, parent/child items, attributes, and menu filters"
+      },
+      {
+        "id": "render:depth-limited",
+        "focus": "depth=1 rendering removes bottom-level menu-item-has-children through default nav filter"
+      },
+      {
+        "id": "walker:direct-tree",
+        "focus": "walk_nav_menu_tree renders nested output using Walker_Nav_Menu directly"
+      }
+    ],
+    "covered_symbols": [
+      "register_nav_menus",
+      "get_registered_nav_menus",
+      "get_nav_menu_locations",
+      "has_nav_menu",
+      "wp_get_nav_menu_object",
+      "wp_get_nav_menu_name",
+      "wp_get_nav_menus",
+      "wp_get_nav_menu_items",
+      "wp_setup_nav_menu_item",
+      "wp_nav_menu",
+      "walk_nav_menu_tree",
+      "Walker_Nav_Menu::start_el",
+      "Walker_Nav_Menu::start_lvl",
+      "_nav_menu_item_id_use_once",
+      "wp_nav_menu_remove_menu_item_has_children_class"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-walker.php",
+      "src/wp-includes/class-walker-nav-menu.php",
+      "src/wp-includes/nav-menu.php",
+      "src/wp-includes/nav-menu-template.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-310-08/probe.php",
+      "sha256": "sha256:2eb5f1a9a40be0c409cebe08dae6fc98f5088333a0ad6e2887aebb41f33af301"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-310-08/oracle",
+    "candidate_root": "build/wp-core/wphx-310-08/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-walker.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-08/oracle/wp-includes/class-wp-walker.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-08/candidate/wp-includes/class-wp-walker.php"
+      },
+      {
+        "path": "src/wp-includes/class-walker-nav-menu.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-08/oracle/wp-includes/class-walker-nav-menu.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-08/candidate/wp-includes/class-walker-nav-menu.php"
+      },
+      {
+        "path": "src/wp-includes/nav-menu.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-08/oracle/wp-includes/nav-menu.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-08/candidate/wp-includes/nav-menu.php"
+      },
+      {
+        "path": "src/wp-includes/nav-menu-template.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-08/oracle/wp-includes/nav-menu-template.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-08/candidate/wp-includes/nav-menu-template.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "cases": {
+        "items:setup-and-sort": {
+          "count": 2,
+          "ids": [
+            100,
+            101
+          ],
+          "orders": [
+            1,
+            2
+          ],
+          "parents": [
+            "0",
+            "100"
+          ],
+          "titles": [
+            "Home",
+            "About"
+          ],
+          "urls": [
+            "https://example.test/",
+            "https://example.test/about/"
+          ]
+        },
+        "locations:registration-and-name": {
+          "registered": {
+            "primary": "Primary Menu"
+          },
+          "locations": {
+            "primary": 42
+          },
+          "has_primary": true,
+          "has_footer": false,
+          "menu_name": "Fixture Menu",
+          "theme_support_menus": true
+        },
+        "menu:object-lookup": {
+          "id": 42,
+          "slug": "fixture-menu",
+          "name": "Fixture Menu",
+          "object_identity": 42,
+          "missing": false
+        },
+        "render:depth-limited": {
+          "has_child_title": false,
+          "has_has_children_class": false,
+          "sha256": "454a28e65a3430fb2e2d89f386b27c2aefd1ae4e6e401d2d79e160534d0b2560"
+        },
+        "render:wp-nav-menu": {
+          "has_nav_container": true,
+          "has_menu_class": true,
+          "has_parent_class": true,
+          "has_submenu": true,
+          "has_home_link": true,
+          "has_about_link": true,
+          "sha256": "05576a846c7b1033b392651967b4e4a9545fbd5aec824470e20ffbfc8c2cad68"
+        },
+        "walker:direct-tree": {
+          "has_nested_list": true,
+          "has_home": true,
+          "has_about": true,
+          "sha256": "c160b091c08e8addd8ec66371400989cc9c2a7834230c3738eb68383e1476a22"
+        }
+      },
+      "actions": [],
+      "filters": [
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_name",
+          "arg_count": 2
+        },
+        {
+          "hook": "has_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "has_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_args",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_container_allowedtags",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_nav_menu_objects",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_submenu_css_class",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_submenu_attributes",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_nav_menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_fixture-menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_args",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_objects",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_nav_menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_fixture-menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_submenu_css_class",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_submenu_attributes",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        }
+      ],
+      "php_errors": []
+    },
+    "candidate": {
+      "cases": {
+        "items:setup-and-sort": {
+          "count": 2,
+          "ids": [
+            100,
+            101
+          ],
+          "orders": [
+            1,
+            2
+          ],
+          "parents": [
+            "0",
+            "100"
+          ],
+          "titles": [
+            "Home",
+            "About"
+          ],
+          "urls": [
+            "https://example.test/",
+            "https://example.test/about/"
+          ]
+        },
+        "locations:registration-and-name": {
+          "registered": {
+            "primary": "Primary Menu"
+          },
+          "locations": {
+            "primary": 42
+          },
+          "has_primary": true,
+          "has_footer": false,
+          "menu_name": "Fixture Menu",
+          "theme_support_menus": true
+        },
+        "menu:object-lookup": {
+          "id": 42,
+          "slug": "fixture-menu",
+          "name": "Fixture Menu",
+          "object_identity": 42,
+          "missing": false
+        },
+        "render:depth-limited": {
+          "has_child_title": false,
+          "has_has_children_class": false,
+          "sha256": "454a28e65a3430fb2e2d89f386b27c2aefd1ae4e6e401d2d79e160534d0b2560"
+        },
+        "render:wp-nav-menu": {
+          "has_nav_container": true,
+          "has_menu_class": true,
+          "has_parent_class": true,
+          "has_submenu": true,
+          "has_home_link": true,
+          "has_about_link": true,
+          "sha256": "05576a846c7b1033b392651967b4e4a9545fbd5aec824470e20ffbfc8c2cad68"
+        },
+        "walker:direct-tree": {
+          "has_nested_list": true,
+          "has_home": true,
+          "has_about": true,
+          "sha256": "c160b091c08e8addd8ec66371400989cc9c2a7834230c3738eb68383e1476a22"
+        }
+      },
+      "actions": [],
+      "filters": [
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_name",
+          "arg_count": 2
+        },
+        {
+          "hook": "has_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "has_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_attr_title",
+          "arg_count": 1
+        },
+        {
+          "hook": "nav_menu_description",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_args",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_container_allowedtags",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_nav_menu_objects",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_submenu_css_class",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_submenu_attributes",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_nav_menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_fixture-menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_args",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "pre_wp_setup_nav_menu_item",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_setup_nav_menu_item",
+          "arg_count": 1
+        },
+        {
+          "hook": "wp_get_nav_menu_items",
+          "arg_count": 3
+        },
+        {
+          "hook": "wp_nav_menu_objects",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_nav_menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu_fixture-menu_items",
+          "arg_count": 2
+        },
+        {
+          "hook": "wp_nav_menu",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_submenu_css_class",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_submenu_attributes",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_item_args",
+          "arg_count": 3
+        },
+        {
+          "hook": "nav_menu_css_class",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_id",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_item_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "the_title",
+          "arg_count": 2
+        },
+        {
+          "hook": "nav_menu_item_title",
+          "arg_count": 4
+        },
+        {
+          "hook": "nav_menu_link_attributes",
+          "arg_count": 4
+        },
+        {
+          "hook": "walker_nav_menu_start_el",
+          "arg_count": 4
+        },
+        {
+          "hook": "wp_get_nav_menu_object",
+          "arg_count": 2
+        }
+      ],
+      "php_errors": []
+    },
+    "match": true,
+    "oracle_sha256": "sha256:3339108f5562936749810d0d6b0b674cfc827edbf65346825d5b89d2c9e5ce5f",
+    "candidate_sha256": "sha256:3339108f5562936749810d0d6b0b674cfc827edbf65346825d5b89d2c9e5ce5f"
+  },
+  "remaining_gaps": [
+    {
+      "id": "database-backed-nav-menu-crud-not-executed",
+      "owner": "WPHX-310.08",
+      "detail": "The fixture uses deterministic in-memory terms, posts, and post meta. wp_create_nav_menu, wp_update_nav_menu_item, wp_delete_nav_menu, term/post persistence, and cache invalidation remain later DB-backed gates."
+    },
+    {
+      "id": "admin-and-customizer-nav-menu-behavior-not-executed",
+      "owner": "WPHX-310.08",
+      "detail": "Admin nav-menu screens, Customizer nav-menu controls/settings, AJAX nonce/capability checks, and installed rendering remain later gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-310.08",
+      "detail": "Nav-menu PHP files are copied oracle source in this fixture; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 15,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}

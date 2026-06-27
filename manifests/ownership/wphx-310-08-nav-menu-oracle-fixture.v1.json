@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/nav-menu-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.17.8",
+    "external_ref": "WPHX-310.08"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "Nav-menu lookup, item setup, walker, and front-end rendering behavior",
+    "area": "src/wp-includes/class-wp-walker.php src/wp-includes/class-walker-nav-menu.php src/wp-includes/nav-menu.php src/wp-includes/nav-menu-template.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 nav-menu source against deterministic in-process terms, posts, post meta, theme locations, and request context. It does not claim generated public PHP replacement, admin nav-menu screen parity, database-backed CRUD parity, Customizer nav-menu parity, or installed rendering parity."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-haxe-adapter-contract-foundation",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass admin nav-menu, database-backed CRUD, Customizer nav-menu, installed rendering/admin, and selected upstream nav-menu PHPUnit gates before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-nav-menu-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-310-08-nav-menu-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-310-08-nav-menu-oracle-fixture.v1.json",
+    "build/wp-core/wphx-310-08"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-310-nav-menu-oracle-fixture",
+      "npm run wp:core:wphx-310-nav-menu-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-310-08-nav-menu-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:5ebc9b2119f844eea48586e73ae1b5ed6aaa403eb6c1c3fc4abae35743751f98"
+  }
+}
