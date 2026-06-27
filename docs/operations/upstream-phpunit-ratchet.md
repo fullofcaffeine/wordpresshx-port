@@ -20,6 +20,8 @@ The provisioner creates vanilla and candidate worktrees under `build/upstream-ph
 
 The runner compares pinned vanilla WordPress against a packaged candidate distribution for the selected database, options/cache, REST, posts/query/meta/revisions, taxonomy/term, and comment PHPUnit files in `tests/upstream/phpunit/groups.json`.
 
+Group entries may include a `filter` field. The `files` list remains the provenance and prerequisite surface, while the runner passes `--filter` instead of direct file operands. Use this for upstream test files whose filenames do not map to PHPUnit class names, such as REST API files named `rest-server.php` with classes like `Tests_REST_Server`.
+
 Required runtime inputs:
 
 - `../wordpress-develop` at WordPress `7.0.0` commit `26b68024931348d267b70e2a29910e1320d0094f`, or `WPHX_PHPUNIT_VANILLA_ROOT`.

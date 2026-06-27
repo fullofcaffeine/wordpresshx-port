@@ -95,6 +95,7 @@ function prerequisiteReport(groups, knownDeltas) {
 
 function commandFor(root, phpunit, group, side) {
   const junit = `${BUILD_ROOT}/junit/${side}-${group.id}.xml`;
+  const selectorArgs = group.filter ? ["--filter", group.filter] : group.files;
   return {
     command: "php",
     args: [
@@ -103,7 +104,7 @@ function commandFor(root, phpunit, group, side) {
       "phpunit.xml.dist",
       "--log-junit",
       resolve(junit),
-      ...group.files
+      ...selectorArgs
     ],
     cwd: root,
     junit

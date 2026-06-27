@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-700-10-rest-phpunit-filtered-ratchet",
+  "issue": {
+    "id": "wordpresshx-w91.3.10",
+    "external_ref": "WPHX-700.10",
+    "title": "WPHX-700.10 — Classify REST fail/fail upstream PHPUnit ratchet baseline"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "command": "npm run upstream:phpunit-ratchet:provision",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": true,
+  "artifacts": [
+    {
+      "path": "tools/upstream/run-phpunit-ratchet.mjs",
+      "role": "upstream PHPUnit ratchet runner with optional filtered group selection",
+      "sha256": "sha256:badd2d43b49ec2132e45989ff7d033f1bd97987c66e6be6a304754919c3d724b"
+    },
+    {
+      "path": "tests/upstream/phpunit/groups.json",
+      "role": "selected upstream PHPUnit groups with REST filters preserving file provenance",
+      "sha256": "sha256:76a606b6333eba18554eeb3c88fff0b3ea7094ce9b27b74f0b26f470eec79e9a"
+    },
+    {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "provisioned upstream PHPUnit ratchet environment manifest with all selected groups pass/pass",
+      "sha256": "sha256:51357da8d84a97e09d9211de2738e5efcc8fff297d63dbb6720acfea48fab5dc"
+    },
+    {
+      "path": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "refreshed provisioned upstream PHPUnit ratchet environment receipt",
+      "sha256": "sha256:06b49ed0a4a6c839a29a55b1d707aa9c632aaf4217665f5ec754e586119c9711"
+    },
+    {
+      "path": "manifests/wp-core/wphx-311-08-rest-server-web-e2e.v1.json",
+      "role": "refreshed REST web E2E manifest after upstream group registry hash changed",
+      "sha256": "sha256:cd85f36a06443e0c31e49528b85409687eae7d3bddb442d65658c9a45048a2e6"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run wp:core:wphx-311-rest-server-web-e2e:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "environment_ready": true,
+    "ratchet_runs_executed": 18,
+    "all_classifications_parity_pass": true,
+    "rest_settings_controller": {
+      "vanilla_status": "pass",
+      "candidate_status": "pass",
+      "classification": "parity_pass"
+    },
+    "rest_server_core": {
+      "vanilla_status": "pass",
+      "candidate_status": "pass",
+      "classification": "parity_pass"
+    },
+    "rejects_new_vanilla_pass_candidate_fail": true
+  }
+}
