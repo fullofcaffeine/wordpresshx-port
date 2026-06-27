@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/feed-embed-https-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.4",
+    "external_ref": "WPHX-312.04"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "feed helper, embed/oEmbed local routing, and HTTPS detection/migration behavior",
+    "area": "src/wp-includes/feed.php src/wp-includes/class-wp-oembed.php src/wp-includes/class-wp-embed.php src/wp-includes/embed.php src/wp-includes/https-detection.php src/wp-includes/https-migration.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 feed, embed/oEmbed, and HTTPS source against deterministic in-process hooks/options. It does not perform remote feed fetches, remote oEmbed provider requests, live HTTPS probing, feed template rendering, installed behavior, upstream PHPUnit parity, or generated public PHP replacement."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-haxe-adapter-contract-foundation",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass feed template/rendering, remote fetch/oEmbed discovery, HTTPS probing, installed distribution, and selected upstream PHPUnit gates before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-feed-embed-https-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-04-feed-embed-https-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-04"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-feed-embed-https-oracle-fixture",
+      "npm run wp:core:wphx-312-feed-embed-https-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-04-feed-embed-https-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:9005553a3798994fcdc2a4d407e9db2ba4df533138a2da5314c3530197de87d9"
+  }
+}
