@@ -1,0 +1,583 @@
+{
+  "schema": "wphx.wp-core-magpie-rss-display-helper-oracle-fixture.v1",
+  "issue": "WPHX-312.24",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-magpie-rss-display-helper-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "fetch_cache_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+      "bytes": 18410,
+      "sha256": "sha256:d47234172d1955dee3a10f09681449f0cd6a6d49e86c9aaeef6b72a9ddec5ab4"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-magpie-rss-display-helper-oracle-fixture.mjs",
+      "bytes": 18778,
+      "sha256": "sha256:1cf6c114b87485fd0d4f30b2f6c83c3e58caf37a08135ca61e0fbd9c69f046ad"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/rss.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/rss.php",
+        "bytes": 23203,
+        "sha256": "sha256:fcb3b96531a3688acf02a57c226c4245401a9943e6981c14ff76f976c951c0b2"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "magpie:wp-rss-one-item",
+        "focus": "wp_rss wraps a limited cached feed in ul/li and escapes URL, stripped description, and title"
+      },
+      {
+        "id": "magpie:wp-rss-all-items",
+        "focus": "wp_rss with -1 emits every cached item"
+      },
+      {
+        "id": "magpie:wp-rss-error-message",
+        "focus": "wp_rss failure path echoes the translated feed-down message"
+      },
+      {
+        "id": "magpie:get-rss-two-items",
+        "focus": "get_rss emits limited bare li rows and preserves raw link/description attributes"
+      },
+      {
+        "id": "magpie:get-rss-failure",
+        "focus": "get_rss failure returns false and emits no markup"
+      }
+    ],
+    "covered_symbols": [
+      "rss.php",
+      "wp_rss",
+      "get_rss",
+      "fetch_rss",
+      "RSSCache::check_cache",
+      "RSSCache::get",
+      "get_transient",
+      "esc_url",
+      "esc_attr",
+      "esc_html",
+      "_e",
+      "strip_tags",
+      "array_slice",
+      "printf",
+      "MAGPIE_CACHE_DIR",
+      "MAGPIE_CACHE_AGE"
+    ],
+    "source_files": [
+      "src/wp-includes/rss.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "transients_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "wordPress_stubs": "esc_url, esc_attr, esc_html, _e, get_transient, set_transient, wp_safe_remote_request, wp_remote_retrieve_headers, wp_remote_retrieve_response_code, wp_remote_retrieve_body, is_wp_error, _deprecated_file, do_action, and wp_trigger_error are deterministic local stubs; copied rss.php remains the executed display-helper source."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    },
+    "display_quirks_observed": [
+      "wp_rss wraps output in a ul and escapes URL, stripped description title attribute, and title text.",
+      "get_rss emits bare li rows, escapes only the title text, and preserves raw link and description attributes."
+    ]
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-24/oracle",
+    "candidate_root": "build/wp-core/wphx-312-24/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/rss.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-24/oracle/wp-includes/rss.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-24/candidate/wp-includes/rss.php"
+      }
+    ],
+    "probe_lint": {
+      "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-24/oracle/probe.php",
+      "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-24/candidate/probe.php"
+    }
+  },
+  "observations": {
+    "oracle": {
+      "magpie:wp-rss-one-item": {
+        "case": "magpie:wp-rss-one-item",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<ul><li><a href=\"esc_url:https://example.test/alpha?x=1&amp;y=2\" title=\"esc_attr:Alpha &quot;quoted&quot; summary\">esc_html:Alpha &amp; One</a></li></ul>",
+        "output_sha256": "8e21d6a04787d17cb498f065f6caa13974f3d00228c4ec77b801b7beeb8c0fa5",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_url",
+            "https://example.test/alpha?x=1&y=2"
+          ],
+          [
+            "esc_attr",
+            "Alpha \"quoted\" summary"
+          ],
+          [
+            "esc_html",
+            "Alpha & One"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:wp-rss-all-items": {
+        "case": "magpie:wp-rss-all-items",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<ul><li><a href=\"esc_url:https://example.test/alpha?x=1&amp;y=2\" title=\"esc_attr:Alpha &quot;quoted&quot; summary\">esc_html:Alpha &amp; One</a></li><li><a href=\"esc_url:https://example.test/beta\" title=\"esc_attr:Beta plain summary\">esc_html:Beta &lt;Two&gt;</a></li><li><a href=\"esc_url:https://example.test/gamma\" title=\"esc_attr:Gamma summary\">esc_html:Gamma Three</a></li></ul>",
+        "output_sha256": "4f179f0ae7f441953f1fd4c64011b198d6ec899d9ec798a2d57ae759ee41d1db",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_url",
+            "https://example.test/alpha?x=1&y=2"
+          ],
+          [
+            "esc_attr",
+            "Alpha \"quoted\" summary"
+          ],
+          [
+            "esc_html",
+            "Alpha & One"
+          ],
+          [
+            "esc_url",
+            "https://example.test/beta"
+          ],
+          [
+            "esc_attr",
+            "Beta plain summary"
+          ],
+          [
+            "esc_html",
+            "Beta <Two>"
+          ],
+          [
+            "esc_url",
+            "https://example.test/gamma"
+          ],
+          [
+            "esc_attr",
+            "Gamma summary"
+          ],
+          [
+            "esc_html",
+            "Gamma Three"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:wp-rss-error-message": {
+        "case": "magpie:wp-rss-error-message",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "translated:An error has occurred, which probably means the feed is down. Try again later.",
+        "output_sha256": "d8cef667811f11059ae9c1fbe35e0f59df0a5816879d6e24f607cef1b574315a",
+        "return_value": null,
+        "escape_calls": [],
+        "translate_calls": [
+          "An error has occurred, which probably means the feed is down. Try again later."
+        ],
+        "get_transients": [
+          "rss_8913d974dc47c399dec29a725413f1d5"
+        ],
+        "remote_requests": [
+          {
+            "url": "https://example.test/missing",
+            "headers": []
+          }
+        ]
+      },
+      "magpie:get-rss-two-items": {
+        "case": "magpie:get-rss-two-items",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<li>\n<a href='https://example.test/alpha?x=1&y=2' title='<strong>Alpha</strong> \"quoted\" summary'>esc_html:Alpha &amp; One</a><br />\n</li>\n<li>\n<a href='https://example.test/beta' title='Beta plain summary'>esc_html:Beta &lt;Two&gt;</a><br />\n</li>\n",
+        "output_sha256": "821261b4b7ce37bebfb06f1384e516e3f0ae497a31c9d4580b71c360b2018c71",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_html",
+            "Alpha & One"
+          ],
+          [
+            "esc_html",
+            "Beta <Two>"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:get-rss-failure": {
+        "case": "magpie:get-rss-failure",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "",
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "return_value": false,
+        "escape_calls": [],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_8913d974dc47c399dec29a725413f1d5"
+        ],
+        "remote_requests": [
+          {
+            "url": "https://example.test/missing",
+            "headers": []
+          }
+        ]
+      }
+    },
+    "candidate": {
+      "magpie:wp-rss-one-item": {
+        "case": "magpie:wp-rss-one-item",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<ul><li><a href=\"esc_url:https://example.test/alpha?x=1&amp;y=2\" title=\"esc_attr:Alpha &quot;quoted&quot; summary\">esc_html:Alpha &amp; One</a></li></ul>",
+        "output_sha256": "8e21d6a04787d17cb498f065f6caa13974f3d00228c4ec77b801b7beeb8c0fa5",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_url",
+            "https://example.test/alpha?x=1&y=2"
+          ],
+          [
+            "esc_attr",
+            "Alpha \"quoted\" summary"
+          ],
+          [
+            "esc_html",
+            "Alpha & One"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:wp-rss-all-items": {
+        "case": "magpie:wp-rss-all-items",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<ul><li><a href=\"esc_url:https://example.test/alpha?x=1&amp;y=2\" title=\"esc_attr:Alpha &quot;quoted&quot; summary\">esc_html:Alpha &amp; One</a></li><li><a href=\"esc_url:https://example.test/beta\" title=\"esc_attr:Beta plain summary\">esc_html:Beta &lt;Two&gt;</a></li><li><a href=\"esc_url:https://example.test/gamma\" title=\"esc_attr:Gamma summary\">esc_html:Gamma Three</a></li></ul>",
+        "output_sha256": "4f179f0ae7f441953f1fd4c64011b198d6ec899d9ec798a2d57ae759ee41d1db",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_url",
+            "https://example.test/alpha?x=1&y=2"
+          ],
+          [
+            "esc_attr",
+            "Alpha \"quoted\" summary"
+          ],
+          [
+            "esc_html",
+            "Alpha & One"
+          ],
+          [
+            "esc_url",
+            "https://example.test/beta"
+          ],
+          [
+            "esc_attr",
+            "Beta plain summary"
+          ],
+          [
+            "esc_html",
+            "Beta <Two>"
+          ],
+          [
+            "esc_url",
+            "https://example.test/gamma"
+          ],
+          [
+            "esc_attr",
+            "Gamma summary"
+          ],
+          [
+            "esc_html",
+            "Gamma Three"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:wp-rss-error-message": {
+        "case": "magpie:wp-rss-error-message",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "translated:An error has occurred, which probably means the feed is down. Try again later.",
+        "output_sha256": "d8cef667811f11059ae9c1fbe35e0f59df0a5816879d6e24f607cef1b574315a",
+        "return_value": null,
+        "escape_calls": [],
+        "translate_calls": [
+          "An error has occurred, which probably means the feed is down. Try again later."
+        ],
+        "get_transients": [
+          "rss_8913d974dc47c399dec29a725413f1d5"
+        ],
+        "remote_requests": [
+          {
+            "url": "https://example.test/missing",
+            "headers": []
+          }
+        ]
+      },
+      "magpie:get-rss-two-items": {
+        "case": "magpie:get-rss-two-items",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "<li>\n<a href='https://example.test/alpha?x=1&y=2' title='<strong>Alpha</strong> \"quoted\" summary'>esc_html:Alpha &amp; One</a><br />\n</li>\n<li>\n<a href='https://example.test/beta' title='Beta plain summary'>esc_html:Beta &lt;Two&gt;</a><br />\n</li>\n",
+        "output_sha256": "821261b4b7ce37bebfb06f1384e516e3f0ae497a31c9d4580b71c360b2018c71",
+        "return_value": null,
+        "escape_calls": [
+          [
+            "esc_html",
+            "Alpha & One"
+          ],
+          [
+            "esc_html",
+            "Beta <Two>"
+          ]
+        ],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_7cd77ec756b64402bfcc6fa604a86847",
+          "rss_7cd77ec756b64402bfcc6fa604a86847"
+        ],
+        "remote_requests": []
+      },
+      "magpie:get-rss-failure": {
+        "case": "magpie:get-rss-failure",
+        "include_side_effects": {
+          "deprecated": [
+            [
+              "rss.php",
+              "3.0.0",
+              "wp-includes/class-simplepie.php"
+            ]
+          ],
+          "actions": [
+            {
+              "hook": "load_feed_engine",
+              "args": []
+            }
+          ]
+        },
+        "output": "",
+        "output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "return_value": false,
+        "escape_calls": [],
+        "translate_calls": [],
+        "get_transients": [
+          "rss_8913d974dc47c399dec29a725413f1d5"
+        ],
+        "remote_requests": [
+          {
+            "url": "https://example.test/missing",
+            "headers": []
+          }
+        ]
+      }
+    },
+    "match": true,
+    "summary": {
+      "wp_rss_one_item_sha256": "8e21d6a04787d17cb498f065f6caa13974f3d00228c4ec77b801b7beeb8c0fa5",
+      "wp_rss_all_item_count": 3,
+      "wp_rss_error_message": "translated:An error has occurred, which probably means the feed is down. Try again later.",
+      "get_rss_two_item_li_count": 2,
+      "get_rss_failure_return": false,
+      "get_rss_failure_output_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "oracle_sha256": "sha256:009be0b2465fb5cdb76e7758a9c45cf381f75730a0b6c43ee8d05c674653a9ba",
+    "candidate_sha256": "sha256:009be0b2465fb5cdb76e7758a9c45cf381f75730a0b6c43ee8d05c674653a9ba"
+  },
+  "remaining_gaps": [
+    {
+      "id": "live-network-and-installed-routes-not-executed",
+      "owner": "WPHX-312.24",
+      "detail": "The fixture uses cached transient objects and disables remote HTTP. Installed feed routes, widgets, admin screens, and database-backed feed behavior remain later gates."
+    },
+    {
+      "id": "simplepie-and-modern-feed-display-not-executed",
+      "owner": "WPHX-312.24",
+      "detail": "The fixture covers deprecated MagpieRSS rss.php display helpers only; SimplePie parsing/cache behavior and modern widget rendering remain outside this claim."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.24",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 16,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_network_behavior_claimed": false,
+    "widget_route_behavior_claimed": false
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/magpie-rss-display-helper-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-d7p",
+    "external_ref": "WPHX-312.24"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "MagpieRSS display helper behavior",
+    "area": "src/wp-includes/rss.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/rss.php in PHP CLI with deterministic transient-backed feed objects and escaping/translation stubs. It observes wp_rss and get_rss display-helper output without live network, widgets, installed routes, broad SimplePie behavior, database-backed feeds, or generated public PHP replacement."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-wordpress-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass display helper, widget, installed route, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-magpie-rss-display-helper-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-24"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-magpie-rss-display-helper-oracle-fixture",
+      "npm run wp:core:wphx-312-magpie-rss-display-helper-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-24-magpie-rss-display-helper-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:016d6dbf802a3c4232fcdcd8db8abab553f8a811ec1f369fedd23ae158d5e75b"
+  }
+}
