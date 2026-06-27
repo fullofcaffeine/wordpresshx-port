@@ -1,0 +1,218 @@
+{
+  "schema": "wphx.wp-core-theme-json-global-styles-oracle-fixture.v1",
+  "issue": "WPHX-310.04",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-theme-json-global-styles-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-310-01-themes-template-surface.v1.json",
+      "bytes": 133083,
+      "sha256": "sha256:04de8bdb20ee33e27e112b580c352dabad87049e7569c451dd2eeac3548657d3"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "bytes": 18550,
+      "sha256": "sha256:b6cb9b2cffcf14108f7795b139f98fafa7a37934b66e612ada59b44970817aa7"
+    },
+    "theme_support_template_fixture": {
+      "path": "manifests/wp-core/wphx-310-03-theme-support-template-oracle-fixture.v1.json",
+      "bytes": 12766,
+      "sha256": "sha256:c3ff260bc55384ef2c2a640036a71d17ba7da37e51d95f79a3eec58d4a37f55f"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-theme-json-global-styles-oracle-fixture.mjs",
+      "bytes": 19414,
+      "sha256": "sha256:a46b7b18fd9899a1147a379fdeb663c9ea0a92a687f923c36464e9f3cd78e087"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-theme-json-schema.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-theme-json-schema.php",
+        "bytes": 7367,
+        "sha256": "sha256:367fc9d2f13ce136f1334e0e8e0da063812f437c46a0734ad0a76423ba3b35c7"
+      },
+      {
+        "path": "src/wp-includes/class-wp-theme-json.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-theme-json.php",
+        "bytes": 173639,
+        "sha256": "sha256:549d50cd230c2308e9828ea8a4c4ae91e5511184ad96e1365ccd5ad02cb51cb8"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "schema:v2-to-v3-migration",
+        "focus": "v2 theme.json migrates to v3 and records defaultFontSizes/defaultSpacingSizes policy"
+      },
+      {
+        "id": "settings:preset-normalization",
+        "focus": "palette, font-size, and spacing presets are keyed by origin and retrievable from settings"
+      },
+      {
+        "id": "stylesheet:variables-and-presets",
+        "focus": "CSS custom properties and preset classes are generated from theme data"
+      },
+      {
+        "id": "merge:theme-custom-precedence",
+        "focus": "custom origin data merges over theme origin data while preserving raw merged state"
+      },
+      {
+        "id": "sanitize:insecure-properties",
+        "focus": "unsafe style values are filtered by WP_Theme_JSON::remove_insecure_properties"
+      }
+    ],
+    "covered_symbols": [
+      "WP_Theme_JSON::__construct",
+      "WP_Theme_JSON_Schema::migrate",
+      "WP_Theme_JSON::get_settings",
+      "WP_Theme_JSON::get_raw_data",
+      "WP_Theme_JSON::get_stylesheet",
+      "WP_Theme_JSON::merge",
+      "WP_Theme_JSON::remove_insecure_properties"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-theme-json-schema.php",
+      "src/wp-includes/class-wp-theme-json.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-310-04/probe.php",
+      "sha256": "sha256:3643ed46e7f9cf43e94ab21eb2768f1cbabc41f1780f3e4a7ba4e09327f69c58"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-310-02-theme-template-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-310-04/oracle",
+    "candidate_root": "build/wp-core/wphx-310-04/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-theme-json-schema.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-04/oracle/wp-includes/class-wp-theme-json-schema.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-04/candidate/wp-includes/class-wp-theme-json-schema.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-theme-json.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-310-04/oracle/wp-includes/class-wp-theme-json.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-310-04/candidate/wp-includes/class-wp-theme-json.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "cases": {
+        "merge:theme-custom-precedence": {
+          "text": "#111111",
+          "custom_palette_slugs": [
+            "custom-red"
+          ],
+          "has_custom_var": true
+        },
+        "sanitize:insecure-properties": {
+          "text": "missing",
+          "background": "#ffffff"
+        },
+        "schema:v2-to-v3-migration": {
+          "version": 3,
+          "defaultFontSizes": false,
+          "defaultSpacingSizes": false
+        },
+        "settings:preset-normalization": {
+          "palette_slugs": [
+            "brand-blue",
+            "accent"
+          ],
+          "font_size_slugs": [
+            "small",
+            "display"
+          ],
+          "spacing_count": 3
+        },
+        "stylesheet:variables-and-presets": {
+          "has_brand_var": true,
+          "has_font_var": true,
+          "has_color_class": true,
+          "sha256": "c25c249fc927fea955dbdce1efbfd1503342232984db8082d722b9c0edb103b9"
+        }
+      },
+      "filters": [],
+      "php_errors": []
+    },
+    "candidate": {
+      "cases": {
+        "merge:theme-custom-precedence": {
+          "text": "#111111",
+          "custom_palette_slugs": [
+            "custom-red"
+          ],
+          "has_custom_var": true
+        },
+        "sanitize:insecure-properties": {
+          "text": "missing",
+          "background": "#ffffff"
+        },
+        "schema:v2-to-v3-migration": {
+          "version": 3,
+          "defaultFontSizes": false,
+          "defaultSpacingSizes": false
+        },
+        "settings:preset-normalization": {
+          "palette_slugs": [
+            "brand-blue",
+            "accent"
+          ],
+          "font_size_slugs": [
+            "small",
+            "display"
+          ],
+          "spacing_count": 3
+        },
+        "stylesheet:variables-and-presets": {
+          "has_brand_var": true,
+          "has_font_var": true,
+          "has_color_class": true,
+          "sha256": "c25c249fc927fea955dbdce1efbfd1503342232984db8082d722b9c0edb103b9"
+        }
+      },
+      "filters": [],
+      "php_errors": []
+    },
+    "match": true,
+    "oracle_sha256": "sha256:9de2b40b074c5965eb05d2ef09907086e073c12a13105319cb4cb16d85400983",
+    "candidate_sha256": "sha256:9de2b40b074c5965eb05d2ef09907086e073c12a13105319cb4cb16d85400983"
+  },
+  "remaining_gaps": [
+    {
+      "id": "theme-json-resolver-and-global-styles-wrapper-not-executed",
+      "owner": "WPHX-310.04",
+      "detail": "This fixture executes WP_Theme_JSON and schema behavior directly. WP_Theme_JSON_Resolver, theme.json file discovery, global styles post lookup, cache behavior, and wp_get_global_styles* wrappers remain later WPHX-310 gates."
+    },
+    {
+      "id": "installed-theme-rendering-and-admin-not-executed",
+      "owner": "WPHX-310.04",
+      "detail": "Installed front-end rendering, customizer transactions, admin-visible theme state, nav-menu/widget admin, and REST global styles controllers are not claimed by this fixture."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-310.04",
+      "detail": "WP_Theme_JSON PHP classes are copied oracle PHP in this fixture; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-310-04-theme-json-global-styles-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 5,
+    "covered_symbols": 7,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
