@@ -1,0 +1,56 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-309-10-routing-template-installed-distribution",
+  "issue": {
+    "id": "wordpresshx-l76.16.2",
+    "external_ref": "WPHX-309.10",
+    "title": "WPHX-309.10 — Add installed-distribution routing/template HTTP gate"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "command": "npm run wp:core:wphx-309-routing-template-installed",
+  "evidence_class": "targeted_semantic_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json",
+      "role": "routing/template installed-distribution manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-309-10-routing-template-installed-distribution.v1.json",
+      "role": "routing/template installed-distribution ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-routing-template-installed-distribution-gate.mjs",
+      "role": "installed routing/template HTTP gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-309-routing-template-installed",
+    "npm run wp:core:wphx-309-routing-template-installed:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-309-04-routing-template-adapter-contract-candidate",
+    "receipt:wphx-309-06-routing-link-oracle-fixture",
+    "receipt:wphx-309-09-canonical-template-oracle-fixture"
+  ],
+  "manifest_sha256": "sha256:abd3a47f2f5214a470e5cf085eba30a1531806bc3db9ec84213d37e673629e25",
+  "validation_result": {
+    "status": "passed",
+    "evidence_classes": [
+      "targeted_semantic_parity",
+      "runtime_abi",
+      "live_integration_parity"
+    ],
+    "artifact_scope": "packaged_distribution",
+    "fixture_cases": 7,
+    "http_runs": 2,
+    "public_php_files_are_copied_oracle_source": true,
+    "generated_public_routing_template_replacement_claimed": false,
+    "haxe_contracts_present": {
+      "routing_template": true
+    }
+  }
+}

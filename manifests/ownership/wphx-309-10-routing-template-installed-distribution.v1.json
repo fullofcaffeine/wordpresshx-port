@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/routing-template-installed-distribution",
+  "issue": {
+    "id": "wordpresshx-l76.16.2",
+    "external_ref": "WPHX-309.10",
+    "title": "WPHX-309.10 — Add installed-distribution routing/template HTTP gate"
+  },
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "ownership": {
+    "kind": "packaged-distribution-installed-http-gate",
+    "public_contract": "The packaged routing/template surface must match vanilla through installed-style HTTP pretty permalink, archive, query-var canonical, legacy canonical, robots, and 404 observations while keeping public PHP replacement claims explicit."
+  },
+  "files": [
+    "tools/wp-core/run-routing-template-installed-distribution-gate.mjs",
+    "manifests/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json",
+    "manifests/ownership/wphx-309-10-routing-template-installed-distribution.v1.json",
+    "receipts/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json"
+  ],
+  "generated_artifacts": [
+    "manifests/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json",
+    "manifests/ownership/wphx-309-10-routing-template-installed-distribution.v1.json",
+    "receipts/wp-core/wphx-309-10-routing-template-installed-distribution.v1.json"
+  ],
+  "verification": {
+    "commands": [
+      "npm run wp:core:wphx-309-routing-template-installed",
+      "npm run wp:core:wphx-309-routing-template-installed:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt": "receipt:wphx-309-10-routing-template-installed-distribution",
+    "manifest_sha256": "sha256:abd3a47f2f5214a470e5cf085eba30a1531806bc3db9ec84213d37e673629e25"
+  },
+  "boundaries": {
+    "haxe_owned_contracts": [
+      "RoutingTemplateAdapterContract"
+    ],
+    "copied_oracle_public_php": [
+      "src/wp-includes/class-wp-matchesmapregex.php",
+      "src/wp-includes/class-wp-rewrite.php",
+      "src/wp-includes/class-wp.php",
+      "src/wp-includes/rewrite.php",
+      "src/wp-includes/link-template.php",
+      "src/wp-includes/canonical.php",
+      "src/wp-includes/template.php",
+      "src/wp-includes/template-loader.php",
+      "src/wp-includes/class-wp-query.php"
+    ],
+    "generated_public_php_replacement_claimed": false
+  }
+}
