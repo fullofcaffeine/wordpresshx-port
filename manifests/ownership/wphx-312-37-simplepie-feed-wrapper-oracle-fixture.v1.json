@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/simplepie-feed-wrapper-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.24",
+    "external_ref": "WPHX-312.37"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "SimplePie feed wrapper load-order compatibility",
+    "area": "src/wp-includes/class-simplepie.php src/wp-includes/class-feed.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/class-simplepie.php and class-feed.php in isolated PHP CLI probes with deterministic SimplePie vendor/autoloader and WordPress deprecation/translation stubs. It observes class-simplepie early return without native autoloader loading, compile-visible wp_simplepie_autoload declaration, native autoloader require handoff, deprecated wp_simplepie_autoload callback behavior, class-feed deprecation metadata, conditional class-simplepie loading, skipped class-simplepie loading when SimplePie\\SimplePie already exists, and required feed adapter class availability without claiming SimplePie vendor parser behavior, live feed fetching, KSES sanitizer behavior, transient cache behavior, installed distribution behavior, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-simplepie-vendor-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass real SimplePie autoloader/parser/cache/sanitizer integration, live/recorded feed fetching, selected upstream feed PHPUnit, installed distribution routes, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-simplepie-feed-wrapper-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-37"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-simplepie-feed-wrapper-oracle-fixture",
+      "npm run wp:core:wphx-312-simplepie-feed-wrapper-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-37-simplepie-feed-wrapper-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:56df625d29a5f8baec789f59d9b5f3bd6d25b80a977b644c0f2be16105852783"
+  }
+}

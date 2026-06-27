@@ -1,0 +1,445 @@
+{
+  "schema": "wphx.wp-core-simplepie-feed-wrapper-oracle-fixture.v1",
+  "issue": "WPHX-312.37",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-simplepie-feed-wrapper-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "feed_cache_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-35-feed-cache-transient-oracle-fixture.v1.json",
+      "bytes": 15687,
+      "sha256": "sha256:fd3f951555130f44dff44f28a574101bdc189c360d1bfc1f58302e5dbcdba4db"
+    },
+    "simplepie_file_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-36-simplepie-file-http-oracle-fixture.v1.json",
+      "bytes": 16844,
+      "sha256": "sha256:6a8ca0fa8e27286aa96fc67daea0bcdd47bc6366a25c313a5b47607205830314"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-simplepie-feed-wrapper-oracle-fixture.mjs",
+      "bytes": 20548,
+      "sha256": "sha256:03ee23cffc1557411a322de96ed49a269e1ea19b3c7e84491ccf40ea95667d8e"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-simplepie.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-simplepie.php",
+        "bytes": 453,
+        "sha256": "sha256:ed208689fcf1f49977e9c5c9ae315e425720b30e515ac3791fec31af338490f5"
+      },
+      {
+        "path": "src/wp-includes/class-feed.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-feed.php",
+        "bytes": 539,
+        "sha256": "sha256:f0f421421068a098bf29e8b08ae16886be635b298aa4221f6c42fe5509b3d01c"
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-feed-cache.php",
+        "bytes": 969,
+        "sha256": "sha256:bd6dc9a019a5485b66a0c6ae404071e8dec3d69e45e03d460155870f5bd8e7a3"
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache-transient.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-feed-cache-transient.php",
+        "bytes": 3304,
+        "sha256": "sha256:516553579a3d4afabaf4cc046416fa9edb2ab491ef499fd4a0f073a1acc78c38"
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-file.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-simplepie-file.php",
+        "bytes": 3552,
+        "sha256": "sha256:f41391177074bfdadd2264bd916496b1e60ab4aeba5896c46a29defbfefb6ca4"
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "bytes": 1910,
+        "sha256": "sha256:9d2575c139f2e85b0c505623e2ef887b02c93b1d30dbc23312b9603e48f155ca"
+      }
+    ],
+    "generated_support_files": [
+      {
+        "path": "wp-includes/SimplePie/autoloader.php",
+        "role": "deterministic SimplePie vendor autoloader stub"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "simplepie-wrapper:legacy-class-early-return",
+        "focus": "class-simplepie returns early without requiring the native autoloader when the legacy global SimplePie class already exists"
+      },
+      {
+        "id": "simplepie-wrapper:autoload-and-callback",
+        "focus": "class-simplepie requires native autoloader and exposes deprecated wp_simplepie_autoload callback"
+      },
+      {
+        "id": "feed-wrapper:loads-simplepie-when-absent",
+        "focus": "class-feed requires class-simplepie when SimplePie\\SimplePie is absent, then loads feed adapter classes"
+      },
+      {
+        "id": "feed-wrapper:skips-simplepie-when-present",
+        "focus": "class-feed skips class-simplepie when SimplePie\\SimplePie is already loaded, while still loading feed adapter classes"
+      }
+    ],
+    "covered_symbols": [
+      "class-simplepie.php",
+      "class-feed.php",
+      "wp_simplepie_autoload",
+      "_deprecated_file",
+      "_deprecated_function",
+      "SimplePie\\SimplePie",
+      "SimplePie\\Cache",
+      "SimplePie\\Cache\\Base",
+      "SimplePie\\File",
+      "SimplePie\\Sanitize",
+      "WP_Feed_Cache",
+      "WP_Feed_Cache_Transient",
+      "WP_SimplePie_File",
+      "WP_SimplePie_Sanitize_KSES"
+    ],
+    "source_files": [
+      "src/wp-includes/class-simplepie.php",
+      "src/wp-includes/class-feed.php",
+      "src/wp-includes/class-wp-feed-cache.php",
+      "src/wp-includes/class-wp-feed-cache-transient.php",
+      "src/wp-includes/class-wp-simplepie-file.php",
+      "src/wp-includes/class-wp-simplepie-sanitize-kses.php"
+    ],
+    "generated_support_files": [
+      "wp-includes/SimplePie/autoloader.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-37/probe.php",
+      "sha256": "sha256:c85e9357f950fd2eb5ceec89737bee359b8d79554af097a5e7c9db7c205321ff"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "SimplePie vendor classes/interfaces, SimplePie/autoloader.php, translation, _deprecated_file, and _deprecated_function are deterministic stubs; copied class-simplepie.php, class-feed.php, and feed adapter public PHP files remain the executed WordPress sources."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-37/oracle",
+    "candidate_root": "build/wp-core/wphx-312-37/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-simplepie.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-simplepie.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-simplepie.php"
+      },
+      {
+        "path": "src/wp-includes/class-feed.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-feed.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-feed.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-wp-feed-cache.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-wp-feed-cache.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache-transient.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-wp-feed-cache-transient.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-wp-feed-cache-transient.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-file.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-wp-simplepie-file.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-wp-simplepie-file.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-37/oracle/wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-37/candidate/wp-includes/class-wp-simplepie-sanitize-kses.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "simplepie-wrapper:legacy-class-early-return": {
+        "case": "simplepie-wrapper:legacy-class-early-return",
+        "legacy_class_exists": true,
+        "autoload_function_exists": true,
+        "autoloader_required": 0,
+        "assertions": {
+          "legacy_exists": true,
+          "function_declared_by_compile": true,
+          "autoloader_not_required": true
+        }
+      },
+      "simplepie-wrapper:autoload-and-callback": {
+        "case": "simplepie-wrapper:autoload-and-callback",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": false,
+          "WP_Feed_Cache_Transient": false,
+          "WP_SimplePie_File": false,
+          "WP_SimplePie_Sanitize_KSES": false
+        },
+        "autoload_function_exists": true,
+        "autoloader_required": 1,
+        "deprecated_functions": [
+          {
+            "function": "wp_simplepie_autoload",
+            "version": "6.7.0",
+            "replacement": "SimplePie_Autoloader"
+          }
+        ],
+        "assertions": {
+          "autoloader_required_once": true,
+          "callback_exists": true,
+          "deprecated_callback": true,
+          "simplepie_namespace_loaded": true
+        }
+      },
+      "feed-wrapper:loads-simplepie-when-absent": {
+        "case": "feed-wrapper:loads-simplepie-when-absent",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": true,
+          "WP_Feed_Cache_Transient": true,
+          "WP_SimplePie_File": true,
+          "WP_SimplePie_Sanitize_KSES": true
+        },
+        "autoloader_required": 1,
+        "deprecated_files": [
+          {
+            "file": "class-feed.php",
+            "version": "4.7.0",
+            "replacement": "fetch_feed()",
+            "message": ""
+          },
+          {
+            "file": "class-wp-feed-cache.php",
+            "version": "5.6.0",
+            "replacement": "",
+            "message": "This file is only loaded for backward compatibility with SimplePie 1.2.x. Please consider switching to a recent SimplePie version."
+          }
+        ],
+        "assertions": {
+          "class_simplepie_loaded": true,
+          "feed_deprecation": true,
+          "feed_cache_deprecation": true,
+          "adapter_classes_loaded": true
+        }
+      },
+      "feed-wrapper:skips-simplepie-when-present": {
+        "case": "feed-wrapper:skips-simplepie-when-present",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": true,
+          "WP_Feed_Cache_Transient": true,
+          "WP_SimplePie_File": true,
+          "WP_SimplePie_Sanitize_KSES": true
+        },
+        "autoloader_required": 0,
+        "deprecated_files": [
+          {
+            "file": "class-feed.php",
+            "version": "4.7.0",
+            "replacement": "fetch_feed()",
+            "message": ""
+          },
+          {
+            "file": "class-wp-feed-cache.php",
+            "version": "5.6.0",
+            "replacement": "",
+            "message": "This file is only loaded for backward compatibility with SimplePie 1.2.x. Please consider switching to a recent SimplePie version."
+          }
+        ],
+        "assertions": {
+          "class_simplepie_skipped": true,
+          "feed_deprecation": true,
+          "adapter_classes_loaded": true
+        }
+      }
+    },
+    "candidate": {
+      "simplepie-wrapper:legacy-class-early-return": {
+        "case": "simplepie-wrapper:legacy-class-early-return",
+        "legacy_class_exists": true,
+        "autoload_function_exists": true,
+        "autoloader_required": 0,
+        "assertions": {
+          "legacy_exists": true,
+          "function_declared_by_compile": true,
+          "autoloader_not_required": true
+        }
+      },
+      "simplepie-wrapper:autoload-and-callback": {
+        "case": "simplepie-wrapper:autoload-and-callback",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": false,
+          "WP_Feed_Cache_Transient": false,
+          "WP_SimplePie_File": false,
+          "WP_SimplePie_Sanitize_KSES": false
+        },
+        "autoload_function_exists": true,
+        "autoloader_required": 1,
+        "deprecated_functions": [
+          {
+            "function": "wp_simplepie_autoload",
+            "version": "6.7.0",
+            "replacement": "SimplePie_Autoloader"
+          }
+        ],
+        "assertions": {
+          "autoloader_required_once": true,
+          "callback_exists": true,
+          "deprecated_callback": true,
+          "simplepie_namespace_loaded": true
+        }
+      },
+      "feed-wrapper:loads-simplepie-when-absent": {
+        "case": "feed-wrapper:loads-simplepie-when-absent",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": true,
+          "WP_Feed_Cache_Transient": true,
+          "WP_SimplePie_File": true,
+          "WP_SimplePie_Sanitize_KSES": true
+        },
+        "autoloader_required": 1,
+        "deprecated_files": [
+          {
+            "file": "class-feed.php",
+            "version": "4.7.0",
+            "replacement": "fetch_feed()",
+            "message": ""
+          },
+          {
+            "file": "class-wp-feed-cache.php",
+            "version": "5.6.0",
+            "replacement": "",
+            "message": "This file is only loaded for backward compatibility with SimplePie 1.2.x. Please consider switching to a recent SimplePie version."
+          }
+        ],
+        "assertions": {
+          "class_simplepie_loaded": true,
+          "feed_deprecation": true,
+          "feed_cache_deprecation": true,
+          "adapter_classes_loaded": true
+        }
+      },
+      "feed-wrapper:skips-simplepie-when-present": {
+        "case": "feed-wrapper:skips-simplepie-when-present",
+        "classes": {
+          "SimplePie\\SimplePie": true,
+          "SimplePie\\Cache": true,
+          "SimplePie\\Cache\\Base": true,
+          "SimplePie\\File": true,
+          "SimplePie\\Sanitize": true,
+          "WP_Feed_Cache": true,
+          "WP_Feed_Cache_Transient": true,
+          "WP_SimplePie_File": true,
+          "WP_SimplePie_Sanitize_KSES": true
+        },
+        "autoloader_required": 0,
+        "deprecated_files": [
+          {
+            "file": "class-feed.php",
+            "version": "4.7.0",
+            "replacement": "fetch_feed()",
+            "message": ""
+          },
+          {
+            "file": "class-wp-feed-cache.php",
+            "version": "5.6.0",
+            "replacement": "",
+            "message": "This file is only loaded for backward compatibility with SimplePie 1.2.x. Please consider switching to a recent SimplePie version."
+          }
+        ],
+        "assertions": {
+          "class_simplepie_skipped": true,
+          "feed_deprecation": true,
+          "adapter_classes_loaded": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:af4c994743b0231db6835d831abf3584f87a4173799828e9e30df98097940d90",
+    "candidate_sha256": "sha256:af4c994743b0231db6835d831abf3584f87a4173799828e9e30df98097940d90",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "simplepie-vendor-parser-not-executed",
+      "owner": "WPHX-312.37",
+      "detail": "The fixture uses deterministic SimplePie vendor class/interface stubs. Real SimplePie parser, registry, sanitizer, cache, and HTTP/file internals remain separate WPHX-312 gates."
+    },
+    {
+      "id": "feed-fetching-and-cache-behavior-not-executed",
+      "owner": "WPHX-312.37",
+      "detail": "The fixture observes wrapper include behavior only. Live/recorded feed fetching, cache mutation, KSES sanitization, and feed XML parsing remain outside this scope."
+    },
+    {
+      "id": "installed-distribution-behavior-not-executed",
+      "owner": "WPHX-312.37",
+      "detail": "The fixture uses PHP CLI with deterministic stubs rather than an installed WordPress distribution, plugin/theme include timing, or production SimplePie autoload configuration."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.37",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 4,
+    "covered_symbols": 14,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "simplepie_vendor_parser_claimed": false,
+    "live_feed_fetch_claimed": false
+  }
+}

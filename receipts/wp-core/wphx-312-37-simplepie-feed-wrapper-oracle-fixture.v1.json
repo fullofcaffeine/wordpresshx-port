@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-37-simplepie-feed-wrapper-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.24",
+    "external_ref": "WPHX-312.37",
+    "title": "WPHX-312.37 - Add SimplePie feed wrapper oracle fixture"
+  },
+  "recorded_at": "2026-06-27T00:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+      "role": "SimplePie feed wrapper oracle-source-mirror fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+      "role": "ownership manifest for copied-oracle SimplePie/feed wrapper boundary"
+    },
+    {
+      "path": "tools/wp-core/run-simplepie-feed-wrapper-oracle-fixture.mjs",
+      "role": "deterministic PHP CLI oracle/candidate fixture generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-312-simplepie-feed-wrapper-oracle-fixture",
+    "npm run wp:core:wphx-312-simplepie-feed-wrapper-oracle-fixture:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-312-01-http-cron-mail-feed-embed-surface",
+    "receipt:wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate",
+    "receipt:wphx-312-35-feed-cache-transient-oracle-fixture",
+    "receipt:wphx-312-36-simplepie-file-http-oracle-fixture"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 4,
+    "covered_symbols": 14,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "simplepie_vendor_parser_claimed": false,
+    "live_feed_fetch_claimed": false
+  }
+}
