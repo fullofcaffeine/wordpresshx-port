@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-encoding-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.18.27",
+    "external_ref": "WPHX-312.40"
+  },
+  "unit": {
+    "kind": "oracle_source_mirror_fixture",
+    "name": "WP_Http_Encoding compression helper behavior",
+    "area": "src/wp-includes/class-wp-http-encoding.php",
+    "public_contract": "This fixture executes copied WordPress 7.0 wp-includes/class-wp-http-encoding.php in isolated PHP CLI probes with deterministic zlib payloads and an apply_filters stub. It observes compress/decompress roundtrip, gzuncompress and gzdecode fallback paths, compatible_gzinflate gzip-header and zlib-header behavior, invalid data passthrough, accept_encoding enabled/disabled branches including decompress=false stream=true limit_response_size, wp_http_accept_encoding filter payload, content_encoding, should_decode array/string/empty behavior, and is_available without claiming live HTTP transport, server content negotiation, streaming transport behavior, installed distribution behavior, or generated public PHP ownership."
+  },
+  "ownership_state": "oracle_mirror_behavior_fixture",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-stubbed-filter-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass live/recorded HTTP transport, streaming download behavior, content negotiation, selected upstream HTTP PHPUnit, installed distribution routes, and ecosystem fixtures before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-http-encoding-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-40-http-encoding-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+    "build/wp-core/wphx-312-40"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-encoding-oracle-fixture",
+      "npm run wp:core:wphx-312-http-encoding-oracle-fixture:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-40-http-encoding-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:abafe54cd8b81a6de06619843743f439146a02f66224d5f36b7e1326489154f2"
+  }
+}

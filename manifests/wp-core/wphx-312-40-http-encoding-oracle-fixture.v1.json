@@ -1,0 +1,410 @@
+{
+  "schema": "wphx.wp-core-http-encoding-oracle-fixture.v1",
+  "issue": "WPHX-312.40",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-http-encoding-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "http_core_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-03-http-cron-mail-oracle-fixture.v1.json",
+      "bytes": 38945,
+      "sha256": "sha256:017e1d13c9f442eb5f02a3c37bb3ab6ba9edc661d9c0c6b87aab429e3d7b325a"
+    },
+    "http_cookie_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+      "bytes": 16186,
+      "sha256": "sha256:00588999d36cddd752353945676f036bb47409e026063d847cb313f9977c0f01"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-http-encoding-oracle-fixture.mjs",
+      "bytes": 18328,
+      "sha256": "sha256:f1c7611fb891a3938d64abcbe15f9a71a41568ddac399b509952d63e49db5d63"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http-encoding.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http-encoding.php",
+        "bytes": 6689,
+        "sha256": "sha256:1ddccf64c212ebad750e2087ae71041ee068f165bc29e5afcbfe96318e8c8212"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "http-encoding:roundtrip",
+        "focus": "compress/decompress roundtrip and content_encoding/is_available helpers"
+      },
+      {
+        "id": "http-encoding:fallbacks",
+        "focus": "decompress falls back through zlib/gzip paths and passes invalid data through"
+      },
+      {
+        "id": "http-encoding:compatible-gzinflate",
+        "focus": "compatible_gzinflate handles gzip-header and zlib-header payloads"
+      },
+      {
+        "id": "http-encoding:accept-enabled-filtered",
+        "focus": "accept_encoding enabled branch and wp_http_accept_encoding filter payload"
+      },
+      {
+        "id": "http-encoding:accept-disabled",
+        "focus": "accept_encoding disabled branches for decompress=false, stream=true, and limit_response_size"
+      },
+      {
+        "id": "http-encoding:should-decode",
+        "focus": "should_decode array/string/empty header behavior"
+      }
+    ],
+    "covered_symbols": [
+      "WP_Http_Encoding::compress",
+      "WP_Http_Encoding::decompress",
+      "WP_Http_Encoding::compatible_gzinflate",
+      "WP_Http_Encoding::accept_encoding",
+      "WP_Http_Encoding::content_encoding",
+      "WP_Http_Encoding::should_decode",
+      "WP_Http_Encoding::is_available",
+      "wp_http_accept_encoding",
+      "apply_filters",
+      "gzdeflate",
+      "gzinflate",
+      "gzcompress",
+      "gzencode",
+      "gzdecode"
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http-encoding.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-40/probe.php",
+      "sha256": "sha256:79912b3cfb25505f520107addcf13ec899e178ee3c019f8c9fe70ce961d008c3"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "apply_filters is a deterministic WordPress-compatible stub for wp_http_accept_encoding; zlib payloads are generated locally; copied class-wp-http-encoding.php remains the executed public HTTP encoding source."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "installed_wordpress_behavior_claimed": false
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-40/oracle",
+    "candidate_root": "build/wp-core/wphx-312-40/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http-encoding.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-40/oracle/wp-includes/class-wp-http-encoding.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-40/candidate/wp-includes/class-wp-http-encoding.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "http-encoding:roundtrip": {
+        "case": "http-encoding:roundtrip",
+        "compressed_sha256": "24ba6af528244c94c040d21b69b7a3f4fd1f0a0e68e97f368fd36217da306d69",
+        "decompressed": "Encoding fixture payload: deflate me.",
+        "content_encoding": "deflate",
+        "is_available": true,
+        "assertions": {
+          "roundtrip": true,
+          "compressed_nonempty": true,
+          "content_encoding": true,
+          "available": true
+        }
+      },
+      "http-encoding:fallbacks": {
+        "case": "http-encoding:fallbacks",
+        "empty": "",
+        "gzcompress": "Fallback payload.",
+        "gzencode": "Fallback payload.",
+        "invalid": "not-compressed",
+        "assertions": {
+          "empty_passthrough": true,
+          "gzcompress": true,
+          "gzencode": true,
+          "invalid_passthrough": true
+        }
+      },
+      "http-encoding:compatible-gzinflate": {
+        "case": "http-encoding:compatible-gzinflate",
+        "gzip_header": "Compatible inflate payload.",
+        "zlib_header": "Compatible inflate payload.",
+        "invalid": false,
+        "assertions": {
+          "gzip_header": true,
+          "zlib_header": true,
+          "invalid_false": true
+        }
+      },
+      "http-encoding:accept-enabled-filtered": {
+        "case": "http-encoding:accept-enabled-filtered",
+        "accept": "deflate;q=1.0, compress;q=0.5, gzip;q=0.5, fixture;q=0.1",
+        "filters": [
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [
+              "deflate;q=1.0",
+              "compress;q=0.5",
+              "gzip;q=0.5"
+            ],
+            "args": [
+              "https://example.test/filter",
+              {
+                "decompress": true,
+                "stream": false
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "contains_core_encodings": true,
+          "filter_added": true,
+          "filter_payload": true
+        }
+      },
+      "http-encoding:accept-disabled": {
+        "case": "http-encoding:accept-disabled",
+        "decompress_false": "",
+        "stream_true": "",
+        "limit_response_size": "",
+        "filters": [
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/no-decompress",
+              {
+                "decompress": false,
+                "stream": false
+              }
+            ]
+          },
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/stream",
+              {
+                "decompress": true,
+                "stream": true
+              }
+            ]
+          },
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/limit",
+              {
+                "decompress": true,
+                "stream": false,
+                "limit_response_size": 128
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "disabled_empty": true,
+          "filters_called": true,
+          "filter_empty_values": true
+        }
+      },
+      "http-encoding:should-decode": {
+        "case": "http-encoding:should-decode",
+        "array_gzip": true,
+        "array_empty": false,
+        "array_missing": false,
+        "string_present": true,
+        "string_absent": false,
+        "assertions": {
+          "array": true,
+          "string": true
+        }
+      }
+    },
+    "candidate": {
+      "http-encoding:roundtrip": {
+        "case": "http-encoding:roundtrip",
+        "compressed_sha256": "24ba6af528244c94c040d21b69b7a3f4fd1f0a0e68e97f368fd36217da306d69",
+        "decompressed": "Encoding fixture payload: deflate me.",
+        "content_encoding": "deflate",
+        "is_available": true,
+        "assertions": {
+          "roundtrip": true,
+          "compressed_nonempty": true,
+          "content_encoding": true,
+          "available": true
+        }
+      },
+      "http-encoding:fallbacks": {
+        "case": "http-encoding:fallbacks",
+        "empty": "",
+        "gzcompress": "Fallback payload.",
+        "gzencode": "Fallback payload.",
+        "invalid": "not-compressed",
+        "assertions": {
+          "empty_passthrough": true,
+          "gzcompress": true,
+          "gzencode": true,
+          "invalid_passthrough": true
+        }
+      },
+      "http-encoding:compatible-gzinflate": {
+        "case": "http-encoding:compatible-gzinflate",
+        "gzip_header": "Compatible inflate payload.",
+        "zlib_header": "Compatible inflate payload.",
+        "invalid": false,
+        "assertions": {
+          "gzip_header": true,
+          "zlib_header": true,
+          "invalid_false": true
+        }
+      },
+      "http-encoding:accept-enabled-filtered": {
+        "case": "http-encoding:accept-enabled-filtered",
+        "accept": "deflate;q=1.0, compress;q=0.5, gzip;q=0.5, fixture;q=0.1",
+        "filters": [
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [
+              "deflate;q=1.0",
+              "compress;q=0.5",
+              "gzip;q=0.5"
+            ],
+            "args": [
+              "https://example.test/filter",
+              {
+                "decompress": true,
+                "stream": false
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "contains_core_encodings": true,
+          "filter_added": true,
+          "filter_payload": true
+        }
+      },
+      "http-encoding:accept-disabled": {
+        "case": "http-encoding:accept-disabled",
+        "decompress_false": "",
+        "stream_true": "",
+        "limit_response_size": "",
+        "filters": [
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/no-decompress",
+              {
+                "decompress": false,
+                "stream": false
+              }
+            ]
+          },
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/stream",
+              {
+                "decompress": true,
+                "stream": true
+              }
+            ]
+          },
+          {
+            "hook": "wp_http_accept_encoding",
+            "value": [],
+            "args": [
+              "https://example.test/limit",
+              {
+                "decompress": true,
+                "stream": false,
+                "limit_response_size": 128
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "disabled_empty": true,
+          "filters_called": true,
+          "filter_empty_values": true
+        }
+      },
+      "http-encoding:should-decode": {
+        "case": "http-encoding:should-decode",
+        "array_gzip": true,
+        "array_empty": false,
+        "array_missing": false,
+        "string_present": true,
+        "string_absent": false,
+        "assertions": {
+          "array": true,
+          "string": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:717654e190e0dadf76a9578e7492d4649a1b7d077e741a4628f8f2b85f62450d",
+    "candidate_sha256": "sha256:717654e190e0dadf76a9578e7492d4649a1b7d077e741a4628f8f2b85f62450d",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "live-http-transport-not-executed",
+      "owner": "WPHX-312.40",
+      "detail": "The fixture observes encoding helpers in isolation. Live transfer encoding negotiation, streamed downloads, partial responses, timeout races, proxy/TLS behavior, and network I/O remain later WPHX-312 gates."
+    },
+    {
+      "id": "server-content-negotiation-not-executed",
+      "owner": "WPHX-312.40",
+      "detail": "The fixture does not execute real Accept-Encoding negotiation against HTTP servers or Requests transports; it only observes the WordPress helper outputs and filter payloads."
+    },
+    {
+      "id": "installed-distribution-behavior-not-executed",
+      "owner": "WPHX-312.40",
+      "detail": "The fixture uses PHP CLI with deterministic local zlib payloads and a filter stub rather than an installed WordPress distribution or plugin-modified HTTP stack."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.40",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-40-http-encoding-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 14,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_http_claimed": false,
+    "streaming_transport_claimed": false
+  }
+}
