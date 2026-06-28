@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 157,
+  "scanned_file_count": 159,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -42,6 +42,7 @@
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRedirectValidationCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRequestNonblockingCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpResponseCandidateEntry.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/MultisiteAdapterContractCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/NativeValueLoweringProofEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/OptionCacheCandidateEntry.hx",
@@ -148,6 +149,7 @@
     "src/wphx/wp/http/HttpRedirectValidation.hx",
     "src/wphx/wp/http/HttpRequestNonblocking.hx",
     "src/wphx/wp/http/HttpResponseState.hx",
+    "src/wphx/wp/http/HttpTransportSelection.hx",
     "src/wphx/wp/macros/BindingValidator.hx",
     "src/wphx/wp/multisite/MultisiteAdapterContract.hx",
     "src/wphx/wp/options/PureOptionCache.hx",
@@ -164,7 +166,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 73,
+  "occurrence_count": 74,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -887,6 +889,16 @@
       "justification": "WPHX-211: WP_HTTP_Response status coercion delegates to WordPress absint()."
     },
     {
+      "path": "src/wphx/wp/http/HttpTransportSelection.hx",
+      "line": 14,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('curl', 'streams')\");",
+      "source_sha256": "sha256:e40a06d8930b9f9803b5d154b5d17a9a1f92c5c68054d3ac038219ca1c828a2a",
+      "justification": "WPHX-211: http_api_transports filters receive and may return native PHP arrays."
+    },
+    {
       "path": "src/wphx/wp/macros/BindingValidator.hx",
       "line": 291,
       "kinds": [
@@ -899,7 +911,7 @@
   ],
   "by_kind": {
     "Dynamic": 8,
-    "php.Syntax.code": 65
+    "php.Syntax.code": 66
   },
   "validation_result": {
     "status": "passed",
