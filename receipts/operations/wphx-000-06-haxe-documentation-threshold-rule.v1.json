@@ -1,0 +1,38 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-06-haxe-documentation-threshold-rule",
+  "issue": {
+    "id": "wordpresshx-fgz",
+    "external_ref": "WPHX-000.06",
+    "title": "Document Haxe module class function complexity comment rule"
+  },
+  "recorded_at": "2026-06-28T01:35:00.000Z",
+  "artifacts": [
+    {
+      "path": "AGENTS.md",
+      "role": "root agent directive requiring documented Haxe modules/classes and function docs past a complexity threshold"
+    },
+    {
+      "path": "docs/operations/agent-instructions.md",
+      "role": "durable operating guidance for Haxe documentation scope, thresholds, and noise avoidance"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program governance ledger updated through WPHX-000.06"
+    }
+  ],
+  "verification_commands": [
+    "npm run format:haxe:check",
+    "npm run receipts:validate",
+    "npm run beads:validate",
+    "npm run precommit"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "evidence_class": "provenance",
+    "artifact_scope": "program_governance",
+    "module_class_rule": "Document every Haxe module and class with a short role, ownership-boundary, or emitted-target contract comment.",
+    "function_threshold_rule": "Document functions once non-obvious branch policy, parity invariants, side effects, target assumptions, generated ABI implications, or rediscovery risk make the behavior complex enough to need explanation.",
+    "noise_rule": "Tiny self-evident helpers do not need comment noise."
+  }
+}

@@ -86,6 +86,10 @@ Generated PHP is a compatibility artifact. It must preserve WordPress 7.0 public
 
 Haxe source has a different quality bar. It should not mechanically mimic PHP control flow, naming, duplication, or weak typing when Haxe can express the same behavior more clearly. Prefer modern, typed Haxe source: enums for state machines, abstracts for constrained scalar domains, typedefs for structural records, pattern matching for decision tables, extension methods for readable helpers, small inline functions for repeated policy, and macros for deterministic boilerplate or ABI declarations.
 
+Document every Haxe module and class with a short comment that explains why the unit exists: the WordPress behavior it owns, the boundary it protects, the target artifact it helps emit, or the fixture/gate it supports. For module-level function modules, put the module role before the first declaration; for classes, document the nominal contract or public ABI reason for the class.
+
+Document functions once they cross a reasonable complexity threshold. A function needs a doc comment when it carries non-obvious branch policy, parity-sensitive invariants, side effects, target/runtime boundary assumptions, generated ABI implications, ownership/removal gates, or decisions a future porter would otherwise have to reverse-engineer from upstream PHP or JavaScript. Tiny helpers whose name, signature, and immediate body are self-evident do not need noise comments, but complex behavior should not be left undocumented merely because tests exist.
+
 Improvements at the Haxe layer are encouraged when they satisfy all of these constraints:
 
 - observable WordPress behavior and public ABI remain protected by oracle, ABI, fixture, or generated-code evidence;

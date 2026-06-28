@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wp-http-redirect-orchestration-candidate",
+  "issue": {
+    "id": "wordpresshx-o58",
+    "external_ref": "WPHX-312.59"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http redirect orchestration decisions",
+    "area": "src/wp-includes/class-wp-http.php WP_Http::handle_redirects",
+    "public_contract": "This candidate preserves the WP_Http PHP class shell, native Location header arrays, redirect budget mutation, WP_Error construction, cookie tests, absolute URL resolution, and wp_remote_request ABI while delegating bounded redirect branch decisions to module-level Haxe source."
+  },
+  "ownership_state": "haxe_owned_candidate_with_public_php_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "generated-php-haxe-helper-with-temporary-original-path-shell",
+    "removal_gate": "Replace the temporary candidate shell with generated original-path public PHP adapters and pass broader redirect helper, upstream HTTP PHPUnit, installed distribution, live/recorded network, ecosystem redirect, and generated-shell gates before claiming durable public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wp-http-redirect-orchestration-candidate.mjs",
+    "fixtures/wp-core/http-redirect-orchestration-candidate.hxml",
+    "src/wphx/wp/http/HttpRedirectOrchestration.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRedirectOrchestrationCandidateEntry.hx",
+    "manifests/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+    "manifests/ownership/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+    "receipts/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+    "manifests/ownership/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+    "receipts/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+    "build/wp-core/wphx-312-59"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-wp-http-redirect-orchestration-candidate",
+      "npm run wp:core:wphx-312-wp-http-redirect-orchestration-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-59-wp-http-redirect-orchestration-candidate"
+    ],
+    "manifest_digest": "sha256:7bced16ce458d0f3e1f581b155788da61057ac0b9b7a75b9116be5edaf13d767"
+  }
+}
