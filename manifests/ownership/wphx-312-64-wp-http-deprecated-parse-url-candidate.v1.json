@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wp-http-deprecated-parse-url-candidate",
+  "issue": {
+    "id": "wordpresshx-29t",
+    "external_ref": "WPHX-312.64"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http deprecated parse_url wrapper",
+    "area": "src/wp-includes/class-wp-http.php WP_Http::parse_url",
+    "public_contract": "This candidate preserves the WP_Http PHP class shell, protected static method ABI, subclass parent::parse_url access, native _deprecated_function dispatch, and native wp_parse_url false-or-array result shape while delegating wrapper metadata and wp_parse_url handoff intent to module-level Haxe source."
+  },
+  "ownership_state": "haxe_owned_candidate_with_public_php_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "generated-php-haxe-helper-with-temporary-original-path-shell",
+    "removal_gate": "Replace the temporary candidate shell with generated original-path public PHP adapters and pass broader parser/header, upstream HTTP PHPUnit, installed distribution, and generated-shell gates before claiming durable public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wp-http-deprecated-parse-url-candidate.mjs",
+    "fixtures/wp-core/http-deprecated-parse-url-candidate.hxml",
+    "src/wphx/wp/http/HttpDeprecatedParseUrl.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpDeprecatedParseUrlCandidateEntry.hx",
+    "manifests/wp-core/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+    "manifests/ownership/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+    "receipts/wp-core/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+    "manifests/ownership/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+    "receipts/wp-core/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+    "build/wp-core/wphx-312-64"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-wp-http-deprecated-parse-url-candidate",
+      "npm run wp:core:wphx-312-wp-http-deprecated-parse-url-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-64-wp-http-deprecated-parse-url-candidate"
+    ],
+    "manifest_digest": "sha256:e4d11d0a0fe192057d9f8668c5b83bdf42531f3893c0d49a808a4873874f12d7"
+  }
+}

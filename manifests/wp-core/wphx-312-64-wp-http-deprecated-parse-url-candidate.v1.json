@@ -1,0 +1,213 @@
+{
+  "schema": "wphx.wp-core-wp-http-deprecated-parse-url-candidate.v1",
+  "issue": "WPHX-312.64",
+  "generated_at": "2026-06-28T02:00:00.000Z",
+  "generator": "tools/wp-core/run-wp-http-deprecated-parse-url-candidate.mjs",
+  "evidence_classes": [
+    "haxe_source",
+    "generated_php_candidate",
+    "oracle_source_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "haxe_parity_candidate",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "parser_header_oracle_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-42-wp-http-parser-header-oracle-fixture.v1.json",
+      "bytes": 18096,
+      "sha256": "sha256:6927182709ed37aafd247c24dda822bfa55c168436aba1c88cbf3a9cc919b4b3"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-wp-http-deprecated-parse-url-candidate.mjs",
+      "bytes": 16757,
+      "sha256": "sha256:a1556b54e26fb7ec552b66998b97b6f0b267362cf195441b7fccd69bfbe6ae23"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/http-deprecated-parse-url-candidate.hxml",
+        "bytes": 134,
+        "sha256": "sha256:6441655ac5f08b838314adf00706bdd9dc808fe12fd60582e43a38d5412f0b1c"
+      },
+      {
+        "path": "src/wphx/wp/http/HttpDeprecatedParseUrl.hx",
+        "bytes": 686,
+        "sha256": "sha256:ccbb0be6f8be67b607305bb396ae9bca85c7459e0bd73271539fc66d573bfcc0"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpDeprecatedParseUrlCandidateEntry.hx",
+        "bytes": 568,
+        "sha256": "sha256:0f1f044c32c351818d0482b2c236c88b4e702fcfa128155c5869648956039f0c"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http.php",
+        "bytes": 41648,
+        "sha256": "sha256:031eca4a468d625c82fe75b732a791ae4331fa63b5b243ffbee71930e64152ee"
+      }
+    ]
+  },
+  "candidate": {
+    "hxml": "fixtures/wp-core/http-deprecated-parse-url-candidate.hxml",
+    "haxe_output": "build/wp-core/wphx-312-64/haxe",
+    "compiled_php_files": [
+      "build/wp-core/wphx-312-64/haxe/index.php",
+      "build/wp-core/wphx-312-64/haxe/lib/Array_hx.php",
+      "build/wp-core/wphx-312-64/haxe/lib/Std.php",
+      "build/wp-core/wphx-312-64/haxe/lib/haxe/Exception.php",
+      "build/wp-core/wphx-312-64/haxe/lib/haxe/ValueException.php",
+      "build/wp-core/wphx-312-64/haxe/lib/haxe/iterators/ArrayIterator.php",
+      "build/wp-core/wphx-312-64/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/Boot.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxAnon.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxClass.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxClosure.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxDynamicStr.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxEnum.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_Boot/HxString.php",
+      "build/wp-core/wphx-312-64/haxe/lib/php/_polyfills.php",
+      "build/wp-core/wphx-312-64/haxe/lib/wphx/fixtures/wp/core/HttpDeprecatedParseUrlCandidateEntry.php",
+      "build/wp-core/wphx-312-64/haxe/lib/wphx/wp/http/_HttpDeprecatedParseUrl/HttpDeprecatedParseUrl_Fields_.php"
+    ],
+    "promoted_symbols": [
+      "WP_Http::parse_url deprecated function metadata",
+      "WP_Http::parse_url deprecated replacement metadata",
+      "WP_Http::parse_url wp_parse_url delegation"
+    ],
+    "public_shell_policy": {
+      "public_php_replacement_claimed": false,
+      "public_php_abi_preserved": true,
+      "shell_body_ownership": "temporary candidate shell preserves the protected static WP_Http::parse_url ABI, subclass access behavior, native _deprecated_function call, and native wp_parse_url false-or-array shape while delegating wrapper metadata and parse delegation to generated Haxe PHP",
+      "native_boundaries": [
+        "protected static PHP method ABI",
+        "_deprecated_function dispatch",
+        "wp_parse_url false-or-array result shape",
+        "temporary original-path class-wp-http.php shell"
+      ]
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "wp-http-parser:parse-url-wrapper",
+        "focus": "deprecated protected parse_url wrapper delegates to wp_parse_url and records deprecation metadata"
+      }
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-64/probe.php",
+      "sha256": "sha256:42bc6c88ad5efc5671e56f84dbd839d164c55b693a14d8dd822b4456c5a153cd"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "Requests Autoload/Requests, _deprecated_function, and wp_parse_url are deterministic local stubs. No network, cookie, or header processing side effects are exercised."
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-64/oracle",
+    "candidate_root": "build/wp-core/wphx-312-64/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-64/oracle/wp-includes/class-wp-http.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-64/candidate/wp-includes/class-wp-http.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "wp-http-parser:parse-url-wrapper": {
+        "case": "wp-http-parser:parse-url-wrapper",
+        "parsed": {
+          "scheme": "https",
+          "host": "example.test",
+          "port": 8443,
+          "user": "user",
+          "pass": "pass",
+          "path": "/path/file.php",
+          "query": "x=1",
+          "fragment": "frag"
+        },
+        "deprecated": [
+          {
+            "function": "WP_Http::parse_url",
+            "version": "4.4.0",
+            "replacement": "wp_parse_url()"
+          }
+        ],
+        "assertions": {
+          "parsed_shape": true,
+          "deprecated_recorded": true
+        }
+      }
+    },
+    "candidate": {
+      "wp-http-parser:parse-url-wrapper": {
+        "case": "wp-http-parser:parse-url-wrapper",
+        "parsed": {
+          "scheme": "https",
+          "host": "example.test",
+          "port": 8443,
+          "user": "user",
+          "pass": "pass",
+          "path": "/path/file.php",
+          "query": "x=1",
+          "fragment": "frag"
+        },
+        "deprecated": [
+          {
+            "function": "WP_Http::parse_url",
+            "version": "4.4.0",
+            "replacement": "wp_parse_url()"
+          }
+        ],
+        "assertions": {
+          "parsed_shape": true,
+          "deprecated_recorded": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:792387043c36dc09b81b8c224335be79a1470bde1c9dfe3b85dbddfe2ae89058",
+    "candidate_sha256": "sha256:792387043c36dc09b81b8c224335be79a1470bde1c9dfe3b85dbddfe2ae89058",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "broader-parser-header-helpers-not-promoted",
+      "owner": "WPHX-312.64",
+      "detail": "This candidate promotes only the deprecated WP_Http::parse_url wrapper metadata and handoff. processResponse, processHeaders, buildCookieHeader, chunkTransferDecode, wp_parse_url internals, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or previously scoped candidates."
+    },
+    {
+      "id": "durable-public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.64",
+      "detail": "The candidate uses a bounded generated-PHP helper plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-64-wp-http-deprecated-parse-url-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 1,
+    "promoted_symbols": 3,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_http_claimed": false
+  }
+}
