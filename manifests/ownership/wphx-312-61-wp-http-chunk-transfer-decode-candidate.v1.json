@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wp-http-chunk-transfer-decode-candidate",
+  "issue": {
+    "id": "wordpresshx-4iw",
+    "external_ref": "WPHX-312.61"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http chunk transfer decode parser",
+    "area": "src/wp-includes/class-wp-http.php WP_Http::chunkTransferDecode",
+    "public_contract": "This candidate preserves the WP_Http PHP class shell, public static method ABI, and string return shape while delegating chunk-header parsing and observed decode/passthrough decisions to module-level Haxe source."
+  },
+  "ownership_state": "haxe_owned_candidate_with_public_php_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "generated-php-haxe-helper-with-temporary-original-path-shell",
+    "removal_gate": "Replace the temporary candidate shell with generated original-path public PHP adapters and pass broader parser/header, upstream HTTP PHPUnit, installed distribution, transfer-encoding, and generated-shell gates before claiming durable public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wp-http-chunk-transfer-decode-candidate.mjs",
+    "fixtures/wp-core/http-chunk-transfer-decode-candidate.hxml",
+    "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpChunkTransferDecodeCandidateEntry.hx",
+    "manifests/wp-core/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+    "manifests/ownership/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+    "receipts/wp-core/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+    "manifests/ownership/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+    "receipts/wp-core/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+    "build/wp-core/wphx-312-61"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-wp-http-chunk-transfer-decode-candidate",
+      "npm run wp:core:wphx-312-wp-http-chunk-transfer-decode-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-61-wp-http-chunk-transfer-decode-candidate"
+    ],
+    "manifest_digest": "sha256:60a1136368ab800e2559608b54f1901002467132f12762d25a0bc9d3b81bbf72"
+  }
+}

@@ -1,0 +1,202 @@
+{
+  "schema": "wphx.wp-core-wp-http-chunk-transfer-decode-candidate.v1",
+  "issue": "WPHX-312.61",
+  "generated_at": "2026-06-28T02:30:00.000Z",
+  "generator": "tools/wp-core/run-wp-http-chunk-transfer-decode-candidate.mjs",
+  "evidence_classes": [
+    "haxe_source",
+    "generated_php_candidate",
+    "oracle_source_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "haxe_parity_candidate",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "parser_header_oracle_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-42-wp-http-parser-header-oracle-fixture.v1.json",
+      "bytes": 18096,
+      "sha256": "sha256:6927182709ed37aafd247c24dda822bfa55c168436aba1c88cbf3a9cc919b4b3"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-wp-http-chunk-transfer-decode-candidate.mjs",
+      "bytes": 16462,
+      "sha256": "sha256:17b030e7fc6d6c5442ac0fde28d225edbfade727d113323714f6514277e6eef6"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/http-chunk-transfer-decode-candidate.hxml",
+        "bytes": 135,
+        "sha256": "sha256:d45e1426c9fcdcf2875a061d247166c66b14de19691fd866bfa943b65335373e"
+      },
+      {
+        "path": "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+        "bytes": 2153,
+        "sha256": "sha256:7edaa025c19d987b8d571046164e6b7d8d48e74c6cbf26f37adbdd2a670dcca5"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpChunkTransferDecodeCandidateEntry.hx",
+        "bytes": 306,
+        "sha256": "sha256:70b923d3c37f10b66a4c7950c493baf97403d97110594d043cde402d59bb8cd6"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http.php",
+        "bytes": 41648,
+        "sha256": "sha256:031eca4a468d625c82fe75b732a791ae4331fa63b5b243ffbee71930e64152ee"
+      }
+    ]
+  },
+  "candidate": {
+    "hxml": "fixtures/wp-core/http-chunk-transfer-decode-candidate.hxml",
+    "haxe_output": "build/wp-core/wphx-312-61/haxe",
+    "compiled_php_files": [
+      "build/wp-core/wphx-312-61/haxe/index.php",
+      "build/wp-core/wphx-312-61/haxe/lib/Array_hx.php",
+      "build/wp-core/wphx-312-61/haxe/lib/Std.php",
+      "build/wp-core/wphx-312-61/haxe/lib/haxe/Exception.php",
+      "build/wp-core/wphx-312-61/haxe/lib/haxe/ValueException.php",
+      "build/wp-core/wphx-312-61/haxe/lib/haxe/iterators/ArrayIterator.php",
+      "build/wp-core/wphx-312-61/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/Boot.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxAnon.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxClass.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxClosure.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxDynamicStr.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxEnum.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_Boot/HxString.php",
+      "build/wp-core/wphx-312-61/haxe/lib/php/_polyfills.php",
+      "build/wp-core/wphx-312-61/haxe/lib/wphx/fixtures/wp/core/HttpChunkTransferDecodeCandidateEntry.php",
+      "build/wp-core/wphx-312-61/haxe/lib/wphx/wp/http/_HttpChunkTransferDecode/HttpChunkTransferDecode_Fields_.php"
+    ],
+    "promoted_symbols": [
+      "WP_Http::chunkTransferDecode chunk header detection",
+      "WP_Http::chunkTransferDecode chunk extension handling",
+      "WP_Http::chunkTransferDecode single chunk body decode",
+      "WP_Http::chunkTransferDecode malformed or non-chunk passthrough"
+    ],
+    "public_shell_policy": {
+      "public_php_replacement_claimed": false,
+      "public_php_abi_preserved": true,
+      "shell_body_ownership": "temporary candidate shell preserves the WP_Http public static method ABI and string return shape while delegating observed chunk-transfer decode and passthrough decisions to generated Haxe PHP",
+      "native_boundaries": [
+        "temporary original-path class-wp-http.php shell"
+      ]
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "wp-http-parser:chunk-transfer-decode",
+        "focus": "chunkTransferDecode decodes valid chunk bodies and returns malformed/non-chunk bodies unchanged"
+      }
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-61/probe.php",
+      "sha256": "sha256:29d2d10699ea974ec55934edef331b240d44c4eba49a7b73a0ba4e307cda2caf"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "Requests Autoload/Requests are deterministic local stubs. No network, cookie, or header-processing side effects are exercised."
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-61/oracle",
+    "candidate_root": "build/wp-core/wphx-312-61/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-61/oracle/wp-includes/class-wp-http.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-61/candidate/wp-includes/class-wp-http.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "wp-http-parser:chunk-transfer-decode": {
+        "case": "wp-http-parser:chunk-transfer-decode",
+        "decoded": {
+          "valid": "Wikipedia",
+          "extension": "Test",
+          "inter_chunk_crlf": "4\r\nWiki\r\n5\r\npedia\r\n0",
+          "plain": "plain body",
+          "malformed": "4\r\nWiki\r\n5\r\nped"
+        },
+        "assertions": {
+          "valid_decoded": true,
+          "extension_decoded": true,
+          "inter_chunk_crlf_passthrough": true,
+          "plain_passthrough": true,
+          "malformed_passthrough": true
+        }
+      }
+    },
+    "candidate": {
+      "wp-http-parser:chunk-transfer-decode": {
+        "case": "wp-http-parser:chunk-transfer-decode",
+        "decoded": {
+          "valid": "Wikipedia",
+          "extension": "Test",
+          "inter_chunk_crlf": "4\r\nWiki\r\n5\r\npedia\r\n0",
+          "plain": "plain body",
+          "malformed": "4\r\nWiki\r\n5\r\nped"
+        },
+        "assertions": {
+          "valid_decoded": true,
+          "extension_decoded": true,
+          "inter_chunk_crlf_passthrough": true,
+          "plain_passthrough": true,
+          "malformed_passthrough": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:4af2fca921a66a5fad91dbfbd469bd4e74f4dbc51721ae826a9c1c029691d0d0",
+    "candidate_sha256": "sha256:4af2fca921a66a5fad91dbfbd469bd4e74f4dbc51721ae826a9c1c029691d0d0",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "broader-parser-header-helpers-not-promoted",
+      "owner": "WPHX-312.61",
+      "detail": "This candidate promotes only WP_Http::chunkTransferDecode observed parser behavior. processResponse, processHeaders, buildCookieHeader, parse_url, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or future candidates."
+    },
+    {
+      "id": "multi-chunk-behavior-is-upstream-passthrough",
+      "owner": "WPHX-312.61",
+      "detail": "The fixture records upstream WordPress behavior where an inter-chunk CRLF multi-chunk body returns the original string. This candidate preserves that behavior rather than correcting it."
+    },
+    {
+      "id": "durable-public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.61",
+      "detail": "The candidate uses a bounded generated-PHP helper plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 1,
+    "promoted_symbols": 4,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_http_claimed": false
+  }
+}
