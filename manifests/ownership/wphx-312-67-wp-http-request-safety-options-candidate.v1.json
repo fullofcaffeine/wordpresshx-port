@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wp-http-request-safety-options-candidate",
+  "issue": {
+    "id": "wordpresshx-e5g",
+    "external_ref": "WPHX-312.67"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http request redirect-validation hook decision",
+    "area": "src/wp-includes/class-wp-http.php with WP_HTTP_Proxy, WP_HTTP_Requests_Hooks, WP_HTTP_Requests_Response, WP_HTTP_Response, and WP_Http_Cookie support",
+    "public_contract": "This candidate promotes only the WP_Http::request decision to register the validate_redirects hook when wp_kses_bad_protocol exists and reject_unsafe_urls is enabled. PHP still owns public request ABI, http_request_reject_unsafe_urls filtering, URL validation, bad-protocol stripping, hook object mechanics, proxy option/auth handoff, pre_http_send_through_proxy overrides, Requests dispatch, debug/error handling, and native arrays/objects."
+  },
+  "ownership_state": "haxe_candidate_with_public_php_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-public-php-shell-calling-generated-haxe",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass request proxy/safety, selected upstream HTTP PHPUnit, installed distribution, and live/recorded network/proxy parity gates before claiming public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wp-http-request-safety-options-candidate.mjs",
+    "manifests/wp-core/wphx-312-67-wp-http-request-safety-options-candidate.v1.json",
+    "manifests/ownership/wphx-312-67-wp-http-request-safety-options-candidate.v1.json",
+    "receipts/wp-core/wphx-312-67-wp-http-request-safety-options-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-67-wp-http-request-safety-options-candidate.v1.json",
+    "manifests/ownership/wphx-312-67-wp-http-request-safety-options-candidate.v1.json",
+    "receipts/wp-core/wphx-312-67-wp-http-request-safety-options-candidate.v1.json",
+    "build/wp-core/wphx-312-67"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-wp-http-request-safety-options-candidate",
+      "npm run wp:core:wphx-312-wp-http-request-safety-options-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-67-wp-http-request-safety-options-candidate"
+    ],
+    "manifest_digest": "sha256:ba4a4e300fb5ad13577ec722e68b68abf3d50c56731300e1d8fc875213c05f7a"
+  }
+}
