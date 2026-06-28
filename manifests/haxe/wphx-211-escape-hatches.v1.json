@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 155,
+  "scanned_file_count": 157,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -40,6 +40,7 @@
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRedirectCompatibilityCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRedirectOrchestrationCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRedirectValidationCandidateEntry.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRequestNonblockingCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpResponseCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/MultisiteAdapterContractCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/NativeValueLoweringProofEntry.hx",
@@ -145,6 +146,7 @@
     "src/wphx/wp/http/HttpRedirectCompatibility.hx",
     "src/wphx/wp/http/HttpRedirectOrchestration.hx",
     "src/wphx/wp/http/HttpRedirectValidation.hx",
+    "src/wphx/wp/http/HttpRequestNonblocking.hx",
     "src/wphx/wp/http/HttpResponseState.hx",
     "src/wphx/wp/macros/BindingValidator.hx",
     "src/wphx/wp/multisite/MultisiteAdapterContract.hx",
@@ -162,7 +164,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 72,
+  "occurrence_count": 73,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -815,6 +817,16 @@
       "justification": "WPHX-211: WordPress' IPv6 helper uses PHP PCRE subroutine/backreference syntax that Haxe EReg does not model."
     },
     {
+      "path": "src/wphx/wp/http/HttpRequestNonblocking.hx",
+      "line": 15,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "php.Syntax.code(\"array('headers' => array(), 'body' => '', 'response' => array('code' => false, 'message' => false), 'cookies' => array(), 'http_response' => null)\");",
+      "source_sha256": "sha256:a787c6419213d2caad7179dd98e1f95b420fa7088296452fccc4f2f5098eef83",
+      "justification": "WPHX-211: WP_Http public responses require native PHP arrays with false/null leaves."
+    },
+    {
       "path": "src/wphx/wp/http/HttpResponseState.hx",
       "line": 69,
       "kinds": [
@@ -887,7 +899,7 @@
   ],
   "by_kind": {
     "Dynamic": 8,
-    "php.Syntax.code": 64
+    "php.Syntax.code": 65
   },
   "validation_result": {
     "status": "passed",
