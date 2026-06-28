@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/http-cookie-candidate",
+  "issue": {
+    "id": "wordpresshx-5d9",
+    "external_ref": "WPHX-312.53"
+  },
+  "unit": {
+    "kind": "haxe_parity_candidate",
+    "name": "WP_Http_Cookie matching and header behavior",
+    "area": "src/wp-includes/class-wp-http-cookie.php",
+    "public_contract": "This candidate preserves the WP_Http_Cookie PHP class shell, public properties, AllowDynamicProperties attribute, constructor parsing/default behavior, and wp_http_cookie_value filter boundary while delegating post-construction test() domain/path/port/expiry matching, header string formatting, full Cookie header formatting, and get_attributes shape to typed Haxe source."
+  },
+  "ownership_state": "haxe_owned_candidate_with_public_php_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "generated-php-haxe-strategy-with-temporary-original-path-shell",
+    "removal_gate": "Replace the temporary candidate shell with generated original-path public PHP adapters and pass constructor-parsing ownership, live/recorded HTTP transport, Requests cookie jar conversion, redirect/cookie propagation, selected upstream HTTP PHPUnit, installed distribution routes, and ecosystem fixtures before claiming durable public PHP ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-http-cookie-candidate.mjs",
+    "fixtures/wp-core/http-cookie-candidate.hxml",
+    "src/wphx/wp/http/HttpCookieStrategy.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCookieCandidateEntry.hx",
+    "manifests/wp-core/wphx-312-53-http-cookie-candidate.v1.json",
+    "manifests/ownership/wphx-312-53-http-cookie-candidate.v1.json",
+    "receipts/wp-core/wphx-312-53-http-cookie-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-53-http-cookie-candidate.v1.json",
+    "manifests/ownership/wphx-312-53-http-cookie-candidate.v1.json",
+    "receipts/wp-core/wphx-312-53-http-cookie-candidate.v1.json",
+    "build/wp-core/wphx-312-53"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-http-cookie-candidate",
+      "npm run wp:core:wphx-312-http-cookie-candidate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-53-http-cookie-candidate"
+    ],
+    "manifest_digest": "sha256:d8487701b17578cffa66dfd92f571761bc33403eea519478a0717d5e6174ec9f"
+  }
+}

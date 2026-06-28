@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 131,
+  "scanned_file_count": 133,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -25,6 +25,7 @@
     "fixtures/wp-boundary/src/wphx/fixtures/wp/boundary/BoundaryEntry.hx",
     "fixtures/wp-boundary/src/wphx/fixtures/wp/boundary/BoundaryKernel.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/AuthAdapterContractCandidateEntry.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCookieCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCronMailFeedEmbedAdapterContractCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpEncodingCandidateEntry.hx",
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProxyCandidateEntry.hx",
@@ -118,6 +119,7 @@
     "src/wphx/wp/error/WpErrorRuntime.hx",
     "src/wphx/wp/formatting/PureFormatting.hx",
     "src/wphx/wp/hooks/HookRuntime.hx",
+    "src/wphx/wp/http/HttpCookieStrategy.hx",
     "src/wphx/wp/http/HttpCronMailFeedEmbedAdapterContract.hx",
     "src/wphx/wp/http/HttpEncodingStrategy.hx",
     "src/wphx/wp/http/HttpProxyStrategy.hx",
@@ -138,7 +140,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 55,
+  "occurrence_count": 70,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -471,6 +473,156 @@
       "justification": "WPHX-211: Snapshot shape is a PHP-native array for oracle comparison."
     },
     {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 93,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"is_null({0}->{1})\", object, property);",
+      "source_sha256": "sha256:e364ea51d15139238f03c7955e3e536d9c353f7059968fb0df96180f81de3f11",
+      "justification": "WPHX-211: WP_Http_Cookie exposes public PHP properties with null/isset ABI semantics."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 99,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"isset({0}->{1})\", object, property);",
+      "source_sha256": "sha256:4314664e033e22d3a14bca814a8ed1a4118eb4bf505f1000ebbc07b8a4ed66a6",
+      "justification": "WPHX-211: isset preserves PHP's null-aware public-property behavior."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 105,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"{0}->{1}\", object, property);",
+      "source_sha256": "sha256:761b3786cd238a21a810692dfd0d496cf57294aa4561acd2895764dbe0c8bc22",
+      "justification": "WPHX-211: public cookie properties can be strings, ints, bools, or dynamic attributes."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 111,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"(string) {0}->{1}\", object, property);",
+      "source_sha256": "sha256:84fef6d91e2fb0e0e759c17f5f80a88a520f61135b03d9e1f57b091a5dd55f8f",
+      "justification": "WPHX-211: native PHP string coercion is required for public cookie properties."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 117,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"(int) {0}->{1}\", object, property);",
+      "source_sha256": "sha256:1acf0d696ac84d9c4cc418f4f4b819e25d1d45c67c93c09c7ddb03eeed83196a",
+      "justification": "WPHX-211: native PHP int coercion is required for expires comparisons."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 127,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array_key_exists({0}, {1})\", key, array);",
+      "source_sha256": "sha256:6d399bfaec8e91dbdbead4fc6d8c01b190044035b9f18a5521e4a6a9f5ada417",
+      "justification": "WPHX-211: parse_url returns a native PHP associative array."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 133,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return hasKey(array, key) ? php.Syntax.code(\"(string) {0}[{1}]\", array, key) : defaultValue;",
+      "source_sha256": "sha256:399da842aac4591c614bef0fb0663364e9062230ebe63a0838dca339edc64f5f",
+      "justification": "WPHX-211: native array lookup preserves PHP parse_url component types."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 139,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return hasKey(array, key) ? php.Syntax.code(\"(int) {0}[{1}]\", array, key) : defaultValue;",
+      "source_sha256": "sha256:f1785758f7325fa15ff1ee7b3d05619b6a6c39fb17b7eaf61152a76de1934eb7",
+      "justification": "WPHX-211: native array lookup preserves PHP parse_url port integer values."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 145,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('expires' => {0}, 'path' => {1}, 'domain' => {2})\", expires, path, domain);",
+      "source_sha256": "sha256:a2ba16b7dda79cd98235f88bf3989b3c256ddc881cf6bf0435b07accf24e3019",
+      "justification": "WPHX-211: get_attributes must return a native PHP associative array with WordPress key order."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 155,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"strtolower({0})\", value);",
+      "source_sha256": "sha256:aaa71dd34dc7d9ce6f761e325ae6c0aa4a9a7d74867d51757a51912eb89ecfd9",
+      "justification": "WPHX-211: strtolower preserves PHP locale/runtime string behavior at the public boundary."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 159,
+      "kinds": [
+        "Dynamic"
+      ],
+      "source": "public static function stripos(haystack:String, needle:String):Dynamic",
+      "source_sha256": "sha256:e50f990440e48e86cc453a404e23f8194645b2c9ab2bc385eee33f91244cc747",
+      "justification": "WPHX-211: PHP stripos returns false-or-int and WordPress compares it strictly to false here."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 161,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"stripos({0}, {1})\", haystack, needle);",
+      "source_sha256": "sha256:138b9a4a35ca7949ffe8d0b63f3ca9a6b435df909b885acc99921598d886d5d6",
+      "justification": "WPHX-211: PHP stripos returns false-or-int and WordPress compares it strictly to false here."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 171,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"time()\");",
+      "source_sha256": "sha256:baaa40d87332e9ebdaca6845c677850be3f70a5cc7a54ebd99ea3f444b7faa14",
+      "justification": "WPHX-211: cookie expiry checks use PHP's current Unix timestamp."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 181,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"parse_url({0})\", url);",
+      "source_sha256": "sha256:3ce46951f845ca78b389e6198d5753638a3ac231c451d576f35ab02075d477d2",
+      "justification": "WPHX-211: URL parsing follows PHP parse_url behavior used by WordPress."
+    },
+    {
+      "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+      "line": 191,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"(string) {0}\", value);",
+      "source_sha256": "sha256:8cf3448b570d6d08c78ce6cff8a1994f031a172a4480f6bbf688a4537b03caab",
+      "justification": "WPHX-211: filter return values are PHP-native values coerced into header strings."
+    },
+    {
       "path": "src/wphx/wp/http/HttpEncodingStrategy.hx",
       "line": 124,
       "kinds": [
@@ -692,8 +844,8 @@
     }
   ],
   "by_kind": {
-    "Dynamic": 7,
-    "php.Syntax.code": 48
+    "Dynamic": 8,
+    "php.Syntax.code": 62
   },
   "validation_result": {
     "status": "passed",

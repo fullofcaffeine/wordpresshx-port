@@ -1,0 +1,558 @@
+{
+  "schema": "wphx.wp-core-http-cookie-candidate.v1",
+  "issue": "WPHX-312.53",
+  "generated_at": "2026-06-27T00:00:00.000Z",
+  "generator": "tools/wp-core/run-http-cookie-candidate.mjs",
+  "evidence_classes": [
+    "haxe_source",
+    "generated_php_candidate",
+    "oracle_source_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "haxe_parity_candidate",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "bytes": 67111,
+      "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "bytes": 18483,
+      "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+    },
+    "cookie_oracle_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json",
+      "bytes": 16186,
+      "sha256": "sha256:00588999d36cddd752353945676f036bb47409e026063d847cb313f9977c0f01"
+    },
+    "runner": {
+      "path": "tools/wp-core/run-http-cookie-candidate.mjs",
+      "bytes": 22161,
+      "sha256": "sha256:451e64f0bdab745fe3b8f96d01c8382ef4febbfb03f84d63d0416ca75f8fce3a"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/http-cookie-candidate.hxml",
+        "bytes": 122,
+        "sha256": "sha256:6fc825f08faa1e6c7576fd10869c0ad5c7035e7d973c5ed43ff8a40da5609dc7"
+      },
+      {
+        "path": "src/wphx/wp/http/HttpCookieStrategy.hx",
+        "bytes": 5634,
+        "sha256": "sha256:ff197712553a96c98dcb43634cab626e80a55f0cc6a873ca1647e8f00795e594"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCookieCandidateEntry.hx",
+        "bytes": 172,
+        "sha256": "sha256:f944b620847dd6cab62b3355007b1266b1ee5a8663826e2ff023e410b6f5eb97"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http-cookie.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php",
+        "bytes": 7269,
+        "sha256": "sha256:d0b26c3bbd217273eb1b5074519194b804f47bd5712a8472bfd3bb5210d25607"
+      }
+    ]
+  },
+  "candidate": {
+    "hxml": "fixtures/wp-core/http-cookie-candidate.hxml",
+    "haxe_output": "build/wp-core/wphx-312-53/haxe",
+    "compiled_php_files": [
+      "build/wp-core/wphx-312-53/haxe/index.php",
+      "build/wp-core/wphx-312-53/haxe/lib/Array_hx.php",
+      "build/wp-core/wphx-312-53/haxe/lib/Std.php",
+      "build/wp-core/wphx-312-53/haxe/lib/StringTools.php",
+      "build/wp-core/wphx-312-53/haxe/lib/haxe/Exception.php",
+      "build/wp-core/wphx-312-53/haxe/lib/haxe/ValueException.php",
+      "build/wp-core/wphx-312-53/haxe/lib/haxe/iterators/ArrayIterator.php",
+      "build/wp-core/wphx-312-53/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/Boot.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxAnon.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxClass.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxClosure.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxDynamicStr.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxEnum.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_Boot/HxString.php",
+      "build/wp-core/wphx-312-53/haxe/lib/php/_polyfills.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/fixtures/wp/core/HttpCookieCandidateEntry.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpArray.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpObject.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpString.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpTime.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpUrl.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/PhpValue.php",
+      "build/wp-core/wphx-312-53/haxe/lib/wphx/wp/http/_HttpCookieStrategy/HttpCookieStrategy_Fields_.php"
+    ],
+    "promoted_symbols": [
+      "WP_Http_Cookie::test post-construction matcher",
+      "WP_Http_Cookie::getHeaderValue formatting around wp_http_cookie_value",
+      "WP_Http_Cookie::getFullHeader",
+      "WP_Http_Cookie::get_attributes"
+    ],
+    "public_shell_policy": {
+      "public_php_replacement_claimed": false,
+      "public_php_abi_preserved": true,
+      "shell_body_ownership": "temporary candidate shell preserves constructor/filter boundaries and delegates bounded post-construction behavior to generated Haxe PHP",
+      "native_boundaries": [
+        "constructor parsing/defaults",
+        "parse_url",
+        "time",
+        "public PHP properties",
+        "AllowDynamicProperties",
+        "wp_http_cookie_value/apply_filters"
+      ]
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "http-cookie:header-string-parse",
+        "focus": "Set-Cookie header string parses name/value attributes and URL defaults"
+      },
+      {
+        "id": "http-cookie:array-defaults",
+        "focus": "array construction applies requested URL domain/path defaults and nullable expiration"
+      },
+      {
+        "id": "http-cookie:test-matchers",
+        "focus": "test() accepts matching domain/path/port and rejects mismatches"
+      },
+      {
+        "id": "http-cookie:expired-and-nameless",
+        "focus": "expired and missing-name cookies are rejected and empty header values are emitted"
+      },
+      {
+        "id": "http-cookie:headers-and-filter",
+        "focus": "getHeaderValue and getFullHeader pass through wp_http_cookie_value filtering"
+      },
+      {
+        "id": "http-cookie:attributes",
+        "focus": "get_attributes returns expires/path/domain only"
+      }
+    ],
+    "source_files": [
+      "src/wp-includes/class-wp-http-cookie.php"
+    ],
+    "probe": {
+      "path": "build/wp-core/wphx-312-53/probe.php",
+      "sha256": "sha256:374d5d30e692491076b94f97af7f125db8b0e3f88aaf7a097e86a93a5ceba11e"
+    },
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "runtime_stubs": "apply_filters is a deterministic WordPress-compatible stub for wp_http_cookie_value; constructor parsing remains in the PHP shell while post-construction behavior is Haxe-owned."
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-53/oracle",
+    "candidate_root": "build/wp-core/wphx-312-53/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/class-wp-http-cookie.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-53/oracle/wp-includes/class-wp-http-cookie.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-53/candidate/wp-includes/class-wp-http-cookie.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "http-cookie:header-string-parse": {
+        "case": "http-cookie:header-string-parse",
+        "cookie": {
+          "name": "session",
+          "value": "hello world",
+          "expires": 1893456000,
+          "path": "/wp/",
+          "domain": ".example.test",
+          "port": "443,8443",
+          "host_only": null,
+          "secure": "",
+          "httponly": "",
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/wp/",
+            "domain": ".example.test"
+          }
+        },
+        "header": "session=filtered-session-hello_world",
+        "assertions": {
+          "name_value": true,
+          "parsed_attributes": true,
+          "dynamic_flags": true
+        }
+      },
+      "http-cookie:array-defaults": {
+        "case": "http-cookie:array-defaults",
+        "cookie": {
+          "name": "pref",
+          "value": "dark mode",
+          "expires": null,
+          "path": "/wp-admin/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": null,
+            "path": "/wp-admin/",
+            "domain": "example.test"
+          }
+        },
+        "assertions": {
+          "defaults": true,
+          "host_only_not_defaulted_by_constructor": true
+        }
+      },
+      "http-cookie:test-matchers": {
+        "case": "http-cookie:test-matchers",
+        "cookie": {
+          "name": "auth",
+          "value": "token",
+          "expires": 1893456000,
+          "path": "/wp/",
+          "domain": ".example.test",
+          "port": "443,8443",
+          "host_only": false,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/wp/",
+            "domain": ".example.test"
+          }
+        },
+        "tests": {
+          "match": true,
+          "port_mismatch": false,
+          "path_mismatch": false,
+          "domain_mismatch": false
+        },
+        "assertions": {
+          "match": true,
+          "mismatches": true
+        }
+      },
+      "http-cookie:expired-and-nameless": {
+        "case": "http-cookie:expired-and-nameless",
+        "expired": {
+          "name": "old",
+          "value": "gone",
+          "expires": 946684800,
+          "path": "/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 946684800,
+            "path": "/",
+            "domain": "example.test"
+          }
+        },
+        "nameless": {
+          "name": null,
+          "value": null,
+          "expires": null,
+          "path": "/path/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": null,
+            "path": "/path/",
+            "domain": "example.test"
+          }
+        },
+        "tests": {
+          "expired": false,
+          "nameless": false,
+          "nameless_header": ""
+        },
+        "assertions": {
+          "expired_rejected": true,
+          "nameless_rejected": true,
+          "nameless_header_empty": true
+        }
+      },
+      "http-cookie:headers-and-filter": {
+        "case": "http-cookie:headers-and-filter",
+        "header_value": "prefs=filtered-prefs-blue_sky",
+        "full_header": "Cookie: prefs=filtered-prefs-blue_sky",
+        "filters": [
+          {
+            "hook": "wp_http_cookie_value",
+            "value": "blue sky",
+            "args": [
+              "prefs"
+            ]
+          },
+          {
+            "hook": "wp_http_cookie_value",
+            "value": "blue sky",
+            "args": [
+              "prefs"
+            ]
+          }
+        ],
+        "assertions": {
+          "header_value": true,
+          "full_header": true,
+          "filter_called_twice": true
+        }
+      },
+      "http-cookie:attributes": {
+        "case": "http-cookie:attributes",
+        "cookie": {
+          "name": "attrs",
+          "value": "1",
+          "expires": 1893456000,
+          "path": "/attrs/",
+          "domain": "example.test",
+          "port": "443",
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/attrs/",
+            "domain": "example.test"
+          }
+        },
+        "attributes": {
+          "expires": 1893456000,
+          "path": "/attrs/",
+          "domain": "example.test"
+        },
+        "assertions": {
+          "attributes_shape": true,
+          "attributes_exclude_port_and_value": true
+        }
+      }
+    },
+    "candidate": {
+      "http-cookie:header-string-parse": {
+        "case": "http-cookie:header-string-parse",
+        "cookie": {
+          "name": "session",
+          "value": "hello world",
+          "expires": 1893456000,
+          "path": "/wp/",
+          "domain": ".example.test",
+          "port": "443,8443",
+          "host_only": null,
+          "secure": "",
+          "httponly": "",
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/wp/",
+            "domain": ".example.test"
+          }
+        },
+        "header": "session=filtered-session-hello_world",
+        "assertions": {
+          "name_value": true,
+          "parsed_attributes": true,
+          "dynamic_flags": true
+        }
+      },
+      "http-cookie:array-defaults": {
+        "case": "http-cookie:array-defaults",
+        "cookie": {
+          "name": "pref",
+          "value": "dark mode",
+          "expires": null,
+          "path": "/wp-admin/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": null,
+            "path": "/wp-admin/",
+            "domain": "example.test"
+          }
+        },
+        "assertions": {
+          "defaults": true,
+          "host_only_not_defaulted_by_constructor": true
+        }
+      },
+      "http-cookie:test-matchers": {
+        "case": "http-cookie:test-matchers",
+        "cookie": {
+          "name": "auth",
+          "value": "token",
+          "expires": 1893456000,
+          "path": "/wp/",
+          "domain": ".example.test",
+          "port": "443,8443",
+          "host_only": false,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/wp/",
+            "domain": ".example.test"
+          }
+        },
+        "tests": {
+          "match": true,
+          "port_mismatch": false,
+          "path_mismatch": false,
+          "domain_mismatch": false
+        },
+        "assertions": {
+          "match": true,
+          "mismatches": true
+        }
+      },
+      "http-cookie:expired-and-nameless": {
+        "case": "http-cookie:expired-and-nameless",
+        "expired": {
+          "name": "old",
+          "value": "gone",
+          "expires": 946684800,
+          "path": "/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 946684800,
+            "path": "/",
+            "domain": "example.test"
+          }
+        },
+        "nameless": {
+          "name": null,
+          "value": null,
+          "expires": null,
+          "path": "/path/",
+          "domain": "example.test",
+          "port": null,
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": null,
+            "path": "/path/",
+            "domain": "example.test"
+          }
+        },
+        "tests": {
+          "expired": false,
+          "nameless": false,
+          "nameless_header": ""
+        },
+        "assertions": {
+          "expired_rejected": true,
+          "nameless_rejected": true,
+          "nameless_header_empty": true
+        }
+      },
+      "http-cookie:headers-and-filter": {
+        "case": "http-cookie:headers-and-filter",
+        "header_value": "prefs=filtered-prefs-blue_sky",
+        "full_header": "Cookie: prefs=filtered-prefs-blue_sky",
+        "filters": [
+          {
+            "hook": "wp_http_cookie_value",
+            "value": "blue sky",
+            "args": [
+              "prefs"
+            ]
+          },
+          {
+            "hook": "wp_http_cookie_value",
+            "value": "blue sky",
+            "args": [
+              "prefs"
+            ]
+          }
+        ],
+        "assertions": {
+          "header_value": true,
+          "full_header": true,
+          "filter_called_twice": true
+        }
+      },
+      "http-cookie:attributes": {
+        "case": "http-cookie:attributes",
+        "cookie": {
+          "name": "attrs",
+          "value": "1",
+          "expires": 1893456000,
+          "path": "/attrs/",
+          "domain": "example.test",
+          "port": "443",
+          "host_only": null,
+          "secure": null,
+          "httponly": null,
+          "attributes": {
+            "expires": 1893456000,
+            "path": "/attrs/",
+            "domain": "example.test"
+          }
+        },
+        "attributes": {
+          "expires": 1893456000,
+          "path": "/attrs/",
+          "domain": "example.test"
+        },
+        "assertions": {
+          "attributes_shape": true,
+          "attributes_exclude_port_and_value": true
+        }
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:c987b1310cfa5ed6c988e39b61452ce2ac61f129a9ad491f7efc5fe77d70cae7",
+    "candidate_sha256": "sha256:c987b1310cfa5ed6c988e39b61452ce2ac61f129a9ad491f7efc5fe77d70cae7",
+    "assertions_pass": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "constructor-parsing-not-yet-haxe-owned",
+      "owner": "WPHX-312.53",
+      "detail": "The candidate preserves upstream PHP constructor parsing/default behavior and does not yet promote Set-Cookie header parsing, requested-URL default derivation, strtotime, urldecode, or dynamic flag assignment to Haxe ownership."
+    },
+    {
+      "id": "live-http-transport-not-executed",
+      "owner": "WPHX-312.53",
+      "detail": "The candidate observes the cookie object in isolation. Live transport, redirects, Set-Cookie response propagation, request Cookie header propagation, proxy/TLS behavior, and network I/O remain later WPHX-312 gates."
+    },
+    {
+      "id": "requests-cookie-jar-not-executed",
+      "owner": "WPHX-312.53",
+      "detail": "Requests cookie jar semantics and conversion between Requests cookies and WP_Http_Cookie require further installed/live parity before ownership promotion."
+    },
+    {
+      "id": "durable-public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.53",
+      "detail": "The candidate uses a bounded generated-PHP strategy plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-53-http-cookie-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "promoted_symbols": 4,
+    "observations_match": true,
+    "observations_assert": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "live_http_claimed": false,
+    "requests_cookie_jar_claimed": false
+  }
+}
