@@ -1,0 +1,32 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-05-typed-json-unknown-boundary-rule",
+  "issue": {
+    "id": "wordpresshx-8ne",
+    "external_ref": "WPHX-000.05",
+    "title": "Document typed JSON and Unknown boundary rule"
+  },
+  "recorded_at": "2026-06-28T00:45:00.000Z",
+  "artifacts": [
+    {
+      "path": "AGENTS.md",
+      "role": "root agent rule preferring typed JSON models/codecs before Unknown or Dynamic-backed wrappers"
+    },
+    {
+      "path": "docs/operations/agent-instructions.md",
+      "role": "durable operating guidance for JSON, Unknown-like values, allowed operations, containment, and replacement ownership"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:validate",
+    "npm run beads:validate",
+    "npm run precommit"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "evidence_class": "provenance",
+    "artifact_scope": "program_governance",
+    "typed_json_rule": "Prefer domain typedefs/enums plus decoders, generated or macro-backed codecs, or recursive typed JSON values before Unknown/Dynamic wrappers.",
+    "unknown_boundary_rule": "Unknown-like JSON boundaries must document why stronger typing is not practical yet, allowed operations, containment, and a Beads/schema/fixture/owner replacement path."
+  }
+}

@@ -58,6 +58,28 @@ If an escape hatch remains necessary, the code must put it at the boundary and d
 
 When reviewing or continuing work, treat casual `Dynamic` as a defect. Narrow it immediately when the local context is clear; otherwise file Beads follow-up with the boundary, evidence, and removal condition.
 
+## JSON And Unknown Values
+
+WordPressHX should treat JSON typing as part of source ownership, not as a place to hide weak models. The lesson from `../haxe.compilerdev.reference/tink_json` is practical here: typed parsers, writers, and JSON algebras are preferable to opaque values when runtime code will inspect the payload.
+
+Before adding or preserving an `Unknown`, `Dynamic`, generated `any`, or wrapper around one of those for JSON-like data, choose the strongest practical model in this order:
+
+- a precise domain typedef, enum, abstract, or record plus an explicit decoder;
+- a generated or macro-backed codec/parser/writer when the schema or ABI manifest is stable enough;
+- a recursive typed JSON value enum/abstract for genuinely open JSON such as plugin-provided metadata or passthrough REST fragments;
+- an unknown boundary only for values that are uninspected, losslessly passed through, or immediately narrowed at the edge.
+
+A wrapper around `Unknown` or `Dynamic` is not enough by itself. It must either restrict operations, emit a narrower target type, decode before app logic reads from it, or clearly state that callers may only pass through, store, encode, identity-compare, or immediately narrow the value.
+
+If an unknown JSON boundary remains, add a nearby WPHX-211-style comment that answers:
+
+- why a domain type, typed JSON value, schema-derived decoder, or `tink_json`-style codec is not practical there yet;
+- which operations are allowed on the value;
+- what contains the unsafety so it cannot spread into app-facing APIs;
+- which owner, schema, fixture, or Beads issue can replace it later.
+
+Do not name a broad unknown wrapper as if it were a modeled WordPress domain value unless the wrapper documents and enforces its boundary contract.
+
 ## Idiomatic Haxe Source
 
 Generated PHP is a compatibility artifact. It must preserve WordPress 7.0 public interfaces, reflection-visible signatures, file paths, declaration timing, native arrays, references, globals, stack/error behavior where claimed, and plugin/theme expectations. Its quality bar is WordPress-compatible PHP: readable, idiomatic enough for the ecosystem, and no worse than the upstream surface it replaces.
