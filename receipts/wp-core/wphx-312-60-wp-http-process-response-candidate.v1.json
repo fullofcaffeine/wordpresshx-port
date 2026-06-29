@@ -10,19 +10,27 @@
   "artifacts": [
     {
       "path": "manifests/wp-core/wphx-312-60-wp-http-process-response-candidate.v1.json",
-      "role": "WP_Http processResponse Haxe parity candidate manifest"
+      "role": "WP_Http grouped parser helper Haxe parity candidate manifest"
     },
     {
       "path": "manifests/ownership/wphx-312-60-wp-http-process-response-candidate.v1.json",
-      "role": "ownership manifest for Haxe-owned WP_Http processResponse split decisions"
+      "role": "ownership manifest for Haxe-owned grouped WP_Http parser helper decisions"
     },
     {
       "path": "tools/wp-core/run-wp-http-process-response-candidate.mjs",
-      "role": "deterministic PHP CLI oracle/candidate Haxe runner"
+      "role": "deterministic PHP CLI oracle/compiler-emitted-candidate Haxe runner"
     },
     {
       "path": "src/wphx/wp/http/HttpProcessResponse.hx",
       "role": "module-level Haxe source for WP_Http::processResponse split decisions"
+    },
+    {
+      "path": "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+      "role": "module-level Haxe source for WP_Http::chunkTransferDecode parser behavior"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
+      "role": "WPHX PHP source for grouped original-path WP_Http public shell"
     }
   ],
   "verification_commands": [
@@ -38,11 +46,13 @@
   ],
   "validation_result": {
     "status": "passed",
-    "fixture_cases": 1,
-    "promoted_symbols": 3,
+    "fixture_cases": 2,
+    "promoted_symbols": 7,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "grouped_method_count": 2,
+    "public_php_replacement_claimed": true,
+    "compiler_emitted_public_php": true,
     "installed_wordpress_behavior_claimed": false,
     "live_http_claimed": false
   }

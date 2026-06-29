@@ -7,21 +7,24 @@
   },
   "unit": {
     "kind": "haxe_parity_candidate",
-    "name": "WP_Http processResponse split decisions",
-    "area": "src/wp-includes/class-wp-http.php WP_Http::processResponse",
-    "public_contract": "This candidate preserves the WP_Http PHP class shell, public static method ABI, and native associative array return shape while delegating the response header/body string split decisions to module-level Haxe source."
+    "name": "WP_Http grouped parser helper decisions",
+    "area": "src/wp-includes/class-wp-http.php WP_Http::processResponse and WP_Http::chunkTransferDecode",
+    "public_contract": "This candidate preserves the WP_Http PHP class shell, public static method ABIs, native associative array return shape, and string return shape while delegating grouped parser helper decisions to module-level Haxe source."
   },
   "ownership_state": "haxe_owned_candidate_with_public_php_shell",
   "bridge": {
     "exists": true,
-    "kind": "generated-php-haxe-helper-with-temporary-original-path-shell",
-    "removal_gate": "Replace the temporary candidate shell with generated original-path public PHP adapters and pass broader parser/header, upstream HTTP PHPUnit, installed distribution, and generated-shell gates before claiming durable public PHP ownership."
+    "kind": "compiler-emitted-grouped-original-path-public-php-shell",
+    "removal_gate": "Expand generated original-path public PHP adapters and pass broader parser/header, upstream HTTP PHPUnit, installed distribution, and transfer/header/cookie gates before claiming durable whole-file WP_Http ownership."
   },
   "owned_paths": [
     "tools/wp-core/run-wp-http-process-response-candidate.mjs",
-    "fixtures/wp-core/http-process-response-candidate.hxml",
+    "fixtures/wp-core/http-parser-helpers-candidate.hxml",
+    "fixtures/wphx-php/wp-http-parser-helpers.hxml",
     "src/wphx/wp/http/HttpProcessResponse.hx",
-    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProcessResponseCandidateEntry.hx",
+    "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
     "manifests/wp-core/wphx-312-60-wp-http-process-response-candidate.v1.json",
     "manifests/ownership/wphx-312-60-wp-http-process-response-candidate.v1.json",
     "receipts/wp-core/wphx-312-60-wp-http-process-response-candidate.v1.json"
@@ -30,6 +33,7 @@
     "manifests/wp-core/wphx-312-60-wp-http-process-response-candidate.v1.json",
     "manifests/ownership/wphx-312-60-wp-http-process-response-candidate.v1.json",
     "receipts/wp-core/wphx-312-60-wp-http-process-response-candidate.v1.json",
+    "build/wp-core/wphx-312-60/generated/wphx-php-emission.v1.json",
     "build/wp-core/wphx-312-60"
   ],
   "verification": {
@@ -42,6 +46,6 @@
     "receipt_refs": [
       "receipt:wphx-312-60-wp-http-process-response-candidate"
     ],
-    "manifest_digest": "sha256:2ab533c9bdfb3640661753b1e241a8e6f534a4cdbabad4c0a04e7658edbe70cb"
+    "manifest_digest": "sha256:76d28ef729d7b95ca0e310d3ea82fd525574e8987543c83a9cd3f5724ad20cef"
   }
 }

@@ -1,0 +1,47 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-03-wp-http-parser-helpers",
+  "issue": "WPHX-COMP-PHP.03",
+  "recorded_at": "2026-06-29T00:00:00Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:wp-http-parser-helpers:check",
+    "npm run wp:core:wphx-312-wp-http-process-response-candidate:check"
+  ],
+  "generated_files": [
+    {
+      "path": "build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "methods": [
+        "WP_Http::processResponse",
+        "WP_Http::chunkTransferDecode"
+      ],
+      "probe": "existing WPHX-312.60 processResponse oracle/candidate probe expanded to include the WPHX-312.61 chunkTransferDecode case"
+    }
+  ],
+  "source": [
+    "src/wphx/compiler/php/WphxPhpCompiler.hx",
+    "src/wphx/wp/http/HttpProcessResponse.hx",
+    "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+    "fixtures/wp-core/http-parser-helpers-candidate.hxml",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.hx",
+    "fixtures/wphx-php/wp-http-parser-helpers.hxml",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
+    "tools/wp-core/run-wp-http-process-response-candidate.mjs"
+  ],
+  "claims": [
+    "The WPHX PHP emitter now generates a grouped original-path public PHP shell for neighboring WP_Http parser helpers.",
+    "The generated class-wp-http.php includes WP_Http::processResponse and WP_Http::chunkTransferDecode in one compiler-emitted class.",
+    "The generated shell passes PHP lint and the existing oracle/candidate behavior probes for both helper cases.",
+    "The WPHX PHP emission manifest records class:WP_Http and no unsupported constructs for the grouped driver."
+  ],
+  "non_claims": [
+    "This does not claim whole-file WP_Http ownership.",
+    "processHeaders, buildCookieHeader, protected parse_url, Requests transport behavior, installed WordPress behavior, and live transfer-encoding negotiation remain future gates.",
+    "The full WP_Http::request method remains deliberately later."
+  ]
+}

@@ -28,14 +28,19 @@
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-process-response-candidate.mjs",
-      "bytes": 15721,
-      "sha256": "sha256:9b1bbff1b36eb97eec7022a7c40cb2a64fc4f0cb5793a0164ad070614eabeaa5"
+      "bytes": 17685,
+      "sha256": "sha256:5ed97613bc7c1b66bea6af23e089d2270c28115953d4ffa60d646c14cdfa3223"
     },
     "haxe_sources": [
       {
-        "path": "fixtures/wp-core/http-process-response-candidate.hxml",
-        "bytes": 131,
-        "sha256": "sha256:80013320b847fad357fb63a2e91fd9b0de02c898eff770b2fde29621b0b2b55b"
+        "path": "fixtures/wp-core/http-parser-helpers-candidate.hxml",
+        "bytes": 129,
+        "sha256": "sha256:11ec20d49fd4a806ff015007fd62ded3747560e8b0bb5ec33aea07b2b07c9d9f"
+      },
+      {
+        "path": "fixtures/wphx-php/wp-http-parser-helpers.hxml",
+        "bytes": 354,
+        "sha256": "sha256:a8b66bcf4f334ef0953f560e1161859d13fe4b8e99d6fb771dbb64dab8232626"
       },
       {
         "path": "src/wphx/wp/http/HttpProcessResponse.hx",
@@ -43,9 +48,34 @@
         "sha256": "sha256:d4c811e358d79be842be9e525d38bdd1d3b084e59b93be1f371ffef78c2f681e"
       },
       {
-        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProcessResponseCandidateEntry.hx",
-        "bytes": 400,
-        "sha256": "sha256:12d2555d12f730c98f46c1c1ada1a5ea53e45a839682f42a41a666108aacbe86"
+        "path": "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+        "bytes": 2153,
+        "sha256": "sha256:7edaa025c19d987b8d571046164e6b7d8d48e74c6cbf26f37adbdd2a670dcca5"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.hx",
+        "bytes": 499,
+        "sha256": "sha256:f76f4b9e5ca9bfa70ee1e1e5c029f0d682800f7985928fbb5705514275987f80"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpParserHelpersEntry.hx",
+        "bytes": 330,
+        "sha256": "sha256:04cd706af8a95a7e22a44c68b35414ff30dd6f84d75cc391b0353f44248d3417"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
+        "bytes": 719,
+        "sha256": "sha256:5f4e2403802ae41ec7ff7eb03e689727a2360ff351ba3ce39b6aee053e4548db"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
+        "bytes": 359,
+        "sha256": "sha256:ebaf7352eab4fa3d6c7fd5563b7a78601b5001c01584a2532f0594322a41bfce"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
+        "bytes": 314,
+        "sha256": "sha256:d39a608a63881c5e8da002cc0698d1002697e84ec0f5d5fcfea5e9a829f674bb"
       }
     ],
     "upstream_sources": [
@@ -58,7 +88,8 @@
     ]
   },
   "candidate": {
-    "hxml": "fixtures/wp-core/http-process-response-candidate.hxml",
+    "hxml": "fixtures/wp-core/http-parser-helpers-candidate.hxml",
+    "wphx_php_hxml": "fixtures/wphx-php/wp-http-parser-helpers.hxml",
     "haxe_output": "build/wp-core/wphx-312-60/haxe",
     "compiled_php_files": [
       "build/wp-core/wphx-312-60/haxe/index.php",
@@ -76,21 +107,38 @@
       "build/wp-core/wphx-312-60/haxe/lib/php/_Boot/HxEnum.php",
       "build/wp-core/wphx-312-60/haxe/lib/php/_Boot/HxString.php",
       "build/wp-core/wphx-312-60/haxe/lib/php/_polyfills.php",
-      "build/wp-core/wphx-312-60/haxe/lib/wphx/fixtures/wp/core/HttpProcessResponseCandidateEntry.php",
+      "build/wp-core/wphx-312-60/haxe/lib/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.php",
+      "build/wp-core/wphx-312-60/haxe/lib/wphx/wp/http/_HttpChunkTransferDecode/HttpChunkTransferDecode_Fields_.php",
       "build/wp-core/wphx-312-60/haxe/lib/wphx/wp/http/_HttpProcessResponse/HttpProcessResponse_Fields_.php"
     ],
+    "compiler_emitted_public_shell": {
+      "path": "build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php",
+      "manifest": "build/wp-core/wphx-312-60/generated/wphx-php-emission.v1.json",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "emitted_methods": [
+        "processResponse",
+        "chunkTransferDecode"
+      ],
+      "unsupported": []
+    },
     "promoted_symbols": [
       "WP_Http::processResponse header split before first CRLF CRLF",
       "WP_Http::processResponse body split after first CRLF CRLF",
-      "WP_Http::processResponse missing body default"
+      "WP_Http::processResponse missing body default",
+      "WP_Http::chunkTransferDecode chunk header detection",
+      "WP_Http::chunkTransferDecode chunk extension handling",
+      "WP_Http::chunkTransferDecode single chunk body decode",
+      "WP_Http::chunkTransferDecode malformed or non-chunk passthrough"
     ],
     "public_shell_policy": {
-      "public_php_replacement_claimed": false,
+      "public_php_replacement_claimed": true,
       "public_php_abi_preserved": true,
-      "shell_body_ownership": "temporary candidate shell preserves the WP_Http public static method ABI and PHP associative array return shape while delegating the CRLF-delimited response split decisions to generated Haxe PHP",
+      "shell_body_ownership": "compiler-emitted original-path class-wp-http.php shell preserves grouped WP_Http public static method ABIs, the PHP associative processResponse return shape, and the chunkTransferDecode string return shape while delegating observed parser decisions to generated Haxe PHP",
       "native_boundaries": [
-        "PHP associative array return shape",
-        "temporary original-path class-wp-http.php shell"
+        "compiler-emitted WP_Http public shell",
+        "stock Haxe PHP runtime bootstrap"
       ]
     }
   },
@@ -99,6 +147,10 @@
       {
         "id": "wp-http-parser:process-response",
         "focus": "processResponse splits headers from body at the first CRLF CRLF and defaults missing body to empty string"
+      },
+      {
+        "id": "wp-http-parser:chunk-transfer-decode",
+        "focus": "chunkTransferDecode decodes valid chunk bodies and returns malformed/non-chunk bodies unchanged"
       }
     ],
     "source_files": [
@@ -106,7 +158,7 @@
     ],
     "probe": {
       "path": "build/wp-core/wphx-312-60/probe.php",
-      "sha256": "sha256:5307a982e2d18f284cf2596b858cfb74efe9355fe4057ee2b955520caf60ca1c"
+      "sha256": "sha256:3cb7c7bfa69a7cb0d45e2f8522e10f65f01f7ae9c2fbb7e9452893403aaa6c97"
     },
     "side_effect_policy": {
       "external_network_io": false,
@@ -118,12 +170,12 @@
   },
   "build": {
     "oracle_root": "build/wp-core/wphx-312-60/oracle",
-    "candidate_root": "build/wp-core/wphx-312-60/candidate",
+    "candidate_root": "build/wp-core/wphx-312-60/generated",
     "php_lint": [
       {
         "path": "src/wp-includes/class-wp-http.php",
         "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-60/oracle/wp-includes/class-wp-http.php",
-        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-60/candidate/wp-includes/class-wp-http.php"
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php"
       }
     ]
   },
@@ -144,6 +196,23 @@
           "split_body_keeps_later_delimiter": true,
           "missing_body_defaults_empty": true
         }
+      },
+      "wp-http-parser:chunk-transfer-decode": {
+        "case": "wp-http-parser:chunk-transfer-decode",
+        "decoded": {
+          "valid": "Wikipedia",
+          "extension": "Test",
+          "inter_chunk_crlf": "4\r\nWiki\r\n5\r\npedia\r\n0",
+          "plain": "plain body",
+          "malformed": "4\r\nWiki\r\n5\r\nped"
+        },
+        "assertions": {
+          "valid_decoded": true,
+          "extension_decoded": true,
+          "inter_chunk_crlf_passthrough": true,
+          "plain_passthrough": true,
+          "malformed_passthrough": true
+        }
       }
     },
     "candidate": {
@@ -162,33 +231,52 @@
           "split_body_keeps_later_delimiter": true,
           "missing_body_defaults_empty": true
         }
+      },
+      "wp-http-parser:chunk-transfer-decode": {
+        "case": "wp-http-parser:chunk-transfer-decode",
+        "decoded": {
+          "valid": "Wikipedia",
+          "extension": "Test",
+          "inter_chunk_crlf": "4\r\nWiki\r\n5\r\npedia\r\n0",
+          "plain": "plain body",
+          "malformed": "4\r\nWiki\r\n5\r\nped"
+        },
+        "assertions": {
+          "valid_decoded": true,
+          "extension_decoded": true,
+          "inter_chunk_crlf_passthrough": true,
+          "plain_passthrough": true,
+          "malformed_passthrough": true
+        }
       }
     },
     "match": true,
-    "oracle_sha256": "sha256:438f524ff21c9449f6c3cd4bb65f91b90c7104c42121593cd69a5c511eb2f62d",
-    "candidate_sha256": "sha256:438f524ff21c9449f6c3cd4bb65f91b90c7104c42121593cd69a5c511eb2f62d",
+    "oracle_sha256": "sha256:374c2883c69a089c7e6e1ed84e4762620ad0c598f8c54bbf87929bf4718b337b",
+    "candidate_sha256": "sha256:374c2883c69a089c7e6e1ed84e4762620ad0c598f8c54bbf87929bf4718b337b",
     "assertions_pass": true
   },
   "remaining_gaps": [
     {
       "id": "broader-parser-header-helpers-not-promoted",
       "owner": "WPHX-312.60",
-      "detail": "This candidate promotes only WP_Http::processResponse split decisions. processHeaders, buildCookieHeader, chunkTransferDecode, parse_url, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or future candidates."
+      "detail": "This grouped candidate promotes only WP_Http::processResponse split decisions and WP_Http::chunkTransferDecode observed parser behavior. processHeaders, buildCookieHeader, protected parse_url, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or future candidates."
     },
     {
-      "id": "durable-public-php-adapter-not-yet-generated",
+      "id": "whole-wp-http-file-not-yet-owned",
       "owner": "WPHX-312.60",
-      "detail": "The candidate uses a bounded generated-PHP helper plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+      "detail": "This candidate generates only bounded parser helper adapters in class-wp-http.php. Broader WP_Http methods and whole-file original-path ownership remain later compiler-driven gates."
     }
   ],
   "ownership_manifest": "manifests/ownership/wphx-312-60-wp-http-process-response-candidate.v1.json",
   "validation_result": {
     "status": "passed",
-    "fixture_cases": 1,
-    "promoted_symbols": 3,
+    "fixture_cases": 2,
+    "promoted_symbols": 7,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "grouped_method_count": 2,
+    "public_php_replacement_claimed": true,
+    "compiler_emitted_public_php": true,
     "installed_wordpress_behavior_claimed": false,
     "live_http_claimed": false
   }
