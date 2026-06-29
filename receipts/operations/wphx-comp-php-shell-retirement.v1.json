@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.operations-receipt.v1",
+  "id": "receipt:wphx-comp-php-shell-retirement",
+  "issue": {
+    "id": "wordpresshx-7dr",
+    "external_ref": "WPHX-COMP-PHP-SHELL-RETIREMENT",
+    "title": "Add copied/JS-patched shell retirement policy"
+  },
+  "recorded_at": "2026-06-29T00:00:00Z",
+  "status": "captured",
+  "artifacts": [
+    {
+      "path": "docs/adr/ADR-001-php-emission-architecture.md",
+      "role": "ADR appendix defining public shell retirement states and durable-claim requirements"
+    },
+    {
+      "path": "docs/operations/ownership-state-model.md",
+      "role": "ownership model documentation for bridge_shell through whole_file_owned shell states"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation linking WPHX PHP durable claims to shell-retirement evidence"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "root agent directive requiring durable public PHP claims to cite the shell-retirement ladder"
+    },
+    {
+      "path": "docs/operations/agent-instructions.md",
+      "role": "expanded agent guidance for copied, transformed, hand-authored, and JS-patched public PHP shells"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program rollup recording the shell-retirement policy under WPHX-COMP"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:build",
+    "npm run receipts:validate",
+    "npm run beads:validate",
+    "npm run precommit"
+  ],
+  "shell_states": [
+    "bridge_shell",
+    "generated_helper_with_temporary_shell",
+    "compiler_emitted_original_path_shell",
+    "durable_public_adapter",
+    "whole_file_owned"
+  ],
+  "claims": [
+    "Copied, transformed, hand-authored, and JS-patched public PHP shells are bridge mechanisms, not durable public PHP ownership evidence.",
+    "The repository now defines allowed claims and removal gates for bridge_shell, generated_helper_with_temporary_shell, compiler_emitted_original_path_shell, durable_public_adapter, and whole_file_owned states.",
+    "Future durable public PHP claims must cite compiler-emitted original-path shell evidence, durable adapter evidence, whole-file evidence, or an accepted backend/custom-target improvement.",
+    "If a temporary shell would be reused for a second durable claim class, the policy requires a blocker and WPHX PHP or backend-lane promotion rather than normalizing the bridge."
+  ],
+  "non_claims": [
+    "This receipt does not promote any existing copied or JS-patched shell to durable public PHP ownership.",
+    "This receipt does not claim whole-file WP_Http ownership, mixed PHP/HTML template ownership, or full WP_Http::request ownership.",
+    "This receipt does not implement new compiler emission features."
+  ]
+}

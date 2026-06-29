@@ -122,6 +122,22 @@ Generated PHP adapters are not a temporary hack. The PHP compatibility-adapter r
 
 The in-repo WPHX PHP emitter is now the current implementation of this original-path adapter lane. It must remain bounded to WordPress-facing adapter generation unless a later ADR accepts a broader backend scope. If it begins lowering arbitrary Haxe programs, duplicating Haxe PHP runtime/stdlib behavior, or maintaining backend-scale semantics, stop and reassess whether to improve stock Haxe PHP, fork/augment the stock generator, or design a real custom PHP target.
 
+### Public Shell Retirement States
+
+Copied, transformed, hand-authored, or JavaScript-patched public PHP shells are bridge evidence. They can prove that a Haxe helper or adapter plan is plausible, but they cannot support a durable public PHP ownership claim by themselves.
+
+Use these shell states when documenting WordPress-facing public PHP boundaries:
+
+| State | Allowed claim | Required next/removal gate |
+|---|---|---|
+| `bridge_shell` | The shell preserves an oracle ABI or behavior boundary long enough to test surrounding Haxe logic. Runtime authority remains upstream PHP or temporary scaffolding. | Name the upstream source hash, bridge reason, and Beads issue that will replace the shell with Haxe-owned adapter generation or retire the boundary. |
+| `generated_helper_with_temporary_shell` | A Haxe helper owns a bounded behavior decision, but the public PHP file/method body is still copied, transformed, or patched. | Promote the public shell to `compiler_emitted_original_path_shell`, or document why the remaining public boundary must stay PHP-owned. |
+| `compiler_emitted_original_path_shell` | WPHX PHP, a macro/linker plan, or an accepted backend improvement emits the original-path public PHP adapter for the claimed symbol or script. | Add generated-shape snapshots, static/runtime ABI checks, behavior probes, unsupported-empty manifests, and ownership receipts before calling the adapter durable. |
+| `durable_public_adapter` | The public PHP adapter is generated from Haxe-owned semantics plus typed ABI/shell metadata and has enough receipts for the claimed boundary. | Broaden only by adding neighboring symbols/effects through the same gates; whole-file ownership remains unclaimed until all file-level declarations and side effects are covered. |
+| `whole_file_owned` | The whole original WordPress public file is generated or otherwise owned by Haxe/WPHX inputs, including declarations, top-level effects, include timing, warnings, globals, output, and return behavior. | Keep installed distribution, plugin/theme, upstream PHPUnit or equivalent, source-map/stack-trace, and rebuild determinism gates current. |
+
+A durable public PHP claim must cite `compiler_emitted_original_path_shell`, `durable_public_adapter`, `whole_file_owned`, or a documented generic backend/custom-target improvement. If a copied or JS-patched shell is needed for a second durable claim on the same boundary class, file a blocker instead of normalizing the bridge.
+
 ### Backend Fork
 
 A Haxe PHP backend fork is allowed only after a minimized generic blocker proves that ordinary Haxe, target-specific APIs, macros, and the linker cannot preserve behavior safely or efficiently.

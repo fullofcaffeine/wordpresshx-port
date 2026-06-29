@@ -16,6 +16,8 @@ Do not assume stock Haxe PHP can directly generate public WordPress Core files w
 
 Use the native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` as an implementation oracle for generic, borrowable lowering/runtime behavior when useful. That reference can guide what to reuse or adapt; WordPress public ABI, original path topology, declaration timing, and ecosystem-visible behavior still require WordPress oracle fixtures and WPHX public-shell evidence.
 
+Copied, transformed, hand-authored, or JS-patched public PHP shells are bridge mechanisms only. The shell-retirement states in [ownership-state-model.md](ownership-state-model.md) define which claims are allowed for `bridge_shell`, `generated_helper_with_temporary_shell`, `compiler_emitted_original_path_shell`, `durable_public_adapter`, and `whole_file_owned`. Durable public PHP claims must cite compiler-emitted original-path shell evidence, durable adapter evidence, whole-file evidence, or an accepted backend/custom-target improvement.
+
 When a feature is admitted, decide whether it belongs in the reusable PHP compiler core or the WordPress profile. Generic expression lowering, loops, conditionals, calls, object construction, arrays, casts, std/php interop, and idiomatic PHP formatting belong in the reusable core. Original WordPress paths, pluggable declaration timing, public ABI manifests, and compatibility-host profile adapters belong in the WordPress profile.
 
 ## Current Invocation
