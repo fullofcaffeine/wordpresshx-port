@@ -1,0 +1,78 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-06-wp-http-build-cookie-header",
+  "issue": "WPHX-COMP-PHP.06",
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:wp-http-build-cookie-header:check",
+    "npm run wphx:php:wp-http-parser-helpers:check"
+  ],
+  "generated_files": [
+    {
+      "path": "build/wp-core/wphx-comp-php-06/generated/wp-includes/class-wp-http.php",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "methods": [
+        "WP_Http::buildCookieHeader"
+      ],
+      "probe": "PHP reflection verifies &$r; runtime probe verifies caller native-array mutation, scalar-to-WP_Http_Cookie upgrade, object preservation, wp_http_cookie_value filter payload/timing, and final Cookie header order."
+    }
+  ],
+  "source": [
+    "fixtures/wphx-php/wp-http-build-cookie-header.hxml",
+    "fixtures/wphx-php/wp-http-build-cookie-header-impl.hxml",
+    "src/wphx/compiler/php/WphxPhpCompiler.hx",
+    "src/wphx/wp/http/HttpCookieHeaderAssembly.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCookieHeaderAssemblyCandidateEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpBuildCookieHeaderEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpBuildCookieHeaderShell.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieHeaderAssembly.hx",
+    "tools/wphx-php/run-wp-http-build-cookie-header.mjs"
+  ],
+  "inputs": {
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/class-wp-http-cookie.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php",
+        "bytes": 7269,
+        "sha256": "sha256:d0b26c3bbd217273eb1b5074519194b804f47bd5712a8472bfd3bb5210d25607"
+      },
+      {
+        "path": "src/wp-includes/class-wp-http.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-http.php",
+        "bytes": 41648,
+        "sha256": "sha256:031eca4a468d625c82fe75b732a791ae4331fa63b5b243ffbee71930e64152ee"
+      }
+    ],
+    "wphx_php_manifest": {
+      "path": "build/wp-core/wphx-comp-php-06/generated/wphx-php-emission.v1.json",
+      "bytes": 571,
+      "sha256": "sha256:9d947b10a3ea49fd93d4c77eb18ea06aaa3f277f4c8abb9cb49abf9df6b526f4"
+    }
+  },
+  "validation_result": {
+    "status": "passed",
+    "observations_match": true,
+    "assertions_pass": true,
+    "shell_checks": {
+      "emitted_class": true,
+      "unsupported_empty": true,
+      "method_emitted": true,
+      "native_array_mutation": true,
+      "helper_delegation": true
+    }
+  },
+  "claims": [
+    "The WPHX PHP emitter can generate the original-path public WP_Http::buildCookieHeader(&$r) shell.",
+    "The generated shell preserves PHP-native by-reference request array mutation, scalar cookie upgrading, object preservation, filter payload/timing, and final Cookie header order.",
+    "The generated shell delegates only the Cookie header separator assembly to the existing Haxe helper.",
+    "The WPHX PHP emission manifest records class:WP_Http with unsupported=[]."
+  ],
+  "non_claims": [
+    "This does not claim whole-file WP_Http ownership.",
+    "This does not claim WP_Http::processHeaders generation, full WP_Http::request ownership, live HTTP transport, installed WordPress behavior, or broad template/include behavior.",
+    "The current buildCookieHeader adapter is a WordPress profile pressure feature; the compiler direction remains a reusable modern PHP/Reflaxe core plus WordPress profile constraints."
+  ]
+}

@@ -1,6 +1,6 @@
 # WPHX PHP Compiler
 
-`WPHX-COMP-PHP` starts the in-repo custom PHP emitter for WordPress-shaped public files.
+`WPHX-COMP-PHP` starts the in-repo custom PHP emitter for WordPress-shaped public files. The intended long-term shape is a modern Reflaxe PHP compiler core plus a WordPress compatibility profile, not a WordPress-only text generator.
 
 The compiler is a Haxe/Reflaxe module under `src/wphx/compiler/php`. It uses Reflaxe manual output so emitted file paths can be WordPress distribution paths such as `wp-includes/*.php`, not merely Haxe package paths. Reflaxe is loaded through the explicit classpath recorded in `toolchain.lock.json` and `upstream.lock.json`.
 
@@ -14,6 +14,8 @@ Do not assume stock Haxe PHP can directly generate public WordPress Core files w
 
 Use the native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` as an implementation oracle for generic, borrowable lowering/runtime behavior when useful. That reference can guide what to reuse or adapt; WordPress public ABI, original path topology, declaration timing, and ecosystem-visible behavior still require WordPress oracle fixtures and WPHX public-shell evidence.
 
+When a feature is admitted, decide whether it belongs in the reusable PHP compiler core or the WordPress profile. Generic expression lowering, loops, conditionals, calls, object construction, arrays, casts, std/php interop, and idiomatic PHP formatting belong in the reusable core. Original WordPress paths, pluggable declaration timing, public ABI manifests, and compatibility-host profile adapters belong in the WordPress profile.
+
 ## Current Invocation
 
 ```bash
@@ -25,6 +27,8 @@ npm run wphx:php:f4
 npm run wphx:php:f4:check
 npm run wphx:php:byref-arg
 npm run wphx:php:byref-arg:check
+npm run wphx:php:wp-http-build-cookie-header
+npm run wphx:php:wp-http-build-cookie-header:check
 npm run wphx:php:wp-http-parser-helpers
 npm run wphx:php:wp-http-parser-helpers:check
 npm run wphx:php:wp-http-chunk-transfer-decode
@@ -68,6 +72,15 @@ haxe fixtures/wphx-php/byref-arg.hxml
 
 It emits `build/wphx-php/byref-arg/generated/wp-includes/wphx-byref.php`, lints that PHP, verifies PHP reflection sees `&$value`, verifies the neighboring default parameter remains intact, and executes the generated function to prove the caller variable mutates through the reference. This is a generic compiler step toward WordPress helpers such as `WP_Http::buildCookieHeader( &$r )`, not a claim over that helper yet.
 
+The first generated `WP_Http::buildCookieHeader( &$r )` driver compiles a stock Haxe PHP helper plus a WPHX original-path public shell:
+
+```bash
+haxe fixtures/wphx-php/wp-http-build-cookie-header-impl.hxml
+haxe fixtures/wphx-php/wp-http-build-cookie-header.hxml
+```
+
+The runner emits `build/wp-core/wphx-comp-php-06/generated/wp-includes/class-wp-http.php`, lints that PHP, verifies PHP reflection sees `&$r`, compares against the copied WordPress oracle for caller native-array mutation, scalar-to-`WP_Http_Cookie` upgrading, object preservation, `wp_http_cookie_value` filter payload/timing, final Cookie header order, and verifies the WPHX PHP manifest records `class:WP_Http` with no unsupported constructs. This is a WordPress profile pressure feature over native PHP arrays and references; the durable compiler direction is to promote the underlying loops, array access/mutation, casts, object construction, and assignments into reusable PHP-core IR nodes.
+
 The first WordPress Core public-method driver reuses the WPHX-312.61 chunk-transfer fixture:
 
 ```bash
@@ -98,6 +111,8 @@ typed Haxe source and metadata
 The v0 IR in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the proven public-shell shapes: original-path files, guarded global functions, classes/interfaces, methods, properties, constants, Haxe bootstrap markers, protected methods, by-reference parameters, and manifest declarations.
 
 This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected nodes are native PHP array mutation/default-shape lowering for `WP_Http::buildCookieHeader`, conditionals/loops for richer `processHeaders`, conditional declaration segments, and include-time side-effect/script nodes.
+
+`WPHX-COMP-PHP.06` adds the first generated `WP_Http::buildCookieHeader( &$r )` original-path shell. It is a WordPress profile pressure gate over native PHP array mutation, scalar cookie upgrading, `WP_Http_Cookie` object preservation, filter timing, and helper delegation. The durable direction is to replace profile-specific pressure bodies with reusable PHP-core IR nodes for loops, native array access/mutation, casts, object construction, and assignments as those features are proven.
 
 ## First Contract
 

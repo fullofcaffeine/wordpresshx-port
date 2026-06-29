@@ -72,6 +72,11 @@ private typedef AdapterFilePlan =
 	final declarations:Array<AdapterDeclaration>;
 }
 
+private enum AdapterMethodBody
+{
+	TypedExprMethodBody(expr:TypedExpr);
+}
+
 private typedef EmissionManifest =
 {
 	final schema:String;
@@ -459,7 +464,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			final visibility = phpVisibility(field) ?? "public";
 			lines.push("\t" + visibility + " static function " + phpIdent(field.name) + "(" + emitArgs(fn.args) + ")");
 			lines.push("\t{");
-			lines.push(indent(emitBody(fn.expr), "\t\t"));
+			lines.push(indent(emitMethodBody(field, TypedExprMethodBody(fn.expr)), "\t\t"));
 			lines.push("\t}");
 		}
 
@@ -522,6 +527,63 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			return decl;
 		}
 		return "if (!interface_exists('" + pending.phpName + "', false)) {\n" + indent(decl) + "\n}";
+	}
+
+	function emitMethodBody(field:ClassField, body:AdapterMethodBody):String
+	{
+		final adapter = metadataString(field.meta.get(), "wp.adapter");
+		if (adapter != null)
+		{
+			return switch (adapter)
+			{
+				case "wp-http-build-cookie-header":
+					emitWpHttpBuildCookieHeaderBody(field);
+				case _:
+					reportUnsupported("unsupported WPHX PHP method adapter " + adapter + " for " + field.name);
+					"";
+			}
+		}
+
+		return switch (body)
+		{
+			case TypedExprMethodBody(expr):
+				emitBody(expr);
+		}
+	}
+
+	// WordPress profile adapter. Keep these pressure bodies narrow until the
+	// reusable PHP core grows the generic IR nodes for loops, native arrays,
+	// object construction, casts, and assignments.
+	function emitWpHttpBuildCookieHeaderBody(field:ClassField):String
+	{
+		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
+		if (helper == null)
+		{
+			reportUnsupported("missing @:wp.haxeHelper for WP_Http::buildCookieHeader adapter " + field.name);
+			return "";
+		}
+
+		return [
+			"if ( ! empty( $r['cookies'] ) ) {",
+			"\tforeach ( $r['cookies'] as $name => $value ) {",
+			"\t\tif ( ! is_object( $value ) ) {",
+			"\t\t\t$r['cookies'][ $name ] = new WP_Http_Cookie(",
+			"\t\t\t\tarray(",
+			"\t\t\t\t\t'name'  => $name,",
+			"\t\t\t\t\t'value' => $value,",
+			"\t\t\t\t)",
+			"\t\t\t);",
+			"\t\t}",
+			"\t}",
+			"",
+			"\t$cookies_header = '';",
+			"\tforeach ( (array) $r['cookies'] as $cookie ) {",
+			"\t\t$cookies_header = " + helper + "::appendCookieHeader( $cookies_header, $cookie->getHeaderValue() );",
+			"\t}",
+			"",
+			"\t$r['headers']['cookie'] = $cookies_header;",
+			"}"
+		].join("\n");
 	}
 
 	function emitInheritance(classType:ClassType):String
