@@ -1,0 +1,610 @@
+{
+  "schema": "wphx.wp-core-block-parser-render-oracle-fixture.v1",
+  "issue": "WPHX-314.03",
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "generator": "tools/wp-core/run-block-parser-render-oracle-fixture.mjs",
+  "evidence_class": "oracle_source_mirror",
+  "artifact_scope": "helper",
+  "inputs": {
+    "surface": {
+      "path": "manifests/wp-core/wphx-314-01-blocks-interactivity-surface.v1.json",
+      "bytes": 136288,
+      "sha256": "sha256:5041e65e848fa3246be418e78f44c7ae041144d7807cb49808dc0264f4e1dac4"
+    },
+    "adapter_contract": {
+      "path": "manifests/wp-core/wphx-314-02-blocks-interactivity-adapter-contract-candidate.v1.json",
+      "bytes": 20704,
+      "sha256": "sha256:455098435d2e51efb9a9a7e4ccec1e79c0b0619f7bea9b5fc9711bbea6105730"
+    },
+    "source_files": [
+      {
+        "path": "src/wp-includes/class-wp-block-parser-block.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-parser-block.php",
+        "bytes": 2555,
+        "sha256": "sha256:7e21f483cf0c9deddd2144e026842bf906c72983908f7bd163c0716e8f6f325e"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block-parser-frame.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-parser-frame.php",
+        "bytes": 1994,
+        "sha256": "sha256:3a66c88fa2397a842884908d83d1d03e5cb9cfb23fbb6d3cdf573bcd1520f0ae"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block-parser.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-parser.php",
+        "bytes": 11520,
+        "sha256": "sha256:dc641c682a703efa3909990bb32e66e3bfd98a1fa1793c192a71f63593664487"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block-type.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-type.php",
+        "bytes": 17233,
+        "sha256": "sha256:55c8ee65e17aa9fcd6ff27e97fdbe084f4dd818f156a3b4bd428d24ff6d0f233"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block-type-registry.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-type-registry.php",
+        "bytes": 5030,
+        "sha256": "sha256:b760f8ea6b79932d2b8132bf5f7db1ae6f447ee0e4f85e6689731a434a1a3df8"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block-list.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block-list.php",
+        "bytes": 4713,
+        "sha256": "sha256:0d27514f494f2e9cc8cefcf7ecbddd398eee9bbcb5145514a2c472934bf8f156"
+      },
+      {
+        "path": "src/wp-includes/class-wp-block.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-block.php",
+        "bytes": 24720,
+        "sha256": "sha256:108a02be5d2b0df9411c5b7b5fb02dd0c489a74ee2361c124e66498f5ecc285e"
+      },
+      {
+        "path": "src/wp-includes/blocks.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/blocks.php",
+        "bytes": 119442,
+        "sha256": "sha256:b8b44cb18d6ae7526a36fd3a5fd08c411f3af6c07aba85b3feb34563ed0ad321"
+      }
+    ]
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-includes/class-wp-block-parser-block.php",
+      "src/wp-includes/class-wp-block-parser-frame.php",
+      "src/wp-includes/class-wp-block-parser.php",
+      "src/wp-includes/class-wp-block-type.php",
+      "src/wp-includes/class-wp-block-type-registry.php",
+      "src/wp-includes/class-wp-block-list.php",
+      "src/wp-includes/class-wp-block.php",
+      "src/wp-includes/blocks.php"
+    ],
+    "covered_symbols": [
+      "parse_blocks",
+      "serialize_blocks",
+      "serialize_block",
+      "serialize_block_attributes",
+      "get_comment_delimited_block_content",
+      "strip_core_block_namespace",
+      "do_blocks",
+      "render_block",
+      "register_block_type",
+      "WP_Block_Parser",
+      "WP_Block_Parser_Block",
+      "WP_Block_Parser_Frame",
+      "WP_Block_Type",
+      "WP_Block_Type_Registry",
+      "WP_Block_List",
+      "WP_Block",
+      "pre_render_block",
+      "render_block_data",
+      "render_block_context",
+      "render_block",
+      "render_block_{$name}"
+    ],
+    "cases": [
+      {
+        "id": "block-parser:freeform-and-serialized",
+        "focus": "freeform plus serialized paragraph parse shape and serialization"
+      },
+      {
+        "id": "block-parser:nested-roundtrip",
+        "focus": "nested group/paragraph parse tree, innerContent markers, and serialize roundtrip"
+      },
+      {
+        "id": "block-render:dynamic-callback",
+        "focus": "registered dynamic callback, default attributes, content, block instance, and render filters"
+      },
+      {
+        "id": "block-render:pre-render-filter",
+        "focus": "pre_render_block short-circuit before WP_Block instantiation"
+      },
+      {
+        "id": "block-render:do-blocks",
+        "focus": "do_blocks parse/render aggregation and wpautop hook removal handoff"
+      }
+    ],
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "semantic_owner": "upstream_php_oracle_mirrored",
+      "durable_adapter_owner": "not_claimed",
+      "browser_or_gutenberg_ownership_claimed": false,
+      "removal_gate": "Replace copied candidate PHP with Haxe-owned parser/render decisions plus generated original-path adapters and rerun this oracle fixture before claiming public PHP ownership."
+    }
+  },
+  "runs": [
+    {
+      "id": "block-parser:freeform-and-serialized",
+      "focus": "freeform plus serialized paragraph parse shape and serialization",
+      "oracle": {
+        "case": "block-parser:freeform-and-serialized",
+        "summary": [
+          {
+            "name": null,
+            "attrs": [],
+            "innerHTML": "Before\n",
+            "innerCount": 0,
+            "contentTags": [
+              "Before\n"
+            ]
+          },
+          {
+            "name": "core/paragraph",
+            "attrs": {
+              "align": "center"
+            },
+            "innerHTML": "<p>Hello</p>",
+            "innerCount": 0,
+            "contentTags": [
+              "<p>Hello</p>"
+            ]
+          },
+          {
+            "name": null,
+            "attrs": [],
+            "innerHTML": "\nAfter",
+            "innerCount": 0,
+            "contentTags": [
+              "\nAfter"
+            ]
+          }
+        ],
+        "serialized": "Before\n<!-- wp:paragraph {\"align\":\"center\"} --><p>Hello</p><!-- /wp:paragraph -->\nAfter",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "candidate": {
+        "case": "block-parser:freeform-and-serialized",
+        "summary": [
+          {
+            "name": null,
+            "attrs": [],
+            "innerHTML": "Before\n",
+            "innerCount": 0,
+            "contentTags": [
+              "Before\n"
+            ]
+          },
+          {
+            "name": "core/paragraph",
+            "attrs": {
+              "align": "center"
+            },
+            "innerHTML": "<p>Hello</p>",
+            "innerCount": 0,
+            "contentTags": [
+              "<p>Hello</p>"
+            ]
+          },
+          {
+            "name": null,
+            "attrs": [],
+            "innerHTML": "\nAfter",
+            "innerCount": 0,
+            "contentTags": [
+              "\nAfter"
+            ]
+          }
+        ],
+        "serialized": "Before\n<!-- wp:paragraph {\"align\":\"center\"} --><p>Hello</p><!-- /wp:paragraph -->\nAfter",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "matches": true
+    },
+    {
+      "id": "block-parser:nested-roundtrip",
+      "focus": "nested group/paragraph parse tree, innerContent markers, and serialize roundtrip",
+      "oracle": {
+        "case": "block-parser:nested-roundtrip",
+        "summary": [
+          {
+            "name": "core/group",
+            "attrs": {
+              "layout": {
+                "type": "constrained"
+              }
+            },
+            "innerHTML": "<div class=\"wp-block-group\"></div>",
+            "innerCount": 1,
+            "contentTags": [
+              "<div class=\"wp-block-group\">",
+              null,
+              "</div>"
+            ]
+          }
+        ],
+        "child": [
+          {
+            "name": "core/paragraph",
+            "attrs": [],
+            "innerHTML": "<p>Nested</p>",
+            "innerCount": 0,
+            "contentTags": [
+              "<p>Nested</p>"
+            ]
+          }
+        ],
+        "serialized": "<!-- wp:group {\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group\"><!-- wp:paragraph --><p>Nested</p><!-- /wp:paragraph --></div><!-- /wp:group -->",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "candidate": {
+        "case": "block-parser:nested-roundtrip",
+        "summary": [
+          {
+            "name": "core/group",
+            "attrs": {
+              "layout": {
+                "type": "constrained"
+              }
+            },
+            "innerHTML": "<div class=\"wp-block-group\"></div>",
+            "innerCount": 1,
+            "contentTags": [
+              "<div class=\"wp-block-group\">",
+              null,
+              "</div>"
+            ]
+          }
+        ],
+        "child": [
+          {
+            "name": "core/paragraph",
+            "attrs": [],
+            "innerHTML": "<p>Nested</p>",
+            "innerCount": 0,
+            "contentTags": [
+              "<p>Nested</p>"
+            ]
+          }
+        ],
+        "serialized": "<!-- wp:group {\"layout\":{\"type\":\"constrained\"}} --><div class=\"wp-block-group\"><!-- wp:paragraph --><p>Nested</p><!-- /wp:paragraph --></div><!-- /wp:group -->",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "matches": true
+    },
+    {
+      "id": "block-render:dynamic-callback",
+      "focus": "registered dynamic callback, default attributes, content, block instance, and render filters",
+      "oracle": {
+        "case": "block-render:dynamic-callback",
+        "rendered": "DYNAMIC:default-message:<span>Inner</span>:ctx=ctx|filter:render_block|filter:render_block_wphx/dynamic",
+        "filters": [
+          {
+            "hook": "register_block_type_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_data",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_context",
+            "arg_count": 3
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "interactivity_process_directives",
+            "arg_count": 1
+          },
+          {
+            "hook": "render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_wphx/dynamic",
+            "arg_count": 3
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "candidate": {
+        "case": "block-render:dynamic-callback",
+        "rendered": "DYNAMIC:default-message:<span>Inner</span>:ctx=ctx|filter:render_block|filter:render_block_wphx/dynamic",
+        "filters": [
+          {
+            "hook": "register_block_type_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_data",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_context",
+            "arg_count": 3
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "interactivity_process_directives",
+            "arg_count": 1
+          },
+          {
+            "hook": "render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_wphx/dynamic",
+            "arg_count": 3
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "matches": true
+    },
+    {
+      "id": "block-render:pre-render-filter",
+      "focus": "pre_render_block short-circuit before WP_Block instantiation",
+      "oracle": {
+        "case": "block-render:pre-render-filter",
+        "rendered": "PRE:wphx/unknown",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "candidate": {
+        "case": "block-render:pre-render-filter",
+        "rendered": "PRE:wphx/unknown",
+        "filters": [
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          }
+        ],
+        "actions": [],
+        "assets": [],
+        "wrong": []
+      },
+      "matches": true
+    },
+    {
+      "id": "block-render:do-blocks",
+      "focus": "do_blocks parse/render aggregation and wpautop hook removal handoff",
+      "oracle": {
+        "case": "block-render:do-blocks",
+        "rendered": "DYNAMIC:custom:<strong>Body</strong>:ctx=ctx|filter:render_block|filter:render_block_wphx/dynamic",
+        "filters": [
+          {
+            "hook": "register_block_type_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_data",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_context",
+            "arg_count": 3
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "interactivity_process_directives",
+            "arg_count": 1
+          },
+          {
+            "hook": "render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_wphx/dynamic",
+            "arg_count": 3
+          }
+        ],
+        "actions": [
+          {
+            "hook": "remove_filter:the_content",
+            "callback": "wpautop",
+            "priority": 10
+          },
+          {
+            "hook": "add_filter:the_content",
+            "callback": "_restore_wpautop_hook",
+            "priority": 11
+          }
+        ],
+        "assets": [],
+        "wrong": []
+      },
+      "candidate": {
+        "case": "block-render:do-blocks",
+        "rendered": "DYNAMIC:custom:<strong>Body</strong>:ctx=ctx|filter:render_block|filter:render_block_wphx/dynamic",
+        "filters": [
+          {
+            "hook": "register_block_type_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "block_parser_class",
+            "arg_count": 1
+          },
+          {
+            "hook": "pre_render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_data",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_context",
+            "arg_count": 3
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "get_block_type_uses_context",
+            "arg_count": 2
+          },
+          {
+            "hook": "interactivity_process_directives",
+            "arg_count": 1
+          },
+          {
+            "hook": "render_block",
+            "arg_count": 3
+          },
+          {
+            "hook": "render_block_wphx/dynamic",
+            "arg_count": 3
+          }
+        ],
+        "actions": [
+          {
+            "hook": "remove_filter:the_content",
+            "callback": "wpautop",
+            "priority": 10
+          },
+          {
+            "hook": "add_filter:the_content",
+            "callback": "_restore_wpautop_hook",
+            "priority": 11
+          }
+        ],
+        "assets": [],
+        "wrong": []
+      },
+      "matches": true
+    }
+  ],
+  "remaining_gaps": [
+    {
+      "id": "block-supports-bindings-interactivity-full-semantics-not-covered",
+      "owner": "WPHX-314.03",
+      "detail": "The fixture stubs support, binding, asset, and interactivity boundaries to keep parser/render behavior deterministic. Dedicated supports, bindings, style engine, HTML API, interactivity, and core block renderer fixtures remain required."
+    },
+    {
+      "id": "installed-block-distribution-not-covered",
+      "owner": "WPHX-314.03",
+      "detail": "No installed front-end, admin/editor, REST, browser/Gutenberg package, theme.json, global styles, or database-backed block behavior is claimed."
+    },
+    {
+      "id": "public-php-adapter-not-generated",
+      "owner": "WPHX-314.03",
+      "detail": "No original-path block parser/render public PHP adapter replacement is claimed; candidate files are copied upstream PHP source for bridge evidence."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-314-03-block-parser-render-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "covered_symbol_count": 21,
+    "source_file_count": 8,
+    "oracle_candidate_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
