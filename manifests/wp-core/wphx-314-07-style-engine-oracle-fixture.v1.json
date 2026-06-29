@@ -1,0 +1,421 @@
+{
+  "schema": "wphx.wp_core.style_engine_oracle_fixture.v1",
+  "issue": {
+    "id": "wordpresshx-l76.20.1",
+    "external_ref": "WPHX-314.07",
+    "title": "WPHX-314.07 - Add style engine oracle fixture"
+  },
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "generator": {
+    "path": "tools/wp-core/run-style-engine-oracle-fixture.mjs",
+    "sha256": "sha256:fbac91e09dfae53a8287d4e53da5852e5478e73849bb9a4f8e8a8f09ef12610f",
+    "check_command": "npm run wp:core:wphx-314-style-engine-oracle-fixture:check"
+  },
+  "evidence_class": "copied_oracle_candidate_php_fixture",
+  "artifact_scope": {
+    "domain": "blocks_style_engine",
+    "public_php_replacement_claimed": false,
+    "haxe_runtime_logic_claimed": false,
+    "installed_block_parity_claimed": false,
+    "upstream_phpunit_pass_pass_claimed": false,
+    "browser_gutenberg_ownership_claimed": false
+  },
+  "inputs": {
+    "upstream_root": "../wordpress-develop",
+    "source_files": [
+      {
+        "path": "src/wp-includes/style-engine.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine.php",
+        "bytes": 7563,
+        "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+      },
+      {
+        "path": "src/wp-includes/style-engine/class-wp-style-engine-css-declarations.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine/class-wp-style-engine-css-declarations.php",
+        "bytes": 5345,
+        "sha256": "sha256:ac6c88398f047479e3d50d0195c2902523f810d48b71741636e405d7feebc384"
+      },
+      {
+        "path": "src/wp-includes/style-engine/class-wp-style-engine-css-rule.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine/class-wp-style-engine-css-rule.php",
+        "bytes": 6062,
+        "sha256": "sha256:af4d598e812fe0dcd4265f0ed828efa6b4d5881916cd18a0a473e3ff3df4266b"
+      },
+      {
+        "path": "src/wp-includes/style-engine/class-wp-style-engine-css-rules-store.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine/class-wp-style-engine-css-rules-store.php",
+        "bytes": 3764,
+        "sha256": "sha256:fdc702bd09971c04bbc394f7d9301e7adaa86d7ada809c1d94b29bff1568cd87"
+      },
+      {
+        "path": "src/wp-includes/style-engine/class-wp-style-engine-processor.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine/class-wp-style-engine-processor.php",
+        "bytes": 5390,
+        "sha256": "sha256:533e3ea7966c97fa1978856e11b485e0cb2239dca58de797024ef97d50aa31e8"
+      },
+      {
+        "path": "src/wp-includes/style-engine/class-wp-style-engine.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/style-engine/class-wp-style-engine.php",
+        "bytes": 28558,
+        "sha256": "sha256:a1df14b73b4224855fad56e55ec7f3bc4e2d0dca13f2041c3ff8e89625610da5"
+      }
+    ],
+    "prior_evidence": [
+      {
+        "path": "manifests/wp-core/wphx-314-01-blocks-interactivity-surface.v1.json",
+        "bytes": 136288,
+        "sha256": "sha256:5041e65e848fa3246be418e78f44c7ae041144d7807cb49808dc0264f4e1dac4"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-02-blocks-interactivity-adapter-contract-candidate.v1.json",
+        "bytes": 20704,
+        "sha256": "sha256:455098435d2e51efb9a9a7e4ccec1e79c0b0619f7bea9b5fc9711bbea6105730"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-03-block-parser-render-oracle-fixture.v1.json",
+        "bytes": 18515,
+        "sha256": "sha256:daa984fef6c448b8f5d24c718b1e6b7e4a19a54542b2e011e1ae68d3a669d10e"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-04-block-supports-bindings-oracle-fixture.v1.json",
+        "bytes": 52295,
+        "sha256": "sha256:12b652f06a3594d3c2a1c5c7b8aebb85cd79dbb6c4f008b4f1f1db98588e3068"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-05-block-patterns-registry-oracle-fixture.v1.json",
+        "bytes": 31390,
+        "sha256": "sha256:b85257f718f02e9909b86acc8259ad294eaa44a71e1469f8a04961cc038f8909"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-06-block-hooks-insertion-oracle-fixture.v1.json",
+        "bytes": 123116,
+        "sha256": "sha256:05410625baa63bc48b4305ad3d2dc16add6c716be8061fa64cb1f1893f23e34c"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "style-engine:declarations-sanitize-compile",
+        "focus": "declaration filtering, non-string skips, removal, compact and pretty output"
+      },
+      {
+        "id": "style-engine:css-rule-nested-pretty",
+        "focus": "CSS rule compilation with selector lists and nested rules_group output"
+      },
+      {
+        "id": "style-engine:processor-optimize",
+        "focus": "processor rule merge behavior and optimized selector combining"
+      },
+      {
+        "id": "style-engine:public-styles-store",
+        "focus": "public helper preset conversion, classnames, selector CSS, and context storage"
+      },
+      {
+        "id": "style-engine:stylesheet-rules-groups",
+        "focus": "stylesheet helper with nested groups and context store replay"
+      },
+      {
+        "id": "style-engine:store-lifecycle",
+        "focus": "store creation, invalid selector skip, rule removal, and static store registry behavior"
+      }
+    ],
+    "covered_symbols": [
+      "wp_style_engine_get_styles",
+      "wp_style_engine_get_stylesheet_from_css_rules",
+      "wp_style_engine_get_stylesheet_from_context",
+      "WP_Style_Engine",
+      "WP_Style_Engine::parse_block_styles",
+      "WP_Style_Engine::compile_css",
+      "WP_Style_Engine::compile_stylesheet_from_css_rules",
+      "WP_Style_Engine::store_css_rule",
+      "WP_Style_Engine::get_store",
+      "WP_Style_Engine_CSS_Declarations",
+      "WP_Style_Engine_CSS_Declarations::add_declaration",
+      "WP_Style_Engine_CSS_Declarations::remove_declaration",
+      "WP_Style_Engine_CSS_Declarations::get_declarations_string",
+      "WP_Style_Engine_CSS_Rule",
+      "WP_Style_Engine_CSS_Rule::get_css",
+      "WP_Style_Engine_CSS_Rules_Store",
+      "WP_Style_Engine_CSS_Rules_Store::get_store",
+      "WP_Style_Engine_CSS_Rules_Store::add_rule",
+      "WP_Style_Engine_CSS_Rules_Store::remove_rule",
+      "WP_Style_Engine_Processor",
+      "WP_Style_Engine_Processor::add_rules",
+      "WP_Style_Engine_Processor::get_css"
+    ],
+    "deterministic_boundaries": [
+      "WordPress 7.0 PHP style-engine sources are mirrored into oracle and candidate roots.",
+      "Core helpers outside the style-engine ownership boundary are deterministic test stubs for parsing, sanitization, translation, JSON, and array-path access.",
+      "The fixture observes declarations, rule formatting, nested rule groups, store mutation, preset-derived classnames, and public helper wrappers without replacing WordPress style engine logic.",
+      "Global styles/theme.json, HTML API, interactivity directives, installed block rendering, and browser/Gutenberg behavior remain outside this slice."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "root": "build/wp-core/wphx-314-07/oracle",
+      "probe": "build/wp-core/wphx-314-07/oracle/probe.php",
+      "probe_sha256": "sha256:9f5481baa48eba42e2e14e3c646e04e78fe74888f1c5a52ac3befb3a46e9068d",
+      "source_files": [
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine.php",
+          "bytes": 7563,
+          "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine/class-wp-style-engine-css-declarations.php",
+          "bytes": 5345,
+          "sha256": "sha256:ac6c88398f047479e3d50d0195c2902523f810d48b71741636e405d7feebc384"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine/class-wp-style-engine-css-rule.php",
+          "bytes": 6062,
+          "sha256": "sha256:af4d598e812fe0dcd4265f0ed828efa6b4d5881916cd18a0a473e3ff3df4266b"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine/class-wp-style-engine-css-rules-store.php",
+          "bytes": 3764,
+          "sha256": "sha256:fdc702bd09971c04bbc394f7d9301e7adaa86d7ada809c1d94b29bff1568cd87"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine/class-wp-style-engine-processor.php",
+          "bytes": 5390,
+          "sha256": "sha256:533e3ea7966c97fa1978856e11b485e0cb2239dca58de797024ef97d50aa31e8"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/oracle/wp-includes/style-engine/class-wp-style-engine.php",
+          "bytes": 28558,
+          "sha256": "sha256:a1df14b73b4224855fad56e55ec7f3bc4e2d0dca13f2041c3ff8e89625610da5"
+        }
+      ],
+      "observations": [
+        {
+          "case": "style-engine:declarations-sanitize-compile",
+          "observation": {
+            "declarations": {
+              "color": "red",
+              "font-size": "16px",
+              "background-image": "url(javascript:alert(1))",
+              "custom_property": "calc(100% - 1rem)",
+              "margin-top": "0"
+            },
+            "compact": "color:red;font-size:16px;custom_property:calc(100% - 1rem);margin-top:0;",
+            "pretty": "\tcolor: red;\n\tfont-size: 16px;\n\tcustom_property: calc(100% - 1rem);\n\tmargin-top: 0;"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:css-rule-nested-pretty",
+          "observation": {
+            "selector": ".wp-block-alpha, .wp-block-beta",
+            "rules_group": "@media (min-width: 600px)",
+            "compact": "@media (min-width: 600px){.wp-block-alpha, .wp-block-beta{color:red;padding:1rem;}}",
+            "pretty": "@media (min-width: 600px) {\n\t.wp-block-alpha,\n.wp-block-beta {\n\t\tcolor: red;\n\t\tpadding: 1rem;\n\t}\n}"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:processor-optimize",
+          "observation": {
+            "plain": ".alpha{color:red;padding:1rem;}.beta{padding:1rem;color:red;}.gamma{color:blue;}",
+            "optimized": ".gamma{color:blue;}.alpha,.beta{color:red;padding:1rem;}",
+            "wrong": []
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:public-styles-store",
+          "observation": {
+            "output": {
+              "css": ".wp-block-wphx{color:var(--wp--preset--color--primary-blue);background-color:#ffffff;aspect-ratio:16/9;padding-top:var(--wp--preset--spacing--50);padding-right:2rem;padding-bottom:0;font-size:var(--wp--preset--font-size--display-large);text-indent:1ch;}",
+              "declarations": {
+                "color": "var(--wp--preset--color--primary-blue)",
+                "background-color": "#ffffff",
+                "aspect-ratio": "16/9",
+                "padding-top": "var(--wp--preset--spacing--50)",
+                "padding-right": "2rem",
+                "padding-bottom": "0",
+                "font-size": "var(--wp--preset--font-size--display-large)",
+                "text-indent": "1ch"
+              },
+              "classnames": "has-text-color has-primary-blue-color has-background has-aspect-ratio has-display-large-font-size"
+            },
+            "context_stylesheet": ".wp-block-wphx{color:var(--wp--preset--color--primary-blue);background-color:#ffffff;aspect-ratio:16/9;padding-top:var(--wp--preset--spacing--50);padding-right:2rem;padding-bottom:0;font-size:var(--wp--preset--font-size--display-large);text-indent:1ch;}",
+            "stores": [
+              "block-supports"
+            ]
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:stylesheet-rules-groups",
+          "observation": {
+            "compiled": ".entry-title{color:red;}@media (min-width: 48rem){.entry-title{font-size:2rem;}}",
+            "context": ".entry-title {\n\tcolor: red;\n}\n@media (min-width: 48rem) {\n\t.entry-title {\n\t\tfont-size: 2rem;\n\t}\n}\n"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:store-lifecycle",
+          "observation": {
+            "name": "fixture",
+            "blank_is_null": true,
+            "before": [
+              ".fixture",
+              "@layer components .fixture"
+            ],
+            "after": [
+              "@layer components .fixture"
+            ],
+            "invalid_store": true,
+            "stores": [
+              "fixture"
+            ]
+          },
+          "wrong": []
+        }
+      ]
+    },
+    "candidate": {
+      "root": "build/wp-core/wphx-314-07/candidate",
+      "probe": "build/wp-core/wphx-314-07/candidate/probe.php",
+      "probe_sha256": "sha256:9f5481baa48eba42e2e14e3c646e04e78fe74888f1c5a52ac3befb3a46e9068d",
+      "source_files": [
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine.php",
+          "bytes": 7563,
+          "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine/class-wp-style-engine-css-declarations.php",
+          "bytes": 5345,
+          "sha256": "sha256:ac6c88398f047479e3d50d0195c2902523f810d48b71741636e405d7feebc384"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine/class-wp-style-engine-css-rule.php",
+          "bytes": 6062,
+          "sha256": "sha256:af4d598e812fe0dcd4265f0ed828efa6b4d5881916cd18a0a473e3ff3df4266b"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine/class-wp-style-engine-css-rules-store.php",
+          "bytes": 3764,
+          "sha256": "sha256:fdc702bd09971c04bbc394f7d9301e7adaa86d7ada809c1d94b29bff1568cd87"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine/class-wp-style-engine-processor.php",
+          "bytes": 5390,
+          "sha256": "sha256:533e3ea7966c97fa1978856e11b485e0cb2239dca58de797024ef97d50aa31e8"
+        },
+        {
+          "path": "build/wp-core/wphx-314-07/candidate/wp-includes/style-engine/class-wp-style-engine.php",
+          "bytes": 28558,
+          "sha256": "sha256:a1df14b73b4224855fad56e55ec7f3bc4e2d0dca13f2041c3ff8e89625610da5"
+        }
+      ],
+      "observations": [
+        {
+          "case": "style-engine:declarations-sanitize-compile",
+          "observation": {
+            "declarations": {
+              "color": "red",
+              "font-size": "16px",
+              "background-image": "url(javascript:alert(1))",
+              "custom_property": "calc(100% - 1rem)",
+              "margin-top": "0"
+            },
+            "compact": "color:red;font-size:16px;custom_property:calc(100% - 1rem);margin-top:0;",
+            "pretty": "\tcolor: red;\n\tfont-size: 16px;\n\tcustom_property: calc(100% - 1rem);\n\tmargin-top: 0;"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:css-rule-nested-pretty",
+          "observation": {
+            "selector": ".wp-block-alpha, .wp-block-beta",
+            "rules_group": "@media (min-width: 600px)",
+            "compact": "@media (min-width: 600px){.wp-block-alpha, .wp-block-beta{color:red;padding:1rem;}}",
+            "pretty": "@media (min-width: 600px) {\n\t.wp-block-alpha,\n.wp-block-beta {\n\t\tcolor: red;\n\t\tpadding: 1rem;\n\t}\n}"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:processor-optimize",
+          "observation": {
+            "plain": ".alpha{color:red;padding:1rem;}.beta{padding:1rem;color:red;}.gamma{color:blue;}",
+            "optimized": ".gamma{color:blue;}.alpha,.beta{color:red;padding:1rem;}",
+            "wrong": []
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:public-styles-store",
+          "observation": {
+            "output": {
+              "css": ".wp-block-wphx{color:var(--wp--preset--color--primary-blue);background-color:#ffffff;aspect-ratio:16/9;padding-top:var(--wp--preset--spacing--50);padding-right:2rem;padding-bottom:0;font-size:var(--wp--preset--font-size--display-large);text-indent:1ch;}",
+              "declarations": {
+                "color": "var(--wp--preset--color--primary-blue)",
+                "background-color": "#ffffff",
+                "aspect-ratio": "16/9",
+                "padding-top": "var(--wp--preset--spacing--50)",
+                "padding-right": "2rem",
+                "padding-bottom": "0",
+                "font-size": "var(--wp--preset--font-size--display-large)",
+                "text-indent": "1ch"
+              },
+              "classnames": "has-text-color has-primary-blue-color has-background has-aspect-ratio has-display-large-font-size"
+            },
+            "context_stylesheet": ".wp-block-wphx{color:var(--wp--preset--color--primary-blue);background-color:#ffffff;aspect-ratio:16/9;padding-top:var(--wp--preset--spacing--50);padding-right:2rem;padding-bottom:0;font-size:var(--wp--preset--font-size--display-large);text-indent:1ch;}",
+            "stores": [
+              "block-supports"
+            ]
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:stylesheet-rules-groups",
+          "observation": {
+            "compiled": ".entry-title{color:red;}@media (min-width: 48rem){.entry-title{font-size:2rem;}}",
+            "context": ".entry-title {\n\tcolor: red;\n}\n@media (min-width: 48rem) {\n\t.entry-title {\n\t\tfont-size: 2rem;\n\t}\n}\n"
+          },
+          "wrong": []
+        },
+        {
+          "case": "style-engine:store-lifecycle",
+          "observation": {
+            "name": "fixture",
+            "blank_is_null": true,
+            "before": [
+              ".fixture",
+              "@layer components .fixture"
+            ],
+            "after": [
+              "@layer components .fixture"
+            ],
+            "invalid_store": true,
+            "stores": [
+              "fixture"
+            ]
+          },
+          "wrong": []
+        }
+      ]
+    },
+    "comparable_sha256": "sha256:8a3e04e5ccd3c6b29bd90ea274e4769d3953d4ee31c4244674597f5ba98568f4"
+  },
+  "remaining_gaps": [
+    "Haxe-owned runtime implementation for the style engine is not claimed.",
+    "Generated original-path public PHP adapter replacement is not claimed.",
+    "Global styles/theme.json resolver integration, layout/support serialization, HTML API tag processing, interactivity directives, installed block rendering, selected upstream PHPUnit pass/pass, editor/browser, and Gutenberg package ownership remain later gates.",
+    "Full HTML API/interactivity ownership remains outside this fixture."
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-314-07-style-engine-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "issue": "WPHX-314.07",
+    "case_count": 6,
+    "covered_symbol_count": 22,
+    "source_file_count": 6,
+    "oracle_candidate_match": true,
+    "public_php_replacement_claimed": false
+  }
+}
