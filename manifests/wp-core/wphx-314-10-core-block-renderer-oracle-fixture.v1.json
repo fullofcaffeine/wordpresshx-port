@@ -1,0 +1,650 @@
+{
+  "schema": "wphx.wp-core-core-block-renderer-oracle-fixture.v1",
+  "issue": "WPHX-314.10",
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "generator": "tools/wp-core/run-core-block-renderer-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_source_mirror",
+    "candidate_package_mirror",
+    "php_cli_observed_fixture"
+  ],
+  "artifact_scope": "fixture",
+  "inputs": {
+    "prior_evidence": [
+      {
+        "path": "manifests/wp-core/wphx-314-01-blocks-interactivity-surface.v1.json",
+        "bytes": 136288,
+        "sha256": "sha256:5041e65e848fa3246be418e78f44c7ae041144d7807cb49808dc0264f4e1dac4"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-02-blocks-interactivity-adapter-contract-candidate.v1.json",
+        "bytes": 20704,
+        "sha256": "sha256:455098435d2e51efb9a9a7e4ccec1e79c0b0619f7bea9b5fc9711bbea6105730"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-03-block-parser-render-oracle-fixture.v1.json",
+        "bytes": 18515,
+        "sha256": "sha256:daa984fef6c448b8f5d24c718b1e6b7e4a19a54542b2e011e1ae68d3a669d10e"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-04-block-supports-bindings-oracle-fixture.v1.json",
+        "bytes": 52295,
+        "sha256": "sha256:12b652f06a3594d3c2a1c5c7b8aebb85cd79dbb6c4f008b4f1f1db98588e3068"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-05-block-patterns-registry-oracle-fixture.v1.json",
+        "bytes": 31390,
+        "sha256": "sha256:b85257f718f02e9909b86acc8259ad294eaa44a71e1469f8a04961cc038f8909"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-06-block-hooks-insertion-oracle-fixture.v1.json",
+        "bytes": 123116,
+        "sha256": "sha256:05410625baa63bc48b4305ad3d2dc16add6c716be8061fa64cb1f1893f23e34c"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-07-style-engine-oracle-fixture.v1.json",
+        "bytes": 19044,
+        "sha256": "sha256:3d69a85ab6d9ac9beb7293eb6e59bd876092235f2ad6d8fbc9c05c0b9e56ca14"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-08-html-api-tag-processor-oracle-fixture.v1.json",
+        "bytes": 22298,
+        "sha256": "sha256:9dcc250262e51e32204da78652a2702bd4df2394845c73041385df11332736c9"
+      },
+      {
+        "path": "manifests/wp-core/wphx-314-09-interactivity-api-oracle-fixture.v1.json",
+        "bytes": 35054,
+        "sha256": "sha256:14704dbf04b1510f0cdf89fbd35d148365cf325b8700024b2157c18290008f6e"
+      }
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-core-block-renderer-oracle-fixture.mjs",
+      "bytes": 27121,
+      "sha256": "sha256:1a3d8344eee9bea3329205dfa8f34029c480cf27a6ddaf6cd5d56fd97c0d857e"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/blocks/categories.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/blocks/categories.php",
+        "bytes": 4938,
+        "sha256": "sha256:b7cb718e6291fde0e467d1cff89b89ce092ca8ebf7ef1332ac65ef732313026f"
+      },
+      {
+        "path": "src/wp-includes/blocks/archives.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/blocks/archives.php",
+        "bytes": 4385,
+        "sha256": "sha256:e8a615ea53411d1d80e7b884369f92c02a1f44a1e6a8b3eca4ae8d90a0e9f01d"
+      },
+      {
+        "path": "src/wp-includes/blocks/tag-cloud.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/blocks/tag-cloud.php",
+        "bytes": 1590,
+        "sha256": "sha256:6c67d54d9a8c32d5b956eac9378730f9b2138c1fa9fd7a1e30685753015c3186"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "core-renderers:categories-list-enhanced",
+        "focus": "category list args, wrapper classes, and enhanced pagination data-wp click attributes"
+      },
+      {
+        "id": "core-renderers:categories-dropdown-front",
+        "focus": "taxonomy dropdown args, label visibility, selected query var, and front-end inline script injection"
+      },
+      {
+        "id": "core-renderers:archives-list-empty",
+        "focus": "archives list args, empty archive fallback text, filter hook payload, and wrapper classes"
+      },
+      {
+        "id": "core-renderers:archives-dropdown-weekly",
+        "focus": "weekly archive dropdown label, unique id, option archive args, and inline script sourceURL"
+      },
+      {
+        "id": "core-renderers:tag-cloud-render",
+        "focus": "tag cloud font-size unit parsing, count flag, wrapper attributes, and rendered tag markup"
+      },
+      {
+        "id": "core-renderers:tag-cloud-empty-rest-registration",
+        "focus": "empty tag cloud REST placeholder plus add_action and metadata registration callbacks"
+      }
+    ],
+    "covered_symbols": [
+      "blocks/categories.php",
+      "render_block_core_categories",
+      "build_dropdown_script_block_core_categories",
+      "register_block_core_categories",
+      "blocks/archives.php",
+      "render_block_core_archives",
+      "block_core_archives_build_dropdown_script",
+      "register_block_core_archives",
+      "blocks/tag-cloud.php",
+      "render_block_core_tag_cloud",
+      "register_block_core_tag_cloud",
+      "get_taxonomy",
+      "wp_dropdown_categories",
+      "wp_list_categories",
+      "WP_HTML_Tag_Processor",
+      "wp_get_archives",
+      "wp_tag_cloud",
+      "wp_get_inline_script_tag",
+      "wp_unique_id",
+      "get_block_wrapper_attributes",
+      "register_block_type_from_metadata",
+      "add_action"
+    ],
+    "source_files": [
+      "src/wp-includes/blocks/categories.php",
+      "src/wp-includes/blocks/archives.php",
+      "src/wp-includes/blocks/tag-cloud.php"
+    ],
+    "side_effect_policy": {
+      "external_network_io": false,
+      "database_io": false,
+      "live_installed_wordpress": false,
+      "php_cli": true,
+      "wordPress_stubs": "taxonomy objects, wp_dropdown_categories, wp_list_categories, bounded WP_HTML_Tag_Processor link mutation, wp_get_archives, wp_tag_cloud, wp_get_inline_script_tag, wp_unique_id, home_url, REST/admin predicates, wrapper attributes, registration, actions, filters, escaping, translation, and JSON helpers are deterministic local stubs; copied block renderer PHP remains the executed source."
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "haxe_owned_runtime_logic_claimed": false,
+      "installed_wordpress_behavior_claimed": false,
+      "browser_client_package_ownership_claimed": false
+    },
+    "renderer_quirks_observed": [
+      "Categories dropdown injects its inline navigation script on the non-admin front-end path and uses the taxonomy query var for selected state.",
+      "Categories list enhanced pagination mutates anchor tags with the interactivity navigation click directive.",
+      "Archives dropdown labels depend on the requested archive type and use wp_unique_id for select/label wiring.",
+      "Archives list returns a wrapped fallback string when wp_get_archives returns empty output.",
+      "Tag cloud derives the unit from smallestFontSize and shows an editor/REST placeholder only when the tag cloud is empty while serving a REST request."
+    ]
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-314-10/oracle",
+    "candidate_root": "build/wp-core/wphx-314-10/candidate",
+    "php_lint": [
+      {
+        "path": "src/wp-includes/blocks/categories.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-314-10/oracle/wp-includes/blocks/categories.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-314-10/candidate/wp-includes/blocks/categories.php"
+      },
+      {
+        "path": "src/wp-includes/blocks/archives.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-314-10/oracle/wp-includes/blocks/archives.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-314-10/candidate/wp-includes/blocks/archives.php"
+      },
+      {
+        "path": "src/wp-includes/blocks/tag-cloud.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-314-10/oracle/wp-includes/blocks/tag-cloud.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-314-10/candidate/wp-includes/blocks/tag-cloud.php"
+      }
+    ],
+    "probe_lint": {
+      "oracle_lint": "No syntax errors detected in build/wp-core/wphx-314-10/oracle/probe.php",
+      "candidate_lint": "No syntax errors detected in build/wp-core/wphx-314-10/candidate/probe.php"
+    }
+  },
+  "observations": {
+    "oracle": {
+      "core-renderers:categories-list-enhanced": {
+        "case": "core-renderers:categories-list-enhanced",
+        "output_sha256": "f206ff1b04de715dcda0260e15f5b618d642a44ee9961c46d8e8c0fe4de77491",
+        "has_navigation_attr": true,
+        "category_call": {
+          "kind": "list",
+          "args": {
+            "echo": false,
+            "hierarchical": true,
+            "orderby": "name",
+            "show_count": true,
+            "taxonomy": "category",
+            "title_li": "",
+            "hide_empty": false,
+            "parent": 0,
+            "show_option_none": "No terms found."
+          }
+        },
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-categories-list wp-block-categories-taxonomy-category"
+          },
+          "class": "wp-block wp-block-categories-list wp-block-categories-taxonomy-category"
+        },
+        "processor_set_count": 2,
+        "output": "<ul class=\"wp-block wp-block-categories-list wp-block-categories-taxonomy-category\"><li class=\"cat-item cat-item-7\"><a data-wp-on--click=\"core/query::actions.navigate\" href=\"https://example.test/category/news/\">News</a> (3)</li><li class=\"cat-item cat-item-8\"><a data-wp-on--click=\"core/query::actions.navigate\" href=\"https://example.test/category/events/\">Events</a></li></ul>"
+      },
+      "core-renderers:categories-dropdown-front": {
+        "case": "core-renderers:categories-dropdown-front",
+        "output_sha256": "f7e683d53ca64a4d74a477804884c7af8d745e8d1747ad1565815a89a1f0905d",
+        "has_screen_reader": true,
+        "has_inline_script": true,
+        "category_call": {
+          "kind": "dropdown",
+          "args": {
+            "echo": false,
+            "hierarchical": true,
+            "orderby": "name",
+            "show_count": true,
+            "taxonomy": "category",
+            "title_li": "",
+            "hide_empty": false,
+            "parent": 0,
+            "id": "wp-block-categories-1",
+            "name": "category_name",
+            "value_field": "slug",
+            "show_option_none": "Select Category",
+            "selected": "news"
+          }
+        },
+        "inline_scripts": [
+          {
+            "bytes": 1054,
+            "has_categories_url": true,
+            "has_archives_url": false,
+            "has_example_home": true,
+            "has_dropdown_logic": true
+          }
+        ],
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-categories-dropdown wp-block-categories-taxonomy-category"
+          },
+          "class": "wp-block wp-block-categories-dropdown wp-block-categories-taxonomy-category"
+        },
+        "output": "<div class=\"wp-block wp-block-categories-dropdown wp-block-categories-taxonomy-category\"><label class=\"wp-block-categories__label screen-reader-text\" for=\"wp-block-categories-1\"><strong>Topic</strong></label><select id=\"wp-block-categories-1\" name=\"category_name\"><option value=\"-1\">Select Category</option><option class=\"level-0\" value=\"news\" selected=\"selected\">News</option></select><script type=\"text/javascript\">( ( [ dropdownId, homeUrl ] ) => {\n\t\tconst dropdown = document.getElementById( dropdownId );\n\t\tfunction onSelectChange() {\n\t\t\tsetTimeout( () => {\n\t\t\t\tif ( 'escape' === dropdown.dataset.lastkey ) {\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\t// Only navigate if a valid term is selected (not the default \"Select [taxonomy]\" option)\n\t\t\t\tif ( dropdown.value && dropdown.value !== '-1' && dropdown instanceof HTMLSelectElement ) {\n\t\t\t\t\tconst url = new URL( homeUrl );\n\t\t\t\t\turl.searchParams.set( dropdown.name, dropdown.value );\n\t\t\t\t\tlocation.href = url.href;\n\t\t\t\t}\n\t\t\t}, 250 );\n\t\t}\n\t\tfunction onKeyUp( event ) {\n\t\t\tif ( 'Escape' === event.key ) {\n\t\t\t\tdropdown.dataset.lastkey = 'escape';\n\t\t\t} else {\n\t\t\t\tdelete dropdown.dataset.lastkey;\n\t\t\t}\n\t\t}\n\t\tfunction onClick() {\n\t\t\tdelete dropdown.dataset.lastkey;\n\t\t}\n\t\tdropdown.addEventListener( 'keyup', onKeyUp );\n\t\tdropdown.addEventListener( 'click', onClick );\n\t\tdropdown.addEventListener( 'change', onSelectChange );\n\t} )( [\"wp-block-categories-1\",\"https://example.test\"] );\n//# sourceURL=build_dropdown_script_block_core_categories</script></div>"
+      },
+      "core-renderers:archives-list-empty": {
+        "case": "core-renderers:archives-list-empty",
+        "output_sha256": "06c4f0deb77c665c64e66d6ce78fbde1bb3781dbaedc3d53d46c73e6688ff9c2",
+        "empty_fallback": true,
+        "archive_call": {
+          "type": "monthly",
+          "show_post_count": true,
+          "echo": 0
+        },
+        "filter_call": {
+          "hook_name": "widget_archives_args",
+          "value": {
+            "type": "monthly",
+            "show_post_count": true
+          }
+        },
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-archives-list"
+          },
+          "class": "wp-block wp-block-archives-list"
+        },
+        "output": "<div class=\"wp-block wp-block-archives-list\">No archives to show.</div>"
+      },
+      "core-renderers:archives-dropdown-weekly": {
+        "case": "core-renderers:archives-dropdown-weekly",
+        "output_sha256": "b0ad5064dd2490426433c0f57f905e53972390adb8b17d42f0557a4f09a73fb3",
+        "has_weekly_label": true,
+        "has_unique_id": true,
+        "archive_call": {
+          "type": "weekly",
+          "format": "option",
+          "show_post_count": true,
+          "echo": 0
+        },
+        "filter_call": {
+          "hook_name": "widget_archives_dropdown_args",
+          "value": {
+            "type": "weekly",
+            "format": "option",
+            "show_post_count": true
+          }
+        },
+        "inline_scripts": [
+          {
+            "bytes": 797,
+            "has_categories_url": false,
+            "has_archives_url": true,
+            "has_example_home": true,
+            "has_dropdown_logic": true
+          }
+        ],
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-archives-dropdown"
+          },
+          "class": "wp-block wp-block-archives-dropdown"
+        },
+        "output": "<div class=\"wp-block wp-block-archives-dropdown\"><label for=\"wp-block-archives-1\" class=\"wp-block-archives__label\">Archives</label>\n\t\t<select id=\"wp-block-archives-1\" name=\"archive-dropdown\">\n\t\t<option value=\"\">Select Week</option><option value=\"https://example.test/2026/06/\">June 2026</option><option value=\"https://example.test/2026/05/\">May 2026</option></select><script type=\"text/javascript\">( ( [ dropdownId, homeUrl ] ) => {\n\t\tconst dropdown = document.getElementById( dropdownId );\n\t\tfunction onSelectChange() {\n\t\t\tsetTimeout( () => {\n\t\t\t\tif ( 'escape' === dropdown.dataset.lastkey ) {\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tif ( dropdown.value ) {\n\t\t\t\t\tlocation.href = dropdown.value;\n\t\t\t\t}\n\t\t\t}, 250 );\n\t\t}\n\t\tfunction onKeyUp( event ) {\n\t\t\tif ( 'Escape' === event.key ) {\n\t\t\t\tdropdown.dataset.lastkey = 'escape';\n\t\t\t} else {\n\t\t\t\tdelete dropdown.dataset.lastkey;\n\t\t\t}\n\t\t}\n\t\tfunction onClick() {\n\t\t\tdelete dropdown.dataset.lastkey;\n\t\t}\n\t\tdropdown.addEventListener( 'keyup', onKeyUp );\n\t\tdropdown.addEventListener( 'click', onClick );\n\t\tdropdown.addEventListener( 'change', onSelectChange );\n\t} )( [\"wp-block-archives-1\",\"https://example.test\"] );\n//# sourceURL=block_core_archives_build_dropdown_script</script></div>"
+      },
+      "core-renderers:tag-cloud-render": {
+        "case": "core-renderers:tag-cloud-render",
+        "output_sha256": "27d6f64752f8ed5efa985bc821e472a3dffd51a0269a410ed692fbe6ee0b401f",
+        "tag_cloud_call": {
+          "echo": false,
+          "unit": "px",
+          "taxonomy": "post_tag",
+          "show_count": true,
+          "number": 5,
+          "smallest": 10,
+          "largest": 22
+        },
+        "wrapper": {
+          "extra": [],
+          "class": "wp-block"
+        },
+        "has_count": true,
+        "output": "<p class=\"wp-block\"><a href=\"https://example.test/tag/haxe/\" class=\"tag-cloud-link\" style=\"font-size: 22px;\">Haxe <span class=\"tag-link-count\">(4)</span></a></p>"
+      },
+      "core-renderers:tag-cloud-empty-rest-registration": {
+        "case": "core-renderers:tag-cloud-empty-rest-registration",
+        "output_sha256": "4b713ed5a679f66b103066b5d93a6b75563486e315654546f52efd2b6e2132e3",
+        "has_rest_placeholder": true,
+        "tag_cloud_call": {
+          "echo": false,
+          "unit": "pt",
+          "taxonomy": "post_tag",
+          "show_count": false,
+          "number": 3,
+          "smallest": 8,
+          "largest": 18
+        },
+        "actions": [
+          {
+            "hook": "init",
+            "callback": "register_block_core_categories",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "init",
+            "callback": "register_block_core_archives",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "init",
+            "callback": "register_block_core_tag_cloud",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "registrations": [
+          {
+            "path_basename": "categories",
+            "args": {
+              "render_callback": "render_block_core_categories"
+            }
+          },
+          {
+            "path_basename": "archives",
+            "args": {
+              "render_callback": "render_block_core_archives"
+            }
+          },
+          {
+            "path_basename": "tag-cloud",
+            "args": {
+              "render_callback": "render_block_core_tag_cloud"
+            }
+          }
+        ],
+        "wrapper": {
+          "extra": [],
+          "class": "wp-block"
+        },
+        "output": "<p class=\"wp-block\">There&#8217;s no content to show here yet.</p>"
+      }
+    },
+    "candidate": {
+      "core-renderers:categories-list-enhanced": {
+        "case": "core-renderers:categories-list-enhanced",
+        "output_sha256": "f206ff1b04de715dcda0260e15f5b618d642a44ee9961c46d8e8c0fe4de77491",
+        "has_navigation_attr": true,
+        "category_call": {
+          "kind": "list",
+          "args": {
+            "echo": false,
+            "hierarchical": true,
+            "orderby": "name",
+            "show_count": true,
+            "taxonomy": "category",
+            "title_li": "",
+            "hide_empty": false,
+            "parent": 0,
+            "show_option_none": "No terms found."
+          }
+        },
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-categories-list wp-block-categories-taxonomy-category"
+          },
+          "class": "wp-block wp-block-categories-list wp-block-categories-taxonomy-category"
+        },
+        "processor_set_count": 2,
+        "output": "<ul class=\"wp-block wp-block-categories-list wp-block-categories-taxonomy-category\"><li class=\"cat-item cat-item-7\"><a data-wp-on--click=\"core/query::actions.navigate\" href=\"https://example.test/category/news/\">News</a> (3)</li><li class=\"cat-item cat-item-8\"><a data-wp-on--click=\"core/query::actions.navigate\" href=\"https://example.test/category/events/\">Events</a></li></ul>"
+      },
+      "core-renderers:categories-dropdown-front": {
+        "case": "core-renderers:categories-dropdown-front",
+        "output_sha256": "f7e683d53ca64a4d74a477804884c7af8d745e8d1747ad1565815a89a1f0905d",
+        "has_screen_reader": true,
+        "has_inline_script": true,
+        "category_call": {
+          "kind": "dropdown",
+          "args": {
+            "echo": false,
+            "hierarchical": true,
+            "orderby": "name",
+            "show_count": true,
+            "taxonomy": "category",
+            "title_li": "",
+            "hide_empty": false,
+            "parent": 0,
+            "id": "wp-block-categories-1",
+            "name": "category_name",
+            "value_field": "slug",
+            "show_option_none": "Select Category",
+            "selected": "news"
+          }
+        },
+        "inline_scripts": [
+          {
+            "bytes": 1054,
+            "has_categories_url": true,
+            "has_archives_url": false,
+            "has_example_home": true,
+            "has_dropdown_logic": true
+          }
+        ],
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-categories-dropdown wp-block-categories-taxonomy-category"
+          },
+          "class": "wp-block wp-block-categories-dropdown wp-block-categories-taxonomy-category"
+        },
+        "output": "<div class=\"wp-block wp-block-categories-dropdown wp-block-categories-taxonomy-category\"><label class=\"wp-block-categories__label screen-reader-text\" for=\"wp-block-categories-1\"><strong>Topic</strong></label><select id=\"wp-block-categories-1\" name=\"category_name\"><option value=\"-1\">Select Category</option><option class=\"level-0\" value=\"news\" selected=\"selected\">News</option></select><script type=\"text/javascript\">( ( [ dropdownId, homeUrl ] ) => {\n\t\tconst dropdown = document.getElementById( dropdownId );\n\t\tfunction onSelectChange() {\n\t\t\tsetTimeout( () => {\n\t\t\t\tif ( 'escape' === dropdown.dataset.lastkey ) {\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\t// Only navigate if a valid term is selected (not the default \"Select [taxonomy]\" option)\n\t\t\t\tif ( dropdown.value && dropdown.value !== '-1' && dropdown instanceof HTMLSelectElement ) {\n\t\t\t\t\tconst url = new URL( homeUrl );\n\t\t\t\t\turl.searchParams.set( dropdown.name, dropdown.value );\n\t\t\t\t\tlocation.href = url.href;\n\t\t\t\t}\n\t\t\t}, 250 );\n\t\t}\n\t\tfunction onKeyUp( event ) {\n\t\t\tif ( 'Escape' === event.key ) {\n\t\t\t\tdropdown.dataset.lastkey = 'escape';\n\t\t\t} else {\n\t\t\t\tdelete dropdown.dataset.lastkey;\n\t\t\t}\n\t\t}\n\t\tfunction onClick() {\n\t\t\tdelete dropdown.dataset.lastkey;\n\t\t}\n\t\tdropdown.addEventListener( 'keyup', onKeyUp );\n\t\tdropdown.addEventListener( 'click', onClick );\n\t\tdropdown.addEventListener( 'change', onSelectChange );\n\t} )( [\"wp-block-categories-1\",\"https://example.test\"] );\n//# sourceURL=build_dropdown_script_block_core_categories</script></div>"
+      },
+      "core-renderers:archives-list-empty": {
+        "case": "core-renderers:archives-list-empty",
+        "output_sha256": "06c4f0deb77c665c64e66d6ce78fbde1bb3781dbaedc3d53d46c73e6688ff9c2",
+        "empty_fallback": true,
+        "archive_call": {
+          "type": "monthly",
+          "show_post_count": true,
+          "echo": 0
+        },
+        "filter_call": {
+          "hook_name": "widget_archives_args",
+          "value": {
+            "type": "monthly",
+            "show_post_count": true
+          }
+        },
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-archives-list"
+          },
+          "class": "wp-block wp-block-archives-list"
+        },
+        "output": "<div class=\"wp-block wp-block-archives-list\">No archives to show.</div>"
+      },
+      "core-renderers:archives-dropdown-weekly": {
+        "case": "core-renderers:archives-dropdown-weekly",
+        "output_sha256": "b0ad5064dd2490426433c0f57f905e53972390adb8b17d42f0557a4f09a73fb3",
+        "has_weekly_label": true,
+        "has_unique_id": true,
+        "archive_call": {
+          "type": "weekly",
+          "format": "option",
+          "show_post_count": true,
+          "echo": 0
+        },
+        "filter_call": {
+          "hook_name": "widget_archives_dropdown_args",
+          "value": {
+            "type": "weekly",
+            "format": "option",
+            "show_post_count": true
+          }
+        },
+        "inline_scripts": [
+          {
+            "bytes": 797,
+            "has_categories_url": false,
+            "has_archives_url": true,
+            "has_example_home": true,
+            "has_dropdown_logic": true
+          }
+        ],
+        "wrapper": {
+          "extra": {
+            "class": "wp-block-archives-dropdown"
+          },
+          "class": "wp-block wp-block-archives-dropdown"
+        },
+        "output": "<div class=\"wp-block wp-block-archives-dropdown\"><label for=\"wp-block-archives-1\" class=\"wp-block-archives__label\">Archives</label>\n\t\t<select id=\"wp-block-archives-1\" name=\"archive-dropdown\">\n\t\t<option value=\"\">Select Week</option><option value=\"https://example.test/2026/06/\">June 2026</option><option value=\"https://example.test/2026/05/\">May 2026</option></select><script type=\"text/javascript\">( ( [ dropdownId, homeUrl ] ) => {\n\t\tconst dropdown = document.getElementById( dropdownId );\n\t\tfunction onSelectChange() {\n\t\t\tsetTimeout( () => {\n\t\t\t\tif ( 'escape' === dropdown.dataset.lastkey ) {\n\t\t\t\t\treturn;\n\t\t\t\t}\n\t\t\t\tif ( dropdown.value ) {\n\t\t\t\t\tlocation.href = dropdown.value;\n\t\t\t\t}\n\t\t\t}, 250 );\n\t\t}\n\t\tfunction onKeyUp( event ) {\n\t\t\tif ( 'Escape' === event.key ) {\n\t\t\t\tdropdown.dataset.lastkey = 'escape';\n\t\t\t} else {\n\t\t\t\tdelete dropdown.dataset.lastkey;\n\t\t\t}\n\t\t}\n\t\tfunction onClick() {\n\t\t\tdelete dropdown.dataset.lastkey;\n\t\t}\n\t\tdropdown.addEventListener( 'keyup', onKeyUp );\n\t\tdropdown.addEventListener( 'click', onClick );\n\t\tdropdown.addEventListener( 'change', onSelectChange );\n\t} )( [\"wp-block-archives-1\",\"https://example.test\"] );\n//# sourceURL=block_core_archives_build_dropdown_script</script></div>"
+      },
+      "core-renderers:tag-cloud-render": {
+        "case": "core-renderers:tag-cloud-render",
+        "output_sha256": "27d6f64752f8ed5efa985bc821e472a3dffd51a0269a410ed692fbe6ee0b401f",
+        "tag_cloud_call": {
+          "echo": false,
+          "unit": "px",
+          "taxonomy": "post_tag",
+          "show_count": true,
+          "number": 5,
+          "smallest": 10,
+          "largest": 22
+        },
+        "wrapper": {
+          "extra": [],
+          "class": "wp-block"
+        },
+        "has_count": true,
+        "output": "<p class=\"wp-block\"><a href=\"https://example.test/tag/haxe/\" class=\"tag-cloud-link\" style=\"font-size: 22px;\">Haxe <span class=\"tag-link-count\">(4)</span></a></p>"
+      },
+      "core-renderers:tag-cloud-empty-rest-registration": {
+        "case": "core-renderers:tag-cloud-empty-rest-registration",
+        "output_sha256": "4b713ed5a679f66b103066b5d93a6b75563486e315654546f52efd2b6e2132e3",
+        "has_rest_placeholder": true,
+        "tag_cloud_call": {
+          "echo": false,
+          "unit": "pt",
+          "taxonomy": "post_tag",
+          "show_count": false,
+          "number": 3,
+          "smallest": 8,
+          "largest": 18
+        },
+        "actions": [
+          {
+            "hook": "init",
+            "callback": "register_block_core_categories",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "init",
+            "callback": "register_block_core_archives",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "init",
+            "callback": "register_block_core_tag_cloud",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "registrations": [
+          {
+            "path_basename": "categories",
+            "args": {
+              "render_callback": "render_block_core_categories"
+            }
+          },
+          {
+            "path_basename": "archives",
+            "args": {
+              "render_callback": "render_block_core_archives"
+            }
+          },
+          {
+            "path_basename": "tag-cloud",
+            "args": {
+              "render_callback": "render_block_core_tag_cloud"
+            }
+          }
+        ],
+        "wrapper": {
+          "extra": [],
+          "class": "wp-block"
+        },
+        "output": "<p class=\"wp-block\">There&#8217;s no content to show here yet.</p>"
+      }
+    },
+    "match": true,
+    "summary": {
+      "categories_enhanced_navigation_attr": true,
+      "categories_dropdown_selected": "news",
+      "archives_empty_fallback": true,
+      "archives_dropdown_weekly_label": true,
+      "tag_cloud_unit": "px",
+      "tag_cloud_rest_placeholder": true,
+      "registration_callbacks": [
+        "render_block_core_categories",
+        "render_block_core_archives",
+        "render_block_core_tag_cloud"
+      ]
+    },
+    "oracle_sha256": "sha256:2680d8cdbc1b47f2ac3667b8d782313f1f9b518160f2516692793cd60c0acf0d",
+    "candidate_sha256": "sha256:2680d8cdbc1b47f2ac3667b8d782313f1f9b518160f2516692793cd60c0acf0d"
+  },
+  "remaining_gaps": [
+    {
+      "id": "installed-block-registry-theme-editor-not-executed",
+      "owner": "WPHX-314.10",
+      "detail": "The fixture executes copied server renderer files directly. Installed block metadata loading, theme integration, editor/admin behavior, asset registration, and package-level browser behavior remain later gates."
+    },
+    {
+      "id": "full-core-renderer-matrix-not-covered",
+      "owner": "WPHX-314.10",
+      "detail": "This fixture covers a selected taxonomy/archive/tag-list renderer cluster. Post, comment, navigation, query, template, media, and widget renderer clusters remain separate WPHX-314 or cross-domain gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-314.10",
+      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement and durable adapter ownership remain later compiler/linker gates."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-314-10-core-block-renderer-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "covered_symbols": 22,
+    "source_files": 3,
+    "observations_match": true,
+    "public_php_replacement_claimed": false,
+    "haxe_owned_runtime_logic_claimed": false,
+    "installed_wordpress_behavior_claimed": false,
+    "browser_client_package_ownership_claimed": false
+  }
+}
