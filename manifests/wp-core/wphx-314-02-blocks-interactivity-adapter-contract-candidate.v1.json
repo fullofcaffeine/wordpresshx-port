@@ -1,0 +1,432 @@
+{
+  "schema": "wphx.wp-core-blocks-interactivity-adapter-contract-candidate.v1",
+  "issue": "WPHX-314.02",
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "generator": "tools/wp-core/run-blocks-interactivity-adapter-contract-candidate.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "generated_shape"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "prior_manifest": {
+      "path": "manifests/wp-core/wphx-314-01-blocks-interactivity-surface.v1.json",
+      "bytes": 136288,
+      "sha256": "sha256:5041e65e848fa3246be418e78f44c7ae041144d7807cb49808dc0264f4e1dac4"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7785,
+      "sha256": "sha256:bd3b78a748f224f7d4bc654098ee29a22f2c186ff392b352abd64f349f9eef9c"
+    },
+    "hxml": {
+      "path": "fixtures/wp-core/blocks-interactivity-adapter-contract-candidate.hxml",
+      "bytes": 146,
+      "sha256": "sha256:693ff1775d333cad22b3b6d249748588aae6afbf73613f74768c8bccabc18ce8"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/blocks-interactivity-adapter-contract-candidate.hxml",
+        "bytes": 146,
+        "sha256": "sha256:693ff1775d333cad22b3b6d249748588aae6afbf73613f74768c8bccabc18ce8"
+      },
+      {
+        "path": "src/wphx/wp/blocks/BlocksInteractivityAdapterContract.hx",
+        "bytes": 8835,
+        "sha256": "sha256:f7319b96147bd4bc99dc20bc407ef64da3daec1ee0cbfb33fc675d1f7718ae2b"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.hx",
+        "bytes": 4574,
+        "sha256": "sha256:a7863c69ff8dcdefc3473b4d2f3e672c92861860848e793988b1889ca16b2910"
+      }
+    ]
+  },
+  "fixture": {
+    "candidate_kind": "haxe_blocks_interactivity_adapter_contract_candidate",
+    "promoted_contracts": [
+      "block parser intent for empty content, freeform content, serialized blocks, malformed block comments, and nested block trees",
+      "block render intent for unregistered, static, dynamic callback, reusable, and context-dependent render routes",
+      "block supports intent for layout, style attributes, class attributes, full wrapper output, and no-support routes",
+      "block bindings intent for missing sources, unbound attributes, missing context, pattern overrides, and resolved values",
+      "hooked block insertion intent for none, ignored, first-child, and relative insertion routes",
+      "block pattern intent for unregistered, category-only, theme-provided, and remote pattern routes",
+      "style engine and HTML API intent for empty/declaration/rule/merge output plus tag, attribute, text, and unsupported markup routes",
+      "interactivity and font/asset intent for disabled/store/directive/hydration routes plus collection, face, and admin asset routes",
+      "block render, supports, bindings, patterns, interactivity, and failure hook intent"
+    ],
+    "upstream_reference_functions": [
+      "parse_blocks",
+      "serialize_blocks",
+      "do_blocks",
+      "render_block",
+      "register_block_type",
+      "wp_render_elements_support",
+      "wp_render_layout_support_flag",
+      "register_block_bindings_source",
+      "apply_block_hooks_to_content",
+      "register_block_pattern",
+      "wp_style_engine_get_styles",
+      "WP_HTML_Tag_Processor",
+      "wp_interactivity_state",
+      "wp_register_font_collection"
+    ],
+    "expected_observations": {
+      "parser:malformed": "block_parser_malformed_comment",
+      "parser:nested": "block_parser_nested_blocks",
+      "parser:serialized": "block_parser_serialized_block",
+      "parser:freeform": "block_parser_freeform",
+      "parser:empty": "block_parser_empty",
+      "render:unregistered": "block_render_unregistered",
+      "render:reusable": "block_render_reusable",
+      "render:contextual": "block_render_contextual",
+      "render:dynamic": "block_render_dynamic_callback",
+      "render:static": "block_render_static",
+      "support:full": "block_support_full_wrapper",
+      "support:style": "block_support_style_attribute",
+      "support:class": "block_support_class_attribute",
+      "support:layout": "block_support_layout",
+      "support:none": "block_support_none",
+      "binding:source-missing": "block_binding_source_missing",
+      "binding:unbound": "block_binding_attribute_unbound",
+      "binding:pattern": "block_binding_pattern_override",
+      "binding:context-missing": "block_binding_context_missing",
+      "binding:resolved": "block_binding_resolved",
+      "hooked:none": "block_hook_insert_none",
+      "hooked:ignored": "block_hook_insert_ignored",
+      "hooked:first-child": "block_hook_insert_first_child",
+      "hooked:relative": "block_hook_insert_relative",
+      "pattern:remote": "block_pattern_remote",
+      "pattern:theme": "block_pattern_theme",
+      "pattern:category": "block_pattern_category_only",
+      "pattern:unregistered": "block_pattern_unregistered",
+      "style:empty": "style_engine_empty",
+      "style:declarations": "style_engine_declarations_only",
+      "style:selector": "style_engine_selector_rule",
+      "style:merge": "style_engine_stored_merge",
+      "html:unsupported": "html_api_unsupported",
+      "html:tag": "html_api_tag_only",
+      "html:attribute": "html_api_attribute_mutation",
+      "html:text": "html_api_text_replacement",
+      "interactivity:disabled": "interactivity_disabled",
+      "interactivity:store": "interactivity_store_only",
+      "interactivity:directives": "interactivity_directives",
+      "interactivity:hydration": "interactivity_hydration",
+      "font:none": "font_asset_none",
+      "font:collection": "font_asset_collection",
+      "font:face": "font_asset_face",
+      "font:admin": "font_asset_admin",
+      "hook:render": "block_render_hooks",
+      "hook:supports": "block_support_hooks",
+      "hook:bindings": "block_binding_hooks",
+      "hook:patterns": "block_pattern_hooks",
+      "hook:interactivity": "block_interactivity_hooks",
+      "hook:failed": "block_no_hooks"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "adapter_contract_owner": "haxe_typed",
+      "semantic_owner": "haxe",
+      "browser_or_gutenberg_ownership_claimed": false,
+      "removal_gate": "Install through typed Adapter IR/original-path generation and run differential PHP block parser/render/supports/bindings/hooks/style/html/interactivity fixtures before claiming public PHP ABI ownership."
+    },
+    "source_escape_audits": [
+      {
+        "path": "src/wphx/wp/blocks/BlocksInteractivityAdapterContract.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      }
+    ]
+  },
+  "toolchain": {
+    "haxe_version": "4.3.7",
+    "locked_haxe_version": "4.3.7",
+    "php_cli_profile": "8.4"
+  },
+  "build": {
+    "generated_file_hash_policy": "normalize_haxe_std_source_map_paths",
+    "generated_haxe_files": [
+      {
+        "path": "index.php",
+        "bytes": 404,
+        "sha256": "27489d45569357131f46195cfc5533331ae1387b61e975609ce4037db4d72697"
+      },
+      {
+        "path": "lib/Array_hx.php",
+        "bytes": 22828,
+        "sha256": "32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39"
+      },
+      {
+        "path": "lib/haxe/Exception.php",
+        "bytes": 3562,
+        "sha256": "316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1140,
+        "sha256": "6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 481,
+        "sha256": "03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012"
+      },
+      {
+        "path": "lib/haxe/ValueException.php",
+        "bytes": 1008,
+        "sha256": "38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858"
+      },
+      {
+        "path": "lib/php/_Boot/HxAnon.php",
+        "bytes": 1182,
+        "sha256": "ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706"
+      },
+      {
+        "path": "lib/php/_Boot/HxClass.php",
+        "bytes": 2861,
+        "sha256": "74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a"
+      },
+      {
+        "path": "lib/php/_Boot/HxClosure.php",
+        "bytes": 2757,
+        "sha256": "4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb"
+      },
+      {
+        "path": "lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 3952,
+        "sha256": "721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00"
+      },
+      {
+        "path": "lib/php/_Boot/HxEnum.php",
+        "bytes": 1181,
+        "sha256": "f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a"
+      },
+      {
+        "path": "lib/php/_Boot/HxString.php",
+        "bytes": 8211,
+        "sha256": "d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b"
+      },
+      {
+        "path": "lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "lib/php/Boot.php",
+        "bytes": 36175,
+        "sha256": "d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9"
+      },
+      {
+        "path": "lib/Std.php",
+        "bytes": 1104,
+        "sha256": "fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea"
+      },
+      {
+        "path": "lib/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.php",
+        "bytes": 14951,
+        "sha256": "13f10744f0cb0e61261ec98e1ad6af4c75fda3e96133b3a418de1b9d7438831f"
+      },
+      {
+        "path": "lib/wphx/wp/blocks/_BlocksInteractivityAdapterContract/BlocksInteractivityAdapterContract_Fields_.php",
+        "bytes": 22653,
+        "sha256": "8c3e5a7279f56bcdaa6c452e99b60ac31beb77856ddfa67e8b6520399d1ade1b"
+      }
+    ],
+    "php_lint": [
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/index.php",
+        "relative_path": "index.php",
+        "sha256": "sha256:27489d45569357131f46195cfc5533331ae1387b61e975609ce4037db4d72697",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/index.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/Array_hx.php",
+        "relative_path": "lib/Array_hx.php",
+        "sha256": "sha256:32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/Array_hx.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/haxe/Exception.php",
+        "relative_path": "lib/haxe/Exception.php",
+        "sha256": "sha256:316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/haxe/Exception.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayIterator.php",
+        "sha256": "sha256:6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/haxe/iterators/ArrayIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "sha256": "sha256:03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/haxe/ValueException.php",
+        "relative_path": "lib/haxe/ValueException.php",
+        "sha256": "sha256:38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/haxe/ValueException.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxAnon.php",
+        "relative_path": "lib/php/_Boot/HxAnon.php",
+        "sha256": "sha256:ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxAnon.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxClass.php",
+        "relative_path": "lib/php/_Boot/HxClass.php",
+        "sha256": "sha256:74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxClass.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxClosure.php",
+        "relative_path": "lib/php/_Boot/HxClosure.php",
+        "sha256": "sha256:4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxClosure.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "relative_path": "lib/php/_Boot/HxDynamicStr.php",
+        "sha256": "sha256:721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxDynamicStr.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxEnum.php",
+        "relative_path": "lib/php/_Boot/HxEnum.php",
+        "sha256": "sha256:f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxEnum.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxString.php",
+        "relative_path": "lib/php/_Boot/HxString.php",
+        "sha256": "sha256:d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_Boot/HxString.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/_polyfills.php",
+        "relative_path": "lib/php/_polyfills.php",
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/_polyfills.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/php/Boot.php",
+        "relative_path": "lib/php/Boot.php",
+        "sha256": "sha256:d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/php/Boot.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/Std.php",
+        "relative_path": "lib/Std.php",
+        "sha256": "sha256:fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/Std.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.php",
+        "relative_path": "lib/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.php",
+        "sha256": "sha256:13f10744f0cb0e61261ec98e1ad6af4c75fda3e96133b3a418de1b9d7438831f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/wphx/fixtures/wp/core/BlocksInteractivityAdapterContractCandidateEntry.php"
+      },
+      {
+        "path": "build/wp-core/wphx-314-02/haxe/lib/wphx/wp/blocks/_BlocksInteractivityAdapterContract/BlocksInteractivityAdapterContract_Fields_.php",
+        "relative_path": "lib/wphx/wp/blocks/_BlocksInteractivityAdapterContract/BlocksInteractivityAdapterContract_Fields_.php",
+        "sha256": "sha256:8c3e5a7279f56bcdaa6c452e99b60ac31beb77856ddfa67e8b6520399d1ade1b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-314-02/haxe/lib/wphx/wp/blocks/_BlocksInteractivityAdapterContract/BlocksInteractivityAdapterContract_Fields_.php"
+      }
+    ]
+  },
+  "run": {
+    "command": "php build/wp-core/wphx-314-02/haxe/index.php",
+    "raw_output_sha256": "sha256:8810d5c5dff32b5c54c147a469d0a8d5052045a8192d5ee2572d461d9cee8317",
+    "observations": {
+      "parser:malformed": "block_parser_malformed_comment",
+      "parser:nested": "block_parser_nested_blocks",
+      "parser:serialized": "block_parser_serialized_block",
+      "parser:freeform": "block_parser_freeform",
+      "parser:empty": "block_parser_empty",
+      "render:unregistered": "block_render_unregistered",
+      "render:reusable": "block_render_reusable",
+      "render:contextual": "block_render_contextual",
+      "render:dynamic": "block_render_dynamic_callback",
+      "render:static": "block_render_static",
+      "support:full": "block_support_full_wrapper",
+      "support:style": "block_support_style_attribute",
+      "support:class": "block_support_class_attribute",
+      "support:layout": "block_support_layout",
+      "support:none": "block_support_none",
+      "binding:source-missing": "block_binding_source_missing",
+      "binding:unbound": "block_binding_attribute_unbound",
+      "binding:pattern": "block_binding_pattern_override",
+      "binding:context-missing": "block_binding_context_missing",
+      "binding:resolved": "block_binding_resolved",
+      "hooked:none": "block_hook_insert_none",
+      "hooked:ignored": "block_hook_insert_ignored",
+      "hooked:first-child": "block_hook_insert_first_child",
+      "hooked:relative": "block_hook_insert_relative",
+      "pattern:remote": "block_pattern_remote",
+      "pattern:theme": "block_pattern_theme",
+      "pattern:category": "block_pattern_category_only",
+      "pattern:unregistered": "block_pattern_unregistered",
+      "style:empty": "style_engine_empty",
+      "style:declarations": "style_engine_declarations_only",
+      "style:selector": "style_engine_selector_rule",
+      "style:merge": "style_engine_stored_merge",
+      "html:unsupported": "html_api_unsupported",
+      "html:tag": "html_api_tag_only",
+      "html:attribute": "html_api_attribute_mutation",
+      "html:text": "html_api_text_replacement",
+      "interactivity:disabled": "interactivity_disabled",
+      "interactivity:store": "interactivity_store_only",
+      "interactivity:directives": "interactivity_directives",
+      "interactivity:hydration": "interactivity_hydration",
+      "font:none": "font_asset_none",
+      "font:collection": "font_asset_collection",
+      "font:face": "font_asset_face",
+      "font:admin": "font_asset_admin",
+      "hook:render": "block_render_hooks",
+      "hook:supports": "block_support_hooks",
+      "hook:bindings": "block_binding_hooks",
+      "hook:patterns": "block_pattern_hooks",
+      "hook:interactivity": "block_interactivity_hooks",
+      "hook:failed": "block_no_hooks"
+    },
+    "matches_expected": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "php-authored-block-oracle-fixtures-not-yet-built",
+      "owner": "WPHX-314.02",
+      "detail": "The candidate has not yet run through vanilla WordPress and packaged candidate block parser, render, supports, bindings, hooked blocks, patterns, style engine, HTML API, interactivity, core block renderer, installed distribution, browser handoff, or upstream PHPUnit observations."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-314.02",
+      "detail": "No original-path block parser, block render, block support, binding, hooked block, style engine, HTML API, font, asset, interactivity, or core block renderer adapter is claimed in this slice."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-314-02-blocks-interactivity-adapter-contract-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_blocks_interactivity_adapter_contract_candidate",
+    "promoted_contracts": 9,
+    "runtime_runs": 1,
+    "observation_count": 50,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false,
+    "browser_or_gutenberg_ownership_claimed": false
+  }
+}
