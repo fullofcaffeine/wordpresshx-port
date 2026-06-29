@@ -1,0 +1,28 @@
+{
+  "schema": "wphx.supersession-receipt.v1",
+  "id": "receipt:wphx-312-91-superseded-by-wphx-comp-php",
+  "issue": "WPHX-312.91",
+  "recorded_at": "2026-06-29T00:00:00Z",
+  "status": "superseded",
+  "superseded_by": "WPHX-COMP-PHP",
+  "reason": "The WP_Http::request mbstring binary-safe shell candidate was abandoned before landing because the program pivoted to an in-repo Reflaxe PHP emitter rather than extending the manually generated public-shell treadmill.",
+  "evidence": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "initial in-repo Reflaxe PHP emitter implementation"
+    },
+    {
+      "path": "fixtures/wphx-php/smoke.hxml",
+      "role": "first executable WPHX PHP compiler smoke"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "operations note for the compiler pivot"
+    }
+  ],
+  "non_claims": [
+    "No WPHX-312.91 WP_Http::request mbstring binary-safe Haxe parity candidate is claimed by this receipt.",
+    "The dropped candidate files, manifests, and package scripts are intentionally not part of the landed work.",
+    "WP_Http::request mbstring setup remains future work to revisit through compiler-emitted public PHP or a later bounded driver."
+  ]
+}
