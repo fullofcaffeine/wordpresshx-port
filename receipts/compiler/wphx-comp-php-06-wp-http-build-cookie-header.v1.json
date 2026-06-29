@@ -48,8 +48,8 @@
     ],
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-comp-php-06/generated/wphx-php-emission.v1.json",
-      "bytes": 571,
-      "sha256": "sha256:9d947b10a3ea49fd93d4c77eb18ea06aaa3f277f4c8abb9cb49abf9df6b526f4"
+      "bytes": 891,
+      "sha256": "sha256:3fc8891d037e3c1a698f98f2e4c17f675de9cf508c6f61d8fb5a86110256f5d8"
     }
   },
   "validation_result": {
@@ -59,6 +59,7 @@
     "shell_checks": {
       "emitted_class": true,
       "unsupported_empty": true,
+      "native_array_core_ir": true,
       "method_emitted": true,
       "native_array_mutation": true,
       "helper_delegation": true
@@ -66,13 +67,14 @@
   },
   "claims": [
     "The WPHX PHP emitter can generate the original-path public WP_Http::buildCookieHeader(&$r) shell.",
+    "The generated shell body is emitted through reusable PHP-core IR nodes for if, foreach, native array reads/writes, array casts, long array literals, object construction, calls, local variables, and assignments.",
     "The generated shell preserves PHP-native by-reference request array mutation, scalar cookie upgrading, object preservation, filter payload/timing, and final Cookie header order.",
     "The generated shell delegates only the Cookie header separator assembly to the existing Haxe helper.",
-    "The WPHX PHP emission manifest records class:WP_Http with unsupported=[]."
+    "The WPHX PHP emission manifest records class:WP_Http with unsupported=[] and the required native-array core IR feature list."
   ],
   "non_claims": [
     "This does not claim whole-file WP_Http ownership.",
     "This does not claim WP_Http::processHeaders generation, full WP_Http::request ownership, live HTTP transport, installed WordPress behavior, or broad template/include behavior.",
-    "The current buildCookieHeader adapter is a WordPress profile pressure feature; the compiler direction remains a reusable modern PHP/Reflaxe core plus WordPress profile constraints."
+    "The current buildCookieHeader adapter remains a WordPress profile selection of the public boundary shape; the reusable core IR is not yet arbitrary Haxe expression lowering or a full PHP backend."
   ]
 }

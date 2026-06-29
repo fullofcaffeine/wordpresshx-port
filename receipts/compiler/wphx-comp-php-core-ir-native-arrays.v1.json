@@ -1,0 +1,57 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-core-ir-native-arrays",
+  "issue": "WPHX-COMP-PHP-CORE-IR-NATIVE-ARRAYS",
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:wp-http-build-cookie-header:check"
+  ],
+  "generated_files": [
+    {
+      "path": "build/wp-core/wphx-comp-php-06/generated/wp-includes/class-wp-http.php",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "methods": [
+        "WP_Http::buildCookieHeader"
+      ],
+      "probe": "The minimized original-path buildCookieHeader driver verifies generated PHP syntax, public by-reference ABI, behavior parity, and manifest core_ir_features for native-array IR nodes."
+    }
+  ],
+  "source": [
+    "src/wphx/compiler/php/WphxPhpCompiler.hx",
+    "tools/wphx-php/run-wp-http-build-cookie-header.mjs",
+    "fixtures/wphx-php/wp-http-build-cookie-header.hxml",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpBuildCookieHeaderShell.hx"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "core_ir_features": [
+      "expr.array-coerce",
+      "expr.array-read",
+      "expr.array-write-target",
+      "expr.function-call",
+      "expr.long-array",
+      "expr.method-call",
+      "expr.new",
+      "expr.static-call",
+      "stmt.assign",
+      "stmt.foreach",
+      "stmt.foreach-key-value",
+      "stmt.if",
+      "stmt.var"
+    ],
+    "manifest_unsupported": []
+  },
+  "claims": [
+    "WPHX PHP now has reusable PHP-core statement/expression IR nodes and a printer for if statements, foreach loops, native array reads and writes, array casts, long array literals, object construction, local variables, assignments, function calls, method calls, and static calls.",
+    "The WP_Http::buildCookieHeader profile adapter now selects the WordPress public boundary shape but emits its native-array body through those reusable core IR nodes, not through a durable WordPress-only PHP body template.",
+    "WPHX-COMP-PHP.07 processHeaders can depend on these native-array core IR nodes as its next compiler-pressure substrate."
+  ],
+  "non_claims": [
+    "This does not claim arbitrary Haxe typed-expression lowering into PHP-core IR.",
+    "This does not claim a full custom PHP backend or extracted reflaxe.php target.",
+    "This does not claim whole-file WP_Http ownership, WP_Http::processHeaders generation, or installed WordPress distribution behavior."
+  ]
+}

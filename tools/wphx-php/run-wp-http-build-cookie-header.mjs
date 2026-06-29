@@ -223,9 +223,25 @@ function main() {
   const generatedSource = readFileSync(generatedShell, "utf8");
   const manifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
   const declarations = manifest.files.flatMap((file) => file.declarations.map((entry) => `${entry.kind}:${entry.name}`));
+  const requiredCoreIrFeatures = [
+    "stmt.if",
+    "stmt.foreach",
+    "stmt.foreach-key-value",
+    "stmt.assign",
+    "stmt.var",
+    "expr.array-read",
+    "expr.array-write-target",
+    "expr.array-coerce",
+    "expr.long-array",
+    "expr.new",
+    "expr.function-call",
+    "expr.method-call",
+    "expr.static-call"
+  ];
   const shellChecks = {
     emitted_class: declarations.includes("class:WP_Http"),
     unsupported_empty: manifest.unsupported.length === 0,
+    native_array_core_ir: requiredCoreIrFeatures.every((feature) => manifest.core_ir_features?.includes(feature)),
     method_emitted: /public\s+static\s+function\s+buildCookieHeader\s*\(\s*&\$r\s*\)/.test(generatedSource),
     native_array_mutation: generatedSource.includes("$r['cookies'][ $name ] = new WP_Http_Cookie(") && generatedSource.includes("$r['headers']['cookie'] = $cookies_header;"),
     helper_delegation: generatedSource.includes("HttpCookieHeaderAssembly_Fields_::appendCookieHeader")
@@ -267,14 +283,15 @@ function main() {
     },
     claims: [
       "The WPHX PHP emitter can generate the original-path public WP_Http::buildCookieHeader(&$r) shell.",
+      "The generated shell body is emitted through reusable PHP-core IR nodes for if, foreach, native array reads/writes, array casts, long array literals, object construction, calls, local variables, and assignments.",
       "The generated shell preserves PHP-native by-reference request array mutation, scalar cookie upgrading, object preservation, filter payload/timing, and final Cookie header order.",
       "The generated shell delegates only the Cookie header separator assembly to the existing Haxe helper.",
-      "The WPHX PHP emission manifest records class:WP_Http with unsupported=[]."
+      "The WPHX PHP emission manifest records class:WP_Http with unsupported=[] and the required native-array core IR feature list."
     ],
     non_claims: [
       "This does not claim whole-file WP_Http ownership.",
       "This does not claim WP_Http::processHeaders generation, full WP_Http::request ownership, live HTTP transport, installed WordPress behavior, or broad template/include behavior.",
-      "The current buildCookieHeader adapter is a WordPress profile pressure feature; the compiler direction remains a reusable modern PHP/Reflaxe core plus WordPress profile constraints."
+      "The current buildCookieHeader adapter remains a WordPress profile selection of the public boundary shape; the reusable core IR is not yet arbitrary Haxe expression lowering or a full PHP backend."
     ]
   };
 

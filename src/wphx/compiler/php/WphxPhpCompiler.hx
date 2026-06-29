@@ -77,12 +77,43 @@ private enum AdapterMethodBody
 	TypedExprMethodBody(expr:TypedExpr);
 }
 
+private enum PhpCoreStmt
+{
+	PhpIf(condition:PhpCoreExpr, body:Array<PhpCoreStmt>);
+	PhpForeach(iterable:PhpCoreExpr, valueVar:String, body:Array<PhpCoreStmt>);
+	PhpForeachKeyValue(iterable:PhpCoreExpr, keyVar:String, valueVar:String, body:Array<PhpCoreStmt>);
+	PhpAssign(target:PhpCoreExpr, value:PhpCoreExpr);
+	PhpVar(name:String, value:PhpCoreExpr);
+	PhpExprStmt(expr:PhpCoreExpr);
+}
+
+private enum PhpCoreExpr
+{
+	PhpVar(name:String);
+	PhpString(value:String);
+	PhpArrayRead(base:PhpCoreExpr, key:PhpCoreExpr);
+	PhpLongArray(entries:Array<PhpCoreArrayEntry>);
+	PhpNew(className:String, args:Array<PhpCoreExpr>);
+	PhpStaticCall(className:String, method:String, args:Array<PhpCoreExpr>);
+	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
+	PhpFunctionCall(name:String, args:Array<PhpCoreExpr>);
+	PhpNot(expr:PhpCoreExpr);
+	PhpCastArray(expr:PhpCoreExpr);
+}
+
+private typedef PhpCoreArrayEntry =
+{
+	final key:Null<PhpCoreExpr>;
+	final value:PhpCoreExpr;
+}
+
 private typedef EmissionManifest =
 {
 	final schema:String;
 	final generator:String;
 	final output_profile:String;
 	final files:Array<EmissionManifestFile>;
+	final core_ir_features:Array<String>;
 	final unsupported:Array<String>;
 }
 
@@ -112,6 +143,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 {
 	var modules:Array<ModuleType> = [];
 	var unsupported:Array<String> = [];
+	var coreIrFeatures:Array<String> = [];
 
 	public function new()
 	{
@@ -551,9 +583,10 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		}
 	}
 
-	// WordPress profile adapter. Keep these pressure bodies narrow until the
-	// reusable PHP core grows the generic IR nodes for loops, native arrays,
-	// object construction, casts, and assignments.
+	// WordPress profile adapter. The profile still decides which PHP-visible
+	// boundary shape is required; the method body is emitted through reusable
+	// PHP-core statement/expression IR so processHeaders and later adapters can
+	// depend on the same lowering nodes.
 	function emitWpHttpBuildCookieHeaderBody(field:ClassField):String
 	{
 		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
@@ -563,27 +596,214 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			return "";
 		}
 
-		return [
-			"if ( ! empty( $r['cookies'] ) ) {",
-			"\tforeach ( $r['cookies'] as $name => $value ) {",
-			"\t\tif ( ! is_object( $value ) ) {",
-			"\t\t\t$r['cookies'][ $name ] = new WP_Http_Cookie(",
-			"\t\t\t\tarray(",
-			"\t\t\t\t\t'name'  => $name,",
-			"\t\t\t\t\t'value' => $value,",
-			"\t\t\t\t)",
-			"\t\t\t);",
-			"\t\t}",
-			"\t}",
-			"",
-			"\t$cookies_header = '';",
-			"\tforeach ( (array) $r['cookies'] as $cookie ) {",
-			"\t\t$cookies_header = " + helper + "::appendCookieHeader( $cookies_header, $cookie->getHeaderValue() );",
-			"\t}",
-			"",
-			"\t$r['headers']['cookie'] = $cookies_header;",
-			"}"
-		].join("\n");
+		recordCoreIrFeatures([
+			"stmt.if",
+			"stmt.foreach",
+			"stmt.foreach-key-value",
+			"stmt.assign",
+			"stmt.var",
+			"expr.array-read",
+			"expr.array-write-target",
+			"expr.array-coerce",
+			"expr.long-array",
+			"expr.new",
+			"expr.function-call",
+			"expr.method-call",
+			"expr.static-call"
+		]);
+
+		final cookies = PhpArrayRead(PhpVar("r"), PhpString("cookies"));
+		final headerTarget = PhpArrayRead(PhpArrayRead(PhpVar("r"), PhpString("headers")), PhpString("cookie"));
+		final statements = [
+			PhpIf(PhpNot(PhpFunctionCall("empty", [cookies])), [
+				PhpForeachKeyValue(cookies, "name", "value", [
+					PhpIf(PhpNot(PhpFunctionCall("is_object", [PhpVar("value")])), [
+						PhpAssign(PhpArrayRead(cookies, PhpVar("name")), PhpNew("WP_Http_Cookie", [
+							PhpLongArray([
+								{
+									key: PhpString("name"),
+									value: PhpVar("name")
+								},
+								{key: PhpString("value"), value: PhpVar("value")}
+							])
+						]))
+					])
+				]),
+				PhpVar("cookies_header", PhpString("")),
+				PhpForeach(PhpCastArray(cookies), "cookie", [
+					PhpAssign(PhpVar("cookies_header"),
+						PhpStaticCall(helper, "appendCookieHeader", [PhpVar("cookies_header"), PhpMethodCall(PhpVar("cookie"), "getHeaderValue", [])]))
+				]),
+				PhpAssign(headerTarget, PhpVar("cookies_header"))
+			])
+		];
+		return emitPhpCoreStatements(statements);
+	}
+
+	function emitPhpCoreStatements(statements:Array<PhpCoreStmt>, depth:Int = 0):String
+	{
+		return statements.map(statement -> emitPhpCoreStatement(statement, depth)).join("\n");
+	}
+
+	function emitPhpCoreStatement(statement:PhpCoreStmt, depth:Int):String
+	{
+		final prefix = tabs(depth);
+		return switch (statement)
+		{
+			case PhpIf(condition, body):
+				prefix
+				+ "if ( "
+				+ emitPhpCoreExpr(condition, depth)
+				+ " ) {\n"
+				+ emitPhpCoreStatements(body, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "}";
+			case PhpForeach(iterable, valueVar, body):
+				prefix
+				+ "foreach ( "
+				+ emitPhpCoreExpr(iterable, depth)
+				+ " as $"
+				+ phpIdent(valueVar)
+				+ " ) {\n"
+				+ emitPhpCoreStatements(body, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "}";
+			case PhpForeachKeyValue(iterable, keyVar, valueVar, body):
+				prefix
+				+ "foreach ( "
+				+ emitPhpCoreExpr(iterable, depth)
+				+ " as $"
+				+ phpIdent(keyVar)
+				+ " => $"
+				+ phpIdent(valueVar)
+				+ " ) {\n"
+				+ emitPhpCoreStatements(body, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "}";
+			case PhpAssign(target, value):
+				prefix + emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpVar(name, value):
+				prefix + "$" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpExprStmt(expr):
+				prefix + emitPhpCoreExpr(expr, depth) + ";";
+		}
+	}
+
+	function emitPhpCoreExpr(expr:PhpCoreExpr, depth:Int):String
+	{
+		return switch (expr)
+		{
+			case PhpVar(name):
+				"$" + phpIdent(name);
+			case PhpString(value):
+				quote(value);
+			case PhpArrayRead(base, key):
+				emitPhpCoreExpr(base, depth) + "[" + emitPhpCoreArrayKey(key, depth) + "]";
+			case PhpLongArray(entries):
+				emitPhpCoreLongArray(entries, depth, false);
+			case PhpNew(className, args):
+				emitPhpCoreNew(className, args, depth);
+			case PhpStaticCall(className, method, args):
+				className + "::" + phpIdent(method) + emitPhpCoreCallArgs(args, depth);
+			case PhpMethodCall(target, method, args):
+				emitPhpCoreExpr(target, depth)
+				+ "->"
+				+ phpIdent(method)
+				+ emitPhpCoreCallArgs(args, depth);
+			case PhpFunctionCall(name, args):
+				name + emitPhpCoreCallArgs(args, depth);
+			case PhpNot(inner):
+				"! " + emitPhpCoreExpr(inner, depth);
+			case PhpCastArray(inner):
+				"(array) " + emitPhpCoreExpr(inner, depth);
+		}
+	}
+
+	function emitPhpCoreArrayKey(key:PhpCoreExpr, depth:Int):String
+	{
+		return switch (key)
+		{
+			case PhpString(_):
+				emitPhpCoreExpr(key, depth);
+			case _:
+				" " + emitPhpCoreExpr(key, depth) + " ";
+		}
+	}
+
+	function emitPhpCoreLongArray(entries:Array<PhpCoreArrayEntry>, depth:Int, indentFirstLine:Bool):String
+	{
+		if (entries.length == 0)
+		{
+			return "array()";
+		}
+
+		final renderedKeys = entries.map(entry -> entry.key == null ? null : emitPhpCoreExpr(entry.key, depth + 1));
+		var keyWidth = 0;
+		for (key in renderedKeys)
+		{
+			if (key != null && key.length > keyWidth)
+			{
+				keyWidth = key.length;
+			}
+		}
+
+		final lines = [(indentFirstLine ? tabs(depth) : "") + "array("];
+		for (index in 0...entries.length)
+		{
+			final entry = entries[index];
+			final key = renderedKeys[index];
+			final value = emitPhpCoreExpr(entry.value, depth + 1);
+			if (key == null)
+			{
+				lines.push(tabs(depth + 1) + value + ",");
+			} else
+			{
+				lines.push(tabs(depth + 1) + key + StringTools.rpad("", " ", keyWidth - key.length + 1) + "=> " + value + ",");
+			}
+		}
+		lines.push(tabs(depth) + ")");
+		return lines.join("\n");
+	}
+
+	function emitPhpCoreNew(className:String, args:Array<PhpCoreExpr>, depth:Int):String
+	{
+		if (args.length == 0)
+		{
+			return "new " + className + "()";
+		}
+		if (args.length == 1 && phpCoreExprIsMultiline(args[0]))
+		{
+			return "new " + className + "(\n" + emitPhpCoreMultilineArg(args[0], depth + 1) + "\n" + tabs(depth) + ")";
+		}
+		return "new " + className + "( " + args.map(arg -> emitPhpCoreExpr(arg, depth)).join(", ") + " )";
+	}
+
+	function emitPhpCoreMultilineArg(expr:PhpCoreExpr, depth:Int):String
+	{
+		return switch (expr)
+		{
+			case PhpLongArray(entries):
+				emitPhpCoreLongArray(entries, depth, true);
+			case _:
+				emitPhpCoreExpr(expr, depth);
+		}
+	}
+
+	function emitPhpCoreCallArgs(args:Array<PhpCoreExpr>, depth:Int):String
+	{
+		return args.length == 0 ? "()" : "( " + args.map(arg -> emitPhpCoreExpr(arg, depth)).join(", ") + " )";
+	}
+
+	function phpCoreExprIsMultiline(expr:PhpCoreExpr):Bool
+	{
+		return switch (expr)
+		{
+			case PhpLongArray(_): true;
+			case _: false;
+		}
 	}
 
 	function emitInheritance(classType:ClassType):String
@@ -838,6 +1058,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			generator: "wphx.compiler.php.WphxPhpCompiler",
 			output_profile: Context.definedValue("wphx_php_profile") ?? "wordpress",
 			files: generated,
+			core_ir_features: coreIrFeatures,
 			unsupported: unsupported
 		};
 		return Json.stringify(manifest, null, "  ") + "\n";
@@ -949,6 +1170,18 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		}
 	}
 
+	function recordCoreIrFeatures(features:Array<String>):Void
+	{
+		for (feature in features)
+		{
+			if (coreIrFeatures.indexOf(feature) == -1)
+			{
+				coreIrFeatures.push(feature);
+			}
+		}
+		coreIrFeatures.sort(Reflect.compare);
+	}
+
 	function isModuleFieldsClass(classType:ClassType):Bool
 	{
 		return StringTools.endsWith(classType.name, "_Fields_");
@@ -998,6 +1231,16 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 	function indent(value:String, prefix:String = "\t"):String
 	{
 		return value.split("\n").map(line -> line == "" ? line : prefix + line).join("\n");
+	}
+
+	function tabs(count:Int):String
+	{
+		final out = new StringBuf();
+		for (_ in 0...count)
+		{
+			out.add("\t");
+		}
+		return out.toString();
 	}
 }
 #end

@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 231,
+  "scanned_file_count": 234,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -137,11 +137,14 @@
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/HaxeClassKernel.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/HaxeFacadeKernel.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieHeaderAssembly.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpDeprecatedParseUrl.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpBuildCookieHeaderEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpChunkTransferDecodeEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpParserHelpersEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpBuildCookieHeaderShell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpChunkTransferDecodeShell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
     "src/wphx/compiler/php/CompilerInit.hx",
@@ -238,7 +241,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 74,
+  "occurrence_count": 75,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -339,6 +342,16 @@
       "source": "typedef WpCallback = Dynamic;",
       "source_sha256": "sha256:d7336ec6c47b3067035d9d9dfd5b1cb03e44d0684bd60dcd1b8687b28284bbb0",
       "justification": "WPHX-211: Macro fixtures model WordPress callback ABI shape without invoking"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpBuildCookieHeaderEntry.hx",
+      "line": 11,
+      "kinds": [
+        "cast"
+      ],
+      "source": "WpHttpBuildCookieHeaderShell.buildCookieHeader(cast null);",
+      "source_sha256": "sha256:6db32fe6c5d6e038273e89b3474a60ab80e89c8fc074ea972de118d0d1a0ec5d",
+      "justification": "WPHX-211: compile anchor only; runtime PHP receives a native by-ref request array from the probe."
     },
     {
       "path": "src/wphx/wp/boundary/CallableValue.hx",
@@ -982,6 +995,7 @@
     }
   ],
   "by_kind": {
+    "cast": 1,
     "Dynamic": 8,
     "php.Syntax.code": 66
   },
