@@ -39,6 +39,8 @@ npm run wphx:php:pluggable-timing
 npm run wphx:php:pluggable-timing:check
 npm run wphx:php:bootstrap-autoload
 npm run wphx:php:bootstrap-autoload:check
+npm run wphx:php:bootstrap-error-handler
+npm run wphx:php:bootstrap-error-handler:check
 npm run wphx:php:wp-http-parser-helpers
 npm run wphx:php:wp-http-parser-helpers:check
 npm run wphx:php:wp-http-chunk-transfer-decode
@@ -146,6 +148,17 @@ npm run wphx:php:bootstrap-autoload:check
 
 It emits `build/wphx-php/bootstrap-autoload/generated/wp-includes/wphx-bootstrap-a.php` and `build/wphx-php/bootstrap-autoload/generated/wp-includes/wphx-bootstrap-b.php`, lints both files, checks exact bootstrap shape, registers a pre-existing probe autoloader, and verifies the Haxe library path and SPL autoloader are appended once across first load, repeated `require`, and a second original-path shell sharing the same bootstrap constant. It also verifies `php\Boot` is available after bootstrap and that both public functions delegate into stock Haxe PHP implementation code. Evidence is recorded in `manifests/wphx-php/bootstrap-autoload.v1.json` and `receipts/compiler/wphx-comp-php-bootstrap-autoload-probe.v1.json`. This closes the include-path/autoload part of ADR-014 for the current shared-constant fixture; multiple constants/profiles, warning/error-handler behavior, and stack traces/source maps remain separate gates.
 
+The bootstrap warning/error-handler fixture compiles stock Haxe PHP implementation code plus two neighboring WPHX original-path public shells that share the same bootstrap constant:
+
+```bash
+haxe fixtures/wphx-php/bootstrap-error-handler-impl.hxml
+haxe fixtures/wphx-php/bootstrap-error-handler.hxml
+npm run wphx:php:bootstrap-error-handler
+npm run wphx:php:bootstrap-error-handler:check
+```
+
+It emits `build/wphx-php/bootstrap-error-handler/generated/wp-includes/wphx-bootstrap-a.php` and `build/wphx-php/bootstrap-error-handler/generated/wp-includes/wphx-bootstrap-b.php`, lints both files, and runs three isolated PHP modes against the first shell: default stock bootstrap, `HAXE_CUSTOM_ERROR_HANDLER=true` before bootstrap, and a pre-existing PHP error handler before bootstrap. The probe records that default stock Haxe PHP bootstrap installs a throwing error handler when none exists, mutates `error_reporting`, and converts an unsuppressed include warning into `ErrorException`. It also records that `HAXE_CUSTOM_ERROR_HANDLER=true` preserves ordinary PHP warning return behavior, and that an existing PHP error handler is preserved. Evidence is recorded in `manifests/wphx-php/bootstrap-error-handler.v1.json` and `receipts/compiler/wphx-comp-php-bootstrap-error-handler-probe.v1.json`. This proves the policy pressure; it does not yet emit the future non-throwing WPHX bootstrap profile, which is tracked by `wordpresshx-9h2`.
+
 ## Adapter IR
 
 The WPHX PHP compiler now uses an Adapter IR before printing PHP:
@@ -159,7 +172,7 @@ typed Haxe source and metadata
 
 The v0 IR in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the proven public-shell shapes: original-path files, guarded global functions, classes/interfaces, methods, properties, constants, Haxe bootstrap markers, protected methods, by-reference parameters, and manifest declarations. The first reusable PHP-core method-body nodes now cover `if`/`else`, `for`, `foreach`, `break`, `continue`, `return`, native array reads/writes/appends, array casts, int/string casts, long array literals, object construction, local variables, assignments, function calls, method calls, and static calls. The emission manifest records these as `core_ir_features` so richer adapters can depend on them explicitly.
 
-This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected pressure is grouping neighboring generated `WP_Http` adapters, the remaining bootstrap warning/error-handler and stack-trace/source-map probes, and include-time side-effect/script nodes.
+This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected pressure is grouping neighboring generated `WP_Http` adapters, non-throwing bootstrap profile emission, the remaining stack-trace/source-map probe, and include-time side-effect/script nodes.
 
 `WPHX-COMP-PHP.06` adds the first generated `WP_Http::buildCookieHeader( &$r )` original-path shell. It is a WordPress profile pressure gate over native PHP array mutation, scalar cookie upgrading, `WP_Http_Cookie` object preservation, filter timing, and helper delegation. `WPHX-COMP-PHP-CORE-IR-NATIVE-ARRAYS` keeps the same public-shell behavior while moving the native-array body through reusable PHP-core IR nodes. This is still not arbitrary Haxe expression lowering or a complete PHP backend.
 
