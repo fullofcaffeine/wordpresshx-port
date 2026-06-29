@@ -18,7 +18,7 @@ npm run upstream:phpunit-ratchet:provision:check
 
 The provisioner creates vanilla and candidate worktrees under `build/upstream-phpunit/wphx-700-09/`, installs Composer dependencies in those disposable roots, starts the locked MySQL runtime, writes local `wp-tests-config.php` files with isolated databases, and runs the ratchet in report-only mode.
 
-The runner compares pinned vanilla WordPress against a packaged candidate distribution for the selected database, options/cache, REST, posts/query/meta/revisions, taxonomy/term, comment, rewrite/routing, canonical, link, template, theme/theme JSON, block-template, widget, nav-menu, Customizer, HTTP/cron/mail, feed/SimplePie, oEmbed/embed, HTTPS, and privacy request PHPUnit files in `tests/upstream/phpunit/groups.json`.
+The runner compares pinned vanilla WordPress against a packaged candidate distribution for the selected database, options/cache, REST, posts/query/meta/revisions, taxonomy/term, comment, rewrite/routing, canonical, link, template, theme/theme JSON, block-template, widget, nav-menu, Customizer, HTTP/cron/mail, feed/SimplePie, oEmbed/embed, HTTPS, privacy request, media, image, upload, MIME, and filesystem PHPUnit files in `tests/upstream/phpunit/groups.json`.
 
 Group entries may include a `filter` field. The `files` list remains the provenance and prerequisite surface, while the runner passes `--filter` instead of direct file operands. Use this for upstream test files whose filenames do not map to PHPUnit class names, such as REST API files named `rest-server.php` with classes like `Tests_REST_Server`, or hyphenated theme files such as `block-template.php` and `menu/nav-menu.php`.
 
@@ -28,6 +28,13 @@ The WPHX-312 scope is split into four selected groups:
 - `feed-simplepie-core`: Atom/RSS/feed helper, `fetch_feed`, enclosure, and `WP_SimplePie_File` tests.
 - `oembed-embed-core`: oEmbed provider/discovery/controller/template/filter/header tests, using a filter because upstream class names do not map cleanly from every filename.
 - `https-privacy-request-core`: HTTPS canonical/detection/migration tests plus privacy request export/erasure mail and request lifecycle tests.
+
+The WPHX-313 scope is split into four selected groups:
+
+- `media-core`: attachment image helpers, galleries, playlist shortcode, attachment JS preparation, responsive image attributes, media shortcode behavior, and metadata-facing media helpers.
+- `image-editor-metadata-core`: image dimensions, editor selection/execution, GD/Imagick editor tests, intermediate sizes, image metadata, resizing, site icon, and image size helpers.
+- `upload-mime-filesystem-core`: `Tests_File` filesystem/temp/unique-file behavior plus filtered `Tests_Functions` upload, MIME, filetype, image MIME, image size, stream, and default-extension methods.
+- `rest-ajax-media-core`: REST attachment controller upload/edit behavior and AJAX media image editor, crop image, parse media shortcode, and send-attachment-to-editor behavior, using a filter because the files include focused class names rather than one path-mapped class per group.
 
 Required runtime inputs:
 

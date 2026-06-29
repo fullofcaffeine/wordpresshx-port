@@ -1,7 +1,7 @@
 {
   "schema": "wphx.upstream-phpunit-groups.v1",
   "issue": "WPHX-700.05",
-  "description": "Upstream PHPUnit ratchet groups for database, options/cache, REST server/settings, posts/query/meta/revisions, taxonomy/term, comment, routing/template, theme, HTTP/cron/mail, feeds/oEmbed, HTTPS, and privacy request behavior.",
+  "description": "Upstream PHPUnit ratchet groups for database, options/cache, REST server/settings, posts/query/meta/revisions, taxonomy/term, comment, routing/template, theme, HTTP/cron/mail, feeds/oEmbed, HTTPS, privacy request, media, image, upload, MIME, and filesystem behavior.",
   "groups": [
     {
       "id": "wpdb-core",
@@ -363,6 +363,65 @@
         "tests/phpunit/tests/privacy/wpPrivacySendErasureFulfillmentNotification.php",
         "tests/phpunit/tests/privacy/wpPrivacySendPersonalDataExportEmail.php",
         "tests/phpunit/tests/privacy/wpPrivacySendRequestConfirmationNotification.php"
+      ]
+    },
+    {
+      "id": "media-core",
+      "owner": "WPHX-313",
+      "files": [
+        "tests/phpunit/tests/media.php",
+        "tests/phpunit/tests/media/getAdjacentImageLink.php",
+        "tests/phpunit/tests/media/getAttachmentTaxonomies.php",
+        "tests/phpunit/tests/media/getNextImageLink.php",
+        "tests/phpunit/tests/media/getPostGalleries.php",
+        "tests/phpunit/tests/media/getPreviousImageLink.php",
+        "tests/phpunit/tests/media/nextImageLink.php",
+        "tests/phpunit/tests/media/previousImageLink.php",
+        "tests/phpunit/tests/media/wpAddId3TagData.php",
+        "tests/phpunit/tests/media/wpCopyParentAttachmentProperties.php",
+        "tests/phpunit/tests/media/wpGenerateAttachmentMetadata.php",
+        "tests/phpunit/tests/media/wpImageTagAddDecodingAttr.php",
+        "tests/phpunit/tests/media/wpImgTagAddWidthAndHeightAttr.php",
+        "tests/phpunit/tests/media/wpPlaylistShortcode.php"
+      ]
+    },
+    {
+      "id": "image-editor-metadata-core",
+      "owner": "WPHX-313",
+      "files": [
+        "tests/phpunit/tests/image/dimensions.php",
+        "tests/phpunit/tests/image/editor.php",
+        "tests/phpunit/tests/image/editorGd.php",
+        "tests/phpunit/tests/image/editorImagick.php",
+        "tests/phpunit/tests/image/functions.php",
+        "tests/phpunit/tests/image/header.php",
+        "tests/phpunit/tests/image/intermediateSize.php",
+        "tests/phpunit/tests/image/meta.php",
+        "tests/phpunit/tests/image/resizeGd.php",
+        "tests/phpunit/tests/image/resizeImagick.php",
+        "tests/phpunit/tests/image/siteIcon.php",
+        "tests/phpunit/tests/image/size.php"
+      ]
+    },
+    {
+      "id": "upload-mime-filesystem-core",
+      "owner": "WPHX-313",
+      "filter": "Tests_File|Tests_Functions::test_(wp_unique_filename|unique_filename_with_dimension_like_filename|wp_unique_filename_with_additional_image_extension|get_allowed_mime_types|wp_get_mime_types|wp_get_ext_types|wp_ext2type|wp_get_image_mime|wp_getimagesize|wp_getimagesize_heic|wp_check_filetype_and_ext|wp_check_filetype_and_ext_with_filtered_svg|wp_check_filetype_and_ext_with_filtered_woff|validate_file|wp_is_stream|wp_is_json_media_type|wp_get_default_extension_for_mime_type)",
+      "files": [
+        "tests/phpunit/tests/file.php",
+        "tests/phpunit/tests/functions.php"
+      ]
+    },
+    {
+      "id": "rest-ajax-media-core",
+      "owner": "WPHX-313",
+      "filter": "WP_Test_REST_Attachments_Controller|Tests_Ajax_wpAjaxImageEditor|Tests_Ajax_WpAjaxCropImage|Tests_Ajax_wpAjaxParseMediaShortcode|Tests_Ajax_wpAjaxSendAttachmentToEditor",
+      "files": [
+        "tests/phpunit/tests/rest-api/rest-attachments-controller.php",
+        "tests/phpunit/tests/ajax/wpAjaxCropImage.php",
+        "tests/phpunit/tests/ajax/wpAjaxImageEditor.php",
+        "tests/phpunit/tests/ajax/wpAjaxParseMediaShortcode.php",
+        "tests/phpunit/tests/ajax/wpAjaxSendAttachmentToEditor.php"
       ]
     }
   ]

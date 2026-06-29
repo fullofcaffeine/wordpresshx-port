@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-313-07-media-filesystem-upstream-phpunit-ratchet-groups",
+  "issue": {
+    "id": "wordpresshx-nco",
+    "external_ref": "WPHX-313.07",
+    "title": "WPHX-313.07 — Add media filesystem upstream PHPUnit ratchet groups"
+  },
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "command": "npm run upstream:phpunit-ratchet",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "tests/upstream/phpunit/groups.json",
+      "role": "selected upstream media/image/upload/filesystem PHPUnit ratchet groups",
+      "sha256": "sha256:de0d1df932c83decb83e50c92e04f2e980acba806879ccd2bb1fb7a5ab5b4d73"
+    },
+    {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed upstream PHPUnit ratchet manifest",
+      "sha256": "sha256:a56638478865103df347be26f47d7e6844c18ec1e2a762013c3d77c4ce003743"
+    },
+    {
+      "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed upstream PHPUnit ratchet receipt",
+      "sha256": "sha256:ec97ee4e9eaa6d66aef8d7e76249a9bc5ee747e995764d8fb3c24e5d1e697475"
+    },
+    {
+      "path": "docs/operations/upstream-phpunit-ratchet.md",
+      "role": "expanded ratchet scope documentation",
+      "sha256": "sha256:46a8e5ea9b662a2ae6117da710770ee87e66db36bb40aa498ef9c663b47ac482"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-313.07 progress interpretation",
+      "sha256": "sha256:09ea76f34866f616688933192d3bf8be20058e75903547663cfc531e302374e4"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet",
+    "npm run upstream:phpunit-ratchet:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "blocked",
+    "environment_ready": false,
+    "selected_upstream_groups_declared": true,
+    "selected_wphx_313_group_count": 4,
+    "selected_wphx_313_test_file_count": 33,
+    "runs_executed": 0,
+    "behavior_parity_claimed": false,
+    "blocked_inputs": [
+      "vanilla_phpunit_vendor_missing",
+      "vanilla_wp_tests_config_missing",
+      "candidate_root_env_missing"
+    ],
+    "remaining_gate": "Run npm run upstream:phpunit-ratchet:provision after the disposable runtime is refreshed to record executable pass/pass classifications for the WPHX-313 groups."
+  }
+}
