@@ -350,7 +350,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				continue;
 			}
 			final fn = functionOf(expr, "static method " + field.name);
-			lines.push("\tpublic static function " + phpIdent(field.name) + "(" + emitArgs(fn.args) + ")");
+			final visibility = phpVisibility(field) ?? "public";
+			lines.push("\t" + visibility + " static function " + phpIdent(field.name) + "(" + emitArgs(fn.args) + ")");
 			lines.push("\t{");
 			lines.push(indent(emitBody(fn.expr), "\t\t"));
 			lines.push("\t}");

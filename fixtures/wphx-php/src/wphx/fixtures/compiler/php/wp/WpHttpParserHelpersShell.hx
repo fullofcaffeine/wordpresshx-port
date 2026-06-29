@@ -1,5 +1,7 @@
 package wphx.fixtures.compiler.php.wp;
 
+import wphx.wp.boundary.NativeValue.NativeValue;
+
 typedef ProcessResponseResult =
 {
 	final headers:String;
@@ -26,5 +28,13 @@ class WpHttpParserHelpersShell
 	public static function chunkTransferDecode(body:String):String
 	{
 		return HaxeHttpChunkTransferDecode.decodeChunkTransfer(body);
+	}
+
+	@:wp.visibility("protected")
+	public static function parse_url(url:String):NativeValue
+	{
+		PhpHttpGlobals.deprecatedFunction(HaxeHttpDeprecatedParseUrl.deprecatedFunctionName(), HaxeHttpDeprecatedParseUrl.deprecatedVersion(),
+			HaxeHttpDeprecatedParseUrl.replacementFunctionName());
+		return HaxeHttpDeprecatedParseUrl.parseUrl(url);
 	}
 }

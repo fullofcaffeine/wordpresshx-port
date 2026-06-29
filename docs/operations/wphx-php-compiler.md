@@ -62,7 +62,7 @@ The first grouped WordPress Core public-method driver reuses the WPHX-312.60 pro
 haxe fixtures/wphx-php/wp-http-parser-helpers.hxml
 ```
 
-The runner emits `build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php` with both `WP_Http::processResponse` and `WP_Http::chunkTransferDecode`, lints that PHP, runs oracle/candidate probes for both helper cases, and verifies the WPHX PHP manifest records `class:WP_Http` with no unsupported constructs. This is the current model for replacing copied or JS-patched PHP shells with compiler-emitted original-path adapters while keeping stock Haxe PHP responsible for runtime implementation classes and stdlib behavior.
+The runner emits `build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php` with `WP_Http::processResponse`, `WP_Http::chunkTransferDecode`, and protected `WP_Http::parse_url`, lints that PHP, runs oracle/candidate probes for all three helper cases, and verifies the WPHX PHP manifest records `class:WP_Http` with no unsupported constructs. This is the current model for replacing copied or JS-patched PHP shells with compiler-emitted original-path adapters while keeping stock Haxe PHP responsible for runtime implementation classes and stdlib behavior.
 
 ## First Contract
 
@@ -75,7 +75,7 @@ The initial metadata contract is intentionally small:
 - `@:wp.haxeBootstrap("CONSTANT_NAME")` emits a guarded stock Haxe PHP runtime bootstrap for facade shells that delegate to Haxe-generated implementation classes.
 - `@:wp.order(n)` orders multiple declarations that share one generated PHP file.
 - `@:wp.const` emits a static field as a PHP class constant.
-- `@:wp.visibility("protected")`, `@:wp.name("name")`, and `@:wp.defaultArray` preserve PHP reflection-visible class/member/parameter ABI when Haxe's source-level spelling differs.
+- `@:wp.visibility("protected")`, `@:wp.name("name")`, and `@:wp.defaultArray` preserve PHP reflection-visible class/member/static-method/parameter ABI when Haxe's source-level spelling differs.
 
 The emitter also writes `wphx-php-emission.v1.json` with generated paths, declarations, source modules, hashes-by-runner evidence, and unsupported construct notes.
 
@@ -85,4 +85,4 @@ This is not yet a full PHP backend. The first verified behavior is global functi
 
 The generator should reuse or adapt Haxe stdlib and stock PHP target behavior wherever practical, using `../haxe.compilerdev.reference/haxe` as the reference for std/php lowering. WordPress-specific metadata and lowering are acceptable for original paths, conditional declarations, reflection-visible ABI, native PHP array boundaries, and plugin/theme compatibility, but they should remain named and bounded rather than becoming a parallel reimplementation of the Haxe PHP target.
 
-The next target gate is expanding grouped original-path adapters beyond parser leaf helpers toward richer public ABI shapes such as protected methods, references, conditional declarations, and neighboring header/cookie helpers. The full `WP_Http::request` method remains deliberately later.
+The next target gate is expanding grouped original-path adapters beyond parser leaf helpers toward richer public ABI shapes such as references, conditional declarations, and neighboring header/cookie helpers. The full `WP_Http::request` method remains deliberately later.

@@ -28,8 +28,8 @@
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-process-response-candidate.mjs",
-      "bytes": 17685,
-      "sha256": "sha256:5ed97613bc7c1b66bea6af23e089d2270c28115953d4ffa60d646c14cdfa3223"
+      "bytes": 20075,
+      "sha256": "sha256:8699948ae20e2fa0206142e6d641ef9b91af5fa31f0fdef3079e4cc301e2ec83"
     },
     "haxe_sources": [
       {
@@ -53,9 +53,14 @@
         "sha256": "sha256:7edaa025c19d987b8d571046164e6b7d8d48e74c6cbf26f37adbdd2a670dcca5"
       },
       {
+        "path": "src/wphx/wp/http/HttpDeprecatedParseUrl.hx",
+        "bytes": 686,
+        "sha256": "sha256:ccbb0be6f8be67b607305bb396ae9bca85c7459e0bd73271539fc66d573bfcc0"
+      },
+      {
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.hx",
-        "bytes": 499,
-        "sha256": "sha256:f76f4b9e5ca9bfa70ee1e1e5c029f0d682800f7985928fbb5705514275987f80"
+        "bytes": 866,
+        "sha256": "sha256:0051bdd860c6d4000522238265113927122bf31d54240a8028d961ebf6800dd1"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpParserHelpersEntry.hx",
@@ -64,8 +69,8 @@
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
-        "bytes": 719,
-        "sha256": "sha256:5f4e2403802ae41ec7ff7eb03e689727a2360ff351ba3ce39b6aee053e4548db"
+        "bytes": 1110,
+        "sha256": "sha256:d0515b4b79595294f57c3511cef7651b432689b271bd5585943f3ca9fce7362a"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
@@ -76,6 +81,16 @@
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
         "bytes": 314,
         "sha256": "sha256:d39a608a63881c5e8da002cc0698d1002697e84ec0f5d5fcfea5e9a829f674bb"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpDeprecatedParseUrl.hx",
+        "bytes": 506,
+        "sha256": "sha256:86e5d78ec9f4fb43da1e51c8d0a27513ce350b9c6511b48ff05b3913c801f5a1"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx",
+        "bytes": 302,
+        "sha256": "sha256:edf69b94b36c3034e065d6580bffc179cf3b4eb6d552cbe7664df1e0d735288c"
       }
     ],
     "upstream_sources": [
@@ -109,6 +124,7 @@
       "build/wp-core/wphx-312-60/haxe/lib/php/_polyfills.php",
       "build/wp-core/wphx-312-60/haxe/lib/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.php",
       "build/wp-core/wphx-312-60/haxe/lib/wphx/wp/http/_HttpChunkTransferDecode/HttpChunkTransferDecode_Fields_.php",
+      "build/wp-core/wphx-312-60/haxe/lib/wphx/wp/http/_HttpDeprecatedParseUrl/HttpDeprecatedParseUrl_Fields_.php",
       "build/wp-core/wphx-312-60/haxe/lib/wphx/wp/http/_HttpProcessResponse/HttpProcessResponse_Fields_.php"
     ],
     "compiler_emitted_public_shell": {
@@ -118,8 +134,18 @@
         "class:WP_Http"
       ],
       "emitted_methods": [
-        "processResponse",
-        "chunkTransferDecode"
+        {
+          "name": "processResponse",
+          "visibility": "public"
+        },
+        {
+          "name": "chunkTransferDecode",
+          "visibility": "public"
+        },
+        {
+          "name": "parse_url",
+          "visibility": "protected"
+        }
       ],
       "unsupported": []
     },
@@ -130,12 +156,15 @@
       "WP_Http::chunkTransferDecode chunk header detection",
       "WP_Http::chunkTransferDecode chunk extension handling",
       "WP_Http::chunkTransferDecode single chunk body decode",
-      "WP_Http::chunkTransferDecode malformed or non-chunk passthrough"
+      "WP_Http::chunkTransferDecode malformed or non-chunk passthrough",
+      "WP_Http::parse_url deprecated function metadata",
+      "WP_Http::parse_url deprecated replacement metadata",
+      "WP_Http::parse_url wp_parse_url delegation"
     ],
     "public_shell_policy": {
       "public_php_replacement_claimed": true,
       "public_php_abi_preserved": true,
-      "shell_body_ownership": "compiler-emitted original-path class-wp-http.php shell preserves grouped WP_Http public static method ABIs, the PHP associative processResponse return shape, and the chunkTransferDecode string return shape while delegating observed parser decisions to generated Haxe PHP",
+      "shell_body_ownership": "compiler-emitted original-path class-wp-http.php shell preserves grouped WP_Http public/protected static method ABIs, the PHP associative processResponse return shape, the chunkTransferDecode string return shape, and protected parse_url subclass access while delegating observed parser decisions to generated Haxe PHP",
       "native_boundaries": [
         "compiler-emitted WP_Http public shell",
         "stock Haxe PHP runtime bootstrap"
@@ -151,6 +180,10 @@
       {
         "id": "wp-http-parser:chunk-transfer-decode",
         "focus": "chunkTransferDecode decodes valid chunk bodies and returns malformed/non-chunk bodies unchanged"
+      },
+      {
+        "id": "wp-http-parser:parse-url-wrapper",
+        "focus": "deprecated protected parse_url wrapper delegates to wp_parse_url and records deprecation metadata"
       }
     ],
     "source_files": [
@@ -158,7 +191,7 @@
     ],
     "probe": {
       "path": "build/wp-core/wphx-312-60/probe.php",
-      "sha256": "sha256:3cb7c7bfa69a7cb0d45e2f8522e10f65f01f7ae9c2fbb7e9452893403aaa6c97"
+      "sha256": "sha256:3d6e6d285965344433d155c3be106d429c99c7e8b1fb06d4210eca4274974694"
     },
     "side_effect_policy": {
       "external_network_io": false,
@@ -213,6 +246,30 @@
           "plain_passthrough": true,
           "malformed_passthrough": true
         }
+      },
+      "wp-http-parser:parse-url-wrapper": {
+        "case": "wp-http-parser:parse-url-wrapper",
+        "parsed": {
+          "scheme": "https",
+          "host": "example.test",
+          "port": 8443,
+          "user": "user",
+          "pass": "pass",
+          "path": "/path/file.php",
+          "query": "x=1",
+          "fragment": "frag"
+        },
+        "deprecated": [
+          {
+            "function": "WP_Http::parse_url",
+            "version": "4.4.0",
+            "replacement": "wp_parse_url()"
+          }
+        ],
+        "assertions": {
+          "parsed_shape": true,
+          "deprecated_recorded": true
+        }
       }
     },
     "candidate": {
@@ -248,18 +305,42 @@
           "plain_passthrough": true,
           "malformed_passthrough": true
         }
+      },
+      "wp-http-parser:parse-url-wrapper": {
+        "case": "wp-http-parser:parse-url-wrapper",
+        "parsed": {
+          "scheme": "https",
+          "host": "example.test",
+          "port": 8443,
+          "user": "user",
+          "pass": "pass",
+          "path": "/path/file.php",
+          "query": "x=1",
+          "fragment": "frag"
+        },
+        "deprecated": [
+          {
+            "function": "WP_Http::parse_url",
+            "version": "4.4.0",
+            "replacement": "wp_parse_url()"
+          }
+        ],
+        "assertions": {
+          "parsed_shape": true,
+          "deprecated_recorded": true
+        }
       }
     },
     "match": true,
-    "oracle_sha256": "sha256:374c2883c69a089c7e6e1ed84e4762620ad0c598f8c54bbf87929bf4718b337b",
-    "candidate_sha256": "sha256:374c2883c69a089c7e6e1ed84e4762620ad0c598f8c54bbf87929bf4718b337b",
+    "oracle_sha256": "sha256:a3c8aa844365ea8afa4975c7195df07f090c576bed1df8bfaad4254b8ce7c95f",
+    "candidate_sha256": "sha256:a3c8aa844365ea8afa4975c7195df07f090c576bed1df8bfaad4254b8ce7c95f",
     "assertions_pass": true
   },
   "remaining_gaps": [
     {
       "id": "broader-parser-header-helpers-not-promoted",
       "owner": "WPHX-312.60",
-      "detail": "This grouped candidate promotes only WP_Http::processResponse split decisions and WP_Http::chunkTransferDecode observed parser behavior. processHeaders, buildCookieHeader, protected parse_url, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or future candidates."
+      "detail": "This grouped candidate promotes only WP_Http::processResponse split decisions, WP_Http::chunkTransferDecode observed parser behavior, and protected WP_Http::parse_url wrapper behavior. processHeaders, buildCookieHeader, WP_Http_Cookie, and header/cookie side effects remain separate PHP boundaries or future candidates."
     },
     {
       "id": "whole-wp-http-file-not-yet-owned",
@@ -270,11 +351,11 @@
   "ownership_manifest": "manifests/ownership/wphx-312-60-wp-http-process-response-candidate.v1.json",
   "validation_result": {
     "status": "passed",
-    "fixture_cases": 2,
-    "promoted_symbols": 7,
+    "fixture_cases": 3,
+    "promoted_symbols": 10,
     "observations_match": true,
     "observations_assert": true,
-    "grouped_method_count": 2,
+    "grouped_method_count": 3,
     "public_php_replacement_claimed": true,
     "compiler_emitted_public_php": true,
     "installed_wordpress_behavior_claimed": false,

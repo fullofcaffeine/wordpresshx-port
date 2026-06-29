@@ -1,7 +1,7 @@
 {
   "schema": "wphx.compiler-core-driver-receipt.v1",
-  "id": "receipt:wphx-comp-php-03-wp-http-parser-helpers",
-  "issue": "WPHX-COMP-PHP.03",
+  "id": "receipt:wphx-comp-php-04-wp-http-protected-parse-url",
+  "issue": "WPHX-COMP-PHP.04",
   "recorded_at": "2026-06-29T00:00:00Z",
   "status": "passed",
   "commands": [
@@ -19,7 +19,7 @@
         "WP_Http::chunkTransferDecode",
         "WP_Http::parse_url"
       ],
-      "probe": "existing WPHX-312.60 processResponse oracle/candidate probe expanded to include the WPHX-312.61 chunkTransferDecode case and later the WPHX-312.64 protected parse_url wrapper case"
+      "probe": "existing WPHX-312.60 grouped parser-helper probe expanded to include the WPHX-312.64 protected parse_url wrapper case"
     }
   ],
   "source": [
@@ -31,20 +31,19 @@
     "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpParserHelpersCandidateEntry.hx",
     "fixtures/wphx-php/wp-http-parser-helpers.hxml",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpParserHelpersShell.hx",
-    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
-    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpDeprecatedParseUrl.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx",
     "tools/wp-core/run-wp-http-process-response-candidate.mjs"
   ],
   "claims": [
-    "The WPHX PHP emitter now generates a grouped original-path public PHP shell for neighboring WP_Http parser helpers.",
-    "The generated class-wp-http.php includes WP_Http::processResponse, WP_Http::chunkTransferDecode, and WP_Http::parse_url in one compiler-emitted class.",
-    "The generated shell passes PHP lint and the existing oracle/candidate behavior probes for all grouped helper cases.",
-    "The WPHX PHP emission manifest records class:WP_Http and no unsupported constructs for the grouped driver."
+    "The WPHX PHP emitter now honors @:wp.visibility on static methods and can emit protected static public-ABI methods.",
+    "The grouped original-path class-wp-http.php driver now includes protected WP_Http::parse_url alongside processResponse and chunkTransferDecode.",
+    "The generated shell passes PHP lint and oracle/candidate behavior probes for all three helper cases, including subclass parent::parse_url access.",
+    "The WPHX PHP emission manifest records class:WP_Http and no unsupported constructs for the protected-method grouped driver."
   ],
   "non_claims": [
     "This does not claim whole-file WP_Http ownership.",
-    "processHeaders, buildCookieHeader, Requests transport behavior, installed WordPress behavior, and live transfer-encoding negotiation remain future gates.",
+    "processHeaders, buildCookieHeader, header/cookie side effects, Requests transport behavior, installed WordPress behavior, and live transfer-encoding negotiation remain future gates.",
     "The full WP_Http::request method remains deliberately later."
   ]
 }
