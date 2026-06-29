@@ -1,0 +1,748 @@
+{
+  "schema": "wphx.wp-core-media-upload-validation-oracle-fixture.v1",
+  "issue": "WPHX-313.03",
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "generator": "tools/wp-core/run-media-upload-validation-oracle-fixture.mjs",
+  "evidence_classes": [
+    "oracle_candidate_behavior",
+    "copied_oracle_source"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-313-01-media-filesystem-upload-surface.v1.json",
+      "bytes": 65832,
+      "sha256": "sha256:69fc7e4719ba45ccbea0c7e7d52cf2af1927cf485f48f69f81bbfa126df6fec6"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+      "bytes": 17570,
+      "sha256": "sha256:7250386baab3609f4557b783208fec0085dd0a90a0a07e2f7b5815984c4e13b7"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/compat.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/compat.php",
+        "bytes": 16063,
+        "sha256": "sha256:3b87e422b612fdf23d26e600552aa1f0444c8db49b2d079538a9e460db0a4025"
+      },
+      {
+        "path": "src/wp-includes/utf8.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/utf8.php",
+        "bytes": 7260,
+        "sha256": "sha256:f06764a8f214a4e3d71cbac4ea5af4d9edeaf07701cfe09436c251a4042db0d7"
+      },
+      {
+        "path": "src/wp-includes/formatting.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/formatting.php",
+        "bytes": 354690,
+        "sha256": "sha256:922d8ce082d25d3375dae336feec1b13288df46e15c9c2dcac013c8cc2c44648"
+      },
+      {
+        "path": "src/wp-includes/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/functions.php",
+        "bytes": 290326,
+        "sha256": "sha256:1da1a76b610bca873081ed4cbc68b5dce303df0fad16570e6abae1d50b236faf"
+      },
+      {
+        "path": "src/wp-admin/includes/file.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/file.php",
+        "bytes": 97913,
+        "sha256": "sha256:8bb99b94ad43d996b9f3b39e1ec4778d7e7baca3de764a29c99177e3c89ec0d8"
+      }
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-media-upload-validation-oracle-fixture.mjs",
+      "bytes": 18614,
+      "sha256": "sha256:21209bc2d255fe1c73025d83ce83eb22b1491802109715bec37756f0dc09ba8c"
+    }
+  },
+  "fixture": {
+    "copied_source_policy": "Oracle and candidate roots both mirror the same locked upstream WordPress PHP source. This is bridge evidence for media/upload behavior and does not claim Haxe-owned public PHP replacement.",
+    "upstream_reference_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "source_files": [
+      "src/wp-includes/compat.php",
+      "src/wp-includes/utf8.php",
+      "src/wp-includes/formatting.php",
+      "src/wp-includes/functions.php",
+      "src/wp-admin/includes/file.php"
+    ],
+    "covered_symbols": [
+      "wp_unique_filename",
+      "wp_check_filetype",
+      "wp_check_filetype_and_ext",
+      "_wp_handle_upload",
+      "wp_handle_sideload",
+      "wp_upload_dir",
+      "get_allowed_mime_types"
+    ],
+    "cases": [
+      {
+        "id": "unique:collision",
+        "focus": "wp_unique_filename increments colliding names and fires wp_unique_filename"
+      },
+      {
+        "id": "unique:uppercase-extension",
+        "focus": "wp_unique_filename lowercases uppercase extensions for compatibility"
+      },
+      {
+        "id": "mime:allowed-text",
+        "focus": "wp_check_filetype_and_ext accepts allowed text files with real MIME validation"
+      },
+      {
+        "id": "mime:missing-file",
+        "focus": "wp_check_filetype_and_ext falls back to extension mapping when the file is absent"
+      },
+      {
+        "id": "mime:rejected-exe",
+        "focus": "wp_check_filetype_and_ext rejects disallowed executable extension/content mismatches"
+      },
+      {
+        "id": "upload:invalid-form",
+        "focus": "wp_handle_sideload form-action validation error path"
+      },
+      {
+        "id": "upload:php-error",
+        "focus": "wp_handle_sideload PHP upload error-string conversion"
+      },
+      {
+        "id": "upload:empty-file",
+        "focus": "wp_handle_sideload empty sideload file validation"
+      },
+      {
+        "id": "upload:mime-reject",
+        "focus": "wp_handle_sideload MIME/type rejection for users without unfiltered_upload"
+      },
+      {
+        "id": "upload:success-sideload",
+        "focus": "wp_handle_sideload success return shape, pre-move short-circuit, unique filename, and final upload filter"
+      }
+    ],
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "adapter_contract_owner": "haxe_typed_prior_candidate",
+      "semantic_owner": "upstream_php_oracle_observed",
+      "native_provider_claimed": false,
+      "removal_gate": "Promote the covered upload validation, MIME/filetype, and unique filename decisions to generated original-path PHP adapters or Haxe-owned helpers, then replace this copied candidate root with generated artifacts and rerun the same probes."
+    }
+  },
+  "runs": {
+    "oracle": {
+      "mode": "$MODE",
+      "cases": {
+        "mime:allowed-text": {
+          "result": {
+            "ext": "txt",
+            "type": "text/plain",
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "mime:missing-file": {
+          "result": {
+            "ext": "txt",
+            "type": "text/plain",
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            }
+          ]
+        },
+        "mime:rejected-exe": {
+          "result": {
+            "ext": false,
+            "type": false,
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "unique:collision": {
+          "result": "photo-1.txt",
+          "filters": [
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            }
+          ]
+        },
+        "unique:uppercase-extension": {
+          "result": "REPORT-1.pdf",
+          "filters": [
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            }
+          ]
+        },
+        "upload:empty-file": {
+          "result": {
+            "error": "File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini file or by post_max_size being defined as smaller than upload_max_filesize in php.ini."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:invalid-form": {
+          "result": {
+            "error": "Invalid form submission."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:mime-reject": {
+          "result": {
+            "error": "Sorry, you are not allowed to upload this file type."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "upload:php-error": {
+          "result": {
+            "error": "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:success-sideload": {
+          "result": {
+            "file": "$ROOT/wp-content/uploads/photo-1.txt",
+            "url": "https://example.test/wp-content/uploads/photo-1.txt",
+            "type": "text/plain"
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            },
+            {
+              "hook": "pre_move_uploaded_file",
+              "arg_count": 4
+            },
+            {
+              "hook": "wp_handle_upload",
+              "arg_count": 2
+            }
+          ],
+          "created_files": [
+            "photo-1.txt",
+            "photo.txt",
+            "report.pdf"
+          ]
+        }
+      },
+      "php_errors": []
+    },
+    "candidate": {
+      "mode": "$MODE",
+      "cases": {
+        "mime:allowed-text": {
+          "result": {
+            "ext": "txt",
+            "type": "text/plain",
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "mime:missing-file": {
+          "result": {
+            "ext": "txt",
+            "type": "text/plain",
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            }
+          ]
+        },
+        "mime:rejected-exe": {
+          "result": {
+            "ext": false,
+            "type": false,
+            "proper_filename": false
+          },
+          "filters": [
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "unique:collision": {
+          "result": "photo-1.txt",
+          "filters": [
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            }
+          ]
+        },
+        "unique:uppercase-extension": {
+          "result": "REPORT-1.pdf",
+          "filters": [
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            }
+          ]
+        },
+        "upload:empty-file": {
+          "result": {
+            "error": "File is empty. Please upload something more substantial. This error could also be caused by uploads being disabled in your php.ini file or by post_max_size being defined as smaller than upload_max_filesize in php.ini."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:invalid-form": {
+          "result": {
+            "error": "Invalid form submission."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:mime-reject": {
+          "result": {
+            "error": "Sorry, you are not allowed to upload this file type."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            }
+          ]
+        },
+        "upload:php-error": {
+          "result": {
+            "error": "The uploaded file exceeds the upload_max_filesize directive in php.ini."
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            }
+          ]
+        },
+        "upload:success-sideload": {
+          "result": {
+            "file": "$ROOT/wp-content/uploads/photo-1.txt",
+            "url": "https://example.test/wp-content/uploads/photo-1.txt",
+            "type": "text/plain"
+          },
+          "filters": [
+            {
+              "hook": "wp_handle_sideload_prefilter",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_handle_sideload_overrides",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_check_filetype_and_ext",
+              "arg_count": 5
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "sanitize_file_name_chars",
+              "arg_count": 2
+            },
+            {
+              "hook": "sanitize_file_name",
+              "arg_count": 2
+            },
+            {
+              "hook": "mime_types",
+              "arg_count": 1
+            },
+            {
+              "hook": "upload_mimes",
+              "arg_count": 2
+            },
+            {
+              "hook": "upload_dir",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_unique_filename_file_list",
+              "arg_count": 3
+            },
+            {
+              "hook": "wp_unique_filename",
+              "arg_count": 6
+            },
+            {
+              "hook": "pre_move_uploaded_file",
+              "arg_count": 4
+            },
+            {
+              "hook": "wp_handle_upload",
+              "arg_count": 2
+            }
+          ],
+          "created_files": [
+            "photo-1.txt",
+            "photo.txt",
+            "report.pdf"
+          ]
+        }
+      },
+      "php_errors": []
+    },
+    "match": true,
+    "normalized_output_sha256": {
+      "oracle": "sha256:f4eb839ad70e3bb08d778d95d8733da7e29736a1b7926e5cef532affdcb7098e",
+      "candidate": "sha256:f4eb839ad70e3bb08d778d95d8733da7e29736a1b7926e5cef532affdcb7098e"
+    }
+  },
+  "remaining_gaps": [
+    {
+      "id": "image-editor-and-attachment-metadata-not-covered",
+      "owner": "WPHX-313.03",
+      "detail": "This fixture covers upload validation, MIME/filetype, and unique filename behavior only. Attachment metadata generation, image editor selection, subsizes, EXIF/IPTC, and image save paths remain later WPHX-313 fixtures."
+    },
+    {
+      "id": "rest-admin-installed-upload-flows-not-covered",
+      "owner": "WPHX-313.03",
+      "detail": "The fixture runs PHP CLI probes against mirrored helper files. It does not claim REST attachment uploads, admin async uploads, multisite quotas, browser/admin UI behavior, or installed distribution parity."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-313.03",
+      "detail": "Candidate behavior still comes from copied upstream PHP. Generated original-path public PHP adapter ownership is not claimed."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 10,
+    "covered_symbols": 7,
+    "oracle_php_errors": 0,
+    "candidate_php_errors": 0
+  }
+}

@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/media-upload-validation-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.19.3",
+    "external_ref": "WPHX-313.03"
+  },
+  "unit": {
+    "kind": "oracle_candidate_fixture",
+    "name": "media upload validation, MIME/filetype, and unique filename behavior",
+    "area": "wp-admin/includes/file.php wp-includes/functions.php",
+    "public_contract": "This slice observes upstream WordPress media upload helper behavior in mirrored oracle/candidate roots. It does not claim Haxe-owned runtime behavior or public PHP ABI replacement."
+  },
+  "ownership_state": "bridge_shell",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_observed",
+    "adapter_contract_owner": "haxe_typed_prior_candidate",
+    "emission_strategy": "copied_oracle_php_fixture",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "oracle_candidate_behavior"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "copied_oracle_source_fixture",
+    "removal_gate": "Replace candidate copied PHP with Haxe-owned/generated media upload helpers or original-path Adapter IR output, then rerun this oracle fixture with equal behavior."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-media-upload-validation-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-313-03-media-upload-validation-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+    "build/wp-core/wphx-313-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-313-media-upload-validation-oracle-fixture",
+      "npm run wp:core:wphx-313-media-upload-validation-oracle-fixture:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-313-03-media-upload-validation-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:6269b9b5a8d7ddfd28d36cab276ce7913696714052ca366d5d290e3894c289d7"
+  }
+}
