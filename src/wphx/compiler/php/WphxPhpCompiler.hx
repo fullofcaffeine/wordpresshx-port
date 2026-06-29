@@ -446,7 +446,13 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function emitArgs(args:Array<TypedFunctionArg>):String
 	{
-		return args.map(arg -> "$" + phpIdent(tvarMetadataString(arg.v, "wp.name") ?? arg.v.name) + emitArgDefault(arg)).join(", ");
+		return args.map(emitArg).join(", ");
+	}
+
+	function emitArg(arg:TypedFunctionArg):String
+	{
+		final reference = tvarHasMetadata(arg.v, "wp.byRef") ? "&" : "";
+		return reference + "$" + phpIdent(tvarMetadataString(arg.v, "wp.name") ?? arg.v.name) + emitArgDefault(arg);
 	}
 
 	function emitArgDefault(arg:TypedFunctionArg):String

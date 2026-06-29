@@ -1,0 +1,37 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-05-byref-arg",
+  "issue": "WPHX-COMP-PHP.05",
+  "recorded_at": "2026-06-29T00:00:00Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:byref-arg:check",
+    "npm run wphx:php:wp-http-parser-helpers:check"
+  ],
+  "generated_files": [
+    {
+      "path": "build/wphx-php/byref-arg/generated/wp-includes/wphx-byref.php",
+      "declarations": [
+        "global-function:wphx_byref_append"
+      ],
+      "probe": "PHP reflection verifies the first parameter is passed by reference and PHP execution verifies the argument is mutated through the generated shell."
+    }
+  ],
+  "source": [
+    "src/wphx/compiler/php/WphxPhpCompiler.hx",
+    "fixtures/wphx-php/byref-arg.hxml",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/byref/ByRefEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/byref/ByRefSurface.hx",
+    "tools/wphx-php/run-byref-arg.mjs"
+  ],
+  "claims": [
+    "The WPHX PHP emitter now honors @:wp.byRef on emitted function, static-method, constructor, and instance-method parameters.",
+    "The by-reference driver emits an original-path PHP function with &$value and preserves the default value of the neighboring non-reference parameter.",
+    "The generated shell passes PHP lint, PHP reflection ABI checks, mutation behavior checks, and emission-manifest checks with no unsupported constructs."
+  ],
+  "non_claims": [
+    "This does not claim by-reference return support.",
+    "This does not claim native PHP array mutation semantics for WP_Http::buildCookieHeader yet.",
+    "processHeaders, buildCookieHeader, header/cookie side effects, installed WordPress behavior, and whole-file WP_Http ownership remain future gates."
+  ]
+}
