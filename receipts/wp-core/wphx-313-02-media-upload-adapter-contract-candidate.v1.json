@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-313-02-media-upload-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.19.2",
+    "external_ref": "WPHX-313.02",
+    "title": "WPHX-313.02 - Add media upload adapter-contract candidate"
+  },
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+      "role": "media/upload Haxe semantic/adapter-contract candidate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+      "role": "ADR-004-aware ownership manifest for media/upload Haxe candidate"
+    },
+    {
+      "path": "src/wphx/wp/media/MediaUploadAdapterContract.hx",
+      "role": "typed Haxe media/upload semantic and adapter-contract model"
+    },
+    {
+      "path": "tools/wp-core/run-media-upload-adapter-contract-candidate.mjs",
+      "role": "candidate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-313-media-upload-adapter-contract-candidate",
+    "npm run wp:core:wphx-313-media-upload-adapter-contract-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-313-01-media-filesystem-upload-surface"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_media_upload_adapter_contract_candidate",
+    "promoted_contracts": 6,
+    "runtime_runs": 1,
+    "observation_count": 31,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false
+  }
+}

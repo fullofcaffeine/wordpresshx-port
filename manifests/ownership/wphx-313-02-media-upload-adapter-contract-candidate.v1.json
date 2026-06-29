@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/media-upload-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.19.2",
+    "external_ref": "WPHX-313.02"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "media upload validation, MIME/filetype, unique filename, attachment metadata, filesystem, and hook intent",
+    "area": "wp-admin/includes/file.php wp-admin/includes/image.php wp-includes/media.php wp-includes/post-thumbnail-template.php wp-admin/includes/media.php",
+    "public_contract": "Haxe owns the first typed WPHX-313 media/upload adapter-contract decision model. Public PHP ABI replacement, native file IO, image editor execution, REST/admin upload flows, multisite quota behavior, and installed media behavior are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Install these decisions through typed Adapter IR/original-path generation and pass PHP-authored upload validation, MIME/filetype, unique filename, attachment metadata, image editor, filesystem credential, REST/admin upload, multisite quota, and upstream PHPUnit oracle fixtures before claiming public PHP ABI ownership."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/media-upload-adapter-contract-candidate.hxml",
+    "src/wphx/wp/media/MediaUploadAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/MediaUploadAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-media-upload-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-313-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-313-media-upload-adapter-contract-candidate",
+      "npm run wp:core:wphx-313-media-upload-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-313-02-media-upload-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:7250386baab3609f4557b783208fec0085dd0a90a0a07e2f7b5815984c4e13b7"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate with module-level Haxe functions. It adds no native provider, no handwritten production PHP shell, and no public WordPress file replacement."
+}
