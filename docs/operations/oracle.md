@@ -23,3 +23,11 @@ Outputs:
 - `receipts/oracle/wphx-008-vanilla-oracle-summary.v1.json`
 
 Later oracle work should replace these smoke receipts with WordPress install, admin, frontend, editor, REST, and Gutenberg package flows.
+
+## External Architecture Oracle
+
+Some high-impact architecture decisions are prepared for a second-pass GPT 5.5 Pro review. In those notes, **the oracle** means the external architecture reviewer, while WordPress and Gutenberg remain the behavior oracles.
+
+Prompt bundles:
+
+- [Original-path PHP emission strategy](oracle-original-path-php-emission-review.md)
