@@ -43,6 +43,8 @@ npm run wphx:php:bootstrap-error-handler
 npm run wphx:php:bootstrap-error-handler:check
 npm run wphx:php:bootstrap-debug
 npm run wphx:php:bootstrap-debug:check
+npm run wphx:php:include-side-effects
+npm run wphx:php:include-side-effects:check
 npm run wphx:php:wp-http-parser-helpers
 npm run wphx:php:wp-http-parser-helpers:check
 npm run wphx:php:wp-http-chunk-transfer-decode
@@ -127,7 +129,7 @@ npm run wphx:php:public-shell-snapshots
 npm run wphx:php:public-shell-snapshots:check
 ```
 
-It records `manifests/wphx-php/public-shell-snapshots.v1.json` and `receipts/compiler/wphx-comp-php-public-shell-snapshots.v1.json` with `evidence_class=generated_shape`. The lane checks byte stability, `php -l`, exact selected shell excerpts, AST-normalized declarations, and empty unsupported manifests for global functions, public class/interface shells, protected methods, by-reference parameters, conditional declarations, native-array mutation shells, and top-level bootstrap side effects. This is source-shape evidence only; behavior parity still comes from each focused oracle/candidate runner. Arbitrary include-return and direct file-scope script emission remain tracked separately by the include side-effect fixture work.
+It records `manifests/wphx-php/public-shell-snapshots.v1.json` and `receipts/compiler/wphx-comp-php-public-shell-snapshots.v1.json` with `evidence_class=generated_shape`. The lane checks byte stability, `php -l`, exact selected shell excerpts, AST-normalized declarations, and empty unsupported manifests for global functions, public class/interface shells, protected methods, by-reference parameters, conditional declarations, native-array mutation shells, top-level bootstrap side effects, and a bounded include-return/direct file-scope script fixture. This is source-shape evidence only; behavior parity still comes from each focused oracle/candidate runner.
 
 The pluggable timing fixture compiles a minimized original-path guarded global-function file:
 
@@ -170,6 +172,16 @@ npm run wphx:php:bootstrap-debug:check
 
 It emits `wp-includes/wphx-bootstrap-debug.php`, triggers a controlled `haxe\ValueException` through the public shell into `BootstrapKernel.fail`, and records normalized PHP `Throwable` frames. Debug and parity profiles emit `BootstrapKernel.php.map` and inline Haxe source-position comments. Release omits the `.map` file while still preserving stack frames and inline source-position comments in this bounded fixture. Evidence is recorded in `manifests/wphx-php/bootstrap-debug.v1.json` and `receipts/compiler/wphx-comp-php-bootstrap-debug-probe.v1.json`. This proves the first WPHX shell-to-stock-Haxe debug gate; it does not claim packaged operator-facing stack-frame rewriting or mixed PHP/HTML template mapping.
 
+The include side-effect fixture compiles a bounded original-path direct file-scope script:
+
+```bash
+haxe fixtures/wphx-php/include-side-effects.hxml
+npm run wphx:php:include-side-effects
+npm run wphx:php:include-side-effects:check
+```
+
+It emits `build/wphx-php/include-side-effects/generated/wp-includes/wphx-include-side-effects.php`, lints that PHP, checks exact script-shape excerpts, verifies the emission manifest records `script:include-side-effects` with `unsupported=[]`, and runs isolated PHP probes for top-level include execution, native include return arrays, repeated `include`, first and second `include_once`, function-scope include locals, and output buffering. Evidence is recorded in `manifests/wphx-php/include-side-effects.v1.json` and `receipts/compiler/wphx-comp-php-include-side-effects.v1.json`. This is a bounded original-path script Adapter IR gate; it does not claim mixed PHP/HTML template ownership or arbitrary Haxe expression lowering into file scope.
+
 ## Adapter IR
 
 The WPHX PHP compiler now uses an Adapter IR before printing PHP:
@@ -181,9 +193,9 @@ typed Haxe source and metadata
   -> wphx-php-emission.v1.json
 ```
 
-The v0 IR in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the proven public-shell shapes: original-path files, guarded global functions, classes/interfaces, methods, properties, constants, Haxe bootstrap markers, protected methods, by-reference parameters, and manifest declarations. The first reusable PHP-core method-body nodes now cover `if`/`else`, `for`, `foreach`, `break`, `continue`, `return`, native array reads/writes/appends, array casts, int/string casts, long array literals, object construction, local variables, assignments, function calls, method calls, and static calls. The emission manifest records these as `core_ir_features` so richer adapters can depend on them explicitly.
+The v0 IR in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the proven public-shell shapes: original-path files, guarded global functions, classes/interfaces, bounded direct file-scope script adapters, methods, properties, constants, Haxe bootstrap markers, protected methods, by-reference parameters, and manifest declarations. The first reusable PHP-core method-body nodes now cover `if`/`else`, `for`, `foreach`, `break`, `continue`, `return`, native array reads/writes/appends, array casts, int/string casts, long array literals, object construction, local variables, assignments, function calls, method calls, and static calls. The emission manifest records these as `core_ir_features` so richer adapters can depend on them explicitly.
 
-This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected pressure is grouping neighboring generated `WP_Http` adapters and include-time side-effect/script nodes.
+This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected pressure is grouping neighboring generated `WP_Http` adapters and later designing a file-segment/template model before mixed PHP/HTML ownership claims.
 
 `WPHX-COMP-PHP.06` adds the first generated `WP_Http::buildCookieHeader( &$r )` original-path shell. It is a WordPress profile pressure gate over native PHP array mutation, scalar cookie upgrading, `WP_Http_Cookie` object preservation, filter timing, and helper delegation. `WPHX-COMP-PHP-CORE-IR-NATIVE-ARRAYS` keeps the same public-shell behavior while moving the native-array body through reusable PHP-core IR nodes. This is still not arbitrary Haxe expression lowering or a complete PHP backend.
 
@@ -196,6 +208,7 @@ The initial metadata contract is intentionally small:
 - `@:native("Class_Name")` emits an annotated Haxe class with that public PHP class name.
 - `@:wp.ifMissing` wraps generated functions/classes in `function_exists` or `class_exists(..., false)` guards.
 - `@:wp.haxeBootstrap("CONSTANT_NAME")` emits a guarded stock Haxe PHP runtime bootstrap for facade shells that delegate to Haxe-generated implementation classes. ADR-014 makes this acceptable for bounded fixtures and leaf candidates, but broad public-shell distribution claims still require include-path/autoload, warning/error-handler, and stack-trace/source-map probes.
+- `@:wp.scriptAdapter("adapter-name")` emits a bounded direct file-scope script adapter selected by name. The only current adapter is `include-side-effects`, which exists to prove include timing, include returns, function-scope locals, and output buffering before mixed template work.
 - `@:wp.order(n)` orders multiple declarations that share one generated PHP file.
 - `@:wp.const` emits a static field as a PHP class constant.
 - `@:wp.byRef` emits a PHP `&$parameter` for reference-visible ABI boundaries.

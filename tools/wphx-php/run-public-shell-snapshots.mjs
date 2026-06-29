@@ -141,6 +141,20 @@ const CASES = [
       classes: ["WP_Http"],
       methods: ["processHeaders"]
     }
+  },
+  {
+    id: "include-side-effect-script",
+    hxml: "fixtures/wphx-php/include-side-effects.hxml",
+    selected: "wp-includes/wphx-include-side-effects.php",
+    shell_shapes: ["include_return_or_direct_file_scope_script", "top_level_include_side_effect", "output"],
+    exact_patterns: [
+      "$GLOBALS['wphx_include_side_effects'][] = array(",
+      "echo 'wphx-include-output:'",
+      "return array(",
+      "'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null",
+      "'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null"
+    ],
+    ast_expect: {}
   }
 ];
 
@@ -340,17 +354,11 @@ function main() {
       conditional_declaration: results.some((item) => item.shell_shapes.includes("conditional_declaration")),
       native_array_mutation: results.some((item) => item.shell_shapes.includes("native_array_mutation")),
       top_level_bootstrap_side_effect: results.some((item) => item.shell_shapes.includes("top_level_bootstrap_side_effect")),
-      include_return_or_direct_file_scope_script: false
+      include_return_or_direct_file_scope_script: results.some((item) =>
+        item.shell_shapes.includes("include_return_or_direct_file_scope_script")
+      )
     },
-    pending_shell_shape_gaps: [
-      {
-        shape: "include_return_or_direct_file_scope_script",
-        issue: "WPHX original-path include side-effect fixture before templates",
-        bead: "wordpresshx-zut",
-        reason:
-          "The current WPHX PHP public-shell emitter proves top-level Haxe bootstrap side effects, but arbitrary original-path include return values and direct file-scope script emission remain a separate admitted feature."
-      }
-    ],
+    pending_shell_shape_gaps: [],
     validation_result: {
       status: "passed",
       clean_compile_passes: 2,
@@ -382,12 +390,12 @@ function main() {
     validation_result: manifest.validation_result,
     claims: [
       "WPHX PHP public-shell generated shapes are compiled twice from clean roots and checked for byte stability.",
-      "The snapshot lane covers current generated global function, public class/interface, protected method, by-reference parameter, conditional declaration, native array mutation, and top-level bootstrap side-effect shell shapes.",
+      "The snapshot lane covers current generated global function, public class/interface, protected method, by-reference parameter, conditional declaration, native array mutation, top-level bootstrap side-effect, and include-return/direct file-scope script shell shapes.",
       "Selected exact PHP excerpts and AST-normalized declarations are checked without treating generated shape as behavior parity."
     ],
     non_claims: [
       "This does not prove WordPress behavior parity.",
-      "This does not claim arbitrary include-return or direct file-scope script emission; that remains tracked by the include side-effect fixture task.",
+      "This does not claim arbitrary include-return or direct file-scope script emission beyond the bounded include side-effect fixture.",
       "This does not claim whole-file WP_Http ownership or broad template ownership."
     ]
   };

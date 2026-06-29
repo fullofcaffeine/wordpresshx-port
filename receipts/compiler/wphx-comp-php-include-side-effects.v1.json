@@ -1,0 +1,42 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-include-side-effects",
+  "issue": "WPHX-COMP-PHP-INCLUDE-SIDE-EFFECTS",
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "status": "passed",
+  "artifacts": [
+    {
+      "path": "manifests/wphx-php/include-side-effects.v1.json",
+      "role": "WPHX PHP include side-effect manifest"
+    },
+    {
+      "path": "tools/wphx-php/run-include-side-effects.mjs",
+      "role": "deterministic include side-effect runner"
+    }
+  ],
+  "commands": [
+    "npm run wphx:php:include-side-effects",
+    "npm run wphx:php:include-side-effects:check"
+  ],
+  "manifest_sha256": "c9875e38e5ec63a867a34f1cbee7ec9eb789c02928e532bfc8d01735f888b7b9",
+  "validation_result": {
+    "status": "passed",
+    "php_lint": "passed",
+    "exact_shape_patterns_passed": true,
+    "runtime_include_sequence_passed": true,
+    "runtime_include_once_passed": true,
+    "runtime_function_scope_include_passed": true,
+    "unsupported_empty": true
+  },
+  "claims": [
+    "WPHX PHP emits a bounded original-path direct file-scope script at wp-includes/wphx-include-side-effects.php.",
+    "The emitted script performs a top-level include side effect, returns a native PHP array from include/include_once, and emits output that can be captured by output buffering.",
+    "Repeated include executes the script repeatedly, while include_once returns true without repeating side effects after the file has already been included.",
+    "Function-scope include observes caller local variables, including variables that are not globals."
+  ],
+  "non_claims": [
+    "This fixture does not claim mixed PHP/HTML template ownership.",
+    "This fixture does not claim arbitrary Haxe expression lowering into direct PHP file scope.",
+    "This fixture does not claim WordPress Core include-file ownership beyond the minimized original-path script fixture."
+  ]
+}

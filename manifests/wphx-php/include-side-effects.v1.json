@@ -1,0 +1,154 @@
+{
+  "schema": "wphx.wphx-php-include-side-effects.v1",
+  "issue": "WPHX-COMP-PHP-INCLUDE-SIDE-EFFECTS",
+  "evidence_class": "generated_shape_and_runtime_include_semantics",
+  "generated_at": "2026-06-29T00:00:00.000Z",
+  "runner": "tools/wphx-php/run-include-side-effects.mjs",
+  "hxml": "fixtures/wphx-php/include-side-effects.hxml",
+  "generated_shell": {
+    "path": "build/wphx-php/include-side-effects/generated/wp-includes/wphx-include-side-effects.php",
+    "sha256": "3177facd7acceb52e6a9d3a2992c7e507a84021687f2b34765139e201d81cf79",
+    "exact_patterns": [
+      "$GLOBALS['wphx_include_side_effects'][] = array(",
+      "echo 'wphx-include-output:'",
+      "return array(",
+      "'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null",
+      "'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null"
+    ]
+  },
+  "emission_manifest": {
+    "path": "build/wphx-php/include-side-effects/generated/wphx-php-emission.v1.json",
+    "sha256": "cce512109b8afec57f7a7058c6136eb14f3b0b715913463b93222212d07f09db",
+    "unsupported_empty": true,
+    "declarations": [
+      "wp-includes/wphx-include-side-effects.php:script:include-side-effects"
+    ],
+    "core_ir_features": [
+      "script.function-scope-include",
+      "script.include-return",
+      "script.output",
+      "script.top-level-side-effect"
+    ]
+  },
+  "probes": {
+    "sequence": {
+      "mode": "sequence",
+      "probes": [
+        {
+          "kind": "include",
+          "return": {
+            "included": true,
+            "scope_marker": "top",
+            "local_marker": null,
+            "run_count": 1
+          },
+          "output": "wphx-include-output:top\n",
+          "event_count": 1
+        },
+        {
+          "kind": "repeat_include",
+          "return": {
+            "included": true,
+            "scope_marker": "repeat",
+            "local_marker": null,
+            "run_count": 2
+          },
+          "output": "wphx-include-output:repeat\n",
+          "event_count": 2
+        },
+        {
+          "kind": "include_once_after_include",
+          "return": true,
+          "output": "",
+          "event_count": 2
+        }
+      ],
+      "events": [
+        {
+          "scope_marker": "top",
+          "local_marker": null,
+          "run": 1
+        },
+        {
+          "scope_marker": "repeat",
+          "local_marker": null,
+          "run": 2
+        }
+      ]
+    },
+    "include_once": {
+      "mode": "include_once",
+      "probes": [
+        {
+          "kind": "first_include_once",
+          "return": {
+            "included": true,
+            "scope_marker": "once",
+            "local_marker": null,
+            "run_count": 1
+          },
+          "output": "wphx-include-output:once\n",
+          "event_count": 1
+        },
+        {
+          "kind": "second_include_once",
+          "return": true,
+          "output": "",
+          "event_count": 1
+        }
+      ],
+      "events": [
+        {
+          "scope_marker": "once",
+          "local_marker": null,
+          "run": 1
+        }
+      ]
+    },
+    "function_scope": {
+      "mode": "function_scope",
+      "probe": {
+        "return": {
+          "included": true,
+          "scope_marker": "function",
+          "local_marker": "local",
+          "run_count": 1
+        },
+        "output": "wphx-include-output:function\n",
+        "event_count": 1,
+        "events": [
+          {
+            "scope_marker": "function",
+            "local_marker": "local",
+            "run": 1
+          }
+        ]
+      }
+    }
+  },
+  "claims": [
+    "WPHX PHP emits a bounded original-path direct file-scope script at wp-includes/wphx-include-side-effects.php.",
+    "The emitted script performs a top-level include side effect, returns a native PHP array from include/include_once, and emits output that can be captured by output buffering.",
+    "Repeated include executes the script repeatedly, while include_once returns true without repeating side effects after the file has already been included.",
+    "Function-scope include observes caller local variables, including variables that are not globals."
+  ],
+  "non_claims": [
+    "This fixture does not claim mixed PHP/HTML template ownership.",
+    "This fixture does not claim arbitrary Haxe expression lowering into direct PHP file scope.",
+    "This fixture does not claim WordPress Core include-file ownership beyond the minimized original-path script fixture."
+  ],
+  "ownership_state": {
+    "state": "compiler_emitted_original_path_shell",
+    "removal_gate": "Replace this special script adapter with typed Adapter IR script nodes or a generic PHP backend/custom-target direct script emission lane when WPHX needs more than bounded include side-effect fixtures.",
+    "template_boundary": "Mixed PHP/HTML template segmentation, caller-scope template loaders, and raw template adoption remain separate migration classes."
+  },
+  "validation_result": {
+    "status": "passed",
+    "php_lint": "passed",
+    "exact_shape_patterns_passed": true,
+    "runtime_include_sequence_passed": true,
+    "runtime_include_once_passed": true,
+    "runtime_function_scope_include_passed": true,
+    "unsupported_empty": true
+  }
+}

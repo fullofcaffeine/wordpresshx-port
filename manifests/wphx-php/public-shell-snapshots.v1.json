@@ -308,6 +308,42 @@
         "bytes": 1054,
         "sha256": "sha256:96f9b50d168602ee6668c6a356ab1785eedc5072924a7a477613243977ae803b"
       }
+    },
+    {
+      "id": "include-side-effect-script",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "include_return_or_direct_file_scope_script",
+        "top_level_include_side_effect",
+        "output"
+      ],
+      "hxml": "fixtures/wphx-php/include-side-effects.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/include-side-effect-script/generated/wp-includes/wphx-include-side-effects.php",
+      "bytes": 677,
+      "sha256": "sha256:3177facd7acceb52e6a9d3a2992c7e507a84021687f2b34765139e201d81cf79",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "$GLOBALS['wphx_include_side_effects'][] = array(",
+        "echo 'wphx-include-output:'",
+        "return array(",
+        "'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null",
+        "'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null"
+      ],
+      "ast_contract": {
+        "functions": [],
+        "classes": [],
+        "interfaces": [],
+        "methods": [],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/include-side-effect-script/generated/wphx-php-emission.v1.json",
+        "bytes": 796,
+        "sha256": "sha256:cce512109b8afec57f7a7058c6136eb14f3b0b715913463b93222212d07f09db"
+      }
     }
   ],
   "shell_shape_coverage": {
@@ -319,20 +355,13 @@
     "conditional_declaration": true,
     "native_array_mutation": true,
     "top_level_bootstrap_side_effect": true,
-    "include_return_or_direct_file_scope_script": false
+    "include_return_or_direct_file_scope_script": true
   },
-  "pending_shell_shape_gaps": [
-    {
-      "shape": "include_return_or_direct_file_scope_script",
-      "issue": "WPHX original-path include side-effect fixture before templates",
-      "bead": "wordpresshx-zut",
-      "reason": "The current WPHX PHP public-shell emitter proves top-level Haxe bootstrap side effects, but arbitrary original-path include return values and direct file-scope script emission remain a separate admitted feature."
-    }
-  ],
+  "pending_shell_shape_gaps": [],
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 7,
+    "case_count": 8,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,

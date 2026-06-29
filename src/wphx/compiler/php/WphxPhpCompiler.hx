@@ -42,6 +42,7 @@ private enum AdapterDeclaration
 {
 	GlobalFunctionAdapter(declaration:AdapterGlobalFunction);
 	ClassAdapter(declaration:AdapterClass);
+	ScriptAdapter(declaration:AdapterScript);
 }
 
 private typedef AdapterGlobalFunction =
@@ -62,6 +63,13 @@ private typedef AdapterClass =
 	final haxeBootstrap:Null<String>;
 	final order:Int;
 	final classType:ClassType;
+	final source:String;
+}
+
+private typedef AdapterScript =
+{
+	final adapter:String;
+	final haxeModule:String;
 	final source:String;
 }
 
@@ -218,6 +226,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 	{
 		final functions = new Array<AdapterFileDeclaration>();
 		final classes = new Array<AdapterFileDeclaration>();
+		final scripts = new Array<AdapterFileDeclaration>();
 
 		for (moduleType in modules)
 		{
@@ -225,13 +234,13 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			{
 				case TClassDecl(classRef):
 					final classType = classRef.get();
-					collectClassAdapters(classType, functions, classes);
+					collectClassAdapters(classType, functions, classes, scripts);
 				case TEnumDecl(_), TTypeDecl(_), TAbstract(_):
 			}
 		}
 
 		classes.sort(sortAdapterClasses);
-		return functions.concat(classes);
+		return scripts.concat(functions).concat(classes);
 	}
 
 	function buildAdapterFilePlans(declarations:Array<AdapterFileDeclaration>):Array<AdapterFilePlan>
@@ -271,9 +280,23 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		};
 	}
 
-	function collectClassAdapters(classType:ClassType, functions:Array<AdapterFileDeclaration>, classes:Array<AdapterFileDeclaration>):Void
+	function collectClassAdapters(classType:ClassType, functions:Array<AdapterFileDeclaration>, classes:Array<AdapterFileDeclaration>,
+			scripts:Array<AdapterFileDeclaration>):Void
 	{
 		final classFile = metadataString(classType.meta.get(), "wp.file");
+		final scriptAdapter = metadataString(classType.meta.get(), "wp.scriptAdapter");
+		if (classFile != null && scriptAdapter != null)
+		{
+			scripts.push({
+				file: classFile,
+				declaration: ScriptAdapter({
+					adapter: scriptAdapter,
+					haxeModule: classType.module,
+					source: sourceLabel(classType.pos)
+				})
+			});
+		}
+
 		final className = metadataString(classType.meta.get(), "native");
 		if (classFile != null && className != null && !isModuleFieldsClass(classType))
 		{
@@ -343,7 +366,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		{
 			case ClassAdapter(declaration):
 				declaration;
-			case GlobalFunctionAdapter(_):
+			case GlobalFunctionAdapter(_) | ScriptAdapter(_):
 				throw "Expected WPHX PHP class adapter declaration";
 		}
 	}
@@ -379,6 +402,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				declaration.haxeBootstrap;
 			case ClassAdapter(declaration):
 				declaration.haxeBootstrap;
+			case ScriptAdapter(_):
+				null;
 		}
 	}
 
@@ -390,6 +415,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				emitFunction(declaration);
 			case ClassAdapter(declaration):
 				emitClass(declaration);
+			case ScriptAdapter(declaration):
+				emitScript(declaration);
 		}
 	}
 
@@ -413,7 +440,49 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 					guarded: declaration.guarded,
 					source: declaration.source
 				};
+			case ScriptAdapter(declaration):
+				{
+					kind: "script",
+					name: declaration.adapter,
+					haxeModule: declaration.haxeModule,
+					guarded: false,
+					source: declaration.source
+				};
 		}
+	}
+
+	function emitScript(pending:AdapterScript):String
+	{
+		return switch (pending.adapter)
+		{
+			case "include-side-effects":
+				emitIncludeSideEffectsScript();
+			case _:
+				reportUnsupported("unsupported WPHX PHP script adapter " + pending.adapter);
+				"";
+		}
+	}
+
+	function emitIncludeSideEffectsScript():String
+	{
+		recordCoreIrFeatures([
+			"script.top-level-side-effect",
+			"script.include-return",
+			"script.function-scope-include",
+			"script.output"
+		]);
+		return "$GLOBALS['wphx_include_side_effects'][] = array(\n"
+			+ "\t'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null,\n"
+			+ "\t'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null,\n"
+			+ "\t'run'          => isset($GLOBALS['wphx_include_side_effects']) ? count($GLOBALS['wphx_include_side_effects']) + 1 : 1,\n"
+			+ ");\n"
+			+ "echo 'wphx-include-output:' . (isset($wphx_scope_marker) ? $wphx_scope_marker : 'none') . \"\\n\";\n"
+			+ "return array(\n"
+			+ "\t'included'     => true,\n"
+			+ "\t'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null,\n"
+			+ "\t'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null,\n"
+			+ "\t'run_count'    => count($GLOBALS['wphx_include_side_effects']),\n"
+			+ ");";
 	}
 
 	function emitFunction(pending:AdapterGlobalFunction):String
