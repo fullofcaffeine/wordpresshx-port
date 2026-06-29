@@ -80,25 +80,37 @@ private enum AdapterMethodBody
 private enum PhpCoreStmt
 {
 	PhpIf(condition:PhpCoreExpr, body:Array<PhpCoreStmt>);
+	PhpIfElse(condition:PhpCoreExpr, body:Array<PhpCoreStmt>, elseBody:Array<PhpCoreStmt>);
+	PhpFor(init:PhpCoreExpr, condition:PhpCoreExpr, update:PhpCoreExpr, body:Array<PhpCoreStmt>);
 	PhpForeach(iterable:PhpCoreExpr, valueVar:String, body:Array<PhpCoreStmt>);
 	PhpForeachKeyValue(iterable:PhpCoreExpr, keyVar:String, valueVar:String, body:Array<PhpCoreStmt>);
 	PhpAssign(target:PhpCoreExpr, value:PhpCoreExpr);
-	PhpVar(name:String, value:PhpCoreExpr);
+	PhpLocal(name:String, value:PhpCoreExpr);
 	PhpExprStmt(expr:PhpCoreExpr);
+	PhpReturn(value:PhpCoreExpr);
+	PhpBreak;
+	PhpContinue;
 }
 
 private enum PhpCoreExpr
 {
 	PhpVar(name:String);
+	PhpInt(value:Int);
 	PhpString(value:String);
 	PhpArrayRead(base:PhpCoreExpr, key:PhpCoreExpr);
+	PhpArrayAppend(base:PhpCoreExpr);
 	PhpLongArray(entries:Array<PhpCoreArrayEntry>);
 	PhpNew(className:String, args:Array<PhpCoreExpr>);
 	PhpStaticCall(className:String, method:String, args:Array<PhpCoreExpr>);
 	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
 	PhpFunctionCall(name:String, args:Array<PhpCoreExpr>);
+	PhpBinop(op:String, left:PhpCoreExpr, right:PhpCoreExpr);
+	PhpAssignExpr(target:PhpCoreExpr, value:PhpCoreExpr);
+	PhpPostDecrement(target:PhpCoreExpr);
 	PhpNot(expr:PhpCoreExpr);
 	PhpCastArray(expr:PhpCoreExpr);
+	PhpCastInt(expr:PhpCoreExpr);
+	PhpCastString(expr:PhpCoreExpr);
 }
 
 private typedef PhpCoreArrayEntry =
@@ -568,6 +580,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		{
 			return switch (adapter)
 			{
+				case "wp-http-process-headers":
+					emitWpHttpProcessHeadersBody(field);
 				case "wp-http-build-cookie-header":
 					emitWpHttpBuildCookieHeaderBody(field);
 				case _:
@@ -581,6 +595,107 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			case TypedExprMethodBody(expr):
 				emitBody(expr);
 		}
+	}
+
+	function emitWpHttpProcessHeadersBody(field:ClassField):String
+	{
+		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
+		if (helper == null)
+		{
+			reportUnsupported("missing @:wp.haxeHelper for WP_Http::processHeaders adapter " + field.name);
+			return "";
+		}
+
+		recordCoreIrFeatures([
+			"stmt.if",
+			"stmt.if-else",
+			"stmt.for",
+			"stmt.foreach",
+			"stmt.assign",
+			"stmt.var",
+			"stmt.return",
+			"stmt.break",
+			"stmt.continue",
+			"expr.array-read",
+			"expr.array-append",
+			"expr.array-coerce",
+			"expr.coerce-int",
+			"expr.coerce-string",
+			"expr.long-array",
+			"expr.new",
+			"expr.function-call",
+			"expr.static-call",
+			"expr.binop",
+			"expr.assign"
+		]);
+
+		final headers = PhpVar("headers");
+		final response = PhpVar("response");
+		final newheaders = PhpVar("newheaders");
+		final cookies = PhpVar("cookies");
+		final tempheader = PhpVar("tempheader");
+		final key = PhpVar("key");
+		final value = PhpVar("value");
+		final i = PhpVar("i");
+		final headersAtI = PhpArrayRead(headers, i);
+		final newHeaderAtKey = PhpArrayRead(newheaders, key);
+
+		final statements = [
+			PhpIf(PhpFunctionCall("is_string", [headers]), [
+				PhpAssign(headers, PhpFunctionCall("str_replace", [PhpString("\r\n"), PhpString("\n"), headers])),
+				PhpAssign(headers, PhpFunctionCall("preg_replace", [PhpString("/\n[ \t]/"), PhpString(" "), headers])),
+				PhpAssign(headers, PhpFunctionCall("explode", [PhpString("\n"), headers]))
+			]),
+			PhpLocal("response", PhpLongArray([
+				{
+					key: PhpString("code"),
+					value: PhpInt(0)
+				},
+				{key: PhpString("message"), value: PhpString("")}
+			])),
+			PhpFor(PhpAssignExpr(i, PhpBinop("-", PhpFunctionCall("count", [headers]), PhpInt(1))), PhpBinop(">=", i, PhpInt(0)), PhpPostDecrement(i), [
+				PhpIf(PhpBinop("&&", PhpNot(PhpFunctionCall("empty", [headersAtI])),
+					PhpStaticCall(helper, "startsFinalResponseBlock", [PhpCastString(headersAtI)])),
+					[PhpAssign(headers, PhpFunctionCall("array_splice", [headers, i])), PhpBreak])
+			]),
+			PhpLocal("cookies", PhpLongArray([])),
+			PhpLocal("newheaders", PhpLongArray([])),
+			PhpForeach(PhpCastArray(headers), "tempheader", [
+				PhpIf(PhpFunctionCall("empty", [tempheader]), [PhpContinue]),
+				PhpIf(PhpNot(PhpStaticCall(helper, "isHeaderLine", [PhpCastString(tempheader)])),
+					[
+						PhpAssign(PhpArrayRead(response, PhpString("code")), PhpStaticCall(helper, "responseCode", [PhpCastString(tempheader)])),
+						PhpAssign(PhpArrayRead(response, PhpString("message")), PhpStaticCall(helper, "responseMessage", [PhpCastString(tempheader)])),
+						PhpContinue
+					]),
+				PhpLocal("key", PhpStaticCall(helper, "headerKey", [PhpCastString(tempheader)])),
+				PhpLocal("value", PhpStaticCall(helper, "headerValue", [PhpCastString(tempheader)])),
+				PhpIfElse(PhpFunctionCall("isset", [newHeaderAtKey]), [
+					PhpIf(PhpNot(PhpFunctionCall("is_array", [newHeaderAtKey])), [
+						PhpAssign(newHeaderAtKey, PhpLongArray([
+							{
+								key: null,
+								value: newHeaderAtKey
+							}
+						]))
+					]),
+					PhpAssign(PhpArrayAppend(newHeaderAtKey), value)
+				], [PhpAssign(newHeaderAtKey, value)]),
+				PhpIf(PhpBinop("===", PhpString("set-cookie"), key), [
+					PhpAssign(PhpArrayAppend(cookies), PhpNew("WP_Http_Cookie", [value, PhpVar("url")]))
+				])
+			]),
+			PhpAssign(PhpArrayRead(response, PhpString("code")), PhpCastInt(PhpArrayRead(response, PhpString("code")))),
+			PhpReturn(PhpLongArray([
+				{
+					key: PhpString("response"),
+					value: response
+				},
+				{key: PhpString("headers"), value: newheaders},
+				{key: PhpString("cookies"), value: cookies}
+			]))
+		];
+		return emitPhpCoreStatements(statements);
 	}
 
 	// WordPress profile adapter. The profile still decides which PHP-visible
@@ -629,7 +744,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 						]))
 					])
 				]),
-				PhpVar("cookies_header", PhpString("")),
+				PhpLocal("cookies_header", PhpString("")),
 				PhpForeach(PhpCastArray(cookies), "cookie", [
 					PhpAssign(PhpVar("cookies_header"),
 						PhpStaticCall(helper, "appendCookieHeader", [PhpVar("cookies_header"), PhpMethodCall(PhpVar("cookie"), "getHeaderValue", [])]))
@@ -654,6 +769,32 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				prefix
 				+ "if ( "
 				+ emitPhpCoreExpr(condition, depth)
+				+ " ) {\n"
+				+ emitPhpCoreStatements(body, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "}";
+			case PhpIfElse(condition, body, elseBody):
+				prefix
+				+ "if ( "
+				+ emitPhpCoreExpr(condition, depth)
+				+ " ) {\n"
+				+ emitPhpCoreStatements(body, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "} else {\n"
+				+ emitPhpCoreStatements(elseBody, depth + 1)
+				+ "\n"
+				+ prefix
+				+ "}";
+			case PhpFor(init, condition, update, body):
+				prefix
+				+ "for ( "
+				+ emitPhpCoreExpr(init, depth)
+				+ "; "
+				+ emitPhpCoreExpr(condition, depth)
+				+ "; "
+				+ emitPhpCoreExpr(update, depth)
 				+ " ) {\n"
 				+ emitPhpCoreStatements(body, depth + 1)
 				+ "\n"
@@ -685,10 +826,16 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				+ "}";
 			case PhpAssign(target, value):
 				prefix + emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth) + ";";
-			case PhpVar(name, value):
+			case PhpLocal(name, value):
 				prefix + "$" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpExprStmt(expr):
 				prefix + emitPhpCoreExpr(expr, depth) + ";";
+			case PhpReturn(value):
+				prefix + "return " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpBreak:
+				prefix + "break;";
+			case PhpContinue:
+				prefix + "continue;";
 		}
 	}
 
@@ -698,10 +845,14 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		{
 			case PhpVar(name):
 				"$" + phpIdent(name);
+			case PhpInt(value):
+				Std.string(value);
 			case PhpString(value):
 				quote(value);
 			case PhpArrayRead(base, key):
 				emitPhpCoreExpr(base, depth) + "[" + emitPhpCoreArrayKey(key, depth) + "]";
+			case PhpArrayAppend(base):
+				emitPhpCoreExpr(base, depth) + "[]";
 			case PhpLongArray(entries):
 				emitPhpCoreLongArray(entries, depth, false);
 			case PhpNew(className, args):
@@ -715,10 +866,20 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				+ emitPhpCoreCallArgs(args, depth);
 			case PhpFunctionCall(name, args):
 				name + emitPhpCoreCallArgs(args, depth);
+			case PhpBinop(op, left, right):
+				emitPhpCoreExpr(left, depth) + " " + op + " " + emitPhpCoreExpr(right, depth);
+			case PhpAssignExpr(target, value):
+				emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth);
+			case PhpPostDecrement(target):
+				emitPhpCoreExpr(target, depth) + "--";
 			case PhpNot(inner):
 				"! " + emitPhpCoreExpr(inner, depth);
 			case PhpCastArray(inner):
 				"(array) " + emitPhpCoreExpr(inner, depth);
+			case PhpCastInt(inner):
+				"(int) " + emitPhpCoreExpr(inner, depth);
+			case PhpCastString(inner):
+				"(string) " + emitPhpCoreExpr(inner, depth);
 		}
 	}
 
@@ -1225,6 +1386,20 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function quote(value:String):String
 	{
+		if (value.indexOf("\r") != -1 || value.indexOf("\n") != -1 || value.indexOf("\t") != -1)
+		{
+			return "\""
+				+ value.split("\\")
+					.join("\\\\")
+					.split("\"")
+					.join("\\\"")
+					.split("\r")
+					.join("\\r")
+					.split("\n")
+					.join("\\n")
+					.split("\t")
+					.join("\\t") + "\"";
+		}
 		return "'" + value.split("\\").join("\\\\").split("'").join("\\'") + "'";
 	}
 
