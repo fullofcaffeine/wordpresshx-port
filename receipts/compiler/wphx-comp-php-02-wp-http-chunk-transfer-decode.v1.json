@@ -1,0 +1,37 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-02-wp-http-chunk-transfer-decode",
+  "issue": "WPHX-COMP-PHP.02",
+  "recorded_at": "2026-06-29T00:00:00Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:wp-http-chunk-transfer-decode:check",
+    "npm run wp:core:wphx-312-wp-http-chunk-transfer-decode-candidate:check"
+  ],
+  "generated_files": [
+    {
+      "path": "build/wp-core/wphx-312-61/generated/wp-includes/class-wp-http.php",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "probe": "existing WPHX-312.61 chunkTransferDecode oracle/candidate probe"
+    }
+  ],
+  "source": [
+    "src/wphx/compiler/php/WphxPhpCompiler.hx",
+    "src/wphx/wp/http/HttpChunkTransferDecode.hx",
+    "fixtures/wphx-php/wp-http-chunk-transfer-decode.hxml",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpChunkTransferDecodeShell.hx",
+    "tools/wp-core/run-wp-http-chunk-transfer-decode-candidate.mjs"
+  ],
+  "claims": [
+    "The WPHX PHP emitter now generates the original-path public PHP shell for the bounded WP_Http::chunkTransferDecode driver.",
+    "The generated class-wp-http.php passes PHP lint and the existing WPHX-312.61 oracle/candidate behavior probe.",
+    "The WPHX PHP emission manifest records class:WP_Http and no unsupported constructs for the driver."
+  ],
+  "non_claims": [
+    "This does not claim whole-file WP_Http ownership.",
+    "Neighboring parser helpers, Requests transport behavior, installed WordPress behavior, and live transfer-encoding negotiation remain future gates.",
+    "The full WP_Http::request method remains deliberately later."
+  ]
+}

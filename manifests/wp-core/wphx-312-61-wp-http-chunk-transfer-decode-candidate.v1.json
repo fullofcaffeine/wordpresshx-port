@@ -28,14 +28,19 @@
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-chunk-transfer-decode-candidate.mjs",
-      "bytes": 16462,
-      "sha256": "sha256:17b030e7fc6d6c5442ac0fde28d225edbfade727d113323714f6514277e6eef6"
+      "bytes": 15809,
+      "sha256": "sha256:5e0fffbd052875d335172ecb3a783fe16b0a3fe40f33a77b3017d7e8de2d63be"
     },
     "haxe_sources": [
       {
         "path": "fixtures/wp-core/http-chunk-transfer-decode-candidate.hxml",
         "bytes": 135,
         "sha256": "sha256:d45e1426c9fcdcf2875a061d247166c66b14de19691fd866bfa943b65335373e"
+      },
+      {
+        "path": "fixtures/wphx-php/wp-http-chunk-transfer-decode.hxml",
+        "bytes": 360,
+        "sha256": "sha256:d967709d9d349027639710e04c50c730a27aa8cbd261ae058698a50215665f22"
       },
       {
         "path": "src/wphx/wp/http/HttpChunkTransferDecode.hx",
@@ -46,6 +51,21 @@
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpChunkTransferDecodeCandidateEntry.hx",
         "bytes": 306,
         "sha256": "sha256:70b923d3c37f10b66a4c7950c493baf97403d97110594d043cde402d59bb8cd6"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpChunkTransferDecodeEntry.hx",
+        "bytes": 271,
+        "sha256": "sha256:01986ba4a14f55eec942bfe6b5ef4cbf309a5edccce5be92c9879e21d98637b9"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpChunkTransferDecodeShell.hx",
+        "bytes": 438,
+        "sha256": "sha256:1154090b33fd55a84419859724369a827cec92811bb15739a2791205efb5205e"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
+        "bytes": 314,
+        "sha256": "sha256:d39a608a63881c5e8da002cc0698d1002697e84ec0f5d5fcfea5e9a829f674bb"
       }
     ],
     "upstream_sources": [
@@ -59,6 +79,7 @@
   },
   "candidate": {
     "hxml": "fixtures/wp-core/http-chunk-transfer-decode-candidate.hxml",
+    "wphx_php_hxml": "fixtures/wphx-php/wp-http-chunk-transfer-decode.hxml",
     "haxe_output": "build/wp-core/wphx-312-61/haxe",
     "compiled_php_files": [
       "build/wp-core/wphx-312-61/haxe/index.php",
@@ -79,6 +100,14 @@
       "build/wp-core/wphx-312-61/haxe/lib/wphx/fixtures/wp/core/HttpChunkTransferDecodeCandidateEntry.php",
       "build/wp-core/wphx-312-61/haxe/lib/wphx/wp/http/_HttpChunkTransferDecode/HttpChunkTransferDecode_Fields_.php"
     ],
+    "compiler_emitted_public_shell": {
+      "path": "build/wp-core/wphx-312-61/generated/wp-includes/class-wp-http.php",
+      "manifest": "build/wp-core/wphx-312-61/generated/wphx-php-emission.v1.json",
+      "declarations": [
+        "class:WP_Http"
+      ],
+      "unsupported": []
+    },
     "promoted_symbols": [
       "WP_Http::chunkTransferDecode chunk header detection",
       "WP_Http::chunkTransferDecode chunk extension handling",
@@ -86,11 +115,12 @@
       "WP_Http::chunkTransferDecode malformed or non-chunk passthrough"
     ],
     "public_shell_policy": {
-      "public_php_replacement_claimed": false,
+      "public_php_replacement_claimed": true,
       "public_php_abi_preserved": true,
-      "shell_body_ownership": "temporary candidate shell preserves the WP_Http public static method ABI and string return shape while delegating observed chunk-transfer decode and passthrough decisions to generated Haxe PHP",
+      "shell_body_ownership": "compiler-emitted original-path class-wp-http.php shell preserves the WP_Http public static method ABI and string return shape while delegating observed chunk-transfer decode and passthrough decisions to generated Haxe PHP",
       "native_boundaries": [
-        "temporary original-path class-wp-http.php shell"
+        "compiler-emitted WP_Http public shell",
+        "stock Haxe PHP runtime bootstrap"
       ]
     }
   },
@@ -118,12 +148,12 @@
   },
   "build": {
     "oracle_root": "build/wp-core/wphx-312-61/oracle",
-    "candidate_root": "build/wp-core/wphx-312-61/candidate",
+    "candidate_root": "build/wp-core/wphx-312-61/generated",
     "php_lint": [
       {
         "path": "src/wp-includes/class-wp-http.php",
         "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-61/oracle/wp-includes/class-wp-http.php",
-        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-61/candidate/wp-includes/class-wp-http.php"
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-61/generated/wp-includes/class-wp-http.php"
       }
     ]
   },
@@ -183,9 +213,9 @@
       "detail": "The fixture records upstream WordPress behavior where an inter-chunk CRLF multi-chunk body returns the original string. This candidate preserves that behavior rather than correcting it."
     },
     {
-      "id": "durable-public-php-adapter-not-yet-generated",
+      "id": "whole-wp-http-file-not-yet-owned",
       "owner": "WPHX-312.61",
-      "detail": "The candidate uses a bounded generated-PHP helper plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+      "detail": "This candidate generates only the bounded WP_Http::chunkTransferDecode public adapter in class-wp-http.php. Broader WP_Http methods and whole-file original-path ownership remain later compiler-driven gates."
     }
   ],
   "ownership_manifest": "manifests/ownership/wphx-312-61-wp-http-chunk-transfer-decode-candidate.v1.json",
@@ -195,7 +225,8 @@
     "promoted_symbols": 4,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "public_php_replacement_claimed": true,
+    "compiler_emitted_public_php": true,
     "installed_wordpress_behavior_claimed": false,
     "live_http_claimed": false
   }
