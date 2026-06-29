@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.ownership_manifest.v1",
+  "manifest_id": "wphx-314-08-html-api-tag-processor-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.20.2",
+    "external_ref": "WPHX-314.08",
+    "title": "WPHX-314.08 - Add HTML API tag processor oracle fixture"
+  },
+  "unit": {
+    "kind": "wp_core_oracle_fixture",
+    "domain": "blocks_html_api_tag_processor",
+    "source_files": [
+      "src/wp-includes/class-wp-token-map.php",
+      "src/wp-includes/html-api/html5-named-character-references.php",
+      "src/wp-includes/html-api/class-wp-html-attribute-token.php",
+      "src/wp-includes/html-api/class-wp-html-span.php",
+      "src/wp-includes/html-api/class-wp-html-text-replacement.php",
+      "src/wp-includes/html-api/class-wp-html-decoder.php",
+      "src/wp-includes/html-api/class-wp-html-tag-processor.php"
+    ]
+  },
+  "ownership_state": "bridge_shell",
+  "ownership_axes": {
+    "semantic_behavior": "upstream_wordpress_php_oracle",
+    "haxe_source": "not_claimed",
+    "public_php_abi": "copied_oracle_candidate_fixture_only",
+    "installed_distribution": "not_claimed",
+    "browser_gutenberg": "not_claimed"
+  },
+  "bridge": {
+    "kind": "copied_oracle_candidate_php_fixture",
+    "removal_gate": "Replace the copied public PHP fixture with typed Haxe-owned HTML API tag processor decisions plus WPHX Adapter IR/generated original-path public PHP evidence, or explicitly supersede this bridge with an accepted backend/custom-target improvement.",
+    "non_claims": [
+      "Haxe-owned runtime implementation for the HTML API tag processor is not claimed.",
+      "Generated original-path public PHP adapter replacement is not claimed.",
+      "Full HTML5 processor/tree ownership, active formatting/open element stack behavior, interactivity directive processing, installed block rendering, selected upstream PHPUnit pass/pass, editor/browser, and Gutenberg package ownership remain later gates.",
+      "Full interactivity ownership remains outside this fixture."
+    ]
+  },
+  "owned_paths": [],
+  "generated_paths": [
+    "manifests/wp-core/wphx-314-08-html-api-tag-processor-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-314-08-html-api-tag-processor-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-314-08-html-api-tag-processor-oracle-fixture.v1.json",
+    "build/wp-core/wphx-314-08/oracle/probe.php",
+    "build/wp-core/wphx-314-08/candidate/probe.php"
+  ],
+  "verification": {
+    "status": "passed",
+    "issue": "WPHX-314.08",
+    "case_count": 6,
+    "covered_symbol_count": 33,
+    "source_file_count": 7,
+    "oracle_candidate_match": true,
+    "public_php_replacement_claimed": false
+  },
+  "notes": [
+    "This fixture is a behavior target for future Haxe ownership. It records decoded attribute/class traversal, attribute/class mutation, bookmarks, token text/comment mutation, special-element text escaping, incomplete-token pausing, tag closer semantics, and namespace switching.",
+    "The fixture-owned Core helper stubs are deterministic harness boundaries, not replacement evidence for KSES, URL policy, or the full HTML5 processor."
+  ]
+}
