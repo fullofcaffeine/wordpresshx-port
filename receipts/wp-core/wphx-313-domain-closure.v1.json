@@ -1,0 +1,93 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-313-domain-closure",
+  "issue": {
+    "id": "wordpresshx-7a0",
+    "external_ref": "WPHX-313.09",
+    "title": "WPHX-313.09 — Close bounded media/filesystem/upload domain evidence"
+  },
+  "recorded_at": "2026-06-29T00:00:00.000Z",
+  "command": "domain closure audit over WPHX-313.01 through WPHX-313.08 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, packaged_distribution, declared_upstream_suite_scope",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-313-01-media-filesystem-upload-surface.v1.json",
+      "role": "media, image, filesystem, upload source, distribution, ABI, and upstream test surface inventory",
+      "sha256": "sha256:b9359e52c78754dbb25c67c05bdf84885127865cd2660c34bb7a57f46d32f37e"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-02-media-upload-adapter-contract-candidate.v1.json",
+      "role": "typed Haxe media upload adapter-contract evidence",
+      "sha256": "sha256:ed203d9fb16fb949a0575e86964a7b23c47e5b26c7e8e24c04c78591c678ae87"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-03-media-upload-validation-oracle-fixture.v1.json",
+      "role": "deterministic upload validation, MIME, unique filename, upload-dir, and sideload oracle-source-mirror evidence",
+      "sha256": "sha256:8c3ad33bad2d218df6eed046884fcf29ca74c5e220bf8b4bcb116112e2e986ec"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-04-image-metadata-editor-oracle-fixture.v1.json",
+      "role": "deterministic image editor selection, metadata, subsize, and displayability oracle-source-mirror evidence",
+      "sha256": "sha256:3c05cf41b8a210a6a5bcf12a6c6ea8cbec4d26df931190c40eb2f35728aec12c"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-05-filesystem-credentials-oracle-fixture.v1.json",
+      "role": "deterministic filesystem method, credentials, bootstrap, and direct filesystem IO oracle-source-mirror evidence",
+      "sha256": "sha256:5b334347c64a0f6a9cf390d3a2b29f99797cb56657ae36851d950c6c86fa339e"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-06-image-filesystem-adapter-contract-candidate.v1.json",
+      "role": "typed Haxe image/filesystem adapter-contract evidence",
+      "sha256": "sha256:cfd4070e1492d91caa8cb4b6f7464ce89074f6103b21cadb061a1e1898452e78"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-07-media-filesystem-upstream-phpunit-ratchet-groups.v1.json",
+      "role": "selected upstream media/image/upload/filesystem/REST/AJAX PHPUnit ratchet group scope with deterministic blocked status",
+      "sha256": "sha256:bc14c6e1aedae8d642da63fedf64ee939ed94676cb95c7775ba05dae0e7a3d50"
+    },
+    {
+      "path": "receipts/wp-core/wphx-313-08-media-upload-installed-gate.v1.json",
+      "role": "packaged installed-style media/upload HTTP gate evidence",
+      "sha256": "sha256:6b76d44ec4d1bd07db7068fa9de7ab93d3a93351e0860285f750848ecd88d766"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-313 closure interpretation",
+      "sha256": "sha256:bd8d968619cc41dd3a9a9d3e474040f50e2801b21a6441a7f744aa9a8523fbba"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-313-media-upload-installed:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "MediaUploadAdapterContract",
+      "ImageFilesystemAdapterContract"
+    ],
+    "fixtures_cover": [
+      "media, image, filesystem, upload source/distribution/ABI/upstream surface inventory",
+      "media upload validation, MIME/filetype routing, unique filename routing, attachment metadata handoff, filesystem backend/credential routing, and media hook intent",
+      "upload validation, sideload, upload directory, MIME, filetype, filename collision, and pre-move observations",
+      "image editor selection, output format, resize dimensions, intermediate sizes, missing subsizes, metadata generation/update, and displayability observations",
+      "filesystem method selection, credential filtering/form handling, direct filesystem bootstrap, missing transport handling, and direct local filesystem IO observations",
+      "image/filesystem adapter decisions across editor selection, metadata/subsize update intent, filesystem credential/method routing, and direct IO intent",
+      "selected upstream media, image editor/metadata, upload/MIME/filesystem, REST attachment, and AJAX media PHPUnit ratchet scope",
+      "packaged installed-style package boundary, upload validation/unique filename, attachment response, image metadata/editor/subsize, REST attachment upload, AJAX image edit, and direct filesystem credential/IO observations"
+    ],
+    "remaining_gaps": [
+      "Generated public PHP replacement for media.php, post.php attachment helpers, file.php, class-wp-image-editor.php, image editor subclasses, filesystem classes, REST attachment controllers, AJAX media handlers, and related original-path files is not claimed.",
+      "Complete upstream media PHPUnit pass/pass parity is not claimed; the selected WPHX-313 ratchet groups are declared but currently blocked on local PHPUnit runtime inputs.",
+      "Real native image-library behavior for GD, Imagick, AVIF, HEIC, PDF previews, EXIF/IPTC extraction, actual subsize generation, and filesystem image writes remains later work.",
+      "Remote filesystem transport parity for FTP extension, FTP sockets, SSH2, path mapping, credential prompting, updater integration, and error handling is not claimed.",
+      "Database-backed installed media persistence, attachment metadata persistence, admin media screens, REST/AJAX media flows, multisite quotas/paths, and updater/installer orchestration remain later distribution work.",
+      "Copied upstream PHP and deterministic routers remain bridge evidence where noted; durable original-path public adapter ownership requires WPHX PHP Adapter IR or backend/custom-target evidence.",
+      "This closes the bounded WPHX-313 source-domain evidence slice, not the whole WordPress media subsystem."
+    ]
+  }
+}
