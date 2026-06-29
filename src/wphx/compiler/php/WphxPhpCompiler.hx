@@ -32,25 +32,44 @@ private typedef EmissionDeclaration =
 	final source:String;
 }
 
-private typedef PendingFunction =
+private typedef AdapterFileDeclaration =
 {
 	final file:String;
+	final declaration:AdapterDeclaration;
+}
+
+private enum AdapterDeclaration
+{
+	GlobalFunctionAdapter(declaration:AdapterGlobalFunction);
+	ClassAdapter(declaration:AdapterClass);
+}
+
+private typedef AdapterGlobalFunction =
+{
 	final phpName:String;
 	final guarded:Bool;
 	final haxeBootstrap:Null<String>;
 	final haxeModule:String;
 	final field:ClassField;
 	final expr:TypedExpr;
+	final source:String;
 }
 
-private typedef PendingClass =
+private typedef AdapterClass =
 {
-	final file:String;
 	final phpName:String;
 	final guarded:Bool;
 	final haxeBootstrap:Null<String>;
 	final order:Int;
 	final classType:ClassType;
+	final source:String;
+}
+
+private typedef AdapterFilePlan =
+{
+	final path:String;
+	final haxeBootstrap:Null<String>;
+	final declarations:Array<AdapterDeclaration>;
 }
 
 private typedef EmissionManifest =
@@ -79,9 +98,10 @@ private typedef TypedFunctionArg =
 	Small Reflaxe-backed PHP emitter for WordPress-shaped public files.
 
 	The first implementation is intentionally narrow: annotated module-level
-	functions and public classes compile to original-path PHP files plus an
-	emission manifest. Wider PHP semantics should be added only with fixture
-	pressure from facade or WordPress driver gates.
+	functions and public classes lower into Adapter IR file/declaration plans,
+	then print to original-path PHP files plus an emission manifest. Wider PHP
+	semantics should be added only with fixture pressure from facade or
+	WordPress driver gates.
 **/
 class WphxPhpCompiler extends GenericCompiler<String, String, String, String, String>
 {
@@ -141,8 +161,13 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function buildFiles():Array<GeneratedPhpFile>
 	{
-		final functions = new Array<PendingFunction>();
-		final classes = new Array<PendingClass>();
+		return buildAdapterFilePlans(collectAdapterDeclarations()).map(emitAdapterFile);
+	}
+
+	function collectAdapterDeclarations():Array<AdapterFileDeclaration>
+	{
+		final functions = new Array<AdapterFileDeclaration>();
+		final classes = new Array<AdapterFileDeclaration>();
 
 		for (moduleType in modules)
 		{
@@ -150,70 +175,53 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			{
 				case TClassDecl(classRef):
 					final classType = classRef.get();
-					collectClass(classType, functions, classes);
+					collectClassAdapters(classType, functions, classes);
 				case TEnumDecl(_), TTypeDecl(_), TAbstract(_):
 			}
 		}
 
-		classes.sort((left, right) ->
-		{
-			final fileCompare = Reflect.compare(left.file, right.file);
-			if (fileCompare != 0)
-			{
-				return fileCompare;
-			}
-			final orderCompare = Reflect.compare(left.order, right.order);
-			return orderCompare != 0 ? orderCompare : Reflect.compare(left.phpName, right.phpName);
-		});
-
-		final byPath = new Map<String, Array<String>>();
-		final declarationsByPath = new Map<String, Array<EmissionDeclaration>>();
-		final haxeBootstrapsByPath = new Map<String, String>();
-
-		for (pending in functions)
-		{
-			rememberHaxeBootstrap(haxeBootstrapsByPath, pending.file, pending.haxeBootstrap);
-			appendFilePart(byPath, declarationsByPath, pending.file, emitFunction(pending), {
-				kind: "global-function",
-				name: pending.phpName,
-				haxeModule: pending.haxeModule,
-				guarded: pending.guarded,
-				source: sourceLabel(pending.field.pos)
-			});
-		}
-
-		for (pending in classes)
-		{
-			rememberHaxeBootstrap(haxeBootstrapsByPath, pending.file, pending.haxeBootstrap);
-			appendFilePart(byPath, declarationsByPath, pending.file, emitClass(pending), {
-				kind: pending.classType.isInterface ? "interface" : "class",
-				name: pending.phpName,
-				haxeModule: pending.classType.module,
-				guarded: pending.guarded,
-				source: sourceLabel(pending.classType.pos)
-			});
-		}
-
-		final paths = [for (path in byPath.keys()) path];
-		paths.sort(Reflect.compare);
-
-		final files = new Array<GeneratedPhpFile>();
-		for (path in paths)
-		{
-			final parts = byPath.get(path);
-			final declarations = declarationsByPath.get(path);
-			final prologue = haxeBootstrapsByPath.exists(path) ? [emitHaxeBootstrap(haxeBootstrapsByPath.get(path))] : [];
-			final contentParts = prologue.concat(parts);
-			files.push({
-				path: path,
-				content: "<?php\n" + contentParts.join("\n\n") + "\n",
-				declarations: declarations == null ? [] : declarations
-			});
-		}
-		return files;
+		classes.sort(sortAdapterClasses);
+		return functions.concat(classes);
 	}
 
-	function collectClass(classType:ClassType, functions:Array<PendingFunction>, classes:Array<PendingClass>):Void
+	function buildAdapterFilePlans(declarations:Array<AdapterFileDeclaration>):Array<AdapterFilePlan>
+	{
+		final declarationsByPath = new Map<String, Array<AdapterDeclaration>>();
+		final haxeBootstrapsByPath = new Map<String, String>();
+
+		for (fileDeclaration in declarations)
+		{
+			rememberAdapterHaxeBootstrap(haxeBootstrapsByPath, fileDeclaration.file, adapterHaxeBootstrap(fileDeclaration.declaration));
+			appendAdapterDeclaration(declarationsByPath, fileDeclaration.file, fileDeclaration.declaration);
+		}
+
+		final paths = [for (path in declarationsByPath.keys()) path];
+		paths.sort(Reflect.compare);
+
+		final plans = new Array<AdapterFilePlan>();
+		for (path in paths)
+		{
+			plans.push({
+				path: path,
+				haxeBootstrap: haxeBootstrapsByPath.exists(path) ? haxeBootstrapsByPath.get(path) : null,
+				declarations: declarationsByPath.get(path)
+			});
+		}
+		return plans;
+	}
+
+	function emitAdapterFile(plan:AdapterFilePlan):GeneratedPhpFile
+	{
+		final prologue = plan.haxeBootstrap == null ? [] : [emitHaxeBootstrap(plan.haxeBootstrap)];
+		final contentParts = prologue.concat(plan.declarations.map(emitAdapterDeclaration));
+		return {
+			path: plan.path,
+			content: "<?php\n" + contentParts.join("\n\n") + "\n",
+			declarations: plan.declarations.map(adapterManifestDeclaration)
+		};
+	}
+
+	function collectClassAdapters(classType:ClassType, functions:Array<AdapterFileDeclaration>, classes:Array<AdapterFileDeclaration>):Void
 	{
 		final classFile = metadataString(classType.meta.get(), "wp.file");
 		final className = metadataString(classType.meta.get(), "native");
@@ -221,11 +229,14 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		{
 			classes.push({
 				file: classFile,
-				phpName: className,
-				guarded: hasMetadata(classType.meta.get(), "wp.ifMissing"),
-				haxeBootstrap: metadataString(classType.meta.get(), "wp.haxeBootstrap"),
-				order: metadataInt(classType.meta.get(), "wp.order") ?? 0,
-				classType: classType
+				declaration: ClassAdapter({
+					phpName: className,
+					guarded: hasMetadata(classType.meta.get(), "wp.ifMissing"),
+					haxeBootstrap: metadataString(classType.meta.get(), "wp.haxeBootstrap"),
+					order: metadataInt(classType.meta.get(), "wp.order") ?? 0,
+					classType: classType,
+					source: sourceLabel(classType.pos)
+				})
 			});
 		}
 
@@ -250,17 +261,112 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			}
 			functions.push({
 				file: file,
-				phpName: phpName,
-				guarded: hasMetadata(field.meta.get(), "wp.ifMissing"),
-				haxeBootstrap: metadataString(field.meta.get(), "wp.haxeBootstrap") ?? metadataString(classType.meta.get(), "wp.haxeBootstrap"),
-				haxeModule: classType.module,
-				field: field,
-				expr: expr
+				declaration: GlobalFunctionAdapter({
+					phpName: phpName,
+					guarded: hasMetadata(field.meta.get(), "wp.ifMissing"),
+					haxeBootstrap: metadataString(field.meta.get(), "wp.haxeBootstrap") ?? metadataString(classType.meta.get(), "wp.haxeBootstrap"),
+					haxeModule: classType.module,
+					field: field,
+					expr: expr,
+					source: sourceLabel(field.pos)
+				})
 			});
 		}
 	}
 
-	function emitFunction(pending:PendingFunction):String
+	function sortAdapterClasses(left:AdapterFileDeclaration, right:AdapterFileDeclaration):Int
+	{
+		final leftClass = adapterClass(left.declaration);
+		final rightClass = adapterClass(right.declaration);
+		final fileCompare = Reflect.compare(left.file, right.file);
+		if (fileCompare != 0)
+		{
+			return fileCompare;
+		}
+		final orderCompare = Reflect.compare(leftClass.order, rightClass.order);
+		return orderCompare != 0 ? orderCompare : Reflect.compare(leftClass.phpName, rightClass.phpName);
+	}
+
+	function adapterClass(declaration:AdapterDeclaration):AdapterClass
+	{
+		return switch (declaration)
+		{
+			case ClassAdapter(declaration):
+				declaration;
+			case GlobalFunctionAdapter(_):
+				throw "Expected WPHX PHP class adapter declaration";
+		}
+	}
+
+	function appendAdapterDeclaration(declarationsByPath:Map<String, Array<AdapterDeclaration>>, path:String, declaration:AdapterDeclaration):Void
+	{
+		if (!declarationsByPath.exists(path))
+		{
+			declarationsByPath.set(path, []);
+		}
+		declarationsByPath.get(path).push(declaration);
+	}
+
+	function rememberAdapterHaxeBootstrap(haxeBootstrapsByPath:Map<String, String>, path:String, constant:Null<String>):Void
+	{
+		if (constant == null)
+		{
+			return;
+		}
+		if (haxeBootstrapsByPath.exists(path) && haxeBootstrapsByPath.get(path) != constant)
+		{
+			reportUnsupported("multiple Haxe bootstrap constants for " + path);
+			return;
+		}
+		haxeBootstrapsByPath.set(path, constant);
+	}
+
+	function adapterHaxeBootstrap(declaration:AdapterDeclaration):Null<String>
+	{
+		return switch (declaration)
+		{
+			case GlobalFunctionAdapter(declaration):
+				declaration.haxeBootstrap;
+			case ClassAdapter(declaration):
+				declaration.haxeBootstrap;
+		}
+	}
+
+	function emitAdapterDeclaration(declaration:AdapterDeclaration):String
+	{
+		return switch (declaration)
+		{
+			case GlobalFunctionAdapter(declaration):
+				emitFunction(declaration);
+			case ClassAdapter(declaration):
+				emitClass(declaration);
+		}
+	}
+
+	function adapterManifestDeclaration(declaration:AdapterDeclaration):EmissionDeclaration
+	{
+		return switch (declaration)
+		{
+			case GlobalFunctionAdapter(declaration):
+				{
+					kind: "global-function",
+					name: declaration.phpName,
+					haxeModule: declaration.haxeModule,
+					guarded: declaration.guarded,
+					source: declaration.source
+				};
+			case ClassAdapter(declaration):
+				{
+					kind: declaration.classType.isInterface ? "interface" : "class",
+					name: declaration.phpName,
+					haxeModule: declaration.classType.module,
+					guarded: declaration.guarded,
+					source: declaration.source
+				};
+		}
+	}
+
+	function emitFunction(pending:AdapterGlobalFunction):String
 	{
 		final fn = functionOf(pending.expr, "global function " + pending.phpName);
 		final body = emitBody(fn.expr);
@@ -293,7 +399,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			+ "}";
 	}
 
-	function emitClass(pending:PendingClass):String
+	function emitClass(pending:AdapterClass):String
 	{
 		if (pending.classType.isInterface)
 		{
@@ -395,7 +501,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return "if (!class_exists('" + pending.phpName + "', false)) {\n" + indent(decl) + "\n}";
 	}
 
-	function emitInterface(pending:PendingClass):String
+	function emitInterface(pending:AdapterClass):String
 	{
 		final lines = new Array<String>();
 		lines.push("interface " + pending.phpName);
@@ -656,32 +762,6 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			case _:
 				Context.fatalError("Expected function body for " + label, expr.pos);
 		}
-	}
-
-	function appendFilePart(byPath:Map<String, Array<String>>, declarationsByPath:Map<String, Array<EmissionDeclaration>>, path:String, content:String,
-			declaration:EmissionDeclaration):Void
-	{
-		if (!byPath.exists(path))
-		{
-			byPath.set(path, []);
-			declarationsByPath.set(path, []);
-		}
-		byPath.get(path).push(content);
-		declarationsByPath.get(path).push(declaration);
-	}
-
-	function rememberHaxeBootstrap(haxeBootstrapsByPath:Map<String, String>, path:String, constant:Null<String>):Void
-	{
-		if (constant == null)
-		{
-			return;
-		}
-		if (haxeBootstrapsByPath.exists(path) && haxeBootstrapsByPath.get(path) != constant)
-		{
-			reportUnsupported("multiple Haxe bootstrap constants for " + path);
-			return;
-		}
-		haxeBootstrapsByPath.set(path, constant);
 	}
 
 	function manifestJson(files:Array<GeneratedPhpFile>):String

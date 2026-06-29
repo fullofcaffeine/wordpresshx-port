@@ -4,13 +4,15 @@
 
 The compiler is a Haxe/Reflaxe module under `src/wphx/compiler/php`. It uses Reflaxe manual output so emitted file paths can be WordPress distribution paths such as `wp-includes/*.php`, not merely Haxe package paths. Reflaxe is loaded through the explicit classpath recorded in `toolchain.lock.json` and `upstream.lock.json`.
 
-The current strategy, accepted after oracle review on 2026-06-29, is intentionally hybrid:
+The current strategy, accepted after oracle review on 2026-06-29 and formalized in [ADR-013](../adr/ADR-013-wphx-php-adapter-ir-and-scope.md), is intentionally hybrid:
 
 - stock Haxe PHP emits private Haxe implementation classes and remains the reference for stdlib/runtime behavior;
 - WPHX PHP emits bounded WordPress original-path public adapter files;
-- typed Haxe source, metadata, manifests, and future adapter IR are the durable asset, not generated PHP strings.
+- typed Haxe source, metadata, Adapter IR, and manifests are the durable asset, not generated PHP strings.
 
 Do not assume stock Haxe PHP can directly generate public WordPress Core files with the ABI, file topology, reference behavior, warning behavior, stack traces, and include timing modern WordPress requires. Public WordPress files must pass WPHX public-shell gates. Conversely, do not expand WPHX PHP into a full backend unless minimized evidence shows the hybrid cannot preserve required behavior.
+
+Use the native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` as an implementation oracle for generic, borrowable lowering/runtime behavior when useful. That reference can guide what to reuse or adapt; WordPress public ABI, original path topology, declaration timing, and ecosystem-visible behavior still require WordPress oracle fixtures and WPHX public-shell evidence.
 
 ## Current Invocation
 
@@ -81,6 +83,21 @@ haxe fixtures/wphx-php/wp-http-parser-helpers.hxml
 ```
 
 The runner emits `build/wp-core/wphx-312-60/generated/wp-includes/class-wp-http.php` with `WP_Http::processResponse`, `WP_Http::chunkTransferDecode`, and protected `WP_Http::parse_url`, lints that PHP, runs oracle/candidate probes for all three helper cases, and verifies the WPHX PHP manifest records `class:WP_Http` with no unsupported constructs. This is the current model for replacing copied or JS-patched PHP shells with compiler-emitted original-path adapters while keeping stock Haxe PHP responsible for runtime implementation classes and stdlib behavior.
+
+## Adapter IR
+
+The WPHX PHP compiler now uses an Adapter IR before printing PHP:
+
+```text
+typed Haxe source and metadata
+  -> WPHX Adapter IR file/declaration plans
+  -> deterministic original-path PHP adapter printer
+  -> wphx-php-emission.v1.json
+```
+
+The v0 IR in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the proven public-shell shapes: original-path files, guarded global functions, classes/interfaces, methods, properties, constants, Haxe bootstrap markers, protected methods, by-reference parameters, and manifest declarations.
+
+This IR is deliberately narrower than a full PHP backend. Add new nodes only when a fixture or WordPress slice needs them, and pair each addition with generated-shape, static/runtime ABI, behavior, and receipt evidence as appropriate. The next expected nodes are native PHP array mutation/default-shape lowering for `WP_Http::buildCookieHeader`, conditionals/loops for richer `processHeaders`, conditional declaration segments, and include-time side-effect/script nodes.
 
 ## First Contract
 

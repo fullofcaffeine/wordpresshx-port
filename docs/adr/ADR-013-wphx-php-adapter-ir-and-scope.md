@@ -1,0 +1,110 @@
+# ADR-013: WPHX PHP Adapter IR and Scope
+
+Status: Accepted
+
+Date: 2026-06-29
+
+## Context
+
+ADR-001 accepts a hybrid PHP emission architecture: stock Haxe PHP emits private Haxe implementation classes, while WPHX PHP emits WordPress-facing original-path public adapters. The 2026-06-29 external architecture oracle review confirmed that this split should continue for the next Core slices, but it also warned that an adapter emitter can accidentally become an undeclared PHP backend if it starts accepting arbitrary language pressure without a scoped IR, feature gates, and escalation rules.
+
+The next WordPress pressure points, especially `WP_Http::buildCookieHeader( &$r )`, `WP_Http::processHeaders`, pluggable declarations, include-time side effects, and eventually mixed templates, require more than prettier PHP. They require original file identity, native PHP arrays, references, declaration timing, reflection-visible signatures, warnings, include scope, and plugin/theme compatibility.
+
+The project also wants to preserve a future path to a broader custom PHP target, possibly extractable as `reflaxe.php`, without forcing later rewrites of the Haxe source that describes WordPress semantics and public ABI intent.
+
+## Decision
+
+Build WPHX PHP as an in-repo, WordPress-tailored adapter compiler with an explicit Adapter IR.
+
+The current compiler pipeline is:
+
+```text
+typed Haxe source and metadata
+  -> WPHX Adapter IR
+  -> deterministic original-path PHP adapter printer
+  -> emission manifest, receipts, ABI/probe gates
+```
+
+Stock Haxe PHP remains the default implementation emitter for private Haxe code and the reference for Haxe stdlib/runtime behavior. The native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` may be used as an implementation oracle for generic, borrowable PHP lowering and runtime patterns. They are not the behavior oracle for WordPress public file topology, declaration timing, plugin-facing ABI, or WordPress compatibility effects. WPHX PHP owns public WordPress adapter files only where WordPress compatibility requires original paths, PHP-native ABI, declaration timing, references, native arrays, globals, includes, or template/file-scope behavior.
+
+The Adapter IR is the durable contract between Haxe source and public PHP emission. It should be shaped so a later backend or Reflaxe target can consume the same Haxe metadata and adapter intent without changing ordinary Haxe source.
+
+This ADR does not authorize a full arbitrary-Haxe PHP backend today. WPHX PHP is allowed to grow only through bounded adapter features backed by minimized fixtures and WordPress slice pressure.
+
+## Adapter IR Scope
+
+The accepted Adapter IR surface includes these node families as they become needed:
+
+- files with original distribution paths, bootstrap requirements, and ordered declarations;
+- global function declarations with guards, reflection-visible parameters, defaults, by-reference markers, and future by-reference returns;
+- class, interface, trait, method, property, and constant declarations with public/protected/private visibility, inheritance, implements/use relationships, and reflection-visible names;
+- conditional declaration segments such as pluggable `function_exists` and class/interface/trait guards;
+- native PHP value boundaries for arrays, globals, superglobals, references, callbacks, warnings, includes, output buffers, and file return values;
+- adapter calls into stock Haxe PHP implementation classes when private runtime behavior is delegated;
+- unsupported construct records that block durable ownership claims until removed.
+
+The v0 implementation in `src/wphx/compiler/php/WphxPhpCompiler.hx` covers the currently proven shell shapes: original-path files, guarded global functions, classes/interfaces, methods, properties, constants, Haxe runtime bootstrap markers, protected methods, by-reference parameters, and emission-manifest declarations.
+
+## Feature Admission
+
+New WPHX PHP features require fixture pressure. A feature may be admitted when it has:
+
+1. a minimized fixture or bounded WordPress slice showing the required public PHP behavior;
+2. typed Haxe source or metadata that describes the behavior or ABI intent;
+3. generated PHP from Adapter IR, not durable PHP pasted into JavaScript strings;
+4. `php -l` coverage;
+5. generated-shape or AST contract coverage when the public shell shape is material;
+6. static ABI and runtime reflection probes for public declarations;
+7. oracle/candidate behavior probes for WordPress-visible behavior;
+8. a receipt and ownership state that list remaining non-claims.
+
+Unsupported constructs must remain visible in manifests and must block the claimed boundary. A manifest that records unsupported constructs is evidence of pressure, not evidence of durable public ownership.
+
+## Raw PHP String Policy
+
+Temporary copied, upstream-derived, or JS-patched PHP bodies may support bridge evidence while a slice is being reduced. They must not become durable adapter authority.
+
+Durable public PHP bodies must come from one of:
+
+- typed Haxe source;
+- typed metadata;
+- Adapter IR plans;
+- the WPHX PHP compiler/printer;
+- the original-path linker;
+- a documented stock Haxe PHP/backend improvement.
+
+If a PHP-native operation is unavoidable, keep it as the smallest named boundary, document why no narrower typed model works yet, and attach a removal or narrowing gate.
+
+## Escalation Rules
+
+Use stock Haxe PHP improvements when a blocker is generic private Haxe implementation lowering or stdlib/runtime behavior.
+
+Use WPHX Adapter IR features when a blocker is WordPress public ABI or original-file topology: original paths, global functions, class/interface/trait identity, references at public boundaries, native arrays/globals, conditional declarations, include timing, templates, or public-shell manifests.
+
+Consider a Haxe PHP fork or augmentation only when a minimized generic fixture proves that ordinary Haxe, `php.*` APIs, macros, stock Haxe PHP output, and WPHX Adapter IR cannot preserve required semantics safely or efficiently.
+
+Consider a broader custom Reflaxe PHP target only when WPHX PHP is becoming a backend accidentally: broad expression lowering, duplicated Haxe runtime/stdlib behavior, generic closure/exception/dynamic dispatch support, or template/direct-script emission that cannot remain bounded to adapter nodes.
+
+## Consequences
+
+- Existing Haxe sources should describe WordPress semantics and ABI intent, not generated PHP formatting.
+- The current WPHX PHP emitter must lower to Adapter IR before printing PHP.
+- Public-shell snapshots and ABI probes become part of the compiler-pressure lane before claims broaden.
+- Future `reflaxe.php` extraction remains plausible because the Haxe source and adapter contract are not tied to one printer.
+- WPHX PHP must reuse stock Haxe PHP and std/php behavior where practical, and deviate only where WordPress public compatibility requires it.
+- Native Haxe PHP source may be borrowed from or adapted for generic implementation details, but WordPress-facing ABI decisions must still cite WordPress/oracle fixtures.
+
+## Non-Claims
+
+This ADR does not claim:
+
+- whole-file `WP_Http` ownership;
+- full `WP_Http::request` ownership;
+- mixed PHP/HTML template ownership;
+- broad WordPress distribution replacement;
+- that stock Haxe PHP can emit modern WordPress public files directly;
+- that WPHX PHP is already a complete PHP backend.
+
+## Supersession
+
+This ADR refines ADR-001 and ADR-003. It may be superseded by a later custom-target ADR only after minimized evidence shows the Adapter IR approach cannot preserve required public behavior or is already maintaining backend-scale semantics.
