@@ -300,7 +300,7 @@ npm run wphx:php:adapter-raw-blocks
 npm run wphx:php:adapter-raw-blocks:check
 ```
 
-The guard records `manifests/wphx-php/adapter-raw-block-policy.v1.json` and fails if `WphxPhpWordPressAdapters.hx` introduces any `PhpRawBlock` call whose argument is not `rendered.code`. This allows the current narrow target-native boundary for compiler-owned templates while blocking new inline PHP string bodies in the Haxe profile.
+The guard records `manifests/wphx-php/adapter-raw-block-policy.v1.json` and fails if `WphxPhpWordPressAdapters.hx` introduces any `PhpRawBlock` call whose argument is not `rendered.code`. This allows the current narrow target-native boundary for compiler-owned templates while blocking new inline PHP string bodies in the Haxe profile. `WPHX-COMP-PHP-ADAPTER-TEMPLATE-REFERENCE-GUARD` extends the same check so every WordPress-profile `renderTemplate` call uses static adapter/path arguments, every referenced template exists under `src/wphx/compiler/php/templates/wordpress`, every compiler-owned WordPress adapter template is referenced by the profile, and adapter template names remain unique. The companion receipt is `receipts/compiler/wphx-comp-php-adapter-template-reference-policy.v1.json`.
 
 ## First Contract
 

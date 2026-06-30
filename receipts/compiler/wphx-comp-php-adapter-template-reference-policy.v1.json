@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-adapter-template-reference-policy",
+  "issue": {
+    "id": "wordpresshx-65c",
+    "external_ref": "WPHX-COMP-PHP-ADAPTER-TEMPLATE-REFERENCE-GUARD",
+    "title": "Guard adapter template references"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_policy_guard",
+  "artifact_scope": "wordpress_profile_adapter_template_references",
+  "commands": [
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run precommit"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/check-adapter-raw-blocks.mjs",
+      "role": "policy guard for WordPress-profile adapter template references"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter source containing renderTemplate references"
+    },
+    {
+      "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
+      "role": "manifest recording renderTemplate references and compiler-owned template files"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "template_count": 4,
+    "render_template_call_count": 4,
+    "template_reference_count": 4,
+    "every_render_template_call_is_static": true,
+    "every_template_reference_exists": true,
+    "every_template_file_is_referenced": true,
+    "every_template_reference_under_template_directory": true,
+    "adapter_template_names_unique": true
+  },
+  "claims": [
+    "Every WordPress-profile renderTemplate call uses static adapter and template-path arguments that the guard can scan.",
+    "Every WordPress-profile renderTemplate path exists under the compiler-owned WordPress adapter template directory.",
+    "Every compiler-owned WordPress adapter template file is referenced by WphxPhpWordPressAdapters.hx.",
+    "Adapter template names used by the WordPress profile are unique."
+  ],
+  "non_claims": [
+    "This does not claim that all adapter templates have been promoted to structured PHP IR.",
+    "This does not claim additional WordPress runtime behavior parity.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}
