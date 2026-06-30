@@ -36,16 +36,26 @@
       "bytes": 18618,
       "sha256": "sha256:5284ddf77049eb20e26dff8399f0d3e956b85c8074b3d240eeab75d2a6aaa237"
     },
+    "wphx_php_manifest": {
+      "path": "build/wp-core/wphx-312-66/wphx-php/wphx-php-emission.v1.json",
+      "bytes": 708,
+      "sha256": "sha256:c141fc3e05ef720d813bbc6e8bbb01d8f7b256e1a4944f108d5ef148cc5b5890"
+    },
     "runner": {
       "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
-      "bytes": 26894,
-      "sha256": "sha256:809723e26f9f0571b1dd072046577afeb2bbc5b4e3de7d07ce727cdd7d0f2a73"
+      "bytes": 26694,
+      "sha256": "sha256:2bb104e967ed262ca0cfadaefb4108f37570738ccb32500908cdf8394eb2ffff"
     },
     "haxe_sources": [
       {
         "path": "fixtures/wp-core/http-transport-selection-candidate.hxml",
         "bytes": 134,
         "sha256": "sha256:0be334d1382715a3f4bacf90efc279a0d50ad127bda97fd874ac2d82bd60c90e"
+      },
+      {
+        "path": "fixtures/wphx-php/wp-http-transport-selection.hxml",
+        "bytes": 403,
+        "sha256": "sha256:4527b8bff78e25f75510b5f7ec41f15352af9bc4b2579630c843a2e89f6b7e0b"
       },
       {
         "path": "src/wphx/wp/http/HttpTransportSelection.hx",
@@ -56,6 +66,21 @@
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx",
         "bytes": 585,
         "sha256": "sha256:4835f915072327a2607d1354635e9a60bf4f0539bafe79a3e02dd7a06c3ceb29"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpTransportSelection.hx",
+        "bytes": 465,
+        "sha256": "sha256:dfcd6239273c930550871333e2057b79ff9f3abc3991621b39662aa111d0e217"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpTransportSelectionEntry.hx",
+        "bytes": 210,
+        "sha256": "sha256:9a7665ef49e21b0833d7ec6e7825cb262e9045b19d4a0aac5b60b776735df829"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
+        "bytes": 1222,
+        "sha256": "sha256:f740e8dcafe556ecc3227ad269c8e6bc8cea8115d138ab098f3c39aae1e7f21d"
       }
     ],
     "upstream_sources": [
@@ -69,7 +94,11 @@
   },
   "candidate": {
     "hxml": "fixtures/wp-core/http-transport-selection-candidate.hxml",
+    "wphx_php_hxml": "fixtures/wphx-php/wp-http-transport-selection.hxml",
     "haxe_output": "build/wp-core/wphx-312-66/haxe",
+    "wphx_php_output": "build/wp-core/wphx-312-66/wphx-php",
+    "public_shell": "build/wp-core/wphx-312-66/candidate/wp-includes/class-wp-http.php",
+    "compiler_emitted_public_shell": "build/wp-core/wphx-312-66/wphx-php/wp-includes/class-wp-http.php",
     "compiled_php_files": [
       "build/wp-core/wphx-312-66/haxe/index.php",
       "build/wp-core/wphx-312-66/haxe/lib/Array_hx.php",
@@ -152,9 +181,10 @@
       "runtime_stubs": "Requests Autoload/Requests, WP_Error, hooks, filters, and WP_Http_Curl/WP_Http_Streams are deterministic local stubs. Copied WP_Http remains the executed selection/dispatch source; no socket, cURL, or Requests network I/O is performed."
     },
     "public_abi_policy": {
-      "public_php_replacement_claimed": false,
+      "public_php_replacement_claimed": true,
+      "compiler_emitted_public_php": true,
       "copied_oracle_public_php": true,
-      "copied_candidate_public_php_shell": true,
+      "copied_candidate_public_php_shell": false,
       "adapter_contract_foundation": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
       "installed_wordpress_behavior_claimed": false
     },
@@ -668,11 +698,6 @@
       "id": "installed-distribution-behavior-not-executed",
       "owner": "WPHX-312.66",
       "detail": "The fixture uses PHP CLI with deterministic support stubs rather than an installed WordPress distribution or ecosystem callers that directly use deprecated transport APIs."
-    },
-    {
-      "id": "public-php-adapter-not-yet-generated",
-      "owner": "WPHX-312.66",
-      "detail": "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
     }
   ],
   "ownership_manifest": "manifests/ownership/wphx-312-66-wp-http-transport-selection-candidate.v1.json",
@@ -683,7 +708,10 @@
     "promoted_symbols": 3,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "public_php_replacement_claimed": true,
+    "compiler_emitted_public_php": true,
+    "transport_shell_emitted": true,
+    "unsupported_empty": true,
     "full_transport_selection_claimed": false,
     "full_dispatch_claimed": false,
     "installed_wordpress_behavior_claimed": false,

@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-retire-wp-http-transport-selection-temp-shell",
+  "issue": {
+    "id": "wordpresshx-nqv",
+    "external_ref": "WPHX-COMP-PHP-RETIRE-WP-HTTP-TRANSPORT-SELECTION-TEMP-SHELL",
+    "title": "Use generated shell in WPHX-312.66"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_emitted_original_path_shell_retirement",
+  "artifact_scope": "wp_http_transport_selection_adapter",
+  "commands": [
+    "haxe fixtures/wphx-php/wp-http-transport-selection.hxml",
+    "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
+    "npm run wp:core:wphx-312-wp-http-transport-selection-candidate:check",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run format:haxe",
+    "npm run haxe:escape-hatches"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "generic instance-method visibility emission for private _dispatch_request"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter plans for WP_Http deprecated transport selection"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
+      "role": "typed shell metadata for the compiler-emitted WP_Http transport adapter"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-http-transport-selection.hxml",
+      "role": "WPHX PHP compile fixture for wp-includes/class-wp-http.php"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-66-wp-http-transport-selection-candidate.v1.json",
+      "role": "WPHX-312.66 oracle/candidate manifest using the compiler-emitted original-path public shell"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "transport_candidate_cases": 6,
+    "compiler_emitted_public_php": true,
+    "transport_shell_emitted": true,
+    "unsupported_empty": true,
+    "public_shell_snapshot_cases": 16
+  },
+  "claims": [
+    "WPHX PHP emits the original-path wp-includes/class-wp-http.php bounded WP_Http adapter for deprecated transport selection.",
+    "The WPHX-312.66 candidate no longer copies and patches a public PHP class shell for _get_first_available_transport.",
+    "PHP still owns deprecated filter timing, static transport test calls, dispatch transport caching, WP_Error construction, http_api_debug, http_response, and transport request execution while Haxe owns bounded token and class-name mapping."
+  ],
+  "non_claims": [
+    "This does not claim WP_Http::request ownership, full transport dispatch ownership, or whole-file WP_Http ownership.",
+    "This does not claim live cURL/streams/Requests network I/O, DNS/proxy/TLS behavior, or installed WordPress distribution behavior.",
+    "This does not claim selected upstream HTTP PHPUnit parity or that WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

@@ -243,6 +243,30 @@ const CASES = [
     }
   },
   {
+    id: "wp-http-transport-selection-shell",
+    hxml: "fixtures/wphx-php/wp-http-transport-selection.hxml",
+    selected: "wp-includes/class-wp-http.php",
+    shell_shapes: ["public_class", "private_method", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "class WP_Http",
+      "public function _get_first_available_transport($args, $url = null)",
+      "private function _dispatch_request($url, $args)",
+      "HttpTransportSelection_Fields_::defaultTransportTokens",
+      "HttpTransportSelection_Fields_::isCoreTransportToken",
+      "HttpTransportSelection_Fields_::coreTransportSuffix",
+      "HttpTransportSelection_Fields_::transportClassName",
+      "apply_filters_deprecated( 'http_api_transports'",
+      "call_user_func( array( $class, 'test' ), $args, $url )",
+      "static $transports = array();",
+      "do_action( 'http_api_debug'",
+      "apply_filters( 'http_response'"
+    ],
+    ast_expect: {
+      classes: ["WP_Http"],
+      methods: ["__construct", "_get_first_available_transport", "_dispatch_request"]
+    }
+  },
+  {
     id: "include-side-effect-script",
     hxml: "fixtures/wphx-php/include-side-effects.hxml",
     selected: "wp-includes/wphx-include-side-effects.php",

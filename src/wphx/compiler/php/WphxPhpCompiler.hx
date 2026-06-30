@@ -919,7 +919,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			}
 			final phpName = field.name == "new" ? "__construct" : phpIdent(field.name);
 			final fn = functionOf(expr, "method " + field.name);
-			lines.push("\tpublic function " + phpName + "(" + emitArgs(fn.args) + ")");
+			final visibility = phpVisibility(field) ?? "public";
+			lines.push("\t" + visibility + " function " + phpName + "(" + emitArgs(fn.args) + ")");
 			lines.push("\t{");
 			lines.push(indent(emitMethodBody(field, TypedExprMethodBody(fn.expr)), "\t\t"));
 			lines.push("\t}");

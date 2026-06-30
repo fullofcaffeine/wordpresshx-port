@@ -94,6 +94,10 @@ class WphxPhpWordPressAdapters
 				cookieGetFullHeader(fieldName, helper);
 			case "wp-http-cookie-get-attributes":
 				cookieGetAttributes(fieldName, helper);
+			case "wp-http-transport-get-first-available":
+				transportGetFirstAvailable(fieldName, helper);
+			case "wp-http-transport-dispatch-request":
+				transportDispatchRequest(fieldName, helper);
 			case _:
 				null;
 		}
@@ -940,6 +944,69 @@ class WphxPhpWordPressAdapters
 		}
 
 		return plan(["stmt.return", "expr.static-call"], [PhpReturn(PhpStaticCall(helper, "attributes", [PhpVar("this")]))]);
+	}
+
+	static function transportGetFirstAvailable(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		if (helper == null)
+		{
+			return missingHelper("missing @:wp.haxeHelper for WP_Http::_get_first_available_transport adapter " + fieldName);
+		}
+
+		return plan(["stmt.raw-wordpress-boundary"], [
+			PhpRawBlock("$transports = "
+				+ helper
+				+ "::defaultTransportTokens();\n"
+				+ "\n"
+				+ "$request_order = apply_filters_deprecated( 'http_api_transports', array( $transports, $args, $url ), '6.4.0' );\n"
+				+ "\n"
+				+ "foreach ( $request_order as $transport ) {\n"
+				+ "\tif ( "
+				+ helper
+				+ "::isCoreTransportToken( (string) $transport ) ) {\n"
+				+ "\t\t$transport = "
+				+ helper
+				+ "::coreTransportSuffix( (string) $transport );\n"
+				+ "\t}\n"
+				+ "\t$class = "
+				+ helper
+				+ "::transportClassName( (string) $transport );\n"
+				+ "\n"
+				+ "\tif ( ! call_user_func( array( $class, 'test' ), $args, $url ) ) {\n"
+				+ "\t\tcontinue;\n"
+				+ "\t}\n"
+				+ "\n"
+				+ "\treturn $class;\n"
+				+ "}\n"
+				+ "\n"
+				+ "return false;")
+		]);
+	}
+
+	static function transportDispatchRequest(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		return plan(["stmt.raw-wordpress-boundary"], [
+			PhpRawBlock("static $transports = array();\n"
+				+ "\n"
+				+ "$class = $this->_get_first_available_transport( $args, $url );\n"
+				+ "if ( ! $class ) {\n"
+				+ "\treturn new WP_Error( 'http_failure', __( 'There are no HTTP transports available which can complete the requested request.' ) );\n"
+				+ "}\n"
+				+ "\n"
+				+ "if ( empty( $transports[ $class ] ) ) {\n"
+				+ "\t$transports[ $class ] = new $class();\n"
+				+ "}\n"
+				+ "\n"
+				+ "$response = $transports[ $class ]->request( $url, $args );\n"
+				+ "\n"
+				+ "do_action( 'http_api_debug', $response, 'response', $class, $args, $url );\n"
+				+ "\n"
+				+ "if ( is_wp_error( $response ) ) {\n"
+				+ "\treturn $response;\n"
+				+ "}\n"
+				+ "\n"
+				+ "return apply_filters( 'http_response', $response, $args, $url );")
+		]);
 	}
 }
 #end

@@ -16,8 +16,11 @@ const RECORDED_AT = "2026-06-28T04:00:00.000Z";
 const UPSTREAM_ROOT = "../wordpress-develop";
 const RUNNER = "tools/wp-core/run-wp-http-transport-selection-candidate.mjs";
 const HXML = "fixtures/wp-core/http-transport-selection-candidate.hxml";
+const WPHX_PHP_HXML = "fixtures/wphx-php/wp-http-transport-selection.hxml";
 const OUT_ROOT = "build/wp-core/wphx-312-66";
 const HAXE_OUT = `${OUT_ROOT}/haxe`;
+const WPHX_PHP_ROOT = `${OUT_ROOT}/wphx-php`;
+const WPHX_PHP_MANIFEST = `${WPHX_PHP_ROOT}/wphx-php-emission.v1.json`;
 const ORACLE_ROOT = `${OUT_ROOT}/oracle`;
 const CANDIDATE_ROOT = `${OUT_ROOT}/candidate`;
 const PROBE = `${OUT_ROOT}/probe.php`;
@@ -33,8 +36,12 @@ const TRANSPORT_DISPATCH_FIXTURE = "manifests/wp-core/wphx-312-48-wp-http-transp
 const SOURCE_FILES = ["src/wp-includes/class-wp-http.php"];
 const HAXE_SOURCES = [
   HXML,
+  WPHX_PHP_HXML,
   "src/wphx/wp/http/HttpTransportSelection.hx",
-  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx"
+  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpTransportSelection.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpTransportSelectionEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx"
 ];
 const HAXE_MODULE = "\\wphx\\wp\\http\\_HttpTransportSelection\\HttpTransportSelection_Fields_";
 const PROMOTED_SYMBOLS = [
@@ -109,97 +116,12 @@ function mirrorSources(root) {
   }
 }
 
-function haxeBootstrapBlock() {
-  return `if ( ! function_exists( 'wphx_312_66_bootstrap_haxe' ) ) {
-\tfunction wphx_312_66_bootstrap_haxe() {
-\t\tstatic $bootstrapped = false;
-\t\tif ( $bootstrapped ) {
-\t\t\treturn;
-\t\t}
-\t\t$bootstrapped = true;
-
-\t\t$wphx_312_66_lib = dirname( __DIR__, 2 ) . '/haxe/lib';
-\t\tset_include_path( get_include_path() . PATH_SEPARATOR . $wphx_312_66_lib );
-\t\tspl_autoload_register(
-\t\t\tfunction ( $class ) {
-\t\t\t\t$file = stream_resolve_include_path( str_replace( '\\\\', '/', $class ) . '.php' );
-\t\t\t\tif ( $file ) {
-\t\t\t\t\tinclude_once $file;
-\t\t\t\t}
-\t\t\t}
-\t\t);
-\t\t\\php\\Boot::__hx__init();
-\t}
-}
-wphx_312_66_bootstrap_haxe();
-`;
-}
-
-function installBootstrap(source) {
-  const marker = "<?php\n";
-  if (!source.startsWith(marker)) throw new Error("class-wp-http.php did not start with PHP open tag");
-  return `${marker}\n${haxeBootstrapBlock()}\n${source.slice(marker.length)}`;
-}
-
-function replaceInstanceMethod(source, methodName, replacement) {
-  const pattern = new RegExp(`(?:public|protected|private)\\s+function\\s+${methodName}\\s*\\(`, "m");
-  const match = pattern.exec(source);
-  if (!match) throw new Error(`Unable to locate instance method ${methodName}`);
-  const openBrace = source.indexOf("{", match.index);
-  if (openBrace === -1) throw new Error(`Unable to locate opening brace for ${methodName}`);
-  let depth = 0;
-  for (let index = openBrace; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === "{") depth += 1;
-    if (char === "}") {
-      depth -= 1;
-      if (depth === 0) return `${source.slice(0, match.index)}${replacement}${source.slice(index + 1)}`;
-    }
-  }
-  throw new Error(`Unable to locate closing brace for ${methodName}`);
-}
-
-function transformCandidateTransportSelection() {
-  const path = `${CANDIDATE_ROOT}/wp-includes/class-wp-http.php`;
-  let source = installBootstrap(readFileSync(path, "utf8"));
-  source = replaceInstanceMethod(
-    source,
-    "_get_first_available_transport",
-    `public function _get_first_available_transport( $args, $url = null ) {
-\t\t$transports = ${HAXE_MODULE}::defaultTransportTokens();
-
-\t\t/**
-\t\t * Filters which HTTP transports are available and in what order.
-\t\t *
-\t\t * @since 3.7.0
-\t\t * @deprecated 6.4.0 Use WpOrg\\Requests\\Requests::get_transport_class()
-\t\t *
-\t\t * @param string[] $transports Array of HTTP transports to check. Default array contains
-\t\t *                             'curl' and 'streams', in that order.
-\t\t * @param array    $args       HTTP request arguments.
-\t\t * @param string   $url        The URL to request.
-\t\t */
-\t\t$request_order = apply_filters_deprecated( 'http_api_transports', array( $transports, $args, $url ), '6.4.0' );
-
-\t\t// Loop over each transport on each HTTP request looking for one which will serve this request's needs.
-\t\tforeach ( $request_order as $transport ) {
-\t\t\tif ( ${HAXE_MODULE}::isCoreTransportToken( (string) $transport ) ) {
-\t\t\t\t$transport = ${HAXE_MODULE}::coreTransportSuffix( (string) $transport );
-\t\t\t}
-\t\t\t$class = ${HAXE_MODULE}::transportClassName( (string) $transport );
-
-\t\t\t// Check to see if this transport is a possibility, calls the transport statically.
-\t\t\tif ( ! call_user_func( array( $class, 'test' ), $args, $url ) ) {
-\t\t\t\tcontinue;
-\t\t\t}
-
-\t\t\treturn $class;
-\t\t}
-
-\t\treturn false;
-\t}`
-  );
-  writeFileSync(path, source);
+function installCompilerEmittedCandidateShell() {
+  const generated = `${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`;
+  const target = `${CANDIDATE_ROOT}/wp-includes/class-wp-http.php`;
+  if (!existsSync(generated)) throw new Error(`Missing compiler-emitted shell ${generated}`);
+  mkdirSync(dirname(target), { recursive: true });
+  copyFileSync(generated, target);
 }
 
 function writeProbe() {
@@ -455,12 +377,12 @@ function ownershipManifest(manifestSha) {
     ownership_state: "haxe_candidate_with_public_php_shell",
     bridge: {
       exists: true,
-      kind: "copied-public-php-shell-calling-generated-haxe",
+      kind: "compiler-emitted-original-path-public-php-shell",
       removal_gate:
-        "Replace copied public PHP with generated original-path adapters and pass deprecated transport dispatch, selected upstream HTTP PHPUnit, installed distribution, and live/recorded transport gates before claiming public PHP ownership."
+        "Pass selected upstream HTTP PHPUnit, installed distribution, and live/recorded transport gates before claiming broader deprecated transport dispatch or whole-file WP_Http ownership."
     },
-    owned_paths: [RUNNER, OUT, OWNERSHIP, RECEIPT],
-    generated_paths: [OUT, OWNERSHIP, RECEIPT, OUT_ROOT],
+    owned_paths: [RUNNER, ...HAXE_SOURCES, OUT, OWNERSHIP, RECEIPT],
+    generated_paths: [OUT, OWNERSHIP, RECEIPT, WPHX_PHP_MANIFEST, OUT_ROOT],
     verification: {
       oracle_commands: [
         "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
@@ -477,9 +399,10 @@ function ownershipManifest(manifestSha) {
 async function main() {
   rmSync(OUT_ROOT, { recursive: true, force: true });
   command("haxe", [HXML]);
+  command("haxe", [WPHX_PHP_HXML, "-D", `wphx_php_output=${WPHX_PHP_ROOT}`, "-D", `wphx_php_manifest=${WPHX_PHP_MANIFEST}`]);
   mirrorSources(ORACLE_ROOT);
   mirrorSources(CANDIDATE_ROOT);
-  transformCandidateTransportSelection();
+  installCompilerEmittedCandidateShell();
   writeProbe();
 
   const oracle = runProbe(ORACLE_ROOT);
@@ -500,6 +423,42 @@ async function main() {
     oracle_lint: command("php", ["-l", mirrorPath(ORACLE_ROOT, path)]),
     candidate_lint: command("php", ["-l", mirrorPath(CANDIDATE_ROOT, path)])
   }));
+  const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
+  const generatedShell = readFileSync(`${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`, "utf8");
+  const declaredWpHttpClass = wphxPhpManifest.files
+    .flatMap((file) => file.declarations)
+    .some((declaration) => declaration.kind === "class" && declaration.name === "WP_Http");
+  const unsupportedEmpty = Array.isArray(wphxPhpManifest.unsupported) && wphxPhpManifest.unsupported.length === 0;
+  const transportShellEmitted =
+    generatedShell.includes("class WP_Http") &&
+    generatedShell.includes("public function _get_first_available_transport($args, $url = null)") &&
+    generatedShell.includes("private function _dispatch_request($url, $args)") &&
+    generatedShell.includes(`${HAXE_MODULE}::defaultTransportTokens`) &&
+    generatedShell.includes(`${HAXE_MODULE}::isCoreTransportToken`) &&
+    generatedShell.includes(`${HAXE_MODULE}::coreTransportSuffix`) &&
+    generatedShell.includes(`${HAXE_MODULE}::transportClassName`) &&
+    generatedShell.includes("apply_filters_deprecated( 'http_api_transports'") &&
+    generatedShell.includes("call_user_func( array( $class, 'test' ), $args, $url )") &&
+    generatedShell.includes("static $transports = array();") &&
+    generatedShell.includes("do_action( 'http_api_debug'") &&
+    generatedShell.includes("apply_filters( 'http_response'");
+  if (!declaredWpHttpClass || !unsupportedEmpty || !transportShellEmitted) {
+    console.error(
+      JSON.stringify(
+        {
+          status: "failed",
+          reason: "compiler-emitted WP_Http transport shell did not match expected declaration or shape",
+          declared_wp_http_class: declaredWpHttpClass,
+          unsupported_empty: unsupportedEmpty,
+          transport_shell_emitted: transportShellEmitted,
+          manifest: WPHX_PHP_MANIFEST
+        },
+        null,
+        2
+      )
+    );
+    process.exit(1);
+  }
   const compiledPhp = command("find", [HAXE_OUT, "-type", "f", "-name", "*.php"]);
   const manifest = {
     schema: "wphx.wp-core-wp-http-transport-selection-candidate.v1",
@@ -514,13 +473,18 @@ async function main() {
       http_transport_callback_test_fixture_manifest: inputRecord(HTTP_TRANSPORT_FIXTURE),
       http_request_orchestration_fixture_manifest: inputRecord(HTTP_REQUEST_FIXTURE),
       transport_dispatch_oracle_fixture_manifest: inputRecord(TRANSPORT_DISPATCH_FIXTURE),
+      wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
       upstream_sources: SOURCE_FILES.map(sourceRecord)
     },
     candidate: {
       hxml: HXML,
+      wphx_php_hxml: WPHX_PHP_HXML,
       haxe_output: HAXE_OUT,
+      wphx_php_output: WPHX_PHP_ROOT,
+      public_shell: `${CANDIDATE_ROOT}/wp-includes/class-wp-http.php`,
+      compiler_emitted_public_shell: `${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`,
       compiled_php_files: compiledPhp.split("\n").filter(Boolean).sort(),
       haxe_module: HAXE_MODULE,
       promoted_symbols: PROMOTED_SYMBOLS,
@@ -541,9 +505,10 @@ async function main() {
           "Requests Autoload/Requests, WP_Error, hooks, filters, and WP_Http_Curl/WP_Http_Streams are deterministic local stubs. Copied WP_Http remains the executed selection/dispatch source; no socket, cURL, or Requests network I/O is performed."
       },
       public_abi_policy: {
-        public_php_replacement_claimed: false,
+        public_php_replacement_claimed: true,
+        compiler_emitted_public_php: true,
         copied_oracle_public_php: true,
-        copied_candidate_public_php_shell: true,
+        copied_candidate_public_php_shell: false,
         adapter_contract_foundation: CONTRACT,
         installed_wordpress_behavior_claimed: false
       },
@@ -582,11 +547,6 @@ async function main() {
         detail:
           "The fixture uses PHP CLI with deterministic support stubs rather than an installed WordPress distribution or ecosystem callers that directly use deprecated transport APIs."
       },
-      {
-        id: "public-php-adapter-not-yet-generated",
-        owner: ISSUE.external_ref,
-        detail: "The fixture compares copied oracle PHP in both roots; generated original-path PHP replacement remains a later cross-domain gate."
-      }
     ],
     ownership_manifest: OWNERSHIP,
     validation_result: {
@@ -596,7 +556,10 @@ async function main() {
       promoted_symbols: PROMOTED_SYMBOLS.length,
       observations_match: observationsMatch,
       observations_assert: observationsAssert,
-      public_php_replacement_claimed: false,
+      public_php_replacement_claimed: true,
+      compiler_emitted_public_php: true,
+      transport_shell_emitted: transportShellEmitted,
+      unsupported_empty: unsupportedEmpty,
       full_transport_selection_claimed: false,
       full_dispatch_claimed: false,
       installed_wordpress_behavior_claimed: false,
@@ -616,7 +579,8 @@ async function main() {
       { path: OUT, role: "WP_Http deprecated transport selection Haxe candidate manifest" },
       { path: OWNERSHIP, role: "ownership manifest for WP_Http deprecated transport selection Haxe candidate" },
       { path: RUNNER, role: "deterministic PHP CLI oracle/candidate Haxe fixture generator" },
-      { path: HXML, role: "Haxe compile target for deprecated transport selection candidate" }
+      { path: HXML, role: "Haxe compile target for deprecated transport selection candidate" },
+      { path: WPHX_PHP_MANIFEST, role: "WPHX PHP emission manifest for the compiler-emitted original-path public shell" }
     ],
     verification_commands: [
       "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
