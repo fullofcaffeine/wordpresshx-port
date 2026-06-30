@@ -7,7 +7,8 @@
     "haxe_source",
     "generated_php_candidate",
     "oracle_source_mirror",
-    "php_cli_observed_fixture"
+    "php_cli_observed_fixture",
+    "compiler_adapter_template_provenance"
   ],
   "artifact_scope": "haxe_parity_candidate",
   "inputs": {
@@ -36,15 +37,25 @@
       "bytes": 18618,
       "sha256": "sha256:5284ddf77049eb20e26dff8399f0d3e956b85c8074b3d240eeab75d2a6aaa237"
     },
+    "transport_get_first_template": {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+      "bytes": 831,
+      "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
+    },
+    "transport_dispatch_template": {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+      "bytes": 839,
+      "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49"
+    },
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-312-66/wphx-php/wphx-php-emission.v1.json",
-      "bytes": 708,
-      "sha256": "sha256:c141fc3e05ef720d813bbc6e8bbb01d8f7b256e1a4944f108d5ef148cc5b5890"
+      "bytes": 1724,
+      "sha256": "sha256:1123c1fb42f2934aa21bfb790d286e4ded3d98250158e77bda03185102c6e7cf"
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
-      "bytes": 26694,
-      "sha256": "sha256:2bb104e967ed262ca0cfadaefb4108f37570738ccb32500908cdf8394eb2ffff"
+      "bytes": 31738,
+      "sha256": "sha256:45b9ef533fbadb1725023159a0935ba43bba9497071282caf292588d83b5ea1e"
     },
     "haxe_sources": [
       {
@@ -81,6 +92,16 @@
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
         "bytes": 1222,
         "sha256": "sha256:f740e8dcafe556ecc3227ad269c8e6bc8cea8115d138ab098f3c39aae1e7f21d"
+      },
+      {
+        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+        "bytes": 831,
+        "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
+      },
+      {
+        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+        "bytes": 839,
+        "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49"
       }
     ],
     "upstream_sources": [
@@ -123,6 +144,26 @@
       "WP_Http::_get_first_available_transport default transport token list",
       "WP_Http::_get_first_available_transport core transport token recognition",
       "WP_Http::_get_first_available_transport WP_Http_* class name construction"
+    ],
+    "adapter_templates": [
+      {
+        "adapter": "wp-http-transport-get-first-available",
+        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+        "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603",
+        "ownership": "bounded_public_adapter_template",
+        "upstream_ref": "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport",
+        "placeholders": [
+          "HELPER_CLASS"
+        ]
+      },
+      {
+        "adapter": "wp-http-transport-dispatch-request",
+        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+        "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49",
+        "ownership": "bounded_public_adapter_template",
+        "upstream_ref": "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_dispatch_request",
+        "placeholders": []
+      }
     ],
     "promoted_behavior": "Only the deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP. The filter, static transport tests, and dispatch behavior remain PHP-owned."
   },
@@ -711,6 +752,18 @@
     "public_php_replacement_claimed": true,
     "compiler_emitted_public_php": true,
     "transport_shell_emitted": true,
+    "get_first_adapter_template_recorded": true,
+    "get_first_adapter_template_path": true,
+    "get_first_adapter_template_hash": true,
+    "get_first_adapter_template_placeholder": true,
+    "get_first_adapter_template_ownership": true,
+    "get_first_adapter_template_upstream_ref": true,
+    "dispatch_adapter_template_recorded": true,
+    "dispatch_adapter_template_path": true,
+    "dispatch_adapter_template_hash": true,
+    "dispatch_adapter_template_no_placeholders": true,
+    "dispatch_adapter_template_ownership": true,
+    "dispatch_adapter_template_upstream_ref": true,
     "unsupported_empty": true,
     "full_transport_selection_claimed": false,
     "full_dispatch_claimed": false,

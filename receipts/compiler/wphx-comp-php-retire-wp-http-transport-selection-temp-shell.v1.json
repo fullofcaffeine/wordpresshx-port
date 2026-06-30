@@ -28,6 +28,14 @@
       "role": "WordPress-profile adapter plans for WP_Http deprecated transport selection"
     },
     {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+      "role": "compiler-owned bounded WP_Http::_get_first_available_transport public adapter template"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+      "role": "compiler-owned bounded WP_Http::_dispatch_request private adapter template"
+    },
+    {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
       "role": "typed shell metadata for the compiler-emitted WP_Http transport adapter"
     },
@@ -45,12 +53,14 @@
     "transport_candidate_cases": 6,
     "compiler_emitted_public_php": true,
     "transport_shell_emitted": true,
+    "adapter_templates_recorded": true,
     "unsupported_empty": true,
-    "public_shell_snapshot_cases": 16
+    "public_shell_snapshot_cases": 17
   },
   "claims": [
     "WPHX PHP emits the original-path wp-includes/class-wp-http.php bounded WP_Http adapter for deprecated transport selection.",
     "The WPHX-312.66 candidate no longer copies and patches a public PHP class shell for _get_first_available_transport.",
+    "The public transport-selection and private dispatch adapter bodies are now manifest-recorded compiler adapter templates instead of inline Haxe PhpRawBlock strings.",
     "PHP still owns deprecated filter timing, static transport test calls, dispatch transport caching, WP_Error construction, http_api_debug, http_response, and transport request execution while Haxe owns bounded token and class-name mapping."
   ],
   "non_claims": [

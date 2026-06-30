@@ -291,6 +291,8 @@ This IR is deliberately narrower than a full PHP backend, but it is the front do
 
 `WPHX-COMP-PHP-COOKIE-CONSTRUCTOR-TEMPLATE-PROVENANCE` applies the same rule to the `WP_Http_Cookie::__construct` public adapter. The constructor body now lives at `src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template` instead of a long inline `PhpRawBlock` string in the Haxe profile. The WPHX-312.53 runner requires the template path, SHA-256, empty-placeholder list, ownership state, and upstream constructor reference before accepting the compiler-emitted `wp-includes/class-wp-http-cookie.php` shell. PHP still owns constructor parsing/defaults, `parse_url`, `strtotime`, `urldecode`, and dynamic Set-Cookie attributes in this bounded adapter; Haxe ownership remains the post-construction matcher/header/attribute behavior.
 
+`WPHX-COMP-PHP-TRANSPORT-RAW-BLOCK-RETIREMENT` removes the remaining inline raw PHP adapter bodies from the WordPress profile. `WP_Http::_get_first_available_transport()` and private `WP_Http::_dispatch_request()` now render from compiler-owned templates under `src/wphx/compiler/php/templates/wordpress/`, and the WPHX-312.66 runner requires path, SHA-256, placeholder, ownership, and upstream-reference evidence for both before accepting the generated `wp-includes/class-wp-http.php` transport shell. The profile still emits `PhpRawBlock(rendered.code)` as the final narrow target-native boundary, but the production PHP body source is now named, hashed, and manifest-recorded rather than embedded in Haxe string concatenation.
+
 ## First Contract
 
 The initial metadata contract is intentionally small:

@@ -32,6 +32,10 @@ const CONTRACT = "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapte
 const HTTP_TRANSPORT_FIXTURE = "manifests/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json";
 const HTTP_REQUEST_FIXTURE = "manifests/wp-core/wphx-312-46-wp-http-request-orchestration-oracle-fixture.v1.json";
 const TRANSPORT_DISPATCH_FIXTURE = "manifests/wp-core/wphx-312-48-wp-http-transport-dispatch-oracle-fixture.v1.json";
+const TRANSPORT_GET_FIRST_TEMPLATE =
+  "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template";
+const TRANSPORT_DISPATCH_TEMPLATE =
+  "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template";
 
 const SOURCE_FILES = ["src/wp-includes/class-wp-http.php"];
 const HAXE_SOURCES = [
@@ -41,7 +45,9 @@ const HAXE_SOURCES = [
   "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpTransportSelection.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpTransportSelectionEntry.hx",
-  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx"
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
+  TRANSPORT_GET_FIRST_TEMPLATE,
+  TRANSPORT_DISPATCH_TEMPLATE
 ];
 const HAXE_MODULE = "\\wphx\\wp\\http\\_HttpTransportSelection\\HttpTransportSelection_Fields_";
 const PROMOTED_SYMBOLS = [
@@ -425,6 +431,24 @@ async function main() {
   }));
   const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
   const generatedShell = readFileSync(`${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`, "utf8");
+  const transportTemplates = wphxPhpManifest.adapter_templates ?? [];
+  const getFirstTemplate = transportTemplates.find((template) => template.adapter === "wp-http-transport-get-first-available");
+  const dispatchTemplate = transportTemplates.find((template) => template.adapter === "wp-http-transport-dispatch-request");
+  const getFirstTemplateRecorded = Boolean(getFirstTemplate);
+  const getFirstTemplatePath = getFirstTemplate?.path === TRANSPORT_GET_FIRST_TEMPLATE;
+  const getFirstTemplateHash = /^sha256:[0-9a-f]{64}$/.test(getFirstTemplate?.sha256 ?? "");
+  const getFirstTemplatePlaceholder = getFirstTemplate?.placeholders?.includes("HELPER_CLASS") === true;
+  const getFirstTemplateOwnership = getFirstTemplate?.ownership === "bounded_public_adapter_template";
+  const getFirstTemplateUpstreamRef =
+    getFirstTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport";
+  const dispatchTemplateRecorded = Boolean(dispatchTemplate);
+  const dispatchTemplatePath = dispatchTemplate?.path === TRANSPORT_DISPATCH_TEMPLATE;
+  const dispatchTemplateHash = /^sha256:[0-9a-f]{64}$/.test(dispatchTemplate?.sha256 ?? "");
+  const dispatchTemplateNoPlaceholders =
+    Array.isArray(dispatchTemplate?.placeholders) && dispatchTemplate.placeholders.length === 0;
+  const dispatchTemplateOwnership = dispatchTemplate?.ownership === "bounded_public_adapter_template";
+  const dispatchTemplateUpstreamRef =
+    dispatchTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_dispatch_request";
   const declaredWpHttpClass = wphxPhpManifest.files
     .flatMap((file) => file.declarations)
     .some((declaration) => declaration.kind === "class" && declaration.name === "WP_Http");
@@ -442,7 +466,23 @@ async function main() {
     generatedShell.includes("static $transports = array();") &&
     generatedShell.includes("do_action( 'http_api_debug'") &&
     generatedShell.includes("apply_filters( 'http_response'");
-  if (!declaredWpHttpClass || !unsupportedEmpty || !transportShellEmitted) {
+  if (
+    !declaredWpHttpClass ||
+    !unsupportedEmpty ||
+    !transportShellEmitted ||
+    !getFirstTemplateRecorded ||
+    !getFirstTemplatePath ||
+    !getFirstTemplateHash ||
+    !getFirstTemplatePlaceholder ||
+    !getFirstTemplateOwnership ||
+    !getFirstTemplateUpstreamRef ||
+    !dispatchTemplateRecorded ||
+    !dispatchTemplatePath ||
+    !dispatchTemplateHash ||
+    !dispatchTemplateNoPlaceholders ||
+    !dispatchTemplateOwnership ||
+    !dispatchTemplateUpstreamRef
+  ) {
     console.error(
       JSON.stringify(
         {
@@ -451,6 +491,18 @@ async function main() {
           declared_wp_http_class: declaredWpHttpClass,
           unsupported_empty: unsupportedEmpty,
           transport_shell_emitted: transportShellEmitted,
+          get_first_adapter_template_recorded: getFirstTemplateRecorded,
+          get_first_adapter_template_path: getFirstTemplatePath,
+          get_first_adapter_template_hash: getFirstTemplateHash,
+          get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
+          get_first_adapter_template_ownership: getFirstTemplateOwnership,
+          get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
+          dispatch_adapter_template_recorded: dispatchTemplateRecorded,
+          dispatch_adapter_template_path: dispatchTemplatePath,
+          dispatch_adapter_template_hash: dispatchTemplateHash,
+          dispatch_adapter_template_no_placeholders: dispatchTemplateNoPlaceholders,
+          dispatch_adapter_template_ownership: dispatchTemplateOwnership,
+          dispatch_adapter_template_upstream_ref: dispatchTemplateUpstreamRef,
           manifest: WPHX_PHP_MANIFEST
         },
         null,
@@ -465,7 +517,13 @@ async function main() {
     issue: ISSUE.external_ref,
     generated_at: RECORDED_AT,
     generator: RUNNER,
-    evidence_classes: ["haxe_source", "generated_php_candidate", "oracle_source_mirror", "php_cli_observed_fixture"],
+    evidence_classes: [
+      "haxe_source",
+      "generated_php_candidate",
+      "oracle_source_mirror",
+      "php_cli_observed_fixture",
+      "compiler_adapter_template_provenance"
+    ],
     artifact_scope: "haxe_parity_candidate",
     inputs: {
       surface_manifest: inputRecord(SURFACE),
@@ -473,6 +531,8 @@ async function main() {
       http_transport_callback_test_fixture_manifest: inputRecord(HTTP_TRANSPORT_FIXTURE),
       http_request_orchestration_fixture_manifest: inputRecord(HTTP_REQUEST_FIXTURE),
       transport_dispatch_oracle_fixture_manifest: inputRecord(TRANSPORT_DISPATCH_FIXTURE),
+      transport_get_first_template: inputRecord(TRANSPORT_GET_FIRST_TEMPLATE),
+      transport_dispatch_template: inputRecord(TRANSPORT_DISPATCH_TEMPLATE),
       wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
@@ -488,6 +548,24 @@ async function main() {
       compiled_php_files: compiledPhp.split("\n").filter(Boolean).sort(),
       haxe_module: HAXE_MODULE,
       promoted_symbols: PROMOTED_SYMBOLS,
+      adapter_templates: [
+        {
+          adapter: "wp-http-transport-get-first-available",
+          path: getFirstTemplate?.path ?? null,
+          sha256: getFirstTemplate?.sha256 ?? null,
+          ownership: getFirstTemplate?.ownership ?? null,
+          upstream_ref: getFirstTemplate?.upstream_ref ?? null,
+          placeholders: getFirstTemplate?.placeholders ?? null
+        },
+        {
+          adapter: "wp-http-transport-dispatch-request",
+          path: dispatchTemplate?.path ?? null,
+          sha256: dispatchTemplate?.sha256 ?? null,
+          ownership: dispatchTemplate?.ownership ?? null,
+          upstream_ref: dispatchTemplate?.upstream_ref ?? null,
+          placeholders: dispatchTemplate?.placeholders ?? null
+        }
+      ],
       promoted_behavior:
         "Only the deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP. The filter, static transport tests, and dispatch behavior remain PHP-owned."
     },
@@ -559,6 +637,18 @@ async function main() {
       public_php_replacement_claimed: true,
       compiler_emitted_public_php: true,
       transport_shell_emitted: transportShellEmitted,
+      get_first_adapter_template_recorded: getFirstTemplateRecorded,
+      get_first_adapter_template_path: getFirstTemplatePath,
+      get_first_adapter_template_hash: getFirstTemplateHash,
+      get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
+      get_first_adapter_template_ownership: getFirstTemplateOwnership,
+      get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
+      dispatch_adapter_template_recorded: dispatchTemplateRecorded,
+      dispatch_adapter_template_path: dispatchTemplatePath,
+      dispatch_adapter_template_hash: dispatchTemplateHash,
+      dispatch_adapter_template_no_placeholders: dispatchTemplateNoPlaceholders,
+      dispatch_adapter_template_ownership: dispatchTemplateOwnership,
+      dispatch_adapter_template_upstream_ref: dispatchTemplateUpstreamRef,
       unsupported_empty: unsupportedEmpty,
       full_transport_selection_claimed: false,
       full_dispatch_claimed: false,

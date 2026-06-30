@@ -1,0 +1,68 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-transport-template-provenance",
+  "issue": {
+    "id": "wordpresshx-cp5",
+    "external_ref": "WPHX-COMP-PHP-TRANSPORT-RAW-BLOCK-RETIREMENT",
+    "title": "Retire transport inline raw adapter bodies"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_adapter_template_provenance",
+  "artifact_scope": "wp_http_transport_selection_adapter_templates",
+  "commands": [
+    "haxe fixtures/wphx-php/wp-http-transport-selection.hxml",
+    "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
+    "npm run wp:core:wphx-312-wp-http-transport-selection-candidate:check",
+    "npm run wphx:php:public-shell-snapshots",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run format:haxe",
+    "npm run haxe:escape-hatches"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile transport adapters rendering compiler-owned templates"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+      "role": "compiler-owned bounded WP_Http::_get_first_available_transport public adapter template"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+      "role": "compiler-owned bounded WP_Http::_dispatch_request private adapter template"
+    },
+    {
+      "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
+      "role": "runner requiring adapter template provenance before accepting WPHX-312.66 generated shell"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-66-wp-http-transport-selection-candidate.v1.json",
+      "role": "candidate manifest recording transport adapter template shape checks"
+    },
+    {
+      "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
+      "role": "public-shell snapshots regenerated with transport adapter template manifest fields"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "adapter_templates_manifest_field": true,
+    "transport_get_first_template_recorded": true,
+    "transport_get_first_template_placeholder": "HELPER_CLASS",
+    "transport_dispatch_template_recorded": true,
+    "transport_dispatch_template_placeholders": [],
+    "transport_candidate_cases": 6,
+    "public_shell_snapshot_cases": 17
+  },
+  "claims": [
+    "The bounded WP_Http transport-selection and dispatch adapter bodies no longer live as inline Haxe string concatenation.",
+    "The WPHX-312.66 runner requires template path, hash, placeholder list, ownership, and upstream reference evidence for both generated transport shell bodies.",
+    "WphxPhpWordPressAdapters.hx now uses PhpRawBlock only for rendered template bodies, not inline WordPress-profile PHP source bodies."
+  ],
+  "non_claims": [
+    "This does not claim full WP_Http transport dispatch ownership or whole-file WP_Http ownership.",
+    "This does not claim live cURL/streams/Requests network I/O, DNS/proxy/TLS behavior, or installed WordPress distribution behavior.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

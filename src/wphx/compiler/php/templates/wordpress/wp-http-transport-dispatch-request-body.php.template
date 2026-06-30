@@ -1,0 +1,24 @@
+// WPHX PHP compiler-owned adapter template.
+// Source: WordPress 7.0 WP_Http::_dispatch_request private transport dispatch
+// boundary. This keeps dynamic transport instances, hooks, filters, and
+// WP_Error behavior in PHP for deprecated compatibility.
+static $transports = array();
+
+$class = $this->_get_first_available_transport( $args, $url );
+if ( ! $class ) {
+	return new WP_Error( 'http_failure', __( 'There are no HTTP transports available which can complete the requested request.' ) );
+}
+
+if ( empty( $transports[ $class ] ) ) {
+	$transports[ $class ] = new $class();
+}
+
+$response = $transports[ $class ]->request( $url, $args );
+
+do_action( 'http_api_debug', $response, 'response', $class, $args, $url );
+
+if ( is_wp_error( $response ) ) {
+	return $response;
+}
+
+return apply_filters( 'http_response', $response, $args, $url );
