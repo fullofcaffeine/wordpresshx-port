@@ -39,6 +39,7 @@ function sha256File(path) {
 }
 
 function walk(dir) {
+  if (!existsSync(dir)) return [];
   return readdirSync(dir, { withFileTypes: true }).flatMap((entry) => {
     const path = join(dir, entry.name);
     if (entry.isDirectory()) return walk(path);

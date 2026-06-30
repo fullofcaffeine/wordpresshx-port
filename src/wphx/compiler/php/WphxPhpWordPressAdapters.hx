@@ -1,8 +1,6 @@
 package wphx.compiler.php;
 
 #if (macro || reflaxe_runtime)
-import haxe.crypto.Sha256;
-import sys.io.File;
 import wphx.compiler.php.WphxPhpCompiler.PhpCoreArrayEntry;
 import wphx.compiler.php.WphxPhpCompiler.PhpCoreExpr;
 import wphx.compiler.php.WphxPhpCompiler.PhpCoreStmt;
@@ -23,19 +21,6 @@ typedef WordPressMethodAdapterPlan =
 	final statements:Array<PhpCoreStmt>;
 	final error:Null<String>;
 	final templates:Array<WordPressAdapterTemplateProvenance>;
-}
-
-private typedef AdapterTemplateReplacement =
-{
-	final placeholder:String;
-	final value:String;
-}
-
-private typedef AdapterTemplateRender =
-{
-	final code:String;
-	final provenance:WordPressAdapterTemplateProvenance;
-	final error:Null<String>;
 }
 
 /**
@@ -165,82 +150,6 @@ class WphxPhpWordPressAdapters
 	static function read(base:PhpCoreExpr, key:String):PhpCoreExpr
 	{
 		return PhpArrayRead(base, PhpString(key));
-	}
-
-	static function templateError(message:String):WordPressMethodAdapterPlan
-	{
-		return {
-			features: [],
-			statements: [],
-			error: message,
-			templates: []
-		};
-	}
-
-	static function renderTemplate(adapter:String, path:String, ownership:String, upstreamRef:String,
-			replacements:Array<AdapterTemplateReplacement>):AdapterTemplateRender
-	{
-		final source = try
-		{
-			File.getContent(path);
-		} catch (error:haxe.Exception)
-		{
-			return {
-				code: "",
-				provenance: emptyTemplateProvenance(adapter, path, ownership, upstreamRef),
-				error: "missing WPHX PHP adapter template " + path + ": " + error.message
-			};
-		}
-
-		var code = source;
-		final placeholders = new Array<String>();
-		for (replacement in replacements)
-		{
-			final token = "{{" + replacement.placeholder + "}}";
-			if (code.indexOf(token) == -1)
-			{
-				return {
-					code: "",
-					provenance: emptyTemplateProvenance(adapter, path, ownership, upstreamRef),
-					error: "WPHX PHP adapter template " + path + " is missing placeholder " + token
-				};
-			}
-			code = StringTools.replace(code, token, replacement.value);
-			placeholders.push(replacement.placeholder);
-		}
-		if (code.indexOf("{{") != -1 || code.indexOf("}}") != -1)
-		{
-			return {
-				code: "",
-				provenance: emptyTemplateProvenance(adapter, path, ownership, upstreamRef),
-				error: "WPHX PHP adapter template " + path + " has unreplaced placeholders"
-			};
-		}
-
-		return {
-			code: StringTools.rtrim(code),
-			provenance: {
-				adapter: adapter,
-				path: path,
-				sha256: "sha256:" + Sha256.encode(source),
-				placeholders: placeholders,
-				ownership: ownership,
-				upstream_ref: upstreamRef
-			},
-			error: null
-		};
-	}
-
-	static function emptyTemplateProvenance(adapter:String, path:String, ownership:String, upstreamRef:String):WordPressAdapterTemplateProvenance
-	{
-		return {
-			adapter: adapter,
-			path: path,
-			sha256: "",
-			placeholders: [],
-			ownership: ownership,
-			upstream_ref: upstreamRef
-		};
 	}
 
 	static function processHeaders(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-remove-dead-template-renderer",
+  "issue": {
+    "id": "wordpresshx-h5rq",
+    "external_ref": "WPHX-COMP-PHP-REMOVE-DEAD-TEMPLATE-RENDERER",
+    "title": "Remove dead WordPress adapter template renderer"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_profile_cleanup",
+  "artifact_scope": "wordpress_profile_zero_template_cleanup",
+  "commands": [
+    "npm run format:haxe",
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter plans without the obsolete renderTemplate/templateError helper path"
+    },
+    {
+      "path": "tools/wphx-php/check-adapter-raw-blocks.mjs",
+      "role": "raw-block/template guard treating a missing template directory as an empty template set"
+    },
+    {
+      "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
+      "role": "policy manifest preserving zero raw-block and zero template counts"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "php_raw_block_count": 0,
+    "template_reference_count": 0,
+    "template_lint_count": 0,
+    "template_directory_required": false,
+    "public_shell_snapshot_cases": 17,
+    "request_nonblocking_candidate_cases": 1
+  },
+  "claims": [
+    "The WordPress adapter profile no longer carries the unused template renderer helper path.",
+    "The adapter raw-block guard no longer depends on an untracked empty template directory in a zero-template checkout.",
+    "The zero raw-block and zero template-reference policy remains green."
+  ],
+  "non_claims": [
+    "This does not forbid future compiler-owned adapter templates when admitted by Beads work, provenance, and parity gates.",
+    "This does not change generated public PHP behavior or broaden WordPress runtime ownership.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}
