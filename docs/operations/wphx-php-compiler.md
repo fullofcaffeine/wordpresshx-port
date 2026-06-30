@@ -289,6 +289,8 @@ This IR is deliberately narrower than a full PHP backend, but it is the front do
 
 `WPHX-COMP-PHP-ADAPTER-TEMPLATE-PROVENANCE` adds the first manifest-recorded compiler-owned adapter template lane. Large target-native public adapter bodies may no longer be normalized as inline Haxe string concatenation. The request nonblocking adapter body now lives at `src/wphx/compiler/php/templates/wordpress/wp-http-request-nonblocking-body.php.template`, is rendered through a narrow `HELPER_CLASS` placeholder, and is recorded in the WPHX PHP emission manifest under `adapter_templates` with path, SHA-256, ownership, placeholder list, and upstream reference. The WPHX-312.65 runner requires that provenance before accepting the generated shell. This is still a bounded PHP public adapter source, not runtime implementation authority, whole-file `WP_Http` ownership, or arbitrary-Haxe PHP lowering.
 
+`WPHX-COMP-PHP-COOKIE-CONSTRUCTOR-TEMPLATE-PROVENANCE` applies the same rule to the `WP_Http_Cookie::__construct` public adapter. The constructor body now lives at `src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template` instead of a long inline `PhpRawBlock` string in the Haxe profile. The WPHX-312.53 runner requires the template path, SHA-256, empty-placeholder list, ownership state, and upstream constructor reference before accepting the compiler-emitted `wp-includes/class-wp-http-cookie.php` shell. PHP still owns constructor parsing/defaults, `parse_url`, `strtotime`, `urldecode`, and dynamic Set-Cookie attributes in this bounded adapter; Haxe ownership remains the post-construction matcher/header/attribute behavior.
+
 ## First Contract
 
 The initial metadata contract is intentionally small:

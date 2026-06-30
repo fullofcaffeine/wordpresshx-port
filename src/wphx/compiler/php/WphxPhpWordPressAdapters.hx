@@ -944,60 +944,14 @@ class WphxPhpWordPressAdapters
 
 	static function cookieConstruct(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
 	{
-		return plan(["stmt.raw-wordpress-boundary"], [
-			PhpRawBlock("if ( $requested_url ) {\n"
-				+ "\t$parsed_url = parse_url( $requested_url );\n"
-				+ "}\n"
-				+ "if ( isset( $parsed_url['host'] ) ) {\n"
-				+ "\t$this->domain = $parsed_url['host'];\n"
-				+ "}\n"
-				+ "$this->path = $parsed_url['path'] ?? '/';\n"
-				+ "if ( ! str_ends_with( $this->path, '/' ) ) {\n"
-				+ "\t$this->path = dirname( $this->path ) . '/';\n"
-				+ "}\n"
-				+ "\n"
-				+ "if ( is_string( $data ) ) {\n"
-				+ "\t$pairs = explode( ';', $data );\n"
-				+ "\n"
-				+ "\t$name        = trim( substr( $pairs[0], 0, strpos( $pairs[0], '=' ) ) );\n"
-				+ "\t$value       = substr( $pairs[0], strpos( $pairs[0], '=' ) + 1 );\n"
-				+ "\t$this->name  = $name;\n"
-				+ "\t$this->value = urldecode( $value );\n"
-				+ "\n"
-				+ "\tarray_shift( $pairs );\n"
-				+ "\n"
-				+ "\tforeach ( $pairs as $pair ) {\n"
-				+ "\t\t$pair = rtrim( $pair );\n"
-				+ "\n"
-				+ "\t\tif ( empty( $pair ) ) {\n"
-				+ "\t\t\tcontinue;\n"
-				+ "\t\t}\n"
-				+ "\n"
-				+ "\t\tlist( $key, $val ) = strpos( $pair, '=' ) ? explode( '=', $pair ) : array( $pair, '' );\n"
-				+ "\t\t$key               = strtolower( trim( $key ) );\n"
-				+ "\t\tif ( 'expires' === $key ) {\n"
-				+ "\t\t\t$val = strtotime( $val );\n"
-				+ "\t\t}\n"
-				+ "\t\t$this->$key = $val;\n"
-				+ "\t}\n"
-				+ "} else {\n"
-				+ "\tif ( ! isset( $data['name'] ) ) {\n"
-				+ "\t\treturn;\n"
-				+ "\t}\n"
-				+ "\n"
-				+ "\tforeach ( array( 'name', 'value', 'path', 'domain', 'port', 'host_only' ) as $field ) {\n"
-				+ "\t\tif ( isset( $data[ $field ] ) ) {\n"
-				+ "\t\t\t$this->$field = $data[ $field ];\n"
-				+ "\t\t}\n"
-				+ "\t}\n"
-				+ "\n"
-				+ "\tif ( isset( $data['expires'] ) ) {\n"
-				+ "\t\t$this->expires = is_int( $data['expires'] ) ? $data['expires'] : strtotime( $data['expires'] );\n"
-				+ "\t} else {\n"
-				+ "\t\t$this->expires = null;\n"
-				+ "\t}\n"
-				+ "}")
-		]);
+		final rendered = renderTemplate("wp-http-cookie-construct", "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
+			"bounded_public_adapter_template", "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php WP_Http_Cookie::__construct", []);
+		if (rendered.error != null)
+		{
+			return templateError(rendered.error);
+		}
+
+		return plan(["stmt.raw-wordpress-boundary", "adapter.template"], [PhpRawBlock(rendered.code)], [rendered.provenance]);
 	}
 
 	static function cookieTest(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

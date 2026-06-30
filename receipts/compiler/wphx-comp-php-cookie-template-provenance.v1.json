@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-cookie-template-provenance",
+  "issue": {
+    "id": "wordpresshx-zb3",
+    "external_ref": "WPHX-COMP-PHP-COOKIE-CONSTRUCTOR-TEMPLATE-PROVENANCE",
+    "title": "Retire next large inline raw adapter body"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_adapter_template_provenance",
+  "artifact_scope": "wp_http_cookie_constructor_adapter_template",
+  "commands": [
+    "haxe fixtures/wphx-php/wp-http-cookie.hxml",
+    "npm run wp:core:wphx-312-http-cookie-candidate",
+    "npm run wp:core:wphx-312-http-cookie-candidate:check",
+    "npm run wphx:php:public-shell-snapshots",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run format:haxe",
+    "npm run haxe:escape-hatches"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter template renderer and WP_Http_Cookie constructor template use"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
+      "role": "compiler-owned bounded WP_Http_Cookie constructor public adapter template"
+    },
+    {
+      "path": "tools/wp-core/run-http-cookie-candidate.mjs",
+      "role": "runner requiring adapter template provenance before accepting WPHX-312.53 generated shell"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-53-http-cookie-candidate.v1.json",
+      "role": "candidate manifest recording cookie constructor adapter template shape checks"
+    },
+    {
+      "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
+      "role": "public-shell snapshots regenerated with cookie constructor adapter template manifest field"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "adapter_templates_manifest_field": true,
+    "cookie_constructor_template_recorded": true,
+    "cookie_constructor_template_placeholders": [],
+    "cookie_candidate_cases": 6,
+    "public_shell_snapshot_cases": 17
+  },
+  "claims": [
+    "The bounded WP_Http_Cookie::__construct public adapter body no longer lives as a large inline Haxe string concatenation.",
+    "The WPHX-312.53 runner requires template path, hash, placeholder list, ownership, and upstream reference evidence for the generated cookie shell.",
+    "PHP still owns constructor parsing/defaults while Haxe owns only bounded post-construction cookie matching, header formatting, and attribute shape."
+  ],
+  "non_claims": [
+    "This does not claim full WP_Http_Cookie constructor ownership or broader cookie propagation ownership.",
+    "This does not claim Requests cookie jar semantics, live HTTP behavior, or installed WordPress distribution behavior.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

@@ -30,6 +30,7 @@ const RECEIPT = "receipts/wp-core/wphx-312-53-http-cookie-candidate.v1.json";
 const SURFACE = "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json";
 const CONTRACT = "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json";
 const COOKIE_FIXTURE = "manifests/wp-core/wphx-312-39-http-cookie-object-oracle-fixture.v1.json";
+const COOKIE_CONSTRUCT_TEMPLATE = "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template";
 
 const SOURCE_FILES = ["src/wp-includes/class-wp-http-cookie.php"];
 const HAXE_SOURCES = [
@@ -39,7 +40,8 @@ const HAXE_SOURCES = [
   "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpCookieCandidateEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieStrategy.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpCookieEntry.hx",
-  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpCookieShell.hx"
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpCookieShell.hx",
+  COOKIE_CONSTRUCT_TEMPLATE
 ];
 const PROMOTED_SYMBOLS = [
   "WP_Http_Cookie::test post-construction matcher",
@@ -313,6 +315,17 @@ async function main() {
   }));
   const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
   const generatedShell = readFileSync(`${WPHX_PHP_ROOT}/wp-includes/class-wp-http-cookie.php`, "utf8");
+  const cookieAdapterTemplate = (wphxPhpManifest.adapter_templates ?? []).find(
+    (template) => template.adapter === "wp-http-cookie-construct"
+  );
+  const cookieTemplateRecorded = Boolean(cookieAdapterTemplate);
+  const cookieTemplatePath = cookieAdapterTemplate?.path === COOKIE_CONSTRUCT_TEMPLATE;
+  const cookieTemplateHash = /^sha256:[0-9a-f]{64}$/.test(cookieAdapterTemplate?.sha256 ?? "");
+  const cookieTemplateNoPlaceholders =
+    Array.isArray(cookieAdapterTemplate?.placeholders) && cookieAdapterTemplate.placeholders.length === 0;
+  const cookieTemplateOwnership = cookieAdapterTemplate?.ownership === "bounded_public_adapter_template";
+  const cookieTemplateUpstreamRef =
+    cookieAdapterTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php WP_Http_Cookie::__construct";
   const declaredCookieClass = wphxPhpManifest.files
     .flatMap((file) => file.declarations)
     .some((declaration) => declaration.kind === "class" && declaration.name === "WP_Http_Cookie");
@@ -336,7 +349,17 @@ async function main() {
     generatedShell.includes(`${HAXE_MODULE}::test`) &&
     generatedShell.includes(`${HAXE_MODULE}::headerValue`) &&
     generatedShell.includes(`${HAXE_MODULE}::attributes`);
-  if (!declaredCookieClass || !unsupportedEmpty || !cookieShellEmitted) {
+  if (
+    !declaredCookieClass ||
+    !unsupportedEmpty ||
+    !cookieShellEmitted ||
+    !cookieTemplateRecorded ||
+    !cookieTemplatePath ||
+    !cookieTemplateHash ||
+    !cookieTemplateNoPlaceholders ||
+    !cookieTemplateOwnership ||
+    !cookieTemplateUpstreamRef
+  ) {
     console.error(
       JSON.stringify(
         {
@@ -345,6 +368,12 @@ async function main() {
           declared_cookie_class: declaredCookieClass,
           unsupported_empty: unsupportedEmpty,
           cookie_shell_emitted: cookieShellEmitted,
+          adapter_template_recorded: cookieTemplateRecorded,
+          adapter_template_path: cookieTemplatePath,
+          adapter_template_hash: cookieTemplateHash,
+          adapter_template_no_placeholders: cookieTemplateNoPlaceholders,
+          adapter_template_ownership: cookieTemplateOwnership,
+          adapter_template_upstream_ref: cookieTemplateUpstreamRef,
           manifest: WPHX_PHP_MANIFEST
         },
         null,
@@ -359,12 +388,19 @@ async function main() {
     issue: ISSUE.external_ref,
     generated_at: RECORDED_AT,
     generator: RUNNER,
-    evidence_classes: ["haxe_source", "generated_php_candidate", "oracle_source_mirror", "php_cli_observed_fixture"],
+    evidence_classes: [
+      "haxe_source",
+      "generated_php_candidate",
+      "oracle_source_mirror",
+      "php_cli_observed_fixture",
+      "compiler_adapter_template_provenance"
+    ],
     artifact_scope: "haxe_parity_candidate",
     inputs: {
       surface_manifest: inputRecord(SURFACE),
       adapter_contract_manifest: inputRecord(CONTRACT),
       cookie_oracle_fixture_manifest: inputRecord(COOKIE_FIXTURE),
+      cookie_constructor_template: inputRecord(COOKIE_CONSTRUCT_TEMPLATE),
       wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
@@ -385,7 +421,15 @@ async function main() {
         public_php_abi_preserved: true,
         shell_body_ownership:
           "compiler-emitted original-path public PHP shell preserves constructor/filter boundaries and delegates bounded post-construction behavior to generated Haxe PHP",
-        native_boundaries: ["constructor parsing/defaults", "parse_url", "time", "public PHP properties", "AllowDynamicProperties", "wp_http_cookie_value/apply_filters"]
+        native_boundaries: ["constructor parsing/defaults", "parse_url", "time", "public PHP properties", "AllowDynamicProperties", "wp_http_cookie_value/apply_filters"],
+        adapter_template: {
+          adapter: "wp-http-cookie-construct",
+          path: cookieAdapterTemplate?.path ?? null,
+          sha256: cookieAdapterTemplate?.sha256 ?? null,
+          ownership: cookieAdapterTemplate?.ownership ?? null,
+          upstream_ref: cookieAdapterTemplate?.upstream_ref ?? null,
+          placeholders: cookieAdapterTemplate?.placeholders ?? null
+        }
       }
     },
     fixture: {
@@ -440,6 +484,12 @@ async function main() {
       public_php_replacement_claimed: true,
       compiler_emitted_public_php: true,
       cookie_shell_emitted: cookieShellEmitted,
+      adapter_template_recorded: cookieTemplateRecorded,
+      adapter_template_path: cookieTemplatePath,
+      adapter_template_hash: cookieTemplateHash,
+      adapter_template_no_placeholders: cookieTemplateNoPlaceholders,
+      adapter_template_ownership: cookieTemplateOwnership,
+      adapter_template_upstream_ref: cookieTemplateUpstreamRef,
       unsupported_empty: unsupportedEmpty,
       installed_wordpress_behavior_claimed: false,
       live_http_claimed: false,
