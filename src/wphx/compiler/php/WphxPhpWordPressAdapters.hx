@@ -1039,15 +1039,46 @@ class WphxPhpWordPressAdapters
 
 	static function transportDispatchRequest(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
 	{
-		final rendered = renderTemplate("wp-http-transport-dispatch-request",
-			"src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template", "bounded_public_adapter_template",
-			"../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_dispatch_request", []);
-		if (rendered.error != null)
-		{
-			return templateError(rendered.error);
-		}
-
-		return plan(["stmt.raw-wordpress-boundary", "adapter.template"], [PhpRawBlock(rendered.code)], [rendered.provenance]);
+		return plan([
+			"stmt.static-local",
+			"stmt.var",
+			"stmt.if",
+			"stmt.assign",
+			"stmt.expr",
+			"stmt.return",
+			"expr.method-call",
+			"expr.function-call",
+			"expr.dynamic-new",
+			"expr.native-array-read",
+			"wp-http.transport.dispatch-request"
+		], [
+			PhpStaticLocal("transports", PhpLongArray([])),
+			PhpLocal("class", PhpMethodCall(PhpVar("this"), "_get_first_available_transport", [PhpVar("args"), PhpVar("url")])),
+			PhpIf(PhpNot(PhpVar("class")), [
+				PhpReturn(PhpNew("WP_Error", [
+					PhpString("http_failure"),
+					PhpFunctionCall("__", [
+						PhpString("There are no HTTP transports available which can complete the requested request.")
+					])
+				]))
+			]),
+			PhpIf(PhpFunctionCall("empty", [PhpArrayRead(PhpVar("transports"), PhpVar("class"))]),
+				[
+					PhpAssign(PhpArrayRead(PhpVar("transports"), PhpVar("class")), PhpNewDynamic(PhpVar("class"), []))
+				]),
+			PhpLocal("response", PhpMethodCall(PhpArrayRead(PhpVar("transports"), PhpVar("class")), "request", [PhpVar("url"), PhpVar("args")])),
+			PhpExprStmt(PhpFunctionCall("do_action",
+				[
+					PhpString("http_api_debug"),
+					PhpVar("response"),
+					PhpString("response"),
+					PhpVar("class"),
+					PhpVar("args"),
+					PhpVar("url")
+				])),
+			PhpIf(PhpFunctionCall("is_wp_error", [PhpVar("response")]), [PhpReturn(PhpVar("response"))]),
+			PhpReturn(PhpFunctionCall("apply_filters", [PhpString("http_response"), PhpVar("response"), PhpVar("args"), PhpVar("url")]))
+		]);
 	}
 
 	static function requestNonblocking(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

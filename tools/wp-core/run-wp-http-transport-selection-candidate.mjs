@@ -34,8 +34,6 @@ const HTTP_REQUEST_FIXTURE = "manifests/wp-core/wphx-312-46-wp-http-request-orch
 const TRANSPORT_DISPATCH_FIXTURE = "manifests/wp-core/wphx-312-48-wp-http-transport-dispatch-oracle-fixture.v1.json";
 const TRANSPORT_GET_FIRST_TEMPLATE =
   "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template";
-const TRANSPORT_DISPATCH_TEMPLATE =
-  "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template";
 
 const SOURCE_FILES = ["src/wp-includes/class-wp-http.php"];
 const HAXE_SOURCES = [
@@ -46,14 +44,14 @@ const HAXE_SOURCES = [
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpTransportSelection.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpTransportSelectionEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
-  TRANSPORT_GET_FIRST_TEMPLATE,
-  TRANSPORT_DISPATCH_TEMPLATE
+  TRANSPORT_GET_FIRST_TEMPLATE
 ];
 const HAXE_MODULE = "\\wphx\\wp\\http\\_HttpTransportSelection\\HttpTransportSelection_Fields_";
 const PROMOTED_SYMBOLS = [
   "WP_Http::_get_first_available_transport default transport token list",
   "WP_Http::_get_first_available_transport core transport token recognition",
-  "WP_Http::_get_first_available_transport WP_Http_* class name construction"
+  "WP_Http::_get_first_available_transport WP_Http_* class name construction",
+  "WPHX PHP core IR emission for WP_Http::_dispatch_request private adapter body"
 ];
 const COVERED_SYMBOLS = [
   "WP_Http::_get_first_available_transport",
@@ -378,7 +376,7 @@ function ownershipManifest(manifestSha) {
       name: "WP_Http deprecated transport selection naming",
       area: "src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport WP_Http::_dispatch_request",
       public_contract:
-        "This candidate promotes only the deprecated WP_Http transport default token list, core token recognition, and WP_Http_* class-name construction to generated Haxe PHP. PHP still owns apply_filters_deprecated timing/payload, static transport test calls, dispatch transport instance caching, WP_Error construction, http_api_debug action timing, http_response filtering, fake transport requests, and the public compatibility shell."
+        "This candidate promotes the deprecated WP_Http transport default token list, core token recognition, and WP_Http_* class-name construction to generated Haxe PHP. The WPHX PHP compiler now emits the private _dispatch_request adapter body from structured core IR, preserving PHP-visible apply_filters_deprecated timing/payload, static transport test calls, dispatch transport instance caching, WP_Error construction, http_api_debug action timing, http_response filtering, fake transport requests, and the public compatibility shell."
     },
     ownership_state: "haxe_candidate_with_public_php_shell",
     bridge: {
@@ -433,7 +431,6 @@ async function main() {
   const generatedShell = readFileSync(`${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`, "utf8");
   const transportTemplates = wphxPhpManifest.adapter_templates ?? [];
   const getFirstTemplate = transportTemplates.find((template) => template.adapter === "wp-http-transport-get-first-available");
-  const dispatchTemplate = transportTemplates.find((template) => template.adapter === "wp-http-transport-dispatch-request");
   const getFirstTemplateRecorded = Boolean(getFirstTemplate);
   const getFirstTemplatePath = getFirstTemplate?.path === TRANSPORT_GET_FIRST_TEMPLATE;
   const getFirstTemplateHash = /^sha256:[0-9a-f]{64}$/.test(getFirstTemplate?.sha256 ?? "");
@@ -441,14 +438,13 @@ async function main() {
   const getFirstTemplateOwnership = getFirstTemplate?.ownership === "bounded_public_adapter_template";
   const getFirstTemplateUpstreamRef =
     getFirstTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport";
-  const dispatchTemplateRecorded = Boolean(dispatchTemplate);
-  const dispatchTemplatePath = dispatchTemplate?.path === TRANSPORT_DISPATCH_TEMPLATE;
-  const dispatchTemplateHash = /^sha256:[0-9a-f]{64}$/.test(dispatchTemplate?.sha256 ?? "");
-  const dispatchTemplateNoPlaceholders =
-    Array.isArray(dispatchTemplate?.placeholders) && dispatchTemplate.placeholders.length === 0;
-  const dispatchTemplateOwnership = dispatchTemplate?.ownership === "bounded_public_adapter_template";
-  const dispatchTemplateUpstreamRef =
-    dispatchTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_dispatch_request";
+  const dispatchTemplateAbsent = !transportTemplates.some((template) => template.adapter === "wp-http-transport-dispatch-request");
+  const coreIrFeatures = wphxPhpManifest.core_ir_features ?? [];
+  const dispatchIrFeatures = [
+    "stmt.static-local",
+    "expr.dynamic-new",
+    "wp-http.transport.dispatch-request"
+  ].every((feature) => coreIrFeatures.includes(feature));
   const declaredWpHttpClass = wphxPhpManifest.files
     .flatMap((file) => file.declarations)
     .some((declaration) => declaration.kind === "class" && declaration.name === "WP_Http");
@@ -464,6 +460,7 @@ async function main() {
     generatedShell.includes("apply_filters_deprecated( 'http_api_transports'") &&
     generatedShell.includes("call_user_func( array( $class, 'test' ), $args, $url )") &&
     generatedShell.includes("static $transports = array();") &&
+    generatedShell.includes("$transports[ $class ] = new $class();") &&
     generatedShell.includes("do_action( 'http_api_debug'") &&
     generatedShell.includes("apply_filters( 'http_response'");
   if (
@@ -476,12 +473,8 @@ async function main() {
     !getFirstTemplatePlaceholder ||
     !getFirstTemplateOwnership ||
     !getFirstTemplateUpstreamRef ||
-    !dispatchTemplateRecorded ||
-    !dispatchTemplatePath ||
-    !dispatchTemplateHash ||
-    !dispatchTemplateNoPlaceholders ||
-    !dispatchTemplateOwnership ||
-    !dispatchTemplateUpstreamRef
+    !dispatchTemplateAbsent ||
+    !dispatchIrFeatures
   ) {
     console.error(
       JSON.stringify(
@@ -497,12 +490,8 @@ async function main() {
           get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
           get_first_adapter_template_ownership: getFirstTemplateOwnership,
           get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
-          dispatch_adapter_template_recorded: dispatchTemplateRecorded,
-          dispatch_adapter_template_path: dispatchTemplatePath,
-          dispatch_adapter_template_hash: dispatchTemplateHash,
-          dispatch_adapter_template_no_placeholders: dispatchTemplateNoPlaceholders,
-          dispatch_adapter_template_ownership: dispatchTemplateOwnership,
-          dispatch_adapter_template_upstream_ref: dispatchTemplateUpstreamRef,
+          dispatch_adapter_template_absent: dispatchTemplateAbsent,
+          dispatch_ir_features: dispatchIrFeatures,
           manifest: WPHX_PHP_MANIFEST
         },
         null,
@@ -522,7 +511,8 @@ async function main() {
       "generated_php_candidate",
       "oracle_source_mirror",
       "php_cli_observed_fixture",
-      "compiler_adapter_template_provenance"
+      "compiler_adapter_template_provenance",
+      "compiler_core_ir"
     ],
     artifact_scope: "haxe_parity_candidate",
     inputs: {
@@ -532,7 +522,6 @@ async function main() {
       http_request_orchestration_fixture_manifest: inputRecord(HTTP_REQUEST_FIXTURE),
       transport_dispatch_oracle_fixture_manifest: inputRecord(TRANSPORT_DISPATCH_FIXTURE),
       transport_get_first_template: inputRecord(TRANSPORT_GET_FIRST_TEMPLATE),
-      transport_dispatch_template: inputRecord(TRANSPORT_DISPATCH_TEMPLATE),
       wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
@@ -556,18 +545,13 @@ async function main() {
           ownership: getFirstTemplate?.ownership ?? null,
           upstream_ref: getFirstTemplate?.upstream_ref ?? null,
           placeholders: getFirstTemplate?.placeholders ?? null
-        },
-        {
-          adapter: "wp-http-transport-dispatch-request",
-          path: dispatchTemplate?.path ?? null,
-          sha256: dispatchTemplate?.sha256 ?? null,
-          ownership: dispatchTemplate?.ownership ?? null,
-          upstream_ref: dispatchTemplate?.upstream_ref ?? null,
-          placeholders: dispatchTemplate?.placeholders ?? null
         }
       ],
+      core_ir_features: coreIrFeatures.filter((feature) =>
+        ["stmt.static-local", "expr.dynamic-new", "wp-http.transport.dispatch-request"].includes(feature)
+      ),
       promoted_behavior:
-        "Only the deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP. The filter, static transport tests, and dispatch behavior remain PHP-owned."
+        "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, while WP_Http::_dispatch_request is now emitted from structured WPHX PHP core IR instead of an adapter template. Live transport behavior remains bounded to deterministic PHP fixture coverage."
     },
     fixture: {
       cases: CASES,
@@ -643,12 +627,8 @@ async function main() {
       get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
       get_first_adapter_template_ownership: getFirstTemplateOwnership,
       get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
-      dispatch_adapter_template_recorded: dispatchTemplateRecorded,
-      dispatch_adapter_template_path: dispatchTemplatePath,
-      dispatch_adapter_template_hash: dispatchTemplateHash,
-      dispatch_adapter_template_no_placeholders: dispatchTemplateNoPlaceholders,
-      dispatch_adapter_template_ownership: dispatchTemplateOwnership,
-      dispatch_adapter_template_upstream_ref: dispatchTemplateUpstreamRef,
+      dispatch_adapter_template_absent: dispatchTemplateAbsent,
+      dispatch_ir_features: dispatchIrFeatures,
       unsupported_empty: unsupportedEmpty,
       full_transport_selection_claimed: false,
       full_dispatch_claimed: false,

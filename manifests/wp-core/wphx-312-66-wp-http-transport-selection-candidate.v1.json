@@ -8,7 +8,8 @@
     "generated_php_candidate",
     "oracle_source_mirror",
     "php_cli_observed_fixture",
-    "compiler_adapter_template_provenance"
+    "compiler_adapter_template_provenance",
+    "compiler_core_ir"
   ],
   "artifact_scope": "haxe_parity_candidate",
   "inputs": {
@@ -42,20 +43,15 @@
       "bytes": 831,
       "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
     },
-    "transport_dispatch_template": {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
-      "bytes": 839,
-      "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49"
-    },
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-312-66/wphx-php/wphx-php-emission.v1.json",
-      "bytes": 1724,
-      "sha256": "sha256:1123c1fb42f2934aa21bfb790d286e4ded3d98250158e77bda03185102c6e7cf"
+      "bytes": 1524,
+      "sha256": "sha256:e56a3cd8fbdde9ca6ee706c1dba2f3329537b17fb292a0194fb959ae297109fd"
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
-      "bytes": 31738,
-      "sha256": "sha256:45b9ef533fbadb1725023159a0935ba43bba9497071282caf292588d83b5ea1e"
+      "bytes": 30544,
+      "sha256": "sha256:e5019987e91b65dfbfb384a776d81a47c0648a95383e586a9ccdbd9e59ab3728"
     },
     "haxe_sources": [
       {
@@ -97,11 +93,6 @@
         "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
         "bytes": 831,
         "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
-      },
-      {
-        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
-        "bytes": 839,
-        "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49"
       }
     ],
     "upstream_sources": [
@@ -143,7 +134,8 @@
     "promoted_symbols": [
       "WP_Http::_get_first_available_transport default transport token list",
       "WP_Http::_get_first_available_transport core transport token recognition",
-      "WP_Http::_get_first_available_transport WP_Http_* class name construction"
+      "WP_Http::_get_first_available_transport WP_Http_* class name construction",
+      "WPHX PHP core IR emission for WP_Http::_dispatch_request private adapter body"
     ],
     "adapter_templates": [
       {
@@ -155,17 +147,14 @@
         "placeholders": [
           "HELPER_CLASS"
         ]
-      },
-      {
-        "adapter": "wp-http-transport-dispatch-request",
-        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
-        "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49",
-        "ownership": "bounded_public_adapter_template",
-        "upstream_ref": "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_dispatch_request",
-        "placeholders": []
       }
     ],
-    "promoted_behavior": "Only the deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP. The filter, static transport tests, and dispatch behavior remain PHP-owned."
+    "core_ir_features": [
+      "expr.dynamic-new",
+      "stmt.static-local",
+      "wp-http.transport.dispatch-request"
+    ],
+    "promoted_behavior": "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, while WP_Http::_dispatch_request is now emitted from structured WPHX PHP core IR instead of an adapter template. Live transport behavior remains bounded to deterministic PHP fixture coverage."
   },
   "fixture": {
     "cases": [
@@ -746,7 +735,7 @@
     "status": "passed",
     "fixture_cases": 6,
     "covered_symbols": 11,
-    "promoted_symbols": 3,
+    "promoted_symbols": 4,
     "observations_match": true,
     "observations_assert": true,
     "public_php_replacement_claimed": true,
@@ -758,12 +747,8 @@
     "get_first_adapter_template_placeholder": true,
     "get_first_adapter_template_ownership": true,
     "get_first_adapter_template_upstream_ref": true,
-    "dispatch_adapter_template_recorded": true,
-    "dispatch_adapter_template_path": true,
-    "dispatch_adapter_template_hash": true,
-    "dispatch_adapter_template_no_placeholders": true,
-    "dispatch_adapter_template_ownership": true,
-    "dispatch_adapter_template_upstream_ref": true,
+    "dispatch_adapter_template_absent": true,
+    "dispatch_ir_features": true,
     "unsupported_empty": true,
     "full_transport_selection_claimed": false,
     "full_dispatch_claimed": false,

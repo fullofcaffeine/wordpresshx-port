@@ -21,7 +21,7 @@
   "artifacts": [
     {
       "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "role": "generic instance-method visibility emission for private _dispatch_request"
+      "role": "generic instance-method visibility emission plus PHP-core IR support used by private _dispatch_request"
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
@@ -30,10 +30,6 @@
     {
       "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
       "role": "compiler-owned bounded WP_Http::_get_first_available_transport public adapter template"
-    },
-    {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
-      "role": "compiler-owned bounded WP_Http::_dispatch_request private adapter template"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
@@ -53,15 +49,17 @@
     "transport_candidate_cases": 6,
     "compiler_emitted_public_php": true,
     "transport_shell_emitted": true,
-    "adapter_templates_recorded": true,
+    "get_first_adapter_template_recorded": true,
+    "dispatch_adapter_emitted_from_core_ir": true,
     "unsupported_empty": true,
     "public_shell_snapshot_cases": 17
   },
   "claims": [
     "WPHX PHP emits the original-path wp-includes/class-wp-http.php bounded WP_Http adapter for deprecated transport selection.",
     "The WPHX-312.66 candidate no longer copies and patches a public PHP class shell for _get_first_available_transport.",
-    "The public transport-selection and private dispatch adapter bodies are now manifest-recorded compiler adapter templates instead of inline Haxe PhpRawBlock strings.",
-    "PHP still owns deprecated filter timing, static transport test calls, dispatch transport caching, WP_Error construction, http_api_debug, http_response, and transport request execution while Haxe owns bounded token and class-name mapping."
+    "The public transport-selection body is a manifest-recorded compiler adapter template instead of inline Haxe PhpRawBlock strings.",
+    "The private dispatch adapter body is now emitted from structured WPHX PHP core IR instead of inline Haxe PhpRawBlock strings or a compiler-owned raw PHP template.",
+    "PHP-visible behavior still preserves deprecated filter timing, static transport test calls, dispatch transport caching, WP_Error construction, http_api_debug, http_response, and transport request execution while Haxe owns bounded token and class-name mapping."
   ],
   "non_claims": [
     "This does not claim WP_Http::request ownership, full transport dispatch ownership, or whole-file WP_Http ownership.",

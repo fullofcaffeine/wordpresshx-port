@@ -95,6 +95,7 @@ enum PhpCoreStmt
 	PhpForeachKeyValue(iterable:PhpCoreExpr, keyVar:String, valueVar:String, body:Array<PhpCoreStmt>);
 	PhpAssign(target:PhpCoreExpr, value:PhpCoreExpr);
 	PhpLocal(name:String, value:PhpCoreExpr);
+	PhpStaticLocal(name:String, value:PhpCoreExpr);
 	PhpExprStmt(expr:PhpCoreExpr);
 	PhpReturn(value:PhpCoreExpr);
 	PhpThrow(value:PhpCoreExpr);
@@ -114,6 +115,7 @@ enum PhpCoreExpr
 	PhpArrayAppend(base:PhpCoreExpr);
 	PhpLongArray(entries:Array<PhpCoreArrayEntry>);
 	PhpNew(className:String, args:Array<PhpCoreExpr>);
+	PhpNewDynamic(classExpr:PhpCoreExpr, args:Array<PhpCoreExpr>);
 	PhpStaticCall(className:String, method:String, args:Array<PhpCoreExpr>);
 	PhpClassConst(className:String, constName:String);
 	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
@@ -1063,6 +1065,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				prefix + emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpLocal(name, value):
 				prefix + "$" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpStaticLocal(name, value):
+				prefix + "static $" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpExprStmt(expr):
 				prefix + emitPhpCoreExpr(expr, depth) + ";";
 			case PhpReturn(value):
@@ -1100,6 +1104,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				emitPhpCoreLongArray(entries, depth, false);
 			case PhpNew(className, args):
 				emitPhpCoreNew(className, args, depth);
+			case PhpNewDynamic(classExpr, args):
+				emitPhpCoreNewDynamic(classExpr, args, depth);
 			case PhpStaticCall(className, method, args):
 				className + "::" + phpIdent(method) + emitPhpCoreCallArgs(args, depth);
 			case PhpClassConst(className, constName):
@@ -1187,6 +1193,16 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		if (args.length == 1 && phpCoreExprIsMultiline(args[0]))
 		{
 			return "new " + className + "(\n" + emitPhpCoreMultilineArg(args[0], depth + 1) + "\n" + tabs(depth) + ")";
+		}
+		return "new " + className + "( " + args.map(arg -> emitPhpCoreExpr(arg, depth)).join(", ") + " )";
+	}
+
+	function emitPhpCoreNewDynamic(classExpr:PhpCoreExpr, args:Array<PhpCoreExpr>, depth:Int):String
+	{
+		final className = emitPhpCoreExpr(classExpr, depth);
+		if (args.length == 0)
+		{
+			return "new " + className + "()";
 		}
 		return "new " + className + "( " + args.map(arg -> emitPhpCoreExpr(arg, depth)).join(", ") + " )";
 	}
