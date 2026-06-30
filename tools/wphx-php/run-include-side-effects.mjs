@@ -70,6 +70,21 @@ const expectedPatterns = [
   "'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null",
   "'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null"
 ];
+const expectedSegmentPlans = [
+  {
+    path: "wp-includes/wphx-include-side-effects.php",
+    adapter: "include-side-effects",
+    adoption_mode: "direct_script_emission",
+    segments: ["script", "literal_output", "return_exit"],
+    caller_scope: [
+      { kind: "reads_locals", names: ["wphx_scope_marker", "wphx_local_marker"] },
+      { kind: "globals", names: ["wphx_include_side_effects"] }
+    ],
+    include_semantics: ["repeated_include", "include_once_second_return_true", "function_scope_include_locals"],
+    observable_effects: ["top_level_side_effect", "output_buffering", "include_return_array", "include_once_idempotence"],
+    unsupported: []
+  }
+];
 const missingPatterns = expectedPatterns.filter((pattern) => !shellSource.includes(pattern));
 if (missingPatterns.length > 0) {
   throw new Error(`Generated include side-effect shell is missing patterns: ${JSON.stringify(missingPatterns)}`);
@@ -257,6 +272,17 @@ const expectedCoreIrFeatures = [
   "script.top-level-side-effect"
 ];
 assertJsonEqual([...emissionManifest.core_ir_features].sort(), expectedCoreIrFeatures, "core IR features");
+const segmentPlans = (emissionManifest.segment_plans ?? []).map((plan) => ({
+  path: plan.path,
+  adapter: plan.adapter,
+  adoption_mode: plan.adoption_mode,
+  segments: plan.segments,
+  caller_scope: plan.caller_scope.map((entry) => ({ kind: entry.kind, names: entry.names })),
+  include_semantics: plan.include_semantics,
+  observable_effects: plan.observable_effects,
+  unsupported: plan.unsupported
+}));
+assertJsonEqual(segmentPlans, expectedSegmentPlans, "compiler-emitted segment plans");
 
 const manifest = {
   schema: "wphx.wphx-php-include-side-effects.v1",
@@ -275,7 +301,8 @@ const manifest = {
     sha256: sha256File(emissionManifestPath),
     unsupported_empty: true,
     declarations: expectedDeclarations,
-    core_ir_features: expectedCoreIrFeatures
+    core_ir_features: expectedCoreIrFeatures,
+    segment_plans: expectedSegmentPlans
   },
   probes: {
     sequence,
@@ -307,6 +334,7 @@ const manifest = {
     runtime_include_sequence_passed: true,
     runtime_include_once_passed: true,
     runtime_function_scope_include_passed: true,
+    compiler_emitted_segment_plans_passed: true,
     unsupported_empty: true
   }
 };

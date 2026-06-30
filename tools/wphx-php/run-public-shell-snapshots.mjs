@@ -154,7 +154,20 @@ const CASES = [
       "'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null",
       "'local_marker' => isset($wphx_local_marker) ? $wphx_local_marker : null"
     ],
-    ast_expect: {}
+    ast_expect: {},
+    expected_segment_plan: {
+      path: "wp-includes/wphx-include-side-effects.php",
+      adapter: "include-side-effects",
+      adoption_mode: "direct_script_emission",
+      segments: ["script", "literal_output", "return_exit"],
+      caller_scope: [
+        { kind: "reads_locals", names: ["wphx_scope_marker", "wphx_local_marker"] },
+        { kind: "globals", names: ["wphx_include_side_effects"] }
+      ],
+      include_semantics: ["repeated_include", "include_once_second_return_true", "function_scope_include_locals"],
+      observable_effects: ["top_level_side_effect", "output_buffering", "include_return_array", "include_once_idempotence"],
+      unsupported: []
+    }
   },
   {
     id: "template-segment-admin-style",

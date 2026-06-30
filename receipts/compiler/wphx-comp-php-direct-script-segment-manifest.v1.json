@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-direct-script-segment-manifest",
+  "issue": {
+    "id": "wordpresshx-ekc",
+    "external_ref": "WPHX-COMP-PHP-DIRECT-SCRIPT-SEGMENT-MANIFEST",
+    "title": "Emit direct-script segment plans"
+  },
+  "recorded_at": "2026-06-30T00:00:00.000Z",
+  "status": "passed",
+  "evidence_class": "compiler_direct_script_segment_plan_manifest",
+  "artifact_scope": "bounded_include_side_effect_direct_script_fixture",
+  "commands": [
+    "npm run wphx:php:include-side-effects",
+    "npm run wphx:php:public-shell-snapshots"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler direct-script segment_plans metadata implementation"
+    },
+    {
+      "path": "tools/wphx-php/run-include-side-effects.mjs",
+      "role": "include-side-effect runner asserting direct-script segment_plans metadata"
+    },
+    {
+      "path": "tools/wphx-php/run-public-shell-snapshots.mjs",
+      "role": "public-shell snapshot runner asserting direct-script segment-plan metadata"
+    },
+    {
+      "path": "manifests/wphx-php/include-side-effects.v1.json",
+      "role": "include-side-effect manifest with direct-script segment_plans evidence"
+    },
+    {
+      "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
+      "role": "public-shell snapshot manifest with include-side-effect segment_plan_contract"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation for direct-script segment metadata"
+    },
+    {
+      "path": "docs/adr/ADR-005-php-file-segment-template-model.md",
+      "role": "ADR-005 checkpoint note for direct-script segment metadata"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "include_side_effect_behavior_match": true,
+    "public_shell_snapshot_cases": 11,
+    "direct_script_segment_plan_passed": true,
+    "unsupported_empty": true
+  },
+  "claims": [
+    "WPHX PHP emission manifests include structured segment_plans metadata for the bounded include-side-effect direct script adapter.",
+    "The include-side-effects runner asserts direct_script_emission adoption mode, script/literal_output/return_exit segments, caller-scope locals, include semantics, observable effects, and unsupported=[].",
+    "The public-shell snapshot lane asserts the same direct-script segment-plan contract while preserving 11 generated-shape cases."
+  ],
+  "non_claims": [
+    "This does not claim arbitrary Haxe expression lowering into direct PHP file scope.",
+    "This does not claim mixed PHP/HTML template ownership.",
+    "This does not claim broad direct-script ownership or existing WordPress Core include-file ownership beyond the minimized fixture.",
+    "This does not claim whole-file ownership for any WordPress file."
+  ]
+}

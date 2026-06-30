@@ -20,6 +20,8 @@ F6 already proves template/caller-scope behavior for admin-style and theme-style
 
 `WPHX-COMP-PHP-SEGMENT-SNAPSHOT` makes that metadata part of generated-shape evidence by asserting the compiler-emitted segment plans in the public-shell snapshot lane for the admin-style shell, nested parent, and nested partial cases.
 
+`WPHX-COMP-PHP-DIRECT-SCRIPT-SEGMENT-MANIFEST` applies the same structured segment-plan metadata to the bounded include-side-effect direct script adapter. It records `direct_script_emission` adoption mode, script/output/return segments, caller-scope locals, include semantics, observable side effects, and `unsupported=[]` without broadening into arbitrary file-scope lowering.
+
 ## Decision
 
 Represent every existing WordPress mixed or direct PHP script as an ordered file-segment plan before claiming durable ownership.

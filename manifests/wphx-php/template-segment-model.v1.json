@@ -11,8 +11,8 @@
   "artifact_scope": "file_segment_template_model",
   "adr": {
     "path": "docs/adr/ADR-005-php-file-segment-template-model.md",
-    "bytes": 7926,
-    "sha256": "sha256:de91cad8045a163d8159d03a50e184893a6c2c2d725175441ff44baf95021984"
+    "bytes": 8305,
+    "sha256": "sha256:f1384857483c937bea6fb7b7c05d6184e2a15eccc822628995456feab6bd1c5c"
   },
   "prerequisites": {
     "f6_template_scope": {
@@ -27,13 +27,13 @@
     },
     "include_side_effects": {
       "path": "receipts/compiler/wphx-comp-php-include-side-effects.v1.json",
-      "bytes": 1898,
-      "sha256": "sha256:037c444865df4d8da028e3b6063764f7de21076d01c418beb81559f51d412d38"
+      "bytes": 1949,
+      "sha256": "sha256:5e8a22586245b2e43710078752d954c4dc5144a36ae13c410c97ab63a7c63671"
     },
     "include_manifest": {
       "path": "manifests/wphx-php/include-side-effects.v1.json",
-      "bytes": 5200,
-      "sha256": "sha256:c9875e38e5ec63a867a34f1cbee7ec9eb789c02928e532bfc8d01735f888b7b9"
+      "bytes": 6259,
+      "sha256": "sha256:34249daf52242d9e0823f39c04bcf219ee4070eef261cb36b9e1fe2b7a651aa1"
     }
   },
   "segment_kinds": [
@@ -243,7 +243,7 @@
         },
         "emission_manifest": {
           "path": "build/wphx-php/include-side-effects/generated/wphx-php-emission.v1.json",
-          "sha256": "cce512109b8afec57f7a7058c6136eb14f3b0b715913463b93222212d07f09db",
+          "sha256": "259fac17edad6ad04b340c9188886471583e6a0757da28a9c68f856f9900294e",
           "unsupported_empty": true,
           "declarations": [
             "wp-includes/wphx-include-side-effects.php:script:include-side-effects"
@@ -253,6 +253,45 @@
             "script.include-return",
             "script.output",
             "script.top-level-side-effect"
+          ],
+          "segment_plans": [
+            {
+              "path": "wp-includes/wphx-include-side-effects.php",
+              "adapter": "include-side-effects",
+              "adoption_mode": "direct_script_emission",
+              "segments": [
+                "script",
+                "literal_output",
+                "return_exit"
+              ],
+              "caller_scope": [
+                {
+                  "kind": "reads_locals",
+                  "names": [
+                    "wphx_scope_marker",
+                    "wphx_local_marker"
+                  ]
+                },
+                {
+                  "kind": "globals",
+                  "names": [
+                    "wphx_include_side_effects"
+                  ]
+                }
+              ],
+              "include_semantics": [
+                "repeated_include",
+                "include_once_second_return_true",
+                "function_scope_include_locals"
+              ],
+              "observable_effects": [
+                "top_level_side_effect",
+                "output_buffering",
+                "include_return_array",
+                "include_once_idempotence"
+              ],
+              "unsupported": []
+            }
           ]
         }
       }

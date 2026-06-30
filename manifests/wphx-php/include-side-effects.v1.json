@@ -18,7 +18,7 @@
   },
   "emission_manifest": {
     "path": "build/wphx-php/include-side-effects/generated/wphx-php-emission.v1.json",
-    "sha256": "cce512109b8afec57f7a7058c6136eb14f3b0b715913463b93222212d07f09db",
+    "sha256": "259fac17edad6ad04b340c9188886471583e6a0757da28a9c68f856f9900294e",
     "unsupported_empty": true,
     "declarations": [
       "wp-includes/wphx-include-side-effects.php:script:include-side-effects"
@@ -28,6 +28,45 @@
       "script.include-return",
       "script.output",
       "script.top-level-side-effect"
+    ],
+    "segment_plans": [
+      {
+        "path": "wp-includes/wphx-include-side-effects.php",
+        "adapter": "include-side-effects",
+        "adoption_mode": "direct_script_emission",
+        "segments": [
+          "script",
+          "literal_output",
+          "return_exit"
+        ],
+        "caller_scope": [
+          {
+            "kind": "reads_locals",
+            "names": [
+              "wphx_scope_marker",
+              "wphx_local_marker"
+            ]
+          },
+          {
+            "kind": "globals",
+            "names": [
+              "wphx_include_side_effects"
+            ]
+          }
+        ],
+        "include_semantics": [
+          "repeated_include",
+          "include_once_second_return_true",
+          "function_scope_include_locals"
+        ],
+        "observable_effects": [
+          "top_level_side_effect",
+          "output_buffering",
+          "include_return_array",
+          "include_once_idempotence"
+        ],
+        "unsupported": []
+      }
     ]
   },
   "probes": {
@@ -149,6 +188,7 @@
     "runtime_include_sequence_passed": true,
     "runtime_include_once_passed": true,
     "runtime_function_scope_include_passed": true,
+    "compiler_emitted_segment_plans_passed": true,
     "unsupported_empty": true
   }
 }

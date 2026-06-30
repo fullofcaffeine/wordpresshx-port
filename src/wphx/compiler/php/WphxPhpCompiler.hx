@@ -483,7 +483,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return switch (pending.adapter)
 		{
 			case "include-side-effects":
-				emitIncludeSideEffectsScript();
+				emitIncludeSideEffectsScript(path, pending.adapter);
 			case "template-segment-admin-style":
 				emitTemplateSegmentAdminStyleScript(path, pending.adapter);
 			case "template-segment-nested-parent":
@@ -496,13 +496,26 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		}
 	}
 
-	function emitIncludeSideEffectsScript():String
+	function emitIncludeSideEffectsScript(path:String, adapter:String):String
 	{
 		recordCoreIrFeatures([
 			"script.top-level-side-effect",
 			"script.include-return",
 			"script.function-scope-include",
 			"script.output"
+		]);
+		recordSegmentPlan(path, adapter, "direct_script_emission", ["script", "literal_output", "return_exit"], [
+			segmentFact("reads_locals", ["wphx_scope_marker", "wphx_local_marker"]),
+			segmentFact("globals", ["wphx_include_side_effects"])
+		], [
+			"repeated_include",
+			"include_once_second_return_true",
+			"function_scope_include_locals"
+		], [
+			"top_level_side_effect",
+			"output_buffering",
+			"include_return_array",
+			"include_once_idempotence"
 		]);
 		return "$GLOBALS['wphx_include_side_effects'][] = array(\n"
 			+ "\t'scope_marker' => isset($wphx_scope_marker) ? $wphx_scope_marker : null,\n"
@@ -546,13 +559,13 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return parts.join("");
 	}
 
-	function recordSegmentPlan(path:String, adapter:String, segments:Array<String>, callerScope:Array<EmissionSegmentFact>, includeSemantics:Array<String>,
-			observableEffects:Array<String>):Void
+	function recordSegmentPlan(path:String, adapter:String, adoptionMode:String, segments:Array<String>, callerScope:Array<EmissionSegmentFact>,
+			includeSemantics:Array<String>, observableEffects:Array<String>):Void
 	{
 		segmentPlans.push({
 			path: path,
 			adapter: adapter,
-			adoption_mode: "compiler_emitted_segment_shell",
+			adoption_mode: adoptionMode,
 			segments: segments,
 			caller_scope: callerScope,
 			include_semantics: includeSemantics,
@@ -571,7 +584,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function emitTemplateSegmentAdminStyleScript(path:String, adapter:String):String
 	{
-		recordSegmentPlan(path, adapter, [
+		recordSegmentPlan(path, adapter, "compiler_emitted_segment_shell", [
 			"guard",
 			"declaration",
 			"script",
@@ -645,7 +658,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function emitTemplateSegmentNestedParentScript(path:String, adapter:String):String
 	{
-		recordSegmentPlan(path, adapter, [
+		recordSegmentPlan(path, adapter, "compiler_emitted_segment_shell", [
 			"guard",
 			"declaration",
 			"script",
@@ -710,7 +723,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 
 	function emitTemplateSegmentNestedPartialScript(path:String, adapter:String):String
 	{
-		recordSegmentPlan(path, adapter, ["script", "literal_output", "template_expression", "return_exit"], [
+		recordSegmentPlan(path, adapter, "compiler_emitted_segment_shell", ["script", "literal_output", "template_expression", "return_exit"], [
 			segmentFact("reads_locals", ["items", "screen", "partial_marker"]),
 			segmentFact("mutates_locals", ["items"]),
 			segmentFact("mutates_objects", ["screen.partial"]),
