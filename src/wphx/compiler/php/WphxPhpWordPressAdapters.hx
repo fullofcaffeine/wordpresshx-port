@@ -54,6 +54,18 @@ class WphxPhpWordPressAdapters
 				encodingShouldDecode(fieldName, helper);
 			case "wp-http-encoding-is-available":
 				encodingIsAvailable(fieldName, helper);
+			case "wp-http-proxy-is-enabled":
+				proxyIsEnabled(fieldName, helper);
+			case "wp-http-proxy-use-authentication":
+				proxyUseAuthentication(fieldName, helper);
+			case "wp-http-proxy-constant":
+				proxyConstant(fieldName, helper);
+			case "wp-http-proxy-authentication":
+				proxyAuthentication(fieldName, helper);
+			case "wp-http-proxy-authentication-header":
+				proxyAuthenticationHeader(fieldName, helper);
+			case "wp-http-proxy-send-through-proxy":
+				proxySendThroughProxy(fieldName, helper);
 			case _:
 				null;
 		}
@@ -602,6 +614,102 @@ class WphxPhpWordPressAdapters
 		}
 
 		return plan(["stmt.return", "expr.static-call"], [PhpReturn(PhpStaticCall(helper, "isAvailable", []))]);
+	}
+
+	static function proxyIsEnabled(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		return plan(["stmt.return", "expr.bool", "expr.function-call"], [
+			PhpReturn(PhpBinop("&&", PhpFunctionCall("defined", [PhpString("WP_PROXY_HOST")]), PhpFunctionCall("defined", [PhpString("WP_PROXY_PORT")])))
+		]);
+	}
+
+	static function proxyUseAuthentication(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		return plan(["stmt.return", "expr.bool", "expr.function-call"], [
+			PhpReturn(PhpBinop("&&", PhpFunctionCall("defined", [PhpString("WP_PROXY_USERNAME")]),
+				PhpFunctionCall("defined", [PhpString("WP_PROXY_PASSWORD")])))
+		]);
+	}
+
+	static function proxyConstant(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		final constantName = switch (fieldName)
+		{
+			case "host":
+				"WP_PROXY_HOST";
+			case "port":
+				"WP_PROXY_PORT";
+			case "username":
+				"WP_PROXY_USERNAME";
+			case "password":
+				"WP_PROXY_PASSWORD";
+			case _:
+				return missingHelper("unsupported WP_HTTP_Proxy constant adapter field " + fieldName);
+		}
+
+		return plan(["stmt.if", "stmt.return", "expr.coerce-string", "expr.function-call"], [
+			PhpIf(PhpFunctionCall("defined", [PhpString(constantName)]), [PhpReturn(PhpCastString(PhpFunctionCall("constant", [PhpString(constantName)])))]),
+			PhpReturn(PhpString(""))
+		]);
+	}
+
+	static function proxyAuthentication(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		final self = PhpVar("this");
+		return plan(["stmt.return", "expr.method-call", "expr.string"], [
+			PhpReturn(PhpBinop(".", PhpBinop(".", PhpMethodCall(self, "username", []), PhpString(":")), PhpMethodCall(self, "password", [])))
+		]);
+	}
+
+	static function proxyAuthenticationHeader(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		return plan(["stmt.return", "expr.function-call", "expr.method-call", "expr.string"], [
+			PhpReturn(PhpBinop(".", PhpString("Proxy-Authorization: Basic "),
+				PhpFunctionCall("base64_encode", [PhpMethodCall(PhpVar("this"), "authentication", [])])))
+		]);
+	}
+
+	static function proxySendThroughProxy(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		if (helper == null)
+		{
+			return missingHelper("missing @:wp.haxeHelper for WP_HTTP_Proxy::send_through_proxy adapter " + fieldName);
+		}
+
+		final check = PhpVar("check");
+		final home = PhpVar("home");
+		final result = PhpVar("result");
+		final requestHost = PhpVar("request_host");
+		final siteHost = PhpVar("site_host");
+		final bypassHosts = PhpVar("bypass_hosts");
+		return plan([
+			"stmt.if",
+			"stmt.assign",
+			"stmt.var",
+			"stmt.return",
+			"expr.array-read",
+			"expr.bool",
+			"expr.coerce-string",
+			"expr.function-call",
+			"expr.static-call"
+		], [
+			PhpLocal("check", PhpFunctionCall("parse_url", [PhpVar("uri")])),
+			PhpIf(PhpBinop("===", PhpBool(false), check), [PhpReturn(PhpBool(true))]),
+			PhpLocal("home", PhpFunctionCall("parse_url", [PhpFunctionCall("get_option", [PhpString("siteurl")])])),
+			PhpLocal("result", PhpFunctionCall("apply_filters", [PhpString("pre_http_send_through_proxy"), PhpNull, PhpVar("uri"), check, home])),
+			PhpIf(PhpNot(PhpFunctionCall("is_null", [result])), [PhpReturn(result)]),
+			PhpLocal("request_host", PhpString("")),
+			PhpIf(PhpFunctionCall("isset", [PhpArrayRead(check, PhpString("host"))]),
+				[PhpAssign(requestHost, PhpCastString(PhpArrayRead(check, PhpString("host"))))]),
+			PhpLocal("site_host", PhpString("")),
+			PhpIf(PhpFunctionCall("isset", [PhpArrayRead(home, PhpString("host"))]),
+				[PhpAssign(siteHost, PhpCastString(PhpArrayRead(home, PhpString("host"))))]),
+			PhpLocal("bypass_hosts", PhpString("")),
+			PhpIf(PhpFunctionCall("defined", [PhpString("WP_PROXY_BYPASS_HOSTS")]), [
+				PhpAssign(bypassHosts, PhpCastString(PhpFunctionCall("constant", [PhpString("WP_PROXY_BYPASS_HOSTS")])))
+			]),
+			PhpReturn(PhpStaticCall(helper, "shouldSendThroughProxy", [requestHost, siteHost, bypassHosts]))
+		]);
 	}
 }
 #end

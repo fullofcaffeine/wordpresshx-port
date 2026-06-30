@@ -27,14 +27,19 @@
     },
     "runner": {
       "path": "tools/wp-core/run-http-proxy-candidate.mjs",
-      "bytes": 23187,
-      "sha256": "sha256:0f93f962c9df9b7881565c4a949e5d32fc931de1bd0dfd0ae6424beb59a3ad63"
+      "bytes": 23298,
+      "sha256": "sha256:cda544b324f4908082376c6d5ff523f82691096aeccc369ad25e89268a5c8dce"
     },
     "haxe_sources": [
       {
         "path": "fixtures/wp-core/http-proxy-candidate.hxml",
         "bytes": 121,
         "sha256": "sha256:9c4f33c75135e6af6699f28c6d3fe9a65a82a2c995db73459278d68229ed70c6"
+      },
+      {
+        "path": "fixtures/wphx-php/wp-http-proxy.hxml",
+        "bytes": 372,
+        "sha256": "sha256:21b2cb72eca06d05617bd8dbfce8362516de1968dacb473ed7593020f2d664e5"
       },
       {
         "path": "src/wphx/wp/http/HttpProxyStrategy.hx",
@@ -45,8 +50,28 @@
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProxyCandidateEntry.hx",
         "bytes": 346,
         "sha256": "sha256:d509ade6ed9a201fbf8eb1b6028948ab741c6e3a59cc4ddc0232506d50e06afe"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProxyStrategy.hx",
+        "bytes": 230,
+        "sha256": "sha256:b8dde3a6268878a21e040af749059ef685e3f053aae1f53fd8154c91889b6b87"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpProxyEntry.hx",
+        "bytes": 380,
+        "sha256": "sha256:258f2d108bbfd54a76a753ea6a277c2c141c296a0855b793c312756495cf5687"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpProxyShell.hx",
+        "bytes": 1649,
+        "sha256": "sha256:8742b950946a139663cf302827b6a68e1ef9a21a0390b2ba3ca08944122e31b0"
       }
     ],
+    "wphx_php_manifest": {
+      "path": "build/wp-core/wphx-312-51/wphx-php/wphx-php-emission.v1.json",
+      "bytes": 887,
+      "sha256": "sha256:bbe8524e4fc78f7ac811f840192c371a0f9257102115699dae79146984843264"
+    },
     "upstream_sources": [
       {
         "path": "src/wp-includes/class-wp-http-proxy.php",
@@ -59,10 +84,31 @@
   "candidate": {
     "kind": "haxe_generated_http_proxy_routing_strategy",
     "hxml": "fixtures/wp-core/http-proxy-candidate.hxml",
+    "wphx_php_hxml": "fixtures/wphx-php/wp-http-proxy.hxml",
     "promoted_symbols": [
       "WP_HTTP_Proxy::send_through_proxy post-filter routing decision"
     ],
     "public_shell": "build/wp-core/wphx-312-51/candidate/wp-includes/class-wp-http-proxy.php",
+    "compiler_emitted_public_shell": {
+      "path": "build/wp-core/wphx-312-51/candidate/wp-includes/class-wp-http-proxy.php",
+      "source_path": "build/wp-core/wphx-312-51/wphx-php/wp-includes/class-wp-http-proxy.php",
+      "manifest": "build/wp-core/wphx-312-51/wphx-php/wphx-php-emission.v1.json",
+      "declarations": [
+        "class:WP_HTTP_Proxy"
+      ],
+      "emitted_methods": [
+        "is_enabled",
+        "use_authentication",
+        "host",
+        "port",
+        "username",
+        "password",
+        "authentication",
+        "authentication_header",
+        "send_through_proxy"
+      ],
+      "unsupported": []
+    },
     "generated_php_files": [
       {
         "path": "build/wp-core/wphx-312-51/haxe/index.php",
@@ -208,7 +254,7 @@
       "database_io": false,
       "live_installed_wordpress": false,
       "php_cli": true,
-      "runtime_stubs": "get_option('siteurl') and pre_http_send_through_proxy are deterministic stubs. Oracle executes copied class-wp-http-proxy.php; candidate executes the same public class shell with send_through_proxy's post-filter routing decision delegated to generated Haxe PHP."
+      "runtime_stubs": "get_option('siteurl') and pre_http_send_through_proxy are deterministic stubs. Oracle executes copied class-wp-http-proxy.php; candidate executes the compiler-emitted original-path public class shell with send_through_proxy's post-filter routing decision delegated to generated Haxe PHP."
     }
   },
   "build": {
@@ -823,11 +869,6 @@
   },
   "remaining_gaps": [
     {
-      "id": "public-original-path-adapter-not-yet-generated",
-      "owner": "WPHX-312.51",
-      "detail": "The candidate shell is transformed in the fixture build root. Durable class-wp-http-proxy.php generation through the linker/original-path adapter remains later work."
-    },
-    {
       "id": "live-http-transport-proxy-routing-not-executed",
       "owner": "WPHX-312.51",
       "detail": "The fixture calls WP_HTTP_Proxy directly and does not execute Requests, cURL, fsockopen, streams, TLS CONNECT, or proxy authentication negotiation."
@@ -845,7 +886,10 @@
     "promoted_symbols": 1,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "public_php_replacement_claimed": true,
+    "compiler_emitted_public_php": true,
+    "proxy_shell_emitted": true,
+    "unsupported_empty": true,
     "installed_wordpress_behavior_claimed": false,
     "live_proxy_transport_claimed": false
   }

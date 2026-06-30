@@ -164,6 +164,26 @@ const CASES = [
     }
   },
   {
+    id: "wp-http-proxy-class-shell",
+    hxml: "fixtures/wphx-php/wp-http-proxy.hxml",
+    selected: "wp-includes/class-wp-http-proxy.php",
+    shell_shapes: ["public_class", "allow_dynamic_properties", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "#[AllowDynamicProperties]",
+      "class WP_HTTP_Proxy",
+      "public function is_enabled()",
+      "public function use_authentication()",
+      "public function authentication_header()",
+      "public function send_through_proxy($uri)",
+      "apply_filters( 'pre_http_send_through_proxy', null, $uri, $check, $home )",
+      "HttpProxyStrategy::shouldSendThroughProxy"
+    ],
+    ast_expect: {
+      classes: ["WP_HTTP_Proxy"],
+      methods: ["is_enabled", "use_authentication", "host", "port", "username", "password", "authentication", "authentication_header", "send_through_proxy"]
+    }
+  },
+  {
     id: "include-side-effect-script",
     hxml: "fixtures/wphx-php/include-side-effects.hxml",
     selected: "wp-includes/wphx-include-side-effects.php",

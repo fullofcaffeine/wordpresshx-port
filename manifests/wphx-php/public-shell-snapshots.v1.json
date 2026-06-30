@@ -368,6 +368,58 @@
       }
     },
     {
+      "id": "wp-http-proxy-class-shell",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "public_class",
+        "allow_dynamic_properties",
+        "top_level_bootstrap_side_effect"
+      ],
+      "hxml": "fixtures/wphx-php/wp-http-proxy.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-http-proxy-class-shell/generated/wp-includes/class-wp-http-proxy.php",
+      "bytes": 2343,
+      "sha256": "sha256:1d24c807f43b7ad007a5a7c065d30207e24ffc97e4177194b2939a7fcbad9c67",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "#[AllowDynamicProperties]",
+        "class WP_HTTP_Proxy",
+        "public function is_enabled()",
+        "public function use_authentication()",
+        "public function authentication_header()",
+        "public function send_through_proxy($uri)",
+        "apply_filters( 'pre_http_send_through_proxy', null, $uri, $check, $home )",
+        "HttpProxyStrategy::shouldSendThroughProxy"
+      ],
+      "ast_contract": {
+        "functions": [],
+        "classes": [
+          "WP_HTTP_Proxy"
+        ],
+        "interfaces": [],
+        "methods": [
+          "authentication_header",
+          "authentication",
+          "host",
+          "is_enabled",
+          "password",
+          "port",
+          "send_through_proxy",
+          "use_authentication",
+          "username"
+        ],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "segment_plan_contract": null,
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/wp-http-proxy-class-shell/generated/wphx-php-emission.v1.json",
+        "bytes": 887,
+        "sha256": "sha256:bbe8524e4fc78f7ac811f840192c371a0f9257102115699dae79146984843264"
+      }
+    },
+    {
       "id": "include-side-effect-script",
       "evidence_class": "generated_shape",
       "artifact_scope": "minimized_fixture",
@@ -747,7 +799,7 @@
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 12,
+    "case_count": 13,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,

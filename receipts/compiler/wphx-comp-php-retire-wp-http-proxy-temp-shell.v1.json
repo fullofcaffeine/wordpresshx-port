@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-retire-wp-http-proxy-temp-shell",
+  "issue": {
+    "id": "wordpresshx-nbi",
+    "external_ref": "WPHX-COMP-PHP-RETIRE-WP-HTTP-PROXY-TEMP-SHELL",
+    "title": "Use generated shell in WPHX-312.51"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_emitted_original_path_shell_retirement",
+  "artifact_scope": "wp_http_proxy_public_class_adapter",
+  "commands": [
+    "haxe fixtures/wphx-php/wp-http-proxy.hxml",
+    "npm run wp:core:wphx-312-http-proxy-candidate",
+    "npm run wp:core:wphx-312-http-proxy-candidate:check",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run format:haxe",
+    "npm run haxe:escape-hatches"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter plans for WP_HTTP_Proxy"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpProxyShell.hx",
+      "role": "typed shell metadata for the compiler-emitted WP_HTTP_Proxy adapter"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-http-proxy.hxml",
+      "role": "WPHX PHP compile fixture for wp-includes/class-wp-http-proxy.php"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-51-http-proxy-candidate.v1.json",
+      "role": "WPHX-312.51 oracle/candidate manifest using the compiler-emitted original-path public shell"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-51-http-proxy-candidate.v1.json",
+      "role": "behavior receipt for the retired temporary shell candidate"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "proxy_candidate_cases": 7,
+    "compiler_emitted_public_php": true,
+    "proxy_shell_emitted": true,
+    "unsupported_empty": true,
+    "public_shell_snapshot_cases": 13
+  },
+  "claims": [
+    "WPHX PHP emits the original-path wp-includes/class-wp-http-proxy.php public class adapter for WP_HTTP_Proxy.",
+    "The WPHX-312.51 candidate no longer copies and patches a public PHP class shell for promoted proxy routing behavior.",
+    "PHP still owns constants, parse_url, get_option('siteurl'), pre_http_send_through_proxy filter timing, and authentication header encoding while Haxe owns the bounded post-filter bypass routing predicate."
+  ],
+  "non_claims": [
+    "This does not claim live HTTP proxy transport routing, Requests/cURL/fsockopen behavior, or TLS CONNECT behavior.",
+    "This does not claim installed WordPress distribution behavior or selected upstream HTTP PHPUnit parity for WP_HTTP_Proxy.",
+    "This does not claim WP_Http::request ownership or that WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

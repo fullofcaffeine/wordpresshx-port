@@ -16,10 +16,13 @@ const RECORDED_AT = "2026-06-27T00:00:00.000Z";
 const UPSTREAM_ROOT = "../wordpress-develop";
 const RUNNER = "tools/wp-core/run-http-proxy-candidate.mjs";
 const HXML = "fixtures/wp-core/http-proxy-candidate.hxml";
+const WPHX_PHP_HXML = "fixtures/wphx-php/wp-http-proxy.hxml";
 const OUT_ROOT = "build/wp-core/wphx-312-51";
 const HAXE_OUT = `${OUT_ROOT}/haxe`;
 const ORACLE_ROOT = `${OUT_ROOT}/oracle`;
 const CANDIDATE_ROOT = `${OUT_ROOT}/candidate`;
+const WPHX_PHP_ROOT = `${OUT_ROOT}/wphx-php`;
+const WPHX_PHP_MANIFEST = `${WPHX_PHP_ROOT}/wphx-php-emission.v1.json`;
 const PROBE = `${OUT_ROOT}/probe.php`;
 const OUT = "manifests/wp-core/wphx-312-51-http-proxy-candidate.v1.json";
 const OWNERSHIP = "manifests/ownership/wphx-312-51-http-proxy-candidate.v1.json";
@@ -31,8 +34,12 @@ const PROXY_FIXTURE = "manifests/wp-core/wphx-312-32-http-proxy-oracle-fixture.v
 const SOURCE_FILES = ["src/wp-includes/class-wp-http-proxy.php"];
 const HAXE_SOURCES = [
   HXML,
+  WPHX_PHP_HXML,
   "src/wphx/wp/http/HttpProxyStrategy.hx",
-  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProxyCandidateEntry.hx"
+  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpProxyCandidateEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProxyStrategy.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpProxyEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpProxyShell.hx"
 ];
 const PROMOTED_SYMBOLS = ["WP_HTTP_Proxy::send_through_proxy post-filter routing decision"];
 const CASES = [
@@ -90,97 +97,11 @@ function mirrorSources(root) {
   }
 }
 
-function haxeBootstrapBlock() {
-  return `if ( ! function_exists( 'wphx_312_51_bootstrap_haxe' ) ) {
-\tfunction wphx_312_51_bootstrap_haxe() {
-\t\tstatic $bootstrapped = false;
-\t\tif ( $bootstrapped ) {
-\t\t\treturn;
-\t\t}
-\t\t$bootstrapped = true;
-
-\t\t$wphx_312_51_lib = dirname( __DIR__, 2 ) . '/haxe/lib';
-\t\tset_include_path( get_include_path() . PATH_SEPARATOR . $wphx_312_51_lib );
-\t\tspl_autoload_register(
-\t\t\tfunction ( $class ) {
-\t\t\t\t$file = stream_resolve_include_path( str_replace( '\\\\', '/', $class ) . '.php' );
-\t\t\t\tif ( $file ) {
-\t\t\t\t\tinclude_once $file;
-\t\t\t\t}
-\t\t\t}
-\t\t);
-\t\t\\php\\Boot::__hx__init();
-\t}
-}
-wphx_312_51_bootstrap_haxe();
-`;
-}
-
-function installBootstrap(source) {
-  const marker = "<?php\n";
-  if (!source.startsWith(marker)) throw new Error("class-wp-http-proxy.php did not start with PHP open tag");
-  return `${marker}\n${haxeBootstrapBlock()}\n${source.slice(marker.length)}`;
-}
-
-function replaceMethod(source, methodName, replacement) {
-  const pattern = new RegExp(`public\\s+function\\s+${methodName}\\s*\\(`, "m");
-  const match = pattern.exec(source);
-  if (!match) throw new Error(`Unable to locate method ${methodName}`);
-  const openBrace = source.indexOf("{", match.index);
-  if (openBrace === -1) throw new Error(`Unable to locate opening brace for ${methodName}`);
-  let depth = 0;
-  for (let index = openBrace; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === "{") depth += 1;
-    if (char === "}") {
-      depth -= 1;
-      if (depth === 0) return `${source.slice(0, match.index)}${replacement}${source.slice(index + 1)}`;
-    }
-  }
-  throw new Error(`Unable to locate closing brace for ${methodName}`);
-}
-
-function transformCandidateProxy() {
-  const path = `${CANDIDATE_ROOT}/wp-includes/class-wp-http-proxy.php`;
-  let source = installBootstrap(readFileSync(path, "utf8"));
-  source = replaceMethod(
-    source,
-    "send_through_proxy",
-    `public function send_through_proxy( $uri ) {
-\t$check = parse_url( $uri );
-
-\t// Malformed URL, can not process, but this could mean ssl, so let through anyway.
-\tif ( false === $check ) {
-\t\treturn true;
-\t}
-
-\t$home = parse_url( get_option( 'siteurl' ) );
-
-\t/**
-\t * Filters whether to preempt sending the request through the proxy.
-\t *
-\t * Returning false will bypass the proxy; returning true will send
-\t * the request through the proxy. Returning null bypasses the filter.
-\t *
-\t * @since 3.5.0
-\t *
-\t * @param bool|null $override Whether to send the request through the proxy. Default null.
-\t * @param string    $uri      URL of the request.
-\t * @param array     $check    Associative array result of parsing the request URL with \`parse_url()\`.
-\t * @param array     $home     Associative array result of parsing the site URL with \`parse_url()\`.
-\t */
-\t$result = apply_filters( 'pre_http_send_through_proxy', null, $uri, $check, $home );
-\tif ( ! is_null( $result ) ) {
-\t\treturn $result;
-\t}
-
-\t$request_host = $check['host'] ?? '';
-\t$site_host    = isset( $home['host'] ) ? $home['host'] : '';
-\t$bypass_hosts = defined( 'WP_PROXY_BYPASS_HOSTS' ) ? WP_PROXY_BYPASS_HOSTS : '';
-\treturn \\wphx\\wp\\http\\HttpProxyStrategy::shouldSendThroughProxy( $request_host, $site_host, $bypass_hosts );
-}`
-  );
-  writeFileSync(path, source);
+function installCompilerEmittedCandidateShell() {
+  const source = `${WPHX_PHP_ROOT}/wp-includes/class-wp-http-proxy.php`;
+  const target = `${CANDIDATE_ROOT}/wp-includes/class-wp-http-proxy.php`;
+  mkdirSync(dirname(target), { recursive: true });
+  copyFileSync(source, target);
 }
 
 function writeProbe() {
@@ -404,12 +325,12 @@ function ownershipManifest(manifestSha) {
     ownership_state: "haxe_parity_candidate",
     bridge: {
       exists: true,
-      kind: "generated-haxe-php-behind-public-php-class-shell",
+      kind: "compiler-emitted-original-path-public-php-shell",
       removal_gate:
-        "Promote from candidate shell to generated original-path adapter only after class-wp-http-proxy.php ownership/linker work proves reflection, include timing, selected upstream HTTP PHPUnit, installed distribution behavior, and live/recorded proxy transport parity."
+        "Promote beyond this bounded public class adapter only after include timing, selected upstream HTTP PHPUnit, installed distribution behavior, and live/recorded proxy transport parity gates pass."
     },
     owned_paths: [...HAXE_SOURCES, RUNNER, OUT, OWNERSHIP, RECEIPT],
-    generated_paths: [OUT, OWNERSHIP, RECEIPT, OUT_ROOT],
+    generated_paths: [OUT, OWNERSHIP, RECEIPT, WPHX_PHP_MANIFEST, OUT_ROOT],
     verification: {
       oracle_commands: [
         "npm run wp:core:wphx-312-http-proxy-candidate",
@@ -428,7 +349,8 @@ async function main() {
   mirrorSources(ORACLE_ROOT);
   mirrorSources(CANDIDATE_ROOT);
   command("haxe", [HXML]);
-  transformCandidateProxy();
+  command("haxe", [WPHX_PHP_HXML, "-D", `wphx_php_output=${WPHX_PHP_ROOT}`, "-D", `wphx_php_manifest=${WPHX_PHP_MANIFEST}`]);
+  installCompilerEmittedCandidateShell();
   writeProbe();
 
   const oracle = runProbe(ORACLE_ROOT);
@@ -446,6 +368,41 @@ async function main() {
     candidate_lint: command("php", ["-l", mirrorPath(CANDIDATE_ROOT, path)])
   }));
   const haxeOutputFiles = command("find", [HAXE_OUT, "-type", "f"]).split("\n").filter(Boolean).sort();
+  const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
+  const wphxDeclarations = wphxPhpManifest.files.flatMap((file) => file.declarations.map((entry) => `${entry.kind}:${entry.name}`));
+  if (JSON.stringify(wphxDeclarations) !== JSON.stringify(["class:WP_HTTP_Proxy"])) {
+    console.error(JSON.stringify({ status: "failed", reason: "unexpected WPHX PHP declarations", declarations: wphxDeclarations }, null, 2));
+    process.exit(1);
+  }
+  if (wphxPhpManifest.unsupported.length !== 0) {
+    console.error(JSON.stringify({ status: "failed", reason: "unexpected WPHX PHP unsupported constructs", unsupported: wphxPhpManifest.unsupported }, null, 2));
+    process.exit(1);
+  }
+  const generatedShellPath = mirrorPath(CANDIDATE_ROOT, "src/wp-includes/class-wp-http-proxy.php");
+  const generatedShell = readFileSync(generatedShellPath, "utf8");
+  const requiredShellShapes = [
+    /#\[AllowDynamicProperties\]/,
+    /class\s+WP_HTTP_Proxy/,
+    /public\s+function\s+is_enabled\s*\(\s*\)/,
+    /public\s+function\s+use_authentication\s*\(\s*\)/,
+    /public\s+function\s+host\s*\(\s*\)/,
+    /public\s+function\s+port\s*\(\s*\)/,
+    /public\s+function\s+username\s*\(\s*\)/,
+    /public\s+function\s+password\s*\(\s*\)/,
+    /public\s+function\s+authentication\s*\(\s*\)/,
+    /public\s+function\s+authentication_header\s*\(\s*\)/,
+    /public\s+function\s+send_through_proxy\s*\(\s*\$uri\s*\)/
+  ];
+  const proxyShellEmitted =
+    requiredShellShapes.every((pattern) => pattern.test(generatedShell)) &&
+    generatedShell.includes("defined( 'WP_PROXY_HOST' )") &&
+    generatedShell.includes("base64_encode( $this->authentication() )") &&
+    generatedShell.includes("apply_filters( 'pre_http_send_through_proxy', null, $uri, $check, $home )") &&
+    generatedShell.includes("HttpProxyStrategy::shouldSendThroughProxy");
+  if (!proxyShellEmitted) {
+    console.error(JSON.stringify({ status: "failed", reason: "generated shell is missing WP_HTTP_Proxy adapter shape" }, null, 2));
+    process.exit(1);
+  }
   const manifest = {
     schema: "wphx.wp-core-http-proxy-candidate.v1",
     issue: ISSUE.external_ref,
@@ -459,13 +416,33 @@ async function main() {
       proxy_oracle_fixture_manifest: inputRecord(PROXY_FIXTURE),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
+      wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       upstream_sources: SOURCE_FILES.map(sourceRecord)
     },
     candidate: {
       kind: "haxe_generated_http_proxy_routing_strategy",
       hxml: HXML,
+      wphx_php_hxml: WPHX_PHP_HXML,
       promoted_symbols: PROMOTED_SYMBOLS,
-      public_shell: `${CANDIDATE_ROOT}/wp-includes/class-wp-http-proxy.php`,
+      public_shell: generatedShellPath,
+      compiler_emitted_public_shell: {
+        path: generatedShellPath,
+        source_path: `${WPHX_PHP_ROOT}/wp-includes/class-wp-http-proxy.php`,
+        manifest: WPHX_PHP_MANIFEST,
+        declarations: wphxDeclarations,
+        emitted_methods: [
+          "is_enabled",
+          "use_authentication",
+          "host",
+          "port",
+          "username",
+          "password",
+          "authentication",
+          "authentication_header",
+          "send_through_proxy"
+        ],
+        unsupported: wphxPhpManifest.unsupported
+      },
       generated_php_files: haxeOutputFiles.map(inputRecord),
       boundary_notes: [
         "PHP-native parse_url, get_option('siteurl'), pre_http_send_through_proxy, and wp-config constants remain in the public shell.",
@@ -482,7 +459,7 @@ async function main() {
         live_installed_wordpress: false,
         php_cli: true,
         runtime_stubs:
-          "get_option('siteurl') and pre_http_send_through_proxy are deterministic stubs. Oracle executes copied class-wp-http-proxy.php; candidate executes the same public class shell with send_through_proxy's post-filter routing decision delegated to generated Haxe PHP."
+          "get_option('siteurl') and pre_http_send_through_proxy are deterministic stubs. Oracle executes copied class-wp-http-proxy.php; candidate executes the compiler-emitted original-path public class shell with send_through_proxy's post-filter routing decision delegated to generated Haxe PHP."
       }
     },
     build: { haxe_out: HAXE_OUT, oracle_root: ORACLE_ROOT, candidate_root: CANDIDATE_ROOT, php_lint: phpLint },
@@ -495,12 +472,6 @@ async function main() {
       assertions_pass: observationsAssert
     },
     remaining_gaps: [
-      {
-        id: "public-original-path-adapter-not-yet-generated",
-        owner: ISSUE.external_ref,
-        detail:
-          "The candidate shell is transformed in the fixture build root. Durable class-wp-http-proxy.php generation through the linker/original-path adapter remains later work."
-      },
       {
         id: "live-http-transport-proxy-routing-not-executed",
         owner: ISSUE.external_ref,
@@ -519,7 +490,10 @@ async function main() {
       promoted_symbols: PROMOTED_SYMBOLS.length,
       observations_match: observationsMatch,
       observations_assert: observationsAssert,
-      public_php_replacement_claimed: false,
+      public_php_replacement_claimed: true,
+      compiler_emitted_public_php: true,
+      proxy_shell_emitted: proxyShellEmitted,
+      unsupported_empty: wphxPhpManifest.unsupported.length === 0,
       installed_wordpress_behavior_claimed: false,
       live_proxy_transport_claimed: false
     }
@@ -536,7 +510,8 @@ async function main() {
       { path: OUT, role: "WP_HTTP_Proxy Haxe parity candidate manifest" },
       { path: OWNERSHIP, role: "ownership manifest for Haxe-backed HTTP proxy routing candidate" },
       { path: RUNNER, role: "candidate generator and oracle comparator" },
-      { path: "src/wphx/wp/http/HttpProxyStrategy.hx", role: "Haxe-owned HTTP proxy routing source" }
+      { path: "src/wphx/wp/http/HttpProxyStrategy.hx", role: "Haxe-owned HTTP proxy routing source" },
+      { path: WPHX_PHP_MANIFEST, role: "WPHX PHP emission manifest for compiler-emitted class-wp-http-proxy.php" }
     ],
     verification_commands: [
       "npm run wp:core:wphx-312-http-proxy-candidate",
