@@ -11,14 +11,23 @@
     "area": "src/wp-includes/class-wp-http.php with WP_HTTP_Requests_Hooks, WP_HTTP_Requests_Response, WP_HTTP_Proxy, WP_HTTP_Response, and WP_Http_Cookie support",
     "public_contract": "This candidate promotes only the native array/null/false response shape returned by WP_Http::request when blocking=false after Requests dispatch and debug/error handling. PHP still owns public WP_Http::request ABI, argument defaults, filters, preempt/error paths, streaming, header/cookie/SSL/proxy options, Requests::request dispatch, exception conversion, http_api_debug timing, is_wp_error handling, and the surrounding request orchestration."
   },
-  "ownership_state": "haxe_candidate_with_public_php_shell",
+  "ownership_state": "compiler_emitted_original_path_shell",
   "bridge": {
     "exists": true,
-    "kind": "copied-public-php-shell-calling-generated-haxe",
-    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass request orchestration, selected upstream HTTP PHPUnit, installed distribution, and live/recorded network parity gates before claiming public PHP ownership."
+    "kind": "compiler-emitted-original-path-public-php-shell",
+    "removal_gate": "Promote additional WP_Http::request branches only through WPHX PHP emitted adapters, typed Haxe helpers, request orchestration gates, selected upstream HTTP PHPUnit, installed distribution, and live/recorded network parity gates before claiming full request or whole-file ownership."
   },
   "owned_paths": [
     "tools/wp-core/run-wp-http-request-nonblocking-candidate.mjs",
+    "fixtures/wp-core/http-request-nonblocking-candidate.hxml",
+    "fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+    "src/wphx/wp/http/HttpRequestNonblocking.hx",
+    "src/wphx/wp/http/HttpBlockRequestPolicy.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpBlockRequestPolicy.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpRequestNonblocking.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpRequestNonblockingEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpRequestNonblockingShell.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpRequestNonblockingCandidateEntry.hx",
     "manifests/wp-core/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
     "manifests/ownership/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
     "receipts/wp-core/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json"
@@ -27,18 +36,21 @@
     "manifests/wp-core/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
     "manifests/ownership/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
     "receipts/wp-core/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
-    "build/wp-core/wphx-312-65"
+    "build/wp-core/wphx-312-65",
+    "build/wp-core/wphx-312-65/wphx-php/wphx-php-emission.v1.json"
   ],
   "verification": {
     "oracle_commands": [
       "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate",
       "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate:check",
+      "npm run wphx:php:public-shell-snapshots",
+      "npm run wphx:php:public-shell-snapshots:check",
       "npm run receipts:validate",
       "npm run beads:validate"
     ],
     "receipt_refs": [
       "receipt:wphx-312-65-wp-http-request-nonblocking-candidate"
     ],
-    "manifest_digest": "sha256:46fa4e1ee7edccaa3a8c74bdd7d8798927abdfcc068bac1c08dd1ea109092c78"
+    "manifest_digest": "sha256:2f0708f85916e4e85116ce9e0e66812431562e2bdbffe67b3aa703b9026a32a9"
   }
 }

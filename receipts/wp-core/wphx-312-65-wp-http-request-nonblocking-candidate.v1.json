@@ -23,11 +23,21 @@
     {
       "path": "fixtures/wp-core/http-request-nonblocking-candidate.hxml",
       "role": "Haxe compile target for request nonblocking candidate"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+      "role": "WPHX PHP compile target for compiler-emitted class-wp-http.php request shell"
+    },
+    {
+      "path": "build/wp-core/wphx-312-65/wphx-php/wphx-php-emission.v1.json",
+      "role": "WPHX PHP emission manifest for compiler-emitted request shell"
     }
   ],
   "verification_commands": [
     "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate",
     "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate:check",
+    "npm run wphx:php:public-shell-snapshots",
+    "npm run wphx:php:public-shell-snapshots:check",
     "npm run receipts:validate",
     "npm run beads:validate"
   ],
@@ -43,7 +53,9 @@
     "promoted_symbols": 3,
     "observations_match": true,
     "observations_assert": true,
-    "public_php_replacement_claimed": false,
+    "request_shell_emitted": true,
+    "wphx_php_manifest_unsupported_empty": true,
+    "public_php_replacement_claimed": true,
     "full_request_orchestration_claimed": false,
     "installed_wordpress_behavior_claimed": false,
     "live_requests_network_io_claimed": false,

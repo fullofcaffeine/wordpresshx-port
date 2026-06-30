@@ -591,6 +591,54 @@
       }
     },
     {
+      "id": "wp-http-request-nonblocking-shell",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "public_class",
+        "public_method",
+        "native_array_response_shape",
+        "top_level_bootstrap_side_effect"
+      ],
+      "hxml": "fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-http-request-nonblocking-shell/generated/wp-includes/class-wp-http.php",
+      "bytes": 7554,
+      "sha256": "sha256:a28d325ffdc17ed601017f4aaa92965782bbc1aad50c70c5542f37bf647bbb90",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "class WP_Http",
+        "public function request($url, $args = [])",
+        "public function block_request($uri)",
+        "WpOrg\\Requests\\Requests::request",
+        "new WP_HTTP_Requests_Response",
+        "do_action( 'http_api_debug'",
+        "reset_mbstring_encoding();",
+        "HttpRequestNonblocking_Fields_::nonblockingResponse",
+        "return apply_filters( 'http_response'"
+      ],
+      "ast_contract": {
+        "functions": [],
+        "classes": [
+          "WP_Http"
+        ],
+        "interfaces": [],
+        "methods": [
+          "__construct",
+          "block_request",
+          "request"
+        ],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "segment_plan_contract": null,
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/wp-http-request-nonblocking-shell/generated/wphx-php-emission.v1.json",
+        "bytes": 955,
+        "sha256": "sha256:2a576cdc119cc9db49d3efb7f4ec0b35fe04104a12252683e91b0fdf1d1605b9"
+      }
+    },
+    {
       "id": "include-side-effect-script",
       "evidence_class": "generated_shape",
       "artifact_scope": "minimized_fixture",
@@ -970,7 +1018,7 @@
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 16,
+    "case_count": 17,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,

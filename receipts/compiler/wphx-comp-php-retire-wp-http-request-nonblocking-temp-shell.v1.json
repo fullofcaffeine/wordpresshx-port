@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-retire-wp-http-request-nonblocking-temp-shell",
+  "issue": {
+    "id": "wordpresshx-b9k",
+    "external_ref": "WPHX-COMP-PHP-RETIRE-WP-HTTP-REQUEST-NONBLOCKING-TEMP-SHELL",
+    "title": "Use generated shell in WPHX-312.65"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_emitted_original_path_shell_retirement",
+  "artifact_scope": "wp_http_request_nonblocking_adapter",
+  "commands": [
+    "haxe fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+    "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate",
+    "npm run wp:core:wphx-312-wp-http-request-nonblocking-candidate:check",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run format:haxe",
+    "npm run haxe:escape-hatches"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter plan for the bounded WP_Http::request nonblocking shell"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpRequestNonblockingShell.hx",
+      "role": "typed shell metadata for the compiler-emitted WP_Http request adapter"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+      "role": "WPHX PHP compile fixture for wp-includes/class-wp-http.php"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-65-wp-http-request-nonblocking-candidate.v1.json",
+      "role": "WPHX-312.65 oracle/candidate manifest using the compiler-emitted original-path public shell"
+    },
+    {
+      "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
+      "role": "public-shell snapshot manifest covering the generated WP_Http::request nonblocking shell"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "request_candidate_cases": 1,
+    "compiler_emitted_public_php": true,
+    "request_shell_emitted": true,
+    "unsupported_empty": true,
+    "public_shell_snapshot_cases": 17
+  },
+  "claims": [
+    "WPHX PHP emits the original-path wp-includes/class-wp-http.php bounded WP_Http adapter for the WPHX-312.65 nonblocking response gate.",
+    "The WPHX-312.65 candidate no longer copies and patches a public PHP WP_Http::request method body.",
+    "PHP still owns request orchestration while Haxe owns only the native nonblocking response array shape helper."
+  ],
+  "non_claims": [
+    "This does not claim full WP_Http::request ownership, broad request orchestration ownership, or whole-file WP_Http ownership.",
+    "This does not claim live Requests network I/O, redirect following, transport execution, upstream HTTP PHPUnit parity, or installed WordPress distribution behavior.",
+    "This does not claim that WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

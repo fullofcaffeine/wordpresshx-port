@@ -267,6 +267,27 @@ const CASES = [
     }
   },
   {
+    id: "wp-http-request-nonblocking-shell",
+    hxml: "fixtures/wphx-php/wp-http-request-nonblocking.hxml",
+    selected: "wp-includes/class-wp-http.php",
+    shell_shapes: ["public_class", "public_method", "native_array_response_shape", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "class WP_Http",
+      "public function request($url, $args = [])",
+      "public function block_request($uri)",
+      "WpOrg\\Requests\\Requests::request",
+      "new WP_HTTP_Requests_Response",
+      "do_action( 'http_api_debug'",
+      "reset_mbstring_encoding();",
+      "HttpRequestNonblocking_Fields_::nonblockingResponse",
+      "return apply_filters( 'http_response'"
+    ],
+    ast_expect: {
+      classes: ["WP_Http"],
+      methods: ["__construct", "request", "block_request"]
+    }
+  },
+  {
     id: "include-side-effect-script",
     hxml: "fixtures/wphx-php/include-side-effects.hxml",
     selected: "wp-includes/wphx-include-side-effects.php",
