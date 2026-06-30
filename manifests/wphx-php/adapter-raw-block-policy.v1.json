@@ -1,0 +1,80 @@
+{
+  "schema": "wphx.wphx-php-adapter-raw-block-policy.v1",
+  "issue": "WPHX-COMP-PHP-ADAPTER-RAW-BLOCK-GUARD",
+  "generated_at": "2026-06-30T00:00:00Z",
+  "generator": "tools/wphx-php/check-adapter-raw-blocks.mjs",
+  "scanned_profile": {
+    "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+    "bytes": 39713,
+    "sha256": "sha256:58b324fd88ba7d84e25292f1c52bcc309c8956e057d58aa1d213eb2b4b6d449e"
+  },
+  "template_directory": "src/wphx/compiler/php/templates/wordpress",
+  "templates": [
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
+      "bytes": 1559,
+      "sha256": "sha256:43d4164c7666a01104d8f05e067c036c3305c1af96a414439c54ac50869ed8ad"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-request-nonblocking-body.php.template",
+      "bytes": 5932,
+      "sha256": "sha256:79f75c83619a3d2fb870c060d2646110c0b25958caec69c978c8b5914bcd6275"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-dispatch-request-body.php.template",
+      "bytes": 839,
+      "sha256": "sha256:e198421ed2227dd5eefd4585e5c90829300891116bcc5396d17c397c61633b49"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
+      "bytes": 831,
+      "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
+    }
+  ],
+  "php_raw_block_count": 4,
+  "inline_raw_block_count": 0,
+  "occurrences": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "line": 954,
+      "source": "return plan([\"stmt.raw-wordpress-boundary\", \"adapter.template\"], [PhpRawBlock(rendered.code)], [rendered.provenance]);",
+      "source_sha256": "sha256:b16078b6538b875d67832c90a708ca67b24e509e35ccdfc576d61bc0ed7bd5ca",
+      "allowed": true,
+      "policy": "rendered-template-body"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "line": 1037,
+      "source": "return plan([\"stmt.raw-wordpress-boundary\", \"adapter.template\"], [PhpRawBlock(rendered.code)], [rendered.provenance]);",
+      "source_sha256": "sha256:b16078b6538b875d67832c90a708ca67b24e509e35ccdfc576d61bc0ed7bd5ca",
+      "allowed": true,
+      "policy": "rendered-template-body"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "line": 1050,
+      "source": "return plan([\"stmt.raw-wordpress-boundary\", \"adapter.template\"], [PhpRawBlock(rendered.code)], [rendered.provenance]);",
+      "source_sha256": "sha256:b16078b6538b875d67832c90a708ca67b24e509e35ccdfc576d61bc0ed7bd5ca",
+      "allowed": true,
+      "policy": "rendered-template-body"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "line": 1077,
+      "source": "], [PhpRawBlock(rendered.code)], [rendered.provenance]);",
+      "source_sha256": "sha256:47842c878644b50540fe358ce433cf4c598d517fcc03653c016335fe0f7cf57a",
+      "allowed": true,
+      "policy": "rendered-template-body"
+    }
+  ],
+  "policy": {
+    "allowed_raw_block_argument": "rendered.code",
+    "requirement": "WordPress-profile public adapter PHP bodies must be structured IR or compiler-owned templates with manifest provenance; inline PhpRawBlock string bodies are forbidden."
+  },
+  "validation_result": {
+    "status": "passed",
+    "only_rendered_template_raw_blocks": true,
+    "inline_raw_blocks_forbidden": true,
+    "template_count": 4
+  }
+}

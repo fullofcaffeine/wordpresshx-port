@@ -83,7 +83,7 @@ Hard rule: keep `docs/operations/progress-matrix.md` current. Any task that chan
 ## Local Hooks and Checks
 
 - Install hooks with `npm run hooks:install` after cloning or when hook scripts change.
-- The pre-commit hook must run a staged gitleaks scan and format staged `.hx` files with `haxelib run formatter`.
+- The pre-commit hook must run a staged gitleaks scan, format staged `.hx` files with `haxelib run formatter`, and keep the WPHX PHP WordPress-profile adapter raw-block guard green.
 - Use `npm run security:gitleaks` for full-history secret scanning.
 - Use `npm run format:haxe:check` for tracked Haxe formatting checks. It is valid for this to report no tracked Haxe files during bootstrap.
 

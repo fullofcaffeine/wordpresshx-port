@@ -293,6 +293,15 @@ This IR is deliberately narrower than a full PHP backend, but it is the front do
 
 `WPHX-COMP-PHP-TRANSPORT-RAW-BLOCK-RETIREMENT` removes the remaining inline raw PHP adapter bodies from the WordPress profile. `WP_Http::_get_first_available_transport()` and private `WP_Http::_dispatch_request()` now render from compiler-owned templates under `src/wphx/compiler/php/templates/wordpress/`, and the WPHX-312.66 runner requires path, SHA-256, placeholder, ownership, and upstream-reference evidence for both before accepting the generated `wp-includes/class-wp-http.php` transport shell. The profile still emits `PhpRawBlock(rendered.code)` as the final narrow target-native boundary, but the production PHP body source is now named, hashed, and manifest-recorded rather than embedded in Haxe string concatenation.
 
+`WPHX-COMP-PHP-ADAPTER-RAW-BLOCK-GUARD` adds a precommit-backed policy check for the WordPress adapter profile:
+
+```bash
+npm run wphx:php:adapter-raw-blocks
+npm run wphx:php:adapter-raw-blocks:check
+```
+
+The guard records `manifests/wphx-php/adapter-raw-block-policy.v1.json` and fails if `WphxPhpWordPressAdapters.hx` introduces any `PhpRawBlock` call whose argument is not `rendered.code`. This allows the current narrow target-native boundary for compiler-owned templates while blocking new inline PHP string bodies in the Haxe profile.
+
 ## First Contract
 
 The initial metadata contract is intentionally small:

@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-adapter-raw-block-policy",
+  "issue": {
+    "id": "wordpresshx-msp",
+    "external_ref": "WPHX-COMP-PHP-ADAPTER-RAW-BLOCK-GUARD",
+    "title": "Guard WordPress adapter raw blocks"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_policy_guard",
+  "artifact_scope": "wordpress_profile_php_raw_block_policy",
+  "commands": [
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run precommit"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/check-adapter-raw-blocks.mjs",
+      "role": "policy guard for WordPress-profile PhpRawBlock usage"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter source scanned by the guard"
+    },
+    {
+      "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
+      "role": "manifest recording allowed rendered-template raw block occurrences"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "only_rendered_template_raw_blocks": true,
+    "inline_raw_blocks_forbidden": true,
+    "template_count": 4
+  },
+  "claims": [
+    "The WordPress adapter profile no longer permits inline PhpRawBlock PHP string bodies.",
+    "The only allowed PhpRawBlock form in WphxPhpWordPressAdapters.hx is PhpRawBlock(rendered.code), which points back to compiler-owned adapter template provenance.",
+    "The policy guard is wired into npm precommit checks."
+  ],
+  "non_claims": [
+    "This does not claim that all adapter templates have been promoted to structured PHP IR.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend.",
+    "This does not claim additional WordPress runtime behavior parity."
+  ]
+}
