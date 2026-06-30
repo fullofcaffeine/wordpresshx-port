@@ -50,6 +50,8 @@ const HAXE_SOURCES = [
   WPHX_PHP_HXML,
   "src/wphx/wp/http/HttpRequestNonblocking.hx",
   "src/wphx/wp/http/HttpBlockRequestPolicy.hx",
+  "src/wphx/wp/http/HttpRequestSafetyOptions.hx",
+  "src/wphx/wp/http/HttpRequestStreamBlocking.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpBlockRequestPolicy.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpRequestNonblocking.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpRequestNonblockingEntry.hx",
@@ -723,7 +725,9 @@ async function main() {
     "expr.long-array",
     "expr.method-call",
     "expr.static-call",
-    "wp-http.request.nonblocking-response"
+    "wp-http.request.nonblocking-response",
+    "wp-http.request.safety-options-helper",
+    "wp-http.request.stream-blocking-helper"
   ];
   const coreIrFeatures = new Set(wphxPhpManifest.core_ir_features ?? []);
   const missingRequestIrFeatures = requiredRequestIrFeatures.filter((feature) => !coreIrFeatures.has(feature));
@@ -738,6 +742,8 @@ async function main() {
     request_signature: generatedShell.includes("public function request($url, $args = [])"),
     block_request_signature: generatedShell.includes("public function block_request($uri)"),
     nonblocking_haxe_call: generatedShell.includes(`${HAXE_MODULE}::nonblockingResponse()`),
+    safety_options_haxe_call: generatedShell.includes("HttpRequestSafetyOptions_Fields_::shouldRegisterRedirectValidation"),
+    stream_blocking_haxe_call: generatedShell.includes("HttpRequestStreamBlocking_Fields_::shouldForceBlockingForStream"),
     requests_dispatch: generatedShell.includes("WpOrg\\Requests\\Requests::request"),
     request_response_wrapper: generatedShell.includes("new WP_HTTP_Requests_Response"),
     debug_action: generatedShell.includes("do_action( 'http_api_debug'"),
@@ -786,7 +792,7 @@ async function main() {
       haxe_module: HAXE_MODULE,
       promoted_symbols: PROMOTED_SYMBOLS,
       promoted_behavior:
-        "Only the WP_Http::request nonblocking response array shape after successful Requests dispatch is emitted by generated Haxe PHP. The surrounding public method body is now emitted by structured WPHX PHP Adapter IR as a bounded original-path adapter and remains PHP-owned request orchestration, not full request behavior ownership.",
+        "Only the WP_Http::request nonblocking response array shape after successful Requests dispatch is claimed by this candidate. The generated original-path request adapter can now also consume named Haxe helper aliases for bounded safety-option and stream-blocking decisions, while the surrounding public method body remains structured WPHX PHP Adapter IR and PHP-owned request orchestration, not full request behavior ownership.",
       adapter_ir: {
         adapter: "wp-http-request-nonblocking",
         template_absent: requestAdapterTemplateAbsent,

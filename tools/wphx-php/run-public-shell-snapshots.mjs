@@ -281,6 +281,8 @@ const CASES = [
       "do_action( 'http_api_debug'",
       "reset_mbstring_encoding();",
       "HttpRequestNonblocking_Fields_::nonblockingResponse",
+      "HttpRequestSafetyOptions_Fields_::shouldRegisterRedirectValidation",
+      "HttpRequestStreamBlocking_Fields_::shouldForceBlockingForStream",
       "return apply_filters( 'http_response'"
     ],
     ast_expect: {

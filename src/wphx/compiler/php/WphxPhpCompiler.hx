@@ -13,6 +13,7 @@ import reflaxe.data.ClassVarData;
 import reflaxe.data.EnumOptionData;
 import sys.FileSystem;
 import sys.io.File;
+import wphx.compiler.php.WphxPhpWordPressAdapters.WordPressAdapterHelpers;
 import wphx.compiler.php.WphxPhpWordPressAdapters.WordPressAdapterTemplateProvenance;
 
 using reflaxe.helpers.ClassFieldHelper;
@@ -976,7 +977,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		final adapter = metadataString(field.meta.get(), "wp.adapter");
 		if (adapter != null)
 		{
-			final plan = WphxPhpWordPressAdapters.methodBody(adapter, field.name, metadataString(field.meta.get(), "wp.haxeHelper"));
+			final plan = WphxPhpWordPressAdapters.methodBody(adapter, field.name, adapterHelpers(field.meta.get()));
 			if (plan == null)
 			{
 				reportUnsupported("unsupported WPHX PHP method adapter " + adapter + " for " + field.name);
@@ -1588,6 +1589,68 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			}
 		}
 		return null;
+	}
+
+	function adapterHelpers(entries:Array<MetadataEntry>):WordPressAdapterHelpers
+	{
+		final named = new Map<String, String>();
+		var primary:Null<String> = null;
+		for (entry in entries)
+		{
+			if (!metadataNameMatches(entry.name, "wp.haxeHelper"))
+			{
+				continue;
+			}
+			if (entry.params.length == 1)
+			{
+				final helper = metadataParamString(entry, 0);
+				if (helper == null)
+				{
+					reportUnsupported("invalid @:wp.haxeHelper metadata; expected helper class string");
+					continue;
+				}
+				if (primary == null)
+				{
+					primary = helper;
+				}
+				named.set("primary", helper);
+				continue;
+			}
+			if (entry.params.length == 2)
+			{
+				final alias = metadataParamString(entry, 0);
+				final helper = metadataParamString(entry, 1);
+				if (alias == null || helper == null)
+				{
+					reportUnsupported("invalid named @:wp.haxeHelper metadata; expected alias and helper class strings");
+					continue;
+				}
+				named.set(alias, helper);
+				if (alias == "primary" || alias == "default")
+				{
+					primary = helper;
+				}
+				continue;
+			}
+			reportUnsupported("invalid @:wp.haxeHelper metadata arity; expected one helper string or alias/helper strings");
+		}
+		return {
+			primary: primary,
+			named: named
+		};
+	}
+
+	function metadataParamString(entry:MetadataEntry, index:Int):Null<String>
+	{
+		if (entry.params.length <= index)
+		{
+			return null;
+		}
+		return switch (entry.params[index].expr)
+		{
+			case EConst(CString(value, _)): value;
+			case _: null;
+		}
 	}
 
 	function tvarMetadataString(v:TVar, name:String):Null<String>

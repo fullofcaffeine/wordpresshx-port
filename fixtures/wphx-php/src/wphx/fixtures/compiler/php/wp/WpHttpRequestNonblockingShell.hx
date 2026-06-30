@@ -17,6 +17,8 @@ class WpHttpRequestNonblockingShell
 
 	@:wp.adapter("wp-http-request-nonblocking")
 	@:wp.haxeHelper("\\wphx\\wp\\http\\_HttpRequestNonblocking\\HttpRequestNonblocking_Fields_")
+	@:wp.haxeHelper("safetyOptions", "\\wphx\\wp\\http\\_HttpRequestSafetyOptions\\HttpRequestSafetyOptions_Fields_")
+	@:wp.haxeHelper("streamBlocking", "\\wphx\\wp\\http\\_HttpRequestStreamBlocking\\HttpRequestStreamBlocking_Fields_")
 	public function request(url:String, @:wp.defaultArray args:NativeValue = null):NativeValue
 	{
 		return HaxeHttpRequestNonblocking.nonblockingResponse();

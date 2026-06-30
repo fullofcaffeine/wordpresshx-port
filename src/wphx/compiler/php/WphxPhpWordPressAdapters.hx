@@ -15,6 +15,12 @@ typedef WordPressAdapterTemplateProvenance =
 	final upstream_ref:String;
 }
 
+typedef WordPressAdapterHelpers =
+{
+	final primary:Null<String>;
+	final named:Map<String, String>;
+}
+
 typedef WordPressMethodAdapterPlan =
 {
 	final features:Array<String>;
@@ -32,89 +38,99 @@ typedef WordPressMethodAdapterPlan =
 **/
 class WphxPhpWordPressAdapters
 {
-	public static function methodBody(adapter:String, fieldName:String, helper:Null<String>):Null<WordPressMethodAdapterPlan>
+	public static function methodBody(adapter:String, fieldName:String, helpers:WordPressAdapterHelpers):Null<WordPressMethodAdapterPlan>
 	{
 		return switch (adapter)
 		{
 			case "wp-http-process-headers":
-				processHeaders(fieldName, helper);
+				processHeaders(fieldName, primaryHelper(helpers));
 			case "wp-http-build-cookie-header":
-				buildCookieHeader(fieldName, helper);
+				buildCookieHeader(fieldName, primaryHelper(helpers));
 			case "wp-http-is-ip-address":
-				isIpAddress(fieldName, helper);
+				isIpAddress(fieldName, primaryHelper(helpers));
 			case "wp-http-browser-redirect-compatibility":
-				browserRedirectCompatibility(fieldName, helper);
+				browserRedirectCompatibility(fieldName, primaryHelper(helpers));
 			case "wp-http-validate-redirects":
-				validateRedirects(fieldName, helper);
+				validateRedirects(fieldName, primaryHelper(helpers));
 			case "wp-http-make-absolute-url":
-				makeAbsoluteUrl(fieldName, helper);
+				makeAbsoluteUrl(fieldName, primaryHelper(helpers));
 			case "wp-http-block-request":
-				blockRequest(fieldName, helper);
+				blockRequest(fieldName, primaryHelper(helpers));
 			case "wp-http-handle-redirects":
-				handleRedirects(fieldName, helper);
+				handleRedirects(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-compress":
-				encodingCompress(fieldName, helper);
+				encodingCompress(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-decompress":
-				encodingDecompress(fieldName, helper);
+				encodingDecompress(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-compatible-gzinflate":
-				encodingCompatibleGzinflate(fieldName, helper);
+				encodingCompatibleGzinflate(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-accept-encoding":
-				encodingAcceptEncoding(fieldName, helper);
+				encodingAcceptEncoding(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-content-encoding":
-				encodingContentEncoding(fieldName, helper);
+				encodingContentEncoding(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-should-decode":
-				encodingShouldDecode(fieldName, helper);
+				encodingShouldDecode(fieldName, primaryHelper(helpers));
 			case "wp-http-encoding-is-available":
-				encodingIsAvailable(fieldName, helper);
+				encodingIsAvailable(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-is-enabled":
-				proxyIsEnabled(fieldName, helper);
+				proxyIsEnabled(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-use-authentication":
-				proxyUseAuthentication(fieldName, helper);
+				proxyUseAuthentication(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-constant":
-				proxyConstant(fieldName, helper);
+				proxyConstant(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-authentication":
-				proxyAuthentication(fieldName, helper);
+				proxyAuthentication(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-authentication-header":
-				proxyAuthenticationHeader(fieldName, helper);
+				proxyAuthenticationHeader(fieldName, primaryHelper(helpers));
 			case "wp-http-proxy-send-through-proxy":
-				proxySendThroughProxy(fieldName, helper);
+				proxySendThroughProxy(fieldName, primaryHelper(helpers));
 			case "wp-http-response-construct":
-				responseConstruct(fieldName, helper);
+				responseConstruct(fieldName, primaryHelper(helpers));
 			case "wp-http-response-get-data":
-				responseGetData(fieldName, helper);
+				responseGetData(fieldName, primaryHelper(helpers));
 			case "wp-http-response-set-data":
-				responseSetData(fieldName, helper);
+				responseSetData(fieldName, primaryHelper(helpers));
 			case "wp-http-response-get-headers":
-				responseGetHeaders(fieldName, helper);
+				responseGetHeaders(fieldName, primaryHelper(helpers));
 			case "wp-http-response-set-headers":
-				responseSetHeaders(fieldName, helper);
+				responseSetHeaders(fieldName, primaryHelper(helpers));
 			case "wp-http-response-header":
-				responseHeader(fieldName, helper);
+				responseHeader(fieldName, primaryHelper(helpers));
 			case "wp-http-response-get-status":
-				responseGetStatus(fieldName, helper);
+				responseGetStatus(fieldName, primaryHelper(helpers));
 			case "wp-http-response-set-status":
-				responseSetStatus(fieldName, helper);
+				responseSetStatus(fieldName, primaryHelper(helpers));
 			case "wp-http-response-json-serialize":
-				responseJsonSerialize(fieldName, helper);
+				responseJsonSerialize(fieldName, primaryHelper(helpers));
 			case "wp-http-cookie-construct":
-				cookieConstruct(fieldName, helper);
+				cookieConstruct(fieldName, primaryHelper(helpers));
 			case "wp-http-cookie-test":
-				cookieTest(fieldName, helper);
+				cookieTest(fieldName, primaryHelper(helpers));
 			case "wp-http-cookie-get-header-value":
-				cookieGetHeaderValue(fieldName, helper);
+				cookieGetHeaderValue(fieldName, primaryHelper(helpers));
 			case "wp-http-cookie-get-full-header":
-				cookieGetFullHeader(fieldName, helper);
+				cookieGetFullHeader(fieldName, primaryHelper(helpers));
 			case "wp-http-cookie-get-attributes":
-				cookieGetAttributes(fieldName, helper);
+				cookieGetAttributes(fieldName, primaryHelper(helpers));
 			case "wp-http-transport-get-first-available":
-				transportGetFirstAvailable(fieldName, helper);
+				transportGetFirstAvailable(fieldName, primaryHelper(helpers));
 			case "wp-http-transport-dispatch-request":
-				transportDispatchRequest(fieldName, helper);
+				transportDispatchRequest(fieldName, primaryHelper(helpers));
 			case "wp-http-request-nonblocking":
-				requestNonblocking(fieldName, helper);
+				requestNonblocking(fieldName, helpers);
 			case _:
 				null;
 		}
+	}
+
+	static function primaryHelper(helpers:WordPressAdapterHelpers):Null<String>
+	{
+		return helpers.primary;
+	}
+
+	static function namedHelper(helpers:WordPressAdapterHelpers, name:String):Null<String>
+	{
+		return helpers.named.exists(name) ? helpers.named.get(name) : null;
 	}
 
 	static function missingHelper(message:String):WordPressMethodAdapterPlan
@@ -1133,13 +1149,16 @@ class WphxPhpWordPressAdapters
 		]);
 	}
 
-	static function requestNonblocking(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	static function requestNonblocking(fieldName:String, helpers:WordPressAdapterHelpers):WordPressMethodAdapterPlan
 	{
+		final helper = primaryHelper(helpers);
 		if (helper == null)
 		{
 			return missingHelper("missing @:wp.haxeHelper for WP_Http::request nonblocking adapter " + fieldName);
 		}
 
+		final safetyOptionsHelper = namedHelper(helpers, "safetyOptions");
+		final streamBlockingHelper = namedHelper(helpers, "streamBlocking");
 		final url = PhpVar("url");
 		final args = PhpVar("args");
 		final defaults = PhpVar("defaults");
@@ -1155,8 +1174,7 @@ class WphxPhpWordPressAdapters
 		final httpResponse = PhpVar("http_response");
 		final exception = PhpVar("e");
 		final requestsClass = "WpOrg\\Requests\\Requests";
-
-		return plan([
+		final features = [
 			"stmt.if",
 			"stmt.if-else",
 			"stmt.assign",
@@ -1173,7 +1191,26 @@ class WphxPhpWordPressAdapters
 			"expr.function-call",
 			"expr.binop",
 			"wp-http.request.nonblocking-response"
-		], [
+		];
+		if (safetyOptionsHelper != null)
+		{
+			features.push("wp-http.request.safety-options-helper");
+		}
+		if (streamBlockingHelper != null)
+		{
+			features.push("wp-http.request.stream-blocking-helper");
+		}
+		final redirectValidationCondition = safetyOptionsHelper == null ? PhpBinop("&&",
+			PhpFunctionCall("function_exists", [PhpString("wp_kses_bad_protocol")]),
+			read(parsedArgs, "reject_unsafe_urls")) : PhpStaticCall(safetyOptionsHelper, "shouldRegisterRedirectValidation", [
+				PhpFunctionCall("function_exists", [PhpString("wp_kses_bad_protocol")]),
+				PhpCastBool(read(parsedArgs, "reject_unsafe_urls"))
+			]);
+		final streamBlockingStatement = streamBlockingHelper == null ? PhpAssign(read(parsedArgs, "blocking"),
+			PhpBool(true)) : PhpIf(PhpStaticCall(streamBlockingHelper, "shouldForceBlockingForStream", [PhpCastBool(read(parsedArgs, "stream"))]),
+				[PhpAssign(read(parsedArgs, "blocking"), PhpBool(true))]);
+
+		return plan(features, [
 			PhpLocal("defaults",
 				PhpLongArray([
 					entry("method", PhpString("GET")),
@@ -1247,11 +1284,10 @@ class WphxPhpWordPressAdapters
 			]),
 			PhpIf(read(parsedArgs, "stream"),
 				[
-					PhpIf(PhpFunctionCall("empty", [read(parsedArgs, "filename")]),
-						[
-							PhpAssign(read(parsedArgs, "filename"), PhpBinop(".", PhpFunctionCall("get_temp_dir", []), PhpFunctionCall("basename", [url])))
-						]),
-					PhpAssign(read(parsedArgs, "blocking"), PhpBool(true)),
+					PhpIf(PhpFunctionCall("empty", [read(parsedArgs, "filename")]), [
+						PhpAssign(read(parsedArgs, "filename"), PhpBinop(".", PhpFunctionCall("get_temp_dir", []), PhpFunctionCall("basename", [url])))
+					]),
+					streamBlockingStatement,
 					PhpIf(PhpNot(PhpFunctionCall("wp_is_writable", [PhpFunctionCall("dirname", [read(parsedArgs, "filename")])])),
 						[
 							PhpAssign(response,
@@ -1289,7 +1325,7 @@ class WphxPhpWordPressAdapters
 					item(PhpString("browser_redirect_compatibility"))
 				])
 			])),
-			PhpIf(PhpBinop("&&", PhpFunctionCall("function_exists", [PhpString("wp_kses_bad_protocol")]), read(parsedArgs, "reject_unsafe_urls")),
+			PhpIf(redirectValidationCondition,
 				[
 					PhpExprStmt(PhpMethodCall(read(options, "hooks"), "register",
 						[
