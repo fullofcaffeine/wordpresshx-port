@@ -1,15 +1,15 @@
 {
   "schema": "wphx.compiler-core-driver-receipt.v1",
-  "id": "receipt:wphx-comp-php-dispatch-adapter-ir-promotion",
+  "id": "receipt:wphx-comp-php-transport-get-first-ir-promotion",
   "issue": {
-    "id": "wordpresshx-dmp",
-    "external_ref": "WPHX-COMP-PHP-DISPATCH-ADAPTER-IR-PROMOTION",
-    "title": "Promote dispatch adapter template to IR"
+    "id": "wordpresshx-r8e",
+    "external_ref": "WPHX-COMP-PHP-TRANSPORT-GET-FIRST-IR-PROMOTION",
+    "title": "Promote transport get-first adapter to IR"
   },
   "recorded_at": "2026-06-30T00:00:00Z",
   "status": "passed",
   "evidence_class": "compiler_core_ir",
-  "artifact_scope": "wp_http_dispatch_adapter_ir_promotion",
+  "artifact_scope": "wp_http_get_first_transport_adapter_ir_promotion",
   "commands": [
     "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
     "npm run wp:core:wphx-312-wp-http-transport-selection-candidate:check",
@@ -20,16 +20,16 @@
   ],
   "artifacts": [
     {
-      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "role": "generic PHP-core IR/printer support for static locals and dynamic class construction"
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress profile now emits WP_Http::_get_first_available_transport from structured IR"
     },
     {
-      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "role": "WordPress profile now emits WP_Http::_dispatch_request from structured IR"
+      "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
+      "role": "runner requiring both transport adapters to be emitted from IR"
     },
     {
       "path": "manifests/wp-core/wphx-312-66-wp-http-transport-selection-candidate.v1.json",
-      "role": "candidate manifest recording dispatch adapter template absence and dispatch IR feature evidence"
+      "role": "candidate manifest recording transport adapter template absence and IR feature evidence"
     },
     {
       "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
@@ -40,15 +40,17 @@
     "status": "passed",
     "transport_candidate_cases": 6,
     "public_shell_snapshot_cases": 17,
+    "get_first_adapter_template_absent": true,
+    "get_first_ir_features": true,
     "dispatch_adapter_template_absent": true,
     "dispatch_ir_features": true,
     "active_wordpress_adapter_template_count": 2,
     "active_wordpress_profile_raw_block_count": 2
   },
   "claims": [
-    "WP_Http::_dispatch_request is no longer emitted from a compiler-owned raw PHP adapter template.",
-    "The WPHX PHP compiler core can emit method-scope static locals and dynamic class construction for bounded adapter bodies.",
-    "The WPHX-312.66 oracle/candidate fixture still matches all six deterministic transport selection/dispatch cases after the IR promotion."
+    "WP_Http::_get_first_available_transport is no longer emitted from a compiler-owned raw PHP adapter template.",
+    "Both WPHX-312.66 transport helper adapter bodies are emitted from structured WPHX PHP core IR.",
+    "The WPHX-312.66 oracle/candidate fixture still matches all six deterministic transport selection/dispatch cases after the get-first IR promotion."
   ],
   "non_claims": [
     "This does not claim full WP_Http transport dispatch ownership or whole-file WP_Http ownership.",

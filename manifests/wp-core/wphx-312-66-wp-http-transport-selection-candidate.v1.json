@@ -38,20 +38,15 @@
       "bytes": 18618,
       "sha256": "sha256:5284ddf77049eb20e26dff8399f0d3e956b85c8074b3d240eeab75d2a6aaa237"
     },
-    "transport_get_first_template": {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
-      "bytes": 831,
-      "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
-    },
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-312-66/wphx-php/wphx-php-emission.v1.json",
-      "bytes": 1524,
-      "sha256": "sha256:e56a3cd8fbdde9ca6ee706c1dba2f3329537b17fb292a0194fb959ae297109fd"
+      "bytes": 1090,
+      "sha256": "sha256:e3f3e940b6f913120a991adc2670edcceeb9f93ff9c1406216789b602ace6dc6"
     },
     "runner": {
       "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
-      "bytes": 30544,
-      "sha256": "sha256:e5019987e91b65dfbfb384a776d81a47c0648a95383e586a9ccdbd9e59ab3728"
+      "bytes": 29034,
+      "sha256": "sha256:6249c18ea2c85dffbb091b4a5f08d0874a28fc265e17cb716757b3184be7e28b"
     },
     "haxe_sources": [
       {
@@ -88,11 +83,6 @@
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
         "bytes": 1222,
         "sha256": "sha256:f740e8dcafe556ecc3227ad269c8e6bc8cea8115d138ab098f3c39aae1e7f21d"
-      },
-      {
-        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
-        "bytes": 831,
-        "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603"
       }
     ],
     "upstream_sources": [
@@ -135,26 +125,20 @@
       "WP_Http::_get_first_available_transport default transport token list",
       "WP_Http::_get_first_available_transport core transport token recognition",
       "WP_Http::_get_first_available_transport WP_Http_* class name construction",
+      "WPHX PHP core IR emission for WP_Http::_get_first_available_transport public adapter body",
       "WPHX PHP core IR emission for WP_Http::_dispatch_request private adapter body"
     ],
-    "adapter_templates": [
-      {
-        "adapter": "wp-http-transport-get-first-available",
-        "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
-        "sha256": "sha256:31aa513e76c6bb9bb99afc3e1f68c485cb60f39f0135b2b6ca0050771efe0603",
-        "ownership": "bounded_public_adapter_template",
-        "upstream_ref": "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport",
-        "placeholders": [
-          "HELPER_CLASS"
-        ]
-      }
-    ],
+    "adapter_templates": [],
     "core_ir_features": [
       "expr.dynamic-new",
+      "expr.long-array",
+      "expr.static-call",
+      "stmt.foreach",
       "stmt.static-local",
-      "wp-http.transport.dispatch-request"
+      "wp-http.transport.dispatch-request",
+      "wp-http.transport.get-first-available"
     ],
-    "promoted_behavior": "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, while WP_Http::_dispatch_request is now emitted from structured WPHX PHP core IR instead of an adapter template. Live transport behavior remains bounded to deterministic PHP fixture coverage."
+    "promoted_behavior": "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, and both WP_Http transport helper adapter bodies are emitted from structured WPHX PHP core IR instead of adapter templates. Live transport behavior remains bounded to deterministic PHP fixture coverage."
   },
   "fixture": {
     "cases": [
@@ -735,18 +719,14 @@
     "status": "passed",
     "fixture_cases": 6,
     "covered_symbols": 11,
-    "promoted_symbols": 4,
+    "promoted_symbols": 5,
     "observations_match": true,
     "observations_assert": true,
     "public_php_replacement_claimed": true,
     "compiler_emitted_public_php": true,
     "transport_shell_emitted": true,
-    "get_first_adapter_template_recorded": true,
-    "get_first_adapter_template_path": true,
-    "get_first_adapter_template_hash": true,
-    "get_first_adapter_template_placeholder": true,
-    "get_first_adapter_template_ownership": true,
-    "get_first_adapter_template_upstream_ref": true,
+    "get_first_adapter_template_absent": true,
+    "get_first_ir_features": true,
     "dispatch_adapter_template_absent": true,
     "dispatch_ir_features": true,
     "unsupported_empty": true,

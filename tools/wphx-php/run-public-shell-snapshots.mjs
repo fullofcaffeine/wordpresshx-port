@@ -256,7 +256,8 @@ const CASES = [
       "HttpTransportSelection_Fields_::coreTransportSuffix",
       "HttpTransportSelection_Fields_::transportClassName",
       "apply_filters_deprecated( 'http_api_transports'",
-      "call_user_func( array( $class, 'test' ), $args, $url )",
+      "call_user_func( array(",
+      "'test',",
       "static $transports = array();",
       "do_action( 'http_api_debug'",
       "apply_filters( 'http_response'"

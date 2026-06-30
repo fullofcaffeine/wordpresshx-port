@@ -9,7 +9,7 @@
   "recorded_at": "2026-06-30T00:00:00Z",
   "status": "passed",
   "evidence_class": "compiler_adapter_template_provenance",
-  "artifact_scope": "wp_http_transport_selection_adapter_template_and_ir",
+  "artifact_scope": "wp_http_transport_selection_adapter_ir",
   "commands": [
     "haxe fixtures/wphx-php/wp-http-transport-selection.hxml",
     "npm run wp:core:wphx-312-wp-http-transport-selection-candidate",
@@ -22,30 +22,26 @@
   "artifacts": [
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "role": "WordPress-profile transport adapters rendering compiler-owned templates and structured IR"
-    },
-    {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template",
-      "role": "compiler-owned bounded WP_Http::_get_first_available_transport public adapter template"
+      "role": "WordPress-profile transport adapters now rendered from structured IR"
     },
     {
       "path": "tools/wp-core/run-wp-http-transport-selection-candidate.mjs",
-      "role": "runner requiring get-first template provenance and dispatch IR evidence before accepting WPHX-312.66 generated shell"
+      "role": "runner requiring transport adapter template absence and IR evidence before accepting WPHX-312.66 generated shell"
     },
     {
       "path": "manifests/wp-core/wphx-312-66-wp-http-transport-selection-candidate.v1.json",
-      "role": "candidate manifest recording transport adapter template and dispatch IR shape checks"
+      "role": "candidate manifest recording transport adapter IR shape checks"
     },
     {
       "path": "manifests/wphx-php/public-shell-snapshots.v1.json",
-      "role": "public-shell snapshots regenerated with transport adapter template and IR-emitted dispatch shape"
+      "role": "public-shell snapshots regenerated with IR-emitted transport adapter shape"
     }
   ],
   "validation_result": {
     "status": "passed",
     "adapter_templates_manifest_field": true,
-    "transport_get_first_template_recorded": true,
-    "transport_get_first_template_placeholder": "HELPER_CLASS",
+    "transport_get_first_template_recorded": false,
+    "transport_get_first_emitted_from_core_ir": true,
     "transport_dispatch_template_recorded": false,
     "transport_dispatch_emitted_from_core_ir": true,
     "transport_candidate_cases": 6,
@@ -53,7 +49,7 @@
   },
   "claims": [
     "The bounded WP_Http transport-selection and dispatch adapter bodies no longer live as inline Haxe string concatenation.",
-    "The WPHX-312.66 runner requires template path, hash, placeholder list, ownership, and upstream reference evidence for the get-first generated transport shell body.",
+    "WP_Http::_get_first_available_transport is emitted from structured WPHX PHP core IR instead of a compiler-owned adapter template.",
     "WP_Http::_dispatch_request is emitted from structured WPHX PHP core IR instead of a compiler-owned adapter template.",
     "WphxPhpWordPressAdapters.hx now uses PhpRawBlock only for rendered template bodies, not inline WordPress-profile PHP source bodies."
   ],

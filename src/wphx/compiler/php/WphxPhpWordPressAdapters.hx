@@ -1021,20 +1021,60 @@ class WphxPhpWordPressAdapters
 			return missingHelper("missing @:wp.haxeHelper for WP_Http::_get_first_available_transport adapter " + fieldName);
 		}
 
-		final rendered = renderTemplate("wp-http-transport-get-first-available",
-			"src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template", "bounded_public_adapter_template",
-			"../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport", [
-			{
-				placeholder: "HELPER_CLASS",
-				value: helper
-			}
+		return plan([
+			"stmt.var",
+			"stmt.foreach",
+			"stmt.if",
+			"stmt.assign",
+			"stmt.continue",
+			"stmt.return",
+			"expr.static-call",
+			"expr.function-call",
+			"expr.long-array",
+			"wp-http.transport.get-first-available"
+		], [
+			PhpLocal("transports", PhpStaticCall(helper, "defaultTransportTokens", [])),
+			PhpLocal("request_order", PhpFunctionCall("apply_filters_deprecated", [
+				PhpString("http_api_transports"),
+				PhpLongArray([
+					{
+						key: null,
+						value: PhpVar("transports")
+					},
+					{
+						key: null,
+						value: PhpVar("args")
+					},
+					{
+						key: null,
+						value: PhpVar("url")
+					}
+				]),
+				PhpString("6.4.0")
+			])),
+			PhpForeach(PhpVar("request_order"), "transport", [
+				PhpIf(PhpStaticCall(helper, "isCoreTransportToken", [PhpCastString(PhpVar("transport"))]), [
+					PhpAssign(PhpVar("transport"), PhpStaticCall(helper, "coreTransportSuffix", [PhpCastString(PhpVar("transport"))]))
+				]),
+				PhpLocal("class", PhpStaticCall(helper, "transportClassName", [PhpCastString(PhpVar("transport"))])),
+				PhpIf(PhpNot(PhpFunctionCall("call_user_func", [
+					PhpLongArray([
+						{
+							key: null,
+							value: PhpVar("class")
+						},
+						{
+							key: null,
+							value: PhpString("test")
+						}
+					]),
+					PhpVar("args"),
+					PhpVar("url")
+				])), [PhpContinue]),
+				PhpReturn(PhpVar("class"))
+			]),
+			PhpReturn(PhpBool(false))
 		]);
-		if (rendered.error != null)
-		{
-			return templateError(rendered.error);
-		}
-
-		return plan(["stmt.raw-wordpress-boundary", "adapter.template"], [PhpRawBlock(rendered.code)], [rendered.provenance]);
 	}
 
 	static function transportDispatchRequest(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

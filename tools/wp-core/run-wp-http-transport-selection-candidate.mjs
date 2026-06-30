@@ -32,9 +32,6 @@ const CONTRACT = "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapte
 const HTTP_TRANSPORT_FIXTURE = "manifests/wp-core/wphx-312-45-http-transport-callback-test-oracle-fixture.v1.json";
 const HTTP_REQUEST_FIXTURE = "manifests/wp-core/wphx-312-46-wp-http-request-orchestration-oracle-fixture.v1.json";
 const TRANSPORT_DISPATCH_FIXTURE = "manifests/wp-core/wphx-312-48-wp-http-transport-dispatch-oracle-fixture.v1.json";
-const TRANSPORT_GET_FIRST_TEMPLATE =
-  "src/wphx/compiler/php/templates/wordpress/wp-http-transport-get-first-available-body.php.template";
-
 const SOURCE_FILES = ["src/wp-includes/class-wp-http.php"];
 const HAXE_SOURCES = [
   HXML,
@@ -43,14 +40,14 @@ const HAXE_SOURCES = [
   "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpTransportSelectionCandidateEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpTransportSelection.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpTransportSelectionEntry.hx",
-  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
-  TRANSPORT_GET_FIRST_TEMPLATE
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx"
 ];
 const HAXE_MODULE = "\\wphx\\wp\\http\\_HttpTransportSelection\\HttpTransportSelection_Fields_";
 const PROMOTED_SYMBOLS = [
   "WP_Http::_get_first_available_transport default transport token list",
   "WP_Http::_get_first_available_transport core transport token recognition",
   "WP_Http::_get_first_available_transport WP_Http_* class name construction",
+  "WPHX PHP core IR emission for WP_Http::_get_first_available_transport public adapter body",
   "WPHX PHP core IR emission for WP_Http::_dispatch_request private adapter body"
 ];
 const COVERED_SYMBOLS = [
@@ -376,7 +373,7 @@ function ownershipManifest(manifestSha) {
       name: "WP_Http deprecated transport selection naming",
       area: "src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport WP_Http::_dispatch_request",
       public_contract:
-        "This candidate promotes the deprecated WP_Http transport default token list, core token recognition, and WP_Http_* class-name construction to generated Haxe PHP. The WPHX PHP compiler now emits the private _dispatch_request adapter body from structured core IR, preserving PHP-visible apply_filters_deprecated timing/payload, static transport test calls, dispatch transport instance caching, WP_Error construction, http_api_debug action timing, http_response filtering, fake transport requests, and the public compatibility shell."
+        "This candidate promotes the deprecated WP_Http transport default token list, core token recognition, and WP_Http_* class-name construction to generated Haxe PHP. The WPHX PHP compiler now emits both transport helper adapter bodies from structured core IR, preserving PHP-visible apply_filters_deprecated timing/payload, static transport test calls, dispatch transport instance caching, WP_Error construction, http_api_debug action timing, http_response filtering, fake transport requests, and the public compatibility shell."
     },
     ownership_state: "haxe_candidate_with_public_php_shell",
     bridge: {
@@ -430,16 +427,15 @@ async function main() {
   const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
   const generatedShell = readFileSync(`${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`, "utf8");
   const transportTemplates = wphxPhpManifest.adapter_templates ?? [];
-  const getFirstTemplate = transportTemplates.find((template) => template.adapter === "wp-http-transport-get-first-available");
-  const getFirstTemplateRecorded = Boolean(getFirstTemplate);
-  const getFirstTemplatePath = getFirstTemplate?.path === TRANSPORT_GET_FIRST_TEMPLATE;
-  const getFirstTemplateHash = /^sha256:[0-9a-f]{64}$/.test(getFirstTemplate?.sha256 ?? "");
-  const getFirstTemplatePlaceholder = getFirstTemplate?.placeholders?.includes("HELPER_CLASS") === true;
-  const getFirstTemplateOwnership = getFirstTemplate?.ownership === "bounded_public_adapter_template";
-  const getFirstTemplateUpstreamRef =
-    getFirstTemplate?.upstream_ref === "../wordpress-develop/src/wp-includes/class-wp-http.php WP_Http::_get_first_available_transport";
+  const getFirstTemplateAbsent = !transportTemplates.some((template) => template.adapter === "wp-http-transport-get-first-available");
   const dispatchTemplateAbsent = !transportTemplates.some((template) => template.adapter === "wp-http-transport-dispatch-request");
   const coreIrFeatures = wphxPhpManifest.core_ir_features ?? [];
+  const getFirstIrFeatures = [
+    "stmt.foreach",
+    "expr.static-call",
+    "expr.long-array",
+    "wp-http.transport.get-first-available"
+  ].every((feature) => coreIrFeatures.includes(feature));
   const dispatchIrFeatures = [
     "stmt.static-local",
     "expr.dynamic-new",
@@ -458,7 +454,8 @@ async function main() {
     generatedShell.includes(`${HAXE_MODULE}::coreTransportSuffix`) &&
     generatedShell.includes(`${HAXE_MODULE}::transportClassName`) &&
     generatedShell.includes("apply_filters_deprecated( 'http_api_transports'") &&
-    generatedShell.includes("call_user_func( array( $class, 'test' ), $args, $url )") &&
+    generatedShell.includes("call_user_func( array(") &&
+    generatedShell.includes("'test',") &&
     generatedShell.includes("static $transports = array();") &&
     generatedShell.includes("$transports[ $class ] = new $class();") &&
     generatedShell.includes("do_action( 'http_api_debug'") &&
@@ -467,12 +464,8 @@ async function main() {
     !declaredWpHttpClass ||
     !unsupportedEmpty ||
     !transportShellEmitted ||
-    !getFirstTemplateRecorded ||
-    !getFirstTemplatePath ||
-    !getFirstTemplateHash ||
-    !getFirstTemplatePlaceholder ||
-    !getFirstTemplateOwnership ||
-    !getFirstTemplateUpstreamRef ||
+    !getFirstTemplateAbsent ||
+    !getFirstIrFeatures ||
     !dispatchTemplateAbsent ||
     !dispatchIrFeatures
   ) {
@@ -484,12 +477,8 @@ async function main() {
           declared_wp_http_class: declaredWpHttpClass,
           unsupported_empty: unsupportedEmpty,
           transport_shell_emitted: transportShellEmitted,
-          get_first_adapter_template_recorded: getFirstTemplateRecorded,
-          get_first_adapter_template_path: getFirstTemplatePath,
-          get_first_adapter_template_hash: getFirstTemplateHash,
-          get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
-          get_first_adapter_template_ownership: getFirstTemplateOwnership,
-          get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
+          get_first_adapter_template_absent: getFirstTemplateAbsent,
+          get_first_ir_features: getFirstIrFeatures,
           dispatch_adapter_template_absent: dispatchTemplateAbsent,
           dispatch_ir_features: dispatchIrFeatures,
           manifest: WPHX_PHP_MANIFEST
@@ -521,7 +510,6 @@ async function main() {
       http_transport_callback_test_fixture_manifest: inputRecord(HTTP_TRANSPORT_FIXTURE),
       http_request_orchestration_fixture_manifest: inputRecord(HTTP_REQUEST_FIXTURE),
       transport_dispatch_oracle_fixture_manifest: inputRecord(TRANSPORT_DISPATCH_FIXTURE),
-      transport_get_first_template: inputRecord(TRANSPORT_GET_FIRST_TEMPLATE),
       wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
@@ -537,21 +525,20 @@ async function main() {
       compiled_php_files: compiledPhp.split("\n").filter(Boolean).sort(),
       haxe_module: HAXE_MODULE,
       promoted_symbols: PROMOTED_SYMBOLS,
-      adapter_templates: [
-        {
-          adapter: "wp-http-transport-get-first-available",
-          path: getFirstTemplate?.path ?? null,
-          sha256: getFirstTemplate?.sha256 ?? null,
-          ownership: getFirstTemplate?.ownership ?? null,
-          upstream_ref: getFirstTemplate?.upstream_ref ?? null,
-          placeholders: getFirstTemplate?.placeholders ?? null
-        }
-      ],
+      adapter_templates: [],
       core_ir_features: coreIrFeatures.filter((feature) =>
-        ["stmt.static-local", "expr.dynamic-new", "wp-http.transport.dispatch-request"].includes(feature)
+        [
+          "stmt.foreach",
+          "expr.static-call",
+          "expr.long-array",
+          "stmt.static-local",
+          "expr.dynamic-new",
+          "wp-http.transport.get-first-available",
+          "wp-http.transport.dispatch-request"
+        ].includes(feature)
       ),
       promoted_behavior:
-        "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, while WP_Http::_dispatch_request is now emitted from structured WPHX PHP core IR instead of an adapter template. Live transport behavior remains bounded to deterministic PHP fixture coverage."
+        "The deprecated transport default token list and WP_Http_* class-name mapping in WP_Http::_get_first_available_transport are emitted by generated Haxe PHP, and both WP_Http transport helper adapter bodies are emitted from structured WPHX PHP core IR instead of adapter templates. Live transport behavior remains bounded to deterministic PHP fixture coverage."
     },
     fixture: {
       cases: CASES,
@@ -621,12 +608,8 @@ async function main() {
       public_php_replacement_claimed: true,
       compiler_emitted_public_php: true,
       transport_shell_emitted: transportShellEmitted,
-      get_first_adapter_template_recorded: getFirstTemplateRecorded,
-      get_first_adapter_template_path: getFirstTemplatePath,
-      get_first_adapter_template_hash: getFirstTemplateHash,
-      get_first_adapter_template_placeholder: getFirstTemplatePlaceholder,
-      get_first_adapter_template_ownership: getFirstTemplateOwnership,
-      get_first_adapter_template_upstream_ref: getFirstTemplateUpstreamRef,
+      get_first_adapter_template_absent: getFirstTemplateAbsent,
+      get_first_ir_features: getFirstIrFeatures,
       dispatch_adapter_template_absent: dispatchTemplateAbsent,
       dispatch_ir_features: dispatchIrFeatures,
       unsupported_empty: unsupportedEmpty,
