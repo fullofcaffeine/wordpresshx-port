@@ -38,6 +38,8 @@ class WphxPhpWordPressAdapters
 				makeAbsoluteUrl(fieldName, helper);
 			case "wp-http-block-request":
 				blockRequest(fieldName, helper);
+			case "wp-http-handle-redirects":
+				handleRedirects(fieldName, helper);
 			case _:
 				null;
 		}
@@ -402,6 +404,70 @@ class WphxPhpWordPressAdapters
 				requestHost,
 				PhpCastString(PhpFunctionCall("constant", [PhpString("WP_ACCESSIBLE_HOSTS")]))
 			]))
+		]);
+	}
+
+	static function handleRedirects(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
+	{
+		if (helper == null)
+		{
+			return missingHelper("missing @:wp.haxeHelper for WP_Http::handle_redirects adapter " + fieldName);
+		}
+
+		final url = PhpVar("url");
+		final args = PhpVar("args");
+		final response = PhpVar("response");
+		final responseCode = PhpVar("response_code");
+		final redirectLocation = PhpVar("redirect_location");
+		final cookies = PhpArrayRead(response, PhpString("cookies"));
+		final argsCookies = PhpArrayRead(args, PhpString("cookies"));
+		return plan([
+			"stmt.if",
+			"stmt.foreach",
+			"stmt.assign",
+			"stmt.var",
+			"stmt.return",
+			"expr.array-read",
+			"expr.array-append",
+			"expr.bool",
+			"expr.coerce-int",
+			"expr.coerce-string",
+			"expr.function-call",
+			"expr.method-call",
+			"expr.new",
+			"expr.static-call",
+			"expr.binop"
+		], [
+			PhpLocal("response_code", PhpCastInt(PhpArrayRead(PhpArrayRead(response, PhpString("response")), PhpString("code")))),
+			PhpIf(PhpStaticCall(helper, "shouldShortCircuit", [
+				PhpFunctionCall("isset",
+					[
+						PhpArrayRead(PhpArrayRead(response, PhpString("headers")), PhpString("location"))
+					]),
+				PhpCastInt(PhpArrayRead(args, PhpString("_redirection"))),
+				responseCode
+			]),
+				[PhpReturn(PhpBool(false))]),
+			PhpIf(PhpStaticCall(helper, "isTooManyRedirects", [PhpCastInt(PhpArrayRead(args, PhpString("redirection")))]),
+				[
+					PhpReturn(PhpNew("WP_Error",
+						[
+							PhpString("http_request_failed"),
+							PhpFunctionCall("__", [PhpString("Too many redirects.")])
+						]))
+				]),
+			PhpAssign(PhpArrayRead(args, PhpString("redirection")), PhpBinop("-", PhpArrayRead(args, PhpString("redirection")), PhpInt(1))),
+			PhpLocal("redirect_location", PhpArrayRead(PhpArrayRead(response, PhpString("headers")), PhpString("location"))),
+			PhpIf(PhpFunctionCall("is_array", [redirectLocation]), [PhpAssign(redirectLocation, PhpFunctionCall("array_pop", [redirectLocation]))]),
+			PhpAssign(redirectLocation, PhpStaticCall("self", "make_absolute_url", [redirectLocation, url])),
+			PhpIf(PhpStaticCall(helper, "shouldSwitchPostRedirectToGet", [PhpCastString(PhpArrayRead(args, PhpString("method"))), responseCode]),
+				[PhpAssign(PhpArrayRead(args, PhpString("method")), PhpString("GET"))]),
+			PhpIf(PhpNot(PhpFunctionCall("empty", [cookies])), [
+				PhpForeach(cookies, "cookie", [
+					PhpIf(PhpMethodCall(PhpVar("cookie"), "test", [redirectLocation]), [PhpAssign(PhpArrayAppend(argsCookies), PhpVar("cookie"))])
+				])
+			]),
+			PhpReturn(PhpFunctionCall("wp_remote_request", [redirectLocation, args]))
 		]);
 	}
 }

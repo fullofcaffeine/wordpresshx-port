@@ -19,6 +19,9 @@ import wphx.wp.http.HttpProcessHeaders.startsFinalResponseBlock;
 import wphx.wp.http.HttpProcessResponse.responseBody;
 import wphx.wp.http.HttpProcessResponse.responseHeaders;
 import wphx.wp.http.HttpRedirectCompatibility.shouldUseBrowserGet;
+import wphx.wp.http.HttpRedirectOrchestration.isTooManyRedirects;
+import wphx.wp.http.HttpRedirectOrchestration.shouldShortCircuit;
+import wphx.wp.http.HttpRedirectOrchestration.shouldSwitchPostRedirectToGet;
 import wphx.wp.http.HttpRedirectValidation.shouldRejectRedirect;
 
 /**
@@ -49,5 +52,8 @@ class HttpGroupedHelpersCandidateEntry
 			false, "", false);
 		isLocalRequest("localhost", "site.example.test");
 		shouldBlockExternalHost("api.wordpress.org", "*.wordpress.org");
+		shouldShortCircuit(false, 5, 302);
+		isTooManyRedirects(0);
+		shouldSwitchPostRedirectToGet("POST", 302);
 	}
 }

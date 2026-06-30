@@ -17,6 +17,7 @@ class HttpGroupedHelpersEntry
 		WpHttpGroupedHelpersShell.make_absolute_url("../img/logo.png", "https://example.test/wp-admin/css/edit.css");
 		final shell:WpHttpGroupedHelpersShell = cast null;
 		shell.block_request("https://example.test/");
+		WpHttpGroupedHelpersShell.handle_redirects("https://example.test/", cast null, cast null);
 		// WPHX-211: compile anchor only; runtime PHP receives a native by-ref request array from the probe.
 		WpHttpGroupedHelpersShell.buildCookieHeader(cast null);
 	}

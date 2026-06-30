@@ -94,4 +94,11 @@ class WpHttpGroupedHelpersShell
 	{
 		return HaxeHttpBlockRequestPolicy.isLocalRequest(uri, "");
 	}
+
+	@:wp.adapter("wp-http-handle-redirects")
+	@:wp.haxeHelper("\\wphx\\wp\\http\\_HttpRedirectOrchestration\\HttpRedirectOrchestration_Fields_")
+	public static function handle_redirects(url:String, args:NativeValue, response:NativeValue):NativeValue
+	{
+		return HaxeHttpRedirectOrchestration.shouldShortCircuit(false, 0, 302);
+	}
 }

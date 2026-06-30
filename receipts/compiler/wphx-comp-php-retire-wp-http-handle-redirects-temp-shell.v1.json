@@ -1,0 +1,66 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-retire-wp-http-handle-redirects-temp-shell",
+  "issue": {
+    "id": "wordpresshx-1qx",
+    "external_ref": "WPHX-COMP-PHP-RETIRE-WP-HTTP-HANDLE-REDIRECTS-TEMP-SHELL",
+    "title": "Use generated shell in WPHX-312.59"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_emitted_original_path_shell_retirement",
+  "artifact_scope": "wp_http_handle_redirects_public_adapter",
+  "commands": [
+    "npm run format:haxe",
+    "npm run wphx:php:wp-http-grouped-helpers",
+    "npm run wphx:php:wp-http-grouped-helpers:check",
+    "npm run wp:core:wphx-312-wp-http-redirect-orchestration-candidate",
+    "npm run wp:core:wphx-312-wp-http-redirect-orchestration-candidate:check",
+    "npm run wphx:php:public-shell-snapshots:check"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile adapter plan for WP_Http::handle_redirects"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
+      "role": "typed shell metadata for the grouped WP_Http handle_redirects adapter"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpRedirectOrchestration.hx",
+      "role": "typed extern bridge to the generated Haxe redirect orchestration helper"
+    },
+    {
+      "path": "manifests/wphx-php/grouped-wp-http-helpers.v1.json",
+      "role": "grouped WP_Http helper compiler manifest proving fifteen adapter cases"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+      "role": "WPHX-312.59 oracle/candidate manifest using the compiler-emitted original-path public shell"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-59-wp-http-redirect-orchestration-candidate.v1.json",
+      "role": "behavior receipt for the retired temporary shell candidate"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "grouped_wp_http_helpers_cases": 15,
+    "redirect_orchestration_candidate_cases": 1,
+    "compiler_emitted_public_php": true,
+    "handle_redirects_emitted": true,
+    "unsupported_empty": true,
+    "public_shell_snapshot_cases": 11
+  },
+  "claims": [
+    "WPHX PHP emits the original-path WP_Http::handle_redirects public static adapter in the grouped class-wp-http.php shell.",
+    "The WPHX-312.59 candidate no longer copies and patches a PHP method body in its runner.",
+    "PHP still owns native Location header array handling, redirect budget mutation, WP_Error construction, WP_Http_Cookie::test, self::make_absolute_url, and wp_remote_request dispatch while Haxe owns bounded redirect short-circuit, too-many-redirects, and POST 302/303-to-GET decisions."
+  ],
+  "non_claims": [
+    "This does not claim whole-file WP_Http ownership.",
+    "This does not claim full WP_Http::request ownership, live redirect following, Requests network I/O, DNS/proxy/TLS behavior, installed distribution behavior, or generated WP_Http_Cookie ownership.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}
