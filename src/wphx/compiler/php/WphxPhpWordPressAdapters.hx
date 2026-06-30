@@ -1207,6 +1207,7 @@ class WphxPhpWordPressAdapters
 
 		final headRedirectionDefaultHelper = namedHelper(helpers, "headRedirectionDefault");
 		final methodOptionsHelper = namedHelper(helpers, "methodOptions");
+		final redirectOptionsHelper = namedHelper(helpers, "redirectOptions");
 		final safetyOptionsHelper = namedHelper(helpers, "safetyOptions");
 		final streamBlockingHelper = namedHelper(helpers, "streamBlocking");
 		final url = PhpVar("url");
@@ -1254,6 +1255,10 @@ class WphxPhpWordPressAdapters
 		{
 			features.push("wp-http.request.method-options-helper");
 		}
+		if (redirectOptionsHelper != null)
+		{
+			features.push("wp-http.request.redirect-options-helper");
+		}
 		if (streamBlockingHelper != null)
 		{
 			features.push("wp-http.request.stream-blocking-helper");
@@ -1274,6 +1279,8 @@ class WphxPhpWordPressAdapters
 				[PhpAssign(read(parsedArgs, "blocking"), PhpBool(true))]);
 		final methodBodyFormatCondition = methodOptionsHelper == null ? PhpBinop("&&", PhpBinop("!==", PhpString("HEAD"), type),
 			PhpBinop("!==", PhpString("GET"), type)) : PhpStaticCall(methodOptionsHelper, "shouldUseBodyDataFormat", [PhpCastString(type)]);
+		final redirectDisableCondition = redirectOptionsHelper == null ? PhpFunctionCall("empty",
+			[read(parsedArgs, "redirection")]) : PhpStaticCall(redirectOptionsHelper, "shouldDisableRedirects", [PhpCastInt(read(parsedArgs, "redirection"))]);
 
 		return plan(features, [
 			PhpLocal("defaults",
@@ -1398,7 +1405,7 @@ class WphxPhpWordPressAdapters
 						]))
 				]),
 			PhpIf(read(parsedArgs, "stream"), [PhpAssign(read(options, "filename"), read(parsedArgs, "filename"))]),
-			PhpIfElse(PhpFunctionCall("empty", [read(parsedArgs, "redirection")]), [PhpAssign(read(options, "follow_redirects"), PhpBool(false))],
+			PhpIfElse(redirectDisableCondition, [PhpAssign(read(options, "follow_redirects"), PhpBool(false))],
 				[PhpAssign(read(options, "redirects"), read(parsedArgs, "redirection"))]),
 			PhpIf(PhpFunctionCall("isset", [read(parsedArgs, "limit_response_size")]),
 				[PhpAssign(read(options, "max_bytes"), read(parsedArgs, "limit_response_size"))]),

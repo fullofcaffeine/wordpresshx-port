@@ -5,6 +5,7 @@ import wphx.wp.http.HttpBlockRequestPolicy.shouldBlockExternalHost;
 import wphx.wp.http.HttpRequestHeadRedirectionDefault.shouldDisableHeadDefaultRedirection;
 import wphx.wp.http.HttpRequestMethodOptions.shouldUseBodyDataFormat;
 import wphx.wp.http.HttpRequestNonblocking.nonblockingResponse;
+import wphx.wp.http.HttpRequestRedirectOptions.shouldDisableRedirects;
 import wphx.wp.http.HttpRequestSafetyOptions.shouldRegisterRedirectValidation;
 import wphx.wp.http.HttpRequestStreamBlocking.shouldForceBlockingForStream;
 import wphx.wp.http.HttpProcessHeaders.headerKey;
@@ -21,6 +22,7 @@ class HttpRequestSafetyOptionsCandidateEntry
 		shouldBlockExternalHost("blocked.example", "example.test");
 		shouldDisableHeadDefaultRedirection(true, "HEAD");
 		shouldUseBodyDataFormat("POST");
+		shouldDisableRedirects(0);
 		headerKey("X-Test: yes");
 		shouldRegisterRedirectValidation(true, true);
 		shouldForceBlockingForStream(true);
