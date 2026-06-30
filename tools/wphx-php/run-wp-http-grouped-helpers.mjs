@@ -46,6 +46,7 @@ const HAXE_SOURCES = [
   "src/wphx/wp/http/HttpCookieHeaderAssembly.hx",
   "src/wphx/wp/http/HttpProcessHeaders.hx",
   "src/wphx/wp/http/HttpIpAddress.hx",
+  "src/wphx/wp/http/HttpRedirectCompatibility.hx",
   "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpGroupedHelpersCandidateEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpGroupedHelpersEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
@@ -55,6 +56,7 @@ const HAXE_SOURCES = [
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieHeaderAssembly.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessHeaders.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpIpAddress.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpRedirectCompatibility.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx"
 ];
 const CASES = [
@@ -63,7 +65,8 @@ const CASES = [
   "wp-http-parser:parse-url-wrapper",
   "wp-http-parser:build-cookie-header",
   "wp-http-parser:process-headers",
-  "wp-http:is-ip-address"
+  "wp-http:is-ip-address",
+  "wp-http:browser-redirect-compatibility"
 ];
 const REQUIRED_CORE_IR_FEATURES = [
   "stmt.if",
@@ -84,6 +87,8 @@ const REQUIRED_CORE_IR_FEATURES = [
   "expr.coerce-string",
   "expr.long-array",
   "expr.new",
+  "expr.object-property",
+  "expr.class-const",
   "expr.function-call",
   "expr.method-call",
   "expr.static-call",
@@ -154,7 +159,17 @@ namespace WpOrg\\Requests {
 \t}
 
 \tclass Requests {
+\t\tpublic const GET = 'GET';
+
 \t\tpublic static function set_certificate_path( $path ) {}
+\t}
+
+\tclass Response {
+\t\tpublic $status_code;
+
+\t\tpublic function __construct( $status_code = 200 ) {
+\t\t\t$this->status_code = $status_code;
+\t\t}
 \t}
 }
 
@@ -334,6 +349,20 @@ switch ( $case ) {
 \t\t$assertions['host_false'] = false === $result['addresses']['host'];
 \t\t$assertions['regex_shaped_invalid_ipv4_returns_4'] = 4 === $result['addresses']['regex_shaped_invalid_ipv4'];
 \t\tbreak;
+\tcase 'wp-http:browser-redirect-compatibility':
+\t\t$reflection = new ReflectionMethod( 'WP_Http', 'browser_redirect_compatibility' );
+\t\t$params = $reflection->getParameters();
+\t\t$options302 = array( 'type' => 'POST' );
+\t\tWP_Http::browser_redirect_compatibility( 'https://redirect.example/next', array(), 'payload', $options302, new WpOrg\\Requests\\Response( 302 ) );
+\t\t$options301 = array( 'type' => 'POST' );
+\t\tWP_Http::browser_redirect_compatibility( 'https://redirect.example/next', array(), 'payload', $options301, new WpOrg\\Requests\\Response( 301 ) );
+\t\t$result['options_302'] = $options302;
+\t\t$result['options_301'] = $options301;
+\t\t$result['reflection'] = array( 'visibility' => $reflection->isPublic() ? 'public' : 'non-public', 'static' => $reflection->isStatic(), 'params' => array_map( function ( $param ) { return array( 'name' => $param->getName(), 'by_ref' => $param->isPassedByReference() ); }, $params ) );
+\t\t$assertions['reflection'] = $reflection->isPublic() && $reflection->isStatic() && 5 === count( $params ) && 'options' === $params[3]->getName() && $params[3]->isPassedByReference();
+\t\t$assertions['status_302_switches_to_get'] = 'GET' === $options302['type'];
+\t\t$assertions['status_301_preserves_type'] = 'POST' === $options301['type'];
+\t\tbreak;
 \tdefault:
 \t\t$assertions['known_case'] = false;
 }
@@ -364,10 +393,10 @@ function ownershipManifest(manifestSha) {
     issue: ISSUE,
     unit: {
       kind: "compiler-emitted-original-path-public-shell",
-      name: "Grouped WP_Http parser/header/cookie/IP helper shell",
+      name: "Grouped WP_Http parser/header/cookie/IP/redirect helper shell",
       path: "wp-includes/class-wp-http.php",
       public_contract:
-        "One generated WP_Http class shell must preserve processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), and is_ip_address($maybe_ip) ABI and behavior gates in one original-path file."
+        "One generated WP_Http class shell must preserve processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), is_ip_address($maybe_ip), and browser_redirect_compatibility(..., &$options, $original) ABI and behavior gates in one original-path file."
     },
     ownership_state: "compiler_emitted_original_path_shell",
     ownership_axes: {
@@ -438,12 +467,18 @@ function main() {
       /protected\s+static\s+function\s+parse_url\s*\(\s*\$url\s*\)/.test(generatedSource) &&
       /public\s+static\s+function\s+buildCookieHeader\s*\(\s*&\$r\s*\)/.test(generatedSource) &&
       /public\s+static\s+function\s+processHeaders\s*\(\s*\$headers\s*,\s*\$url\s*=\s*''\s*\)/.test(generatedSource) &&
-      /public\s+static\s+function\s+is_ip_address\s*\(\s*\$maybe_ip\s*\)/.test(generatedSource),
+      /public\s+static\s+function\s+is_ip_address\s*\(\s*\$maybe_ip\s*\)/.test(generatedSource) &&
+      /public\s+static\s+function\s+browser_redirect_compatibility\s*\(\s*\$location\s*,\s*\$headers\s*,\s*\$data\s*,\s*&\$options\s*,\s*\$original\s*\)/.test(
+        generatedSource
+      ),
     one_wp_http_class: (generatedSource.match(/class WP_Http/g) ?? []).length === 1,
     wordpress_bootstrap_profile: generatedSource.includes("HAXE_CUSTOM_ERROR_HANDLER") && generatedSource.includes("WPHX_WP_HTTP_GROUPED_HELPERS_BOOTSTRAPPED"),
     parser_delegation: generatedSource.includes("HttpProcessResponse_Fields_::responseHeaders") && generatedSource.includes("HttpChunkTransferDecode_Fields_::decodeChunkTransfer"),
     header_cookie_ir: generatedSource.includes("$r['headers']['cookie'] = $cookies_header;") && generatedSource.includes("$cookies[] = new WP_Http_Cookie( $value, $url );"),
-    ip_address_delegation: generatedSource.includes("HttpIpAddress_Fields_::ipAddressVersion")
+    ip_address_delegation: generatedSource.includes("HttpIpAddress_Fields_::ipAddressVersion"),
+    redirect_compatibility_ir:
+      generatedSource.includes("HttpRedirectCompatibility_Fields_::shouldUseBrowserGet") &&
+      generatedSource.includes("$options['type'] = \\WpOrg\\Requests\\Requests::GET;")
   };
   if (!Object.values(shellChecks).every(Boolean)) {
     console.error(JSON.stringify({ status: "failed", reason: "shell checks failed", shellChecks, declarations, unsupported: wphxManifest.unsupported }, null, 2));
@@ -486,7 +521,8 @@ function main() {
         "WP_Http::parse_url",
         "WP_Http::buildCookieHeader",
         "WP_Http::processHeaders",
-        "WP_Http::is_ip_address"
+        "WP_Http::is_ip_address",
+        "WP_Http::browser_redirect_compatibility"
       ]
     },
     claims: {
@@ -525,9 +561,9 @@ function main() {
     ],
     validation_result: manifest.validation_result,
     claims: [
-      "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), and is_ip_address($maybe_ip).",
-      "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all six helper cases, and WPHX PHP manifest unsupported=[].",
-      "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers and direct static-helper IP detection."
+      "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), is_ip_address($maybe_ip), and browser_redirect_compatibility(..., &$options, $original).",
+      "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all seven helper cases, and WPHX PHP manifest unsupported=[].",
+      "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers, direct static-helper IP detection, object-property reads, class constants, and by-reference redirect option mutation."
     ],
     non_claims: [
       "This does not claim whole-file WP_Http ownership.",

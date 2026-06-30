@@ -110,7 +110,9 @@ private enum PhpCoreExpr
 	PhpLongArray(entries:Array<PhpCoreArrayEntry>);
 	PhpNew(className:String, args:Array<PhpCoreExpr>);
 	PhpStaticCall(className:String, method:String, args:Array<PhpCoreExpr>);
+	PhpClassConst(className:String, constName:String);
 	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
+	PhpObjectProperty(target:PhpCoreExpr, property:String);
 	PhpFunctionCall(name:String, args:Array<PhpCoreExpr>);
 	PhpBinop(op:String, left:PhpCoreExpr, right:PhpCoreExpr);
 	PhpAssignExpr(target:PhpCoreExpr, value:PhpCoreExpr);
@@ -959,6 +961,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 					emitWpHttpBuildCookieHeaderBody(field);
 				case "wp-http-is-ip-address":
 					emitWpHttpIsIpAddressBody(field);
+				case "wp-http-browser-redirect-compatibility":
+					emitWpHttpBrowserRedirectCompatibilityBody(field);
 				case _:
 					reportUnsupported("unsupported WPHX PHP method adapter " + adapter + " for " + field.name);
 					"";
@@ -1130,6 +1134,32 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return emitPhpCoreStatements(statements);
 	}
 
+	function emitWpHttpBrowserRedirectCompatibilityBody(field:ClassField):String
+	{
+		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
+		if (helper == null)
+		{
+			reportUnsupported("missing @:wp.haxeHelper for WP_Http::browser_redirect_compatibility adapter " + field.name);
+			return "";
+		}
+
+		recordCoreIrFeatures([
+			"stmt.if",
+			"stmt.assign",
+			"expr.array-write-target",
+			"expr.object-property",
+			"expr.class-const",
+			"expr.static-call",
+			"expr.coerce-int"
+		]);
+
+		return emitPhpCoreStatements([
+			PhpIf(PhpStaticCall(helper, "shouldUseBrowserGet", [PhpCastInt(PhpObjectProperty(PhpVar("original"), "status_code"))]), [
+				PhpAssign(PhpArrayRead(PhpVar("options"), PhpString("type")), PhpClassConst("\\WpOrg\\Requests\\Requests", "GET"))
+			])
+		]);
+	}
+
 	function emitWpHttpIsIpAddressBody(field:ClassField):String
 	{
 		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
@@ -1250,11 +1280,15 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				emitPhpCoreNew(className, args, depth);
 			case PhpStaticCall(className, method, args):
 				className + "::" + phpIdent(method) + emitPhpCoreCallArgs(args, depth);
+			case PhpClassConst(className, constName):
+				className + "::" + phpIdent(constName);
 			case PhpMethodCall(target, method, args):
 				emitPhpCoreExpr(target, depth)
 				+ "->"
 				+ phpIdent(method)
 				+ emitPhpCoreCallArgs(args, depth);
+			case PhpObjectProperty(target, property):
+				emitPhpCoreExpr(target, depth) + "->" + phpIdent(property);
 			case PhpFunctionCall(name, args):
 				name + emitPhpCoreCallArgs(args, depth);
 			case PhpBinop(op, left, right):

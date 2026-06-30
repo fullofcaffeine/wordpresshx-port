@@ -51,8 +51,8 @@
       },
       {
         "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-        "bytes": 52804,
-        "sha256": "sha256:1a419741c82f93594e53dd92d29baaa45f4e4ad687de2bfae5f348a23796ba2e"
+        "bytes": 54008,
+        "sha256": "sha256:00108a1f8d196713bd95afaeb91fb4370fd52da695faa14c7829657448f20c9d"
       },
       {
         "path": "src/wphx/wp/http/HttpProcessResponse.hx",
@@ -85,19 +85,24 @@
         "sha256": "sha256:c5cb39d22a382e67b52fcd718edfc38f9bd3b8b4d8abcdbe7aba4dc01f6374ae"
       },
       {
+        "path": "src/wphx/wp/http/HttpRedirectCompatibility.hx",
+        "bytes": 111,
+        "sha256": "sha256:b76469f2d6f78eab0f82e2e2260728fcc3430f3cd6cb6c503099ba9d7849eb6c"
+      },
+      {
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpGroupedHelpersCandidateEntry.hx",
-        "bytes": 1592,
-        "sha256": "sha256:e4b3859aa083eff23726c136938c74fdfefbde476895501e21c6ad6c695c8b17"
+        "bytes": 1687,
+        "sha256": "sha256:4425731ad7b68ecf477f1564546bf19a0e51f12307684a6015dc82b2bbca8774"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpGroupedHelpersEntry.hx",
-        "bytes": 609,
-        "sha256": "sha256:6b13f44c38f89afd41b097701ca1c996f57d8e9d83e3746abd8794c954efed13"
+        "bytes": 827,
+        "sha256": "sha256:f992e30b1a4ea27ad7b35d4244243941c8531c44cc6d14a0dbebb8e67fe284e4"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
-        "bytes": 2292,
-        "sha256": "sha256:bd8bca2ec3139427eadfe538d8a33ce0ea50bbc8f4ff1c18cf2dea7f1e8b18a7"
+        "bytes": 2691,
+        "sha256": "sha256:b01617041b66fb522ccd08fb4c0d646c4053b151050469ff9b3248439c9cb7c0"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
@@ -130,14 +135,19 @@
         "sha256": "sha256:850a6ae2c6b741aa53d0f4a0ed40ca63722a39f8a83c1a6582980bfcb7c4776e"
       },
       {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpRedirectCompatibility.hx",
+        "bytes": 321,
+        "sha256": "sha256:e0a33410aa9307f5c8b29634c443bf899f1ce70eb5243b2154bfd7c951077670"
+      },
+      {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx",
         "bytes": 302,
         "sha256": "sha256:edf69b94b36c3034e065d6580bffc179cf3b4eb6d552cbe7664df1e0d735288c"
       },
       {
         "path": "tools/wphx-php/run-wp-http-grouped-helpers.mjs",
-        "bytes": 27158,
-        "sha256": "sha256:f3f4a1b3157db8c3ec995874d11e90e19a2d916861c12d013807be9f638d3001"
+        "bytes": 29540,
+        "sha256": "sha256:e96b92863d01ea44859f1efa5078e9d00fc53d5ce1587233a67ff7fa34454407"
       }
     ],
     "upstream_sources": [
@@ -156,16 +166,16 @@
     ],
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-comp-php-group-wp-http/generated/wphx-php-emission.v1.json",
-      "bytes": 1162,
-      "sha256": "sha256:4af593a25fc03508fa310a6d651a1c4454c3ccca5ca92c1ffaaf6cb6f95df325"
+      "bytes": 1214,
+      "sha256": "sha256:f8c37ebf3ea04c384c60b326bbb73f4bf8e30c4acea7ff7dc515456eca620ea2"
     }
   },
   "generated": {
     "root": "build/wp-core/wphx-comp-php-group-wp-http/generated",
     "shell": {
       "path": "build/wp-core/wphx-comp-php-group-wp-http/generated/wp-includes/class-wp-http.php",
-      "bytes": 4061,
-      "sha256": "sha256:148df32215ba5af1a40e7ff6eae640a6ad71672eeecea37c638969d378719d5f"
+      "bytes": 4368,
+      "sha256": "sha256:f388e066eeeb7639cb4de5ea56235594be0f27445001047dc009d5d6285a5716"
     },
     "support_files": [
       {
@@ -184,12 +194,14 @@
       "expr.array-write-target",
       "expr.assign",
       "expr.binop",
+      "expr.class-const",
       "expr.coerce-int",
       "expr.coerce-string",
       "expr.function-call",
       "expr.long-array",
       "expr.method-call",
       "expr.new",
+      "expr.object-property",
       "expr.static-call",
       "stmt.assign",
       "stmt.break",
@@ -210,7 +222,8 @@
     "wp-http-parser:parse-url-wrapper",
     "wp-http-parser:build-cookie-header",
     "wp-http-parser:process-headers",
-    "wp-http:is-ip-address"
+    "wp-http:is-ip-address",
+    "wp-http:browser-redirect-compatibility"
   ],
   "observations": {
     "oracle": {
@@ -472,6 +485,46 @@
           "ipv6": true,
           "host_false": true,
           "regex_shaped_invalid_ipv4_returns_4": true
+        }
+      },
+      "wp-http:browser-redirect-compatibility": {
+        "case": "wp-http:browser-redirect-compatibility",
+        "options_302": {
+          "type": "GET"
+        },
+        "options_301": {
+          "type": "POST"
+        },
+        "reflection": {
+          "visibility": "public",
+          "static": true,
+          "params": [
+            {
+              "name": "location",
+              "by_ref": false
+            },
+            {
+              "name": "headers",
+              "by_ref": false
+            },
+            {
+              "name": "data",
+              "by_ref": false
+            },
+            {
+              "name": "options",
+              "by_ref": true
+            },
+            {
+              "name": "original",
+              "by_ref": false
+            }
+          ]
+        },
+        "assertions": {
+          "reflection": true,
+          "status_302_switches_to_get": true,
+          "status_301_preserves_type": true
         }
       }
     },
@@ -735,6 +788,46 @@
           "host_false": true,
           "regex_shaped_invalid_ipv4_returns_4": true
         }
+      },
+      "wp-http:browser-redirect-compatibility": {
+        "case": "wp-http:browser-redirect-compatibility",
+        "options_302": {
+          "type": "GET"
+        },
+        "options_301": {
+          "type": "POST"
+        },
+        "reflection": {
+          "visibility": "public",
+          "static": true,
+          "params": [
+            {
+              "name": "location",
+              "by_ref": false
+            },
+            {
+              "name": "headers",
+              "by_ref": false
+            },
+            {
+              "name": "data",
+              "by_ref": false
+            },
+            {
+              "name": "options",
+              "by_ref": true
+            },
+            {
+              "name": "original",
+              "by_ref": false
+            }
+          ]
+        },
+        "assertions": {
+          "reflection": true,
+          "status_302_switches_to_get": true,
+          "status_301_preserves_type": true
+        }
       }
     },
     "matches": true
@@ -752,7 +845,8 @@
     "wordpress_bootstrap_profile": true,
     "parser_delegation": true,
     "header_cookie_ir": true,
-    "ip_address_delegation": true
+    "ip_address_delegation": true,
+    "redirect_compatibility_ir": true
   },
   "validation_result": {
     "status": "passed",
@@ -765,7 +859,8 @@
       "WP_Http::parse_url",
       "WP_Http::buildCookieHeader",
       "WP_Http::processHeaders",
-      "WP_Http::is_ip_address"
+      "WP_Http::is_ip_address",
+      "WP_Http::browser_redirect_compatibility"
     ]
   },
   "claims": {

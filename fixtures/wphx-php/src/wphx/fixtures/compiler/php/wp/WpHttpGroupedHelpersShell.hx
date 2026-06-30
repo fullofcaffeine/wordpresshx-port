@@ -65,4 +65,12 @@ class WpHttpGroupedHelpersShell
 	{
 		return HaxeHttpIpAddress.ipAddressVersion(maybeIp);
 	}
+
+	@:wp.adapter("wp-http-browser-redirect-compatibility")
+	@:wp.haxeHelper("\\wphx\\wp\\http\\_HttpRedirectCompatibility\\HttpRedirectCompatibility_Fields_")
+	public static function browser_redirect_compatibility(location:NativeValue, headers:NativeValue, data:NativeValue, @:wp.byRef options:NativeValue,
+			original:NativeValue):Void
+	{
+		HaxeHttpRedirectCompatibility.shouldUseBrowserGet(302);
+	}
 }
