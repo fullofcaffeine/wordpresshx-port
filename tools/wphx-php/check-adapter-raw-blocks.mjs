@@ -1,12 +1,16 @@
 #!/usr/bin/env node
 import { createHash } from "node:crypto";
+import { execFileSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { mkdtempSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
 
 const checkOnly = process.argv.includes("--check");
 const OUT = "manifests/wphx-php/adapter-raw-block-policy.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-adapter-raw-block-policy.v1.json";
 const REFERENCE_RECEIPT = "receipts/compiler/wphx-comp-php-adapter-template-reference-policy.v1.json";
+const CONTENT_RECEIPT = "receipts/compiler/wphx-comp-php-adapter-template-content-policy.v1.json";
 const RECORDED_AT = "2026-06-30T00:00:00Z";
 const PROFILE = "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx";
 const TEMPLATE_DIR = "src/wphx/compiler/php/templates/wordpress";
@@ -19,6 +23,11 @@ const REFERENCE_ISSUE = {
   id: "wordpresshx-65c",
   external_ref: "WPHX-COMP-PHP-ADAPTER-TEMPLATE-REFERENCE-GUARD",
   title: "Guard adapter template references"
+};
+const CONTENT_ISSUE = {
+  id: "wordpresshx-ssb",
+  external_ref: "WPHX-COMP-PHP-ADAPTER-TEMPLATE-CONTENT-GUARD",
+  title: "Guard adapter template contents"
 };
 
 function sha256(value) {
@@ -77,12 +86,21 @@ function templateReferences() {
   while ((match = renderTemplate.exec(source)) !== null) {
     const path = match[2];
     const exists = existsSync(path);
+    const callEnd = source.indexOf("]);", match.index);
+    const callSource = callEnd === -1 ? source.slice(match.index) : source.slice(match.index, callEnd + 3);
+    const declaredPlaceholders = [];
+    const declaredPlaceholder = /placeholder:\s*"([^"]+)"/g;
+    let placeholderMatch;
+    while ((placeholderMatch = declaredPlaceholder.exec(callSource)) !== null) {
+      declaredPlaceholders.push(placeholderMatch[1]);
+    }
     references.push({
       adapter: match[1],
       path,
       line: lineNumberForOffset(source, match.index),
       exists,
-      sha256: exists ? sha256File(path) : null
+      sha256: exists ? sha256File(path) : null,
+      declared_placeholders: declaredPlaceholders.sort()
     });
   }
   return references.sort((a, b) => a.path.localeCompare(b.path) || a.adapter.localeCompare(b.adapter));
@@ -101,6 +119,108 @@ function renderTemplateCallSites() {
         }
       ];
     });
+}
+
+function placeholderInspection(path) {
+  const source = readFileSync(path, "utf8");
+  const tokenRanges = [];
+  const placeholders = [];
+  const placeholder = /\{\{([A-Z][A-Z0-9_]*)\}\}/g;
+  let match;
+  while ((match = placeholder.exec(source)) !== null) {
+    tokenRanges.push({
+      start: match.index,
+      end: match.index + match[0].length
+    });
+    placeholders.push(match[1]);
+  }
+
+  const malformed = [];
+  for (const token of ["{{", "}}"]) {
+    let offset = source.indexOf(token);
+    while (offset !== -1) {
+      const inRecognizedToken = tokenRanges.some((range) => offset >= range.start && offset < range.end);
+      if (!inRecognizedToken) {
+        malformed.push({
+          token,
+          line: lineNumberForOffset(source, offset)
+        });
+      }
+      offset = source.indexOf(token, offset + token.length);
+    }
+  }
+
+  return {
+    placeholders: [...new Set(placeholders)].sort(),
+    malformed
+  };
+}
+
+function renderForLint(path, placeholders) {
+  let code = readFileSync(path, "utf8");
+  for (const placeholder of placeholders) {
+    code = code.split(`{{${placeholder}}}`).join("WPHX_TemplateLintHelper");
+  }
+  return code;
+}
+
+function normalizePhpLintOutput(output, tempDir) {
+  return output.trim().split(tempDir).join("<wphx-template-lint>");
+}
+
+function lintWrappedTemplate(reference) {
+  const rendered = renderForLint(reference.path, reference.template_placeholders);
+  const wrapped = `<?php
+class WPHX_TemplateLintHelper {
+\tpublic static function defaultTransportTokens() { return array(); }
+\tpublic static function isCoreTransportToken( $transport ) { return false; }
+\tpublic static function coreTransportSuffix( $transport ) { return $transport; }
+\tpublic static function transportClassName( $transport ) { return 'WPHX_TemplateLintTransport'; }
+\tpublic static function nonblockingResponse( $url, $parsed_args ) { return array(); }
+}
+class WPHX_TemplateLintTransport {
+\tpublic static function test( $args, $url ) { return true; }
+\tpublic function request( $url, $args ) { return array(); }
+}
+class WPHX_TemplateLintScope {
+\tpublic function block_request( $url ) { return false; }
+\tpublic function _get_first_available_transport( $args, $url ) { return 'WPHX_TemplateLintTransport'; }
+\tpublic function __wphx_lint( $data = array(), $requested_url = '', $args = array(), $url = '' ) {
+${rendered}
+\t}
+}
+`;
+  const tempDir = mkdtempSync(join(tmpdir(), "wphx-template-lint-"));
+  const lintPath = join(tempDir, `${reference.adapter}.php`);
+  try {
+    writeFileSync(lintPath, wrapped);
+    const output = execFileSync("php", ["-l", lintPath], {
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "pipe"]
+    });
+    return {
+      adapter: reference.adapter,
+      path: reference.path,
+      status: "passed",
+      rendered_sha256: sha256(rendered),
+      wrapped_sha256: sha256(wrapped),
+      php_lint_output: normalizePhpLintOutput(output, tempDir)
+    };
+  } catch (error) {
+    return {
+      adapter: reference.adapter,
+      path: reference.path,
+      status: "failed",
+      rendered_sha256: sha256(rendered),
+      wrapped_sha256: sha256(wrapped),
+      php_lint_output: normalizePhpLintOutput(`${error.stdout ?? ""}${error.stderr ?? ""}`, tempDir)
+    };
+  } finally {
+    rmSync(tempDir, {
+      recursive: true,
+      force: true
+    });
+  }
 }
 
 const occurrences = rawBlockOccurrences();
@@ -125,12 +245,32 @@ const duplicateAdapters = references
   .filter((adapter, index, adapters) => adapters.indexOf(adapter) !== index)
   .filter((adapter, index, adapters) => adapters.indexOf(adapter) === index)
   .sort();
+
+const existingReferences = references
+  .filter((reference) => reference.exists)
+  .map((reference) => {
+    const inspection = placeholderInspection(reference.path);
+    return {
+      ...reference,
+      template_placeholders: inspection.placeholders,
+      malformed_placeholders: inspection.malformed,
+      placeholder_contract_matches:
+        JSON.stringify(reference.declared_placeholders) === JSON.stringify(inspection.placeholders)
+    };
+  });
+const malformedTemplatePlaceholders = existingReferences.filter((reference) => reference.malformed_placeholders.length > 0);
+const placeholderContractMismatches = existingReferences.filter((reference) => !reference.placeholder_contract_matches);
+const templateLintResults = existingReferences.map(lintWrappedTemplate);
+const templateLintFailures = templateLintResults.filter((result) => result.status !== "passed");
 if (
   unparsedTemplateReferences.length > 0 ||
   missingTemplateReferences.length > 0 ||
   orphanTemplates.length > 0 ||
   externalTemplateReferences.length > 0 ||
-  duplicateAdapters.length > 0
+  duplicateAdapters.length > 0 ||
+  malformedTemplatePlaceholders.length > 0 ||
+  placeholderContractMismatches.length > 0 ||
+  templateLintFailures.length > 0
 ) {
   console.error(
     JSON.stringify(
@@ -140,7 +280,10 @@ if (
         missing_template_references: missingTemplateReferences,
         orphan_templates: orphanTemplates,
         external_template_references: externalTemplateReferences,
-        duplicate_adapters: duplicateAdapters
+        duplicate_adapters: duplicateAdapters,
+        malformed_template_placeholders: malformedTemplatePlaceholders,
+        placeholder_contract_mismatches: placeholderContractMismatches,
+        template_lint_failures: templateLintFailures
       },
       null,
       2
@@ -161,7 +304,8 @@ const manifest = {
   },
   template_directory: TEMPLATE_DIR,
   templates,
-  template_references: references,
+  template_references: existingReferences,
+  template_lints: templateLintResults,
   php_raw_block_count: occurrences.length,
   inline_raw_block_count: violations.length,
   occurrences,
@@ -181,7 +325,10 @@ const manifest = {
     every_template_reference_exists: missingTemplateReferences.length === 0,
     every_template_file_is_referenced: orphanTemplates.length === 0,
     every_template_reference_under_template_directory: externalTemplateReferences.length === 0,
-    adapter_template_names_unique: duplicateAdapters.length === 0
+    adapter_template_names_unique: duplicateAdapters.length === 0,
+    every_template_placeholder_contract_matches: placeholderContractMismatches.length === 0,
+    every_template_placeholder_token_is_valid: malformedTemplatePlaceholders.length === 0,
+    every_rendered_template_php_lints: templateLintFailures.length === 0
   }
 };
 
@@ -261,7 +408,10 @@ const referenceReceipt = {
     every_template_reference_exists: true,
     every_template_file_is_referenced: true,
     every_template_reference_under_template_directory: true,
-    adapter_template_names_unique: true
+    adapter_template_names_unique: true,
+    every_template_placeholder_contract_matches: true,
+    every_template_placeholder_token_is_valid: true,
+    every_rendered_template_php_lints: true
   },
   claims: [
     "Every WordPress-profile renderTemplate call uses static adapter and template-path arguments that the guard can scan.",
@@ -275,14 +425,62 @@ const referenceReceipt = {
     "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
   ]
 };
+const contentReceipt = {
+  schema: "wphx.compiler-core-driver-receipt.v1",
+  id: "receipt:wphx-comp-php-adapter-template-content-policy",
+  issue: CONTENT_ISSUE,
+  recorded_at: RECORDED_AT,
+  status: "passed",
+  evidence_class: "compiler_policy_guard",
+  artifact_scope: "wordpress_profile_adapter_template_contents",
+  commands: [
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run precommit"
+  ],
+  artifacts: [
+    {
+      path: "tools/wphx-php/check-adapter-raw-blocks.mjs",
+      role: "policy guard for WordPress-profile adapter template contents"
+    },
+    {
+      path: TEMPLATE_DIR,
+      role: "compiler-owned WordPress adapter template directory"
+    },
+    {
+      path: OUT,
+      role: "manifest recording template placeholder contracts and php -l results"
+    }
+  ],
+  validation_result: {
+    status: "passed",
+    template_count: templates.length,
+    template_lint_count: templateLintResults.length,
+    every_template_placeholder_contract_matches: true,
+    every_template_placeholder_token_is_valid: true,
+    every_rendered_template_php_lints: true
+  },
+  claims: [
+    "Every compiler-owned WordPress adapter template uses only valid {{PLACEHOLDER}} tokens.",
+    "Every template placeholder set matches the static renderTemplate replacement metadata in WphxPhpWordPressAdapters.hx.",
+    "Every template body renders with deterministic lint stand-ins and passes php -l inside a method-body wrapper."
+  ],
+  non_claims: [
+    "This does not claim that adapter templates are runtime-complete outside their WordPress public method context.",
+    "This does not claim that all adapter templates have been promoted to structured PHP IR.",
+    "This does not claim additional WordPress runtime behavior parity."
+  ]
+};
 const receiptText = JSON.stringify(receipt, null, 2) + "\n";
 const referenceReceiptText = JSON.stringify(referenceReceipt, null, 2) + "\n";
+const contentReceiptText = JSON.stringify(contentReceipt, null, 2) + "\n";
 
 if (checkOnly) {
   for (const [path, text] of [
     [OUT, manifestText],
     [RECEIPT, receiptText],
-    [REFERENCE_RECEIPT, referenceReceiptText]
+    [REFERENCE_RECEIPT, referenceReceiptText],
+    [CONTENT_RECEIPT, contentReceiptText]
   ]) {
     if (!existsSync(path)) {
       console.error(JSON.stringify({ status: "failed", error: `${path} does not exist` }, null, 2));
@@ -300,8 +498,10 @@ if (checkOnly) {
         output: OUT,
         receipt: RECEIPT,
         reference_receipt: REFERENCE_RECEIPT,
+        content_receipt: CONTENT_RECEIPT,
         php_raw_block_count: occurrences.length,
-        template_reference_count: references.length
+        template_reference_count: references.length,
+        template_lint_count: templateLintResults.length
       },
       null,
       2
@@ -313,9 +513,11 @@ if (checkOnly) {
 mkdirSync(dirname(OUT), { recursive: true });
 mkdirSync(dirname(RECEIPT), { recursive: true });
 mkdirSync(dirname(REFERENCE_RECEIPT), { recursive: true });
+mkdirSync(dirname(CONTENT_RECEIPT), { recursive: true });
 writeFileSync(OUT, manifestText);
 writeFileSync(RECEIPT, receiptText);
 writeFileSync(REFERENCE_RECEIPT, referenceReceiptText);
+writeFileSync(CONTENT_RECEIPT, contentReceiptText);
 console.log(
   JSON.stringify(
     {
@@ -323,8 +525,10 @@ console.log(
       output: OUT,
       receipt: RECEIPT,
       reference_receipt: REFERENCE_RECEIPT,
+      content_receipt: CONTENT_RECEIPT,
       php_raw_block_count: occurrences.length,
-      template_reference_count: references.length
+      template_reference_count: references.length,
+      template_lint_count: templateLintResults.length
     },
     null,
     2

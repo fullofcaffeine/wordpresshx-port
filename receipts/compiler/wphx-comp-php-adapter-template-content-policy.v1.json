@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-adapter-template-content-policy",
+  "issue": {
+    "id": "wordpresshx-ssb",
+    "external_ref": "WPHX-COMP-PHP-ADAPTER-TEMPLATE-CONTENT-GUARD",
+    "title": "Guard adapter template contents"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_policy_guard",
+  "artifact_scope": "wordpress_profile_adapter_template_contents",
+  "commands": [
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run precommit"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/check-adapter-raw-blocks.mjs",
+      "role": "policy guard for WordPress-profile adapter template contents"
+    },
+    {
+      "path": "src/wphx/compiler/php/templates/wordpress",
+      "role": "compiler-owned WordPress adapter template directory"
+    },
+    {
+      "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
+      "role": "manifest recording template placeholder contracts and php -l results"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "template_count": 4,
+    "template_lint_count": 4,
+    "every_template_placeholder_contract_matches": true,
+    "every_template_placeholder_token_is_valid": true,
+    "every_rendered_template_php_lints": true
+  },
+  "claims": [
+    "Every compiler-owned WordPress adapter template uses only valid {{PLACEHOLDER}} tokens.",
+    "Every template placeholder set matches the static renderTemplate replacement metadata in WphxPhpWordPressAdapters.hx.",
+    "Every template body renders with deterministic lint stand-ins and passes php -l inside a method-body wrapper."
+  ],
+  "non_claims": [
+    "This does not claim that adapter templates are runtime-complete outside their WordPress public method context.",
+    "This does not claim that all adapter templates have been promoted to structured PHP IR.",
+    "This does not claim additional WordPress runtime behavior parity."
+  ]
+}
