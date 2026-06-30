@@ -1,0 +1,71 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-cookie-constructor-ir-promotion",
+  "issue": {
+    "id": "wordpresshx-2nc",
+    "external_ref": "WPHX-COMP-PHP-COOKIE-CONSTRUCTOR-IR-PROMOTION",
+    "title": "Promote WP_Http_Cookie constructor adapter to WPHX PHP IR"
+  },
+  "recorded_at": "2026-06-30T00:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_core_ir",
+  "artifact_scope": "wp_http_cookie_constructor_public_adapter",
+  "commands": [
+    "npm run format:haxe",
+    "npm run wp:core:wphx-312-http-cookie-candidate",
+    "npm run wp:core:wphx-312-http-cookie-candidate:check",
+    "npm run wphx:php:adapter-raw-blocks",
+    "npm run wphx:php:adapter-raw-blocks:check",
+    "npm run wphx:php:public-shell-snapshots",
+    "npm run wphx:php:public-shell-snapshots:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "artifacts": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP core IR/printer support for bare return, list assignment, dynamic object properties, null coalesce, and ternary expressions"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "role": "WordPress-profile WP_Http_Cookie constructor adapter plan emitted from structured IR"
+    },
+    {
+      "path": "tools/wp-core/run-http-cookie-candidate.mjs",
+      "role": "runner requiring cookie constructor template absence and IR feature evidence before accepting WPHX-312.53 generated shell"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-53-http-cookie-candidate.v1.json",
+      "role": "candidate manifest recording cookie constructor IR feature evidence"
+    },
+    {
+      "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
+      "role": "raw-block/template policy manifest with one remaining WordPress-profile adapter template"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cookie_candidate_cases": 6,
+    "cookie_constructor_template_absent": true,
+    "required_ir_features": [
+      "stmt.list-assign",
+      "stmt.return-void",
+      "expr.dynamic-object-property",
+      "expr.null-coalesce",
+      "expr.ternary"
+    ],
+    "active_adapter_templates": 1,
+    "public_shell_snapshot_cases": 17,
+    "unsupported_empty": true
+  },
+  "claims": [
+    "WP_Http_Cookie::__construct is no longer emitted from a compiler-owned raw PHP adapter template.",
+    "The constructor public-boundary PHP shape is emitted from structured WPHX PHP core IR.",
+    "The WPHX-312.53 cookie oracle/candidate runner still passes all six behavior cases and requires the cookie constructor template to be absent."
+  ],
+  "non_claims": [
+    "This does not claim full WP_Http_Cookie constructor behavior is Haxe-owned; constructor parsing/defaults still intentionally execute as PHP public-boundary behavior.",
+    "This does not claim Requests cookie jar semantics, live HTTP behavior, upstream HTTP PHPUnit parity, installed WordPress distribution behavior, or broader cookie propagation ownership.",
+    "This does not claim WPHX PHP is a complete arbitrary-Haxe PHP backend."
+  ]
+}

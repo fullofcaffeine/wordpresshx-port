@@ -21,11 +21,7 @@
   "artifacts": [
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "role": "WordPress-profile adapter plans for WP_Http_Cookie"
-    },
-    {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
-      "role": "compiler-owned bounded WP_Http_Cookie constructor public adapter template"
+      "role": "WordPress-profile adapter plans for WP_Http_Cookie, including the IR-emitted constructor body"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpCookieShell.hx",
@@ -49,14 +45,15 @@
     "cookie_candidate_cases": 6,
     "compiler_emitted_public_php": true,
     "cookie_shell_emitted": true,
-    "adapter_template_recorded": true,
+    "constructor_ir_features_present": true,
+    "adapter_template_absent": true,
     "unsupported_empty": true,
     "public_shell_snapshot_cases": 17
   },
   "claims": [
     "WPHX PHP emits the original-path wp-includes/class-wp-http-cookie.php public class adapter for WP_Http_Cookie.",
     "The WPHX-312.53 candidate no longer copies and patches a public PHP class shell for promoted cookie matching/header behavior.",
-    "The public constructor body is now a manifest-recorded compiler adapter template instead of an inline Haxe PhpRawBlock string.",
+    "The public constructor body is now emitted from structured WPHX PHP core IR instead of an inline Haxe PhpRawBlock string or compiler-owned PHP template.",
     "PHP still owns constructor parsing/defaults, parse_url, strtotime, urldecode, dynamic Set-Cookie attributes, public properties, #[AllowDynamicProperties], and wp_http_cookie_value filter timing while Haxe owns bounded post-construction matching, header formatting, and attribute shape."
   ],
   "non_claims": [

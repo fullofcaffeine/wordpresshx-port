@@ -94,10 +94,12 @@ enum PhpCoreStmt
 	PhpForeach(iterable:PhpCoreExpr, valueVar:String, body:Array<PhpCoreStmt>);
 	PhpForeachKeyValue(iterable:PhpCoreExpr, keyVar:String, valueVar:String, body:Array<PhpCoreStmt>);
 	PhpAssign(target:PhpCoreExpr, value:PhpCoreExpr);
+	PhpListAssign(names:Array<String>, value:PhpCoreExpr);
 	PhpLocal(name:String, value:PhpCoreExpr);
 	PhpStaticLocal(name:String, value:PhpCoreExpr);
 	PhpExprStmt(expr:PhpCoreExpr);
 	PhpReturn(value:PhpCoreExpr);
+	PhpReturnVoid;
 	PhpThrow(value:PhpCoreExpr);
 	PhpRawBlock(code:String);
 	PhpBreak;
@@ -120,8 +122,11 @@ enum PhpCoreExpr
 	PhpClassConst(className:String, constName:String);
 	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
 	PhpObjectProperty(target:PhpCoreExpr, property:String);
+	PhpDynamicObjectProperty(target:PhpCoreExpr, property:PhpCoreExpr);
 	PhpFunctionCall(name:String, args:Array<PhpCoreExpr>);
 	PhpBinop(op:String, left:PhpCoreExpr, right:PhpCoreExpr);
+	PhpNullCoalesce(left:PhpCoreExpr, right:PhpCoreExpr);
+	PhpTernary(condition:PhpCoreExpr, ifTrue:PhpCoreExpr, ifFalse:PhpCoreExpr);
 	PhpAssignExpr(target:PhpCoreExpr, value:PhpCoreExpr);
 	PhpPostDecrement(target:PhpCoreExpr);
 	PhpNot(expr:PhpCoreExpr);
@@ -1063,6 +1068,13 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				+ "}";
 			case PhpAssign(target, value):
 				prefix + emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpListAssign(names, value):
+				prefix
+				+ "list( "
+				+ names.map(name -> "$" + phpIdent(name)).join(", ")
+				+ " ) = "
+				+ emitPhpCoreExpr(value, depth)
+				+ ";";
 			case PhpLocal(name, value):
 				prefix + "$" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpStaticLocal(name, value):
@@ -1071,6 +1083,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				prefix + emitPhpCoreExpr(expr, depth) + ";";
 			case PhpReturn(value):
 				prefix + "return " + emitPhpCoreExpr(value, depth) + ";";
+			case PhpReturnVoid:
+				prefix + "return;";
 			case PhpThrow(value):
 				prefix + "throw " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpRawBlock(code):
@@ -1117,10 +1131,20 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				+ emitPhpCoreCallArgs(args, depth);
 			case PhpObjectProperty(target, property):
 				emitPhpCoreExpr(target, depth) + "->" + phpIdent(property);
+			case PhpDynamicObjectProperty(target, property):
+				emitPhpCoreDynamicObjectProperty(target, property, depth);
 			case PhpFunctionCall(name, args):
 				name + emitPhpCoreCallArgs(args, depth);
 			case PhpBinop(op, left, right):
 				emitPhpCoreExpr(left, depth) + " " + op + " " + emitPhpCoreExpr(right, depth);
+			case PhpNullCoalesce(left, right):
+				emitPhpCoreExpr(left, depth) + " ?? " + emitPhpCoreExpr(right, depth);
+			case PhpTernary(condition, ifTrue, ifFalse):
+				emitPhpCoreExpr(condition, depth)
+				+ " ? "
+				+ emitPhpCoreExpr(ifTrue, depth)
+				+ " : "
+				+ emitPhpCoreExpr(ifFalse, depth);
 			case PhpAssignExpr(target, value):
 				emitPhpCoreExpr(target, depth) + " = " + emitPhpCoreExpr(value, depth);
 			case PhpPostDecrement(target):
@@ -1135,6 +1159,18 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				"(int) " + emitPhpCoreExpr(inner, depth);
 			case PhpCastString(inner):
 				"(string) " + emitPhpCoreExpr(inner, depth);
+		}
+	}
+
+	function emitPhpCoreDynamicObjectProperty(target:PhpCoreExpr, property:PhpCoreExpr, depth:Int):String
+	{
+		final renderedTarget = emitPhpCoreExpr(target, depth);
+		return switch (property)
+		{
+			case PhpVar(name):
+				renderedTarget + "->$" + phpIdent(name);
+			case _:
+				renderedTarget + "->{" + emitPhpCoreExpr(property, depth) + "}";
 		}
 	}
 

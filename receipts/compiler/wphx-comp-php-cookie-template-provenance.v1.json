@@ -10,6 +10,7 @@
   "status": "passed",
   "evidence_class": "compiler_adapter_template_provenance",
   "artifact_scope": "wp_http_cookie_constructor_adapter_template",
+  "superseded_by": "receipt:wphx-comp-php-cookie-constructor-ir-promotion",
   "commands": [
     "haxe fixtures/wphx-php/wp-http-cookie.hxml",
     "npm run wp:core:wphx-312-http-cookie-candidate",
@@ -22,11 +23,7 @@
   "artifacts": [
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "role": "WordPress-profile adapter template renderer and WP_Http_Cookie constructor template use"
-    },
-    {
-      "path": "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
-      "role": "compiler-owned bounded WP_Http_Cookie constructor public adapter template"
+      "role": "WordPress-profile adapter template renderer and historical WP_Http_Cookie constructor template use"
     },
     {
       "path": "tools/wp-core/run-http-cookie-candidate.mjs",
@@ -46,12 +43,14 @@
     "adapter_templates_manifest_field": true,
     "cookie_constructor_template_recorded": true,
     "cookie_constructor_template_placeholders": [],
+    "superseded_by_ir_promotion": true,
     "cookie_candidate_cases": 6,
     "public_shell_snapshot_cases": 17
   },
   "claims": [
     "The bounded WP_Http_Cookie::__construct public adapter body no longer lives as a large inline Haxe string concatenation.",
     "The WPHX-312.53 runner requires template path, hash, placeholder list, ownership, and upstream reference evidence for the generated cookie shell.",
+    "This checkpoint has been superseded by structured WPHX PHP IR emission for the same constructor boundary.",
     "PHP still owns constructor parsing/defaults while Haxe owns only bounded post-construction cookie matching, header formatting, and attribute shape."
   ],
   "non_claims": [

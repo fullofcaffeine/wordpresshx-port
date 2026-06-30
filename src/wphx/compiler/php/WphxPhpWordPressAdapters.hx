@@ -944,14 +944,101 @@ class WphxPhpWordPressAdapters
 
 	static function cookieConstruct(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
 	{
-		final rendered = renderTemplate("wp-http-cookie-construct", "src/wphx/compiler/php/templates/wordpress/wp-http-cookie-construct-body.php.template",
-			"bounded_public_adapter_template", "../wordpress-develop/src/wp-includes/class-wp-http-cookie.php WP_Http_Cookie::__construct", []);
-		if (rendered.error != null)
-		{
-			return templateError(rendered.error);
-		}
+		final data = PhpVar("data");
+		final requestedUrl = PhpVar("requested_url");
+		final parsedUrl = PhpVar("parsed_url");
+		final pairs = PhpVar("pairs");
+		final pair = PhpVar("pair");
+		final key = PhpVar("key");
+		final val = PhpVar("val");
+		final field = PhpVar("field");
+		final thisValue = PhpVar("this");
+		final path = PhpObjectProperty(thisValue, "path");
+		final expires = PhpObjectProperty(thisValue, "expires");
+		final dataName = PhpArrayRead(data, PhpString("name"));
+		final dataExpires = PhpArrayRead(data, PhpString("expires"));
 
-		return plan(["stmt.raw-wordpress-boundary", "adapter.template"], [PhpRawBlock(rendered.code)], [rendered.provenance]);
+		return plan([
+			"stmt.if",
+			"stmt.if-else",
+			"stmt.foreach",
+			"stmt.assign",
+			"stmt.list-assign",
+			"stmt.var",
+			"stmt.return-void",
+			"expr.array-read",
+			"expr.long-array",
+			"expr.object-property",
+			"expr.dynamic-object-property",
+			"expr.null-coalesce",
+			"expr.ternary",
+			"expr.function-call",
+			"expr.binop"
+		], [
+			PhpIf(requestedUrl, [PhpLocal("parsed_url", PhpFunctionCall("parse_url", [requestedUrl]))]),
+			PhpIf(PhpFunctionCall("isset", [PhpArrayRead(parsedUrl, PhpString("host"))]),
+				[
+					PhpAssign(PhpObjectProperty(thisValue, "domain"), PhpArrayRead(parsedUrl, PhpString("host")))
+				]),
+			PhpAssign(path, PhpNullCoalesce(PhpArrayRead(parsedUrl, PhpString("path")), PhpString("/"))),
+			PhpIf(PhpNot(PhpFunctionCall("str_ends_with", [path, PhpString("/")])), [
+				PhpAssign(path, PhpBinop(".", PhpFunctionCall("dirname", [path]), PhpString("/")))
+			]),
+			PhpIfElse(PhpFunctionCall("is_string", [data]), [
+				PhpLocal("pairs", PhpFunctionCall("explode", [PhpString(";"), data])),
+				PhpLocal("name", PhpFunctionCall("trim", [
+					PhpFunctionCall("substr", [
+						PhpArrayRead(pairs, PhpInt(0)),
+						PhpInt(0),
+						PhpFunctionCall("strpos", [PhpArrayRead(pairs, PhpInt(0)), PhpString("=")])
+					])
+				])),
+				PhpLocal("value",
+					PhpFunctionCall("substr",
+						[
+							PhpArrayRead(pairs, PhpInt(0)),
+							PhpBinop("+", PhpFunctionCall("strpos", [PhpArrayRead(pairs, PhpInt(0)), PhpString("=")]), PhpInt(1))
+						])),
+				PhpAssign(PhpObjectProperty(thisValue, "name"), PhpVar("name")),
+				PhpAssign(PhpObjectProperty(thisValue, "value"), PhpFunctionCall("urldecode", [PhpVar("value")])),
+				PhpExprStmt(PhpFunctionCall("array_shift", [pairs])),
+				PhpForeach(pairs, "pair", [
+					PhpAssign(pair, PhpFunctionCall("rtrim", [pair])),
+					PhpIf(PhpFunctionCall("empty", [pair]), [PhpContinue]),
+					PhpListAssign(["key", "val"],
+						PhpTernary(PhpFunctionCall("strpos", [pair, PhpString("=")]), PhpFunctionCall("explode", [PhpString("="), pair]),
+							PhpLongArray([
+								{
+									key: null,
+									value: pair
+								},
+								{key: null, value: PhpString("")}
+							]))),
+					PhpAssign(key, PhpFunctionCall("strtolower", [PhpFunctionCall("trim", [key])])),
+					PhpIf(PhpBinop("===", PhpString("expires"), key), [PhpAssign(val, PhpFunctionCall("strtotime", [val]))]),
+					PhpAssign(PhpDynamicObjectProperty(thisValue, key), val)
+				])
+			], [
+				PhpIf(PhpNot(PhpFunctionCall("isset", [dataName])), [PhpReturnVoid]),
+				PhpForeach(PhpLongArray([
+					{
+						key: null,
+						value: PhpString("name")
+					},
+					{key: null, value: PhpString("value")},
+					{key: null, value: PhpString("path")},
+					{key: null, value: PhpString("domain")},
+					{key: null, value: PhpString("port")},
+					{key: null, value: PhpString("host_only")}
+				]), "field", [
+					PhpIf(PhpFunctionCall("isset", [PhpArrayRead(data, field)]),
+						[PhpAssign(PhpDynamicObjectProperty(thisValue, field), PhpArrayRead(data, field))])
+				]),
+				PhpIfElse(PhpFunctionCall("isset", [dataExpires]), [
+					PhpAssign(expires, PhpTernary(PhpFunctionCall("is_int", [dataExpires]), dataExpires, PhpFunctionCall("strtotime", [dataExpires])))
+				], [PhpAssign(expires, PhpNull)])
+			])
+		]);
 	}
 
 	static function cookieTest(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan
