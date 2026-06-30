@@ -45,6 +45,7 @@ const HAXE_SOURCES = [
   "src/wphx/wp/http/HttpDeprecatedParseUrl.hx",
   "src/wphx/wp/http/HttpCookieHeaderAssembly.hx",
   "src/wphx/wp/http/HttpProcessHeaders.hx",
+  "src/wphx/wp/http/HttpIpAddress.hx",
   "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpGroupedHelpersCandidateEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpGroupedHelpersEntry.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
@@ -53,6 +54,7 @@ const HAXE_SOURCES = [
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpDeprecatedParseUrl.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieHeaderAssembly.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessHeaders.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpIpAddress.hx",
   "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx"
 ];
 const CASES = [
@@ -60,7 +62,8 @@ const CASES = [
   "wp-http-parser:chunk-transfer-decode",
   "wp-http-parser:parse-url-wrapper",
   "wp-http-parser:build-cookie-header",
-  "wp-http-parser:process-headers"
+  "wp-http-parser:process-headers",
+  "wp-http:is-ip-address"
 ];
 const REQUIRED_CORE_IR_FEATURES = [
   "stmt.if",
@@ -315,6 +318,22 @@ switch ( $case ) {
 \t\t$assertions['cookies_converted'] = 2 === count( $processed['cookies'] ) && 'session' === $processed['cookies'][0]->name && 'abc 123' === $processed['cookies'][0]->value && '/wp/' === $processed['cookies'][0]->path && '.example.test' === $processed['cookies'][0]->domain && 'pref' === $processed['cookies'][1]->name;
 \t\t$assertions['empty_falsey_shape'] = array( 'response' => array( 'code' => 0, 'message' => '' ), 'headers' => array(), 'cookies' => array() ) === $empty;
 \t\tbreak;
+\tcase 'wp-http:is-ip-address':
+\t\t$reflection = new ReflectionMethod( 'WP_Http', 'is_ip_address' );
+\t\t$result['addresses'] = array(
+\t\t\t'ipv4' => WP_Http::is_ip_address( '192.0.2.10' ),
+\t\t\t'ipv6' => WP_Http::is_ip_address( '2001:db8::1' ),
+\t\t\t'bracketed_ipv6' => WP_Http::is_ip_address( '[2001:db8::1]' ),
+\t\t\t'host' => WP_Http::is_ip_address( 'example.test' ),
+\t\t\t'regex_shaped_invalid_ipv4' => WP_Http::is_ip_address( '999.999.999.999' ),
+\t\t);
+\t\t$result['reflection'] = array( 'visibility' => $reflection->isPublic() ? 'public' : 'non-public', 'static' => $reflection->isStatic(), 'params' => array_map( function ( $param ) { return array( 'name' => $param->getName(), 'by_ref' => $param->isPassedByReference() ); }, $reflection->getParameters() ) );
+\t\t$assertions['reflection'] = $reflection->isPublic() && $reflection->isStatic() && 1 === $reflection->getNumberOfParameters() && 'maybe_ip' === $reflection->getParameters()[0]->getName();
+\t\t$assertions['ipv4'] = 4 === $result['addresses']['ipv4'];
+\t\t$assertions['ipv6'] = 6 === $result['addresses']['ipv6'] && 6 === $result['addresses']['bracketed_ipv6'];
+\t\t$assertions['host_false'] = false === $result['addresses']['host'];
+\t\t$assertions['regex_shaped_invalid_ipv4_returns_4'] = 4 === $result['addresses']['regex_shaped_invalid_ipv4'];
+\t\tbreak;
 \tdefault:
 \t\t$assertions['known_case'] = false;
 }
@@ -345,10 +364,10 @@ function ownershipManifest(manifestSha) {
     issue: ISSUE,
     unit: {
       kind: "compiler-emitted-original-path-public-shell",
-      name: "Grouped WP_Http parser/header/cookie helper shell",
+      name: "Grouped WP_Http parser/header/cookie/IP helper shell",
       path: "wp-includes/class-wp-http.php",
       public_contract:
-        "One generated WP_Http class shell must preserve processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), and processHeaders($headers, $url = '') ABI and behavior gates in one original-path file."
+        "One generated WP_Http class shell must preserve processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), and is_ip_address($maybe_ip) ABI and behavior gates in one original-path file."
     },
     ownership_state: "compiler_emitted_original_path_shell",
     ownership_axes: {
@@ -418,11 +437,13 @@ function main() {
       /public\s+static\s+function\s+chunkTransferDecode\s*\(\s*\$body\s*\)/.test(generatedSource) &&
       /protected\s+static\s+function\s+parse_url\s*\(\s*\$url\s*\)/.test(generatedSource) &&
       /public\s+static\s+function\s+buildCookieHeader\s*\(\s*&\$r\s*\)/.test(generatedSource) &&
-      /public\s+static\s+function\s+processHeaders\s*\(\s*\$headers\s*,\s*\$url\s*=\s*''\s*\)/.test(generatedSource),
+      /public\s+static\s+function\s+processHeaders\s*\(\s*\$headers\s*,\s*\$url\s*=\s*''\s*\)/.test(generatedSource) &&
+      /public\s+static\s+function\s+is_ip_address\s*\(\s*\$maybe_ip\s*\)/.test(generatedSource),
     one_wp_http_class: (generatedSource.match(/class WP_Http/g) ?? []).length === 1,
     wordpress_bootstrap_profile: generatedSource.includes("HAXE_CUSTOM_ERROR_HANDLER") && generatedSource.includes("WPHX_WP_HTTP_GROUPED_HELPERS_BOOTSTRAPPED"),
     parser_delegation: generatedSource.includes("HttpProcessResponse_Fields_::responseHeaders") && generatedSource.includes("HttpChunkTransferDecode_Fields_::decodeChunkTransfer"),
-    header_cookie_ir: generatedSource.includes("$r['headers']['cookie'] = $cookies_header;") && generatedSource.includes("$cookies[] = new WP_Http_Cookie( $value, $url );")
+    header_cookie_ir: generatedSource.includes("$r['headers']['cookie'] = $cookies_header;") && generatedSource.includes("$cookies[] = new WP_Http_Cookie( $value, $url );"),
+    ip_address_delegation: generatedSource.includes("HttpIpAddress_Fields_::ipAddressVersion")
   };
   if (!Object.values(shellChecks).every(Boolean)) {
     console.error(JSON.stringify({ status: "failed", reason: "shell checks failed", shellChecks, declarations, unsupported: wphxManifest.unsupported }, null, 2));
@@ -464,7 +485,8 @@ function main() {
         "WP_Http::chunkTransferDecode",
         "WP_Http::parse_url",
         "WP_Http::buildCookieHeader",
-        "WP_Http::processHeaders"
+        "WP_Http::processHeaders",
+        "WP_Http::is_ip_address"
       ]
     },
     claims: {
@@ -503,9 +525,9 @@ function main() {
     ],
     validation_result: manifest.validation_result,
     claims: [
-      "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), and processHeaders($headers, $url = '').",
-      "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all five helper cases, and WPHX PHP manifest unsupported=[].",
-      "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers."
+      "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), and is_ip_address($maybe_ip).",
+      "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all six helper cases, and WPHX PHP manifest unsupported=[].",
+      "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers and direct static-helper IP detection."
     ],
     non_claims: [
       "This does not claim whole-file WP_Http ownership.",

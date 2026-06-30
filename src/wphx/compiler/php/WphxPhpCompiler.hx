@@ -957,6 +957,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 					emitWpHttpProcessHeadersBody(field);
 				case "wp-http-build-cookie-header":
 					emitWpHttpBuildCookieHeaderBody(field);
+				case "wp-http-is-ip-address":
+					emitWpHttpIsIpAddressBody(field);
 				case _:
 					reportUnsupported("unsupported WPHX PHP method adapter " + adapter + " for " + field.name);
 					"";
@@ -1126,6 +1128,22 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			])
 		];
 		return emitPhpCoreStatements(statements);
+	}
+
+	function emitWpHttpIsIpAddressBody(field:ClassField):String
+	{
+		final helper = metadataString(field.meta.get(), "wp.haxeHelper");
+		if (helper == null)
+		{
+			reportUnsupported("missing @:wp.haxeHelper for WP_Http::is_ip_address adapter " + field.name);
+			return "";
+		}
+
+		recordCoreIrFeatures(["stmt.return", "expr.static-call", "expr.coerce-string"]);
+
+		return emitPhpCoreStatements([
+			PhpReturn(PhpStaticCall(helper, "ipAddressVersion", [PhpCastString(PhpVar("maybe_ip"))]))
+		]);
 	}
 
 	function emitPhpCoreStatements(statements:Array<PhpCoreStmt>, depth:Int = 0):String

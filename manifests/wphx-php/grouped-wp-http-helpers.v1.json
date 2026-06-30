@@ -51,8 +51,8 @@
       },
       {
         "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-        "bytes": 52236,
-        "sha256": "sha256:f282c873e9270439c94944445dbd91e2b7750e949a6c4cf23dd6449dc84c1bc9"
+        "bytes": 52804,
+        "sha256": "sha256:1a419741c82f93594e53dd92d29baaa45f4e4ad687de2bfae5f348a23796ba2e"
       },
       {
         "path": "src/wphx/wp/http/HttpProcessResponse.hx",
@@ -80,19 +80,24 @@
         "sha256": "sha256:a8dd503a5a46aa20eb4c4599ff0b1d9397e52bdebc30c31bdacd9fd4faab7b17"
       },
       {
+        "path": "src/wphx/wp/http/HttpIpAddress.hx",
+        "bytes": 1148,
+        "sha256": "sha256:c5cb39d22a382e67b52fcd718edfc38f9bd3b8b4d8abcdbe7aba4dc01f6374ae"
+      },
+      {
         "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpGroupedHelpersCandidateEntry.hx",
-        "bytes": 1507,
-        "sha256": "sha256:a88b5e20b60a5e96e67d47a4d0839feec303f69b28bb1742660fd018d3531d20"
+        "bytes": 1592,
+        "sha256": "sha256:e4b3859aa083eff23726c136938c74fdfefbde476895501e21c6ad6c695c8b17"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpGroupedHelpersEntry.hx",
-        "bytes": 553,
-        "sha256": "sha256:9fa7eaf86d9dfd5f16b0fbc892d09a5b146e68ffe8ae0af28c3d9b67da07697e"
+        "bytes": 609,
+        "sha256": "sha256:6b13f44c38f89afd41b097701ca1c996f57d8e9d83e3746abd8794c954efed13"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
-        "bytes": 2028,
-        "sha256": "sha256:4bd61a5190896569b2da49a922707552d783db3ecb98f412f266c524c06bc5ad"
+        "bytes": 2292,
+        "sha256": "sha256:bd8bca2ec3139427eadfe538d8a33ce0ea50bbc8f4ff1c18cf2dea7f1e8b18a7"
       },
       {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
@@ -120,14 +125,19 @@
         "sha256": "sha256:09a1bc6c5efe014ed136e4839f0bc1d5dfc7eee94756b448b21a5bb25cd33482"
       },
       {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpIpAddress.hx",
+        "bytes": 342,
+        "sha256": "sha256:850a6ae2c6b741aa53d0f4a0ed40ca63722a39f8a83c1a6582980bfcb7c4776e"
+      },
+      {
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx",
         "bytes": 302,
         "sha256": "sha256:edf69b94b36c3034e065d6580bffc179cf3b4eb6d552cbe7664df1e0d735288c"
       },
       {
         "path": "tools/wphx-php/run-wp-http-grouped-helpers.mjs",
-        "bytes": 25359,
-        "sha256": "sha256:63347407956d71290fb5982ff2c9ae25f2a1b876634c29ae6289b24e2263ccb5"
+        "bytes": 27158,
+        "sha256": "sha256:f3f4a1b3157db8c3ec995874d11e90e19a2d916861c12d013807be9f638d3001"
       }
     ],
     "upstream_sources": [
@@ -147,15 +157,15 @@
     "wphx_php_manifest": {
       "path": "build/wp-core/wphx-comp-php-group-wp-http/generated/wphx-php-emission.v1.json",
       "bytes": 1162,
-      "sha256": "sha256:9f17e912e3605967f3dcff9abc1298e746206415917d61bebe41180493cd4dab"
+      "sha256": "sha256:4af593a25fc03508fa310a6d651a1c4454c3ccca5ca92c1ffaaf6cb6f95df325"
     }
   },
   "generated": {
     "root": "build/wp-core/wphx-comp-php-group-wp-http/generated",
     "shell": {
       "path": "build/wp-core/wphx-comp-php-group-wp-http/generated/wp-includes/class-wp-http.php",
-      "bytes": 3905,
-      "sha256": "sha256:c762d555270165dda104d88d5b59c209e0c30c6888901c7c7bf34e48b8e8d9df"
+      "bytes": 4061,
+      "sha256": "sha256:148df32215ba5af1a40e7ff6eae640a6ad71672eeecea37c638969d378719d5f"
     },
     "support_files": [
       {
@@ -199,7 +209,8 @@
     "wp-http-parser:chunk-transfer-decode",
     "wp-http-parser:parse-url-wrapper",
     "wp-http-parser:build-cookie-header",
-    "wp-http-parser:process-headers"
+    "wp-http-parser:process-headers",
+    "wp-http:is-ip-address"
   ],
   "observations": {
     "oracle": {
@@ -434,6 +445,33 @@
           "redirect_headers_discarded": true,
           "cookies_converted": true,
           "empty_falsey_shape": true
+        }
+      },
+      "wp-http:is-ip-address": {
+        "case": "wp-http:is-ip-address",
+        "addresses": {
+          "ipv4": 4,
+          "ipv6": 6,
+          "bracketed_ipv6": 6,
+          "host": false,
+          "regex_shaped_invalid_ipv4": 4
+        },
+        "reflection": {
+          "visibility": "public",
+          "static": true,
+          "params": [
+            {
+              "name": "maybe_ip",
+              "by_ref": false
+            }
+          ]
+        },
+        "assertions": {
+          "reflection": true,
+          "ipv4": true,
+          "ipv6": true,
+          "host_false": true,
+          "regex_shaped_invalid_ipv4_returns_4": true
         }
       }
     },
@@ -670,6 +708,33 @@
           "cookies_converted": true,
           "empty_falsey_shape": true
         }
+      },
+      "wp-http:is-ip-address": {
+        "case": "wp-http:is-ip-address",
+        "addresses": {
+          "ipv4": 4,
+          "ipv6": 6,
+          "bracketed_ipv6": 6,
+          "host": false,
+          "regex_shaped_invalid_ipv4": 4
+        },
+        "reflection": {
+          "visibility": "public",
+          "static": true,
+          "params": [
+            {
+              "name": "maybe_ip",
+              "by_ref": false
+            }
+          ]
+        },
+        "assertions": {
+          "reflection": true,
+          "ipv4": true,
+          "ipv6": true,
+          "host_false": true,
+          "regex_shaped_invalid_ipv4_returns_4": true
+        }
       }
     },
     "matches": true
@@ -686,7 +751,8 @@
     "one_wp_http_class": true,
     "wordpress_bootstrap_profile": true,
     "parser_delegation": true,
-    "header_cookie_ir": true
+    "header_cookie_ir": true,
+    "ip_address_delegation": true
   },
   "validation_result": {
     "status": "passed",
@@ -698,7 +764,8 @@
       "WP_Http::chunkTransferDecode",
       "WP_Http::parse_url",
       "WP_Http::buildCookieHeader",
-      "WP_Http::processHeaders"
+      "WP_Http::processHeaders",
+      "WP_Http::is_ip_address"
     ]
   },
   "claims": {

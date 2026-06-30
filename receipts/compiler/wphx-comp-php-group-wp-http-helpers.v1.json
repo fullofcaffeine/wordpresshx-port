@@ -21,7 +21,7 @@
     {
       "path": "manifests/wphx-php/grouped-wp-http-helpers.v1.json",
       "role": "grouped WP_Http helper compiler manifest",
-      "sha256": "sha256:ecc2ca63706d316cce5d0b72fed851ba2f85742fbfa641a5db73d1e1ea6bfd3d"
+      "sha256": "sha256:f38e68c3b9da25494925a4a5f2cc74301f363fda3d1b7c75223dd58c5827b6df"
     },
     {
       "path": "manifests/ownership/wphx-comp-php-group-wp-http-helpers.v1.json",
@@ -42,13 +42,14 @@
       "WP_Http::chunkTransferDecode",
       "WP_Http::parse_url",
       "WP_Http::buildCookieHeader",
-      "WP_Http::processHeaders"
+      "WP_Http::processHeaders",
+      "WP_Http::is_ip_address"
     ]
   },
   "claims": [
-    "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), and processHeaders($headers, $url = '').",
-    "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all five helper cases, and WPHX PHP manifest unsupported=[].",
-    "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers."
+    "WPHX PHP emits one original-path wp-includes/class-wp-http.php adapter containing processResponse, chunkTransferDecode, protected parse_url, buildCookieHeader(&$r), processHeaders($headers, $url = ''), and is_ip_address($maybe_ip).",
+    "The grouped shell passes PHP lint, PHP reflection, behavior parity against the copied WordPress oracle for all six helper cases, and WPHX PHP manifest unsupported=[].",
+    "The shell combines parser-helper delegation with reusable PHP-core IR bodies for native array cookie/header helpers and direct static-helper IP detection."
   ],
   "non_claims": [
     "This does not claim whole-file WP_Http ownership.",

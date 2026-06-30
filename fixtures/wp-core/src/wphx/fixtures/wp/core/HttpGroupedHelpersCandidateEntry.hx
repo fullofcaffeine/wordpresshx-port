@@ -6,6 +6,7 @@ import wphx.wp.http.HttpDeprecatedParseUrl.deprecatedFunctionName;
 import wphx.wp.http.HttpDeprecatedParseUrl.deprecatedVersion;
 import wphx.wp.http.HttpDeprecatedParseUrl.parseUrl;
 import wphx.wp.http.HttpDeprecatedParseUrl.replacementFunctionName;
+import wphx.wp.http.HttpIpAddress.ipAddressVersion;
 import wphx.wp.http.HttpProcessHeaders.headerKey;
 import wphx.wp.http.HttpProcessHeaders.headerValue;
 import wphx.wp.http.HttpProcessHeaders.isHeaderLine;
@@ -29,6 +30,7 @@ class HttpGroupedHelpersCandidateEntry
 		deprecatedVersion();
 		replacementFunctionName();
 		parseUrl("https://example.test/");
+		ipAddressVersion("127.0.0.1");
 		appendCookieHeader("", "a=1");
 		startsFinalResponseBlock("HTTP/1.1 200 OK");
 		isHeaderLine("X-Test: yes");

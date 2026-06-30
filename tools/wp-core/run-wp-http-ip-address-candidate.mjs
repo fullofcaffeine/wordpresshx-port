@@ -16,10 +16,13 @@ const RECORDED_AT = "2026-06-27T00:00:00.000Z";
 const UPSTREAM_ROOT = "../wordpress-develop";
 const RUNNER = "tools/wp-core/run-wp-http-ip-address-candidate.mjs";
 const HXML = "fixtures/wp-core/http-ip-address-candidate.hxml";
+const WPHX_PHP_HXML = "fixtures/wphx-php/wp-http-grouped-helpers.hxml";
 const OUT_ROOT = "build/wp-core/wphx-312-55";
 const HAXE_OUT = `${OUT_ROOT}/haxe`;
 const ORACLE_ROOT = `${OUT_ROOT}/oracle`;
 const CANDIDATE_ROOT = `${OUT_ROOT}/candidate`;
+const WPHX_PHP_ROOT = `${OUT_ROOT}/wphx-php`;
+const WPHX_PHP_MANIFEST = `${WPHX_PHP_ROOT}/wphx-php-emission.v1.json`;
 const PROBE = `${OUT_ROOT}/probe.php`;
 const OUT = "manifests/wp-core/wphx-312-55-wp-http-ip-address-candidate.v1.json";
 const OWNERSHIP = "manifests/ownership/wphx-312-55-wp-http-ip-address-candidate.v1.json";
@@ -31,10 +34,19 @@ const HELPER_FIXTURE = "manifests/wp-core/wphx-312-41-wp-http-helper-oracle-fixt
 const SOURCE_FILES = ["src/wp-includes/class-wp-http.php"];
 const HAXE_SOURCES = [
   HXML,
+  WPHX_PHP_HXML,
   "src/wphx/wp/http/HttpIpAddress.hx",
-  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpIpAddressCandidateEntry.hx"
+  "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpIpAddressCandidateEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpGroupedHelpersEntry.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpCookieHeaderAssembly.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessHeaders.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpProcessResponse.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpChunkTransferDecode.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpDeprecatedParseUrl.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HaxeHttpIpAddress.hx",
+  "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/PhpHttpGlobals.hx"
 ];
-const HAXE_MODULE = "\\wphx\\wp\\http\\_HttpIpAddress\\HttpIpAddress_Fields_";
 const PROMOTED_SYMBOLS = [
   "WP_Http::is_ip_address IPv4 regex-shape detection",
   "WP_Http::is_ip_address IPv6 detection",
@@ -89,67 +101,11 @@ function mirrorSources(root) {
   }
 }
 
-function haxeBootstrapBlock() {
-  return `if ( ! function_exists( 'wphx_312_55_bootstrap_haxe' ) ) {
-\tfunction wphx_312_55_bootstrap_haxe() {
-\t\tstatic $bootstrapped = false;
-\t\tif ( $bootstrapped ) {
-\t\t\treturn;
-\t\t}
-\t\t$bootstrapped = true;
-
-\t\t$wphx_312_55_lib = dirname( __DIR__, 2 ) . '/haxe/lib';
-\t\tset_include_path( get_include_path() . PATH_SEPARATOR . $wphx_312_55_lib );
-\t\tspl_autoload_register(
-\t\t\tfunction ( $class ) {
-\t\t\t\t$file = stream_resolve_include_path( str_replace( '\\\\', '/', $class ) . '.php' );
-\t\t\t\tif ( $file ) {
-\t\t\t\t\tinclude_once $file;
-\t\t\t\t}
-\t\t\t}
-\t\t);
-\t\t\\php\\Boot::__hx__init();
-\t}
-}
-wphx_312_55_bootstrap_haxe();
-`;
-}
-
-function installBootstrap(source) {
-  const marker = "<?php\n";
-  if (!source.startsWith(marker)) throw new Error("class-wp-http.php did not start with PHP open tag");
-  return `${marker}\n${haxeBootstrapBlock()}\n${source.slice(marker.length)}`;
-}
-
-function replaceStaticMethod(source, methodName, replacement) {
-  const pattern = new RegExp(`public\\s+static\\s+function\\s+${methodName}\\s*\\(`, "m");
-  const match = pattern.exec(source);
-  if (!match) throw new Error(`Unable to locate static method ${methodName}`);
-  const openBrace = source.indexOf("{", match.index);
-  if (openBrace === -1) throw new Error(`Unable to locate opening brace for ${methodName}`);
-  let depth = 0;
-  for (let index = openBrace; index < source.length; index += 1) {
-    const char = source[index];
-    if (char === "{") depth += 1;
-    if (char === "}") {
-      depth -= 1;
-      if (depth === 0) return `${source.slice(0, match.index)}${replacement}${source.slice(index + 1)}`;
-    }
-  }
-  throw new Error(`Unable to locate closing brace for ${methodName}`);
-}
-
-function transformCandidateIpAddress() {
-  const path = `${CANDIDATE_ROOT}/wp-includes/class-wp-http.php`;
-  let source = installBootstrap(readFileSync(path, "utf8"));
-  source = replaceStaticMethod(
-    source,
-    "is_ip_address",
-    `public static function is_ip_address( $maybe_ip ) {
-\treturn ${HAXE_MODULE}::ipAddressVersion( (string) $maybe_ip );
-}`
-  );
-  writeFileSync(path, source);
+function installCompilerEmittedCandidateShell() {
+  const source = `${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`;
+  const target = `${CANDIDATE_ROOT}/wp-includes/class-wp-http.php`;
+  mkdirSync(dirname(target), { recursive: true });
+  copyFileSync(source, target);
 }
 
 function writeProbe() {
@@ -244,12 +200,22 @@ function ownershipManifest(manifestSha) {
     ownership_state: "haxe_owned_candidate_with_public_php_shell",
     bridge: {
       exists: true,
-      kind: "generated-php-haxe-helper-with-temporary-original-path-shell",
+      kind: "compiler-emitted-grouped-original-path-public-php-shell",
       removal_gate:
-        "Replace the temporary candidate shell with generated original-path public PHP adapters and pass the broader WP_Http helper, upstream HTTP PHPUnit, installed distribution, ecosystem HTTP helper, and generated-shell gates before claiming durable public PHP ownership."
+        "Expand generated original-path public PHP adapters and pass broader WP_Http helper, upstream HTTP PHPUnit, installed distribution, ecosystem HTTP helper, and generated-shell gates before claiming durable whole-file WP_Http ownership."
     },
-    owned_paths: [RUNNER, HXML, "src/wphx/wp/http/HttpIpAddress.hx", "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpIpAddressCandidateEntry.hx", OUT, OWNERSHIP, RECEIPT],
-    generated_paths: [OUT, OWNERSHIP, RECEIPT, OUT_ROOT],
+    owned_paths: [
+      RUNNER,
+      HXML,
+      WPHX_PHP_HXML,
+      "src/wphx/wp/http/HttpIpAddress.hx",
+      "fixtures/wp-core/src/wphx/fixtures/wp/core/HttpIpAddressCandidateEntry.hx",
+      "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx",
+      OUT,
+      OWNERSHIP,
+      RECEIPT
+    ],
+    generated_paths: [OUT, OWNERSHIP, RECEIPT, WPHX_PHP_MANIFEST, OUT_ROOT],
     verification: {
       oracle_commands: [
         "npm run wp:core:wphx-312-wp-http-ip-address-candidate",
@@ -266,9 +232,10 @@ function ownershipManifest(manifestSha) {
 async function main() {
   rmSync(OUT_ROOT, { recursive: true, force: true });
   command("haxe", [HXML]);
+  command("haxe", [WPHX_PHP_HXML, "-D", `wphx_php_output=${WPHX_PHP_ROOT}`, "-D", `wphx_php_manifest=${WPHX_PHP_MANIFEST}`]);
   mirrorSources(ORACLE_ROOT);
   mirrorSources(CANDIDATE_ROOT);
-  transformCandidateIpAddress();
+  installCompilerEmittedCandidateShell();
   writeProbe();
 
   const oracle = runProbe(ORACLE_ROOT);
@@ -290,6 +257,23 @@ async function main() {
     candidate_lint: command("php", ["-l", mirrorPath(CANDIDATE_ROOT, path)])
   }));
   const compiledPhp = command("find", [HAXE_OUT, "-type", "f", "-name", "*.php"]);
+  const wphxPhpManifest = JSON.parse(readFileSync(WPHX_PHP_MANIFEST, "utf8"));
+  const wphxDeclarations = wphxPhpManifest.files.flatMap((file) => file.declarations.map((entry) => `${entry.kind}:${entry.name}`));
+  if (JSON.stringify(wphxDeclarations) !== JSON.stringify(["class:WP_Http"])) {
+    console.error(JSON.stringify({ status: "failed", reason: "unexpected WPHX PHP declarations", declarations: wphxDeclarations }, null, 2));
+    process.exit(1);
+  }
+  if (wphxPhpManifest.unsupported.length !== 0) {
+    console.error(JSON.stringify({ status: "failed", reason: "unexpected WPHX PHP unsupported constructs", unsupported: wphxPhpManifest.unsupported }, null, 2));
+    process.exit(1);
+  }
+  const generatedShellPath = mirrorPath(CANDIDATE_ROOT, "src/wp-includes/class-wp-http.php");
+  const generatedShell = readFileSync(generatedShellPath, "utf8");
+  const isIpAddressEmitted = /public\s+static\s+function\s+is_ip_address\s*\(\s*\$maybe_ip\s*\)/.test(generatedShell);
+  if (!isIpAddressEmitted) {
+    console.error(JSON.stringify({ status: "failed", reason: "generated shell is missing is_ip_address" }, null, 2));
+    process.exit(1);
+  }
   const manifest = {
     schema: "wphx.wp-core-wp-http-ip-address-candidate.v1",
     issue: ISSUE.external_ref,
@@ -303,19 +287,33 @@ async function main() {
       helper_oracle_fixture_manifest: inputRecord(HELPER_FIXTURE),
       runner: inputRecord(RUNNER),
       haxe_sources: HAXE_SOURCES.map(inputRecord),
+      wphx_php_manifest: inputRecord(WPHX_PHP_MANIFEST),
       upstream_sources: SOURCE_FILES.map(sourceRecord)
     },
     candidate: {
       hxml: HXML,
+      wphx_php_hxml: WPHX_PHP_HXML,
       haxe_output: HAXE_OUT,
       compiled_php_files: compiledPhp.split("\n").filter(Boolean).sort(),
+      compiler_emitted_public_shell: {
+        path: generatedShellPath,
+        source_path: `${WPHX_PHP_ROOT}/wp-includes/class-wp-http.php`,
+        manifest: WPHX_PHP_MANIFEST,
+        declarations: wphxDeclarations,
+        emitted_methods: [{ name: "is_ip_address", visibility: "public", parameters: ["maybe_ip"] }],
+        unsupported: wphxPhpManifest.unsupported
+      },
       promoted_symbols: PROMOTED_SYMBOLS,
       public_shell_policy: {
-        public_php_replacement_claimed: false,
+        public_php_replacement_claimed: true,
         public_php_abi_preserved: true,
         shell_body_ownership:
-          "temporary candidate shell preserves the WP_Http public static method ABI while delegating bounded IP-address helper decisions to generated Haxe PHP",
-        native_boundaries: ["preg_match for upstream PCRE IPv4/IPv6 regex behavior", "PHP-compatible trim character set expressed in Haxe"]
+          "compiler-emitted original-path class-wp-http.php shell preserves the WP_Http::is_ip_address public static method ABI while delegating bounded IP-address helper decisions to generated Haxe PHP",
+        native_boundaries: [
+          "preg_match for upstream PCRE IPv4/IPv6 regex behavior",
+          "PHP-compatible trim character set expressed in Haxe",
+          "compiler-emitted original-path class-wp-http.php shell"
+        ]
       }
     },
     fixture: {
@@ -359,9 +357,10 @@ async function main() {
           "The fixture observes static helper behavior only. It does not execute WP_Http::request, Requests network I/O, DNS, proxy, TLS, redirects, or transport execution."
       },
       {
-        id: "durable-public-php-adapter-not-yet-generated",
+        id: "whole-wp-http-file-not-yet-owned",
         owner: ISSUE.external_ref,
-        detail: "The candidate uses a bounded generated-PHP helper plus temporary original-path shell; durable shell generation remains a later cross-domain gate."
+        detail:
+          "The candidate consumes a compiler-emitted grouped original-path class-wp-http.php shell for the is_ip_address boundary, but broader WP_Http methods and whole-file original-path ownership remain later compiler-driven gates."
       }
     ],
     ownership_manifest: OWNERSHIP,
@@ -371,7 +370,10 @@ async function main() {
       promoted_symbols: PROMOTED_SYMBOLS.length,
       observations_match: observationsMatch,
       observations_assert: observationsAssert,
-      public_php_replacement_claimed: false,
+      public_php_replacement_claimed: true,
+      compiler_emitted_public_php: true,
+      is_ip_address_emitted: isIpAddressEmitted,
+      unsupported_empty: wphxPhpManifest.unsupported.length === 0,
       installed_wordpress_behavior_claimed: false,
       live_http_claimed: false,
       dns_resolution_claimed: false
@@ -389,7 +391,9 @@ async function main() {
       { path: OUT, role: "WP_Http IP address Haxe parity candidate manifest" },
       { path: OWNERSHIP, role: "ownership manifest for Haxe-owned WP_Http IP address helper" },
       { path: RUNNER, role: "deterministic PHP CLI oracle/candidate Haxe runner" },
-      { path: "src/wphx/wp/http/HttpIpAddress.hx", role: "module-level Haxe source for WP_Http::is_ip_address" }
+      { path: "src/wphx/wp/http/HttpIpAddress.hx", role: "module-level Haxe source for WP_Http::is_ip_address" },
+      { path: "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpGroupedHelpersShell.hx", role: "WPHX PHP source for grouped original-path WP_Http public shell" },
+      { path: WPHX_PHP_MANIFEST, role: "WPHX PHP emission manifest for compiler-emitted class-wp-http.php" }
     ],
     verification_commands: [
       "npm run wp:core:wphx-312-wp-http-ip-address-candidate",
@@ -400,7 +404,8 @@ async function main() {
     related_receipts: [
       "receipt:wphx-312-01-http-cron-mail-feed-embed-surface",
       "receipt:wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate",
-      "receipt:wphx-312-41-wp-http-helper-oracle-fixture"
+      "receipt:wphx-312-41-wp-http-helper-oracle-fixture",
+      "receipt:wphx-comp-php-group-wp-http-helpers"
     ],
     validation_result: manifest.validation_result
   };

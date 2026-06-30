@@ -58,4 +58,11 @@ class WpHttpGroupedHelpersShell
 		HaxeHttpProcessHeaders.headerValue("X-Test: yes");
 		return headers;
 	}
+
+	@:wp.adapter("wp-http-is-ip-address")
+	@:wp.haxeHelper("\\wphx\\wp\\http\\_HttpIpAddress\\HttpIpAddress_Fields_")
+	public static function is_ip_address(@:wp.name("maybe_ip") maybeIp:String):NativeValue
+	{
+		return HaxeHttpIpAddress.ipAddressVersion(maybeIp);
+	}
 }
