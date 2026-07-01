@@ -1206,6 +1206,7 @@ class WphxPhpWordPressAdapters
 		}
 
 		final headRedirectionDefaultHelper = namedHelper(helpers, "headRedirectionDefault");
+		final invalidUrlHelper = namedHelper(helpers, "invalidUrl");
 		final methodOptionsHelper = namedHelper(helpers, "methodOptions");
 		final redirectOptionsHelper = namedHelper(helpers, "redirectOptions");
 		final responseSizeOptionsHelper = namedHelper(helpers, "responseSizeOptions");
@@ -1254,6 +1255,10 @@ class WphxPhpWordPressAdapters
 		{
 			features.push("wp-http.request.head-redirection-default-helper");
 		}
+		if (invalidUrlHelper != null)
+		{
+			features.push("wp-http.request.invalid-url-helper");
+		}
 		if (methodOptionsHelper != null)
 		{
 			features.push("wp-http.request.method-options-helper");
@@ -1294,6 +1299,11 @@ class WphxPhpWordPressAdapters
 				[PhpAssign(read(parsedArgs, "blocking"), PhpBool(true))]);
 		final streamFilenameCondition = streamFilenameOptionsHelper == null ? read(parsedArgs,
 			"stream") : PhpStaticCall(streamFilenameOptionsHelper, "shouldSetStreamFilenameOption", [PhpCastBool(read(parsedArgs, "stream"))]);
+		final invalidUrlCondition = invalidUrlHelper == null ? PhpBinop("||", PhpFunctionCall("empty", [url]),
+			PhpFunctionCall("empty",
+				[read(parsedUrl,
+					"scheme")])) : PhpStaticCall(invalidUrlHelper, "shouldRejectInvalidRequestUrl",
+				[PhpCastString(url), PhpNullCoalesce(read(parsedUrl, "scheme"), PhpNull)]);
 		final methodBodyFormatCondition = methodOptionsHelper == null ? PhpBinop("&&", PhpBinop("!==", PhpString("HEAD"), type),
 			PhpBinop("!==", PhpString("GET"), type)) : PhpStaticCall(methodOptionsHelper, "shouldUseBodyDataFormat", [PhpCastString(type)]);
 		final redirectDisableCondition = redirectOptionsHelper == null ? PhpFunctionCall("empty",
@@ -1342,21 +1352,17 @@ class WphxPhpWordPressAdapters
 				[PhpAssign(read(parsedArgs, "_redirection"), read(parsedArgs, "redirection"))]),
 			PhpLocal("pre", PhpFunctionCall("apply_filters", [PhpString("pre_http_request"), PhpBool(false), parsedArgs, url])),
 			PhpIf(PhpBinop("!==", PhpBool(false), PhpVar("pre")), [PhpReturn(PhpVar("pre"))]),
-			PhpIf(PhpFunctionCall("function_exists", [PhpString("wp_kses_bad_protocol")]),
-				[
-					PhpIf(read(parsedArgs, "reject_unsafe_urls"), [PhpAssign(url, PhpFunctionCall("wp_http_validate_url", [url]))]),
-					PhpIf(url,
-						[
-							PhpAssign(url,
-								PhpFunctionCall("wp_kses_bad_protocol",
-									[
-										url,
-										PhpLongArray([item(PhpString("http")), item(PhpString("https")), item(PhpString("ssl"))])
-									]))
-						])
-				]),
+			PhpIf(PhpFunctionCall("function_exists", [PhpString("wp_kses_bad_protocol")]), [
+				PhpIf(read(parsedArgs, "reject_unsafe_urls"), [PhpAssign(url, PhpFunctionCall("wp_http_validate_url", [url]))]),
+				PhpIf(url, [
+					PhpAssign(url, PhpFunctionCall("wp_kses_bad_protocol", [
+						url,
+						PhpLongArray([item(PhpString("http")), item(PhpString("https")), item(PhpString("ssl"))])
+					]))
+				])
+			]),
 			PhpLocal("parsed_url", PhpFunctionCall("parse_url", [url])),
-			PhpIf(PhpBinop("||", PhpFunctionCall("empty", [url]), PhpFunctionCall("empty", [read(parsedUrl, "scheme")])), [
+			PhpIf(invalidUrlCondition, [
 				PhpAssign(response, PhpNew("WP_Error", [
 					PhpString("http_request_failed"),
 					PhpFunctionCall("__", [PhpString("A valid URL was not provided.")])

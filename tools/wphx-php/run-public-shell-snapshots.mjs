@@ -287,6 +287,7 @@ const CASES = [
       "HttpRequestNonblocking_Fields_::nonblockingResponse",
       "HttpProcessHeaders_Fields_::headerKey",
       "HttpRequestHeadRedirectionDefault_Fields_::shouldDisableHeadDefaultRedirection",
+      "HttpRequestInvalidUrl_Fields_::shouldRejectInvalidRequestUrl",
       "HttpRequestMethodOptions_Fields_::shouldUseBodyDataFormat",
       "HttpRequestRedirectOptions_Fields_::shouldDisableRedirects",
       "HttpRequestResponseSizeOptions_Fields_::shouldSetMaxBytes",
