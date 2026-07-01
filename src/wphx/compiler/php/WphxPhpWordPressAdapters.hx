@@ -1209,6 +1209,7 @@ class WphxPhpWordPressAdapters
 		final methodOptionsHelper = namedHelper(helpers, "methodOptions");
 		final redirectOptionsHelper = namedHelper(helpers, "redirectOptions");
 		final safetyOptionsHelper = namedHelper(helpers, "safetyOptions");
+		final sslOptionsHelper = namedHelper(helpers, "sslOptions");
 		final streamBlockingHelper = namedHelper(helpers, "streamBlocking");
 		final url = PhpVar("url");
 		final args = PhpVar("args");
@@ -1259,6 +1260,10 @@ class WphxPhpWordPressAdapters
 		{
 			features.push("wp-http.request.redirect-options-helper");
 		}
+		if (sslOptionsHelper != null)
+		{
+			features.push("wp-http.request.ssl-options-helper");
+		}
 		if (streamBlockingHelper != null)
 		{
 			features.push("wp-http.request.stream-blocking-helper");
@@ -1281,6 +1286,8 @@ class WphxPhpWordPressAdapters
 			PhpBinop("!==", PhpString("GET"), type)) : PhpStaticCall(methodOptionsHelper, "shouldUseBodyDataFormat", [PhpCastString(type)]);
 		final redirectDisableCondition = redirectOptionsHelper == null ? PhpFunctionCall("empty",
 			[read(parsedArgs, "redirection")]) : PhpStaticCall(redirectOptionsHelper, "shouldDisableRedirects", [PhpCastInt(read(parsedArgs, "redirection"))]);
+		final sslDisableCondition = sslOptionsHelper == null ? PhpNot(read(parsedArgs,
+			"sslverify")) : PhpStaticCall(sslOptionsHelper, "shouldDisableSslVerification", [PhpCastBool(read(parsedArgs, "sslverify"))]);
 
 		return plan(features, [
 			PhpLocal("defaults",
@@ -1412,7 +1419,7 @@ class WphxPhpWordPressAdapters
 			PhpIf(PhpNot(PhpFunctionCall("empty", [read(parsedArgs, "cookies")])), [
 				PhpAssign(read(options, "cookies"), PhpStaticCall("self", "normalize_cookies", [read(parsedArgs, "cookies")]))
 			]),
-			PhpIfElse(PhpNot(read(parsedArgs, "sslverify")), [
+			PhpIfElse(sslDisableCondition, [
 				PhpAssign(read(options, "verify"), PhpBool(false)),
 				PhpAssign(read(options, "verifyname"), PhpBool(false))
 			],

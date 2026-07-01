@@ -7,6 +7,7 @@ import wphx.wp.http.HttpRequestMethodOptions.shouldUseBodyDataFormat;
 import wphx.wp.http.HttpRequestNonblocking.nonblockingResponse;
 import wphx.wp.http.HttpRequestRedirectOptions.shouldDisableRedirects;
 import wphx.wp.http.HttpRequestSafetyOptions.shouldRegisterRedirectValidation;
+import wphx.wp.http.HttpRequestSslOptions.shouldDisableSslVerification;
 import wphx.wp.http.HttpRequestStreamBlocking.shouldForceBlockingForStream;
 import wphx.wp.http.HttpProcessHeaders.headerKey;
 
@@ -25,6 +26,7 @@ class HttpRequestStreamBlockingCandidateEntry
 		shouldDisableRedirects(0);
 		headerKey("X-Test: yes");
 		shouldRegisterRedirectValidation(true, true);
+		shouldDisableSslVerification(false);
 		shouldForceBlockingForStream(true);
 	}
 }

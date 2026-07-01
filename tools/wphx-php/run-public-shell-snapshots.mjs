@@ -290,6 +290,7 @@ const CASES = [
       "HttpRequestMethodOptions_Fields_::shouldUseBodyDataFormat",
       "HttpRequestRedirectOptions_Fields_::shouldDisableRedirects",
       "HttpRequestSafetyOptions_Fields_::shouldRegisterRedirectValidation",
+      "HttpRequestSslOptions_Fields_::shouldDisableSslVerification",
       "HttpRequestStreamBlocking_Fields_::shouldForceBlockingForStream",
       "return apply_filters( 'http_response'"
     ],
