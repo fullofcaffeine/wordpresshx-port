@@ -20,6 +20,7 @@ class WpHttpRequestNonblockingShell
 	@:wp.haxeHelper("headRedirectionDefault", "\\wphx\\wp\\http\\_HttpRequestHeadRedirectionDefault\\HttpRequestHeadRedirectionDefault_Fields_")
 	@:wp.haxeHelper("methodOptions", "\\wphx\\wp\\http\\_HttpRequestMethodOptions\\HttpRequestMethodOptions_Fields_")
 	@:wp.haxeHelper("redirectOptions", "\\wphx\\wp\\http\\_HttpRequestRedirectOptions\\HttpRequestRedirectOptions_Fields_")
+	@:wp.haxeHelper("responseSizeOptions", "\\wphx\\wp\\http\\_HttpRequestResponseSizeOptions\\HttpRequestResponseSizeOptions_Fields_")
 	@:wp.haxeHelper("safetyOptions", "\\wphx\\wp\\http\\_HttpRequestSafetyOptions\\HttpRequestSafetyOptions_Fields_")
 	@:wp.haxeHelper("sslOptions", "\\wphx\\wp\\http\\_HttpRequestSslOptions\\HttpRequestSslOptions_Fields_")
 	@:wp.haxeHelper("streamBlocking", "\\wphx\\wp\\http\\_HttpRequestStreamBlocking\\HttpRequestStreamBlocking_Fields_")

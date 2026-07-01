@@ -53,6 +53,7 @@ const HAXE_SOURCES = [
   "src/wphx/wp/http/HttpRequestHeadRedirectionDefault.hx",
   "src/wphx/wp/http/HttpRequestMethodOptions.hx",
   "src/wphx/wp/http/HttpRequestRedirectOptions.hx",
+  "src/wphx/wp/http/HttpRequestResponseSizeOptions.hx",
   "src/wphx/wp/http/HttpProcessHeaders.hx",
   "src/wphx/wp/http/HttpRequestSafetyOptions.hx",
   "src/wphx/wp/http/HttpRequestSslOptions.hx",
@@ -736,6 +737,7 @@ async function main() {
     "wp-http.request.head-redirection-default-helper",
     "wp-http.request.method-options-helper",
     "wp-http.request.redirect-options-helper",
+    "wp-http.request.response-size-options-helper",
     "wp-http.request.safety-options-helper",
     "wp-http.request.ssl-options-helper",
     "wp-http.request.stream-blocking-helper"
@@ -761,6 +763,7 @@ async function main() {
     head_redirection_haxe_call: generatedShell.includes("HttpRequestHeadRedirectionDefault_Fields_::shouldDisableHeadDefaultRedirection"),
     method_options_haxe_call: generatedShell.includes("HttpRequestMethodOptions_Fields_::shouldUseBodyDataFormat"),
     redirect_options_haxe_call: generatedShell.includes("HttpRequestRedirectOptions_Fields_::shouldDisableRedirects"),
+    response_size_options_haxe_call: generatedShell.includes("HttpRequestResponseSizeOptions_Fields_::shouldSetMaxBytes"),
     safety_options_haxe_call: generatedShell.includes("HttpRequestSafetyOptions_Fields_::shouldRegisterRedirectValidation"),
     ssl_options_haxe_call: generatedShell.includes("HttpRequestSslOptions_Fields_::shouldDisableSslVerification"),
     stream_blocking_haxe_call: generatedShell.includes("HttpRequestStreamBlocking_Fields_::shouldForceBlockingForStream"),

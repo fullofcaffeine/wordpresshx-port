@@ -1208,6 +1208,7 @@ class WphxPhpWordPressAdapters
 		final headRedirectionDefaultHelper = namedHelper(helpers, "headRedirectionDefault");
 		final methodOptionsHelper = namedHelper(helpers, "methodOptions");
 		final redirectOptionsHelper = namedHelper(helpers, "redirectOptions");
+		final responseSizeOptionsHelper = namedHelper(helpers, "responseSizeOptions");
 		final safetyOptionsHelper = namedHelper(helpers, "safetyOptions");
 		final sslOptionsHelper = namedHelper(helpers, "sslOptions");
 		final streamBlockingHelper = namedHelper(helpers, "streamBlocking");
@@ -1260,6 +1261,10 @@ class WphxPhpWordPressAdapters
 		{
 			features.push("wp-http.request.redirect-options-helper");
 		}
+		if (responseSizeOptionsHelper != null)
+		{
+			features.push("wp-http.request.response-size-options-helper");
+		}
 		if (sslOptionsHelper != null)
 		{
 			features.push("wp-http.request.ssl-options-helper");
@@ -1286,6 +1291,9 @@ class WphxPhpWordPressAdapters
 			PhpBinop("!==", PhpString("GET"), type)) : PhpStaticCall(methodOptionsHelper, "shouldUseBodyDataFormat", [PhpCastString(type)]);
 		final redirectDisableCondition = redirectOptionsHelper == null ? PhpFunctionCall("empty",
 			[read(parsedArgs, "redirection")]) : PhpStaticCall(redirectOptionsHelper, "shouldDisableRedirects", [PhpCastInt(read(parsedArgs, "redirection"))]);
+		final responseSizeCondition = responseSizeOptionsHelper == null ? PhpFunctionCall("isset",
+			[read(parsedArgs,
+				"limit_response_size")]) : PhpStaticCall(responseSizeOptionsHelper, "shouldSetMaxBytes", [read(parsedArgs, "limit_response_size")]);
 		final sslDisableCondition = sslOptionsHelper == null ? PhpNot(read(parsedArgs,
 			"sslverify")) : PhpStaticCall(sslOptionsHelper, "shouldDisableSslVerification", [PhpCastBool(read(parsedArgs, "sslverify"))]);
 
@@ -1414,8 +1422,7 @@ class WphxPhpWordPressAdapters
 			PhpIf(read(parsedArgs, "stream"), [PhpAssign(read(options, "filename"), read(parsedArgs, "filename"))]),
 			PhpIfElse(redirectDisableCondition, [PhpAssign(read(options, "follow_redirects"), PhpBool(false))],
 				[PhpAssign(read(options, "redirects"), read(parsedArgs, "redirection"))]),
-			PhpIf(PhpFunctionCall("isset", [read(parsedArgs, "limit_response_size")]),
-				[PhpAssign(read(options, "max_bytes"), read(parsedArgs, "limit_response_size"))]),
+			PhpIf(responseSizeCondition, [PhpAssign(read(options, "max_bytes"), read(parsedArgs, "limit_response_size"))]),
 			PhpIf(PhpNot(PhpFunctionCall("empty", [read(parsedArgs, "cookies")])), [
 				PhpAssign(read(options, "cookies"), PhpStaticCall("self", "normalize_cookies", [read(parsedArgs, "cookies")]))
 			]),
