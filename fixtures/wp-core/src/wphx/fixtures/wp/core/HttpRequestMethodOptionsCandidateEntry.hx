@@ -3,6 +3,7 @@ package wphx.fixtures.wp.core;
 import wphx.wp.http.HttpBlockRequestPolicy.isLocalRequest;
 import wphx.wp.http.HttpBlockRequestPolicy.shouldBlockExternalHost;
 import wphx.wp.http.HttpProcessHeaders.headerKey;
+import wphx.wp.http.HttpRequestBlockedRequest.shouldReturnBlockedRequestError;
 import wphx.wp.http.HttpRequestHeadRedirectionDefault.shouldDisableHeadDefaultRedirection;
 import wphx.wp.http.HttpRequestInvalidUrl.shouldRejectInvalidRequestUrl;
 import wphx.wp.http.HttpRequestMethodOptions.shouldUseBodyDataFormat;
@@ -24,6 +25,7 @@ class HttpRequestMethodOptionsCandidateEntry
 		nonblockingResponse();
 		isLocalRequest("localhost", "example.test");
 		shouldBlockExternalHost("blocked.example", "example.test");
+		shouldReturnBlockedRequestError(true);
 		shouldRejectInvalidRequestUrl("relative/path", null);
 		shouldDisableHeadDefaultRedirection(true, "HEAD");
 		shouldUseBodyDataFormat("POST");

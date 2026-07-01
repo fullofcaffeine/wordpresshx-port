@@ -17,6 +17,7 @@ class WpHttpRequestNonblockingShell
 
 	@:wp.adapter("wp-http-request-nonblocking")
 	@:wp.haxeHelper("\\wphx\\wp\\http\\_HttpRequestNonblocking\\HttpRequestNonblocking_Fields_")
+	@:wp.haxeHelper("blockedRequest", "\\wphx\\wp\\http\\_HttpRequestBlockedRequest\\HttpRequestBlockedRequest_Fields_")
 	@:wp.haxeHelper("headRedirectionDefault", "\\wphx\\wp\\http\\_HttpRequestHeadRedirectionDefault\\HttpRequestHeadRedirectionDefault_Fields_")
 	@:wp.haxeHelper("invalidUrl", "\\wphx\\wp\\http\\_HttpRequestInvalidUrl\\HttpRequestInvalidUrl_Fields_")
 	@:wp.haxeHelper("methodOptions", "\\wphx\\wp\\http\\_HttpRequestMethodOptions\\HttpRequestMethodOptions_Fields_")

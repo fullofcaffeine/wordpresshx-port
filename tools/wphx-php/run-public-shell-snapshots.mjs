@@ -286,6 +286,7 @@ const CASES = [
       "reset_mbstring_encoding();",
       "HttpRequestNonblocking_Fields_::nonblockingResponse",
       "HttpProcessHeaders_Fields_::headerKey",
+      "HttpRequestBlockedRequest_Fields_::shouldReturnBlockedRequestError",
       "HttpRequestHeadRedirectionDefault_Fields_::shouldDisableHeadDefaultRedirection",
       "HttpRequestInvalidUrl_Fields_::shouldRejectInvalidRequestUrl",
       "HttpRequestMethodOptions_Fields_::shouldUseBodyDataFormat",

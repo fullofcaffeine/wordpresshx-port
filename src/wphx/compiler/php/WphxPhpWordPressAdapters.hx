@@ -1205,6 +1205,7 @@ class WphxPhpWordPressAdapters
 			return missingHelper("missing @:wp.haxeHelper for WP_Http::request nonblocking adapter " + fieldName);
 		}
 
+		final blockedRequestHelper = namedHelper(helpers, "blockedRequest");
 		final headRedirectionDefaultHelper = namedHelper(helpers, "headRedirectionDefault");
 		final invalidUrlHelper = namedHelper(helpers, "invalidUrl");
 		final methodOptionsHelper = namedHelper(helpers, "methodOptions");
@@ -1250,6 +1251,10 @@ class WphxPhpWordPressAdapters
 		if (safetyOptionsHelper != null)
 		{
 			features.push("wp-http.request.safety-options-helper");
+		}
+		if (blockedRequestHelper != null)
+		{
+			features.push("wp-http.request.blocked-request-helper");
 		}
 		if (headRedirectionDefaultHelper != null)
 		{
@@ -1304,6 +1309,9 @@ class WphxPhpWordPressAdapters
 				[read(parsedUrl,
 					"scheme")])) : PhpStaticCall(invalidUrlHelper, "shouldRejectInvalidRequestUrl",
 				[PhpCastString(url), PhpNullCoalesce(read(parsedUrl, "scheme"), PhpNull)]);
+		final blockedRequestCondition = blockedRequestHelper == null ? PhpMethodCall(PhpVar("this"), "block_request",
+			[url]) : PhpStaticCall(blockedRequestHelper, "shouldReturnBlockedRequestError",
+				[PhpCastBool(PhpMethodCall(PhpVar("this"), "block_request", [url]))]);
 		final methodBodyFormatCondition = methodOptionsHelper == null ? PhpBinop("&&", PhpBinop("!==", PhpString("HEAD"), type),
 			PhpBinop("!==", PhpString("GET"), type)) : PhpStaticCall(methodOptionsHelper, "shouldUseBodyDataFormat", [PhpCastString(type)]);
 		final redirectDisableCondition = redirectOptionsHelper == null ? PhpFunctionCall("empty",
@@ -1370,7 +1378,7 @@ class WphxPhpWordPressAdapters
 				httpApiDebug(response, parsedArgs, url),
 				PhpReturn(response)
 			]),
-			PhpIf(PhpMethodCall(PhpVar("this"), "block_request", [url]), [
+			PhpIf(blockedRequestCondition, [
 				PhpAssign(response, PhpNew("WP_Error", [
 					PhpString("http_request_not_executed"),
 					PhpFunctionCall("sprintf", [
