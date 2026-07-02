@@ -255,6 +255,16 @@ function printEmbedSharingButton():String
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("print_embed_sharing_dialog")
+@:wp.echo
+@:keep
+function printEmbedSharingDialog():String
+{
+	return HaxeEmbedKernel.printEmbedSharingDialog();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("print_embed_comments_button")
 @:wp.echo
 @:keep

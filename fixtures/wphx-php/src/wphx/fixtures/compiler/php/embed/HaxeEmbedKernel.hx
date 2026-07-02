@@ -62,6 +62,8 @@ extern class HaxeEmbedKernel
 
 	static function printEmbedSharingButton():String;
 
+	static function printEmbedSharingDialog():String;
+
 	static function printEmbedCommentsButton():String;
 
 	static function maybeLoadEmbeds():Void;

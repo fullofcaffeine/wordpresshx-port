@@ -445,6 +445,60 @@ class EmbedKernel
 			+ "\">\n\t\t\t<span class=\"dashicons dashicons-share\"></span>\n\t\t</button>\n\t</div>\n\t";
 	}
 
+	public static function printEmbedSharingDialog():String
+	{
+		if (EmbedGlobals.is404())
+		{
+			return "";
+		}
+
+		final uniqueSuffix = EmbedGlobals.strval(EmbedGlobals.getTheId()) + "-" + EmbedGlobals.strval(EmbedGlobals.wpRand());
+		final shareTabWordpressId = "wp-embed-share-tab-wordpress-" + uniqueSuffix;
+		final shareTabHtmlId = "wp-embed-share-tab-html-" + uniqueSuffix;
+		final descriptionWordpressId = "wp-embed-share-description-wordpress-" + uniqueSuffix;
+		final descriptionHtmlId = "wp-embed-share-description-html-" + uniqueSuffix;
+
+		return "\t<div class=\"wp-embed-share-dialog hidden\" role=\"dialog\" aria-label=\""
+			+ EmbedGlobals.escAttr(EmbedGlobals.translate("Sharing options"))
+			+
+			"\">\n\t\t<div class=\"wp-embed-share-dialog-content\">\n\t\t\t<div class=\"wp-embed-share-dialog-text\">\n\t\t\t\t<ul class=\"wp-embed-share-tabs\" role=\"tablist\">\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-wordpress\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\""
+			+ shareTabWordpressId
+			+ "\" aria-selected=\"true\" tabindex=\"0\">"
+			+ EmbedGlobals.escHtml(EmbedGlobals.translate("WordPress Embed"))
+			+
+			"</button>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-html\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\""
+			+ shareTabHtmlId
+			+ "\" aria-selected=\"false\" tabindex=\"-1\">"
+			+ EmbedGlobals.escHtml(EmbedGlobals.translate("HTML Embed"))
+			+ "</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div id=\""
+			+ shareTabWordpressId
+			+ "\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"false\">\n\t\t\t\t\t<input type=\"text\" value=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.getPermalink())
+			+ "\" class=\"wp-embed-share-input\" aria-label=\""
+			+ EmbedGlobals.escAttr(EmbedGlobals.translate("URL"))
+			+ "\" aria-describedby=\""
+			+ descriptionWordpressId
+			+ "\" tabindex=\"0\" readonly/>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\""
+			+ descriptionWordpressId
+			+ "\">\n\t\t\t\t\t\t"
+			+ EmbedGlobals.translate("Copy and paste this URL into your WordPress site to embed")
+			+ "\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\""
+			+ shareTabHtmlId
+			+ "\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"true\">\n\t\t\t\t\t<textarea class=\"wp-embed-share-input\" aria-label=\""
+			+ EmbedGlobals.escAttr(EmbedGlobals.translate("HTML"))
+			+ "\" aria-describedby=\""
+			+ descriptionHtmlId
+			+ "\" tabindex=\"0\" readonly>"
+			+ EmbedGlobals.escTextarea(EmbedGlobals.getPostEmbedHtml(600, 400, null))
+			+ "</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\""
+			+ descriptionHtmlId
+			+ "\">\n\t\t\t\t\t\t"
+			+ EmbedGlobals.translate("Copy and paste this code into your site to embed")
+			+ "\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<button type=\"button\" class=\"wp-embed-share-dialog-close\" aria-label=\""
+			+ EmbedGlobals.escAttr(EmbedGlobals.translate("Close sharing dialog"))
+			+ "\">\n\t\t\t\t<span class=\"dashicons dashicons-no\"></span>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n\t";
+	}
+
 	public static function printEmbedCommentsButton():String
 	{
 		final commentsNumber = EmbedGlobals.getCommentsNumber();
@@ -646,6 +700,9 @@ extern class EmbedGlobals
 	@:native("esc_attr")
 	public static function escAttr(value:String):String;
 
+	@:native("esc_textarea")
+	public static function escTextarea(value:String):String;
+
 	@:native("home_url")
 	public static function homeUrl():String;
 
@@ -721,6 +778,9 @@ extern class EmbedGlobals
 	@:native("get_the_title")
 	public static function getTheTitle():String;
 
+	@:native("get_the_ID")
+	public static function getTheId():NativeValue;
+
 	@:native("__")
 	public static function translate(text:String):String;
 
@@ -777,6 +837,12 @@ extern class EmbedGlobals
 
 	@:native("wp_generate_password")
 	public static function wpGeneratePassword(length:Int, specialChars:Bool):String;
+
+	@:native("wp_rand")
+	public static function wpRand():NativeValue;
+
+	@:native("get_post_embed_html")
+	public static function getPostEmbedHtml(width:Int, height:Int, post:NativeValue):String;
 
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
