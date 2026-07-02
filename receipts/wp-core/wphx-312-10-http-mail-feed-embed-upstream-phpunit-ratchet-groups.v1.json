@@ -15,17 +15,17 @@
     {
       "path": "tests/upstream/phpunit/groups.json",
       "role": "selected upstream HTTP/cron/mail/feed/oEmbed/HTTPS/privacy PHPUnit ratchet groups",
-      "sha256": "sha256:71263f483e5b42103156aafd7bbef12ed6f695504a2cb375f636fed978e5e909"
+      "sha256": "sha256:dd76ee1736a8553ba1a03201cd41e53408b886b79cbcdb4cf0966b4f63f1e323"
     },
     {
       "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
       "role": "refreshed upstream PHPUnit ratchet manifest",
-      "sha256": "sha256:8cb1bb0d0f21b0f4096fe7d4f1e9b7a4e436406c1740ce46938bad04974dac10"
+      "sha256": "sha256:7ff4808713f7197bfabb9c386ba14283935b8e0d60118e8829c9b05407dc74d7"
     },
     {
       "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
       "role": "refreshed upstream PHPUnit ratchet receipt",
-      "sha256": "sha256:d2494b061d9bd8dc57e912714cfaa5cbc98eab4db903b665159af9948e13d6fd"
+      "sha256": "sha256:eeb2b72515b8fa0285a8968e9c60961a88050e172c5af29a8acdebeec34fa5af"
     },
     {
       "path": "docs/operations/upstream-phpunit-ratchet.md",
@@ -35,7 +35,7 @@
     {
       "path": "docs/operations/progress-matrix.md",
       "role": "bounded WPHX-312.10 progress interpretation",
-      "sha256": "sha256:8a3d11a59a6d14a9f6ec24bcee5179dda61e6502fda2d26afd3f9df22ca95958"
+      "sha256": "sha256:8762bea5e4d098b8eb39f1e7c3d88977e0d4f785eb3d0303c73e4593c71540d6"
     }
   ],
   "verification_commands": [
@@ -45,18 +45,40 @@
     "npm run beads:validate"
   ],
   "validation_result": {
-    "status": "blocked",
-    "environment_ready": false,
+    "status": "passed",
+    "environment_ready": true,
     "selected_upstream_groups_declared": true,
     "selected_wphx_312_group_count": 4,
-    "selected_wphx_312_test_file_count": 38,
-    "runs_executed": 0,
+    "selected_wphx_312_test_file_count": 37,
+    "runs_executed": 62,
     "behavior_parity_claimed": false,
-    "blocked_inputs": [
-      "vanilla_phpunit_vendor_missing",
-      "vanilla_wp_tests_config_missing",
-      "candidate_root_env_missing"
+    "selected_wphx_312_classifications": [
+      {
+        "group": "http-cron-mail-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "feed-simplepie-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "oembed-embed-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "https-privacy-request-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
     ],
-    "remaining_gate": "Run npm run upstream:phpunit-ratchet:provision after the disposable runtime is refreshed to record executable pass/pass classifications for the WPHX-312 groups."
+    "blocked_inputs": [],
+    "remaining_gate": "Generated/Haxe candidate overlays and full installed distribution parity remain later gates; WPHX-312.97 records the executable upstream ratchet unblock."
   }
 }

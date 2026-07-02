@@ -10,17 +10,27 @@
   "command": "npm run upstream:phpunit-ratchet:provision",
   "evidence_class": "upstream_suite_parity",
   "artifact_scope": "packaged_distribution",
-  "behavior_parity_claimed": true,
+  "behavior_parity_claimed": false,
   "artifacts": [
     {
       "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
       "role": "executable upstream PHPUnit ratchet environment manifest",
-      "sha256": "sha256:81d64b3b2db9f17b570dfd0d9b3fa473b26cb95d6641e40e57b936ac89cb245a"
+      "sha256": "sha256:5e668b86a2c77295b72fc8dfb91c9f7b6258534108185b52351047392bb5dddc"
     },
     {
       "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
       "role": "runtime ratchet report produced by WPHX-700.05 runner",
-      "sha256": "sha256:817fb8dae4ece21189fe2b5f022c78cbc0178877961b2dc36aac42c7287b3168"
+      "sha256": "sha256:c87cb0b1ff321b64148809a79da6649654014d536dbb1af913a448d37cd6471e"
+    },
+    {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed logical upstream PHPUnit ratchet manifest",
+      "sha256": "sha256:7ff4808713f7197bfabb9c386ba14283935b8e0d60118e8829c9b05407dc74d7"
+    },
+    {
+      "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed logical upstream PHPUnit ratchet receipt",
+      "sha256": "sha256:eeb2b72515b8fa0285a8968e9c60961a88050e172c5af29a8acdebeec34fa5af"
     }
   ],
   "verification_commands": [
@@ -33,8 +43,15 @@
     "environment_ready": true,
     "vanilla_candidate_roots_distinct": true,
     "isolated_databases": true,
-    "ratchet_runs_executed": 34,
-    "all_classifications_parity_pass": true,
+    "ratchet_runs_executed": 62,
+    "all_classifications_parity_pass": false,
+    "baseline_failure_count": 3,
+    "baseline_failure_groups": [
+      "blocks-supports-bindings-core",
+      "style-engine-core",
+      "interactivity-api-core"
+    ],
+    "unowned_candidate_regression_count": 0,
     "rejects_new_vanilla_pass_candidate_fail": true
   }
 }

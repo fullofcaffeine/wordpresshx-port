@@ -1,0 +1,95 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-97-http-mail-feed-embed-upstream-phpunit-executable",
+  "issue": {
+    "id": "wordpresshx-l76.18.42",
+    "external_ref": "WPHX-312.97",
+    "title": "WPHX-312.97 — Unblock HTTP/cron/mail/feed/embed upstream PHPUnit ratchet"
+  },
+  "recorded_at": "2026-07-02T23:59:00Z",
+  "command": "npm run upstream:phpunit-ratchet:provision",
+  "evidence_class": "upstream_suite_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "tests/upstream/phpunit/groups.json",
+      "role": "selected upstream PHPUnit group registry with corrected WPHX-312 runnable HTTP group selector",
+      "sha256": "sha256:dd76ee1736a8553ba1a03201cd41e53408b886b79cbcdb4cf0966b4f63f1e323"
+    },
+    {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed logical upstream PHPUnit ratchet manifest with WPHX-312 pass/pass classifications",
+      "sha256": "sha256:7ff4808713f7197bfabb9c386ba14283935b8e0d60118e8829c9b05407dc74d7"
+    },
+    {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "provisioned executable upstream PHPUnit ratchet environment manifest",
+      "sha256": "sha256:5e668b86a2c77295b72fc8dfb91c9f7b6258534108185b52351047392bb5dddc"
+    },
+    {
+      "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "refreshed logical upstream PHPUnit ratchet receipt",
+      "sha256": "sha256:eeb2b72515b8fa0285a8968e9c60961a88050e172c5af29a8acdebeec34fa5af"
+    },
+    {
+      "path": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "refreshed provisioned upstream PHPUnit ratchet environment receipt",
+      "sha256": "sha256:760cb5fe1c9fdfd658e2d3a99ea1344a344db7294fababc49a39642d82e66724"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-312.97 progress interpretation",
+      "sha256": "sha256:8762bea5e4d098b8eb39f1e7c3d88977e0d4f785eb3d0303c73e4593c71540d6"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run upstream:phpunit-ratchet:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "environment_ready": true,
+    "runs_executed": 62,
+    "selected_wphx_312_group_count": 4,
+    "selected_wphx_312_test_file_count": 37,
+    "selected_wphx_312_classifications": [
+      {
+        "group": "http-cron-mail-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "feed-simplepie-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "oembed-embed-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "https-privacy-request-core",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    ],
+    "blocked_inputs": [],
+    "rejects_new_vanilla_pass_candidate_fail": true,
+    "global_behavior_parity_claimed": false,
+    "global_non_parity_reason": "The global ratchet still includes WPHX-314 groups with vanilla fail / candidate fail baseline classifications, and the candidate assembly is the pinned WordPress 7.0 worktree without generated/Haxe overlays."
+  },
+  "non_claims": [
+    "This receipt does not claim generated public PHP replacement for WPHX-312.",
+    "This receipt does not claim installed database-backed behavior, live network/provider behavior, or real mail/cron delivery.",
+    "This receipt does not claim full distribution parity because the current candidate root has no generated/Haxe overlays and WPHX-314 baseline failures remain outside WPHX-312."
+  ]
+}

@@ -16,6 +16,7 @@ import {
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
 const runtimeReportOnly = args.has("--runtime-report-only");
+const useExistingReport = args.has("--use-existing-report");
 
 const ISSUE = {
   id: "wordpresshx-w91.3.5",
@@ -176,16 +177,76 @@ function executeRatchet(prerequisites, groups, knownDeltas) {
 
 const groups = readJson(GROUPS);
 const knownDeltas = readJson(KNOWN_DELTAS);
-const prerequisites = prerequisiteReport(groups, knownDeltas);
+
+function validateRecordedManifest(manifest) {
+  const currentGroupsHash = artifactRecord(GROUPS).sha256;
+  const selectedWphx312Groups = groups.groups.filter((group) => group.owner === "WPHX-312").map((group) => group.id).sort();
+  const classifications = manifest.execution_summary?.classifications ?? [];
+  const classificationByGroup = new Map(classifications.map((entry) => [entry.group, entry]));
+  const missingWphx312Groups = selectedWphx312Groups.filter((group) => !classificationByGroup.has(group));
+  const blockedWphx312Groups = selectedWphx312Groups.filter((group) => {
+    const classification = classificationByGroup.get(group)?.classification;
+    return !["parity_pass", "known_candidate_failure", "environment_or_upstream_baseline_failure"].includes(classification);
+  });
+  const failures = [];
+
+  if (manifest.inputs?.groups?.sha256 !== currentGroupsHash) failures.push("groups input hash is stale");
+  if (!manifest.validation_result?.environment_ready) failures.push("recorded environment is not ready");
+  if ((manifest.validation_result?.runs_executed ?? 0) === 0) failures.push("no ratchet runs were executed");
+  if ((manifest.validation_result?.blocked_inputs ?? []).length > 0) failures.push("recorded manifest still has blocked inputs");
+  if (missingWphx312Groups.length > 0) failures.push(`missing WPHX-312 classifications: ${missingWphx312Groups.join(", ")}`);
+  if (blockedWphx312Groups.length > 0) failures.push(`blocked WPHX-312 classifications: ${blockedWphx312Groups.join(", ")}`);
+
+  return {
+    status: failures.length === 0 ? "passed" : "failed",
+    failures,
+    selected_wphx_312_groups: selectedWphx312Groups,
+    selected_wphx_312_group_count: selectedWphx312Groups.length,
+    selected_wphx_312_classifications: selectedWphx312Groups.map((group) => classificationByGroup.get(group) ?? { group, classification: "missing" })
+  };
+}
+
+if (checkOnly) {
+  if (!existsSync(OUT)) throw new Error(`${OUT} is missing; run npm run upstream:phpunit-ratchet:provision`);
+  if (!existsSync(RECEIPT)) throw new Error(`${RECEIPT} is missing; run npm run upstream:phpunit-ratchet:provision`);
+  const recordedManifest = readJson(OUT);
+  const recordedValidation = validateRecordedManifest(recordedManifest);
+  if (recordedValidation.status !== "passed") {
+    throw new Error(`Recorded upstream PHPUnit ratchet manifest is not provisioned:\n${recordedValidation.failures.join("\n")}`);
+  }
+  console.log(
+    JSON.stringify(
+      {
+        status: recordedManifest.validation_result.status,
+        output: OUT,
+        receipt: RECEIPT,
+        evidence_class: recordedManifest.evidence_class,
+        artifact_scope: recordedManifest.artifact_scope,
+        behavior_parity_claimed: recordedManifest.behavior_parity_claimed,
+        environment_ready: recordedManifest.validation_result.environment_ready,
+        runs_executed: recordedManifest.validation_result.runs_executed,
+        selected_wphx_312_group_count: recordedValidation.selected_wphx_312_group_count,
+        selected_wphx_312_classifications: recordedValidation.selected_wphx_312_classifications
+      },
+      null,
+      2
+    )
+  );
+  process.exit(0);
+}
+
+const existingReport = useExistingReport && existsSync(REPORT) ? readJson(REPORT) : null;
+const prerequisites = existingReport?.prerequisites ?? prerequisiteReport(groups, knownDeltas);
 const execution =
-  prerequisites.status === "ready"
+  existingReport?.execution ??
+  (prerequisites.status === "ready"
     ? executeRatchet(prerequisites, groups, knownDeltas)
     : {
         status: "blocked",
         runs: [],
         classifications: [],
         blocked_reason: "Required upstream PHPUnit runtime inputs are missing; no upstream suite parity is claimed."
-      };
+      });
 const behaviorParityClaimed =
   execution.status === "passed" &&
   execution.classifications.length > 0 &&
@@ -247,6 +308,10 @@ const manifest = {
   report: {
     path: REPORT,
     sha256: artifactRecord(REPORT).sha256
+  },
+  execution_summary: {
+    status: execution.status,
+    classifications: execution.classifications
   },
   validation_result: {
     status: execution.status,

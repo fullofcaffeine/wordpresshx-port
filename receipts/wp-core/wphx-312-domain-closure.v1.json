@@ -1,0 +1,108 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.18.44",
+    "external_ref": "WPHX-312.96",
+    "title": "WPHX-312.96 — Close bounded HTTP, cron, mail, feed, and embed domain"
+  },
+  "recorded_at": "2026-07-02T23:59:30Z",
+  "command": "domain closure audit over WPHX-312 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, compiler_emitted_public_shell, packaged_distribution, upstream_suite_parity",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+      "role": "HTTP, cron, mail, feeds, embeds, HTTPS, privacy, AI HTTP, and trackback source/distribution/ABI/upstream surface inventory",
+      "sha256": "sha256:bdd7caf2c8008dda1a46a4f24697dbd046cab46a2a6bb29d5cdee9a55a8f7c9a"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+      "role": "typed Haxe HTTP/cron/mail/feed/embed adapter-contract evidence",
+      "sha256": "sha256:b661f64588b78958179d72f74ec00f84210c72ce9e1b2cbc3d728b43d2b06b82"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-09-http-mail-feed-embed-installed-gate.v1.json",
+      "role": "initial installed-style HTTP, cron, mail, feed, oEmbed, trackback, and privacy route gate",
+      "sha256": "sha256:eb13c4d19d19fa6c0bc8c82b155607c4924af7ff24dc8e29858ed0fd37afc861"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-92-http-transport-parity-gate.v1.json",
+      "role": "recorded WP_Http::request transport parity gate against WPHX PHP emitted shell",
+      "sha256": "sha256:5e653e49b167101dcc31d61462106a1b32ae5d481faae222dd045e3f300da6cf"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+      "role": "controlled cron loopback and PHPMailer SMTP capture installed-style transport gate",
+      "sha256": "sha256:34e4e65f6b8e46dd1d716a49ccb844b76e8d3c79c1e62c35dd68d4670eaefd20"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-94-feed-embed-widget-privacy-installed-routes-gate.v1.json",
+      "role": "feed, comment feed, oEmbed, post embed, RSS widget/block, and privacy installed-route gate",
+      "sha256": "sha256:4aa86a5bde331cf8ed84115a8ac5300e3246c7a5a4fd63a4bbb6db828281c712"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-95-public-shell-gap-audit.v1.json",
+      "role": "public PHP shell ownership-state audit",
+      "sha256": "sha256:31b83a1f1cd1509b552fc694d3b21e059d1343875f8bea4bf01d2ec83f351481"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-97-http-mail-feed-embed-upstream-phpunit-executable.v1.json",
+      "role": "provisioned WPHX-312 upstream PHPUnit pass/pass evidence",
+      "sha256": "sha256:4cb84cfddc15fa2348d1a60cdcc9d8ca033195a37c841010021a6a85a399b596"
+    },
+    {
+      "path": "receipts/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+      "role": "copied public surface follow-up plan for generated adapters, vendor policy, installed routes, live transport, cron/mail transport, and upstream PHPUnit",
+      "sha256": "sha256:34d0dfc5983ce340e008aa0595ddf4dce526f2abfab98f4277bb6fd781570ea2"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-312 closure interpretation",
+      "sha256": "sha256:8762bea5e4d098b8eb39f1e7c3d88977e0d4f785eb3d0303c73e4593c71540d6"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-312-feed-embed-widget-privacy-installed-routes-gate:check",
+    "npm run wp:core:wphx-312-http-transport-parity-gate:check",
+    "npm run wp:core:wphx-312-cron-mail-transport-installed-gate:check",
+    "npm run wp:core:wphx-312-public-shell-gap-audit:check",
+    "npm run wp:core:wphx-312-copied-surface-plan:check",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run upstream:phpunit-ratchet:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "HttpCronMailFeedEmbedAdapterContract"
+    ],
+    "fixtures_cover": [
+      "side-effect-safe HTTP response/header/cookie/encoding helpers, cron scheduling, and wp_mail short-circuit behavior",
+      "feed text/content helpers, local embeds, oEmbed provider/data/XML helpers, HTTPS migration/detection branches, OPML/feed templates, RSS comments, Magpie/SimplePie, RSS widget/class/block rendering, trackbacks, and privacy mail/admin state",
+      "WPHX PHP compiler-emitted HTTP helper/class/request branch candidates and recorded WP_Http::request transport parity",
+      "controlled local cron loopback and wp_mail/PHPMailer SMTP capture transport observations",
+      "installed-style feed/comment feed/oEmbed/post embed/RSS widget/RSS block/privacy confirmation/privacy list-table route observations",
+      "selected upstream WPHX-312 PHPUnit groups with vanilla pass / candidate pass classifications"
+    ],
+    "public_shell_state": {
+      "audit_boundary_count": 92,
+      "durable_generated_public_shell_count": 42,
+      "copied_oracle_public_surface_count": 48,
+      "adapter_contract_only_count": 1,
+      "inventory_only_count": 1,
+      "copied_surface_plan_count": 48
+    },
+    "remaining_gaps": [
+      "Generated public PHP replacement for copied WPHX-312 feed/embed/cron/mail/HTTP wrapper surfaces is not claimed; WPHX-312.101 and WPHX PHP follow-up own generated adapter replacement.",
+      "Preserved-vendor classification for SimplePie, PHPMailer, Requests-adjacent vendor code, and other third-party surfaces remains WPHX-323 work.",
+      "Full generated/Haxe candidate overlays are not present in the upstream PHPUnit candidate root; the ratchet proves executable selected upstream pass/pass against pinned vanilla/candidate worktrees.",
+      "Live network/provider behavior, DNS/proxy/TLS negotiation, external oEmbed/feed provider availability, production cron timing races, and real PHP mail/SMTP operational delivery remain later distribution work.",
+      "Database-backed installed feed/comment/enclosure/bookmark/widget/privacy state, full admin list-table/screen behavior, and block cross-domain ownership remain WPHX-315/WPHX-316/WPHX-314 or later distribution gates.",
+      "This closes the bounded WPHX-312 evidence slice, not the whole WordPress HTTP/feed/embed/mail subsystem or complete ecosystem parity."
+    ]
+  }
+}

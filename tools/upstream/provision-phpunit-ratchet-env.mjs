@@ -21,6 +21,8 @@ const KNOWN_DELTAS = "tests/upstream/phpunit/known-deltas.json";
 const OUT = "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json";
 const RECEIPT = "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json";
 const RATCHET_PROVISIONED_RECEIPT = "receipts/operations/wphx-700-05-upstream-phpunit-ratchet-provisioned.v1.json";
+const RATCHET_LOGICAL_OUT = "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json";
+const RATCHET_LOGICAL_RECEIPT = "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json";
 const BUILD_ROOT = "build/upstream-phpunit/wphx-700-09";
 const VANILLA_ROOT = `${BUILD_ROOT}/vanilla-root`;
 const CANDIDATE_ROOT = `${BUILD_ROOT}/candidate-root`;
@@ -303,11 +305,30 @@ function runRatchet() {
   if (result.status !== 0) {
     throw new Error(`PHPUnit ratchet failed; see ${LOG_DIR}/ratchet.stderr.txt`);
   }
+  const recordResult = run("node", [RATCHET_RUNNER, "--use-existing-report"], {
+    env: {
+      ...process.env,
+      WPHX_PHPUNIT_VANILLA_ROOT: resolve(VANILLA_ROOT),
+      WPHX_PHPUNIT_CANDIDATE_ROOT: resolve(CANDIDATE_ROOT)
+    }
+  });
+  writeFile(`${LOG_DIR}/ratchet-record.stdout.txt`, recordResult.stdout);
+  writeFile(`${LOG_DIR}/ratchet-record.stderr.txt`, recordResult.stderr);
+  if (recordResult.status !== 0) {
+    throw new Error(`PHPUnit ratchet record refresh failed; see ${LOG_DIR}/ratchet-record.stderr.txt`);
+  }
   return JSON.parse(readFileSync(REPORT, "utf8"));
 }
 
 function buildManifest({ composerRuns, db, configs, ratchetReport }) {
   const allParity = ratchetReport.execution.classifications.every((entry) => entry.classification === "parity_pass");
+  const unownedCandidateRegressions = ratchetReport.execution.classifications.filter(
+    (entry) => entry.classification === "unowned_candidate_regression"
+  );
+  const baselineFailures = ratchetReport.execution.classifications.filter(
+    (entry) => entry.classification === "environment_or_upstream_baseline_failure"
+  );
+  const status = ratchetReport.prerequisites.status === "ready" && unownedCandidateRegressions.length === 0 ? "passed" : "failed";
   return {
     schema: "wphx.upstream-phpunit-ratchet-env.v1",
     issue: ISSUE.external_ref,
@@ -346,12 +367,15 @@ function buildManifest({ composerRuns, db, configs, ratchetReport }) {
       classifications: ratchetReport.execution.classifications
     },
     validation_result: {
-      status: allParity ? "passed" : "failed",
+      status,
       environment_ready: ratchetReport.prerequisites.status === "ready",
       vanilla_candidate_roots_distinct: resolve(VANILLA_ROOT) !== resolve(CANDIDATE_ROOT),
       isolated_databases: configs.vanilla.database !== configs.candidate.database,
       ratchet_runs_executed: ratchetReport.execution.runs.length,
       all_classifications_parity_pass: allParity,
+      baseline_failure_count: baselineFailures.length,
+      baseline_failure_groups: baselineFailures.map((entry) => entry.group),
+      unowned_candidate_regression_count: unownedCandidateRegressions.length,
       rejects_new_vanilla_pass_candidate_fail:
         !ratchetReport.execution.classifications.some((entry) => entry.classification === "unowned_candidate_regression")
     }
@@ -409,6 +433,16 @@ async function main() {
         path: REPORT,
         role: "runtime ratchet report produced by WPHX-700.05 runner",
         sha256: sha256File(REPORT)
+      },
+      {
+        path: RATCHET_LOGICAL_OUT,
+        role: "refreshed logical upstream PHPUnit ratchet manifest",
+        sha256: sha256File(RATCHET_LOGICAL_OUT)
+      },
+      {
+        path: RATCHET_LOGICAL_RECEIPT,
+        role: "refreshed logical upstream PHPUnit ratchet receipt",
+        sha256: sha256File(RATCHET_LOGICAL_RECEIPT)
       }
     ],
     verification_commands: [
@@ -442,6 +476,16 @@ async function main() {
         path: REPORT,
         role: "runtime ratchet report produced by WPHX-700.05 runner",
         sha256: sha256File(REPORT)
+      },
+      {
+        path: RATCHET_LOGICAL_OUT,
+        role: "refreshed logical upstream PHPUnit ratchet manifest",
+        sha256: sha256File(RATCHET_LOGICAL_OUT)
+      },
+      {
+        path: RATCHET_LOGICAL_RECEIPT,
+        role: "refreshed logical upstream PHPUnit ratchet receipt",
+        sha256: sha256File(RATCHET_LOGICAL_RECEIPT)
       },
       {
         path: "tests/upstream/phpunit/known-deltas.json",
