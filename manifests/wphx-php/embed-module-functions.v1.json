@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 8730,
-      "sha256": "sha256:4d6b9b9ac562fa4b00e158ac5b0f99acf6c58c1edbbdf01ad411514ccb1df13f"
+      "bytes": 9660,
+      "sha256": "sha256:be0853b941f68c035d8a21b32ce441512a6fc16f534a6827f8fd16c5358adc6f"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 1339,
-      "sha256": "sha256:5ac2e3bdaf2b8c8eb5c70f97e63ecfdff90fa9a1bbd8e3858d4618cc207875ff"
+      "bytes": 1468,
+      "sha256": "sha256:f6ea19b656bdb4233d997e4561a4080161da0a5d5c66bcb72a4e606ede9a7809"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 3326,
-      "sha256": "sha256:3dc31fa8c3dc54070c605b0209525cdab9406779b2545f36f1e02396581d5408"
+      "bytes": 3728,
+      "sha256": "sha256:d9936a3f8ea597e0dbd9ea525144028061f5a0320391c1939d1bd7ab7555ea0e"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 1063,
-      "sha256": "sha256:d70a325d8d83f1fda78e42ef7a9e4355f022a23f6d0651cbb6de7a1d592763e5"
+      "bytes": 1181,
+      "sha256": "sha256:54400e279d14e37b8d6f10a0c7a20fc04a59dbcdc5ded374251ffd3361aa4925"
     }
   ],
   "upstream_oracle": {
@@ -62,6 +62,7 @@
       "wp_oembed_add_provider",
       "wp_oembed_remove_provider",
       "wp_maybe_load_embeds",
+      "wp_embed_handler_youtube",
       "wp_embed_handler_audio",
       "wp_embed_handler_video"
     ],
@@ -74,14 +75,15 @@
       "147-158",
       "166-181",
       "191-232",
+      "242-258",
       "272-294",
       "299-321"
     ]
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 1948,
-    "sha256": "sha256:2c259f63ee222e81c9eb31d612e12008e4ea92ba3558e3b42972ea501f8799bf",
+    "bytes": 2120,
+    "sha256": "sha256:31e7cdc8dae046b8ca88c423349db0a3c4a6b61e77271a8bb20bf5363274a077",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -94,6 +96,7 @@
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
       "function wp_oembed_remove_provider($format)",
       "function wp_maybe_load_embeds()",
+      "function wp_embed_handler_youtube($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
       "EmbedKernel::embedRegisterHandler($id, $regex, $callback, $priority)",
@@ -103,25 +106,27 @@
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
       "EmbedKernel::oembedRemoveProvider($format)",
       "EmbedKernel::maybeLoadEmbeds()",
+      "EmbedKernel::embedHandlerYoutube($matches, $attr, $url, $rawattr)",
       "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
     ]
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 3080,
-    "sha256": "sha256:838a701e7b73b3b567afc8702d921e5296eeb19884a13bf74a44b63415726424",
+    "bytes": 3363,
+    "sha256": "sha256:a2ca0c642781fcb88bff034ab1c911f491e1fa9323755ef0f7106549805c8bf2",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 3477,
-    "sha256": "sha256:dd6733e3cf6ee84b584d3e533b7e595c6b4874545c069309901fde0260b47c8f",
+    "bytes": 3787,
+    "sha256": "sha256:93ddb113f9e4b698cd050e734c46cfd0601770ec2a9ba45bc2b2d1ad435dffc9",
     "declarations": [
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
       "wp-includes/embed.php:global-function:wp_embed_defaults",
       "wp-includes/embed.php:global-function:wp_embed_handler_audio",
       "wp-includes/embed.php:global-function:wp_embed_handler_video",
+      "wp-includes/embed.php:global-function:wp_embed_handler_youtube",
       "wp-includes/embed.php:global-function:wp_embed_register_handler",
       "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
       "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
@@ -544,6 +549,60 @@
           ]
         },
         {
+          "id": "youtube:default",
+          "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+          "embed_calls": [
+            {
+              "action": "autoembed",
+              "url": "https://youtube.com/watch?v=abc+123"
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "wp_embed_handler_youtube",
+              "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://youtube.com/embed/abc%20123",
+                {
+                  "raw": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "youtube:filtered",
+          "value": "Filtered YouTube",
+          "embed_calls": [
+            {
+              "action": "autoembed",
+              "url": "https://youtube.com/watch?v=abc+123"
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "wp_embed_handler_youtube",
+              "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://youtube.com/embed/abc%20123",
+                {
+                  "raw": true
+                }
+              ]
+            }
+          ]
+        },
+        {
           "id": "audio:default",
           "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
           "embed_calls": [],
@@ -855,6 +914,55 @@
           "returnsReference": false,
           "hasReturnType": false,
           "parameters": []
+        },
+        "wp_embed_handler_youtube": {
+          "name": "wp_embed_handler_youtube",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
         },
         "wp_embed_handler_audio": {
           "name": "wp_embed_handler_audio",
@@ -1365,6 +1473,60 @@
           ]
         },
         {
+          "id": "youtube:default",
+          "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+          "embed_calls": [
+            {
+              "action": "autoembed",
+              "url": "https://youtube.com/watch?v=abc+123"
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "wp_embed_handler_youtube",
+              "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://youtube.com/embed/abc%20123",
+                {
+                  "raw": true
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "youtube:filtered",
+          "value": "Filtered YouTube",
+          "embed_calls": [
+            {
+              "action": "autoembed",
+              "url": "https://youtube.com/watch?v=abc+123"
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "wp_embed_handler_youtube",
+              "value": "<iframe src=\"https://youtube.com/watch?v=abc+123\"></iframe>",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://youtube.com/embed/abc%20123",
+                {
+                  "raw": true
+                }
+              ]
+            }
+          ]
+        },
+        {
           "id": "audio:default",
           "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
           "embed_calls": [],
@@ -1677,6 +1839,55 @@
           "hasReturnType": false,
           "parameters": []
         },
+        "wp_embed_handler_youtube": {
+          "name": "wp_embed_handler_youtube",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "wp_embed_handler_audio": {
           "name": "wp_embed_handler_audio",
           "numberOfParameters": 4,
@@ -1793,11 +2004,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, default handler loading and callback filters, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow handler/provider registry interactions required by selected module functions, YouTube autoembed behavior, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow handler/provider registry/autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

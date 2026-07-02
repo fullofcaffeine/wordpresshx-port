@@ -80,6 +80,16 @@ function wpMaybeLoadEmbeds():Void
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_embed_handler_youtube")
+@:keep
+function wpEmbedHandlerYoutube(@:wp.name("matches") matches:NativeValue, @:wp.name("attr") attr:NativeValue, @:wp.name("url") url:String,
+	@:wp.name("rawattr") rawAttr:NativeValue):String
+{
+	return HaxeEmbedKernel.embedHandlerYoutube(matches, attr, url, rawAttr);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_embed_handler_audio")
 @:keep
 function wpEmbedHandlerAudio(@:wp.name("matches") matches:NativeValue, @:wp.name("attr") attr:NativeValue, @:wp.name("url") url:String,

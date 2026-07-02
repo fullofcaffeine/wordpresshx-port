@@ -315,7 +315,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 87,
+  "occurrence_count": 89,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -489,7 +489,27 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 117,
+      "line": 110,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final matchesArray:php.NativeArray = cast matches;",
+      "source_sha256": "sha256:be5c82adc8aca660f63846bf7bcf0a2b38cd05a5dbe8731412500baaafd7aeab",
+      "justification": "WPHX-211: regex matches arrive as a native PHP array at the public handler boundary."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 113,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final wpEmbed:WpEmbed = cast WpNativeArray.get(SuperGlobal.GLOBALS, \"wp_embed\", null);",
+      "source_sha256": "sha256:a6ad8385c9cf34330c27df7887b74885aa3703564c3ef04e3630d1dfc3ebbe23",
+      "justification": "WPHX-211: WordPress stores the process-global WP_Embed instance in $GLOBALS['wp_embed']."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 128,
       "kinds": [
         "cast"
       ],
@@ -499,7 +519,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 133,
+      "line": 144,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -509,7 +529,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 139,
+      "line": 150,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -519,7 +539,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 145,
+      "line": 156,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -1189,7 +1209,7 @@
     }
   ],
   "by_kind": {
-    "cast": 10,
+    "cast": 12,
     "Dynamic": 8,
     "php.Syntax.code": 69
   },

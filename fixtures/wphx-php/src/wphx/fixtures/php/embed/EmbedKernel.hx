@@ -104,6 +104,17 @@ class EmbedKernel
 			EmbedHooks.applyFiltersNative1("wp_video_embed_handler", "wp_embed_handler_video"), 9999);
 	}
 
+	public static function embedHandlerYoutube(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String
+	{
+		// WPHX-211: regex matches arrive as a native PHP array at the public handler boundary.
+		final matchesArray:php.NativeArray = cast matches;
+		final videoId = EmbedGlobals.urlencode(EmbedGlobals.strval(WpNativeArray.get(matchesArray, 2, "")));
+		// WPHX-211: WordPress stores the process-global WP_Embed instance in $GLOBALS['wp_embed'].
+		final wpEmbed:WpEmbed = cast WpNativeArray.get(SuperGlobal.GLOBALS, "wp_embed", null);
+		final embed = wpEmbed.autoembed(EmbedGlobals.sprintfOne("https://youtube.com/watch?v=%s", videoId));
+		return EmbedGlobals.strval(EmbedHooks.applyFiltersNative4("wp_embed_handler_youtube", embed, attr, url, rawAttr));
+	}
+
 	public static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String
 	{
 		final audio = EmbedGlobals.sprintfOne("[audio src=\"%s\" /]", EmbedGlobals.escUrl(url));
@@ -160,6 +171,9 @@ extern class EmbedGlobals
 
 	@:native("esc_url")
 	public static function escUrl(url:String):String;
+
+	@:native("urlencode")
+	public static function urlencode(value:String):String;
 
 	@:native("sprintf")
 	public static function sprintfOne(format:String, arg:String):String;
@@ -227,6 +241,9 @@ extern class WpEmbed
 
 	@:native("unregister_handler")
 	public function unregisterHandler(id:String, priority:Int):Void;
+
+	@:native("autoembed")
+	public function autoembed(url:String):String;
 }
 
 /**

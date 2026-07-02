@@ -24,6 +24,8 @@ extern class HaxeEmbedKernel
 
 	static function maybeLoadEmbeds():Void;
 
+	static function embedHandlerYoutube(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
+
 	static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
 
 	static function embedHandlerVideo(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;

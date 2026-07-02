@@ -4,6 +4,7 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getOembedEndpointUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedDefaults;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerAudio;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerVideo;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerYoutube;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedRegisterHandler;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHandler;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
@@ -26,6 +27,7 @@ class EmbedModuleEntry
 		wpOembedAddProvider("", "", false);
 		wpOembedRemoveProvider("");
 		wpMaybeLoadEmbeds();
+		wpEmbedHandlerYoutube(null, null, "", null);
 		wpEmbedHandlerAudio(null, null, "", null);
 		wpEmbedHandlerVideo(null, null, "", null);
 	}

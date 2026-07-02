@@ -40,6 +40,7 @@ const EXACT_PATTERNS = [
   "function wp_oembed_add_provider($format, $provider, $regex = false)",
   "function wp_oembed_remove_provider($format)",
   "function wp_maybe_load_embeds()",
+  "function wp_embed_handler_youtube($matches, $attr, $url, $rawattr)",
   "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
   "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
   "EmbedKernel::embedRegisterHandler($id, $regex, $callback, $priority)",
@@ -49,6 +50,7 @@ const EXACT_PATTERNS = [
   "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
   "EmbedKernel::oembedRemoveProvider($format)",
   "EmbedKernel::maybeLoadEmbeds()",
+  "EmbedKernel::embedHandlerYoutube($matches, $attr, $url, $rawattr)",
   "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
 ];
 
@@ -174,6 +176,13 @@ function wp_maybe_load_embeds() {
 \twp_embed_register_handler( 'video', '#^https?://.+?\\.(' . implode( '|', wp_get_video_extensions() ) . ')$#i', apply_filters( 'wp_video_embed_handler', 'wp_embed_handler_video' ), 9999 );
 }
 
+function wp_embed_handler_youtube( $matches, $attr, $url, $rawattr ) {
+\tglobal $wp_embed;
+\t$embed = $wp_embed->autoembed( sprintf( 'https://youtube.com/watch?v=%s', urlencode( $matches[2] ) ) );
+
+\treturn apply_filters( 'wp_embed_handler_youtube', $embed, $attr, $url, $rawattr );
+}
+
 function wp_embed_handler_audio( $matches, $attr, $url, $rawattr ) {
 \t$audio = sprintf( '[audio src="%s" /]', esc_url( $url ) );
 
@@ -258,6 +267,14 @@ class WPHX_Embed_Object {
 \t\t\t'id' => $id,
 \t\t\t'priority' => $priority,
 \t\t);
+\t}
+
+\tpublic function autoembed( $url ) {
+\t\t$this->calls[] = array(
+\t\t\t'action' => 'autoembed',
+\t\t\t'url' => $url,
+\t\t);
+\t\treturn '<iframe src="' . $url . '"></iframe>';
 \t}
 }
 
@@ -403,6 +420,12 @@ $cases[] = wphx_case( 'maybe-load:filtered-callbacks', null, array(
 ), function () {
 \treturn wp_maybe_load_embeds();
 } );
+$cases[] = wphx_case( 'youtube:default', null, array(), function () {
+\treturn wp_embed_handler_youtube( array( 'full', 'host', 'abc 123' ), array( 'width' => 300 ), 'https://youtube.com/embed/abc%20123', array( 'raw' => true ) );
+} );
+$cases[] = wphx_case( 'youtube:filtered', null, array( 'wp_embed_handler_youtube' => 'Filtered YouTube' ), function () {
+\treturn wp_embed_handler_youtube( array( 'full', 'host', 'abc 123' ), array( 'width' => 300 ), 'https://youtube.com/embed/abc%20123', array( 'raw' => true ) );
+} );
 $cases[] = wphx_case( 'audio:default', null, array(), function () {
 \treturn wp_embed_handler_audio( array( 'match' ), array( 'width' => 300 ), 'https://cdn.example/audio.mp3?a=1&b=2', array() );
 } );
@@ -420,7 +443,7 @@ $cases[] = wphx_case( 'video:filtered', null, array( 'wp_embed_handler_video' =>
 } );
 
 $reflection = array();
-foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_maybe_load_embeds', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
+foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_maybe_load_embeds', 'wp_embed_handler_youtube', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -497,6 +520,7 @@ function main() {
     "wp-includes/embed.php:global-function:wp_embed_defaults",
     "wp-includes/embed.php:global-function:wp_embed_handler_audio",
     "wp-includes/embed.php:global-function:wp_embed_handler_video",
+    "wp-includes/embed.php:global-function:wp_embed_handler_youtube",
     "wp-includes/embed.php:global-function:wp_embed_register_handler",
     "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
     "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
@@ -532,10 +556,11 @@ function main() {
         "wp_oembed_add_provider",
         "wp_oembed_remove_provider",
         "wp_maybe_load_embeds",
+        "wp_embed_handler_youtube",
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ],
-      selected_source_lines: ["25-29", "40-44", "67-93", "455-481", "759-765", "147-158", "166-181", "191-232", "272-294", "299-321"]
+      selected_source_lines: ["25-29", "40-44", "67-93", "455-481", "759-765", "147-158", "166-181", "191-232", "242-258", "272-294", "299-321"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -581,12 +606,12 @@ function main() {
     claims: [
       "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
       "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, default handler loading and callback filters, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/embed.php ownership.",
       "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-      "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow handler/provider registry interactions required by selected module functions, YouTube autoembed behavior, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+      "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow handler/provider registry/autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
     ]
   };
 

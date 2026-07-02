@@ -88,6 +88,7 @@ const CASES = [
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
       "function wp_oembed_remove_provider($format)",
       "function wp_maybe_load_embeds()",
+      "function wp_embed_handler_youtube($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
       "EmbedKernel::embedDefaults($url)",
@@ -103,6 +104,7 @@ const CASES = [
         "wp_oembed_add_provider",
         "wp_oembed_remove_provider",
         "wp_maybe_load_embeds",
+        "wp_embed_handler_youtube",
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ]
