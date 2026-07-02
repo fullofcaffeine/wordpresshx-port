@@ -3,6 +3,8 @@ package wphx.fixtures.php.feed;
 import php.Const;
 import php.Global;
 import php.NativeIndexedArray;
+import php.SuperGlobal;
+import wphx.wp.boundary.NativeArray as WpNativeArray;
 import wphx.wp.boundary.NativeValue.NativeValue;
 
 using StringTools;
@@ -218,6 +220,24 @@ class FeedKernel
 			+ "</link>\n\t\t<width>32</width>\n\t\t<height>32</height>\n\t</image> \n";
 	}
 
+	public static function getSelfLink():String
+	{
+		final parsed = WpFeedGlobals.parseUrl(WpFeedGlobals.homeUrl());
+		var domain = WpFeedGlobals.strval(WpNativeArray.get(parsed, "host", ""));
+		if (WpNativeArray.keyExists(parsed, "port"))
+		{
+			domain += ":" + WpFeedGlobals.strval(WpNativeArray.get(parsed, "port", ""));
+		}
+
+		final requestUri = WpFeedGlobals.strval(WpNativeArray.get(SuperGlobal._SERVER, "REQUEST_URI", ""));
+		return WpFeedGlobals.setUrlScheme("http://" + domain + WpFeedGlobals.wpUnslash(requestUri));
+	}
+
+	public static function selfLink():String
+	{
+		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("self_link", getSelfLink()));
+	}
+
 	static function isPhpEmptyString(value:Null<String>):Bool
 	{
 		return value == null || value == "" || value == "0";
@@ -294,6 +314,21 @@ extern class WpFeedGlobals
 
 	@:native("get_site_icon_url")
 	public static function getSiteIconUrl(size:Int):String;
+
+	@:native("home_url")
+	public static function homeUrl():String;
+
+	@:native("parse_url")
+	public static function parseUrl(url:String):php.NativeArray;
+
+	@:native("strval")
+	public static function strval(value:NativeValue):String;
+
+	@:native("wp_unslash")
+	public static function wpUnslash(value:String):String;
+
+	@:native("set_url_scheme")
+	public static function setUrlScheme(url:String):String;
 
 	@:native("get_comment")
 	public static function getComment(commentId:NativeValue):Null<WpComment>;

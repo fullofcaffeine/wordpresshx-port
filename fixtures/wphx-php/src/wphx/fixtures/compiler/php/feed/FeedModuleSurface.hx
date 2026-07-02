@@ -235,3 +235,22 @@ function rss2SiteIcon():String
 {
 	return HaxeFeedKernel.rss2SiteIcon();
 }
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_self_link")
+@:keep
+function getSelfLink():String
+{
+	return HaxeFeedKernel.getSelfLink();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("self_link")
+@:wp.echo
+@:keep
+function selfLink():String
+{
+	return HaxeFeedKernel.selfLink();
+}

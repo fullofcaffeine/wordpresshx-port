@@ -84,7 +84,11 @@ const EXACT_PATTERNS = [
   "function atom_site_icon()",
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomSiteIcon();",
   "function rss2_site_icon()",
-  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::rss2SiteIcon();"
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::rss2SiteIcon();",
+  "function get_self_link()",
+  "FeedKernel::getSelfLink()",
+  "function self_link()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::selfLink();"
 ];
 
 function run(command, args, options = {}) {
@@ -327,6 +331,21 @@ function rss2_site_icon() {
 \t</image> ' . "\\n";
 \t}
 }
+
+function get_self_link() {
+\t$parsed = parse_url( home_url() );
+
+\t$domain = $parsed['host'];
+\tif ( isset( $parsed['port'] ) ) {
+\t\t$domain .= ':' . $parsed['port'];
+\t}
+
+\treturn set_url_scheme( 'http://' . $domain . wp_unslash( $_SERVER['REQUEST_URI'] ) );
+}
+
+function self_link() {
+\techo esc_url( apply_filters( 'self_link', get_self_link() ) );
+}
 `;
 }
 
@@ -426,6 +445,18 @@ function get_option( $name ) {
 \treturn 'blog_charset' === $name ? 'UTF-8' : null;
 }
 
+function home_url() {
+\treturn $GLOBALS['wphx_home_url'] ?? 'https://example.test:8443/home';
+}
+
+function wp_unslash( $value ) {
+\treturn stripslashes( (string) $value );
+}
+
+function set_url_scheme( $url ) {
+\treturn preg_replace( '/^http:/', 'https:', (string) $url );
+}
+
 function get_comment( $comment_id = null ) {
 \tif ( 'missing' === $comment_id ) {
 \t\treturn null;
@@ -472,6 +503,8 @@ function wphx_case( $id, $overrides, $callback ) {
 \t$GLOBALS['wphx_deprecated_log'] = array();
 \t$GLOBALS['wphx_site_icon_url'] = 'https://example.test/icon.png?a=1&b=2';
 \t$GLOBALS['wphx_html_type'] = 'application/xhtml+xml';
+\t$GLOBALS['wphx_home_url'] = 'https://example.test:8443/home';
+\t$_SERVER['REQUEST_URI'] = '/feed/?x=1\\&y=2';
 \tob_start();
 \t$value = $callback();
 \t$output = ob_get_clean();
@@ -674,9 +707,22 @@ $cases[] = wphx_case( 'rss2-site-icon:empty', array(), function () {
 \t$GLOBALS['wphx_site_icon_url'] = '';
 \treturn rss2_site_icon();
 } );
+$cases[] = wphx_case( 'self-link:get-with-port', array(), function () {
+\treturn get_self_link();
+} );
+$cases[] = wphx_case( 'self-link:get-without-port', array(), function () {
+\t$GLOBALS['wphx_home_url'] = 'https://example.test/home';
+\treturn get_self_link();
+} );
+$cases[] = wphx_case( 'self-link:display', array(), function () {
+\treturn self_link();
+} );
+$cases[] = wphx_case( 'self-link:display-filtered', array( 'self_link' => 'https://filtered.test/feed?x=1&y=2' ), function () {
+\treturn self_link();
+} );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon', 'get_self_link', 'self_link' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -760,12 +806,14 @@ function main() {
     "wp-includes/feed.php:global-function:get_comment_author_rss",
     "wp-includes/feed.php:global-function:get_comment_guid",
     "wp-includes/feed.php:global-function:get_default_feed",
+    "wp-includes/feed.php:global-function:get_self_link",
     "wp-includes/feed.php:global-function:get_the_category_rss",
     "wp-includes/feed.php:global-function:get_the_content_feed",
     "wp-includes/feed.php:global-function:get_the_title_rss",
     "wp-includes/feed.php:global-function:get_wp_title_rss",
     "wp-includes/feed.php:global-function:html_type_rss",
     "wp-includes/feed.php:global-function:rss2_site_icon",
+    "wp-includes/feed.php:global-function:self_link",
     "wp-includes/feed.php:global-function:the_category_rss",
     "wp-includes/feed.php:global-function:the_content_feed",
     "wp-includes/feed.php:global-function:the_excerpt_rss",
@@ -817,9 +865,11 @@ function main() {
         "the_category_rss",
         "html_type_rss",
         "atom_site_icon",
-        "rss2_site_icon"
+        "rss2_site_icon",
+        "get_self_link",
+        "self_link"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661", "670-679", "688-700"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -867,7 +917,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

@@ -55,4 +55,8 @@ extern class HaxeFeedKernel
 	static function atomSiteIcon():String;
 
 	static function rss2SiteIcon():String;
+
+	static function getSelfLink():String;
+
+	static function selfLink():String;
 }

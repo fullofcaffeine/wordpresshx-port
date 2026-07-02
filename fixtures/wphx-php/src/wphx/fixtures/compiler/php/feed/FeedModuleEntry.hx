@@ -12,12 +12,14 @@ import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getBloginfoRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentAuthorRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentGuid;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getDefaultFeed;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getSelfLink;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheCategoryRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheContentFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getWpTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.htmlTypeRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.rss2SiteIcon;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.selfLink;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theCategoryRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theContentFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theExcerptRss;
@@ -56,5 +58,7 @@ class FeedModuleEntry
 		htmlTypeRss();
 		atomSiteIcon();
 		rss2SiteIcon();
+		getSelfLink();
+		selfLink();
 	}
 }
