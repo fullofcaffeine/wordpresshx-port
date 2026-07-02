@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 82030,
-      "sha256": "sha256:b5c1263a3244c7296f82eb8f0da1efd39fd5bb86c9f35db665c742f656eddd8e"
+      "bytes": 82844,
+      "sha256": "sha256:2d50f11db2f952dd0dbb7f3788662c0c357d2a26ce8b1fb48e2818a8241cdf02"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:603942d1150e2370b44cdf4573b257d7cde93953834ed8dedc07a956fa7bdb1f",
+    "sha256": "sha256:fd0795999387900c92bd922d95a05987c04680ca8ec0221ff4a5cce0c023a2d3",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -88,6 +88,12 @@
       "$cache = get_post_meta( $post_id, $cachekey, true );": true,
       "$cached_recently = time() - $cache_time < $ttl;": true,
       "apply_filters( 'embed_oembed_html', $cache, $url, $attr, $post_id )": true,
+      "$attr['discover'] = apply_filters( 'embed_oembed_discover', true );": true,
+      "$html = wp_oembed_get( $url, $attr );": true,
+      "update_post_meta( $post_id, $cachekey, $html );": true,
+      "update_post_meta( $post_id, $cachekey_time, time() );": true,
+      "update_post_meta( $post_id, $cachekey, '{{unknown}}' );": true,
+      "apply_filters( 'embed_oembed_html', $html, $url, $attr, $post_id )": true,
       "public function register_handler($id, $regex, $callback, $priority = 10)": true,
       "$this->handlers[ $priority ][ $id ] = array(": true,
       "'regex'    => $regex": true,
@@ -141,7 +147,7 @@
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:0f09e5b0798c5094718ac22afe603cbe2fbc161e32fde6c15ea145c57fc6ac09",
+      "sha256": "sha256:98db2e0c44f4ef69ccdb97314dcd7abddfb4a1a7fc4777089e4d9af9eed27257",
       "unsupported": [],
       "declarations": [
         {
@@ -173,6 +179,7 @@
         "stmt.foreach-key-value",
         "stmt.global",
         "stmt.if",
+        "stmt.ifelse",
         "stmt.return",
         "stmt.unset",
         "stmt.var"
@@ -236,6 +243,14 @@
     {
       "id": "wp-embed-handlers:shortcode-post-id-override-cache-hit",
       "focus": "shortcode uses WP_Embed post_ID override when reading post-meta oEmbed cache"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-post-meta-remote-success-write",
+      "focus": "shortcode discovers remote oEmbed HTML, writes post-meta cache entries, and returns filtered HTML"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-post-meta-remote-unknown-write",
+      "focus": "shortcode writes cached unknown post-meta failures after remote oEmbed miss"
     },
     {
       "id": "wp-embed-handlers:register-default",
@@ -872,6 +887,158 @@
           "post_id_override_meta": true
         }
       },
+      "wp-embed-handlers:shortcode-post-meta-remote-success-write": {
+        "case": "wp-embed-handlers:shortcode-post-meta-remote-success-write",
+        "handlers": [],
+        "output": "<iframe>remote</iframe><!-- filtered:embed_oembed_html -->",
+        "last_url": "https://remote.example/video",
+        "last_attr": {
+          "width": 320,
+          "height": 281
+        },
+        "post_meta_gets": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "single": true
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "value": "<iframe>remote</iframe>"
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "value": "<time>"
+          }
+        ],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/video",
+            "args": {
+              "width": 320,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281
+              },
+              113
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_oembed_html",
+            "value": "<iframe>remote</iframe>",
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281,
+                "discover": true
+              },
+              113
+            ]
+          }
+        ],
+        "assertions": {
+          "remote_success_filtered": true,
+          "remote_success_discover_arg": true,
+          "remote_success_updates": true,
+          "remote_success_filter_order": true
+        }
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-unknown-write": {
+        "case": "wp-embed-handlers:shortcode-post-meta-remote-unknown-write",
+        "handlers": [],
+        "output": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": "https://remote.example/missing",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "post_meta_gets": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          },
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_time_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "value": "{{unknown}}"
+          }
+        ],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/missing",
+            "args": {
+              "width": 500,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/missing",
+              {
+                "width": 500,
+                "height": 281
+              },
+              114
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a>",
+            "args": [
+              "https://remote.example/missing"
+            ]
+          }
+        ],
+        "assertions": {
+          "remote_unknown_maybe_link": true,
+          "remote_unknown_update": true,
+          "remote_unknown_filter_order": true
+        }
+      },
       "wp-embed-handlers:register-default": {
         "case": "wp-embed-handlers:register-default",
         "handlers": {
@@ -2000,6 +2167,158 @@
           "post_id_override_meta": true
         }
       },
+      "wp-embed-handlers:shortcode-post-meta-remote-success-write": {
+        "case": "wp-embed-handlers:shortcode-post-meta-remote-success-write",
+        "handlers": [],
+        "output": "<iframe>remote</iframe><!-- filtered:embed_oembed_html -->",
+        "last_url": "https://remote.example/video",
+        "last_attr": {
+          "width": 320,
+          "height": 281
+        },
+        "post_meta_gets": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "single": true
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "value": "<iframe>remote</iframe>"
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "value": "<time>"
+          }
+        ],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/video",
+            "args": {
+              "width": 320,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281
+              },
+              113
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_oembed_html",
+            "value": "<iframe>remote</iframe>",
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281,
+                "discover": true
+              },
+              113
+            ]
+          }
+        ],
+        "assertions": {
+          "remote_success_filtered": true,
+          "remote_success_discover_arg": true,
+          "remote_success_updates": true,
+          "remote_success_filter_order": true
+        }
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-unknown-write": {
+        "case": "wp-embed-handlers:shortcode-post-meta-remote-unknown-write",
+        "handlers": [],
+        "output": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": "https://remote.example/missing",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "post_meta_gets": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          },
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_time_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "value": "{{unknown}}"
+          }
+        ],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/missing",
+            "args": {
+              "width": 500,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/missing",
+              {
+                "width": 500,
+                "height": 281
+              },
+              114
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a>",
+            "args": [
+              "https://remote.example/missing"
+            ]
+          }
+        ],
+        "assertions": {
+          "remote_unknown_maybe_link": true,
+          "remote_unknown_update": true,
+          "remote_unknown_filter_order": true
+        }
+      },
       "wp-embed-handlers:register-default": {
         "case": "wp-embed-handlers:register-default",
         "handlers": {
@@ -2618,7 +2937,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2730,7 +3051,9 @@
         },
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2787,7 +3110,9 @@
         },
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2817,7 +3142,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2847,7 +3174,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2882,7 +3211,9 @@
           }
         ],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2914,7 +3245,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -2986,7 +3319,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3054,7 +3389,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3120,7 +3457,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3189,7 +3528,9 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3270,7 +3611,9 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3339,13 +3682,198 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
         "run_shortcode_calls": [],
         "autoembed_calls": [],
         "post_ID": 222,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-success-write": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe>remote</iframe><!-- filtered:embed_oembed_html -->",
+        "last_url": "https://remote.example/video",
+        "last_attr": {
+          "width": 320,
+          "height": 281
+        },
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281
+              },
+              113
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_oembed_html",
+            "value": "<iframe>remote</iframe>",
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281,
+                "discover": true
+              },
+              113
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_gets": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "single": true
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "value": "<iframe>remote</iframe>"
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "value": "<time>"
+          }
+        ],
+        "post_meta_deletes": [],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/video",
+            "args": {
+              "width": 320,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-unknown-write": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": "https://remote.example/missing",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/missing",
+              {
+                "width": 500,
+                "height": 281
+              },
+              114
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a>",
+            "args": [
+              "https://remote.example/missing"
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_gets": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          },
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_time_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "value": "{{unknown}}"
+          }
+        ],
+        "post_meta_deletes": [],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/missing",
+            "args": {
+              "width": 500,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
         "usecache": null,
         "get_post_types_calls": [],
         "found_post_id": null,
@@ -3376,7 +3904,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3428,7 +3958,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3471,7 +4003,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3557,7 +4091,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3631,7 +4167,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3672,7 +4210,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3710,7 +4250,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3748,7 +4290,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3778,7 +4322,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3808,7 +4354,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3838,6 +4386,7 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [
           {
             "post_id": 123,
@@ -3848,6 +4397,7 @@
             "meta_key": "_oembed_time_alpha"
           }
         ],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -3877,7 +4427,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [
           {
             "attr": [],
@@ -3913,7 +4465,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [
           {
             "attr": [],
@@ -3949,7 +4503,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [
@@ -3986,7 +4542,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [
@@ -4023,7 +4581,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4053,7 +4613,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4092,7 +4654,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4147,7 +4711,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4185,7 +4751,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4215,7 +4783,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4252,7 +4822,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4307,7 +4879,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4360,7 +4934,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4418,7 +4994,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4530,7 +5108,9 @@
         },
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4587,7 +5167,9 @@
         },
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4617,7 +5199,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4647,7 +5231,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4682,7 +5268,9 @@
           }
         ],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4714,7 +5302,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4786,7 +5376,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4854,7 +5446,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4920,7 +5514,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -4989,7 +5585,9 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5070,7 +5668,9 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5139,13 +5739,198 @@
             "single": true
           }
         ],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
         "run_shortcode_calls": [],
         "autoembed_calls": [],
         "post_ID": 222,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-success-write": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe>remote</iframe><!-- filtered:embed_oembed_html -->",
+        "last_url": "https://remote.example/video",
+        "last_attr": {
+          "width": 320,
+          "height": 281
+        },
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281
+              },
+              113
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_oembed_html",
+            "value": "<iframe>remote</iframe>",
+            "args": [
+              "https://remote.example/video",
+              {
+                "width": 320,
+                "height": 281,
+                "discover": true
+              },
+              113
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_gets": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "single": true
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_55314d383938274c148461016e47b921",
+            "value": "<iframe>remote</iframe>"
+          },
+          {
+            "post_id": 113,
+            "meta_key": "_oembed_time_55314d383938274c148461016e47b921",
+            "value": "<time>"
+          }
+        ],
+        "post_meta_deletes": [],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/video",
+            "args": {
+              "width": 320,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-post-meta-remote-unknown-write": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": "https://remote.example/missing",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "oembed_ttl",
+            "value": 86400,
+            "args": [
+              "https://remote.example/missing",
+              {
+                "width": 500,
+                "height": 281
+              },
+              114
+            ]
+          },
+          {
+            "hook": "embed_oembed_discover",
+            "value": true,
+            "args": []
+          },
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fremote.example%2Fmissing\">esc-html:https://remote.example/missing</a>",
+            "args": [
+              "https://remote.example/missing"
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_gets": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          },
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_time_6fcd3dc961ec061b669baca478606033",
+            "single": true
+          }
+        ],
+        "post_meta_updates": [
+          {
+            "post_id": 114,
+            "meta_key": "_oembed_6fcd3dc961ec061b669baca478606033",
+            "value": "{{unknown}}"
+          }
+        ],
+        "post_meta_deletes": [],
+        "oembed_gets": [
+          {
+            "url": "https://remote.example/missing",
+            "args": {
+              "width": 500,
+              "height": 281,
+              "discover": true
+            }
+          }
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
         "usecache": null,
         "get_post_types_calls": [],
         "found_post_id": null,
@@ -5176,7 +5961,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5228,7 +6015,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5271,7 +6060,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5357,7 +6148,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5431,7 +6224,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5472,7 +6267,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5510,7 +6307,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5548,7 +6347,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5578,7 +6379,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5608,7 +6411,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5638,6 +6443,7 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [
           {
             "post_id": 123,
@@ -5648,6 +6454,7 @@
             "meta_key": "_oembed_time_alpha"
           }
         ],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5677,7 +6484,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [
           {
             "attr": [],
@@ -5713,7 +6522,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [
           {
             "attr": [],
@@ -5749,7 +6560,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [
@@ -5786,7 +6599,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [
@@ -5823,7 +6638,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5853,7 +6670,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5892,7 +6711,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5947,7 +6768,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -5985,7 +6808,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -6015,7 +6840,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -6052,7 +6879,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -6107,7 +6936,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -6160,7 +6991,9 @@
         "shortcode_tags": null,
         "admin_url_calls": [],
         "post_meta_gets": [],
+        "post_meta_updates": [],
         "post_meta_deletes": [],
+        "oembed_gets": [],
         "shortcode_calls": [],
         "linkifunknown": null,
         "autoembed_callback_calls": [],
@@ -6202,6 +7035,7 @@
     "WP_Embed::maybe_run_ajax_cache gates on current post and edit-form message state, then outputs the oEmbed cache Ajax script using esc_url(admin_url('admin-ajax.php', 'relative')) and the current post ID.",
     "WP_Embed::shortcode preserves the empty-URL return path, attr src URL fallback, last_url/last_attr state, default attr parsing, ampersand normalization, and early internal handler HTML return before oEmbed cache/fetch work.",
     "WP_Embed::shortcode computes oEmbed post-meta cache keys, filters TTL, reads cached HTML and cached unknown failures from post meta, honors the temporary post_ID override, and returns cached HTML through embed_oembed_html before remote fetch work.",
+    "WP_Embed::shortcode filters the discover flag, calls wp_oembed_get($url, $attr), writes successful post-backed oEmbed HTML and cache time to post meta, writes {{unknown}} for post-backed misses with no prior cache, returns successful remote HTML through embed_oembed_html, and falls back through maybe_make_link on misses.",
     "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
@@ -6211,11 +7045,11 @@
     "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
     "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
     "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
-    "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, shortcode post-meta cache reads, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
+    "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, shortcode post-meta cache reads, shortcode remote fetch and post-meta writes, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
   ],
   "non_claims": [
     "This fixture does not claim browser execution of the maybe_run_ajax_cache script or installed edit-form Ajax behavior.",
-    "This fixture does not claim shortcode remote wp_oembed_get fetching, post-meta update writes, oEmbed cache post insertion/update, no-post cached-post readback, KSES filter removal/restoration around cache-post writes, broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim no-post shortcode oEmbed cache post insertion/update, no-post cached-post readback, KSES filter removal/restoration around cache-post writes, broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch and post-backed shortcode post-meta writes, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, live remote oEmbed/network behavior, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

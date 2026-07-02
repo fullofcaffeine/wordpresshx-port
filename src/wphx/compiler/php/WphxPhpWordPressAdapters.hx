@@ -342,11 +342,14 @@ class WphxPhpWordPressAdapters
 		final cache = PhpVar("cache");
 		final cacheTime = PhpVar("cache_time");
 		final cachedRecently = PhpVar("cached_recently");
+		final html = PhpVar("html");
 
 		return plan([
 			"stmt.var",
 			"stmt.if",
+			"stmt.ifelse",
 			"stmt.assign",
+			"stmt.expr",
 			"stmt.return",
 			"expr.array-read",
 			"expr.object-property",
@@ -384,11 +387,28 @@ class WphxPhpWordPressAdapters
 					PhpIf(PhpNot(cacheTime), [PhpAssign(cacheTime, PhpInt(0))])
 				]),
 			PhpLocal("cached_recently", PhpBinop("<", PhpBinop("-", PhpFunctionCall("time", []), cacheTime), ttl)),
-			PhpIf(PhpBinop("||", PhpObjectProperty(thisValue, "usecache"), cachedRecently), [
-				PhpIf(PhpBinop("===", PhpString("{{unknown}}"), cache), [PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))]),
-				PhpIf(PhpNot(PhpFunctionCall("empty", [cache])), [
-					PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_oembed_html"), cache, url, attr, postId]))
+			PhpIf(PhpBinop("||", PhpObjectProperty(thisValue, "usecache"), cachedRecently),
+				[
+					PhpIf(PhpBinop("===", PhpString("{{unknown}}"), cache), [PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))]),
+					PhpIf(PhpNot(PhpFunctionCall("empty", [cache])),
+						[
+							PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_oembed_html"), cache, url, attr, postId]))
+						])
+				]),
+			PhpAssign(PhpArrayRead(attr, PhpString("discover")), PhpFunctionCall("apply_filters", [PhpString("embed_oembed_discover"), PhpBool(true)])),
+			PhpLocal("html", PhpFunctionCall("wp_oembed_get", [url, attr])),
+			PhpIf(postId, [
+				PhpIfElse(html, [
+					PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekey, html])),
+					PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekeyTime, PhpFunctionCall("time", [])]))
+				], [
+					PhpIf(PhpNot(cache), [
+						PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekey, PhpString("{{unknown}}")]))
+					])
 				])
+			]),
+			PhpIf(html, [
+				PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_oembed_html"), html, url, attr, postId]))
 			]),
 			PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))
 		]);

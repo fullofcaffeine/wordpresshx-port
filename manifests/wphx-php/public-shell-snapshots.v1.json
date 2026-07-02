@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 7438,
-      "sha256": "sha256:603942d1150e2370b44cdf4573b257d7cde93953834ed8dedc07a956fa7bdb1f",
+      "bytes": 7905,
+      "sha256": "sha256:fd0795999387900c92bd922d95a05987c04680ca8ec0221ff4a5cce0c023a2d3",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -328,6 +328,12 @@
         "$cache = get_post_meta( $post_id, $cachekey, true );",
         "$cached_recently = time() - $cache_time < $ttl;",
         "apply_filters( 'embed_oembed_html', $cache, $url, $attr, $post_id )",
+        "$attr['discover'] = apply_filters( 'embed_oembed_discover', true );",
+        "$html = wp_oembed_get( $url, $attr );",
+        "update_post_meta( $post_id, $cachekey, $html );",
+        "update_post_meta( $post_id, $cachekey_time, time() );",
+        "update_post_meta( $post_id, $cachekey, '{{unknown}}' );",
+        "apply_filters( 'embed_oembed_html', $html, $url, $attr, $post_id )",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -406,8 +412,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1188,
-        "sha256": "sha256:0f09e5b0798c5094718ac22afe603cbe2fbc161e32fde6c15ea145c57fc6ac09"
+        "bytes": 1207,
+        "sha256": "sha256:98db2e0c44f4ef69ccdb97314dcd7abddfb4a1a7fc4777089e4d9af9eed27257"
       }
     },
     {
