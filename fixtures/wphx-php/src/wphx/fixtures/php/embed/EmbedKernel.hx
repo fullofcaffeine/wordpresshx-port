@@ -123,6 +123,47 @@ class EmbedKernel
 		return EmbedHooks.applyFiltersNative4("embed_html", output, resolvedPost, width, height);
 	}
 
+	public static function oembedResponseData(post:NativeValue, width:Int):NativeValue
+	{
+		final resolvedPost = EmbedGlobals.getPost(post);
+		width = EmbedGlobals.absint(width);
+
+		if (!EmbedGlobals.truthy(resolvedPost))
+		{
+			return false;
+		}
+
+		if (!EmbedGlobals.isPostPubliclyViewable(resolvedPost))
+		{
+			return false;
+		}
+
+		if (!EmbedGlobals.isPostEmbeddable(resolvedPost))
+		{
+			return false;
+		}
+
+		final minMaxWidth = EmbedHooks.applyFiltersNative1("oembed_min_max_width", oembedMinMaxWidth());
+		// WPHX-211: WordPress exposes the min/max width policy as a native associative array filter value.
+		final minWidth = EmbedGlobals.intval(WpNativeArray.get(cast minMaxWidth, "min", 200));
+		final maxWidth = EmbedGlobals.intval(WpNativeArray.get(cast minMaxWidth, "max", 600));
+		width = Std.int(Math.min(Math.max(minWidth, width), maxWidth));
+		final height = Std.int(Math.max(Math.ceil(width / 16 * 9), 200));
+
+		final blogName = EmbedGlobals.getBloginfo("name");
+		final home = EmbedGlobals.getHomeUrl();
+		final data = oembedResponsePayload(blogName, home, blogName, home, EmbedGlobals.getTheTitleForPost(resolvedPost));
+		final author = EmbedGlobals.getUserdata(EmbedGlobals.objectField(resolvedPost, "post_author"));
+		if (EmbedGlobals.truthy(author))
+		{
+			// WPHX-211: WP_User arrives as a native PHP object with public fields consumed by the oEmbed array.
+			EmbedGlobals.arraySet(data, "author_name", EmbedGlobals.objectField(author, "display_name"));
+			EmbedGlobals.arraySet(data, "author_url", EmbedGlobals.getAuthorPostsUrl(EmbedGlobals.objectField(author, "ID")));
+		}
+
+		return EmbedHooks.applyFiltersNative4("oembed_response_data", data, resolvedPost, width, height);
+	}
+
 	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
 	{
 		if (!WpNativeArray.isArray(data))
@@ -615,6 +656,20 @@ class EmbedKernel
 		return php.Syntax.code("array('embed' => 'true')");
 	}
 
+	static function oembedMinMaxWidth():php.NativeArray
+	{
+		// WPHX-211: oembed_min_max_width exposes the policy as a mutable native associative array.
+		return php.Syntax.code("array('min' => 200, 'max' => 600)");
+	}
+
+	static function oembedResponsePayload(providerName:String, providerUrl:String, authorName:String, authorUrl:String, title:String):php.NativeArray
+	{
+		// WPHX-211: public oEmbed responses are native PHP associative arrays for REST/XML consumers.
+		return
+			php.Syntax.code("array('version' => '1.0', 'provider_name' => {0}, 'provider_url' => {1}, 'author_name' => {2}, 'author_url' => {3}, 'title' => {4}, 'type' => 'link')",
+			providerName, providerUrl, authorName, authorUrl, title);
+	}
+
 	static function providerPair(provider:String, regex:Bool):php.NativeArray
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
@@ -732,6 +787,9 @@ extern class EmbedGlobals
 	@:native("home_url")
 	public static function homeUrl():String;
 
+	@:native("get_home_url")
+	public static function getHomeUrl():String;
+
 	@:native("get_site_icon_url")
 	public static function getSiteIconUrl(size:Int, fallback:String):String;
 
@@ -802,7 +860,16 @@ extern class EmbedGlobals
 	public static function isSingular():Bool;
 
 	@:native("is_post_embeddable")
-	public static function isPostEmbeddable():Bool;
+	public static function isPostEmbeddable(post:NativeValue = null):Bool;
+
+	@:native("is_post_publicly_viewable")
+	public static function isPostPubliclyViewable(post:NativeValue):Bool;
+
+	@:native("get_userdata")
+	public static function getUserdata(userId:NativeValue):NativeValue;
+
+	@:native("get_author_posts_url")
+	public static function getAuthorPostsUrl(userId:NativeValue):String;
 
 	@:native("_x")
 	public static function translateWithContext(text:String, context:String):String;
