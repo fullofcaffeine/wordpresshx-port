@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 67986,
-      "sha256": "sha256:ce6c98f5d0abf5a9d104c3353004d308249c94f482aa34901ac6476542d2204b"
+      "bytes": 68873,
+      "sha256": "sha256:e25ee00321b91d08c0780c6f11cc543b637b68d5860c3a9160e1c699e7516c4a"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 489,
-      "sha256": "sha256:3c6101b8cb52f5f0318f0b39c9f5dc044f160c4ee8aa076f07f5cb044ad9a878"
+      "bytes": 539,
+      "sha256": "sha256:d48543d4cb6cc73e04ebf95f6436a28a78d99b55744142731f30a17d8c4bcf2e"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 1485,
-      "sha256": "sha256:db61b883db22fff8c81c638388f6e90282ac3c38e1be361a518b44a8d83419f5"
+      "bytes": 1614,
+      "sha256": "sha256:d8d98b80a15ca3d05138d05d06118640b31aa0907e9a63f75ab6c65d58b4bb58"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:966dd7e2e76393b9b25cd6d975bde29caccdd2ab64adbb261c469c6e274dc3b6",
+    "sha256": "sha256:559d5ed7300e4c5f6c4a31b36cc26145ac587770b8d4cec73cfe9d8aaba55608",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -63,11 +63,16 @@
       "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );": true,
       "ksort( $this->handlers );": true,
       "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )": true,
-      "apply_filters( 'embed_handler_html', $return, $url, $attr )": true
+      "apply_filters( 'embed_handler_html', $return, $url, $attr )": true,
+      "public function maybe_make_link($url)": true,
+      "if ( $this->return_false_on_fail )": true,
+      "esc_url( $url )": true,
+      "esc_html( $url )": true,
+      "apply_filters( 'embed_maybe_make_link', $output, $url )": true
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:3a2a0b1ff659c16bb397013b1be53ea9e5f876f20df166866207edb24f8a354d",
+      "sha256": "sha256:154d6ee75644e6d8ad05220528973f39d2c54293b6579b8c4c9838198ad99e7e",
       "unsupported": [],
       "declarations": [
         {
@@ -84,6 +89,7 @@
         "expr.function-call",
         "expr.long-array",
         "expr.object-property",
+        "expr.ternary",
         "native-array-iteration",
         "native-array-nested-unset",
         "native-array-nested-write",
@@ -130,6 +136,18 @@
     {
       "id": "wp-embed-handlers:get-html-miss",
       "focus": "non-callable and non-matching handlers return false without filtering"
+    },
+    {
+      "id": "wp-embed-handlers:maybe-link-default",
+      "focus": "maybe_make_link creates escaped anchor output and filters it"
+    },
+    {
+      "id": "wp-embed-handlers:maybe-link-raw",
+      "focus": "maybe_make_link preserves raw URL when linkifunknown is false and filters it"
+    },
+    {
+      "id": "wp-embed-handlers:maybe-link-false",
+      "focus": "maybe_make_link returns false before filtering when return_false_on_fail is true"
     }
   ],
   "observations": {
@@ -365,6 +383,52 @@
           "no_callbacks": true,
           "no_filters": true
         }
+      },
+      "wp-embed-handlers:maybe-link-default": {
+        "case": "wp-embed-handlers:maybe-link-default",
+        "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "handlers": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a>",
+            "args": [
+              "https://example.test/a path/?x=<tag>"
+            ]
+          }
+        ],
+        "assertions": {
+          "escaped_anchor_filtered": true,
+          "filter_payload": true
+        }
+      },
+      "wp-embed-handlers:maybe-link-raw": {
+        "case": "wp-embed-handlers:maybe-link-raw",
+        "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "handlers": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "https://raw.example/post",
+            "args": [
+              "https://raw.example/post"
+            ]
+          }
+        ],
+        "assertions": {
+          "raw_url_filtered": true,
+          "filter_value_is_raw_url": true
+        }
+      },
+      "wp-embed-handlers:maybe-link-false": {
+        "case": "wp-embed-handlers:maybe-link-false",
+        "output": false,
+        "handlers": [],
+        "filter_events": [],
+        "assertions": {
+          "strict_false": true,
+          "no_filter_before_false": true
+        }
       }
     },
     "candidate": {
@@ -599,6 +663,52 @@
           "no_callbacks": true,
           "no_filters": true
         }
+      },
+      "wp-embed-handlers:maybe-link-default": {
+        "case": "wp-embed-handlers:maybe-link-default",
+        "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "handlers": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a>",
+            "args": [
+              "https://example.test/a path/?x=<tag>"
+            ]
+          }
+        ],
+        "assertions": {
+          "escaped_anchor_filtered": true,
+          "filter_payload": true
+        }
+      },
+      "wp-embed-handlers:maybe-link-raw": {
+        "case": "wp-embed-handlers:maybe-link-raw",
+        "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "handlers": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "https://raw.example/post",
+            "args": [
+              "https://raw.example/post"
+            ]
+          }
+        ],
+        "assertions": {
+          "raw_url_filtered": true,
+          "filter_value_is_raw_url": true
+        }
+      },
+      "wp-embed-handlers:maybe-link-false": {
+        "case": "wp-embed-handlers:maybe-link-false",
+        "output": false,
+        "handlers": [],
+        "filter_events": [],
+        "assertions": {
+          "strict_false": true,
+          "no_filter_before_false": true
+        }
       }
     }
   },
@@ -617,6 +727,7 @@
           "return_false_on_fail": false
         },
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -631,6 +742,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -660,6 +772,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -680,6 +793,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -700,6 +814,7 @@
         },
         "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "output": null,
         "handler_events": [
           {
             "callback": "wphx_embed_false_callback",
@@ -766,6 +881,7 @@
         },
         "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
+        "output": null,
         "handler_events": [
           {
             "callback": "Fixture_Handler::render",
@@ -812,6 +928,47 @@
         },
         "property_defaults": null,
         "html": false,
+        "output": null,
+        "handler_events": [],
+        "filter_events": []
+      },
+      "wp-embed-handlers:maybe-link-default": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a>",
+            "args": [
+              "https://example.test/a path/?x=<tag>"
+            ]
+          }
+        ]
+      },
+      "wp-embed-handlers:maybe-link-raw": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "https://raw.example/post",
+            "args": [
+              "https://raw.example/post"
+            ]
+          }
+        ]
+      },
+      "wp-embed-handlers:maybe-link-false": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": false,
         "handler_events": [],
         "filter_events": []
       }
@@ -830,6 +987,7 @@
           "return_false_on_fail": false
         },
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -844,6 +1002,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -873,6 +1032,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -893,6 +1053,7 @@
         },
         "property_defaults": null,
         "html": null,
+        "output": null,
         "handler_events": [],
         "filter_events": []
       },
@@ -913,6 +1074,7 @@
         },
         "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "output": null,
         "handler_events": [
           {
             "callback": "wphx_embed_false_callback",
@@ -979,6 +1141,7 @@
         },
         "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
+        "output": null,
         "handler_events": [
           {
             "callback": "Fixture_Handler::render",
@@ -1025,6 +1188,47 @@
         },
         "property_defaults": null,
         "html": false,
+        "output": null,
+        "handler_events": [],
+        "filter_events": []
+      },
+      "wp-embed-handlers:maybe-link-default": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a>",
+            "args": [
+              "https://example.test/a path/?x=<tag>"
+            ]
+          }
+        ]
+      },
+      "wp-embed-handlers:maybe-link-raw": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_maybe_make_link",
+            "value": "https://raw.example/post",
+            "args": [
+              "https://raw.example/post"
+            ]
+          }
+        ]
+      },
+      "wp-embed-handlers:maybe-link-false": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": false,
         "handler_events": [],
         "filter_events": []
       }
@@ -1036,11 +1240,12 @@
     "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
-    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
+    "WP_Embed::maybe_make_link returns strict false when configured, otherwise filters either an escaped anchor or the raw URL according to linkifunknown.",
+    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, and maybe-link policy when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
     "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
-    "This fixture does not claim generic arbitrary Haxe nested array assignment/callable lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
+    "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

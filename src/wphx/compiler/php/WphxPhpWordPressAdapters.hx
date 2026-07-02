@@ -126,6 +126,8 @@ class WphxPhpWordPressAdapters
 				embedUnregisterHandler(fieldName);
 			case "wp-embed-get-handler-html":
 				embedGetHandlerHtml(fieldName);
+			case "wp-embed-maybe-make-link":
+				embedMaybeMakeLink(fieldName);
 			case _:
 				null;
 		}
@@ -292,6 +294,29 @@ class WphxPhpWordPressAdapters
 				])
 			]),
 			PhpReturn(PhpBool(false))
+		]);
+	}
+
+	static function embedMaybeMakeLink(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final url = PhpVar("url");
+		final output = PhpVar("output");
+		return plan([
+			"stmt.if",
+			"stmt.var",
+			"stmt.return",
+			"expr.object-property",
+			"expr.ternary",
+			"expr.binop",
+			"expr.function-call"
+		], [
+			PhpIf(PhpObjectProperty(PhpVar("this"), "return_false_on_fail"), [PhpReturn(PhpBool(false))]),
+			PhpLocal("output",
+				PhpTernary(PhpObjectProperty(PhpVar("this"), "linkifunknown"),
+					PhpBinop(".", PhpBinop(".", PhpBinop(".", PhpString("<a href=\""), PhpFunctionCall("esc_url", [url])), PhpString("\">")),
+						PhpBinop(".", PhpFunctionCall("esc_html", [url]), PhpString("</a>"))),
+					url)),
+			PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_maybe_make_link"), output, url]))
 		]);
 	}
 

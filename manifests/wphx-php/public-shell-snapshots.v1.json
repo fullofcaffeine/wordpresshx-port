@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 1658,
-      "sha256": "sha256:966dd7e2e76393b9b25cd6d975bde29caccdd2ab64adbb261c469c6e274dc3b6",
+      "bytes": 1937,
+      "sha256": "sha256:559d5ed7300e4c5f6c4a31b36cc26145ac587770b8d4cec73cfe9d8aaba55608",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -301,7 +301,12 @@
         "public function get_embed_handler_html($attr, $url)",
         "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
         "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
-        "apply_filters( 'embed_handler_html', $return, $url, $attr )"
+        "apply_filters( 'embed_handler_html', $return, $url, $attr )",
+        "public function maybe_make_link($url)",
+        "if ( $this->return_false_on_fail )",
+        "esc_url( $url )",
+        "esc_html( $url )",
+        "apply_filters( 'embed_maybe_make_link', $output, $url )"
       ],
       "ast_contract": {
         "functions": [],
@@ -311,6 +316,7 @@
         "interfaces": [],
         "methods": [
           "get_embed_handler_html",
+          "maybe_make_link",
           "register_handler",
           "unregister_handler"
         ],
@@ -320,8 +326,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1037,
-        "sha256": "sha256:3a2a0b1ff659c16bb397013b1be53ea9e5f876f20df166866207edb24f8a354d"
+        "bytes": 1057,
+        "sha256": "sha256:154d6ee75644e6d8ad05220528973f39d2c54293b6579b8c4c9838198ad99e7e"
       }
     },
     {

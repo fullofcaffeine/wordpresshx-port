@@ -180,11 +180,16 @@ const CASES = [
       "public function get_embed_handler_html($attr, $url)",
       "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
       "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
-      "apply_filters( 'embed_handler_html', $return, $url, $attr )"
+      "apply_filters( 'embed_handler_html', $return, $url, $attr )",
+      "public function maybe_make_link($url)",
+      "if ( $this->return_false_on_fail )",
+      "esc_url( $url )",
+      "esc_html( $url )",
+      "apply_filters( 'embed_maybe_make_link', $output, $url )"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
-      methods: ["register_handler", "unregister_handler", "get_embed_handler_html"]
+      methods: ["register_handler", "unregister_handler", "get_embed_handler_html", "maybe_make_link"]
     }
   },
   {

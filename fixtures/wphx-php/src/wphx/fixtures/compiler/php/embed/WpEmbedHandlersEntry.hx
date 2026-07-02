@@ -12,5 +12,6 @@ class WpEmbedHandlersEntry
 		embed.register_handler("fixture", "#fixture#", null, 10);
 		embed.unregister_handler("fixture", 10);
 		embed.get_embed_handler_html(null, "https://example.test/");
+		embed.maybe_make_link("https://example.test/");
 	}
 }

@@ -53,7 +53,12 @@ const EXACT_PATTERNS = [
   "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
   "ksort( $this->handlers );",
   "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
-  "apply_filters( 'embed_handler_html', $return, $url, $attr )"
+  "apply_filters( 'embed_handler_html', $return, $url, $attr )",
+  "public function maybe_make_link($url)",
+  "if ( $this->return_false_on_fail )",
+  "esc_url( $url )",
+  "esc_html( $url )",
+  "apply_filters( 'embed_maybe_make_link', $output, $url )"
 ];
 const CASES = [
   { id: "wp-embed-handlers:property-defaults", focus: "public WP_Embed property defaults are visible without constructor side effects" },
@@ -62,7 +67,10 @@ const CASES = [
   { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" },
   { id: "wp-embed-handlers:get-html-match", focus: "matching callable handler receives matches, parsed attrs, raw attrs, and filter" },
   { id: "wp-embed-handlers:get-html-priority", focus: "get_embed_handler_html sorts priority buckets before callback dispatch" },
-  { id: "wp-embed-handlers:get-html-miss", focus: "non-callable and non-matching handlers return false without filtering" }
+  { id: "wp-embed-handlers:get-html-miss", focus: "non-callable and non-matching handlers return false without filtering" },
+  { id: "wp-embed-handlers:maybe-link-default", focus: "maybe_make_link creates escaped anchor output and filters it" },
+  { id: "wp-embed-handlers:maybe-link-raw", focus: "maybe_make_link preserves raw URL when linkifunknown is false and filters it" },
+  { id: "wp-embed-handlers:maybe-link-false", focus: "maybe_make_link returns false before filtering when return_false_on_fail is true" }
 ];
 
 function command(commandName, commandArgs) {
@@ -135,6 +143,14 @@ function wp_parse_args( $args, $defaults = array() ) {
 \t\tparse_str( (string) $args, $args );
 \t}
 \treturn array_merge( $defaults, $args );
+}
+
+function esc_url( $value ) {
+\treturn 'esc-url:' . rawurlencode( (string) $value );
+}
+
+function esc_html( $value ) {
+\treturn 'esc-html:' . htmlspecialchars( (string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' );
 }
 
 function apply_filters( $hook_name, $value, ...$args ) {
@@ -319,6 +335,39 @@ switch ( $case ) {
 \t\t$assertions['no_filters'] = array() === $GLOBALS['wphx_filter_events'];
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:maybe-link-default':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$output = $embed->maybe_make_link( 'https://example.test/a path/?x=<tag>' );
+\t\t$result['output'] = $output;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['escaped_anchor_filtered'] = '<a href="esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->' === $output;
+\t\t$assertions['filter_payload'] = 'embed_maybe_make_link' === $GLOBALS['wphx_filter_events'][0]['hook']
+\t\t\t&& 'https://example.test/a path/?x=<tag>' === $GLOBALS['wphx_filter_events'][0]['args'][0];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:maybe-link-raw':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$embed->linkifunknown = false;
+\t\t$output = $embed->maybe_make_link( 'https://raw.example/post' );
+\t\t$result['output'] = $output;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['raw_url_filtered'] = 'https://raw.example/post<!-- filtered:embed_maybe_make_link -->' === $output;
+\t\t$assertions['filter_value_is_raw_url'] = 'https://raw.example/post' === $GLOBALS['wphx_filter_events'][0]['value'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:maybe-link-false':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$embed->return_false_on_fail = true;
+\t\t$output = $embed->maybe_make_link( 'https://false.example/post' );
+\t\t$result['output'] = $output;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['strict_false'] = false === $output;
+\t\t$assertions['no_filter_before_false'] = array() === $GLOBALS['wphx_filter_events'];
+\t\tbreak;
+
 \tdefault:
 \t\tthrow new RuntimeException( 'Unknown case ' . $case );
 }
@@ -358,6 +407,7 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     handlers: value.handlers,
     property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
+    output: value.output ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? []
   }]));
@@ -365,6 +415,7 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     handlers: value.handlers,
     property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
+    output: value.output ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? []
   }]));
@@ -411,12 +462,13 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
       "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
-      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
+      "WP_Embed::maybe_make_link returns strict false when configured, otherwise filters either an escaped anchor or the raw URL according to linkifunknown.",
+      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, and maybe-link policy when constructor side effects are bypassed."
     ],
     non_claims: [
       "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
       "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
-      "This fixture does not claim generic arbitrary Haxe nested array assignment/callable lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
+      "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
 }
@@ -430,14 +482,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html/maybe-link manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html/maybe-link runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, and get_embed_handler_html.",
-      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, and embed_handler_html filtering against the upstream oracle with constructor side effects bypassed."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, get_embed_handler_html, and maybe_make_link.",
+      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, and maybe-link policy against the upstream oracle with constructor side effects bypassed."
     ]
   };
 }
@@ -466,6 +518,7 @@ for (const fixtureCase of CASES) {
       handlers: oracleObservations[fixtureCase.id].handlers,
       property_defaults: oracleObservations[fixtureCase.id].property_defaults ?? null,
       html: oracleObservations[fixtureCase.id].html ?? null,
+      output: oracleObservations[fixtureCase.id].output ?? null,
       handler_events: oracleObservations[fixtureCase.id].handler_events ?? [],
       filter_events: oracleObservations[fixtureCase.id].filter_events ?? []
     },
@@ -473,6 +526,7 @@ for (const fixtureCase of CASES) {
       handlers: candidateObservations[fixtureCase.id].handlers,
       property_defaults: candidateObservations[fixtureCase.id].property_defaults ?? null,
       html: candidateObservations[fixtureCase.id].html ?? null,
+      output: candidateObservations[fixtureCase.id].output ?? null,
       handler_events: candidateObservations[fixtureCase.id].handler_events ?? [],
       filter_events: candidateObservations[fixtureCase.id].filter_events ?? []
     },

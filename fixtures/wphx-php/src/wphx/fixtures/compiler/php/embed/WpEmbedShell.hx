@@ -54,4 +54,11 @@ class WpEmbedShell
 		url;
 		return false;
 	}
+
+	@:wp.adapter("wp-embed-maybe-make-link")
+	public function maybe_make_link(url:String):NativeValue
+	{
+		url;
+		return false;
+	}
 }
