@@ -56,6 +56,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedFilterFeedContent(content:String):String;
 
+	static function filterOembedIframeTitleAttribute(result:NativeValue, data:NativeValue, url:String):NativeValue;
+
 	static function printEmbedSharingButton():String;
 
 	static function printEmbedCommentsButton():String;

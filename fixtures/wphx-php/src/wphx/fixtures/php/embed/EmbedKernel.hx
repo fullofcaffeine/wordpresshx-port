@@ -309,6 +309,71 @@ class EmbedKernel
 		return processor.getUpdatedHtml();
 	}
 
+	public static function filterOembedIframeTitleAttribute(result:NativeValue, data:NativeValue, url:String):NativeValue
+	{
+		if (strictFalse(result))
+		{
+			return result;
+		}
+
+		final dataType = objectFieldString(data, "type");
+		if (dataType != "rich" && dataType != "video")
+		{
+			return result;
+		}
+
+		final resultString = EmbedGlobals.strval(result);
+		var title = objectFieldTruthy(data, "title") ? objectFieldString(data, "title") : "";
+		var iframeTag = "";
+		var attrs:php.NativeArray = null;
+
+		final matches = EmbedGlobals.pregMatchCapture("`<iframe([^>]*)>`i", resultString);
+		if (WpNativeArray.count(matches) > 0)
+		{
+			iframeTag = EmbedGlobals.strval(WpNativeArray.get(matches, 0, ""));
+			attrs = EmbedGlobals.wpKsesHair(EmbedGlobals.strval(WpNativeArray.get(matches, 1, "")), EmbedGlobals.wpAllowedProtocols());
+			final attrKeys = WpNativeArray.keys(attrs);
+			for (attrKey in attrKeys)
+			{
+				final attr = EmbedGlobals.strval(attrKey);
+				final lowerAttr = EmbedGlobals.strtolower(attr);
+				if (lowerAttr != attr && !WpNativeArray.issetKey(attrs, lowerAttr))
+				{
+					// WPHX-211: wp_kses_hair() returns native attribute records keyed by original PHP attribute name.
+					EmbedGlobals.arraySet(attrs, lowerAttr, WpNativeArray.get(attrs, attr, null));
+					EmbedGlobals.arrayUnset(attrs, attr);
+				}
+			}
+		}
+
+		if (attrs != null && WpNativeArray.issetKey(attrs, "title"))
+		{
+			// WPHX-211: wp_kses_hair() stores each parsed attribute as a native PHP array record.
+			final titleAttr:php.NativeArray = cast WpNativeArray.get(attrs, "title", null);
+			final titleValue = WpNativeArray.get(titleAttr, "value", "");
+			if (EmbedGlobals.truthy(titleValue))
+			{
+				title = EmbedGlobals.strval(titleValue);
+			}
+		}
+
+		title = EmbedGlobals.strval(EmbedHooks.applyFiltersNative4("oembed_iframe_title_attribute", title, result, data, url));
+		if (title == "")
+		{
+			return result;
+		}
+
+		var rewrittenResult = resultString;
+		if (attrs != null && WpNativeArray.issetKey(attrs, "title"))
+		{
+			EmbedGlobals.arrayUnset(attrs, "title");
+			final attrString = EmbedGlobals.implode(" ", EmbedGlobals.wpListPluck(attrs, "whole"));
+			rewrittenResult = EmbedGlobals.strReplace(iframeTag, "<iframe " + EmbedGlobals.trim(attrString) + ">", rewrittenResult);
+		}
+
+		return EmbedGlobals.strIreplace("<iframe ", EmbedGlobals.sprintfOne("<iframe title=\"%s\" ", EmbedGlobals.escAttr(title)), rewrittenResult);
+	}
+
 	public static function printEmbedSharingButton():String
 	{
 		if (EmbedGlobals.is404())
@@ -434,6 +499,22 @@ class EmbedKernel
 		// WPHX-211: recursive _oembed_create_xml() receives a PHP SimpleXMLElement child object.
 		return cast node;
 	}
+
+	static function strictFalse(value:NativeValue):Bool
+	{
+		// WPHX-211: this filter must preserve WordPress's strict false return contract.
+		return php.Syntax.code("{0} === false", value);
+	}
+
+	static function objectFieldString(value:NativeValue, field:String):String
+	{
+		return EmbedGlobals.strval(EmbedGlobals.objectField(value, field));
+	}
+
+	static function objectFieldTruthy(value:NativeValue, field:String):Bool
+	{
+		return EmbedGlobals.truthy(EmbedGlobals.objectField(value, field));
+	}
 }
 
 /**
@@ -480,6 +561,12 @@ extern class EmbedGlobals
 
 	@:native("str_replace")
 	public static function strReplace(search:String, replace:String, subject:String):String;
+
+	@:native("str_ireplace")
+	public static function strIreplace(search:String, replace:String, subject:String):String;
+
+	@:native("strtolower")
+	public static function strtolower(value:String):String;
 
 	@:native("esc_html")
 	public static function escHtml(value:String):String;
@@ -601,6 +688,18 @@ extern class EmbedGlobals
 	@:native("preg_match")
 	public static function pregMatch(pattern:String, subject:String):Int;
 
+	@:native("wphx_embed_preg_match")
+	public static function pregMatchCapture(pattern:String, subject:String):php.NativeArray;
+
+	@:native("wp_allowed_protocols")
+	public static function wpAllowedProtocols():php.NativeArray;
+
+	@:native("wp_kses_hair")
+	public static function wpKsesHair(attr:String, protocols:php.NativeArray):php.NativeArray;
+
+	@:native("wp_list_pluck")
+	public static function wpListPluck(inputList:php.NativeArray, field:String):php.NativeArray;
+
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
 
@@ -637,6 +736,10 @@ extern class EmbedGlobals
 	// WPHX-211: PHP truthiness is needed for globals and raw handler attributes.
 	@:native("wphx_embed_truthy")
 	public static function truthy(value:NativeValue):Bool;
+
+	// WPHX-211: oEmbed provider data is a public PHP object with dynamic fields.
+	@:native("wphx_embed_object_field")
+	public static function objectField(value:NativeValue, field:String):NativeValue;
 }
 
 /**

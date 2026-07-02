@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 24704,
-      "sha256": "sha256:cbdde2ed78322ef1bea22dc5f592710a1d5b3f585295a7e734c70750483bd48d"
+      "bytes": 28487,
+      "sha256": "sha256:22aeb0b96a8ac9245f5211f51dbfffcd61926b354ee2dea3d5f53e8c22d9bbda"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 3523,
-      "sha256": "sha256:c94f992f74616eb57457aa8af0648eb67dc7f5cd259f1195974509360c673ab0"
+      "bytes": 3670,
+      "sha256": "sha256:bb0ca32d6767418344245bedb06b7418b1ee474d082b18533be633835eb23908"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 8491,
-      "sha256": "sha256:32a9461971aef8b37f6e2872c5bf51698b0b440e4d2f5511531296158eb72d47"
+      "bytes": 8884,
+      "sha256": "sha256:0b757c5f0b832fc05966669fc8309313cbc13628ad82a01842e0b0ea90e31118"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 2281,
-      "sha256": "sha256:2cc17fe3ce31666b0c1c9e2115523e2fff1d5d3fc4724843c25a5bfe628bdc66"
+      "bytes": 2395,
+      "sha256": "sha256:7894aa5454be02d7c1a0c0bd7d85fe2a897168827df49e533caa46811ab5930f"
     }
   ],
   "upstream_oracle": {
@@ -78,6 +78,7 @@
       "the_embed_site_title",
       "wp_filter_pre_oembed_result",
       "_oembed_filter_feed_content",
+      "wp_filter_oembed_iframe_title_attribute",
       "print_embed_comments_button",
       "print_embed_sharing_button",
       "wp_maybe_load_embeds",
@@ -110,6 +111,7 @@
       "1232-1256",
       "1267-1275",
       "1119-1129",
+      "863-922",
       "1134-1156",
       "1163-1177",
       "191-232",
@@ -120,8 +122,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 4297,
-    "sha256": "sha256:ae0ccbf7d7621052c6b75794ad0bb720e8cd542fb49d1e0b20079211a5abf191",
+    "bytes": 4475,
+    "sha256": "sha256:b68d5439a69134b243c0bf70f47a30293470d2951ec32450f8c7d88f676edb6c",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -150,6 +152,7 @@
       "function the_embed_site_title()",
       "function wp_filter_pre_oembed_result($result, $url, $args)",
       "function _oembed_filter_feed_content($content)",
+      "function wp_filter_oembed_iframe_title_attribute($result, $data, $url)",
       "function print_embed_comments_button()",
       "function print_embed_sharing_button()",
       "function wp_maybe_load_embeds()",
@@ -179,6 +182,7 @@
       "EmbedKernel::embedSiteTitle()",
       "EmbedKernel::filterPreOembedResult($result, $url, $args)",
       "EmbedKernel::oembedFilterFeedContent($content)",
+      "EmbedKernel::filterOembedIframeTitleAttribute($result, $data, $url)",
       "EmbedKernel::printEmbedCommentsButton()",
       "EmbedKernel::printEmbedSharingButton()",
       "EmbedKernel::maybeLoadEmbeds()",
@@ -188,15 +192,15 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 9370,
-    "sha256": "sha256:0b6546bff7fc9cc58a4edc86de9d42af86b6cf98984b3b489630be609873d880",
+    "bytes": 10572,
+    "sha256": "sha256:5f373dc67295152facd4343639b846d9723a745600e7b24bf10319eca569f5d8",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 9670,
-    "sha256": "sha256:eaa703f8b715d150ae96e4d8556e6dea0b04ff89003ce6e498d0d1aa08c5f934",
+    "bytes": 9995,
+    "sha256": "sha256:d023995e67ef4df61cda1eab46ca66432bfd83c818371fa9b490a1afef63fb1a",
     "declarations": [
       "wp-includes/embed.php:global-function:_oembed_create_xml",
       "wp-includes/embed.php:global-function:_oembed_filter_feed_content",
@@ -218,6 +222,7 @@
       "wp-includes/embed.php:global-function:wp_embed_register_handler",
       "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
       "wp-includes/embed.php:global-function:wp_enqueue_embed_styles",
+      "wp-includes/embed.php:global-function:wp_filter_oembed_iframe_title_attribute",
       "wp-includes/embed.php:global-function:wp_filter_pre_oembed_result",
       "wp-includes/embed.php:global-function:wp_maybe_enqueue_oembed_host_js",
       "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
@@ -2196,6 +2201,239 @@
           "filters": []
         },
         {
+          "id": "iframe-title:false-result",
+          "value": false,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "iframe-title:non-rich-type",
+          "value": "<iframe src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "iframe-title:data-title",
+          "value": "<div><iframe title=\"Provider Title\" src=\"https://provider.example/embed\"></iframe></div>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<div><iframe src=\"https://provider.example/embed\"></iframe></div>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:existing-title",
+          "value": "<iframe title=\"Existing Title\" src=\"https://provider.example/embed\" width=\"600\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Existing Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\" title=\"Existing Title\" width=\"600\"></iframe>",
+                {
+                  "type": "video",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:uppercase-title",
+          "value": "<iframe title=\"Upper Title\" src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Upper Title",
+              "args": [
+                "<iframe TITLE=\"Upper Title\" src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:filter-empty",
+          "value": "<iframe src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:filter-escaped",
+          "value": "<iframe title=\"Filtered &quot;Title&quot;\" src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
           "id": "comments-button:plural",
           "value": {
             "return": null,
@@ -3264,6 +3502,45 @@
             {
               "name": "content",
               "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_filter_oembed_iframe_title_attribute": {
+          "name": "wp_filter_oembed_iframe_title_attribute",
+          "numberOfParameters": 3,
+          "numberOfRequiredParameters": 3,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "result",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "data",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
               "isOptional": false,
               "hasDefault": false,
               "default": null,
@@ -5405,6 +5682,239 @@
           "filters": []
         },
         {
+          "id": "iframe-title:false-result",
+          "value": false,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "iframe-title:non-rich-type",
+          "value": "<iframe src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "iframe-title:data-title",
+          "value": "<div><iframe title=\"Provider Title\" src=\"https://provider.example/embed\"></iframe></div>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<div><iframe src=\"https://provider.example/embed\"></iframe></div>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:existing-title",
+          "value": "<iframe title=\"Existing Title\" src=\"https://provider.example/embed\" width=\"600\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Existing Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\" title=\"Existing Title\" width=\"600\"></iframe>",
+                {
+                  "type": "video",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:uppercase-title",
+          "value": "<iframe title=\"Upper Title\" src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Upper Title",
+              "args": [
+                "<iframe TITLE=\"Upper Title\" src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:filter-empty",
+          "value": "<iframe src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "iframe-title:filter-escaped",
+          "value": "<iframe title=\"Filtered &quot;Title&quot;\" src=\"https://provider.example/embed\"></iframe>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_iframe_title_attribute",
+              "value": "Provider Title",
+              "args": [
+                "<iframe src=\"https://provider.example/embed\"></iframe>",
+                {
+                  "type": "rich",
+                  "title": "Provider Title"
+                },
+                "https://provider.example/embed"
+              ]
+            }
+          ]
+        },
+        {
           "id": "comments-button:plural",
           "value": {
             "return": null,
@@ -6482,6 +6992,45 @@
             }
           ]
         },
+        "wp_filter_oembed_iframe_title_attribute": {
+          "name": "wp_filter_oembed_iframe_title_attribute",
+          "numberOfParameters": 3,
+          "numberOfRequiredParameters": 3,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "result",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "data",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "print_embed_comments_button": {
           "name": "print_embed_comments_button",
           "numberOfParameters": 0,
@@ -6671,11 +7220,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, or WP_HTML_Tag_Processor class method ownership beyond the narrow route registration, get_html/data2html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, comments/sharing-button markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, iframe title attribute filter interactions, comments/sharing-button markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }
