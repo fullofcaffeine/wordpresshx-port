@@ -171,11 +171,15 @@ const CASES = [
       "'regex'    => $regex",
       "'callback' => $callback",
       "public function unregister_handler($id, $priority = 10)",
-      "unset( $this->handlers[ $priority ][ $id ] );"
+      "unset( $this->handlers[ $priority ][ $id ] );",
+      "public function get_embed_handler_html($attr, $url)",
+      "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
+      "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
+      "apply_filters( 'embed_handler_html', $return, $url, $attr )"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
-      methods: ["register_handler", "unregister_handler"]
+      methods: ["register_handler", "unregister_handler", "get_embed_handler_html"]
     }
   },
   {

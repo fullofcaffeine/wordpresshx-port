@@ -40,4 +40,12 @@ class WpEmbedShell
 		id;
 		priority;
 	}
+
+	@:wp.adapter("wp-embed-get-handler-html")
+	public function get_embed_handler_html(attr:NativeValue, url:String):NativeValue
+	{
+		attr;
+		url;
+		return false;
+	}
 }

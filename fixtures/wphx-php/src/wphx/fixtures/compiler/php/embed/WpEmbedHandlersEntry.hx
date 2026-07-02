@@ -11,5 +11,6 @@ class WpEmbedHandlersEntry
 		final embed:WpEmbedShell = cast null;
 		embed.register_handler("fixture", "#fixture#", null, 10);
 		embed.unregister_handler("fixture", 10);
+		embed.get_embed_handler_html(null, "https://example.test/");
 	}
 }

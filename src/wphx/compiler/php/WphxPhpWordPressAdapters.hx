@@ -124,6 +124,8 @@ class WphxPhpWordPressAdapters
 				embedRegisterHandler(fieldName);
 			case "wp-embed-unregister-handler":
 				embedUnregisterHandler(fieldName);
+			case "wp-embed-get-handler-html":
+				embedGetHandlerHtml(fieldName);
 			case _:
 				null;
 		}
@@ -251,6 +253,46 @@ class WphxPhpWordPressAdapters
 			"expr.array-read",
 			"native-array-nested-unset"
 		], [PhpUnset(embedHandlerSlot())]);
+	}
+
+	static function embedGetHandlerHtml(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final attr = PhpVar("attr");
+		final url = PhpVar("url");
+		final handler = PhpVar("handler");
+		final matches = PhpVar("matches");
+		final returnValue = PhpVar("return");
+
+		return plan([
+			"stmt.var",
+			"stmt.assign",
+			"stmt.foreach-key-value",
+			"stmt.if",
+			"stmt.return",
+			"expr.object-property",
+			"expr.array-read",
+			"expr.function-call",
+			"expr.binop",
+			"native-array-iteration",
+			"native-callable-dispatch"
+		], [
+			PhpLocal("rawattr", attr),
+			PhpAssign(attr, PhpFunctionCall("wp_parse_args", [attr, PhpFunctionCall("wp_embed_defaults", [url])])),
+			PhpExprStmt(PhpFunctionCall("ksort", [PhpObjectProperty(PhpVar("this"), "handlers")])),
+			PhpForeachKeyValue(PhpObjectProperty(PhpVar("this"), "handlers"), "priority", "handlers", [
+				PhpForeachKeyValue(PhpVar("handlers"), "id", "handler", [
+					PhpIf(PhpBinop("&&", PhpFunctionCall("preg_match", [read(handler, "regex"), url, matches]),
+						PhpFunctionCall("is_callable", [read(handler, "callback")])),
+						[
+							PhpLocal("return", PhpFunctionCall("call_user_func", [read(handler, "callback"), matches, attr, url, PhpVar("rawattr")])),
+							PhpIf(PhpBinop("!==", PhpBool(false), returnValue), [
+								PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_handler_html"), returnValue, url, attr]))
+							])
+						])
+				])
+			]),
+			PhpReturn(PhpBool(false))
+		]);
 	}
 
 	static function processHeaders(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

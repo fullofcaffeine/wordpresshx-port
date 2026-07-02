@@ -42,12 +42,21 @@ const EXACT_PATTERNS = [
   "'regex'    => $regex",
   "'callback' => $callback",
   "public function unregister_handler($id, $priority = 10)",
-  "unset( $this->handlers[ $priority ][ $id ] );"
+  "unset( $this->handlers[ $priority ][ $id ] );",
+  "public function get_embed_handler_html($attr, $url)",
+  "$rawattr = $attr;",
+  "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
+  "ksort( $this->handlers );",
+  "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
+  "apply_filters( 'embed_handler_html', $return, $url, $attr )"
 ];
 const CASES = [
   { id: "wp-embed-handlers:register-default", focus: "default priority handler registration" },
   { id: "wp-embed-handlers:register-priorities", focus: "separate priority buckets preserve handler payloads" },
-  { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" }
+  { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" },
+  { id: "wp-embed-handlers:get-html-match", focus: "matching callable handler receives matches, parsed attrs, raw attrs, and filter" },
+  { id: "wp-embed-handlers:get-html-priority", focus: "get_embed_handler_html sorts priority buckets before callback dispatch" },
+  { id: "wp-embed-handlers:get-html-miss", focus: "non-callable and non-matching handlers return false without filtering" }
 ];
 
 function command(commandName, commandArgs) {
@@ -105,6 +114,72 @@ if ( ! defined( 'WPHX_WP_EMBED_BOOTSTRAPPED' ) ) {
 
 require ABSPATH . WPINC . '/class-wp-embed.php';
 
+function wp_embed_defaults( $url = '' ) {
+\treturn array(
+\t\t'width' => 500,
+\t\t'height' => str_contains( $url, 'portrait' ) ? 900 : 281,
+\t);
+}
+
+function wp_parse_args( $args, $defaults = array() ) {
+\tif ( is_object( $args ) ) {
+\t\t$args = get_object_vars( $args );
+\t}
+\tif ( ! is_array( $args ) ) {
+\t\tparse_str( (string) $args, $args );
+\t}
+\treturn array_merge( $defaults, $args );
+}
+
+function apply_filters( $hook_name, $value, ...$args ) {
+\t$GLOBALS['wphx_filter_events'][] = array(
+\t\t'hook' => $hook_name,
+\t\t'value' => $value,
+\t\t'args' => $args,
+\t);
+\treturn $value . '<!-- filtered:' . $hook_name . ' -->';
+}
+
+function wphx_reset_events() {
+\t$GLOBALS['wphx_handler_events'] = array();
+\t$GLOBALS['wphx_filter_events'] = array();
+}
+
+function wphx_embed_false_callback( $matches, $attr, $url, $rawattr ) {
+\t$GLOBALS['wphx_handler_events'][] = array(
+\t\t'callback' => __FUNCTION__,
+\t\t'matches' => $matches,
+\t\t'attr' => $attr,
+\t\t'url' => $url,
+\t\t'rawattr' => $rawattr,
+\t);
+\treturn false;
+}
+
+function wphx_embed_html_callback( $matches, $attr, $url, $rawattr ) {
+\t$GLOBALS['wphx_handler_events'][] = array(
+\t\t'callback' => __FUNCTION__,
+\t\t'matches' => $matches,
+\t\t'attr' => $attr,
+\t\t'url' => $url,
+\t\t'rawattr' => $rawattr,
+\t);
+\treturn '<iframe data-match="' . $matches[1] . '" data-width="' . $attr['width'] . '" data-height="' . $attr['height'] . '"></iframe>';
+}
+
+class Fixture_Handler {
+\tpublic static function render( $matches, $attr, $url, $rawattr ) {
+\t\t$GLOBALS['wphx_handler_events'][] = array(
+\t\t\t'callback' => __METHOD__,
+\t\t\t'matches' => $matches,
+\t\t\t'attr' => $attr,
+\t\t\t'url' => $url,
+\t\t\t'rawattr' => $rawattr,
+\t\t);
+\t\treturn '<div data-priority="' . $matches[1] . '" data-width="' . $attr['width'] . '"></div>';
+\t}
+}
+
 function wphx_new_embed_without_constructor( $handlers = array() ) {
 \t$class = new ReflectionClass( 'WP_Embed' );
 \t$embed = $class->newInstanceWithoutConstructor();
@@ -114,6 +189,7 @@ function wphx_new_embed_without_constructor( $handlers = array() ) {
 
 $assertions = array();
 $result = array( 'case' => $case );
+wphx_reset_events();
 
 switch ( $case ) {
 \tcase 'wp-embed-handlers:register-default':
@@ -156,6 +232,62 @@ switch ( $case ) {
 \t\t$assertions['kept_other_priority_same_id'] = isset( $embed->handlers[1]['shared'] );
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:get-html-match':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t20 => array(
+\t\t\t\t'late' => array( 'regex' => '#https://media\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t\t5 => array(
+\t\t\t\t'false-first' => array( 'regex' => '#https://media\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_false_callback' ),
+\t\t\t),
+\t\t) );
+\t\t$html = $embed->get_embed_handler_html( array( 'width' => 320 ), 'https://media.example/clip' );
+\t\t$result['html'] = $html;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['false_then_success_callbacks'] = array( 'wphx_embed_false_callback', 'wphx_embed_html_callback' ) === array_column( $GLOBALS['wphx_handler_events'], 'callback' );
+\t\t$assertions['attr_defaults_merged'] = 320 === $GLOBALS['wphx_handler_events'][1]['attr']['width'] && 281 === $GLOBALS['wphx_handler_events'][1]['attr']['height'];
+\t\t$assertions['rawattr_preserved'] = array( 'width' => 320 ) === $GLOBALS['wphx_handler_events'][1]['rawattr'];
+\t\t$assertions['filter_applied'] = '<iframe data-match="clip" data-width="320" data-height="281"></iframe><!-- filtered:embed_handler_html -->' === $html;
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:get-html-priority':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t20 => array(
+\t\t\t\t'late' => array( 'regex' => '#https://priority\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t\t1 => array(
+\t\t\t\t'early' => array( 'regex' => '#https://priority\\\\.example/([a-z]+)#', 'callback' => array( 'Fixture_Handler', 'render' ) ),
+\t\t\t),
+\t\t) );
+\t\t$html = $embed->get_embed_handler_html( array( 'width' => 640 ), 'https://priority.example/early' );
+\t\t$result['html'] = $html;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['priority_sorted_before_dispatch'] = array( 1, 20 ) === array_keys( $embed->handlers );
+\t\t$assertions['early_callback_only'] = array( 'Fixture_Handler::render' ) === array_column( $GLOBALS['wphx_handler_events'], 'callback' );
+\t\t$assertions['filtered_early_html'] = '<div data-priority="early" data-width="640"></div><!-- filtered:embed_handler_html -->' === $html;
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:get-html-miss':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t10 => array(
+\t\t\t\t'not-callable' => array( 'regex' => '#https://miss\\\\.example/([a-z]+)#', 'callback' => 'wphx_missing_callback' ),
+\t\t\t\t'no-match' => array( 'regex' => '#https://other\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t) );
+\t\t$html = $embed->get_embed_handler_html( array(), 'https://miss.example/clip' );
+\t\t$result['html'] = $html;
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['returned_false'] = false === $html;
+\t\t$assertions['no_callbacks'] = array() === $GLOBALS['wphx_handler_events'];
+\t\t$assertions['no_filters'] = array() === $GLOBALS['wphx_filter_events'];
+\t\tbreak;
+
 \tdefault:
 \t\tthrow new RuntimeException( 'Unknown case ' . $case );
 }
@@ -191,8 +323,18 @@ function assertAllCaseAssertions(observations, label) {
 }
 
 function buildManifest({ generatedSource, oracleObservations, candidateObservations, emission }) {
-  const oracleComparable = Object.fromEntries(Object.entries(oracleObservations).map(([key, value]) => [key, value.handlers]));
-  const candidateComparable = Object.fromEntries(Object.entries(candidateObservations).map(([key, value]) => [key, value.handlers]));
+  const oracleComparable = Object.fromEntries(Object.entries(oracleObservations).map(([key, value]) => [key, {
+    handlers: value.handlers,
+    html: value.html ?? null,
+    handler_events: value.handler_events ?? [],
+    filter_events: value.filter_events ?? []
+  }]));
+  const candidateComparable = Object.fromEntries(Object.entries(candidateObservations).map(([key, value]) => [key, {
+    handlers: value.handlers,
+    html: value.html ?? null,
+    handler_events: value.handler_events ?? [],
+    filter_events: value.filter_events ?? []
+  }]));
   return {
     schema: "wphx.wphx-php-wp-embed-handlers.v1",
     issue: ISSUE,
@@ -235,12 +377,13 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "The generated shell preserves #[AllowDynamicProperties] and public handler-related property declarations.",
       "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
-      "The behavior probe matches upstream for default registration, multi-priority registration, and selected unregister behavior when constructor side effects are bypassed."
+      "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
+      "The behavior probe matches upstream for default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
     ],
     non_claims: [
       "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-      "This fixture does not claim run_shortcode, shortcode, get_embed_handler_html, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
-      "This fixture does not claim generic arbitrary Haxe nested array assignment lowering; the two method bodies are bounded WordPress-profile Adapter IR pressure."
+      "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+      "This fixture does not claim generic arbitrary Haxe nested array assignment/callable lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
 }
@@ -254,14 +397,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed handler-registry runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for register_handler and unregister_handler.",
-      "The generated shell preserves native nested handlers array write/unset behavior against the upstream oracle with constructor side effects bypassed."
+      "WPHX PHP emits a bounded WP_Embed public class shell for register_handler, unregister_handler, and get_embed_handler_html.",
+      "The generated shell preserves native nested handlers array write/unset, sorted handler matching, callback dispatch, and embed_handler_html filtering against the upstream oracle with constructor side effects bypassed."
     ]
   };
 }
@@ -285,7 +428,21 @@ const candidateObservations = runProbe(GENERATED_ROOT);
 assertAllCaseAssertions(oracleObservations, "oracle");
 assertAllCaseAssertions(candidateObservations, "candidate");
 for (const fixtureCase of CASES) {
-  assertDeepEqual(oracleObservations[fixtureCase.id].handlers, candidateObservations[fixtureCase.id].handlers, fixtureCase.id);
+  assertDeepEqual(
+    {
+      handlers: oracleObservations[fixtureCase.id].handlers,
+      html: oracleObservations[fixtureCase.id].html ?? null,
+      handler_events: oracleObservations[fixtureCase.id].handler_events ?? [],
+      filter_events: oracleObservations[fixtureCase.id].filter_events ?? []
+    },
+    {
+      handlers: candidateObservations[fixtureCase.id].handlers,
+      html: candidateObservations[fixtureCase.id].html ?? null,
+      handler_events: candidateObservations[fixtureCase.id].handler_events ?? [],
+      filter_events: candidateObservations[fixtureCase.id].filter_events ?? []
+    },
+    fixtureCase.id
+  );
 }
 
 const manifest = buildManifest({ generatedSource, oracleObservations, candidateObservations, emission });

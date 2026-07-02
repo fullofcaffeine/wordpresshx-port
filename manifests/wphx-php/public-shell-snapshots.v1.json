@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 1007,
-      "sha256": "sha256:55dd71aae1339cc212907b5987494e1592dd40cfbb9c67c1435092d8ba4b2b2c",
+      "bytes": 1611,
+      "sha256": "sha256:38a405fe0682aa43aa0b011d79bde1d20e97fd7f482fb863be240cdee084bba5",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -292,7 +292,11 @@
         "'regex'    => $regex",
         "'callback' => $callback",
         "public function unregister_handler($id, $priority = 10)",
-        "unset( $this->handlers[ $priority ][ $id ] );"
+        "unset( $this->handlers[ $priority ][ $id ] );",
+        "public function get_embed_handler_html($attr, $url)",
+        "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
+        "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )",
+        "apply_filters( 'embed_handler_html', $return, $url, $attr )"
       ],
       "ast_contract": {
         "functions": [],
@@ -301,6 +305,7 @@
         ],
         "interfaces": [],
         "methods": [
+          "get_embed_handler_html",
           "register_handler",
           "unregister_handler"
         ],
@@ -310,8 +315,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 851,
-        "sha256": "sha256:079c0a90672a5a86aa3a60991a6993c2b00270000dd761622fcd17ac6e64a6d1"
+        "bytes": 1037,
+        "sha256": "sha256:4b73ce42525bbb819be28e2d17586eb3337035d56171a81fca3752884ca02ec8"
       }
     },
     {
