@@ -154,6 +154,34 @@ function wpEmbedExcerptAttachment(@:wp.name("content") content:String):String
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("enqueue_embed_scripts")
+@:keep
+function enqueueEmbedScripts():Void
+{
+	HaxeEmbedKernel.enqueueEmbedScripts();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("the_embed_site_title")
+@:wp.echo
+@:keep
+function theEmbedSiteTitle():String
+{
+	return HaxeEmbedKernel.embedSiteTitle();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_filter_pre_oembed_result")
+@:keep
+function wpFilterPreOembedResult(@:wp.name("result") result:NativeValue, @:wp.name("url") url:String, @:wp.name("args") args:NativeValue):NativeValue
+{
+	return HaxeEmbedKernel.filterPreOembedResult(result, url, args);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_maybe_load_embeds")
 @:keep
 function wpMaybeLoadEmbeds():Void

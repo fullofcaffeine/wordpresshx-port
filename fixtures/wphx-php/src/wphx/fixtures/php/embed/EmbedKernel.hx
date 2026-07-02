@@ -190,6 +190,36 @@ class EmbedKernel
 		return EmbedGlobals.isAttachment() ? EmbedGlobals.prependAttachment("") : content;
 	}
 
+	public static function enqueueEmbedScripts():Void
+	{
+		EmbedGlobals.doAction("enqueue_embed_scripts");
+	}
+
+	public static function embedSiteTitle():String
+	{
+		final siteTitle = "<div class=\"wp-embed-site-title\"><a href=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.homeUrl())
+			+ "\" target=\"_top\"><img src=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.getSiteIconUrl(32, EmbedGlobals.includesUrl("images/w-logo-blue.png")))
+			+ "\" srcset=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.getSiteIconUrl(64, EmbedGlobals.includesUrl("images/w-logo-blue.png")))
+			+ " 2x\" width=\"32\" height=\"32\" alt=\"\" class=\"wp-embed-site-icon\" /><span>"
+			+ EmbedGlobals.escHtml(EmbedGlobals.getBloginfo("name"))
+			+ "</span></a></div>";
+		return EmbedGlobals.strval(EmbedHooks.applyFiltersNative1("embed_site_title_html", siteTitle));
+	}
+
+	public static function filterPreOembedResult(result:NativeValue, url:String, args:NativeValue):NativeValue
+	{
+		final data = EmbedGlobals.getOembedResponseDataForUrl(url, args);
+		if (EmbedGlobals.truthy(data))
+		{
+			return oembedGetObject().dataToHtml(data, url);
+		}
+
+		return result;
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -272,6 +302,21 @@ extern class EmbedGlobals
 	@:native("esc_url")
 	public static function escUrl(url:String):String;
 
+	@:native("esc_html")
+	public static function escHtml(value:String):String;
+
+	@:native("home_url")
+	public static function homeUrl():String;
+
+	@:native("get_site_icon_url")
+	public static function getSiteIconUrl(size:Int, fallback:String):String;
+
+	@:native("includes_url")
+	public static function includesUrl(path:String):String;
+
+	@:native("get_bloginfo")
+	public static function getBloginfo(show:String):String;
+
 	@:native("urlencode")
 	public static function urlencode(value:String):String;
 
@@ -301,6 +346,9 @@ extern class EmbedGlobals
 
 	@:native("did_action")
 	public static function didAction(hookName:String):Int;
+
+	@:native("do_action")
+	public static function doAction(hookName:String):Void;
 
 	@:native("doing_action")
 	public static function doingAction(hookName:String):Int;
@@ -353,6 +401,9 @@ extern class EmbedGlobals
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
 
+	@:native("get_oembed_response_data_for_url")
+	public static function getOembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;
+
 	@:native("wphx_embed_array_set")
 	public static function arraySet(array:php.NativeArray, key:String, value:NativeValue):Void;
 
@@ -376,6 +427,9 @@ extern class WpOembed
 
 	@:native("get_html")
 	public function getHtml(url:String, args:NativeValue):NativeValue;
+
+	@:native("data2html")
+	public function dataToHtml(data:NativeValue, url:String):NativeValue;
 
 	@:native("_add_provider_early")
 	public static function addProviderEarly(format:String, provider:String, regex:Bool):Void;
