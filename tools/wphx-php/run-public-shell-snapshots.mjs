@@ -201,7 +201,17 @@ const CASES = [
       "preg_match( '#(^|\\\\s|>)https?://#i', $content )",
       "preg_replace_callback( '|^(\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*)$|im', array(",
       "preg_replace_callback( '|(<p(?: [^>]*)?>\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*</p>)|i', array(",
-      "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );"
+      "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );",
+      "public function cache_oembed($post_id)",
+      "$post = get_post( $post_id );",
+      "$post_types = get_post_types( array(",
+      "apply_filters( 'embed_cache_oembed_types', $post_types )",
+      "in_array( $post->post_type, $cache_oembed_types, true )",
+      "$this->post_ID = $post->ID;",
+      "$this->usecache = false;",
+      "$content = $this->run_shortcode( $post->post_content );",
+      "$this->autoembed( $content );",
+      "$this->usecache = true;"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
@@ -212,7 +222,8 @@ const CASES = [
         "maybe_make_link",
         "delete_oembed_caches",
         "autoembed_callback",
-        "autoembed"
+        "autoembed",
+        "cache_oembed"
       ]
     }
   },

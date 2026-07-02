@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 71604,
-      "sha256": "sha256:b4f0f55f64c3a24b7e4ae0a42429ab267cab80092707a0ef520a0f81ff876a49"
+      "bytes": 73270,
+      "sha256": "sha256:aa24876245e7036ff289ec3857029af22eba32e3aacf7281e803373c03dee346"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 652,
-      "sha256": "sha256:eff42a42ea1c22b7370937e7c5f789fd011ec9dfc8b4760e32222e2f82fb9cd0"
+      "bytes": 679,
+      "sha256": "sha256:54a06ac42a9cab2db73e949026d5c01c5e5e18e769cd02d0b10fffd7ed070501"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 2005,
-      "sha256": "sha256:faa512ca194ad1388404a4812f7ca16cb2db4abc0fd17c792eb5794aa21a623f"
+      "bytes": 2118,
+      "sha256": "sha256:917e4ffcf139d1465e5da3b214efc0359f916e98ae5e2580e63aaaf9d4ca11f5"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:00ec41b32e3baa7a7ebfdc249dd34c8f3e3aae31e8ee80179489c7313f7f8561",
+    "sha256": "sha256:1705969446e998e11f3ba47c12e04abc7018d134aa13d7c659c8e9e3e589f797",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -84,11 +84,21 @@
       "preg_match( '#(^|\\\\s|>)https?://#i', $content )": true,
       "preg_replace_callback( '|^(\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*)$|im', array(": true,
       "preg_replace_callback( '|(<p(?: [^>]*)?>\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*</p>)|i', array(": true,
-      "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );": true
+      "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );": true,
+      "public function cache_oembed($post_id)": true,
+      "$post = get_post( $post_id );": true,
+      "$post_types = get_post_types( array(": true,
+      "apply_filters( 'embed_cache_oembed_types', $post_types )": true,
+      "in_array( $post->post_type, $cache_oembed_types, true )": true,
+      "$this->post_ID = $post->ID;": true,
+      "$this->usecache = false;": true,
+      "$content = $this->run_shortcode( $post->post_content );": true,
+      "$this->autoembed( $content );": true,
+      "$this->usecache = true;": true
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:190fbe5e1757379bf6c52f88e6b86081e54349e753c8c220afe467c3ad62f05d",
+      "sha256": "sha256:63c6961e9b4d25cbcb54a6dddf80235166a14dcbdde3e65b1510a51587e01e26",
       "unsupported": [],
       "declarations": [
         {
@@ -113,6 +123,7 @@
         "native-array-nested-write",
         "native-callable-dispatch",
         "stmt.assign",
+        "stmt.expr",
         "stmt.foreach",
         "stmt.foreach-key-value",
         "stmt.if",
@@ -199,6 +210,18 @@
     {
       "id": "wp-embed-handlers:autoembed-restores-tag-newline",
       "focus": "autoembed restores line-break placeholders in HTML tags"
+    },
+    {
+      "id": "wp-embed-handlers:cache-oembed-eligible",
+      "focus": "cache_oembed sets post/usecache state and dispatches shortcode then autoembed for eligible content"
+    },
+    {
+      "id": "wp-embed-handlers:cache-oembed-disallowed-type",
+      "focus": "cache_oembed returns before dispatch for post types outside the filtered allowlist"
+    },
+    {
+      "id": "wp-embed-handlers:cache-oembed-empty-content",
+      "focus": "cache_oembed skips dispatch when eligible post content is empty"
     }
   ],
   "observations": {
@@ -595,6 +618,90 @@
           "tag_newline_restored": true,
           "tag_newline_no_callbacks": true
         }
+      },
+      "wp-embed-handlers:cache-oembed-eligible": {
+        "case": "wp-embed-handlers:cache-oembed-eligible",
+        "handlers": [],
+        "run_shortcode_calls": [
+          {
+            "content": "https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "autoembed_calls": [
+          {
+            "content": "shortcode:https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "post_ID": 123,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "get_post_types_calls": [
+          {
+            "show_ui": true
+          }
+        ],
+        "assertions": {
+          "filter_and_post_type_query": true,
+          "state_set_before_run_shortcode": true,
+          "autoembed_receives_shortcode_content": true,
+          "final_state": true
+        }
+      },
+      "wp-embed-handlers:cache-oembed-disallowed-type": {
+        "case": "wp-embed-handlers:cache-oembed-disallowed-type",
+        "handlers": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "assertions": {
+          "no_dispatch_for_disallowed_type": true,
+          "disallowed_type_state_unchanged": true
+        }
+      },
+      "wp-embed-handlers:cache-oembed-empty-content": {
+        "case": "wp-embed-handlers:cache-oembed-empty-content",
+        "handlers": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post"
+            ],
+            "args": []
+          }
+        ],
+        "assertions": {
+          "empty_content_no_dispatch": true,
+          "empty_content_state_unchanged": true
+        }
       }
     },
     "candidate": {
@@ -990,6 +1097,90 @@
           "tag_newline_restored": true,
           "tag_newline_no_callbacks": true
         }
+      },
+      "wp-embed-handlers:cache-oembed-eligible": {
+        "case": "wp-embed-handlers:cache-oembed-eligible",
+        "handlers": [],
+        "run_shortcode_calls": [
+          {
+            "content": "https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "autoembed_calls": [
+          {
+            "content": "shortcode:https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "post_ID": 123,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "get_post_types_calls": [
+          {
+            "show_ui": true
+          }
+        ],
+        "assertions": {
+          "filter_and_post_type_query": true,
+          "state_set_before_run_shortcode": true,
+          "autoembed_receives_shortcode_content": true,
+          "final_state": true
+        }
+      },
+      "wp-embed-handlers:cache-oembed-disallowed-type": {
+        "case": "wp-embed-handlers:cache-oembed-disallowed-type",
+        "handlers": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "assertions": {
+          "no_dispatch_for_disallowed_type": true,
+          "disallowed_type_state_unchanged": true
+        }
+      },
+      "wp-embed-handlers:cache-oembed-empty-content": {
+        "case": "wp-embed-handlers:cache-oembed-empty-content",
+        "handlers": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post"
+            ],
+            "args": []
+          }
+        ],
+        "assertions": {
+          "empty_content_no_dispatch": true,
+          "empty_content_state_unchanged": true
+        }
       }
     }
   },
@@ -1014,7 +1205,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -1033,7 +1229,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -1067,7 +1268,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -1092,7 +1298,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -1160,7 +1371,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -1216,7 +1432,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -1239,7 +1460,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -1259,7 +1485,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -1279,7 +1510,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -1291,7 +1527,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:delete-oembed-empty": {
         "handlers": [],
@@ -1303,7 +1544,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:delete-oembed-selective": {
         "handlers": [],
@@ -1324,7 +1570,12 @@
         ],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-callback-restore-true": {
         "handlers": [],
@@ -1342,7 +1593,12 @@
           }
         ],
         "linkifunknown": true,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-callback-restore-false": {
         "handlers": [],
@@ -1360,7 +1616,12 @@
           }
         ],
         "linkifunknown": false,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-line": {
         "handlers": [],
@@ -1379,7 +1640,12 @@
             "https://auto.example/video",
             "  "
           ]
-        ]
+        ],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-paragraph": {
         "handlers": [],
@@ -1398,7 +1664,12 @@
             "https://auto.example/post",
             "</p>"
           ]
-        ]
+        ],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-no-match": {
         "handlers": [],
@@ -1410,7 +1681,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-restores-tag-newline": {
         "handlers": [],
@@ -1422,7 +1698,105 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
+      },
+      "wp-embed-handlers:cache-oembed-eligible": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [
+          {
+            "content": "https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "autoembed_calls": [
+          {
+            "content": "shortcode:https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "post_ID": 123,
+        "usecache": true,
+        "get_post_types_calls": [
+          {
+            "show_ui": true
+          }
+        ]
+      },
+      "wp-embed-handlers:cache-oembed-disallowed-type": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "get_post_types_calls": []
+      },
+      "wp-embed-handlers:cache-oembed-empty-content": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "get_post_types_calls": []
       }
     },
     "candidate": {
@@ -1445,7 +1819,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -1464,7 +1843,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -1498,7 +1882,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -1523,7 +1912,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -1591,7 +1985,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -1647,7 +2046,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -1670,7 +2074,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -1690,7 +2099,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -1710,7 +2124,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -1722,7 +2141,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:delete-oembed-empty": {
         "handlers": [],
@@ -1734,7 +2158,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:delete-oembed-selective": {
         "handlers": [],
@@ -1755,7 +2184,12 @@
         ],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-callback-restore-true": {
         "handlers": [],
@@ -1773,7 +2207,12 @@
           }
         ],
         "linkifunknown": true,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-callback-restore-false": {
         "handlers": [],
@@ -1791,7 +2230,12 @@
           }
         ],
         "linkifunknown": false,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-line": {
         "handlers": [],
@@ -1810,7 +2254,12 @@
             "https://auto.example/video",
             "  "
           ]
-        ]
+        ],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-paragraph": {
         "handlers": [],
@@ -1829,7 +2278,12 @@
             "https://auto.example/post",
             "</p>"
           ]
-        ]
+        ],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-no-match": {
         "handlers": [],
@@ -1841,7 +2295,12 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
       },
       "wp-embed-handlers:autoembed-restores-tag-newline": {
         "handlers": [],
@@ -1853,7 +2312,105 @@
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
-        "autoembed_callback_calls": []
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": []
+      },
+      "wp-embed-handlers:cache-oembed-eligible": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [
+          {
+            "content": "https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "autoembed_calls": [
+          {
+            "content": "shortcode:https://cache.example/video",
+            "post_ID": 123,
+            "usecache": false
+          }
+        ],
+        "post_ID": 123,
+        "usecache": true,
+        "get_post_types_calls": [
+          {
+            "show_ui": true
+          }
+        ]
+      },
+      "wp-embed-handlers:cache-oembed-disallowed-type": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post",
+              "page"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "get_post_types_calls": []
+      },
+      "wp-embed-handlers:cache-oembed-empty-content": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [
+          {
+            "hook": "embed_cache_oembed_types",
+            "value": [
+              "post"
+            ],
+            "args": []
+          }
+        ],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": true,
+        "get_post_types_calls": []
       }
     }
   },
@@ -1867,11 +2424,12 @@
     "WP_Embed::delete_oembed_caches deletes only custom post meta keys with the _oembed_ prefix and returns without side effects for empty key lists.",
     "WP_Embed::autoembed_callback temporarily disables linkifunknown, dispatches shortcode(array(), $matches[2]), restores the previous flag, and returns prefix/result/suffix concatenation.",
     "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
-    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, and autoembed scanning when constructor side effects are bypassed."
+    "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
+    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, and cache_oembed dispatch when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-    "This fixture does not claim run_shortcode, shortcode implementation, cache_oembed, autoembed-to-shortcode behavior beyond callback dispatch, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim run_shortcode implementation, shortcode implementation, cache population beyond cache_oembed dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

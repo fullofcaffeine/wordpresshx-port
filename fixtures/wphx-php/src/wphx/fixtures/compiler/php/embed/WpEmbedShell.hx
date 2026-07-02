@@ -81,4 +81,10 @@ class WpEmbedShell
 		content;
 		return "";
 	}
+
+	@:wp.adapter("wp-embed-cache-oembed")
+	public function cache_oembed(post_id:NativeValue):Void
+	{
+		post_id;
+	}
 }

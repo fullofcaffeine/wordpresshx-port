@@ -134,6 +134,8 @@ class WphxPhpWordPressAdapters
 				embedAutoembedCallback(fieldName);
 			case "wp-embed-autoembed":
 				embedAutoembed(fieldName);
+			case "wp-embed-cache-oembed":
+				embedCacheOembed(fieldName);
 			case _:
 				null;
 		}
@@ -386,6 +388,45 @@ class WphxPhpWordPressAdapters
 				]))
 			]),
 			PhpReturn(PhpFunctionCall("str_replace", [PhpString("<!-- wp-line-break -->"), PhpString("\n"), content]))
+		]);
+	}
+
+	static function embedCacheOembed(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final postId = PhpVar("post_id");
+		final post = PhpVar("post");
+		final postTypes = PhpVar("post_types");
+		final cacheOembedTypes = PhpVar("cache_oembed_types");
+		final content = PhpVar("content");
+		final thisValue = PhpVar("this");
+		final postID = PhpObjectProperty(post, "ID");
+		final postType = PhpObjectProperty(post, "post_type");
+		final postContent = PhpObjectProperty(post, "post_content");
+
+		return plan([
+			"stmt.var",
+			"stmt.if",
+			"stmt.assign",
+			"stmt.expr",
+			"stmt.return",
+			"expr.object-property",
+			"expr.function-call",
+			"expr.method-call",
+			"expr.long-array",
+			"expr.binop"
+		], [
+			PhpLocal("post", PhpFunctionCall("get_post", [postId])),
+			PhpLocal("post_types", PhpFunctionCall("get_post_types", [PhpLongArray([entry("show_ui", PhpBool(true))])])),
+			PhpLocal("cache_oembed_types", PhpFunctionCall("apply_filters", [PhpString("embed_cache_oembed_types"), postTypes])),
+			PhpIf(PhpBinop("||", PhpFunctionCall("empty", [postID]), PhpNot(PhpFunctionCall("in_array", [postType, cacheOembedTypes, PhpBool(true)]))),
+				[PhpReturnVoid]),
+			PhpIf(PhpNot(PhpFunctionCall("empty", [postContent])), [
+				PhpAssign(PhpObjectProperty(thisValue, "post_ID"), postID),
+				PhpAssign(PhpObjectProperty(thisValue, "usecache"), PhpBool(false)),
+				PhpLocal("content", PhpMethodCall(thisValue, "run_shortcode", [postContent])),
+				PhpExprStmt(PhpMethodCall(thisValue, "autoembed", [content])),
+				PhpAssign(PhpObjectProperty(thisValue, "usecache"), PhpBool(true))
+			])
 		]);
 	}
 

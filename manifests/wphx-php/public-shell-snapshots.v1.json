@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 3079,
-      "sha256": "sha256:00ec41b32e3baa7a7ebfdc249dd34c8f3e3aae31e8ee80179489c7313f7f8561",
+      "bytes": 3637,
+      "sha256": "sha256:1705969446e998e11f3ba47c12e04abc7018d134aa13d7c659c8e9e3e589f797",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -322,7 +322,17 @@
         "preg_match( '#(^|\\\\s|>)https?://#i', $content )",
         "preg_replace_callback( '|^(\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*)$|im', array(",
         "preg_replace_callback( '|(<p(?: [^>]*)?>\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*</p>)|i', array(",
-        "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );"
+        "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );",
+        "public function cache_oembed($post_id)",
+        "$post = get_post( $post_id );",
+        "$post_types = get_post_types( array(",
+        "apply_filters( 'embed_cache_oembed_types', $post_types )",
+        "in_array( $post->post_type, $cache_oembed_types, true )",
+        "$this->post_ID = $post->ID;",
+        "$this->usecache = false;",
+        "$content = $this->run_shortcode( $post->post_content );",
+        "$this->autoembed( $content );",
+        "$this->usecache = true;"
       ],
       "ast_contract": {
         "functions": [],
@@ -333,6 +343,7 @@
         "methods": [
           "autoembed_callback",
           "autoembed",
+          "cache_oembed",
           "delete_oembed_caches",
           "get_embed_handler_html",
           "maybe_make_link",
@@ -345,8 +356,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1119,
-        "sha256": "sha256:190fbe5e1757379bf6c52f88e6b86081e54349e753c8c220afe467c3ad62f05d"
+        "bytes": 1136,
+        "sha256": "sha256:63c6961e9b4d25cbcb54a6dddf80235166a14dcbdde3e65b1510a51587e01e26"
       }
     },
     {
