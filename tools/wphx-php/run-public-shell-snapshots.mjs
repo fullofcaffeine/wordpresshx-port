@@ -157,6 +157,28 @@ const CASES = [
     }
   },
   {
+    id: "wp-embed-handler-class-shell",
+    hxml: "fixtures/wphx-php/wp-embed-handlers.hxml",
+    selected: "wp-includes/class-wp-embed.php",
+    shell_shapes: ["public_class", "allow_dynamic_properties", "native_array_mutation", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))",
+      "#[AllowDynamicProperties]",
+      "class WP_Embed",
+      "public $handlers;",
+      "public function register_handler($id, $regex, $callback, $priority = 10)",
+      "$this->handlers[ $priority ][ $id ] = array(",
+      "'regex'    => $regex",
+      "'callback' => $callback",
+      "public function unregister_handler($id, $priority = 10)",
+      "unset( $this->handlers[ $priority ][ $id ] );"
+    ],
+    ast_expect: {
+      classes: ["WP_Embed"],
+      methods: ["register_handler", "unregister_handler"]
+    }
+  },
+  {
     id: "https-module-functions-detection",
     hxml: "fixtures/wphx-php/https-module-functions.hxml",
     selected: "wp-includes/https-detection.php",

@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 308,
+  "scanned_file_count": 310,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -143,6 +143,8 @@
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F1Entry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F1Shell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F4Entry.hx",
@@ -315,7 +317,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 116,
+  "occurrence_count": 117,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -416,6 +418,16 @@
       "source": "typedef WpCallback = Dynamic;",
       "source_sha256": "sha256:d7336ec6c47b3067035d9d9dfd5b1cb03e44d0684bd60dcd1b8687b28284bbb0",
       "justification": "WPHX-211: Macro fixtures model WordPress callback ABI shape without invoking"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
+      "line": 11,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final embed:WpEmbedShell = cast null;",
+      "source_sha256": "sha256:287583c3795c0ed20849ff03473f1bad480e7f23c47a24e02cf58f12d49d7f40",
+      "justification": "WPHX-211: compile anchor for instance methods without claiming WP_Embed constructor behavior."
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/HttpBuildCookieHeaderEntry.hx",
@@ -1479,7 +1491,7 @@
     }
   ],
   "by_kind": {
-    "cast": 24,
+    "cast": 25,
     "Dynamic": 8,
     "php.Syntax.code": 84
   },

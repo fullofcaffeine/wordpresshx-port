@@ -1,0 +1,348 @@
+{
+  "schema": "wphx.wphx-php-wp-embed-handlers.v1",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "recorded_at": "2026-07-02T23:59:30Z",
+  "evidence_class": "compiler_emitted_original_path_shell",
+  "source_files": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 57827,
+      "sha256": "sha256:cdfae829d8a8b9baa19f68f2407776586ca45844d41d3744638f9a0b092be743"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "bytes": 66454,
+      "sha256": "sha256:09423ec47291363e6b7d637c33614fad221cb63e19e6eb1512122ed10735cea6"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
+      "bytes": 369,
+      "sha256": "sha256:573a952010f3b4c4ae6609fefff70c1e8e5e669cc8de485cb2136a38acd49cd2"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
+      "bytes": 426,
+      "sha256": "sha256:28c3a5f727aec710dcc3e5d1ec5ea10f46d3ccc75b7a3e13a2b9f86a3f5d8440"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
+      "bytes": 1205,
+      "sha256": "sha256:b152b67018693a8c158103c2953b28d064651855352d44abc7e611e5327df6e6"
+    }
+  ],
+  "oracle_source": {
+    "path": "../wordpress-develop/src/wp-includes/class-wp-embed.php",
+    "sha256": "sha256:a8359656527313e546b0201afffb29fee092813ebbf557cd3d75b0e0f1a3c18d"
+  },
+  "generated": {
+    "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
+    "sha256": "sha256:55dd71aae1339cc212907b5987494e1592dd40cfbb9c67c1435092d8ba4b2b2c",
+    "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
+    "exact_patterns": {
+      "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
+      "#[AllowDynamicProperties]": true,
+      "class WP_Embed": true,
+      "public $handlers;": true,
+      "public function register_handler($id, $regex, $callback, $priority = 10)": true,
+      "$this->handlers[ $priority ][ $id ] = array(": true,
+      "'regex'    => $regex": true,
+      "'callback' => $callback": true,
+      "public function unregister_handler($id, $priority = 10)": true,
+      "unset( $this->handlers[ $priority ][ $id ] );": true
+    },
+    "emission_manifest": {
+      "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
+      "sha256": "sha256:079c0a90672a5a86aa3a60991a6993c2b00270000dd761622fcd17ac6e64a6d1",
+      "unsupported": [],
+      "declarations": [
+        {
+          "name": "WP_Embed",
+          "haxeModule": "wphx.fixtures.compiler.php.embed.WpEmbedShell",
+          "source": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
+          "kind": "class",
+          "guarded": false
+        }
+      ],
+      "core_ir_features": [
+        "expr.array-read",
+        "expr.long-array",
+        "expr.object-property",
+        "native-array-nested-unset",
+        "native-array-nested-write",
+        "stmt.assign",
+        "stmt.unset"
+      ]
+    }
+  },
+  "oracle": {
+    "path": "build/wphx-php/wp-embed-handlers/oracle/wp-includes/class-wp-embed.php",
+    "sha256": "sha256:a8359656527313e546b0201afffb29fee092813ebbf557cd3d75b0e0f1a3c18d",
+    "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/oracle/wp-includes/class-wp-embed.php"
+  },
+  "cases": [
+    {
+      "id": "wp-embed-handlers:register-default",
+      "focus": "default priority handler registration"
+    },
+    {
+      "id": "wp-embed-handlers:register-priorities",
+      "focus": "separate priority buckets preserve handler payloads"
+    },
+    {
+      "id": "wp-embed-handlers:unregister",
+      "focus": "unregister removes only the selected priority/id slot"
+    }
+  ],
+  "observations": {
+    "oracle": {
+      "wp-embed-handlers:register-default": {
+        "case": "wp-embed-handlers:register-default",
+        "handlers": {
+          "10": {
+            "video": {
+              "regex": "#https://video.example/.+#i",
+              "callback": "wphx_video_callback"
+            }
+          }
+        },
+        "assertions": {
+          "default_priority": true
+        }
+      },
+      "wp-embed-handlers:register-priorities": {
+        "case": "wp-embed-handlers:register-priorities",
+        "handlers": {
+          "1": {
+            "early": {
+              "regex": "#early#",
+              "callback": "early_callback"
+            }
+          },
+          "10": {
+            "normal": {
+              "regex": "#normal#",
+              "callback": [
+                "Fixture_Handler",
+                "render"
+              ]
+            }
+          },
+          "20": {
+            "late": {
+              "regex": "#late#",
+              "callback": "late_callback"
+            }
+          }
+        },
+        "assertions": {
+          "priority_buckets": true,
+          "early_payload": true,
+          "array_callback_payload": true
+        }
+      },
+      "wp-embed-handlers:unregister": {
+        "case": "wp-embed-handlers:unregister",
+        "handlers": {
+          "1": {
+            "shared": {
+              "regex": "#early#",
+              "callback": "early_callback"
+            }
+          },
+          "10": {
+            "keep": {
+              "regex": "#keep#",
+              "callback": "keep_callback"
+            }
+          }
+        },
+        "assertions": {
+          "removed_selected_slot": true,
+          "kept_same_priority_other_id": true,
+          "kept_other_priority_same_id": true
+        }
+      }
+    },
+    "candidate": {
+      "wp-embed-handlers:register-default": {
+        "case": "wp-embed-handlers:register-default",
+        "handlers": {
+          "10": {
+            "video": {
+              "regex": "#https://video.example/.+#i",
+              "callback": "wphx_video_callback"
+            }
+          }
+        },
+        "assertions": {
+          "default_priority": true
+        }
+      },
+      "wp-embed-handlers:register-priorities": {
+        "case": "wp-embed-handlers:register-priorities",
+        "handlers": {
+          "1": {
+            "early": {
+              "regex": "#early#",
+              "callback": "early_callback"
+            }
+          },
+          "10": {
+            "normal": {
+              "regex": "#normal#",
+              "callback": [
+                "Fixture_Handler",
+                "render"
+              ]
+            }
+          },
+          "20": {
+            "late": {
+              "regex": "#late#",
+              "callback": "late_callback"
+            }
+          }
+        },
+        "assertions": {
+          "priority_buckets": true,
+          "early_payload": true,
+          "array_callback_payload": true
+        }
+      },
+      "wp-embed-handlers:unregister": {
+        "case": "wp-embed-handlers:unregister",
+        "handlers": {
+          "1": {
+            "shared": {
+              "regex": "#early#",
+              "callback": "early_callback"
+            }
+          },
+          "10": {
+            "keep": {
+              "regex": "#keep#",
+              "callback": "keep_callback"
+            }
+          }
+        },
+        "assertions": {
+          "removed_selected_slot": true,
+          "kept_same_priority_other_id": true,
+          "kept_other_priority_same_id": true
+        }
+      }
+    }
+  },
+  "comparable_handlers": {
+    "oracle": {
+      "wp-embed-handlers:register-default": {
+        "10": {
+          "video": {
+            "regex": "#https://video.example/.+#i",
+            "callback": "wphx_video_callback"
+          }
+        }
+      },
+      "wp-embed-handlers:register-priorities": {
+        "1": {
+          "early": {
+            "regex": "#early#",
+            "callback": "early_callback"
+          }
+        },
+        "10": {
+          "normal": {
+            "regex": "#normal#",
+            "callback": [
+              "Fixture_Handler",
+              "render"
+            ]
+          }
+        },
+        "20": {
+          "late": {
+            "regex": "#late#",
+            "callback": "late_callback"
+          }
+        }
+      },
+      "wp-embed-handlers:unregister": {
+        "1": {
+          "shared": {
+            "regex": "#early#",
+            "callback": "early_callback"
+          }
+        },
+        "10": {
+          "keep": {
+            "regex": "#keep#",
+            "callback": "keep_callback"
+          }
+        }
+      }
+    },
+    "candidate": {
+      "wp-embed-handlers:register-default": {
+        "10": {
+          "video": {
+            "regex": "#https://video.example/.+#i",
+            "callback": "wphx_video_callback"
+          }
+        }
+      },
+      "wp-embed-handlers:register-priorities": {
+        "1": {
+          "early": {
+            "regex": "#early#",
+            "callback": "early_callback"
+          }
+        },
+        "10": {
+          "normal": {
+            "regex": "#normal#",
+            "callback": [
+              "Fixture_Handler",
+              "render"
+            ]
+          }
+        },
+        "20": {
+          "late": {
+            "regex": "#late#",
+            "callback": "late_callback"
+          }
+        }
+      },
+      "wp-embed-handlers:unregister": {
+        "1": {
+          "shared": {
+            "regex": "#early#",
+            "callback": "early_callback"
+          }
+        },
+        "10": {
+          "keep": {
+            "regex": "#keep#",
+            "callback": "keep_callback"
+          }
+        }
+      }
+    }
+  },
+  "claims": [
+    "WPHX PHP emits original-path wp-includes/class-wp-embed.php with class WP_Embed.",
+    "The generated shell preserves #[AllowDynamicProperties] and public handler-related property declarations.",
+    "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
+    "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
+    "The behavior probe matches upstream for default registration, multi-priority registration, and selected unregister behavior when constructor side effects are bypassed."
+  ],
+  "non_claims": [
+    "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
+    "This fixture does not claim run_shortcode, shortcode, get_embed_handler_html, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim generic arbitrary Haxe nested array assignment lowering; the two method bodies are bounded WordPress-profile Adapter IR pressure."
+  ]
+}

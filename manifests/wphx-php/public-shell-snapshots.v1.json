@@ -267,6 +267,54 @@
       }
     },
     {
+      "id": "wp-embed-handler-class-shell",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "public_class",
+        "allow_dynamic_properties",
+        "native_array_mutation",
+        "top_level_bootstrap_side_effect"
+      ],
+      "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
+      "bytes": 1007,
+      "sha256": "sha256:55dd71aae1339cc212907b5987494e1592dd40cfbb9c67c1435092d8ba4b2b2c",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))",
+        "#[AllowDynamicProperties]",
+        "class WP_Embed",
+        "public $handlers;",
+        "public function register_handler($id, $regex, $callback, $priority = 10)",
+        "$this->handlers[ $priority ][ $id ] = array(",
+        "'regex'    => $regex",
+        "'callback' => $callback",
+        "public function unregister_handler($id, $priority = 10)",
+        "unset( $this->handlers[ $priority ][ $id ] );"
+      ],
+      "ast_contract": {
+        "functions": [],
+        "classes": [
+          "WP_Embed"
+        ],
+        "interfaces": [],
+        "methods": [
+          "register_handler",
+          "unregister_handler"
+        ],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "segment_plan_contract": null,
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
+        "bytes": 851,
+        "sha256": "sha256:079c0a90672a5a86aa3a60991a6993c2b00270000dd761622fcd17ac6e64a6d1"
+      }
+    },
+    {
       "id": "https-module-functions-detection",
       "evidence_class": "generated_shape",
       "artifact_scope": "minimized_fixture",
@@ -1428,7 +1476,7 @@
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 23,
+    "case_count": 24,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,

@@ -120,6 +120,10 @@ class WphxPhpWordPressAdapters
 				transportDispatchRequest(fieldName, primaryHelper(helpers));
 			case "wp-http-request-nonblocking":
 				requestNonblocking(fieldName, helpers);
+			case "wp-embed-register-handler":
+				embedRegisterHandler(fieldName);
+			case "wp-embed-unregister-handler":
+				embedUnregisterHandler(fieldName);
 			case _:
 				null;
 		}
@@ -214,6 +218,39 @@ class WphxPhpWordPressAdapters
 			]),
 			PhpReturn(cookieJar)
 		]);
+	}
+
+	static function embedHandlersAtPriority():PhpCoreExpr
+	{
+		return PhpArrayRead(PhpObjectProperty(PhpVar("this"), "handlers"), PhpVar("priority"));
+	}
+
+	static function embedHandlerSlot():PhpCoreExpr
+	{
+		return PhpArrayRead(embedHandlersAtPriority(), PhpVar("id"));
+	}
+
+	static function embedRegisterHandler(fieldName:String):WordPressMethodAdapterPlan
+	{
+		return plan([
+			"stmt.assign",
+			"expr.object-property",
+			"expr.array-read",
+			"expr.long-array",
+			"native-array-nested-write"
+		], [
+			PhpAssign(embedHandlerSlot(), PhpLongArray([entry("regex", PhpVar("regex")), entry("callback", PhpVar("callback"))]))
+		]);
+	}
+
+	static function embedUnregisterHandler(fieldName:String):WordPressMethodAdapterPlan
+	{
+		return plan([
+			"stmt.unset",
+			"expr.object-property",
+			"expr.array-read",
+			"native-array-nested-unset"
+		], [PhpUnset(embedHandlerSlot())]);
 	}
 
 	static function processHeaders(fieldName:String, helper:Null<String>):WordPressMethodAdapterPlan

@@ -1,0 +1,41 @@
+{
+  "schema": "wphx.receipt.v1",
+  "id": "receipt:wphx-comp-php-wp-embed-handlers",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "recorded_at": "2026-07-02T23:59:30Z",
+  "status": "passed",
+  "commands": [
+    "npm run wphx:php:wp-embed-handlers",
+    "npm run wphx:php:wp-embed-handlers:check"
+  ],
+  "artifacts": [
+    {
+      "path": "manifests/wphx-php/wp-embed-handlers.v1.json",
+      "role": "WPHX PHP WP_Embed handler-registry manifest",
+      "sha256": "sha256:92589dcc052fb60dc22a290f03d9ced6afba7b7e110e449314d1cb816f1b30e1"
+    },
+    {
+      "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
+      "role": "compiler-emitted original-path class-wp-embed.php",
+      "sha256": "sha256:55dd71aae1339cc212907b5987494e1592dd40cfbb9c67c1435092d8ba4b2b2c"
+    },
+    {
+      "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
+      "role": "WPHX PHP emission manifest",
+      "sha256": "sha256:079c0a90672a5a86aa3a60991a6993c2b00270000dd761622fcd17ac6e64a6d1"
+    },
+    {
+      "path": "tools/wphx-php/run-wp-embed-handlers.mjs",
+      "role": "deterministic WP_Embed handler-registry runner",
+      "sha256": "sha256:e9b35de54681356edac1824ad5549eda10f1edcc31713806bd5c957584830cb7"
+    }
+  ],
+  "summary": [
+    "WPHX PHP emits a bounded WP_Embed public class shell for register_handler and unregister_handler.",
+    "The generated shell preserves native nested handlers array write/unset behavior against the upstream oracle with constructor side effects bypassed."
+  ]
+}
