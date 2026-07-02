@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 5583,
-      "sha256": "sha256:58c46fd9adad05cfd1cb228d495d2831ff6c3c65660d61449d879a4f9a79f2c9",
+      "bytes": 5904,
+      "sha256": "sha256:251ea18128ce0a6d93202d2f722d3572dfb4e28383a767ce5c73a8e610f93bd7",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -306,6 +306,11 @@
         "add_shortcode( 'embed', array(",
         "$content = do_shortcode( $content, true );",
         "$shortcode_tags = $orig_shortcode_tags;",
+        "public function maybe_run_ajax_cache()",
+        "$post = get_post();",
+        "empty( $_GET['message'] )",
+        "admin_url( 'admin-ajax.php', 'relative' )",
+        "?action=oembed-cache&post=",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -372,6 +377,7 @@
           "find_oembed_post_id",
           "get_embed_handler_html",
           "maybe_make_link",
+          "maybe_run_ajax_cache",
           "register_handler",
           "run_shortcode",
           "unregister_handler"
@@ -382,8 +388,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1171,
-        "sha256": "sha256:9a609613ed1eed6ac1196d084aa80670873c3f332267e1eebec24c07788a1d61"
+        "bytes": 1188,
+        "sha256": "sha256:70437a6948aa35bde15c7306f4f146bb2f8183e2ea5621686dbb811b34437509"
       }
     },
     {

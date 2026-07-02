@@ -126,6 +126,8 @@ class WphxPhpWordPressAdapters
 				embedRegisterHandler(fieldName);
 			case "wp-embed-run-shortcode":
 				embedRunShortcode(fieldName);
+			case "wp-embed-maybe-run-ajax-cache":
+				embedMaybeRunAjaxCache(fieldName);
 			case "wp-embed-unregister-handler":
 				embedUnregisterHandler(fieldName);
 			case "wp-embed-get-handler-html":
@@ -292,6 +294,32 @@ class WphxPhpWordPressAdapters
 			PhpAssign(content, PhpFunctionCall("do_shortcode", [content, PhpBool(true)])),
 			PhpAssign(shortcodeTags, origShortcodeTags),
 			PhpReturn(content)
+		]);
+	}
+
+	static function embedMaybeRunAjaxCache(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final post = PhpVar("post");
+		final ajaxUrl = PhpBinop(".", PhpFunctionCall("esc_url", [
+			PhpFunctionCall("admin_url", [PhpString("admin-ajax.php"), PhpString("relative")])
+		]),
+			PhpBinop(".", PhpString("?action=oembed-cache&post="), PhpObjectProperty(post, "ID")));
+		final script = PhpBinop(".", PhpString("<script>\n\tjQuery( function($) {\n\t\t$.get(\""),
+			PhpBinop(".", ajaxUrl, PhpString("\");\n\t} );\n</script>\n\t\t")));
+
+		return plan([
+			"stmt.var",
+			"stmt.if",
+			"stmt.return",
+			"stmt.echo",
+			"expr.function-call",
+			"expr.array-read",
+			"expr.object-property",
+			"expr.binop"
+		], [
+			PhpLocal("post", PhpFunctionCall("get_post", [])),
+			PhpIf(PhpBinop("||", PhpNot(post), PhpFunctionCall("empty", [PhpArrayRead(PhpVar("_GET"), PhpString("message"))])), [PhpReturnVoid]),
+			PhpEcho(script)
 		]);
 	}
 
