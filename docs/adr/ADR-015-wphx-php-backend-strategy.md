@@ -1,6 +1,6 @@
 # ADR-015: WPHX PHP Backend Strategy
 
-Status: Accepted
+Status: Accepted, amended by ADR-016
 
 Date: 2026-07-02
 
@@ -23,7 +23,9 @@ The project should describe the current compiler precisely:
 - WPHX PHP is not yet a mature arbitrary-Haxe `reflaxe.php` target.
 - Stock Haxe PHP remains the private implementation emitter and std/php runtime oracle until a fixture explicitly moves that responsibility.
 
-Do not promote WPHX PHP into full backend scope merely because the in-repo compiler uses Reflaxe or because one WordPress slice needs more public adapter nodes. Promotion requires backend-scale evidence and a new ADR or amendment that accepts the maintenance cost.
+Do not claim WPHX PHP is already in full backend scope merely because the in-repo compiler uses Reflaxe or because one WordPress slice needs more public adapter nodes. Promotion requires backend-scale evidence and a new ADR or amendment that accepts the maintenance cost.
+
+ADR-016 amends the focus, not the maturity claim: WPHX PHP is now the near-term primary focus for WordPress PHP emission work, and `WPHX-COMP-PHP-USABLE` owns the gates that make it usable before broad Core porting resumes in parallel.
 
 ## Current Path
 
@@ -101,4 +103,4 @@ This ADR does not claim:
 
 ## Supersession
 
-This ADR refines ADR-001, ADR-013, and ADR-014. It may be superseded by a future custom PHP target ADR after backend-scale evidence accumulates and the oracle review prompt is either answered or explicitly deferred with rationale.
+This ADR refines ADR-001, ADR-013, and ADR-014. ADR-016 amends the adoption timing by making WPHX PHP compiler usability the near-term focus while preserving this ADR's non-claims and full-backend promotion criteria. This ADR may be superseded by a future custom PHP target ADR after backend-scale evidence accumulates and the oracle review prompt is either answered or explicitly deferred with rationale.

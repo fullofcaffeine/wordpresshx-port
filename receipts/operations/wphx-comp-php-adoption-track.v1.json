@@ -1,0 +1,97 @@
+{
+  "schema": "wphx.operations-receipt.v1",
+  "id": "receipt:wphx-comp-php-adoption-track",
+  "issue": {
+    "id": "wordpresshx-w91.23",
+    "external_ref": "WPHX-COMP-PHP-ADOPTION-TRACK",
+    "title": "Adopt WPHX PHP as primary compiler focus"
+  },
+  "recorded_at": "2026-07-02T00:34:00Z",
+  "status": "captured",
+  "artifacts": [
+    {
+      "path": "docs/adr/ADR-016-wphx-php-compiler-adoption-track.md",
+      "role": "accepted compiler adoption ADR"
+    },
+    {
+      "path": "docs/adr/ADR-015-wphx-php-backend-strategy.md",
+      "role": "amended backend strategy ADR"
+    },
+    {
+      "path": "docs/operations/oracle-wphx-php-compiler-adoption-review.md",
+      "role": "oracle review prompt bundle for future stock-target abandonment or full-backend claims"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations guidance linked to ADR-016"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program rollup records compiler-focus shift without score movement"
+    },
+    {
+      "path": "AGENTS.md",
+      "role": "agent instruction update for WPHX PHP adoption posture"
+    },
+    {
+      "path": "docs/operations/agent-instructions.md",
+      "role": "operations copy of agent instruction update"
+    },
+    {
+      "path": "docs/operations/oracle.md",
+      "role": "oracle prompt index"
+    }
+  ],
+  "seeded_work": [
+    {
+      "id": "wordpresshx-w91.24",
+      "external_ref": "WPHX-COMP-PHP-USABLE",
+      "role": "compiler-usability epic"
+    },
+    {
+      "id": "wordpresshx-w91.24.1",
+      "external_ref": "WPHX-COMP-PHP-GAP-INVENTORY",
+      "role": "stock-target and compiler-gap inventory"
+    },
+    {
+      "id": "wordpresshx-w91.24.2",
+      "external_ref": "WPHX-COMP-PHP-RUNTIME-STDLIB-STRATEGY",
+      "role": "runtime/std/php reuse strategy"
+    },
+    {
+      "id": "wordpresshx-w91.24.3",
+      "external_ref": "WPHX-COMP-PHP-CORE-LOWERING-PILOT",
+      "role": "reusable PHP core lowering pilot"
+    },
+    {
+      "id": "wordpresshx-w91.24.4",
+      "external_ref": "WPHX-COMP-PHP-WHOLE-FILE-PILOT",
+      "role": "whole-file original-path WordPress pilot"
+    },
+    {
+      "id": "wordpresshx-w91.24.5",
+      "external_ref": "WPHX-COMP-PHP-ADOPTION-CI",
+      "role": "usable-compiler adoption quality gate"
+    }
+  ],
+  "verification_commands": [
+    "git diff --check",
+    "npm run beads:validate",
+    "npm run receipts:build",
+    "npm run receipts:validate",
+    "bd export -o .beads/issues.jsonl"
+  ],
+  "claims": [
+    "WPHX PHP compiler usability is now the near-term focus for new WordPress public PHP emission and compiler-shape gaps.",
+    "Stock Haxe PHP remains a bounded private-output/stdphp oracle, not the architecture to optimize around for public WordPress files.",
+    "The WPHX-COMP-PHP-USABLE epic owns the first gates before broad Core PHP port work resumes in parallel.",
+    "True PHP output gaps should move into WPHX PHP core IR, runtime/std strategy, or WordPress profile constraints instead of Haxe source contortions or runner patching."
+  ],
+  "non_claims": [
+    "This receipt does not claim WPHX PHP is already a full arbitrary-Haxe PHP backend.",
+    "This receipt does not claim stock Haxe PHP can be removed today.",
+    "This receipt does not claim new PHP lowering functionality.",
+    "This receipt does not claim installed WordPress functionality or runtime parity.",
+    "This receipt does not move the super-progress score."
+  ]
+}

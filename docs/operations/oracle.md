@@ -32,6 +32,7 @@ Prompt bundles:
 
 - [Original-path PHP emission strategy](oracle-original-path-php-emission-review.md)
 - [WPHX PHP backend strategy](oracle-wphx-php-backend-strategy-review.md)
+- [WPHX PHP compiler adoption](oracle-wphx-php-compiler-adoption-review.md)
 
 Accepted response:
 
@@ -40,3 +41,4 @@ Accepted response:
 Pending review:
 
 - ADR-015 keeps WPHX PHP on the staged Adapter IR path while acknowledging that the in-repo compiler uses Reflaxe infrastructure. Before WPHX PHP is promoted to a full backend or extracted `reflaxe.php` target, send the backend strategy prompt bundle to the oracle or record a deliberate deferral.
+- ADR-016 moves near-term focus to making WPHX PHP usable as the primary WordPress PHP compiler path. Before fully abandoning stock Haxe PHP as the private implementation emitter or claiming mature `reflaxe.php` scope, send the compiler adoption prompt bundle to the oracle or record a deliberate deferral.
