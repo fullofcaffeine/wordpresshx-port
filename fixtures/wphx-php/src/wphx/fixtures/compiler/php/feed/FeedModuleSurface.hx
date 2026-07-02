@@ -5,11 +5,29 @@ package wphx.fixtures.compiler.php.feed;
 **/
 @:wp.file("wp-includes/feed.php")
 @:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_bloginfo_rss")
+@:keep
+function getBloginfoRss(@:wp.name("show") show:String = ""):String
+{
+	return HaxeFeedKernel.getBloginfoRss(show);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
 @:wp.global("get_default_feed")
 @:keep
 function getDefaultFeed():String
 {
 	return HaxeFeedKernel.defaultFeed();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_the_title_rss")
+@:keep
+function getTheTitleRss(@:wp.name("post") post:Int = 0):String
+{
+	return HaxeFeedKernel.getTheTitleRss(post);
 }
 
 @:wp.file("wp-includes/feed.php")

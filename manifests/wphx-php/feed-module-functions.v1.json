@@ -5,6 +5,11 @@
     "external_ref": "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
     "title": "Add module-function original-path adapters for feed embed HTTPS helpers"
   },
+  "continuation_issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
   "generated_at": "2026-07-02T23:58:00Z",
   "generator": "tools/wphx-php/run-feed-module-functions.mjs",
   "evidence_class": "module_function_original_path_adapter",
@@ -32,44 +37,52 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
-      "bytes": 1282,
-      "sha256": "sha256:f88a8198ef7307646434530c319ffc5cac05843de8ecd981a41ffd34f4baea29"
+      "bytes": 2145,
+      "sha256": "sha256:c21a2198b9bdc80c9848be4ba1bb0f4b62f9d4af014c6c0f6605c20aad5e6c21"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleEntry.hx",
-      "bytes": 371,
-      "sha256": "sha256:c7a8a0989bc1d2d96088ff8be6314aca3c3ffea5f2b1ad619798dbddff8dbf00"
+      "bytes": 564,
+      "sha256": "sha256:651f1d03a7bd94eed49b8604ed3ddd49fe3f145c5e4f8a621d57c45da8ca40bc"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
-      "bytes": 587,
-      "sha256": "sha256:1bc556a9a965f63e22589a9d7a44e17a4d6ad8d20cdfbbe2621963ba6c2c28fb"
+      "bytes": 1068,
+      "sha256": "sha256:1288a5c121c56517f2baa1a302ec27609760b79e2c8179309e9882df6a460a84"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/HaxeFeedKernel.hx",
-      "bytes": 317,
-      "sha256": "sha256:d3074144985988b4fdec6d0b17e471aa11fcd9387da8b29dcc51a1a4d57fba33"
+      "bytes": 422,
+      "sha256": "sha256:a2e05d67c7251e46e420085d6b516d5153d9dd493e9cbb705cc45eed26c763d1"
     }
   ],
   "upstream_oracle": {
     "repo_path": "../wordpress-develop/src/wp-includes/feed.php",
     "selected_symbols": [
+      "get_bloginfo_rss",
       "get_default_feed",
+      "get_the_title_rss",
       "feed_content_type"
     ],
     "selected_source_lines": [
+      "27-41",
       "80-91",
+      "158-169",
       "768-791"
     ]
   },
   "generated_shell": {
     "path": "build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
-    "bytes": 725,
-    "sha256": "sha256:0381c1311570801809ebb5980879a07e31180320aa31ffcb6bae78fac2f2bee9",
+    "bytes": 945,
+    "sha256": "sha256:8c02b26079804e42cd549688952f743d6ac23007c620ef4f782780559c16a1e9",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
     "exact_patterns": [
+      "function get_bloginfo_rss($show = '')",
+      "FeedKernel::getBloginfoRss($show)",
       "function get_default_feed()",
+      "function get_the_title_rss($post = 0)",
+      "FeedKernel::getTheTitleRss($post)",
       "function feed_content_type($type = '')",
       "FeedKernel::defaultFeed()",
       "FeedKernel::feedContentType($type)"
@@ -77,18 +90,20 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php",
-    "bytes": 636,
-    "sha256": "sha256:93754850efaa9c8c630269702b668d7a7e8e895499a5b9de0e27c116837a2931",
+    "bytes": 934,
+    "sha256": "sha256:c0f5cf7c8c050e393f29c15a354f46b72538bbcce7151f48ad111eb5a201c074",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/feed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 986,
-    "sha256": "sha256:059eebda390a76d3c0cdd910950680441d2aec42e2f3462e10fd01ef0c0259a8",
+    "bytes": 1583,
+    "sha256": "sha256:d4f6a4bdec1194175a3a2aaf5b95b77dcf50b10b237a1b2eab357ffa0ddfd496",
     "declarations": [
       "wp-includes/feed.php:global-function:feed_content_type",
-      "wp-includes/feed.php:global-function:get_default_feed"
+      "wp-includes/feed.php:global-function:get_bloginfo_rss",
+      "wp-includes/feed.php:global-function:get_default_feed",
+      "wp-includes/feed.php:global-function:get_the_title_rss"
     ],
     "unsupported": [],
     "core_ir_features": [],
@@ -99,6 +114,45 @@
     "oracle": {
       "mode": "oracle",
       "cases": [
+        {
+          "id": "bloginfo-rss:name",
+          "value": "Fixture  &amp; Co",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture  &amp; Co",
+              "args": [
+                "name"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bloginfo-rss:description",
+          "value": "Fixture Description &amp; More",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture Description &amp; More",
+              "args": [
+                "description"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bloginfo-rss:filtered",
+          "value": "Filtered Blog",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture  &amp; Co",
+              "args": [
+                "name"
+              ]
+            }
+          ]
+        },
         {
           "id": "default-feed:default",
           "value": "rss2",
@@ -206,9 +260,61 @@
               ]
             }
           ]
+        },
+        {
+          "id": "title-rss:default",
+          "value": "Title #0 <Raw>",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #0 <Raw>",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "title-rss:post",
+          "value": "Title #7 <Raw>",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #7 <Raw>",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "title-rss:filtered",
+          "value": "Filtered Title",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #7 <Raw>",
+              "args": []
+            }
+          ]
         }
       ],
       "reflection": {
+        "get_bloginfo_rss": {
+          "name": "get_bloginfo_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "show",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "get_default_feed": {
           "name": "get_default_feed",
           "numberOfParameters": 0,
@@ -216,6 +322,25 @@
           "returnsReference": false,
           "hasReturnType": false,
           "parameters": []
+        },
+        "get_the_title_rss": {
+          "name": "get_the_title_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "post",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 0,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
         },
         "feed_content_type": {
           "name": "feed_content_type",
@@ -242,6 +367,45 @@
       "mode": "generated",
       "cases": [
         {
+          "id": "bloginfo-rss:name",
+          "value": "Fixture  &amp; Co",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture  &amp; Co",
+              "args": [
+                "name"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bloginfo-rss:description",
+          "value": "Fixture Description &amp; More",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture Description &amp; More",
+              "args": [
+                "description"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "bloginfo-rss:filtered",
+          "value": "Filtered Blog",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "Fixture  &amp; Co",
+              "args": [
+                "name"
+              ]
+            }
+          ]
+        },
+        {
           "id": "default-feed:default",
           "value": "rss2",
           "filters": [
@@ -348,9 +512,61 @@
               ]
             }
           ]
+        },
+        {
+          "id": "title-rss:default",
+          "value": "Title #0 <Raw>",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #0 <Raw>",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "title-rss:post",
+          "value": "Title #7 <Raw>",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #7 <Raw>",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "title-rss:filtered",
+          "value": "Filtered Title",
+          "filters": [
+            {
+              "hook": "the_title_rss",
+              "value": "Title #7 <Raw>",
+              "args": []
+            }
+          ]
         }
       ],
       "reflection": {
+        "get_bloginfo_rss": {
+          "name": "get_bloginfo_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "show",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "get_default_feed": {
           "name": "get_default_feed",
           "numberOfParameters": 0,
@@ -358,6 +574,25 @@
           "returnsReference": false,
           "hasReturnType": false,
           "parameters": []
+        },
+        "get_the_title_rss": {
+          "name": "get_the_title_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "post",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 0,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
         },
         "feed_content_type": {
           "name": "feed_content_type",
@@ -395,9 +630,9 @@
   },
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/feed.php.",
-    "The generated get_default_feed and feed_content_type functions preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The generated get_bloginfo_rss, get_default_feed, get_the_title_rss, and feed_content_type functions preserve reflection-visible parameters/defaults for the selected fixture.",
     "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for default feed normalization, feed content-type mapping, PHP empty('0') behavior, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion, default feed normalization, title RSS filtering, feed content-type mapping, PHP empty('0') behavior, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/feed.php ownership.",

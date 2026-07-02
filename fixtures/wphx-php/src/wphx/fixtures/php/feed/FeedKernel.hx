@@ -6,10 +6,22 @@ package wphx.fixtures.php.feed;
 @:keep
 class FeedKernel
 {
+	public static function getBloginfoRss(show:String):String
+	{
+		final info = WpFeedGlobals.stripTags(WpFeedGlobals.getBloginfo(show));
+		return WpHooks.applyFilters2("get_bloginfo_rss", WpFeedGlobals.convertChars(info), show);
+	}
+
 	public static function defaultFeed():String
 	{
 		final defaultFeed = WpHooks.applyFilters1("default_feed", "rss2");
 		return defaultFeed == "rss" ? "rss2" : defaultFeed;
+	}
+
+	public static function getTheTitleRss(post:Int):String
+	{
+		final title = WpFeedGlobals.getTheTitle(post);
+		return WpHooks.applyFilters1("the_title_rss", title);
 	}
 
 	public static function feedContentType(type:Null<String>):String
@@ -35,6 +47,25 @@ class FeedKernel
 	{
 		return value == null || value == "" || value == "0";
 	}
+}
+
+/**
+	Narrow externs for WordPress feed helper calls preserved at the PHP boundary.
+**/
+@:phpGlobal
+extern class WpFeedGlobals
+{
+	@:native("strip_tags")
+	public static function stripTags(value:String):String;
+
+	@:native("get_bloginfo")
+	public static function getBloginfo(show:String):String;
+
+	@:native("convert_chars")
+	public static function convertChars(value:String):String;
+
+	@:native("get_the_title")
+	public static function getTheTitle(post:Int):String;
 }
 
 /**
