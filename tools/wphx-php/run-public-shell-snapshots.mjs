@@ -83,13 +83,23 @@ const CASES = [
       "function wp_embed_defaults($url = '')",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
       "function wp_oembed_ensure_format($format)",
+      "function wp_oembed_add_provider($format, $provider, $regex = false)",
+      "function wp_oembed_remove_provider($format)",
       "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
       "EmbedKernel::embedDefaults($url)",
       "EmbedKernel::oembedEndpointUrl($permalink, $format)"
     ],
     ast_expect: {
-      functions: ["wp_embed_defaults", "get_oembed_endpoint_url", "wp_oembed_ensure_format", "wp_embed_handler_audio", "wp_embed_handler_video"]
+      functions: [
+        "wp_embed_defaults",
+        "get_oembed_endpoint_url",
+        "wp_oembed_ensure_format",
+        "wp_oembed_add_provider",
+        "wp_oembed_remove_provider",
+        "wp_embed_handler_audio",
+        "wp_embed_handler_video"
+      ]
     }
   },
   {

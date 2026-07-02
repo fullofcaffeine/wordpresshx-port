@@ -3,7 +3,7 @@
   "issue": "WPHX-211",
   "generated_at": "2026-06-20T19:05:00.000Z",
   "generator": "tools/haxe/check-escape-hatches.mjs",
-  "scanned_file_count": 303,
+  "scanned_file_count": 308,
   "scanned_files": [
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassEntry.hx",
     "fixtures/php-facade/src/wphx/fixtures/php/facade/ClassKernel.hx",
@@ -140,6 +140,9 @@
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/byref/ByRefSurface.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/CoreLoweringEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/CoreLoweringSurface.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F1Entry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F1Shell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F4Entry.hx",
@@ -208,6 +211,8 @@
     "fixtures/wphx-php/src/wphx/fixtures/compiler/php/wp/WpHttpTransportSelectionShell.hx",
     "fixtures/wphx-php/src/wphx/fixtures/php/bootstrap/BootstrapImplEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/php/bootstrap/BootstrapKernel.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedImplEntry.hx",
+    "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
     "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedImplEntry.hx",
     "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
     "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsImplEntry.hx",
@@ -310,7 +315,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 81,
+  "occurrence_count": 85,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -461,6 +466,46 @@
       "source": "final proxy:WpHttpProxyShell = cast null;",
       "source_sha256": "sha256:6e9ffa07b349cfdd1f0e0358d2cda569c49c596a30637df8dc9c4c65cf0b4295",
       "justification": "WPHX-211: compile anchor only; runtime PHP constructs the public proxy object in the probe."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 89,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final rawAttrArray:php.NativeArray = cast rawAttr;",
+      "source_sha256": "sha256:df5356b807d0cabaddd4f74120dd5996bdb5693673eeb09c2332858ac26514b2",
+      "justification": "WPHX-211: raw shortcode attributes arrive as a native PHP array at the public handler boundary."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 105,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('width' => {0}, 'height' => {1})\", width, height);",
+      "source_sha256": "sha256:b6ea626dde7802745d63c20f6fa74eabb7bd2a24c5d7d32849f24c681ab85e2d",
+      "justification": "WPHX-211: wp_embed_defaults() returns a native PHP compact('width', 'height') array."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 111,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('url' => urlencode({0}), 'format' => ('json' !== {1}) ? {1} : false)\", permalink, format);",
+      "source_sha256": "sha256:0f6b24fb244c376aba828c8c925e701e7720d6ee6d27aeb4955be9a02e642610",
+      "justification": "WPHX-211: add_query_arg() consumes a native PHP array with false-valued entries preserved/skipped by PHP."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 117,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array({0}, {1})\", provider, regex);",
+      "source_sha256": "sha256:d00aae3205faa17a214fb0b1845f7ff927cd760fa689837124a2ec86339e0e86",
+      "justification": "WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays."
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
@@ -1124,9 +1169,9 @@
     }
   ],
   "by_kind": {
-    "cast": 7,
+    "cast": 8,
     "Dynamic": 8,
-    "php.Syntax.code": 66
+    "php.Syntax.code": 69
   },
   "validation_result": {
     "status": "passed",

@@ -44,6 +44,38 @@ class EmbedKernel
 		return format == "xml" || format == "json" ? format : "json";
 	}
 
+	public static function oembedAddProvider(format:String, provider:String, regex:Bool):Void
+	{
+		if (EmbedGlobals.didAction("plugins_loaded") > 0)
+		{
+			final oembed = EmbedGlobals.oembedGetObject();
+			// WPHX-211: WP_oEmbed providers is a public native PHP associative array.
+			EmbedGlobals.arraySet(oembed.providers, format, providerPair(provider, regex));
+		} else
+		{
+			WpOembed.addProviderEarly(format, provider, regex);
+		}
+	}
+
+	public static function oembedRemoveProvider(format:String):Bool
+	{
+		if (EmbedGlobals.didAction("plugins_loaded") > 0)
+		{
+			final oembed = EmbedGlobals.oembedGetObject();
+			if (WpNativeArray.issetKey(oembed.providers, format))
+			{
+				// WPHX-211: provider removal mutates WP_oEmbed's native public providers array.
+				EmbedGlobals.arrayUnset(oembed.providers, format);
+				return true;
+			}
+		} else
+		{
+			WpOembed.removeProviderEarly(format);
+		}
+
+		return false;
+	}
+
 	public static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String
 	{
 		final audio = EmbedGlobals.sprintfOne("[audio src=\"%s\" /]", EmbedGlobals.escUrl(url));
@@ -53,6 +85,7 @@ class EmbedKernel
 	public static function embedHandlerVideo(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String
 	{
 		var dimensions = "";
+		// WPHX-211: raw shortcode attributes arrive as a native PHP array at the public handler boundary.
 		final rawAttrArray:php.NativeArray = cast rawAttr;
 		final width = WpNativeArray.get(rawAttrArray, "width", null);
 		final height = WpNativeArray.get(rawAttrArray, "height", null);
@@ -76,6 +109,12 @@ class EmbedKernel
 	{
 		// WPHX-211: add_query_arg() consumes a native PHP array with false-valued entries preserved/skipped by PHP.
 		return php.Syntax.code("array('url' => urlencode({0}), 'format' => ('json' !== {1}) ? {1} : false)", permalink, format);
+	}
+
+	static function providerPair(provider:String, regex:Bool):php.NativeArray
+	{
+		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
+		return php.Syntax.code("array({0}, {1})", provider, regex);
 	}
 }
 
@@ -109,9 +148,36 @@ extern class EmbedGlobals
 	@:native("intval")
 	public static function intval(value:NativeValue):Int;
 
+	@:native("did_action")
+	public static function didAction(hookName:String):Int;
+
+	@:native("_wp_oembed_get_object")
+	public static function oembedGetObject():WpOembed;
+
+	@:native("wphx_embed_array_set")
+	public static function arraySet(array:php.NativeArray, key:String, value:NativeValue):Void;
+
+	@:native("wphx_embed_array_unset")
+	public static function arrayUnset(array:php.NativeArray, key:String):Void;
+
 	// WPHX-211: PHP truthiness is needed for globals and raw handler attributes.
 	@:native("wphx_embed_truthy")
 	public static function truthy(value:NativeValue):Bool;
+}
+
+/**
+	Typed subset of WP_oEmbed state used by selected provider registry helpers.
+**/
+@:native("WP_oEmbed")
+extern class WpOembed
+{
+	public var providers:php.NativeArray;
+
+	@:native("_add_provider_early")
+	public static function addProviderEarly(format:String, provider:String, regex:Bool):Void;
+
+	@:native("_remove_provider_early")
+	public static function removeProviderEarly(format:String):Void;
 }
 
 /**

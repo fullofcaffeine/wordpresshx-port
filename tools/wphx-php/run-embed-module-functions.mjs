@@ -35,10 +35,14 @@ const EXACT_PATTERNS = [
   "function wp_embed_defaults($url = '')",
   "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
   "function wp_oembed_ensure_format($format)",
+  "function wp_oembed_add_provider($format, $provider, $regex = false)",
+  "function wp_oembed_remove_provider($format)",
   "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
   "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
   "EmbedKernel::embedDefaults($url)",
   "EmbedKernel::oembedEndpointUrl($permalink, $format)",
+  "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
+  "EmbedKernel::oembedRemoveProvider($format)",
   "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
 ];
 
@@ -120,6 +124,30 @@ function wp_oembed_ensure_format( $format ) {
 \treturn $format;
 }
 
+function wp_oembed_add_provider( $format, $provider, $regex = false ) {
+\tif ( did_action( 'plugins_loaded' ) ) {
+\t\t$oembed                       = _wp_oembed_get_object();
+\t\t$oembed->providers[ $format ] = array( $provider, $regex );
+\t} else {
+\t\tWP_oEmbed::_add_provider_early( $format, $provider, $regex );
+\t}
+}
+
+function wp_oembed_remove_provider( $format ) {
+\tif ( did_action( 'plugins_loaded' ) ) {
+\t\t$oembed = _wp_oembed_get_object();
+
+\t\tif ( isset( $oembed->providers[ $format ] ) ) {
+\t\t\tunset( $oembed->providers[ $format ] );
+\t\t\treturn true;
+\t\t}
+\t} else {
+\t\tWP_oEmbed::_remove_provider_early( $format );
+\t}
+
+\treturn false;
+}
+
 function wp_embed_handler_audio( $matches, $attr, $url, $rawattr ) {
 \t$audio = sprintf( '[audio src="%s" /]', esc_url( $url ) );
 
@@ -150,6 +178,39 @@ $GLOBALS['content_width'] = null;
 
 function wphx_embed_truthy( $value ) {
 \treturn (bool) $value;
+}
+
+function wphx_embed_array_set( &$array, $key, $value ) {
+\t$array[ $key ] = $value;
+}
+
+function wphx_embed_array_unset( &$array, $key ) {
+\tunset( $array[ $key ] );
+}
+
+class WP_oEmbed {
+\tpublic $providers = array();
+\tpublic static $early_providers = array();
+
+\tpublic static function _add_provider_early( $format, $provider, $regex = false ) {
+\t\tself::$early_providers['add'][ $format ] = array( $provider, $regex );
+\t}
+
+\tpublic static function _remove_provider_early( $format ) {
+\t\tself::$early_providers['remove'][] = $format;
+\t}
+}
+
+function _wp_oembed_get_object() {
+\tstatic $oembed = null;
+\tif ( null === $oembed ) {
+\t\t$oembed = new WP_oEmbed();
+\t}
+\treturn $oembed;
+}
+
+function did_action( $hook_name ) {
+\treturn $GLOBALS['wphx_did_actions'][ $hook_name ] ?? 0;
 }
 
 function apply_filters( $hook_name, $value, ...$args ) {
@@ -189,10 +250,16 @@ function wphx_case( $id, $content_width, $filters, $callback ) {
 \t$GLOBALS['content_width'] = $content_width;
 \t$GLOBALS['wphx_filter_log'] = array();
 \t$GLOBALS['wphx_filter_overrides'] = $filters;
+\t$GLOBALS['wphx_did_actions'] = array();
+\tWP_oEmbed::$early_providers = array();
+\t$oembed = _wp_oembed_get_object();
+\t$oembed->providers = array();
 \t$value = $callback();
 \treturn array(
 \t\t'id' => $id,
 \t\t'value' => $value,
+\t\t'providers' => $oembed->providers,
+\t\t'early_providers' => WP_oEmbed::$early_providers,
 \t\t'filters' => $GLOBALS['wphx_filter_log'],
 \t);
 }
@@ -231,6 +298,29 @@ $cases[] = wphx_case( 'format:xml', null, array(), function () {
 $cases[] = wphx_case( 'format:unknown', null, array(), function () {
 \treturn wp_oembed_ensure_format( 'yaml' );
 } );
+$cases[] = wphx_case( 'provider:add-early', null, array(), function () {
+\twp_oembed_add_provider( 'https://early.example/*', 'https://provider.example/oembed', true );
+\treturn null;
+} );
+$cases[] = wphx_case( 'provider:remove-early', null, array(), function () {
+\twp_oembed_remove_provider( 'https://early.example/*' );
+\treturn null;
+} );
+$cases[] = wphx_case( 'provider:add-loaded', null, array(), function () {
+\t$GLOBALS['wphx_did_actions']['plugins_loaded'] = 1;
+\twp_oembed_add_provider( 'https://loaded.example/*', 'https://provider.example/loaded', false );
+\treturn null;
+} );
+$cases[] = wphx_case( 'provider:remove-loaded-existing', null, array(), function () {
+\t$GLOBALS['wphx_did_actions']['plugins_loaded'] = 1;
+\t$oembed = _wp_oembed_get_object();
+\t$oembed->providers['https://loaded.example/*'] = array( 'https://provider.example/loaded', false );
+\treturn wp_oembed_remove_provider( 'https://loaded.example/*' );
+} );
+$cases[] = wphx_case( 'provider:remove-loaded-missing', null, array(), function () {
+\t$GLOBALS['wphx_did_actions']['plugins_loaded'] = 1;
+\treturn wp_oembed_remove_provider( 'https://missing.example/*' );
+} );
 $cases[] = wphx_case( 'audio:default', null, array(), function () {
 \treturn wp_embed_handler_audio( array( 'match' ), array( 'width' => 300 ), 'https://cdn.example/audio.mp3?a=1&b=2', array() );
 } );
@@ -248,7 +338,7 @@ $cases[] = wphx_case( 'video:filtered', null, array( 'wp_embed_handler_video' =>
 } );
 
 $reflection = array();
-foreach ( array( 'wp_embed_defaults', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
+foreach ( array( 'wp_embed_defaults', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -325,7 +415,9 @@ function main() {
     "wp-includes/embed.php:global-function:wp_embed_defaults",
     "wp-includes/embed.php:global-function:wp_embed_handler_audio",
     "wp-includes/embed.php:global-function:wp_embed_handler_video",
-    "wp-includes/embed.php:global-function:wp_oembed_ensure_format"
+    "wp-includes/embed.php:global-function:wp_oembed_add_provider",
+    "wp-includes/embed.php:global-function:wp_oembed_ensure_format",
+    "wp-includes/embed.php:global-function:wp_oembed_remove_provider"
   ];
   assertJsonEqual(declarations, expectedDeclarations, "embed module declarations");
   if ((emissionManifest.unsupported ?? []).length !== 0) {
@@ -350,10 +442,12 @@ function main() {
         "wp_embed_defaults",
         "get_oembed_endpoint_url",
         "wp_oembed_ensure_format",
+        "wp_oembed_add_provider",
+        "wp_oembed_remove_provider",
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ],
-      selected_source_lines: ["67-93", "455-481", "759-765", "272-294", "299-321"]
+      selected_source_lines: ["67-93", "455-481", "759-765", "147-158", "166-181", "272-294", "299-321"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -399,12 +493,12 @@ function main() {
     claims: [
       "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
       "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/embed.php ownership.",
       "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-      "This fixture does not claim WP_Embed or WP_oEmbed class method ownership, provider registration, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+      "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow provider registry interaction required by selected module functions, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
     ]
   };
 

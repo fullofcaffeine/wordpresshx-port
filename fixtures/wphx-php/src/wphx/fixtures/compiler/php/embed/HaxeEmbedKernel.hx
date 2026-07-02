@@ -14,6 +14,10 @@ extern class HaxeEmbedKernel
 
 	static function oembedEnsureFormat(format:String):String;
 
+	static function oembedAddProvider(format:String, provider:String, regex:Bool):Void;
+
+	static function oembedRemoveProvider(format:String):Bool;
+
 	static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
 
 	static function embedHandlerVideo(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;

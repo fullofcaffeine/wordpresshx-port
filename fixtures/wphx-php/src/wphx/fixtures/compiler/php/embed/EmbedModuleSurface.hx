@@ -34,6 +34,24 @@ function wpOembedEnsureFormat(@:wp.name("format") format:String):String
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_add_provider")
+@:keep
+function wpOembedAddProvider(@:wp.name("format") format:String, @:wp.name("provider") provider:String, @:wp.name("regex") regex:Bool = false):Void
+{
+	HaxeEmbedKernel.oembedAddProvider(format, provider, regex);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_remove_provider")
+@:keep
+function wpOembedRemoveProvider(@:wp.name("format") format:String):Bool
+{
+	return HaxeEmbedKernel.oembedRemoveProvider(format);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_embed_handler_audio")
 @:keep
 function wpEmbedHandlerAudio(@:wp.name("matches") matches:NativeValue, @:wp.name("attr") attr:NativeValue, @:wp.name("url") url:String,
