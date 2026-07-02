@@ -3,6 +3,7 @@ package wphx.fixtures.compiler.php.embed;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getOembedEndpointUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getPostEmbedUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.enqueueEmbedScripts;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.oembedFilterFeedContent;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.oembedCreateXml;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theExcerptEmbed;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theEmbedSiteTitle;
@@ -54,6 +55,7 @@ class EmbedModuleEntry
 		enqueueEmbedScripts();
 		theEmbedSiteTitle();
 		wpFilterPreOembedResult(null, "", null);
+		oembedFilterFeedContent("");
 		wpMaybeLoadEmbeds();
 		wpEmbedHandlerYoutube(null, null, "", null);
 		wpEmbedHandlerAudio(null, null, "", null);

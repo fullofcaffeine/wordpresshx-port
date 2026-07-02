@@ -271,6 +271,20 @@ class EmbedKernel
 		return result;
 	}
 
+	public static function oembedFilterFeedContent(content:String):String
+	{
+		final processor = new WpHtmlTagProcessor(content);
+		while (processor.nextTag(tagNameQuery("iframe")))
+		{
+			if (processor.hasClass("wp-embedded-content"))
+			{
+				processor.removeAttribute("style");
+			}
+		}
+
+		return processor.getUpdatedHtml();
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -347,6 +361,12 @@ class EmbedKernel
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
 		return php.Syntax.code("array({0}, {1})", provider, regex);
+	}
+
+	static function tagNameQuery(tagName:String):php.NativeArray
+	{
+		// WPHX-211: WP_HTML_Tag_Processor::next_tag() consumes a native query array.
+		return php.Syntax.code("array('tag_name' => {0})", tagName);
 	}
 
 	static function existingSimpleXmlNode(node:NativeValue):SimpleXmlElement
@@ -547,6 +567,27 @@ extern class WpOembedController
 
 	@:native("register_routes")
 	public function registerRoutes():Void;
+}
+
+/**
+	Typed subset of WP_HTML_Tag_Processor used by feed-content embed cleanup.
+**/
+@:native("WP_HTML_Tag_Processor")
+extern class WpHtmlTagProcessor
+{
+	public function new(html:String):Void;
+
+	@:native("next_tag")
+	public function nextTag(query:php.NativeArray):Bool;
+
+	@:native("has_class")
+	public function hasClass(className:String):Bool;
+
+	@:native("remove_attribute")
+	public function removeAttribute(attributeName:String):Void;
+
+	@:native("get_updated_html")
+	public function getUpdatedHtml():String;
 }
 
 /**

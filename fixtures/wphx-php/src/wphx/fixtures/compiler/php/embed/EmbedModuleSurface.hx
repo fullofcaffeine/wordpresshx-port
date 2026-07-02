@@ -200,6 +200,15 @@ function wpFilterPreOembedResult(@:wp.name("result") result:NativeValue, @:wp.na
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("_oembed_filter_feed_content")
+@:keep
+function oembedFilterFeedContent(@:wp.name("content") content:String):String
+{
+	return HaxeEmbedKernel.oembedFilterFeedContent(content);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_maybe_load_embeds")
 @:keep
 function wpMaybeLoadEmbeds():Void
