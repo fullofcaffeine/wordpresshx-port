@@ -74,6 +74,42 @@ const CASES = [
     }
   },
   {
+    id: "https-module-functions-detection",
+    hxml: "fixtures/wphx-php/https-module-functions.hxml",
+    selected: "wp-includes/https-detection.php",
+    shell_shapes: ["global_function", "wordpress_module_function", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_HTTPS_MODULE_BOOTSTRAPPED'))",
+      "function wp_is_using_https()",
+      "function wp_is_home_url_using_https()",
+      "function wp_is_site_url_using_https()",
+      "function wp_is_local_html_output($html)",
+      "HttpsKernel::isUsingHttps()",
+      "HttpsKernel::isLocalHtmlOutput($html)"
+    ],
+    ast_expect: {
+      functions: ["wp_is_using_https", "wp_is_home_url_using_https", "wp_is_site_url_using_https", "wp_is_local_html_output"]
+    }
+  },
+  {
+    id: "https-module-functions-migration",
+    hxml: "fixtures/wphx-php/https-module-functions.hxml",
+    selected: "wp-includes/https-migration.php",
+    shell_shapes: ["global_function", "wordpress_module_function", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_HTTPS_MODULE_BOOTSTRAPPED'))",
+      "function wp_should_replace_insecure_home_url()",
+      "function wp_replace_insecure_home_url($content)",
+      "function wp_update_urls_to_https()",
+      "function wp_update_https_migration_required($old_url, $new_url)",
+      "HttpsKernel::shouldReplaceInsecureHomeUrl()",
+      "HttpsKernel::updateHttpsMigrationRequired($old_url, $new_url)"
+    ],
+    ast_expect: {
+      functions: ["wp_should_replace_insecure_home_url", "wp_replace_insecure_home_url", "wp_update_urls_to_https", "wp_update_https_migration_required"]
+    }
+  },
+  {
     id: "public-interface-class",
     hxml: "fixtures/wphx-php/f4-public-class.hxml",
     selected: "wp-includes/class-wphx-public-class.php",

@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.compiler-receipt.v1",
+  "id": "receipt:wphx-comp-php-https-module-functions",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "recorded_at": "2026-07-02T23:59:00Z",
+  "status": "passed",
+  "evidence_class": "module_function_original_path_adapter",
+  "artifact_scope": "selected_wphx_312_04_https_module_functions",
+  "commands": [
+    "npm run wphx:php:https-module-functions",
+    "npm run wphx:php:https-module-functions:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-https-module-functions.mjs",
+      "role": "deterministic HTTPS module function adapter runner"
+    },
+    {
+      "path": "fixtures/wphx-php/https-module-functions.hxml",
+      "role": "WPHX PHP original-path HTTPS module shell hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/https-module-functions-impl.hxml",
+      "role": "stock Haxe PHP HTTPS helper implementation hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/https/HttpsModuleSurface.hx",
+      "role": "typed Haxe public HTTPS module-function shell metadata"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
+      "role": "typed Haxe HTTPS helper behavior"
+    },
+    {
+      "path": "manifests/wphx-php/https-module-functions.v1.json",
+      "role": "HTTPS module function adapter manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:32ea0ea72f00a98e91b9347f606e5ab72d109863c6c31ab11108e7e3251d82d4",
+  "claims": [
+    "WPHX PHP emits selected unguarded module-level public functions at original paths wp-includes/https-detection.php and wp-includes/https-migration.php.",
+    "The generated selected HTTPS helpers preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for home/site HTTPS URL detection, site_url filtering, insecure home URL replacement, URL option HTTPS migration and revert behavior, migration-required option updates, local RSD/REST HTML source checks, and filter payloads."
+  ],
+  "non_claims": [
+    "This fixture does not claim full wp-includes/https-detection.php or wp-includes/https-migration.php ownership.",
+    "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
+    "This fixture does not claim wp_get_https_detection_errors(), wp_is_https_supported(), live remote HTTPS probing, TLS verification, WP_Error native-array boundaries, embed.php, class-wp-oembed.php, class-wp-embed.php, or installed WordPress behavior ownership."
+  ]
+}

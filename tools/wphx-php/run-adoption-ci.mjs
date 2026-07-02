@@ -24,7 +24,8 @@ const REQUIRED_NPM_CHECKS = [
   "wphx:php:whole-file-class-http:check",
   "wphx:php:bootstrap-autoload:check",
   "wphx:php:bootstrap-error-handler:check",
-  "wphx:php:bootstrap-debug:check"
+  "wphx:php:bootstrap-debug:check",
+  "wphx:php:https-module-functions:check"
 ];
 
 const MANIFESTS = {
@@ -36,7 +37,8 @@ const MANIFESTS = {
   wholeFilePilot: "manifests/wphx-php/whole-file-class-http.v1.json",
   bootstrapAutoload: "manifests/wphx-php/bootstrap-autoload.v1.json",
   bootstrapErrorHandler: "manifests/wphx-php/bootstrap-error-handler.v1.json",
-  bootstrapDebug: "manifests/wphx-php/bootstrap-debug.v1.json"
+  bootstrapDebug: "manifests/wphx-php/bootstrap-debug.v1.json",
+  httpsModuleFunctions: "manifests/wphx-php/https-module-functions.v1.json"
 };
 
 function runNpm(script) {
@@ -104,7 +106,7 @@ function main() {
 
   const gap = manifests.gapInventory.validation_result;
   expect(gap.wphx_hxml_count >= 27, "gap inventory must see at least 27 WPHX PHP hxmls", failures);
-  expect(gap.stock_haxe_php_hxml_count === 10, "stock Haxe PHP fallback hxml count must remain exactly 10 until deliberately moved", failures);
+  expect(gap.stock_haxe_php_hxml_count === 11, "stock Haxe PHP fallback hxml count must remain exactly 11 until deliberately moved", failures);
   expect(gap.reflaxe_backed_wphx_hxml_count === gap.wphx_hxml_count, "all WPHX PHP hxmls must be Reflaxe-backed", failures);
   expect(gap.php_raw_block_count === 0, "WordPress profile must have zero PhpRawBlock occurrences", failures);
   expect(gap.render_template_call_count === 0, "WordPress profile must have zero active renderTemplate calls", failures);
@@ -201,7 +203,7 @@ function main() {
       manifests.bootstrapAutoload.validation_result.status === "passed" &&
       manifests.bootstrapErrorHandler.validation_result.status === "passed" &&
       manifests.bootstrapDebug.validation_result.status === "passed",
-    stock_fallback_surfaces_bounded: gap.stock_haxe_php_hxml_count === 9,
+    stock_fallback_surfaces_bounded: gap.stock_haxe_php_hxml_count === 11,
     parallel_core_port_work_unblocked: failures.length === 0
   };
 
