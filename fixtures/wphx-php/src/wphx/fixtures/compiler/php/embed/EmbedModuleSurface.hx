@@ -209,6 +209,16 @@ function oembedFilterFeedContent(@:wp.name("content") content:String):String
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("print_embed_sharing_button")
+@:wp.echo
+@:keep
+function printEmbedSharingButton():String
+{
+	return HaxeEmbedKernel.printEmbedSharingButton();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_maybe_load_embeds")
 @:keep
 function wpMaybeLoadEmbeds():Void

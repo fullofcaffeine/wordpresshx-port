@@ -285,6 +285,18 @@ class EmbedKernel
 		return processor.getUpdatedHtml();
 	}
 
+	public static function printEmbedSharingButton():String
+	{
+		if (EmbedGlobals.is404())
+		{
+			return "";
+		}
+
+		return "\t<div class=\"wp-embed-share\">\n\t\t<button type=\"button\" class=\"wp-embed-share-dialog-open\" aria-label=\""
+			+ EmbedGlobals.escAttr(EmbedGlobals.translate("Open sharing dialog"))
+			+ "\">\n\t\t\t<span class=\"dashicons dashicons-share\"></span>\n\t\t</button>\n\t</div>\n\t";
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -421,6 +433,9 @@ extern class EmbedGlobals
 	@:native("esc_html")
 	public static function escHtml(value:String):String;
 
+	@:native("esc_attr")
+	public static function escAttr(value:String):String;
+
 	@:native("home_url")
 	public static function homeUrl():String;
 
@@ -507,6 +522,9 @@ extern class EmbedGlobals
 
 	@:native("is_attachment")
 	public static function isAttachment():Bool;
+
+	@:native("is_404")
+	public static function is404():Bool;
 
 	@:native("prepend_attachment")
 	public static function prependAttachment(content:String):String;

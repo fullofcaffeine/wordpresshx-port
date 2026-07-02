@@ -52,6 +52,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedFilterFeedContent(content:String):String;
 
+	static function printEmbedSharingButton():String;
+
 	static function maybeLoadEmbeds():Void;
 
 	static function embedHandlerYoutube(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
