@@ -2,12 +2,15 @@ package wphx.fixtures.compiler.php.feed;
 
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.feedContentType;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.bloginfoRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentsLinkFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getBloginfoRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getDefaultFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheContentFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getWpTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theContentFeed;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theExcerptRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.thePermalinkRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.wpTitleRss;
 
@@ -25,6 +28,9 @@ class FeedModuleEntry
 		wpTitleRss();
 		getTheTitleRss(0);
 		theTitleRss();
+		theExcerptRss();
+		thePermalinkRss();
+		commentsLinkFeed();
 		getTheContentFeed("rss2");
 		theContentFeed("rss2");
 		feedContentType("rss2");

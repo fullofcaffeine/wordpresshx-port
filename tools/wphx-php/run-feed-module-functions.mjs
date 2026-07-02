@@ -50,6 +50,12 @@ const EXACT_PATTERNS = [
   "FeedKernel::getTheTitleRss($post)",
   "function the_title_rss()",
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::theTitleRss();",
+  "function the_excerpt_rss()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::theExcerptRss();",
+  "function the_permalink_rss()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::thePermalinkRss();",
+  "function comments_link_feed()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentsLinkFeed();",
   "function get_the_content_feed($feed_type = null)",
   "FeedKernel::getTheContentFeed($feed_type)",
   "function the_content_feed($feed_type = null)",
@@ -139,6 +145,19 @@ function get_the_title_rss( $post = 0 ) {
 
 function the_title_rss() {
 \techo get_the_title_rss();
+}
+
+function the_excerpt_rss() {
+\t$output = get_the_excerpt();
+\techo apply_filters( 'the_excerpt_rss', $output );
+}
+
+function the_permalink_rss() {
+\techo esc_url( apply_filters( 'the_permalink_rss', get_permalink() ) );
+}
+
+function comments_link_feed() {
+\techo esc_url( apply_filters( 'comments_link_feed', get_comments_link() ) );
 }
 
 function get_the_content_feed( $feed_type = null ) {
@@ -236,6 +255,22 @@ function get_the_content() {
 \treturn 'Before ]]> After';
 }
 
+function get_the_excerpt() {
+\treturn 'Fixture Excerpt <Raw>';
+}
+
+function get_permalink() {
+\treturn 'https://example.test/post?a=1&b=2';
+}
+
+function get_comments_link() {
+\treturn 'https://example.test/post#comments?raw=1&x=2';
+}
+
+function esc_url( $url ) {
+\treturn str_replace( '&', '&amp;', (string) $url );
+}
+
 require $shell;
 
 function wphx_case( $id, $overrides, $callback ) {
@@ -327,6 +362,24 @@ $cases[] = wphx_case( 'title-rss:display', array(), function () {
 $cases[] = wphx_case( 'title-rss:display-filtered', array( 'the_title_rss' => 'Displayed Title' ), function () {
 \treturn the_title_rss();
 } );
+$cases[] = wphx_case( 'excerpt-rss:display', array(), function () {
+\treturn the_excerpt_rss();
+} );
+$cases[] = wphx_case( 'excerpt-rss:display-filtered', array( 'the_excerpt_rss' => 'Displayed Excerpt' ), function () {
+\treturn the_excerpt_rss();
+} );
+$cases[] = wphx_case( 'permalink-rss:display', array(), function () {
+\treturn the_permalink_rss();
+} );
+$cases[] = wphx_case( 'permalink-rss:display-filtered', array( 'the_permalink_rss' => 'https://filtered.test/post?x=1&y=2' ), function () {
+\treturn the_permalink_rss();
+} );
+$cases[] = wphx_case( 'comments-link-feed:display', array(), function () {
+\treturn comments_link_feed();
+} );
+$cases[] = wphx_case( 'comments-link-feed:display-filtered', array( 'comments_link_feed' => 'https://filtered.test/comments?x=1&y=2' ), function () {
+\treturn comments_link_feed();
+} );
 $cases[] = wphx_case( 'content-feed:default-feed', array( 'default_feed' => 'atom' ), function () {
 \treturn get_the_content_feed();
 } );
@@ -350,7 +403,7 @@ $cases[] = wphx_case( 'content-feed:display-filtered', array( 'the_content_feed'
 } );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'get_the_content_feed', 'the_content_feed', 'feed_content_type' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -423,6 +476,7 @@ function main() {
   const declarations = emissionManifest.files.flatMap((file) => file.declarations.map((entry) => `${file.path}:${entry.kind}:${entry.name}`)).sort();
   const expectedDeclarations = [
     "wp-includes/feed.php:global-function:bloginfo_rss",
+    "wp-includes/feed.php:global-function:comments_link_feed",
     "wp-includes/feed.php:global-function:feed_content_type",
     "wp-includes/feed.php:global-function:get_bloginfo_rss",
     "wp-includes/feed.php:global-function:get_default_feed",
@@ -430,6 +484,8 @@ function main() {
     "wp-includes/feed.php:global-function:get_the_title_rss",
     "wp-includes/feed.php:global-function:get_wp_title_rss",
     "wp-includes/feed.php:global-function:the_content_feed",
+    "wp-includes/feed.php:global-function:the_excerpt_rss",
+    "wp-includes/feed.php:global-function:the_permalink_rss",
     "wp-includes/feed.php:global-function:the_title_rss",
     "wp-includes/feed.php:global-function:wp_title_rss"
   ];
@@ -461,11 +517,14 @@ function main() {
         "wp_title_rss",
         "get_the_title_rss",
         "the_title_rss",
+        "the_excerpt_rss",
+        "the_permalink_rss",
+        "comments_link_feed",
         "get_the_content_feed",
         "the_content_feed",
         "feed_content_type"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "190-209", "218-220", "768-791"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "190-209", "218-220", "768-791"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -513,7 +572,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comments-link display URL escaping, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

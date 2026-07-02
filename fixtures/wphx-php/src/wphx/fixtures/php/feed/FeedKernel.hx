@@ -54,6 +54,21 @@ class FeedKernel
 		return getTheTitleRss(0);
 	}
 
+	public static function theExcerptRss():String
+	{
+		return WpHooks.applyFilters1("the_excerpt_rss", WpFeedGlobals.getTheExcerpt());
+	}
+
+	public static function thePermalinkRss():String
+	{
+		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("the_permalink_rss", WpFeedGlobals.getPermalink()));
+	}
+
+	public static function commentsLinkFeed():String
+	{
+		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("comments_link_feed", WpFeedGlobals.getCommentsLink()));
+	}
+
 	public static function getTheContentFeed(feedType:Null<String>):String
 	{
 		final normalizedFeedType = isPhpEmptyString(feedType) ? defaultFeed() : feedType;
@@ -124,6 +139,18 @@ extern class WpFeedGlobals
 
 	@:native("get_the_content")
 	public static function getTheContent():String;
+
+	@:native("get_the_excerpt")
+	public static function getTheExcerpt():String;
+
+	@:native("get_permalink")
+	public static function getPermalink():String;
+
+	@:native("get_comments_link")
+	public static function getCommentsLink():String;
+
+	@:native("esc_url")
+	public static function escUrl(value:String):String;
 
 	@:native("str_replace")
 	public static function strReplace(search:String, replace:String, subject:String):String;

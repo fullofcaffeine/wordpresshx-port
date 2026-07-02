@@ -20,6 +20,12 @@ extern class HaxeFeedKernel
 
 	static function theTitleRss():String;
 
+	static function theExcerptRss():String;
+
+	static function thePermalinkRss():String;
+
+	static function commentsLinkFeed():String;
+
 	static function getTheContentFeed(feedType:Null<String>):String;
 
 	static function theContentFeed(feedType:Null<String>):String;
