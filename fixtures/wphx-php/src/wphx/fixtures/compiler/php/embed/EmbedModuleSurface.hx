@@ -236,6 +236,15 @@ function wpFilterOembedIframeTitleAttribute(@:wp.name("result") result:NativeVal
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_filter_oembed_result")
+@:keep
+function wpFilterOembedResult(@:wp.name("result") result:NativeValue, @:wp.name("data") data:NativeValue, @:wp.name("url") url:String):NativeValue
+{
+	return HaxeEmbedKernel.filterOembedResult(result, data, url);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("print_embed_sharing_button")
 @:wp.echo
 @:keep

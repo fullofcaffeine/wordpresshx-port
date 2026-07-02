@@ -21,6 +21,7 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHand
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEnqueueEmbedStyles;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpFilterOembedIframeTitleAttribute;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpFilterPreOembedResult;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpFilterOembedResult;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeEnqueueOembedHostJs;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddDiscoveryLinks;
@@ -64,6 +65,7 @@ class EmbedModuleEntry
 		wpFilterPreOembedResult(null, "", null);
 		oembedFilterFeedContent("");
 		wpFilterOembedIframeTitleAttribute("", null, "");
+		wpFilterOembedResult("", null, "");
 		printEmbedSharingButton();
 		printEmbedCommentsButton();
 		wpMaybeLoadEmbeds();

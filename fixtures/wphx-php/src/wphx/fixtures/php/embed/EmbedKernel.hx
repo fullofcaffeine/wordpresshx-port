@@ -374,6 +374,65 @@ class EmbedKernel
 		return EmbedGlobals.strIreplace("<iframe ", EmbedGlobals.sprintfOne("<iframe title=\"%s\" ", EmbedGlobals.escAttr(title)), rewrittenResult);
 	}
 
+	public static function filterOembedResult(result:NativeValue, data:NativeValue, url:String):NativeValue
+	{
+		if (strictFalse(result))
+		{
+			return result;
+		}
+
+		final dataType = objectFieldString(data, "type");
+		if (dataType != "rich" && dataType != "video")
+		{
+			return result;
+		}
+
+		final oembed = oembedGetObject();
+		if (!strictFalse(oembed.getProvider(url, providerDiscoveryFalse())))
+		{
+			return result;
+		}
+
+		var allowedHtml = oembedAllowedHtml(false);
+		var html = EmbedGlobals.wpKses(EmbedGlobals.strval(result), allowedHtml);
+		final content = EmbedGlobals.pregMatchCapture("|(<blockquote>.*?</blockquote>)?.*(<iframe.*?></iframe>)|ms", html);
+		if (!EmbedGlobals.truthy(WpNativeArray.get(content, 2, "")))
+		{
+			return false;
+		}
+
+		final blockquote = EmbedGlobals.strval(WpNativeArray.get(content, 1, ""));
+		html = blockquote + EmbedGlobals.strval(WpNativeArray.get(content, 2, ""));
+
+		final srcResults = EmbedGlobals.pregMatchCapture("/ src=([\\'\\\"])(.*?)\\1/", html);
+		if (WpNativeArray.count(srcResults) > 0)
+		{
+			final secret = EmbedGlobals.wpGeneratePassword(10, false);
+			final srcUrl = EmbedGlobals.escUrl(EmbedGlobals.strval(WpNativeArray.get(srcResults, 2, "")) + "#?secret=" + secret);
+			final quote = EmbedGlobals.strval(WpNativeArray.get(srcResults, 1, ""));
+			html = EmbedGlobals.strReplace(EmbedGlobals.strval(WpNativeArray.get(srcResults, 0, "")),
+				" src="
+				+ quote
+				+ srcUrl
+				+ quote
+				+ " data-secret="
+				+ quote
+				+ secret
+				+ quote, html);
+			html = EmbedGlobals.strReplace("<blockquote", "<blockquote data-secret=\"" + secret + "\"", html);
+		}
+
+		allowedHtml = oembedAllowedHtml(true);
+		html = EmbedGlobals.wpKses(html, allowedHtml);
+		if (blockquote != "")
+		{
+			html = EmbedGlobals.strReplace("<iframe", "<iframe style=\"position: absolute; visibility: hidden;\"", html);
+			html = EmbedGlobals.strReplace("<blockquote", "<blockquote class=\"wp-embedded-content\"", html);
+		}
+
+		return EmbedGlobals.strIreplace("<iframe", "<iframe class=\"wp-embedded-content\" sandbox=\"allow-scripts\" security=\"restricted\"", html);
+	}
+
 	public static function printEmbedSharingButton():String
 	{
 		if (EmbedGlobals.is404())
@@ -480,6 +539,19 @@ class EmbedKernel
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
 		return php.Syntax.code("array({0}, {1})", provider, regex);
+	}
+
+	static function providerDiscoveryFalse():php.NativeArray
+	{
+		// WPHX-211: WP_oEmbed::get_provider() consumes native PHP args with strict false discovery.
+		return php.Syntax.code("array('discover' => false)");
+	}
+
+	static function oembedAllowedHtml(includeDataSecret:Bool):php.NativeArray
+	{
+		// WPHX-211: wp_filter_oembed_result() passes a native KSES allowlist keyed by HTML tag and attribute.
+		return
+			includeDataSecret ? php.Syntax.code("array('a' => array('href' => true), 'blockquote' => array('data-secret' => true), 'iframe' => array('src' => true, 'width' => true, 'height' => true, 'frameborder' => true, 'marginwidth' => true, 'marginheight' => true, 'scrolling' => true, 'title' => true, 'data-secret' => true))") : php.Syntax.code("array('a' => array('href' => true), 'blockquote' => array(), 'iframe' => array('src' => true, 'width' => true, 'height' => true, 'frameborder' => true, 'marginwidth' => true, 'marginheight' => true, 'scrolling' => true, 'title' => true))");
 	}
 
 	static function tagNameQuery(tagName:String):php.NativeArray
@@ -697,8 +769,14 @@ extern class EmbedGlobals
 	@:native("wp_kses_hair")
 	public static function wpKsesHair(attr:String, protocols:php.NativeArray):php.NativeArray;
 
+	@:native("wp_kses")
+	public static function wpKses(html:String, allowedHtml:php.NativeArray):String;
+
 	@:native("wp_list_pluck")
 	public static function wpListPluck(inputList:php.NativeArray, field:String):php.NativeArray;
+
+	@:native("wp_generate_password")
+	public static function wpGeneratePassword(length:Int, specialChars:Bool):String;
 
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
@@ -757,6 +835,9 @@ extern class WpOembed
 
 	@:native("data2html")
 	public function dataToHtml(data:NativeValue, url:String):NativeValue;
+
+	@:native("get_provider")
+	public function getProvider(url:String, args:NativeValue):NativeValue;
 
 	@:native("_add_provider_early")
 	public static function addProviderEarly(format:String, provider:String, regex:Bool):Void;
