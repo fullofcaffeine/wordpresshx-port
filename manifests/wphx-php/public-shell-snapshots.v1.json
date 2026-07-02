@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 7905,
-      "sha256": "sha256:fd0795999387900c92bd922d95a05987c04680ca8ec0221ff4a5cce0c023a2d3",
+      "bytes": 8911,
+      "sha256": "sha256:27399524c79d0e8f24719f63f5391eb2f65ad40c5a4c30e5ac6a3312b554a680",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -326,6 +326,9 @@
         "apply_filters( 'oembed_ttl', DAY_IN_SECONDS, $url, $attr, $post_id )",
         "$cached_post_id = $this->find_oembed_post_id( $key_suffix );",
         "$cache = get_post_meta( $post_id, $cachekey, true );",
+        "$cached_post = get_post( $cached_post_id );",
+        "$cache = $cached_post->post_content;",
+        "$cache_time = strtotime( $cached_post->post_modified_gmt );",
         "$cached_recently = time() - $cache_time < $ttl;",
         "apply_filters( 'embed_oembed_html', $cache, $url, $attr, $post_id )",
         "$attr['discover'] = apply_filters( 'embed_oembed_discover', true );",
@@ -333,6 +336,12 @@
         "update_post_meta( $post_id, $cachekey, $html );",
         "update_post_meta( $post_id, $cachekey_time, time() );",
         "update_post_meta( $post_id, $cachekey, '{{unknown}}' );",
+        "has_filter( 'content_save_pre', 'wp_filter_post_kses' )",
+        "kses_remove_filters();",
+        "$insert_post_args = array(",
+        "wp_update_post( wp_slash(",
+        "wp_insert_post( wp_slash( array_merge(",
+        "kses_init_filters();",
         "apply_filters( 'embed_oembed_html', $html, $url, $attr, $post_id )",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
@@ -413,7 +422,7 @@
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
         "bytes": 1207,
-        "sha256": "sha256:98db2e0c44f4ef69ccdb97314dcd7abddfb4a1a7fc4777089e4d9af9eed27257"
+        "sha256": "sha256:c71a316a21d31f209d97edd89c1420e39d3239f70a9c66f949555f60f3766fb9"
       }
     },
     {

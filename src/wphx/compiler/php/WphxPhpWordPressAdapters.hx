@@ -341,8 +341,12 @@ class WphxPhpWordPressAdapters
 		final ttl = PhpVar("ttl");
 		final cache = PhpVar("cache");
 		final cacheTime = PhpVar("cache_time");
+		final cachedPostId = PhpVar("cached_post_id");
+		final cachedPost = PhpVar("cached_post");
 		final cachedRecently = PhpVar("cached_recently");
 		final html = PhpVar("html");
+		final hasKses = PhpVar("has_kses");
+		final insertPostArgs = PhpVar("insert_post_args");
 
 		return plan([
 			"stmt.var",
@@ -352,6 +356,7 @@ class WphxPhpWordPressAdapters
 			"stmt.expr",
 			"stmt.return",
 			"expr.array-read",
+			"expr.long-array",
 			"expr.object-property",
 			"expr.function-call",
 			"expr.method-call",
@@ -380,11 +385,18 @@ class WphxPhpWordPressAdapters
 			PhpLocal("cache", PhpString("")),
 			PhpLocal("cache_time", PhpInt(0)),
 			PhpLocal("cached_post_id", PhpMethodCall(thisValue, "find_oembed_post_id", [keySuffix])),
-			PhpIf(postId,
+			PhpIfElse(postId, [
+				PhpAssign(cache, PhpFunctionCall("get_post_meta", [postId, cachekey, PhpBool(true)])),
+				PhpAssign(cacheTime, PhpFunctionCall("get_post_meta", [postId, cachekeyTime, PhpBool(true)])),
+				PhpIf(PhpNot(cacheTime), [PhpAssign(cacheTime, PhpInt(0))])
+			],
 				[
-					PhpAssign(cache, PhpFunctionCall("get_post_meta", [postId, cachekey, PhpBool(true)])),
-					PhpAssign(cacheTime, PhpFunctionCall("get_post_meta", [postId, cachekeyTime, PhpBool(true)])),
-					PhpIf(PhpNot(cacheTime), [PhpAssign(cacheTime, PhpInt(0))])
+					PhpIf(cachedPostId,
+						[
+							PhpLocal("cached_post", PhpFunctionCall("get_post", [cachedPostId])),
+							PhpAssign(cache, PhpObjectProperty(cachedPost, "post_content")),
+							PhpAssign(cacheTime, PhpFunctionCall("strtotime", [PhpObjectProperty(cachedPost, "post_modified_gmt")]))
+						])
 				]),
 			PhpLocal("cached_recently", PhpBinop("<", PhpBinop("-", PhpFunctionCall("time", []), cacheTime), ttl)),
 			PhpIf(PhpBinop("||", PhpObjectProperty(thisValue, "usecache"), cachedRecently),
@@ -397,7 +409,7 @@ class WphxPhpWordPressAdapters
 				]),
 			PhpAssign(PhpArrayRead(attr, PhpString("discover")), PhpFunctionCall("apply_filters", [PhpString("embed_oembed_discover"), PhpBool(true)])),
 			PhpLocal("html", PhpFunctionCall("wp_oembed_get", [url, attr])),
-			PhpIf(postId, [
+			PhpIfElse(postId, [
 				PhpIfElse(html, [
 					PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekey, html])),
 					PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekeyTime, PhpFunctionCall("time", [])]))
@@ -406,6 +418,37 @@ class WphxPhpWordPressAdapters
 						PhpExprStmt(PhpFunctionCall("update_post_meta", [postId, cachekey, PhpString("{{unknown}}")]))
 					])
 				])
+			], [
+				PhpLocal("has_kses",
+					PhpBinop("!==", PhpBool(false), PhpFunctionCall("has_filter", [PhpString("content_save_pre"), PhpString("wp_filter_post_kses")]))),
+				PhpIf(hasKses, [PhpExprStmt(PhpFunctionCall("kses_remove_filters", []))]),
+				PhpLocal("insert_post_args", PhpLongArray([
+					entry("post_name", keySuffix),
+					entry("post_status", PhpString("publish")),
+					entry("post_type", PhpString("oembed_cache"))
+				])),
+				PhpIfElse(html, [
+					PhpIfElse(cachedPostId, [
+						PhpExprStmt(PhpFunctionCall("wp_update_post", [
+							PhpFunctionCall("wp_slash", [PhpLongArray([entry("ID", cachedPostId), entry("post_content", html)])])
+						]))
+					], [
+						PhpExprStmt(PhpFunctionCall("wp_insert_post", [
+							PhpFunctionCall("wp_slash", [
+								PhpFunctionCall("array_merge", [insertPostArgs, PhpLongArray([entry("post_content", html)])])
+							])
+						]))
+					])
+				], [
+					PhpIf(PhpNot(cache), [
+						PhpExprStmt(PhpFunctionCall("wp_insert_post", [
+							PhpFunctionCall("wp_slash", [
+								PhpFunctionCall("array_merge", [insertPostArgs, PhpLongArray([entry("post_content", PhpString("{{unknown}}"))])])
+							])
+						]))
+					])
+				]),
+				PhpIf(hasKses, [PhpExprStmt(PhpFunctionCall("kses_init_filters", []))])
 			]),
 			PhpIf(html, [
 				PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_oembed_html"), html, url, attr, postId]))

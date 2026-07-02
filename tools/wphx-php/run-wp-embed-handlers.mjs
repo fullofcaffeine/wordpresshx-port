@@ -77,6 +77,9 @@ const EXACT_PATTERNS = [
   "apply_filters( 'oembed_ttl', DAY_IN_SECONDS, $url, $attr, $post_id )",
   "$cached_post_id = $this->find_oembed_post_id( $key_suffix );",
   "$cache = get_post_meta( $post_id, $cachekey, true );",
+  "$cached_post = get_post( $cached_post_id );",
+  "$cache = $cached_post->post_content;",
+  "$cache_time = strtotime( $cached_post->post_modified_gmt );",
   "$cached_recently = time() - $cache_time < $ttl;",
   "apply_filters( 'embed_oembed_html', $cache, $url, $attr, $post_id )",
   "$attr['discover'] = apply_filters( 'embed_oembed_discover', true );",
@@ -84,6 +87,12 @@ const EXACT_PATTERNS = [
   "update_post_meta( $post_id, $cachekey, $html );",
   "update_post_meta( $post_id, $cachekey_time, time() );",
   "update_post_meta( $post_id, $cachekey, '{{unknown}}' );",
+  "has_filter( 'content_save_pre', 'wp_filter_post_kses' )",
+  "kses_remove_filters();",
+  "$insert_post_args = array(",
+  "wp_update_post( wp_slash(",
+  "wp_insert_post( wp_slash( array_merge(",
+  "kses_init_filters();",
   "apply_filters( 'embed_oembed_html', $html, $url, $attr, $post_id )",
   "public function register_handler($id, $regex, $callback, $priority = 10)",
   "$this->handlers[ $priority ][ $id ] = array(",
@@ -154,6 +163,10 @@ const CASES = [
   { id: "wp-embed-handlers:shortcode-post-id-override-cache-hit", focus: "shortcode uses WP_Embed post_ID override when reading post-meta oEmbed cache" },
   { id: "wp-embed-handlers:shortcode-post-meta-remote-success-write", focus: "shortcode discovers remote oEmbed HTML, writes post-meta cache entries, and returns filtered HTML" },
   { id: "wp-embed-handlers:shortcode-post-meta-remote-unknown-write", focus: "shortcode writes cached unknown post-meta failures after remote oEmbed miss" },
+  { id: "wp-embed-handlers:shortcode-cache-post-read-hit", focus: "shortcode reads cached oEmbed HTML from an oembed_cache post when no current post is available" },
+  { id: "wp-embed-handlers:shortcode-cache-post-remote-success-insert", focus: "shortcode inserts a new oembed_cache post for no-post remote success and restores KSES filters" },
+  { id: "wp-embed-handlers:shortcode-cache-post-remote-success-update", focus: "shortcode updates an existing stale oembed_cache post for no-post remote success" },
+  { id: "wp-embed-handlers:shortcode-cache-post-remote-unknown-insert", focus: "shortcode inserts a cached unknown oembed_cache post for no-post remote misses" },
   { id: "wp-embed-handlers:register-default", focus: "default priority handler registration" },
   { id: "wp-embed-handlers:register-priorities", focus: "separate priority buckets preserve handler payloads" },
   { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" },
@@ -347,6 +360,25 @@ function apply_filters( $hook_name, $value, ...$args ) {
 \treturn $value . '<!-- filtered:' . $hook_name . ' -->';
 }
 
+function has_filter( $hook_name, $callback = false ) {
+\t$GLOBALS['wphx_has_filter_calls'][] = array(
+\t\t'hook' => $hook_name,
+\t\t'callback' => $callback,
+\t);
+\tif ( false === $callback ) {
+\t\treturn ! empty( $GLOBALS['wphx_registered_filters'][ $hook_name ] );
+\t}
+\treturn $GLOBALS['wphx_registered_filters'][ $hook_name ][ $callback ] ?? false;
+}
+
+function kses_remove_filters() {
+\t$GLOBALS['wphx_kses_events'][] = 'remove';
+}
+
+function kses_init_filters() {
+\t$GLOBALS['wphx_kses_events'][] = 'init';
+}
+
 function get_post( $post_id = null ) {
 \tif ( 0 === func_num_args() ) {
 \t\treturn $GLOBALS['wphx_current_post'] ?? null;
@@ -379,6 +411,21 @@ function wp_oembed_get( $url, $args = '' ) {
 \t\t'args' => $args,
 \t);
 \treturn $GLOBALS['wphx_oembed_results'][ $url ] ?? false;
+}
+
+function wp_slash( $value ) {
+\t$GLOBALS['wphx_wp_slash_calls'][] = $value;
+\treturn $value;
+}
+
+function wp_insert_post( $postarr ) {
+\t$GLOBALS['wphx_post_inserts'][] = $postarr;
+\treturn 9000 + count( $GLOBALS['wphx_post_inserts'] );
+}
+
+function wp_update_post( $postarr ) {
+\t$GLOBALS['wphx_post_updates'][] = $postarr;
+\treturn $postarr['ID'] ?? 0;
 }
 
 function get_post_types( $args = array() ) {
@@ -434,6 +481,9 @@ function wphx_reset_events() {
 \t$GLOBALS['shortcode_tags'] = array();
 \t$GLOBALS['wphx_handler_events'] = array();
 \t$GLOBALS['wphx_filter_events'] = array();
+\t$GLOBALS['wphx_has_filter_calls'] = array();
+\t$GLOBALS['wphx_registered_filters'] = array();
+\t$GLOBALS['wphx_kses_events'] = array();
 \t$GLOBALS['wphx_filter_registrations'] = array();
 \t$GLOBALS['wphx_action_registrations'] = array();
 \t$GLOBALS['wphx_shortcode_events'] = array();
@@ -445,6 +495,9 @@ function wphx_reset_events() {
 \t$GLOBALS['wphx_post_meta'] = array();
 \t$GLOBALS['wphx_oembed_gets'] = array();
 \t$GLOBALS['wphx_oembed_results'] = array();
+\t$GLOBALS['wphx_wp_slash_calls'] = array();
+\t$GLOBALS['wphx_post_inserts'] = array();
+\t$GLOBALS['wphx_post_updates'] = array();
 \t$GLOBALS['wphx_post_custom_keys'] = array();
 \t$GLOBALS['wphx_posts'] = array();
 \t$GLOBALS['wphx_post_types'] = array();
@@ -884,6 +937,125 @@ switch ( $case ) {
 \t\t$assertions['remote_unknown_filter_order'] = array( 'oembed_ttl', 'embed_oembed_discover', 'embed_maybe_make_link' ) === array_column( $GLOBALS['wphx_filter_events'], 'hook' );
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:shortcode-cache-post-read-hit':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$url = 'https://cache-post.example/video';
+\t\t$attr = array( 'width' => 360 );
+\t\t$parsed_attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );
+\t\t$key_suffix = md5( $url . serialize( $parsed_attr ) );
+\t\t$GLOBALS['wphx_wp_query_posts'][ $key_suffix ] = array( (object) array( 'ID' => 901 ) );
+\t\t$GLOBALS['wphx_posts'][901] = (object) array(
+\t\t\t'ID' => 901,
+\t\t\t'post_content' => '<iframe>cache-post</iframe>',
+\t\t\t'post_modified_gmt' => gmdate( 'Y-m-d H:i:s' ),
+\t\t);
+\t\t$output = $embed->shortcode( $attr, $url );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$result['wp_query_calls'] = $GLOBALS['wphx_wp_query_calls'];
+\t\t$result['wp_cache_set_calls'] = $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$assertions['cache_post_read_filtered'] = '<iframe>cache-post</iframe><!-- filtered:embed_oembed_html -->' === $output;
+\t\t$assertions['cache_post_query_name'] = $key_suffix === $GLOBALS['wphx_wp_query_calls'][0]['name'];
+\t\t$assertions['cache_post_filter_payload'] = 'embed_oembed_html' === $GLOBALS['wphx_filter_events'][1]['hook']
+\t\t\t&& null === $GLOBALS['wphx_filter_events'][1]['args'][2];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-cache-post-remote-success-insert':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$url = 'https://cache-post.example/new';
+\t\t$attr = array();
+\t\t$parsed_attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );
+\t\t$key_suffix = md5( $url . serialize( $parsed_attr ) );
+\t\t$GLOBALS['wphx_registered_filters']['content_save_pre']['wp_filter_post_kses'] = 10;
+\t\t$GLOBALS['wphx_oembed_results'][ $url ] = '<iframe>inserted</iframe>';
+\t\t$output = $embed->shortcode( $attr, $url );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$result['has_filter_calls'] = $GLOBALS['wphx_has_filter_calls'];
+\t\t$result['kses_events'] = $GLOBALS['wphx_kses_events'];
+\t\t$result['post_inserts'] = $GLOBALS['wphx_post_inserts'];
+\t\t$result['post_updates'] = $GLOBALS['wphx_post_updates'];
+\t\t$result['oembed_gets'] = $GLOBALS['wphx_oembed_gets'];
+\t\t$assertions['cache_post_insert_filtered'] = '<iframe>inserted</iframe><!-- filtered:embed_oembed_html -->' === $output;
+\t\t$assertions['cache_post_insert_payload'] = array(
+\t\t\t'post_name' => $key_suffix,
+\t\t\t'post_status' => 'publish',
+\t\t\t'post_type' => 'oembed_cache',
+\t\t\t'post_content' => '<iframe>inserted</iframe>',
+\t\t) === $GLOBALS['wphx_post_inserts'][0];
+\t\t$assertions['cache_post_insert_kses'] = array( 'remove', 'init' ) === $GLOBALS['wphx_kses_events'];
+\t\t$assertions['cache_post_insert_filter_order'] = array( 'oembed_ttl', 'embed_oembed_discover', 'embed_oembed_html' ) === array_column( $GLOBALS['wphx_filter_events'], 'hook' );
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-cache-post-remote-success-update':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$embed->usecache = false;
+\t\t$url = 'https://cache-post.example/update';
+\t\t$attr = array( 'height' => 222 );
+\t\t$parsed_attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );
+\t\t$key_suffix = md5( $url . serialize( $parsed_attr ) );
+\t\t$GLOBALS['wphx_wp_cache']['oembed_cache_post'][ $key_suffix ] = 902;
+\t\t$GLOBALS['wphx_post_types_by_id'][902] = 'oembed_cache';
+\t\t$GLOBALS['wphx_posts'][902] = (object) array(
+\t\t\t'ID' => 902,
+\t\t\t'post_content' => '<iframe>old</iframe>',
+\t\t\t'post_modified_gmt' => '2000-01-01 00:00:00',
+\t\t);
+\t\t$GLOBALS['wphx_oembed_results'][ $url ] = '<iframe>updated</iframe>';
+\t\t$output = $embed->shortcode( $attr, $url );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['usecache'] = $embed->usecache;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$result['has_filter_calls'] = $GLOBALS['wphx_has_filter_calls'];
+\t\t$result['kses_events'] = $GLOBALS['wphx_kses_events'];
+\t\t$result['post_inserts'] = $GLOBALS['wphx_post_inserts'];
+\t\t$result['post_updates'] = $GLOBALS['wphx_post_updates'];
+\t\t$result['oembed_gets'] = $GLOBALS['wphx_oembed_gets'];
+\t\t$result['wp_cache_get_calls'] = $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$assertions['cache_post_update_filtered'] = '<iframe>updated</iframe><!-- filtered:embed_oembed_html -->' === $output;
+\t\t$assertions['cache_post_update_payload'] = array(
+\t\t\t'ID' => 902,
+\t\t\t'post_content' => '<iframe>updated</iframe>',
+\t\t) === $GLOBALS['wphx_post_updates'][0];
+\t\t$assertions['cache_post_update_no_kses'] = array() === $GLOBALS['wphx_kses_events'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-cache-post-remote-unknown-insert':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$url = 'https://cache-post.example/missing';
+\t\t$attr = array();
+\t\t$parsed_attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );
+\t\t$key_suffix = md5( $url . serialize( $parsed_attr ) );
+\t\t$output = $embed->shortcode( $attr, $url );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$result['has_filter_calls'] = $GLOBALS['wphx_has_filter_calls'];
+\t\t$result['kses_events'] = $GLOBALS['wphx_kses_events'];
+\t\t$result['post_inserts'] = $GLOBALS['wphx_post_inserts'];
+\t\t$result['post_updates'] = $GLOBALS['wphx_post_updates'];
+\t\t$result['oembed_gets'] = $GLOBALS['wphx_oembed_gets'];
+\t\t$assertions['cache_post_unknown_link'] = '<a href="esc-url:https%3A%2F%2Fcache-post.example%2Fmissing">esc-html:https://cache-post.example/missing</a><!-- filtered:embed_maybe_make_link -->' === $output;
+\t\t$assertions['cache_post_unknown_payload'] = array(
+\t\t\t'post_name' => $key_suffix,
+\t\t\t'post_status' => 'publish',
+\t\t\t'post_type' => 'oembed_cache',
+\t\t\t'post_content' => '{{unknown}}',
+\t\t) === $GLOBALS['wphx_post_inserts'][0];
+\t\t$assertions['cache_post_unknown_filter_order'] = array( 'oembed_ttl', 'embed_oembed_discover', 'embed_maybe_make_link' ) === array_column( $GLOBALS['wphx_filter_events'], 'hook' );
+\t\tbreak;
+
 \tcase 'wp-embed-handlers:register-default':
 \t\t$embed = wphx_new_embed_without_constructor();
 \t\t$embed->register_handler( 'video', '#https://video.example/.+#i', 'wphx_video_callback' );
@@ -1303,6 +1475,10 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     post_meta_updates: normalizePostMetaUpdates(value.post_meta_updates ?? []),
     post_meta_deletes: value.post_meta_deletes ?? [],
     oembed_gets: value.oembed_gets ?? [],
+    has_filter_calls: value.has_filter_calls ?? [],
+    kses_events: value.kses_events ?? [],
+    post_inserts: value.post_inserts ?? [],
+    post_updates: value.post_updates ?? [],
     shortcode_calls: value.shortcode_calls ?? [],
     linkifunknown: value.linkifunknown ?? null,
     autoembed_callback_calls: value.autoembed_callback_calls ?? [],
@@ -1335,6 +1511,10 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     post_meta_updates: normalizePostMetaUpdates(value.post_meta_updates ?? []),
     post_meta_deletes: value.post_meta_deletes ?? [],
     oembed_gets: value.oembed_gets ?? [],
+    has_filter_calls: value.has_filter_calls ?? [],
+    kses_events: value.kses_events ?? [],
+    post_inserts: value.post_inserts ?? [],
+    post_updates: value.post_updates ?? [],
     shortcode_calls: value.shortcode_calls ?? [],
     linkifunknown: value.linkifunknown ?? null,
     autoembed_callback_calls: value.autoembed_callback_calls ?? [],
@@ -1395,6 +1575,7 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::shortcode preserves the empty-URL return path, attr src URL fallback, last_url/last_attr state, default attr parsing, ampersand normalization, and early internal handler HTML return before oEmbed cache/fetch work.",
       "WP_Embed::shortcode computes oEmbed post-meta cache keys, filters TTL, reads cached HTML and cached unknown failures from post meta, honors the temporary post_ID override, and returns cached HTML through embed_oembed_html before remote fetch work.",
       "WP_Embed::shortcode filters the discover flag, calls wp_oembed_get($url, $attr), writes successful post-backed oEmbed HTML and cache time to post meta, writes {{unknown}} for post-backed misses with no prior cache, returns successful remote HTML through embed_oembed_html, and falls back through maybe_make_link on misses.",
+      "WP_Embed::shortcode reads cached no-post oEmbed cache posts, uses stale cache posts as update targets when usecache is disabled, checks/removes/restores KSES filters around no-post cache-post writes, inserts new oembed_cache posts on remote success or unknown miss, and updates existing oembed_cache posts on remote success.",
       "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
       "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
@@ -1404,11 +1585,11 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
       "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
       "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
-      "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, shortcode post-meta cache reads, shortcode remote fetch and post-meta writes, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
+      "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, shortcode post-meta cache reads, shortcode remote fetch and post-meta writes, no-post cache-post read/update/insert behavior, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
     ],
     non_claims: [
       "This fixture does not claim browser execution of the maybe_run_ajax_cache script or installed edit-form Ajax behavior.",
-      "This fixture does not claim no-post shortcode oEmbed cache post insertion/update, no-post cached-post readback, KSES filter removal/restoration around cache-post writes, broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch and post-backed shortcode post-meta writes, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, live remote oEmbed/network behavior, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+      "This fixture does not claim broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch plus bounded shortcode post-meta/cache-post writes, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post/meta/object-cache/filter/KSES behavior, live remote oEmbed/network behavior, installed editor/admin behavior, or full class-wp-embed.php ownership.",
       "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
@@ -1423,14 +1604,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry-cache-fetch/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry-cache-fetch-cache-post/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry-cache-fetch/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry-cache-fetch-cache-post/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, __construct, run_shortcode, maybe_run_ajax_cache, shortcode early/cache-read/remote-post-write paths, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, cache_oembed, and find_oembed_post_id.",
-      "The generated shell preserves public defaults, constructor hook/shortcode registrations, shortcode registry save/clear/embed-only parse/restore behavior, edit-form Ajax cache script gating/output, shortcode empty/src/internal-handler entry behavior, post-meta cached HTML and cached unknown behavior, deterministic remote oEmbed dispatch with post-backed cache writes, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, cache_oembed stateful dispatch, and oEmbed cache-post lookup against the upstream oracle."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, __construct, run_shortcode, maybe_run_ajax_cache, shortcode early/cache-read/remote-post-write/cache-post paths, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, cache_oembed, and find_oembed_post_id.",
+      "The generated shell preserves public defaults, constructor hook/shortcode registrations, shortcode registry save/clear/embed-only parse/restore behavior, edit-form Ajax cache script gating/output, shortcode empty/src/internal-handler entry behavior, post-meta cached HTML and cached unknown behavior, deterministic remote oEmbed dispatch with post-backed cache writes, no-post cache-post read/update/insert behavior with KSES filter transitions, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, cache_oembed stateful dispatch, and oEmbed cache-post lookup against the upstream oracle."
     ]
   };
 }
@@ -1473,6 +1654,10 @@ for (const fixtureCase of CASES) {
       post_meta_updates: normalizePostMetaUpdates(oracleObservations[fixtureCase.id].post_meta_updates ?? []),
       post_meta_deletes: oracleObservations[fixtureCase.id].post_meta_deletes ?? [],
       oembed_gets: oracleObservations[fixtureCase.id].oembed_gets ?? [],
+      has_filter_calls: oracleObservations[fixtureCase.id].has_filter_calls ?? [],
+      kses_events: oracleObservations[fixtureCase.id].kses_events ?? [],
+      post_inserts: oracleObservations[fixtureCase.id].post_inserts ?? [],
+      post_updates: oracleObservations[fixtureCase.id].post_updates ?? [],
       shortcode_calls: oracleObservations[fixtureCase.id].shortcode_calls ?? [],
       linkifunknown: oracleObservations[fixtureCase.id].linkifunknown ?? null,
       autoembed_callback_calls: oracleObservations[fixtureCase.id].autoembed_callback_calls ?? [],
@@ -1505,6 +1690,10 @@ for (const fixtureCase of CASES) {
       post_meta_updates: normalizePostMetaUpdates(candidateObservations[fixtureCase.id].post_meta_updates ?? []),
       post_meta_deletes: candidateObservations[fixtureCase.id].post_meta_deletes ?? [],
       oembed_gets: candidateObservations[fixtureCase.id].oembed_gets ?? [],
+      has_filter_calls: candidateObservations[fixtureCase.id].has_filter_calls ?? [],
+      kses_events: candidateObservations[fixtureCase.id].kses_events ?? [],
+      post_inserts: candidateObservations[fixtureCase.id].post_inserts ?? [],
+      post_updates: candidateObservations[fixtureCase.id].post_updates ?? [],
       shortcode_calls: candidateObservations[fixtureCase.id].shortcode_calls ?? [],
       linkifunknown: candidateObservations[fixtureCase.id].linkifunknown ?? null,
       autoembed_callback_calls: candidateObservations[fixtureCase.id].autoembed_callback_calls ?? [],
