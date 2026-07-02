@@ -37,23 +37,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
-      "bytes": 7631,
-      "sha256": "sha256:d9a523b5699d1706f54f03252ebf675944dd0e3594b39117eee3d565e2f0d19c"
+      "bytes": 9983,
+      "sha256": "sha256:59181d95e53a159d05cbe339354bae8b2c72b4b888446f982e6b3b914d088232"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleEntry.hx",
-      "bytes": 2244,
-      "sha256": "sha256:96205d5c3a60414eef89d6c3837c70d34629730c5f96e823e04a952b11ed41cf"
+      "bytes": 2448,
+      "sha256": "sha256:2d52f9ec83e455f7ca61d2243b5e6bdd10134a3bf4fe4cb857ffc98cf7990bb4"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
-      "bytes": 5357,
-      "sha256": "sha256:56a7ec1e1b9e15854624ffe15694d1ee35f03f497d22c8c5ff6610bdef136aa1"
+      "bytes": 5877,
+      "sha256": "sha256:48a2adca3df1f280ab3e17c8424003abfa518d33e5cf2aac39d0f0eb197814a7"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/HaxeFeedKernel.hx",
-      "bytes": 1387,
-      "sha256": "sha256:640e9981e238e16d181237e6deaa6ccad2c01aa1f0ee76b94197cb2377260583"
+      "bytes": 1510,
+      "sha256": "sha256:210aa824c1a100c427f8b77fc1241fd17167c721819a9d717c21c05842781091"
     }
   ],
   "upstream_oracle": {
@@ -78,6 +78,8 @@
       "get_the_content_feed",
       "the_content_feed",
       "feed_content_type",
+      "get_the_category_rss",
+      "the_category_rss",
       "html_type_rss",
       "atom_site_icon",
       "rss2_site_icon"
@@ -100,6 +102,8 @@
       "190-209",
       "218-220",
       "768-791",
+      "381-428",
+      "440-442",
       "451-459",
       "632-637",
       "644-661"
@@ -107,8 +111,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
-    "bytes": 2831,
-    "sha256": "sha256:1c6cd40816c370166d46f46f23081bc873ac0b7727a649eca3a90c943d347ac3",
+    "bytes": 3062,
+    "sha256": "sha256:8dfc81724cdeccb285a3f2fd80265dcbd9fe6ae4ce5106797b6ac88925bc91d5",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
     "exact_patterns": [
@@ -150,6 +154,10 @@
       "function feed_content_type($type = '')",
       "FeedKernel::defaultFeed()",
       "FeedKernel::feedContentType($type)",
+      "function get_the_category_rss($type = null)",
+      "FeedKernel::getTheCategoryRss($type)",
+      "function the_category_rss($type = null)",
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::theCategoryRss( $type );",
       "function html_type_rss()",
       "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::htmlTypeRss();",
       "function atom_site_icon()",
@@ -160,15 +168,15 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php",
-    "bytes": 3960,
-    "sha256": "sha256:a1ad98f472a8a16dfbab6deebc3048a1a11552986056b3e137e5b46bc1342f22",
+    "bytes": 5266,
+    "sha256": "sha256:d4516433b6f825173637d6d4ab41e8d0a8f7c79fc06095854eb9fa18b516dc0a",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/feed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 6955,
-    "sha256": "sha256:35305ed03cc6e0e577c662e45471868ccefc8444a078ae94560d9f027fe87b1d",
+    "bytes": 7555,
+    "sha256": "sha256:b891aa06b56068ed75af7b44351c7177ae9feb6c0e265c5c82461df91ba26180",
     "declarations": [
       "wp-includes/feed.php:global-function:atom_site_icon",
       "wp-includes/feed.php:global-function:bloginfo_rss",
@@ -182,11 +190,13 @@
       "wp-includes/feed.php:global-function:get_comment_author_rss",
       "wp-includes/feed.php:global-function:get_comment_guid",
       "wp-includes/feed.php:global-function:get_default_feed",
+      "wp-includes/feed.php:global-function:get_the_category_rss",
       "wp-includes/feed.php:global-function:get_the_content_feed",
       "wp-includes/feed.php:global-function:get_the_title_rss",
       "wp-includes/feed.php:global-function:get_wp_title_rss",
       "wp-includes/feed.php:global-function:html_type_rss",
       "wp-includes/feed.php:global-function:rss2_site_icon",
+      "wp-includes/feed.php:global-function:the_category_rss",
       "wp-includes/feed.php:global-function:the_content_feed",
       "wp-includes/feed.php:global-function:the_excerpt_rss",
       "wp-includes/feed.php:global-function:the_permalink_rss",
@@ -533,6 +543,164 @@
             {
               "hook": "feed_content_type",
               "value": "application/atom+xml",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:default-feed",
+          "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "output": "",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:rss2",
+          "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+              "args": [
+                "rss2"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:atom",
+          "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:rdf",
+          "value": "\t\t<dc:subject><![CDATA[News &amp; Updates]]></dc:subject>\n\t\t<dc:subject><![CDATA[Shared]]></dc:subject>\n\t\t<dc:subject><![CDATA[Tag <Raw>]]></dc:subject>\n",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<dc:subject><![CDATA[News &amp; Updates]]></dc:subject>\n\t\t<dc:subject><![CDATA[Shared]]></dc:subject>\n\t\t<dc:subject><![CDATA[Tag <Raw>]]></dc:subject>\n",
+              "args": [
+                "rdf"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:filtered",
+          "value": "Filtered Categories",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+              "args": [
+                "rss2"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:display",
+          "value": null,
+          "output": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
               "args": [
                 "atom"
               ]
@@ -1328,6 +1496,44 @@
               "isOptional": true,
               "hasDefault": true,
               "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_the_category_rss": {
+          "name": "get_the_category_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "the_category_rss": {
+          "name": "the_category_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
               "hasType": false,
               "isPassedByReference": false,
               "isVariadic": false
@@ -1700,6 +1906,164 @@
           "deprecated": []
         },
         {
+          "id": "category-rss:default-feed",
+          "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "output": "",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:rss2",
+          "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+              "args": [
+                "rss2"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:atom",
+          "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:rdf",
+          "value": "\t\t<dc:subject><![CDATA[News &amp; Updates]]></dc:subject>\n\t\t<dc:subject><![CDATA[Shared]]></dc:subject>\n\t\t<dc:subject><![CDATA[Tag <Raw>]]></dc:subject>\n",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<dc:subject><![CDATA[News &amp; Updates]]></dc:subject>\n\t\t<dc:subject><![CDATA[Shared]]></dc:subject>\n\t\t<dc:subject><![CDATA[Tag <Raw>]]></dc:subject>\n",
+              "args": [
+                "rdf"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:filtered",
+          "value": "Filtered Categories",
+          "output": "",
+          "filters": [
+            {
+              "hook": "the_category_rss",
+              "value": "\t\t<category><![CDATA[News & Updates]]></category>\n\t\t<category><![CDATA[Shared]]></category>\n\t\t<category><![CDATA[Tag <Raw>]]></category>\n",
+              "args": [
+                "rss2"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "category-rss:display",
+          "value": null,
+          "output": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+          "filters": [
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "get_bloginfo_rss",
+              "value": "https://example.test/site?x=1&amp;y=2",
+              "args": [
+                "url"
+              ]
+            },
+            {
+              "hook": "the_category_rss",
+              "value": "<category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"News &amp;amp; Updates\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Shared\" /><category scheme=\"https://example.test/site?x=1&amp;amp;y=2\" term=\"Tag &lt;Raw&gt;\" />",
+              "args": [
+                "atom"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
           "id": "title-rss:default",
           "value": "Title #0 <Raw>",
           "output": "",
@@ -2493,6 +2857,44 @@
             }
           ]
         },
+        "get_the_category_rss": {
+          "name": "get_the_category_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "the_category_rss": {
+          "name": "the_category_rss",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "html_type_rss": {
           "name": "html_type_rss",
           "numberOfParameters": 0,
@@ -2537,7 +2939,7 @@
     "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
     "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
     "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, HTML type display, Atom/RSS2 site-icon output, PHP empty('0') behavior, output capture, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, PHP empty('0') behavior, output capture, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/feed.php ownership.",

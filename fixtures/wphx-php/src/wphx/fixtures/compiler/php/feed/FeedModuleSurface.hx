@@ -189,6 +189,25 @@ function feedContentType(@:wp.name("type") type:Null<String> = ""):String
 
 @:wp.file("wp-includes/feed.php")
 @:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_the_category_rss")
+@:keep
+function getTheCategoryRss(@:wp.name("type") type:Null<String> = null):String
+{
+	return HaxeFeedKernel.getTheCategoryRss(type);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("the_category_rss")
+@:wp.echo
+@:keep
+function theCategoryRss(@:wp.name("type") type:Null<String> = null):String
+{
+	return HaxeFeedKernel.theCategoryRss(type);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
 @:wp.global("html_type_rss")
 @:wp.echo
 @:keep

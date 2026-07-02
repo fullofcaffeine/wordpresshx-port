@@ -1,5 +1,8 @@
 package wphx.fixtures.php.feed;
 
+import php.Const;
+import php.Global;
+import php.NativeIndexedArray;
 import wphx.wp.boundary.NativeValue.NativeValue;
 
 using StringTools;
@@ -140,6 +143,46 @@ class FeedKernel
 		return WpHooks.applyFilters2("feed_content_type", contentType, normalizedType);
 	}
 
+	public static function getTheCategoryRss(type:Null<String>):String
+	{
+		final normalizedType = isPhpEmptyString(type) ? defaultFeed() : type;
+		final filter = normalizedType == "atom" ? "raw" : "rss";
+		final categoryNames:Array<String> = [];
+		for (category in WpFeedGlobals.getTheCategory())
+		{
+			addUnique(categoryNames, WpFeedGlobals.sanitizeTermField("name", category.name, category.term_id, "category", filter));
+		}
+		for (tag in WpFeedGlobals.getTheTags())
+		{
+			addUnique(categoryNames, WpFeedGlobals.sanitizeTermField("name", tag.name, tag.term_id, "post_tag", filter));
+		}
+
+		var list = "";
+		for (categoryName in categoryNames)
+		{
+			if (normalizedType == "rdf")
+			{
+				list += "\t\t<dc:subject><![CDATA[" + categoryName + "]]></dc:subject>\n";
+			} else if (normalizedType == "atom")
+			{
+				list += WpFeedGlobals.sprintfCategory("<category scheme=\"%1$s\" term=\"%2$s\" />", WpFeedGlobals.escAttr(getBloginfoRss("url")),
+					WpFeedGlobals.escAttr(categoryName));
+			} else
+			{
+				list += "\t\t<category><![CDATA["
+					+ Global.html_entity_decode(categoryName, Const.ENT_COMPAT, WpFeedGlobals.getOption("blog_charset"))
+					+ "]]></category>\n";
+			}
+		}
+
+		return WpHooks.applyFilters2("the_category_rss", list, normalizedType);
+	}
+
+	public static function theCategoryRss(type:Null<String>):String
+	{
+		return getTheCategoryRss(type);
+	}
+
 	public static function htmlTypeRss():String
 	{
 		final type = WpFeedGlobals.getBloginfo("html_type");
@@ -179,6 +222,14 @@ class FeedKernel
 	{
 		return value == null || value == "" || value == "0";
 	}
+
+	static function addUnique(values:Array<String>, value:String):Void
+	{
+		if (!values.contains(value))
+		{
+			values.push(value);
+		}
+	}
 }
 
 /**
@@ -205,6 +256,9 @@ extern class WpFeedGlobals
 	@:native("sprintf")
 	public static function sprintf(format:String, arg:String):String;
 
+	@:native("sprintf")
+	public static function sprintfCategory(format:String, arg1:String, arg2:String):String;
+
 	@:native("wp_get_document_title")
 	public static function wpGetDocumentTitle():String;
 
@@ -222,6 +276,21 @@ extern class WpFeedGlobals
 
 	@:native("get_comments_link")
 	public static function getCommentsLink():String;
+
+	@:native("get_the_category")
+	public static function getTheCategory():NativeIndexedArray<WpTerm>;
+
+	@:native("get_the_tags")
+	public static function getTheTags():NativeIndexedArray<WpTerm>;
+
+	@:native("sanitize_term_field")
+	public static function sanitizeTermField(field:String, value:String, termId:Int, taxonomy:String, context:String):String;
+
+	@:native("esc_attr")
+	public static function escAttr(value:String):String;
+
+	@:native("get_option")
+	public static function getOption(name:String):String;
 
 	@:native("get_site_icon_url")
 	public static function getSiteIconUrl(size:Int):String;
@@ -255,6 +324,15 @@ extern class WpComment
 {
 	public var comment_post_ID:Int;
 	public var comment_ID:Int;
+}
+
+/**
+	Typed subset of the term object fields used by selected category feed helpers.
+**/
+extern class WpTerm
+{
+	public var name:String;
+	public var term_id:Int;
 }
 
 /**

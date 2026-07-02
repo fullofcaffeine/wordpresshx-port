@@ -75,6 +75,10 @@ const EXACT_PATTERNS = [
   "function feed_content_type($type = '')",
   "FeedKernel::defaultFeed()",
   "FeedKernel::feedContentType($type)",
+  "function get_the_category_rss($type = null)",
+  "FeedKernel::getTheCategoryRss($type)",
+  "function the_category_rss($type = null)",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::theCategoryRss( $type );",
   "function html_type_rss()",
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::htmlTypeRss();",
   "function atom_site_icon()",
@@ -243,6 +247,51 @@ function feed_content_type( $type = '' ) {
 \treturn apply_filters( 'feed_content_type', $content_type, $type );
 }
 
+function get_the_category_rss( $type = null ) {
+\tif ( empty( $type ) ) {
+\t\t$type = get_default_feed();
+\t}
+\t$categories = get_the_category();
+\t$tags       = get_the_tags();
+\t$the_list   = '';
+\t$cat_names  = array();
+
+\t$filter = 'rss';
+\tif ( 'atom' === $type ) {
+\t\t$filter = 'raw';
+\t}
+
+\tif ( ! empty( $categories ) ) {
+\t\tforeach ( (array) $categories as $category ) {
+\t\t\t$cat_names[] = sanitize_term_field( 'name', $category->name, $category->term_id, 'category', $filter );
+\t\t}
+\t}
+
+\tif ( ! empty( $tags ) ) {
+\t\tforeach ( (array) $tags as $tag ) {
+\t\t\t$cat_names[] = sanitize_term_field( 'name', $tag->name, $tag->term_id, 'post_tag', $filter );
+\t\t}
+\t}
+
+\t$cat_names = array_unique( $cat_names );
+
+\tforeach ( $cat_names as $cat_name ) {
+\t\tif ( 'rdf' === $type ) {
+\t\t\t$the_list .= "\\t\\t<dc:subject><![CDATA[$cat_name]]></dc:subject>\\n";
+\t\t} elseif ( 'atom' === $type ) {
+\t\t\t$the_list .= sprintf( '<category scheme="%1$s" term="%2$s" />', esc_attr( get_bloginfo_rss( 'url' ) ), esc_attr( $cat_name ) );
+\t\t} else {
+\t\t\t$the_list .= "\\t\\t<category><![CDATA[" . html_entity_decode( $cat_name, ENT_COMPAT, get_option( 'blog_charset' ) ) . "]]></category>\\n";
+\t\t}
+\t}
+
+\treturn apply_filters( 'the_category_rss', $the_list, $type );
+}
+
+function the_category_rss( $type = null ) {
+\techo get_the_category_rss( $type );
+}
+
 function html_type_rss() {
 \t$type = get_bloginfo( 'html_type' );
 \tif ( str_contains( $type, 'xhtml' ) ) {
@@ -355,6 +404,28 @@ function get_comments_link() {
 \treturn 'https://example.test/post#comments?raw=1&x=2';
 }
 
+function get_the_category() {
+\treturn array(
+\t\t(object) array( 'name' => 'News &amp; Updates', 'term_id' => 11 ),
+\t\t(object) array( 'name' => 'Shared', 'term_id' => 12 ),
+\t);
+}
+
+function get_the_tags() {
+\treturn array(
+\t\t(object) array( 'name' => 'Shared', 'term_id' => 21 ),
+\t\t(object) array( 'name' => 'Tag <Raw>', 'term_id' => 22 ),
+\t);
+}
+
+function sanitize_term_field( $field, $value, $term_id, $taxonomy, $context ) {
+\treturn (string) $value;
+}
+
+function get_option( $name ) {
+\treturn 'blog_charset' === $name ? 'UTF-8' : null;
+}
+
 function get_comment( $comment_id = null ) {
 \tif ( 'missing' === $comment_id ) {
 \t\treturn null;
@@ -387,6 +458,10 @@ function get_site_icon_url( $size = 512 ) {
 
 function esc_url( $url ) {
 \treturn str_replace( '&', '&amp;', (string) $url );
+}
+
+function esc_attr( $value ) {
+\treturn htmlspecialchars( (string) $value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8' );
 }
 
 require $shell;
@@ -466,6 +541,24 @@ $cases[] = wphx_case( 'feed-content-type:unknown', array(), function () {
 } );
 $cases[] = wphx_case( 'feed-content-type:filtered', array( 'feed_content_type:application/atom+xml:atom' => 'custom/atom' ), function () {
 \treturn feed_content_type( 'atom' );
+} );
+$cases[] = wphx_case( 'category-rss:default-feed', array( 'default_feed' => 'atom' ), function () {
+\treturn get_the_category_rss();
+} );
+$cases[] = wphx_case( 'category-rss:rss2', array(), function () {
+\treturn get_the_category_rss( 'rss2' );
+} );
+$cases[] = wphx_case( 'category-rss:atom', array(), function () {
+\treturn get_the_category_rss( 'atom' );
+} );
+$cases[] = wphx_case( 'category-rss:rdf', array(), function () {
+\treturn get_the_category_rss( 'rdf' );
+} );
+$cases[] = wphx_case( 'category-rss:filtered', array( 'the_category_rss' => 'Filtered Categories' ), function () {
+\treturn get_the_category_rss( 'rss2' );
+} );
+$cases[] = wphx_case( 'category-rss:display', array(), function () {
+\treturn the_category_rss( 'atom' );
 } );
 $cases[] = wphx_case( 'title-rss:default', array(), function () {
 \treturn get_the_title_rss();
@@ -583,7 +676,7 @@ $cases[] = wphx_case( 'rss2-site-icon:empty', array(), function () {
 } );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -667,11 +760,13 @@ function main() {
     "wp-includes/feed.php:global-function:get_comment_author_rss",
     "wp-includes/feed.php:global-function:get_comment_guid",
     "wp-includes/feed.php:global-function:get_default_feed",
+    "wp-includes/feed.php:global-function:get_the_category_rss",
     "wp-includes/feed.php:global-function:get_the_content_feed",
     "wp-includes/feed.php:global-function:get_the_title_rss",
     "wp-includes/feed.php:global-function:get_wp_title_rss",
     "wp-includes/feed.php:global-function:html_type_rss",
     "wp-includes/feed.php:global-function:rss2_site_icon",
+    "wp-includes/feed.php:global-function:the_category_rss",
     "wp-includes/feed.php:global-function:the_content_feed",
     "wp-includes/feed.php:global-function:the_excerpt_rss",
     "wp-includes/feed.php:global-function:the_permalink_rss",
@@ -718,11 +813,13 @@ function main() {
         "get_the_content_feed",
         "the_content_feed",
         "feed_content_type",
+        "get_the_category_rss",
+        "the_category_rss",
         "html_type_rss",
         "atom_site_icon",
         "rss2_site_icon"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "451-459", "632-637", "644-661"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -770,7 +867,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, HTML type display, Atom/RSS2 site-icon output, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

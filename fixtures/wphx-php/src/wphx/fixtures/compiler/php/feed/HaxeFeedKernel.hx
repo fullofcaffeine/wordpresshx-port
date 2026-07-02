@@ -46,6 +46,10 @@ extern class HaxeFeedKernel
 
 	static function feedContentType(type:Null<String>):String;
 
+	static function getTheCategoryRss(type:Null<String>):String;
+
+	static function theCategoryRss(type:Null<String>):String;
+
 	static function htmlTypeRss():String;
 
 	static function atomSiteIcon():String;
