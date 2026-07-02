@@ -8,6 +8,10 @@ import wphx.wp.boundary.NativeValue.NativeValue;
 @:native("\\wphx\\fixtures\\php\\embed\\EmbedKernel")
 extern class HaxeEmbedKernel
 {
+	static function embedRegisterHandler(id:String, regex:String, callback:NativeValue, priority:Int):Void;
+
+	static function embedUnregisterHandler(id:String, priority:Int):Void;
+
 	static function embedDefaults(url:String):NativeValue;
 
 	static function oembedEndpointUrl(permalink:String, format:String):String;
@@ -17,6 +21,8 @@ extern class HaxeEmbedKernel
 	static function oembedAddProvider(format:String, provider:String, regex:Bool):Void;
 
 	static function oembedRemoveProvider(format:String):Bool;
+
+	static function maybeLoadEmbeds():Void;
 
 	static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
 

@@ -80,11 +80,14 @@ const CASES = [
     shell_shapes: ["global_function", "wordpress_module_function", "top_level_bootstrap_side_effect"],
     exact_patterns: [
       "if (!defined('WPHX_EMBED_MODULE_BOOTSTRAPPED'))",
+      "function wp_embed_register_handler($id, $regex, $callback, $priority = 10)",
+      "function wp_embed_unregister_handler($id, $priority = 10)",
       "function wp_embed_defaults($url = '')",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
       "function wp_oembed_ensure_format($format)",
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
       "function wp_oembed_remove_provider($format)",
+      "function wp_maybe_load_embeds()",
       "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
       "EmbedKernel::embedDefaults($url)",
@@ -93,10 +96,13 @@ const CASES = [
     ast_expect: {
       functions: [
         "wp_embed_defaults",
+        "wp_embed_register_handler",
+        "wp_embed_unregister_handler",
         "get_oembed_endpoint_url",
         "wp_oembed_ensure_format",
         "wp_oembed_add_provider",
         "wp_oembed_remove_provider",
+        "wp_maybe_load_embeds",
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ]

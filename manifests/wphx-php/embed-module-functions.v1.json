@@ -32,84 +32,99 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 6541,
-      "sha256": "sha256:7b12746bc77377832bc5a31ba11264191bb966631f0446f15a56158e3e6dff2b"
+      "bytes": 8730,
+      "sha256": "sha256:4d6b9b9ac562fa4b00e158ac5b0f99acf6c58c1edbbdf01ad411514ccb1df13f"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 990,
-      "sha256": "sha256:9ccc7d97544c601fa372541de7f6d081f3e8035f03af277d8ca9b65924b19a36"
+      "bytes": 1339,
+      "sha256": "sha256:5ac2e3bdaf2b8c8eb5c70f97e63ecfdff90fa9a1bbd8e3858d4618cc207875ff"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 2421,
-      "sha256": "sha256:aeae77c2918971bbd01dfffc9a17483eb17c452e2262473785e88f4ffbf3bfb3"
+      "bytes": 3326,
+      "sha256": "sha256:3dc31fa8c3dc54070c605b0209525cdab9406779b2545f36f1e02396581d5408"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 843,
-      "sha256": "sha256:61e9f2c47e9ba631e5e75bf94fbe6138789cacb2acc85efa9b2dc40a2fb71897"
+      "bytes": 1063,
+      "sha256": "sha256:d70a325d8d83f1fda78e42ef7a9e4355f022a23f6d0651cbb6de7a1d592763e5"
     }
   ],
   "upstream_oracle": {
     "repo_path": "../wordpress-develop/src/wp-includes/embed.php",
     "selected_symbols": [
+      "wp_embed_register_handler",
+      "wp_embed_unregister_handler",
       "wp_embed_defaults",
       "get_oembed_endpoint_url",
       "wp_oembed_ensure_format",
       "wp_oembed_add_provider",
       "wp_oembed_remove_provider",
+      "wp_maybe_load_embeds",
       "wp_embed_handler_audio",
       "wp_embed_handler_video"
     ],
     "selected_source_lines": [
+      "25-29",
+      "40-44",
       "67-93",
       "455-481",
       "759-765",
       "147-158",
       "166-181",
+      "191-232",
       "272-294",
       "299-321"
     ]
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 1535,
-    "sha256": "sha256:0dea09c2ab94548bd6758fef5b15e131693c94ef233bf420c83fa43b9fb1ff2e",
+    "bytes": 1948,
+    "sha256": "sha256:2c259f63ee222e81c9eb31d612e12008e4ea92ba3558e3b42972ea501f8799bf",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
       "if (!defined('WPHX_EMBED_MODULE_BOOTSTRAPPED'))",
+      "function wp_embed_register_handler($id, $regex, $callback, $priority = 10)",
+      "function wp_embed_unregister_handler($id, $priority = 10)",
       "function wp_embed_defaults($url = '')",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
       "function wp_oembed_ensure_format($format)",
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
       "function wp_oembed_remove_provider($format)",
+      "function wp_maybe_load_embeds()",
       "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
       "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
+      "EmbedKernel::embedRegisterHandler($id, $regex, $callback, $priority)",
+      "EmbedKernel::embedUnregisterHandler($id, $priority)",
       "EmbedKernel::embedDefaults($url)",
       "EmbedKernel::oembedEndpointUrl($permalink, $format)",
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
       "EmbedKernel::oembedRemoveProvider($format)",
+      "EmbedKernel::maybeLoadEmbeds()",
       "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
     ]
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 2159,
-    "sha256": "sha256:fa636d494888393fd832c0b4968e25bad49d6249386dd7a2e6248f5ca3a30480",
+    "bytes": 3080,
+    "sha256": "sha256:838a701e7b73b3b567afc8702d921e5296eeb19884a13bf74a44b63415726424",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 2547,
-    "sha256": "sha256:66e178bb9ab8e7100f6a5580db39eb65dd36b2b3ca59bd7db04d35f87dd2f070",
+    "bytes": 3477,
+    "sha256": "sha256:dd6733e3cf6ee84b584d3e533b7e595c6b4874545c069309901fde0260b47c8f",
     "declarations": [
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
       "wp-includes/embed.php:global-function:wp_embed_defaults",
       "wp-includes/embed.php:global-function:wp_embed_handler_audio",
       "wp-includes/embed.php:global-function:wp_embed_handler_video",
+      "wp-includes/embed.php:global-function:wp_embed_register_handler",
+      "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
+      "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
       "wp-includes/embed.php:global-function:wp_oembed_add_provider",
       "wp-includes/embed.php:global-function:wp_oembed_ensure_format",
       "wp-includes/embed.php:global-function:wp_oembed_remove_provider"
@@ -124,11 +139,75 @@
       "mode": "oracle",
       "cases": [
         {
+          "id": "handler:register-default-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "fixture",
+              "regex": "#fixture#",
+              "callback": "fixture_callback",
+              "priority": 10
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:register-custom-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "fixture",
+              "regex": "#fixture#",
+              "callback": [
+                "Fixture",
+                "callback"
+              ],
+              "priority": 7
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:unregister-default-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "unregister",
+              "id": "fixture",
+              "priority": 10
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:unregister-custom-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "unregister",
+              "id": "fixture",
+              "priority": 7
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
           "id": "embed-defaults:fallback",
           "value": {
             "width": 500,
             "height": 750
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -150,6 +229,7 @@
             "width": 640,
             "height": 960
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -171,6 +251,7 @@
             "width": 1200,
             "height": 1000
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -192,6 +273,7 @@
             "width": 111,
             "height": 222
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -210,6 +292,7 @@
         {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -226,6 +309,7 @@
         {
           "id": "endpoint:json",
           "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -242,6 +326,7 @@
         {
           "id": "endpoint:xml",
           "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -258,6 +343,7 @@
         {
           "id": "endpoint:filtered",
           "value": "https://filtered.example/oembed",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -274,6 +360,7 @@
         {
           "id": "format:json",
           "value": "json",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -281,6 +368,7 @@
         {
           "id": "format:xml",
           "value": "xml",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -288,6 +376,7 @@
         {
           "id": "format:unknown",
           "value": "json",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -295,6 +384,7 @@
         {
           "id": "provider:add-early",
           "value": null,
+          "embed_calls": [],
           "providers": [],
           "early_providers": {
             "add": {
@@ -309,6 +399,7 @@
         {
           "id": "provider:remove-early",
           "value": null,
+          "embed_calls": [],
           "providers": [],
           "early_providers": {
             "remove": [
@@ -320,6 +411,7 @@
         {
           "id": "provider:add-loaded",
           "value": null,
+          "embed_calls": [],
           "providers": {
             "https://loaded.example/*": [
               "https://provider.example/loaded",
@@ -332,6 +424,7 @@
         {
           "id": "provider:remove-loaded-existing",
           "value": true,
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -339,13 +432,121 @@
         {
           "id": "provider:remove-loaded-missing",
           "value": false,
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
         },
         {
+          "id": "maybe-load:default",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "youtube_embed_url",
+              "regex": "#https?://(www\\.)?youtube\\.com/(?:v|embed)/([^/]+)#i",
+              "callback": "wp_embed_handler_youtube",
+              "priority": 10
+            },
+            {
+              "action": "register",
+              "id": "audio",
+              "regex": "#^https?://.+?\\.(mp3|m4a)$#i",
+              "callback": "wp_embed_handler_audio",
+              "priority": 9999
+            },
+            {
+              "action": "register",
+              "id": "video",
+              "regex": "#^https?://.+?\\.(mp4|webm)$#i",
+              "callback": "wp_embed_handler_video",
+              "priority": 9999
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            },
+            {
+              "hook": "wp_audio_embed_handler",
+              "value": "wp_embed_handler_audio",
+              "args": []
+            },
+            {
+              "hook": "wp_video_embed_handler",
+              "value": "wp_embed_handler_video",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "maybe-load:blocked",
+          "value": null,
+          "embed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "maybe-load:filtered-callbacks",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "youtube_embed_url",
+              "regex": "#https?://(www\\.)?youtube\\.com/(?:v|embed)/([^/]+)#i",
+              "callback": "wp_embed_handler_youtube",
+              "priority": 10
+            },
+            {
+              "action": "register",
+              "id": "audio",
+              "regex": "#^https?://.+?\\.(mp3|m4a)$#i",
+              "callback": "custom_audio_handler",
+              "priority": 9999
+            },
+            {
+              "action": "register",
+              "id": "video",
+              "regex": "#^https?://.+?\\.(mp4|webm)$#i",
+              "callback": "custom_video_handler",
+              "priority": 9999
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            },
+            {
+              "hook": "wp_audio_embed_handler",
+              "value": "wp_embed_handler_audio",
+              "args": []
+            },
+            {
+              "hook": "wp_video_embed_handler",
+              "value": "wp_embed_handler_video",
+              "args": []
+            }
+          ]
+        },
+        {
           "id": "audio:default",
           "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -365,6 +566,7 @@
         {
           "id": "audio:filtered",
           "value": "Filtered Audio",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -384,6 +586,7 @@
         {
           "id": "video:default",
           "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -404,6 +607,7 @@
         {
           "id": "video:no-dimensions",
           "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -421,6 +625,7 @@
         {
           "id": "video:filtered",
           "value": "Filtered Video",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -440,6 +645,84 @@
         }
       ],
       "reflection": {
+        "wp_embed_register_handler": {
+          "name": "wp_embed_register_handler",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 3,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "id",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "regex",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "callback",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "priority",
+              "position": 3,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 10,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_unregister_handler": {
+          "name": "wp_embed_unregister_handler",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "id",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "priority",
+              "position": 1,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 10,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "wp_embed_defaults": {
           "name": "wp_embed_defaults",
           "numberOfParameters": 1,
@@ -564,6 +847,14 @@
               "isVariadic": false
             }
           ]
+        },
+        "wp_maybe_load_embeds": {
+          "name": "wp_maybe_load_embeds",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
         },
         "wp_embed_handler_audio": {
           "name": "wp_embed_handler_audio",
@@ -669,11 +960,75 @@
       "mode": "generated",
       "cases": [
         {
+          "id": "handler:register-default-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "fixture",
+              "regex": "#fixture#",
+              "callback": "fixture_callback",
+              "priority": 10
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:register-custom-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "fixture",
+              "regex": "#fixture#",
+              "callback": [
+                "Fixture",
+                "callback"
+              ],
+              "priority": 7
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:unregister-default-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "unregister",
+              "id": "fixture",
+              "priority": 10
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
+          "id": "handler:unregister-custom-priority",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "unregister",
+              "id": "fixture",
+              "priority": 7
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": []
+        },
+        {
           "id": "embed-defaults:fallback",
           "value": {
             "width": 500,
             "height": 750
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -695,6 +1050,7 @@
             "width": 640,
             "height": 960
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -716,6 +1072,7 @@
             "width": 1200,
             "height": 1000
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -737,6 +1094,7 @@
             "width": 111,
             "height": 222
           },
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -755,6 +1113,7 @@
         {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -771,6 +1130,7 @@
         {
           "id": "endpoint:json",
           "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -787,6 +1147,7 @@
         {
           "id": "endpoint:xml",
           "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -803,6 +1164,7 @@
         {
           "id": "endpoint:filtered",
           "value": "https://filtered.example/oembed",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -819,6 +1181,7 @@
         {
           "id": "format:json",
           "value": "json",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -826,6 +1189,7 @@
         {
           "id": "format:xml",
           "value": "xml",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -833,6 +1197,7 @@
         {
           "id": "format:unknown",
           "value": "json",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -840,6 +1205,7 @@
         {
           "id": "provider:add-early",
           "value": null,
+          "embed_calls": [],
           "providers": [],
           "early_providers": {
             "add": {
@@ -854,6 +1220,7 @@
         {
           "id": "provider:remove-early",
           "value": null,
+          "embed_calls": [],
           "providers": [],
           "early_providers": {
             "remove": [
@@ -865,6 +1232,7 @@
         {
           "id": "provider:add-loaded",
           "value": null,
+          "embed_calls": [],
           "providers": {
             "https://loaded.example/*": [
               "https://provider.example/loaded",
@@ -877,6 +1245,7 @@
         {
           "id": "provider:remove-loaded-existing",
           "value": true,
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
@@ -884,13 +1253,121 @@
         {
           "id": "provider:remove-loaded-missing",
           "value": false,
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": []
         },
         {
+          "id": "maybe-load:default",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "youtube_embed_url",
+              "regex": "#https?://(www\\.)?youtube\\.com/(?:v|embed)/([^/]+)#i",
+              "callback": "wp_embed_handler_youtube",
+              "priority": 10
+            },
+            {
+              "action": "register",
+              "id": "audio",
+              "regex": "#^https?://.+?\\.(mp3|m4a)$#i",
+              "callback": "wp_embed_handler_audio",
+              "priority": 9999
+            },
+            {
+              "action": "register",
+              "id": "video",
+              "regex": "#^https?://.+?\\.(mp4|webm)$#i",
+              "callback": "wp_embed_handler_video",
+              "priority": 9999
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            },
+            {
+              "hook": "wp_audio_embed_handler",
+              "value": "wp_embed_handler_audio",
+              "args": []
+            },
+            {
+              "hook": "wp_video_embed_handler",
+              "value": "wp_embed_handler_video",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "maybe-load:blocked",
+          "value": null,
+          "embed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "maybe-load:filtered-callbacks",
+          "value": null,
+          "embed_calls": [
+            {
+              "action": "register",
+              "id": "youtube_embed_url",
+              "regex": "#https?://(www\\.)?youtube\\.com/(?:v|embed)/([^/]+)#i",
+              "callback": "wp_embed_handler_youtube",
+              "priority": 10
+            },
+            {
+              "action": "register",
+              "id": "audio",
+              "regex": "#^https?://.+?\\.(mp3|m4a)$#i",
+              "callback": "custom_audio_handler",
+              "priority": 9999
+            },
+            {
+              "action": "register",
+              "id": "video",
+              "regex": "#^https?://.+?\\.(mp4|webm)$#i",
+              "callback": "custom_video_handler",
+              "priority": 9999
+            }
+          ],
+          "providers": [],
+          "early_providers": [],
+          "filters": [
+            {
+              "hook": "load_default_embeds",
+              "value": true,
+              "args": []
+            },
+            {
+              "hook": "wp_audio_embed_handler",
+              "value": "wp_embed_handler_audio",
+              "args": []
+            },
+            {
+              "hook": "wp_video_embed_handler",
+              "value": "wp_embed_handler_video",
+              "args": []
+            }
+          ]
+        },
+        {
           "id": "audio:default",
           "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -910,6 +1387,7 @@
         {
           "id": "audio:filtered",
           "value": "Filtered Audio",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -929,6 +1407,7 @@
         {
           "id": "video:default",
           "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -949,6 +1428,7 @@
         {
           "id": "video:no-dimensions",
           "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -966,6 +1446,7 @@
         {
           "id": "video:filtered",
           "value": "Filtered Video",
+          "embed_calls": [],
           "providers": [],
           "early_providers": [],
           "filters": [
@@ -985,6 +1466,84 @@
         }
       ],
       "reflection": {
+        "wp_embed_register_handler": {
+          "name": "wp_embed_register_handler",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 3,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "id",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "regex",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "callback",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "priority",
+              "position": 3,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 10,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_unregister_handler": {
+          "name": "wp_embed_unregister_handler",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "id",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "priority",
+              "position": 1,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": 10,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "wp_embed_defaults": {
           "name": "wp_embed_defaults",
           "numberOfParameters": 1,
@@ -1109,6 +1668,14 @@
               "isVariadic": false
             }
           ]
+        },
+        "wp_maybe_load_embeds": {
+          "name": "wp_maybe_load_embeds",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
         },
         "wp_embed_handler_audio": {
           "name": "wp_embed_handler_audio",
@@ -1226,11 +1793,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, default handler loading and callback filters, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow provider registry interaction required by selected module functions, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership beyond the narrow handler/provider registry interactions required by selected module functions, YouTube autoembed behavior, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

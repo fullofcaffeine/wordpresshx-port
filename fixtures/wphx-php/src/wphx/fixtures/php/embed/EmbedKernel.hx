@@ -10,6 +10,20 @@ import wphx.wp.boundary.NativeValue.NativeValue;
 @:keep
 class EmbedKernel
 {
+	public static function embedRegisterHandler(id:String, regex:String, callback:NativeValue, priority:Int):Void
+	{
+		// WPHX-211: WordPress stores the process-global WP_Embed instance in $GLOBALS['wp_embed'].
+		final wpEmbed:WpEmbed = cast WpNativeArray.get(SuperGlobal.GLOBALS, "wp_embed", null);
+		wpEmbed.registerHandler(id, regex, callback, priority);
+	}
+
+	public static function embedUnregisterHandler(id:String, priority:Int):Void
+	{
+		// WPHX-211: WordPress stores the process-global WP_Embed instance in $GLOBALS['wp_embed'].
+		final wpEmbed:WpEmbed = cast WpNativeArray.get(SuperGlobal.GLOBALS, "wp_embed", null);
+		wpEmbed.unregisterHandler(id, priority);
+	}
+
 	public static function embedDefaults(url:String):php.NativeArray
 	{
 		var width = 0;
@@ -74,6 +88,20 @@ class EmbedKernel
 		}
 
 		return false;
+	}
+
+	public static function maybeLoadEmbeds():Void
+	{
+		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
+		{
+			return;
+		}
+
+		embedRegisterHandler("youtube_embed_url", "#https?://(www\\.)?youtube\\.com/(?:v|embed)/([^/]+)#i", "wp_embed_handler_youtube", 10);
+		embedRegisterHandler("audio", "#^https?://.+?\\.(" + EmbedGlobals.implode("|", EmbedGlobals.wpGetAudioExtensions()) + ")$#i",
+			EmbedHooks.applyFiltersNative1("wp_audio_embed_handler", "wp_embed_handler_audio"), 9999);
+		embedRegisterHandler("video", "#^https?://.+?\\.(" + EmbedGlobals.implode("|", EmbedGlobals.wpGetVideoExtensions()) + ")$#i",
+			EmbedHooks.applyFiltersNative1("wp_video_embed_handler", "wp_embed_handler_video"), 9999);
 	}
 
 	public static function embedHandlerAudio(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String
@@ -148,6 +176,15 @@ extern class EmbedGlobals
 	@:native("intval")
 	public static function intval(value:NativeValue):Int;
 
+	@:native("implode")
+	public static function implode(separator:String, pieces:php.NativeArray):String;
+
+	@:native("wp_get_audio_extensions")
+	public static function wpGetAudioExtensions():php.NativeArray;
+
+	@:native("wp_get_video_extensions")
+	public static function wpGetVideoExtensions():php.NativeArray;
+
 	@:native("did_action")
 	public static function didAction(hookName:String):Int;
 
@@ -181,11 +218,26 @@ extern class WpOembed
 }
 
 /**
+	Typed subset of WP_Embed handler registry methods used by selected module functions.
+**/
+extern class WpEmbed
+{
+	@:native("register_handler")
+	public function registerHandler(id:String, regex:String, callback:NativeValue, priority:Int):Void;
+
+	@:native("unregister_handler")
+	public function unregisterHandler(id:String, priority:Int):Void;
+}
+
+/**
 	Narrow extern for WordPress filter dispatch at the public PHP boundary.
 **/
 @:phpGlobal
 extern class EmbedHooks
 {
+	@:native("apply_filters")
+	public static function applyFiltersNative1(hookName:String, value:NativeValue):NativeValue;
+
 	@:native("apply_filters")
 	public static function applyFiltersNative2(hookName:String, value:NativeValue, arg:NativeValue):NativeValue;
 

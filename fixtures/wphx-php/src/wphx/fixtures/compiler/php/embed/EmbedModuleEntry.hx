@@ -4,6 +4,9 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getOembedEndpointUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedDefaults;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerAudio;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerVideo;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedRegisterHandler;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHandler;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddProvider;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedEnsureFormat;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRemoveProvider;
@@ -15,11 +18,14 @@ class EmbedModuleEntry
 {
 	static function main():Void
 	{
+		wpEmbedRegisterHandler("", "", null, 10);
+		wpEmbedUnregisterHandler("", 10);
 		wpEmbedDefaults("");
 		getOembedEndpointUrl("", "json");
 		wpOembedEnsureFormat("json");
 		wpOembedAddProvider("", "", false);
 		wpOembedRemoveProvider("");
+		wpMaybeLoadEmbeds();
 		wpEmbedHandlerAudio(null, null, "", null);
 		wpEmbedHandlerVideo(null, null, "", null);
 	}

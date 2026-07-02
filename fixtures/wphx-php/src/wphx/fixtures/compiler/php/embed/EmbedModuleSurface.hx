@@ -7,6 +7,25 @@ import wphx.wp.boundary.NativeValue.NativeValue;
 **/
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_embed_register_handler")
+@:keep
+function wpEmbedRegisterHandler(@:wp.name("id") id:String, @:wp.name("regex") regex:String, @:wp.name("callback") callback:NativeValue,
+	@:wp.name("priority") priority:Int = 10):Void
+{
+	HaxeEmbedKernel.embedRegisterHandler(id, regex, callback, priority);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_embed_unregister_handler")
+@:keep
+function wpEmbedUnregisterHandler(@:wp.name("id") id:String, @:wp.name("priority") priority:Int = 10):Void
+{
+	HaxeEmbedKernel.embedUnregisterHandler(id, priority);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_embed_defaults")
 @:keep
 function wpEmbedDefaults(@:wp.name("url") url:String = ""):NativeValue
@@ -48,6 +67,15 @@ function wpOembedAddProvider(@:wp.name("format") format:String, @:wp.name("provi
 function wpOembedRemoveProvider(@:wp.name("format") format:String):Bool
 {
 	return HaxeEmbedKernel.oembedRemoveProvider(format);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_maybe_load_embeds")
+@:keep
+function wpMaybeLoadEmbeds():Void
+{
+	HaxeEmbedKernel.maybeLoadEmbeds();
 }
 
 @:wp.file("wp-includes/embed.php")
