@@ -68,13 +68,44 @@ function uncommentedLines(lines) {
 }
 
 function escapeKinds(code) {
+  const scanned = stripStringLiterals(code);
   const kinds = [];
-  if (/\bDynamic\b/.test(code)) kinds.push("Dynamic");
-  if (/\buntyped\b/.test(code)) kinds.push("untyped");
-  if (/php\.Syntax\.code/.test(code)) kinds.push("php.Syntax.code");
-  if (/\bcast\b/.test(code)) kinds.push("cast");
-  if (/\bAny\b/.test(code)) kinds.push("Any");
+  if (/\bDynamic\b/.test(scanned)) kinds.push("Dynamic");
+  if (/\buntyped\b/.test(scanned)) kinds.push("untyped");
+  if (/php\.Syntax\.code/.test(scanned)) kinds.push("php.Syntax.code");
+  if (/\bcast\b/.test(scanned)) kinds.push("cast");
+  if (/\bAny\b/.test(scanned)) kinds.push("Any");
   return kinds;
+}
+
+function stripStringLiterals(code) {
+  let result = "";
+  let quote = null;
+  let escaped = false;
+  for (const char of code) {
+    if (quote !== null) {
+      if (escaped) {
+        escaped = false;
+        continue;
+      }
+      if (char === "\\") {
+        escaped = true;
+        continue;
+      }
+      if (char === quote) {
+        result += char;
+        quote = null;
+      }
+      continue;
+    }
+    if (char === "\"" || char === "'") {
+      result += char;
+      quote = char;
+      continue;
+    }
+    result += char;
+  }
+  return result;
 }
 
 function justificationFor(lines, index) {

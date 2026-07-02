@@ -21,6 +21,17 @@ Do not assume stock Haxe PHP can directly generate public WordPress Core files w
 
 `WPHX-COMP-PHP-USABLE` is the current focus before broad Core PHP porting resumes in parallel. Its gates are gap inventory, runtime/std strategy, reusable core lowering, a small whole-file WordPress pilot, and adoption CI. Core slices may still proceed when they intentionally drive one of those compiler gates.
 
+The gap inventory lane is the first usable-compiler gate:
+
+```bash
+npm run wphx:php:gap-inventory
+npm run wphx:php:gap-inventory:check
+```
+
+It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 25 Reflaxe-backed WPHX PHP public-adapter hxmls, 9 stock Haxe PHP private-output hxmls, 46 `@:wp.haxeHelper` metadata sites, 18 `@:wp.haxeBootstrap` sites, 39 WordPress-profile method adapters, 4 script adapters, 18 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 11 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
+
+Use that manifest when moving gaps: reusable expression, statement, array, object, call, loop, cast, and std/php behavior belongs in WPHX PHP core or runtime/std strategy; original-path ABI, pluggable timing, conditional declarations, and WordPress-specific shell compatibility stay in the WordPress profile. Helper/bootstrap bridges are temporary fallbacks until a targeted whole-file or core-lowering gate retires them. Runner copies used as oracle setup are not durable public ownership claims.
+
 Use the native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` as an implementation oracle for generic, borrowable lowering/runtime behavior when useful. That reference can guide what to reuse or adapt; WordPress public ABI, original path topology, declaration timing, and ecosystem-visible behavior still require WordPress oracle fixtures and WPHX public-shell evidence.
 
 Copied, transformed, hand-authored, or JS-patched public PHP shells are bridge mechanisms only. The shell-retirement states in [ownership-state-model.md](ownership-state-model.md) define which claims are allowed for `bridge_shell`, `generated_helper_with_temporary_shell`, `compiler_emitted_original_path_shell`, `durable_public_adapter`, and `whole_file_owned`. Durable public PHP claims must cite compiler-emitted original-path shell evidence, durable adapter evidence, whole-file evidence, or an accepted backend/custom-target improvement.
@@ -46,6 +57,8 @@ npm run wphx:php:wp-http-grouped-helpers
 npm run wphx:php:wp-http-grouped-helpers:check
 npm run wphx:php:public-shell-snapshots
 npm run wphx:php:public-shell-snapshots:check
+npm run wphx:php:gap-inventory
+npm run wphx:php:gap-inventory:check
 npm run wphx:php:pluggable-timing
 npm run wphx:php:pluggable-timing:check
 npm run wphx:php:bootstrap-autoload

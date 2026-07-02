@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-gap-inventory",
+  "issue": {
+    "id": "wordpresshx-w91.24.1",
+    "external_ref": "WPHX-COMP-PHP-GAP-INVENTORY",
+    "title": "Audit stock PHP target dependencies and WPHX PHP gaps"
+  },
+  "recorded_at": "2026-07-02T12:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_gap_inventory",
+  "artifact_scope": "wphx_php_stock_target_and_backend_pressure_inventory",
+  "commands": [
+    "npm run wphx:php:gap-inventory",
+    "npm run wphx:php:gap-inventory:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-compiler-gap-inventory.mjs",
+      "role": "deterministic WPHX PHP compiler gap inventory runner"
+    },
+    {
+      "path": "manifests/wphx-php/compiler-gap-inventory.v1.json",
+      "role": "machine-readable stock-target dependency and WPHX PHP gap inventory"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation for the gap inventory lane"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "durable program rollup updated for the compiler inventory checkpoint"
+    }
+  ],
+  "manifest_sha256": "sha256:fb25a7454921b4916e2d13dfff2f8bb57517ed2ac8047cec24aa2dab5bfa9384",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "wphx_hxml_count": 25,
+    "stock_haxe_php_hxml_count": 9,
+    "reflaxe_backed_wphx_hxml_count": 25,
+    "wp_adapter_metadata_count": 46,
+    "wp_haxe_helper_metadata_count": 46,
+    "wp_haxe_bootstrap_metadata_count": 18,
+    "wp_script_adapter_metadata_count": 4,
+    "php_raw_block_count": 0,
+    "render_template_call_count": 0,
+    "manifest_count": 11,
+    "manifest_statuses_passed": true,
+    "stock_haxe_reference_count": 7,
+    "stock_haxe_reference_missing_count": 0
+  },
+  "claims": [
+    "The inventory records current WPHX PHP hxmls, stock Haxe PHP private-output dependencies, Reflaxe-backed public adapter hxmls, helper/bootstrap metadata, WordPress profile adapters, script adapters, unsupported typed-lowering report sites, runner copy/patch surfaces, WPHX evidence manifests, and local stock Haxe PHP reference files.",
+    "The current WordPress profile remains at zero PhpRawBlock occurrences and zero renderTemplate calls.",
+    "Every current WPHX PHP public-adapter hxml uses the Reflaxe classpath and the WPHX CompilerInit macro.",
+    "Follow-up ownership is classified across reusable PHP core IR, WordPress profile ABI constraints, std/php runtime borrowing, temporary fallbacks, and backend pressure."
+  ],
+  "non_claims": [
+    "This inventory is static evidence; it does not prove new WordPress behavior parity.",
+    "This does not claim WPHX PHP is already a mature arbitrary-Haxe reflaxe.php target.",
+    "This does not retire stock Haxe PHP private implementation output, helper bridges, or bootstrap dependencies.",
+    "This does not claim whole-file WP_Http, WP_HTTP_Response, mixed-template, or installed WordPress ownership."
+  ]
+}
