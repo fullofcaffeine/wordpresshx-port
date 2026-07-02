@@ -19,7 +19,7 @@ When WPHX public adapters bootstrap stock Haxe PHP implementation classes, that 
 
 Do not assume stock Haxe PHP can directly generate public WordPress Core files with the ABI, file topology, reference behavior, warning behavior, stack traces, and include timing modern WordPress requires. Public WordPress files must pass WPHX public-shell gates. New public WordPress PHP gaps should move into WPHX PHP, not into source contortions or runner patches. Conversely, do not claim WPHX PHP is a full arbitrary-Haxe backend until minimized evidence and a later ADR accept that promotion. ADR-015 defines the generated PHP quality bar and full-backend promotion criteria; ADR-016 defines the usable-compiler adoption track.
 
-`WPHX-COMP-PHP-USABLE` is the current focus before broad Core PHP porting resumes in parallel. Its gates are gap inventory, runtime/std strategy, reusable core lowering, a small whole-file WordPress pilot, and adoption CI. Core slices may still proceed when they intentionally drive one of those compiler gates.
+`WPHX-COMP-PHP-USABLE` has passed the bounded usable-compiler gate for resuming parallel Core PHP port slices. Its gates are gap inventory, runtime/std strategy, reusable core lowering, a small whole-file WordPress pilot, and adoption CI. Parallel Core slices may proceed when they use WPHX PHP for new public WordPress PHP emission or intentionally drive a named compiler gap while keeping the adoption gate green.
 
 The gap inventory lane is the first usable-compiler gate:
 
@@ -59,6 +59,15 @@ npm run wphx:php:whole-file-class-http:check
 
 It records `manifests/wphx-php/whole-file-class-http.v1.json` and `receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json`. The fixture emits the complete original-path WordPress file `wp-includes/class-http.php` with no stock Haxe PHP public shape fallback, no Haxe bootstrap, and no helper bridge. It compares the generated file against the WordPress 7.0 oracle file for `_deprecated_file( basename( __FILE__ ), '5.9.0', WPINC . '/class-wp-http.php' )` payload and `require_once ABSPATH . WPINC . '/class-wp-http.php'` timing in an isolated probe. The emission manifest records `adoption_mode="whole_file_owned"` and reusable core features for `require_once`, `__FILE__`, and constant/path concatenation. This is a deliberately minimized whole-file ownership claim; it does not claim `wp-includes/class-wp-http.php`, `WP_Http`, live HTTP transport behavior, installed distribution behavior, or broad deprecated-file ownership.
 
+The adoption CI lane closes the usable-compiler gate:
+
+```bash
+npm run wphx:php:adoption-ci
+npm run wphx:php:adoption-ci:check
+```
+
+It records `manifests/ci/wphx-php-adoption-ci.v1.json` and `receipts/compiler/wphx-comp-php-adoption-ci.v1.json`. The executable gate runs the gap inventory, raw-block/template policy, public-shell snapshots, runtime/std strategy, core-lowering pilot, whole-file pilot, bootstrap autoload, bootstrap error-handler, and bootstrap debug checks. It then verifies generated PHP quality, `unsupported=[]` for claimed boundaries, zero inline public raw PHP bodies, zero active adapter templates, public-shell snapshot coverage, runtime/std/bootstrap/debug probes, and bounded stock Haxe PHP fallback surfaces. A passing adoption CI unblocks bounded parallel WordPress Core work under these rules; it does not claim mature arbitrary-Haxe `reflaxe.php` backend scope, WPHX runtime/std ownership, installed WordPress parity, complete `WP_Http` ownership, live HTTP behavior, Gutenberg/browser ownership, or abandonment of stock Haxe PHP as the private implementation/stdphp oracle.
+
 Use the native Haxe PHP generator and `std/php` sources in `../haxe.compilerdev.reference/haxe` as an implementation oracle for generic, borrowable lowering/runtime behavior when useful. That reference can guide what to reuse or adapt; WordPress public ABI, original path topology, declaration timing, and ecosystem-visible behavior still require WordPress oracle fixtures and WPHX public-shell evidence.
 
 Copied, transformed, hand-authored, or JS-patched public PHP shells are bridge mechanisms only. The shell-retirement states in [ownership-state-model.md](ownership-state-model.md) define which claims are allowed for `bridge_shell`, `generated_helper_with_temporary_shell`, `compiler_emitted_original_path_shell`, `durable_public_adapter`, and `whole_file_owned`. Durable public PHP claims must cite compiler-emitted original-path shell evidence, durable adapter evidence, whole-file evidence, or an accepted backend/custom-target improvement.
@@ -92,6 +101,8 @@ npm run wphx:php:core-lowering-pilot
 npm run wphx:php:core-lowering-pilot:check
 npm run wphx:php:whole-file-class-http
 npm run wphx:php:whole-file-class-http:check
+npm run wphx:php:adoption-ci
+npm run wphx:php:adoption-ci:check
 npm run wphx:php:pluggable-timing
 npm run wphx:php:pluggable-timing:check
 npm run wphx:php:bootstrap-autoload

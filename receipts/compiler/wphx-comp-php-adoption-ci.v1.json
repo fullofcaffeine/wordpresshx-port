@@ -1,0 +1,60 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-adoption-ci",
+  "issue": {
+    "id": "wordpresshx-w91.24.5",
+    "external_ref": "WPHX-COMP-PHP-ADOPTION-CI",
+    "title": "Define usable-compiler quality gate for parallel Core work"
+  },
+  "recorded_at": "2026-07-02T21:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_adoption_ci",
+  "artifact_scope": "wphx_php_usable_compiler_gate",
+  "commands": [
+    "npm run wphx:php:adoption-ci",
+    "npm run wphx:php:adoption-ci:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-adoption-ci.mjs",
+      "role": "executable WPHX PHP usable-compiler adoption gate"
+    },
+    {
+      "path": "manifests/ci/wphx-php-adoption-ci.v1.json",
+      "role": "WPHX PHP adoption CI decision manifest"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation updated with adoption CI scope"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program rollup updated with WPHX-COMP-PHP-USABLE closure"
+    }
+  ],
+  "manifest_sha256": "sha256:732bbf4e1e7e7580f1afad31190bbf952809a6b77883a4058a8d999c2c6ab12e",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "required_check_count": 9,
+    "required_checks_passed": true,
+    "generated_php_quality_gate_passed": true,
+    "unsupported_empty_for_claimed_boundaries": true,
+    "raw_block_and_template_debt_clear": true,
+    "public_shell_snapshot_gate_passed": true,
+    "runtime_stdlib_bootstrap_debug_gate_passed": true,
+    "stock_fallback_surfaces_bounded": true,
+    "parallel_core_port_work_unblocked": true
+  },
+  "claims": [
+    "WPHX PHP passes the usable-compiler adoption gate for bounded parallel WordPress Core port slices.",
+    "The gate verifies generated PHP quality, public-shell snapshots, runtime/std and bootstrap/debug probes, raw-block/template debt, unsupported=[] for claimed boundaries, and bounded stock fallback surfaces.",
+    "Parallel Core work may resume when it routes new public PHP gaps into WPHX PHP and keeps oracle/candidate evidence current."
+  ],
+  "non_claims": [
+    "This does not claim WPHX PHP is a mature arbitrary-Haxe reflaxe.php target.",
+    "This does not abandon stock Haxe PHP private implementation output or std/php behavior oracle duty.",
+    "This does not claim installed WordPress distribution parity, live HTTP transport behavior, complete WP_Http ownership, or broad Gutenberg/browser ownership.",
+    "This does not remove the need for oracle review before full backend promotion or stock-target abandonment."
+  ]
+}
