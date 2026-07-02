@@ -262,7 +262,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http_Cookie PHP class shell, public properties, AllowDynamicProperties attribute, constructor parsing/default behavior, and wp_http_cookie_value filter boundary while delegating post-construction test() domain/path/port/expiry matching, header string formatting, full Cookie header formatting, and get_attributes shape to typed Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

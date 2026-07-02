@@ -310,7 +310,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell, native Location header arrays, redirect budget mutation, WP_Error construction, cookie tests, absolute URL resolution, and wp_remote_request ABI while delegating bounded redirect branch decisions to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",

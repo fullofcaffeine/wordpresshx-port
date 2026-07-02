@@ -190,7 +190,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell, public static method ABI, and string return shape while delegating chunk-header parsing and observed decode/passthrough decisions to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

@@ -375,7 +375,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate promotes the deprecated WP_Http transport default token list, core token recognition, and WP_Http_* class-name construction to generated Haxe PHP. The WPHX PHP compiler now emits both transport helper adapter bodies from structured core IR, preserving PHP-visible apply_filters_deprecated timing/payload, static transport test calls, dispatch transport instance caching, WP_Error construction, http_api_debug action timing, http_response filtering, fake transport requests, and the public compatibility shell."
     },
-    ownership_state: "haxe_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

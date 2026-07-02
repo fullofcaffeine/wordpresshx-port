@@ -213,7 +213,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell, wp_http_validate_url, translation, and Requests exception ABI through a compiler-emitted original-path public shell while delegating the validated/failed branch decision to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",

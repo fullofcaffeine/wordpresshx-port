@@ -275,7 +275,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell and native WP_HTTP_BLOCK_EXTERNAL, WP_ACCESSIBLE_HOSTS, parse_url, get_option('siteurl'), and block_local_requests filter boundaries while delegating local-host/site-host detection plus exact and wildcard accessible-host policy decisions to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",

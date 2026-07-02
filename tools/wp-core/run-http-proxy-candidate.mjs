@@ -322,7 +322,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "The candidate preserves the WP_HTTP_Proxy public PHP class/method ABI while delegating the post-filter send_through_proxy host/bypass decision to generated Haxe PHP. PHP keeps parse_url, get_option('siteurl'), pre_http_send_through_proxy, constants, and authentication header boundaries."
     },
-    ownership_state: "haxe_parity_candidate",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

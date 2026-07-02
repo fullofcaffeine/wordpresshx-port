@@ -244,7 +244,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "The candidate preserves the WP_Http_Encoding public PHP class/method ABI while delegating promoted encoding helpers to generated Haxe PHP. The Haxe strategy owns compression/decompression fallback order, gzip-compatible inflation, content-encoding, should-decode checks, and zlib availability decisions for the bounded fixture cases."
     },
-    ownership_state: "haxe_parity_candidate",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

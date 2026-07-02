@@ -211,7 +211,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell, protected static method ABI, subclass parent::parse_url access, native _deprecated_function dispatch, and native wp_parse_url false-or-array result shape while delegating wrapper metadata and wp_parse_url handoff intent to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",

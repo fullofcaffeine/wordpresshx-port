@@ -241,7 +241,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_HTTP_Response PHP class shell, public properties, AllowDynamicProperties attribute, and absint boundary while delegating constructor-equivalent state initialization, get/set data, get/set headers, single-header replace/append behavior, get/set status, and jsonSerialize data handoff to typed Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-original-path-public-php-shell",

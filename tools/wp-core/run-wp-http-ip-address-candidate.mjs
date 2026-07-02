@@ -197,7 +197,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell while delegating the IPv4 regex-shape, IPv6 PCRE, and bracket/space trim decisions to module-level Haxe source with a narrow PHP PCRE boundary for upstream-compatible regex behavior."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",

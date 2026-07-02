@@ -238,7 +238,7 @@ function ownershipManifest(manifestSha) {
       public_contract:
         "This candidate preserves the WP_Http PHP class shell, public static method ABI, by-reference request array mutation, scalar cookie upgrading, WP_Http_Cookie methods, and wp_http_cookie_value filter timing while delegating the final Cookie header separator assembly to module-level Haxe source."
     },
-    ownership_state: "haxe_owned_candidate_with_public_php_shell",
+    ownership_state: "compiler_emitted_original_path_shell",
     bridge: {
       exists: true,
       kind: "compiler-emitted-grouped-original-path-public-php-shell",
