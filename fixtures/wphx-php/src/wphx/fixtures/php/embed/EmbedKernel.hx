@@ -78,6 +78,38 @@ class EmbedKernel
 		return format == "xml" || format == "json" ? format : "json";
 	}
 
+	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
+	{
+		if (!WpNativeArray.isArray(data))
+		{
+			return false;
+		}
+
+		// WPHX-211: _oembed_create_xml() accepts arbitrary native PHP arrays at the public ABI.
+		final dataArray:php.NativeArray = cast data;
+		if (WpNativeArray.count(dataArray) == 0)
+		{
+			return false;
+		}
+
+		final xmlNode = node == null ? new SimpleXmlElement("<oembed></oembed>") : existingSimpleXmlNode(node);
+		for (pair in dataArray.keyValueIterator())
+		{
+			final key = EmbedGlobals.isNumeric(pair.key) ? "oembed" : EmbedGlobals.strval(pair.key);
+			if (WpNativeArray.isArray(pair.value))
+			{
+				// WPHX-211: recursive oEmbed XML creation must preserve native PHP array key/value traversal.
+				final child = xmlNode.addChild(key);
+				oembedCreateXml(pair.value, child);
+			} else
+			{
+				xmlNode.addChild(key, EmbedGlobals.escHtml(EmbedGlobals.strval(pair.value)));
+			}
+		}
+
+		return xmlNode.asXml();
+	}
+
 	public static function oembedAddProvider(format:String, provider:String, regex:Bool):Void
 	{
 		if (EmbedGlobals.didAction("plugins_loaded") > 0)
@@ -285,6 +317,12 @@ class EmbedKernel
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
 		return php.Syntax.code("array({0}, {1})", provider, regex);
 	}
+
+	static function existingSimpleXmlNode(node:NativeValue):SimpleXmlElement
+	{
+		// WPHX-211: recursive _oembed_create_xml() receives a PHP SimpleXMLElement child object.
+		return cast node;
+	}
 }
 
 /**
@@ -334,6 +372,9 @@ extern class EmbedGlobals
 
 	@:native("intval")
 	public static function intval(value:NativeValue):Int;
+
+	@:native("is_numeric")
+	public static function isNumeric(value:NativeValue):Bool;
 
 	@:native("implode")
 	public static function implode(separator:String, pieces:php.NativeArray):String;
@@ -448,6 +489,21 @@ extern class WpOembedController
 
 	@:native("register_routes")
 	public function registerRoutes():Void;
+}
+
+/**
+	Narrow extern for SimpleXML nodes used by WordPress oEmbed XML output.
+**/
+@:native("SimpleXMLElement")
+extern class SimpleXmlElement
+{
+	public function new(xml:String):Void;
+
+	@:native("addChild")
+	public function addChild(key:String, ?value:String):SimpleXmlElement;
+
+	@:native("asXML")
+	public function asXml():NativeValue;
 }
 
 /**

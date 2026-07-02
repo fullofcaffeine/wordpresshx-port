@@ -315,7 +315,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 89,
+  "occurrence_count": 91,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -489,7 +489,17 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 240,
+      "line": 89,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final dataArray:php.NativeArray = cast data;",
+      "source_sha256": "sha256:d865f0157e1b9db72c5bbbbcb565d3b3a56f8f7335aa74948c6a705436e3518a",
+      "justification": "WPHX-211: _oembed_create_xml() accepts arbitrary native PHP arrays at the public ABI."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 272,
       "kinds": [
         "cast"
       ],
@@ -499,7 +509,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 243,
+      "line": 275,
       "kinds": [
         "cast"
       ],
@@ -509,7 +519,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 258,
+      "line": 290,
       "kinds": [
         "cast"
       ],
@@ -519,7 +529,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 274,
+      "line": 306,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -529,7 +539,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 280,
+      "line": 312,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -539,13 +549,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 286,
+      "line": 318,
       "kinds": [
         "php.Syntax.code"
       ],
       "source": "return php.Syntax.code(\"array({0}, {1})\", provider, regex);",
       "source_sha256": "sha256:d00aae3205faa17a214fb0b1845f7ff927cd760fa689837124a2ec86339e0e86",
       "justification": "WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 324,
+      "kinds": [
+        "cast"
+      ],
+      "source": "return cast node;",
+      "source_sha256": "sha256:9deea6144e5b627e6f770f95583006cb58a33c48b824dba08c2169aca1fb2f93",
+      "justification": "WPHX-211: recursive _oembed_create_xml() receives a PHP SimpleXMLElement child object."
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
@@ -1209,7 +1229,7 @@
     }
   ],
   "by_kind": {
-    "cast": 12,
+    "cast": 14,
     "Dynamic": 8,
     "php.Syntax.code": 69
   },

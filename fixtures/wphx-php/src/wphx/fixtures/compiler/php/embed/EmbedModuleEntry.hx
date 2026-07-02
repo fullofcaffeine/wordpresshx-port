@@ -2,6 +2,7 @@ package wphx.fixtures.compiler.php.embed;
 
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getOembedEndpointUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.enqueueEmbedScripts;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.oembedCreateXml;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theExcerptEmbed;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theEmbedSiteTitle;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedDefaults;
@@ -38,6 +39,7 @@ class EmbedModuleEntry
 		wpOembedGetObject();
 		getOembedEndpointUrl("", "json");
 		wpOembedEnsureFormat("json");
+		oembedCreateXml(null, null);
 		wpOembedAddProvider("", "", false);
 		wpOembedRemoveProvider("");
 		wpOembedRegisterRoute();
