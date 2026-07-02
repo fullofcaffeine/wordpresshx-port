@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 2509,
-      "sha256": "sha256:697e6b015b4c18ca1a89983c5e5e3943a7c5db1c901d23059d2c138fcc35b8b2",
+      "bytes": 3079,
+      "sha256": "sha256:00ec41b32e3baa7a7ebfdc249dd34c8f3e3aae31e8ee80179489c7313f7f8561",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -316,7 +316,13 @@
         "$this->linkifunknown = false;",
         "$return = $this->shortcode( array(), $matches[ 2 ] );",
         "$this->linkifunknown = $oldval;",
-        "return $matches[ 1 ] . $return . $matches[ 3 ];"
+        "return $matches[ 1 ] . $return . $matches[ 3 ];",
+        "public function autoembed($content)",
+        "$content = wp_replace_in_html_tags( $content, array(",
+        "preg_match( '#(^|\\\\s|>)https?://#i', $content )",
+        "preg_replace_callback( '|^(\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*)$|im', array(",
+        "preg_replace_callback( '|(<p(?: [^>]*)?>\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*</p>)|i', array(",
+        "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );"
       ],
       "ast_contract": {
         "functions": [],
@@ -326,6 +332,7 @@
         "interfaces": [],
         "methods": [
           "autoembed_callback",
+          "autoembed",
           "delete_oembed_caches",
           "get_embed_handler_html",
           "maybe_make_link",
@@ -338,8 +345,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1101,
-        "sha256": "sha256:d95b20771a178ebeb22520a96657a598ab647fbf16930ffe5f8511db8da6f695"
+        "bytes": 1119,
+        "sha256": "sha256:190fbe5e1757379bf6c52f88e6b86081e54349e753c8c220afe467c3ad62f05d"
       }
     },
     {

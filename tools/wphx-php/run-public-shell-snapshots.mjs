@@ -195,7 +195,13 @@ const CASES = [
       "$this->linkifunknown = false;",
       "$return = $this->shortcode( array(), $matches[ 2 ] );",
       "$this->linkifunknown = $oldval;",
-      "return $matches[ 1 ] . $return . $matches[ 3 ];"
+      "return $matches[ 1 ] . $return . $matches[ 3 ];",
+      "public function autoembed($content)",
+      "$content = wp_replace_in_html_tags( $content, array(",
+      "preg_match( '#(^|\\\\s|>)https?://#i', $content )",
+      "preg_replace_callback( '|^(\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*)$|im', array(",
+      "preg_replace_callback( '|(<p(?: [^>]*)?>\\\\s*)(https?://[^\\\\s<>\"]+)(\\\\s*</p>)|i', array(",
+      "return str_replace( '<!-- wp-line-break -->', \"\\n\", $content );"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
@@ -205,7 +211,8 @@ const CASES = [
         "get_embed_handler_html",
         "maybe_make_link",
         "delete_oembed_caches",
-        "autoembed_callback"
+        "autoembed_callback",
+        "autoembed"
       ]
     }
   },

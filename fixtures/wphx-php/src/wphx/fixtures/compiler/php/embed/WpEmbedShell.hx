@@ -74,4 +74,11 @@ class WpEmbedShell
 		matches;
 		return "";
 	}
+
+	@:wp.adapter("wp-embed-autoembed")
+	public function autoembed(content:String):String
+	{
+		content;
+		return "";
+	}
 }

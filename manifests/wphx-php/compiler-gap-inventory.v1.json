@@ -202,13 +202,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 608,
-      "sha256": "sha256:da4e6153589ab9c83cca8e926b23d8782fb6a142ec58ac3cacc9337137270dff"
+      "bytes": 652,
+      "sha256": "sha256:eff42a42ea1c22b7370937e7c5f789fd011ec9dfc8b4760e32222e2f82fb9cd0"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 1888,
-      "sha256": "sha256:f8f00ef143c70cebfc0e9249e18306fb8fb2971db1ab5a6f8532ca8ec24bb723"
+      "bytes": 2005,
+      "sha256": "sha256:faa512ca194ad1388404a4812f7ca16cb2db4abc0fd17c792eb5794aa21a623f"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/facade/F1Entry.hx",
@@ -692,8 +692,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 70521,
-      "sha256": "sha256:48f2fd059de45439d902101546b96114d6ab290708405c8bdbd08d66894465d8"
+      "bytes": 71604,
+      "sha256": "sha256:b4f0f55f64c3a24b7e4ae0a42429ab267cab80092707a0ef520a0f81ff876a49"
     }
   ],
   "summary": {
@@ -701,11 +701,11 @@
     "wphx_hxml_count": 31,
     "stock_haxe_php_hxml_count": 12,
     "reflaxe_backed_wphx_hxml_count": 31,
-    "wp_adapter_metadata_count": 52,
+    "wp_adapter_metadata_count": 53,
     "wp_haxe_helper_metadata_count": 59,
     "wp_haxe_bootstrap_metadata_count": 96,
     "wp_script_adapter_metadata_count": 5,
-    "method_adapter_registry_count": 45,
+    "method_adapter_registry_count": 46,
     "script_adapter_registry_count": 5,
     "unsupported_report_site_count": 23,
     "runner_surface_count": 28,
@@ -1993,6 +1993,12 @@
         "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
         "line": 71,
         "adapter": "wp-embed-autoembed-callback"
+      },
+      {
+        "kind": "wp.adapter",
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
+        "line": 78,
+        "adapter": "wp-embed-autoembed"
       },
       {
         "kind": "wp.adapter",
@@ -5599,6 +5605,11 @@
   },
   "wordpress_profile_method_adapter_registry": [
     {
+      "adapter": "wp-embed-autoembed",
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "line": 135
+    },
+    {
       "adapter": "wp-embed-autoembed-callback",
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
       "line": 133
@@ -6031,7 +6042,7 @@
       "segment_plan_count": null,
       "adapter_template_count": null,
       "bytes": 1542,
-      "sha256": "sha256:18162f55f2dbcedcc6e5218a82ebfe25012d3deaab325d158b3714929b2c39d9"
+      "sha256": "sha256:38d54964492f86f236686b1cfca6480e16603645f5a8fa10e553f3f1252daf67"
     },
     {
       "path": "manifests/wphx-php/bootstrap-autoload.v1.json",
@@ -6162,8 +6173,8 @@
       "core_ir_feature_count": null,
       "segment_plan_count": null,
       "adapter_template_count": null,
-      "bytes": 55445,
-      "sha256": "sha256:b0f562542f491f026365c515622a145bd9a9123d56ce4fc337fccadeeb68cb50"
+      "bytes": 55915,
+      "sha256": "sha256:d1b8bf7476e3aed2428c8b8f4882979bbdc2242ad2105a71709bb284ec948a07"
     },
     {
       "path": "manifests/wphx-php/runtime-stdlib-strategy.v1.json",
@@ -6234,8 +6245,8 @@
       "core_ir_feature_count": null,
       "segment_plan_count": null,
       "adapter_template_count": null,
-      "bytes": 50175,
-      "sha256": "sha256:12d930928314ffac11bc3f68ba5b0b8778911d22c5b0d776e8444a7ed49e6e95"
+      "bytes": 59972,
+      "sha256": "sha256:f63409c6308d0dca90f721d3f6f7e9fe02eb98054ab6b65e8a2f51520ce1a1aa"
     }
   ],
   "wphx_php_runner_surfaces": [
@@ -6574,7 +6585,7 @@
       "copied_or_patch_lines": [
         {
           "kind": "copy_file",
-          "line": 122,
+          "line": 132,
           "source_sha256": "sha256:6788d374a5334b0a658833330f4584bb7a34d02032ac1c7865c9bc3d27376abe"
         }
       ]
@@ -6867,8 +6878,9 @@
       "classification": "wordpress_profile_abi_constraint",
       "severity": "active_profile_scope",
       "follow_up_owner": "WPHX-COMP-PHP-CORE-LOWERING-PILOT",
-      "count": 45,
+      "count": 46,
       "adapters": [
+        "wp-embed-autoembed",
         "wp-embed-autoembed-callback",
         "wp-embed-delete-oembed-caches",
         "wp-embed-get-handler-html",
@@ -7010,7 +7022,7 @@
     "wphx_hxml_count": 31,
     "stock_haxe_php_hxml_count": 12,
     "reflaxe_backed_wphx_hxml_count": 31,
-    "wp_adapter_metadata_count": 52,
+    "wp_adapter_metadata_count": 53,
     "wp_haxe_helper_metadata_count": 59,
     "wp_haxe_bootstrap_metadata_count": 96,
     "wp_script_adapter_metadata_count": 5,

@@ -132,6 +132,8 @@ class WphxPhpWordPressAdapters
 				embedDeleteOembedCaches(fieldName);
 			case "wp-embed-autoembed-callback":
 				embedAutoembedCallback(fieldName);
+			case "wp-embed-autoembed":
+				embedAutoembed(fieldName);
 			case _:
 				null;
 		}
@@ -359,6 +361,31 @@ class WphxPhpWordPressAdapters
 			PhpLocal("return", PhpMethodCall(PhpVar("this"), "shortcode", [PhpLongArray([]), PhpArrayRead(matches, PhpInt(2))])),
 			PhpAssign(linkIfUnknown, oldval),
 			PhpReturn(PhpBinop(".", PhpBinop(".", PhpArrayRead(matches, PhpInt(1)), returnValue), PhpArrayRead(matches, PhpInt(3))))
+		]);
+	}
+
+	static function embedAutoembed(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final content = PhpVar("content");
+		final callback = PhpLongArray([item(PhpVar("this")), item(PhpString("autoembed_callback"))]);
+		return plan([
+			"stmt.assign",
+			"stmt.if",
+			"stmt.return",
+			"expr.function-call",
+			"expr.array",
+			"expr.binop"
+		], [
+			PhpAssign(content, PhpFunctionCall("wp_replace_in_html_tags", [content, PhpLongArray([entry("\n", PhpString("<!-- wp-line-break -->"))])])),
+			PhpIf(PhpFunctionCall("preg_match", [PhpString("#(^|\\s|>)https?://#i"), content]), [
+				PhpAssign(content, PhpFunctionCall("preg_replace_callback", [PhpString('|^(\\s*)(https?://[^\\s<>"]+)(\\s*)$|im'), callback, content])),
+				PhpAssign(content, PhpFunctionCall("preg_replace_callback", [
+					PhpString("|(<p(?: [^>]*)?>\\s*)(https?://[^\\s<>\"]+)(\\s*</p>)|i"),
+					callback,
+					content
+				]))
+			]),
+			PhpReturn(PhpFunctionCall("str_replace", [PhpString("<!-- wp-line-break -->"), PhpString("\n"), content]))
 		]);
 	}
 

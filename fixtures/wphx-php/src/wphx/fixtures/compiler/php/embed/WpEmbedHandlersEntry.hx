@@ -15,5 +15,6 @@ class WpEmbedHandlersEntry
 		embed.maybe_make_link("https://example.test/");
 		embed.delete_oembed_caches(123);
 		embed.autoembed_callback(null);
+		embed.autoembed("https://example.test/");
 	}
 }
