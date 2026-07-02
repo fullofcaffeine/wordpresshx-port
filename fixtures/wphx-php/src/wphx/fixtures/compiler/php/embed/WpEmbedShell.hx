@@ -31,6 +31,9 @@ class WpEmbedShell
 	@:wp.defaultFalse
 	public var return_false_on_fail:NativeValue;
 
+	@:wp.adapter("wp-embed-construct")
+	public function new():Void {}
+
 	@:wp.adapter("wp-embed-run-shortcode")
 	public function run_shortcode(content:String):String
 	{

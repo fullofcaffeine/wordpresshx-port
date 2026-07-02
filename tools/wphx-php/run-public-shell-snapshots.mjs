@@ -171,6 +171,13 @@ const CASES = [
       "public $last_attr = array();",
       "public $last_url = '';",
       "public $return_false_on_fail = false;",
+      "public function __construct()",
+      "add_filter( 'the_content', array(",
+      "add_filter( 'widget_text_content', array(",
+      "add_filter( 'widget_block_content', array(",
+      "add_shortcode( 'embed', '__return_false' );",
+      "add_action( 'edit_form_advanced', array(",
+      "add_action( 'edit_page_form', array(",
       "public function run_shortcode($content)",
       "global $shortcode_tags;",
       "$orig_shortcode_tags = $shortcode_tags;",
@@ -232,6 +239,7 @@ const CASES = [
     ast_expect: {
       classes: ["WP_Embed"],
       methods: [
+        "__construct",
         "run_shortcode",
         "register_handler",
         "unregister_handler",

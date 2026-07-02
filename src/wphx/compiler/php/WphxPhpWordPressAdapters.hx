@@ -120,6 +120,8 @@ class WphxPhpWordPressAdapters
 				transportDispatchRequest(fieldName, primaryHelper(helpers));
 			case "wp-http-request-nonblocking":
 				requestNonblocking(fieldName, helpers);
+			case "wp-embed-construct":
+				embedConstruct(fieldName);
 			case "wp-embed-register-handler":
 				embedRegisterHandler(fieldName);
 			case "wp-embed-run-shortcode":
@@ -244,6 +246,26 @@ class WphxPhpWordPressAdapters
 	static function embedHandlerSlot():PhpCoreExpr
 	{
 		return PhpArrayRead(embedHandlersAtPriority(), PhpVar("id"));
+	}
+
+	static function embedConstruct(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final thisValue = PhpVar("this");
+		final runShortcode = PhpLongArray([item(thisValue), item(PhpString("run_shortcode"))]);
+		final autoembed = PhpLongArray([item(thisValue), item(PhpString("autoembed"))]);
+		final maybeRunAjaxCache = PhpLongArray([item(thisValue), item(PhpString("maybe_run_ajax_cache"))]);
+
+		return plan(["stmt.expr", "expr.function-call", "expr.long-array"], [
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("the_content"), runShortcode, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("widget_text_content"), runShortcode, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("widget_block_content"), runShortcode, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_shortcode", [PhpString("embed"), PhpString("__return_false")])),
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("the_content"), autoembed, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("widget_text_content"), autoembed, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_filter", [PhpString("widget_block_content"), autoembed, PhpInt(8)])),
+			PhpExprStmt(PhpFunctionCall("add_action", [PhpString("edit_form_advanced"), maybeRunAjaxCache])),
+			PhpExprStmt(PhpFunctionCall("add_action", [PhpString("edit_page_form"), maybeRunAjaxCache]))
+		]);
 	}
 
 	static function embedRunShortcode(fieldName:String):WordPressMethodAdapterPlan
