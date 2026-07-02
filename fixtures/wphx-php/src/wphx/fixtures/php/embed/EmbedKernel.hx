@@ -164,6 +164,46 @@ class EmbedKernel
 		return EmbedHooks.applyFiltersNative4("oembed_response_data", data, resolvedPost, width, height);
 	}
 
+	public static function oembedResponseDataRich(data:NativeValue, post:NativeValue, width:Int, height:Int):NativeValue
+	{
+		// WPHX-211: get_oembed_response_data_rich() mutates the public native PHP oEmbed response array.
+		final dataArray:php.NativeArray = cast data;
+		EmbedGlobals.arraySet(dataArray, "width", EmbedGlobals.absint(width));
+		EmbedGlobals.arraySet(dataArray, "height", EmbedGlobals.absint(height));
+		EmbedGlobals.arraySet(dataArray, "type", "rich");
+		EmbedGlobals.arraySet(dataArray, "html", postEmbedHtml(width, height, post));
+
+		var thumbnailId:NativeValue = false;
+		final postId = EmbedGlobals.objectField(post, "ID");
+		if (EmbedGlobals.hasPostThumbnail(postId))
+		{
+			thumbnailId = EmbedGlobals.getPostThumbnailId(postId);
+		}
+
+		if (EmbedGlobals.getPostType(post) == "attachment")
+		{
+			if (EmbedGlobals.wpAttachmentIsImage(post))
+			{
+				thumbnailId = postId;
+			} else if (EmbedGlobals.wpAttachmentIs("video", post))
+			{
+				thumbnailId = EmbedGlobals.getPostThumbnailId(post);
+				EmbedGlobals.arraySet(dataArray, "type", "video");
+			}
+		}
+
+		if (EmbedGlobals.truthy(thumbnailId))
+		{
+			final imageSrc = EmbedGlobals.wpGetAttachmentImageSrc(thumbnailId, attachmentImageSize(width));
+			// WPHX-211: wp_get_attachment_image_src() returns a native indexed tuple.
+			EmbedGlobals.arraySet(dataArray, "thumbnail_url", WpNativeArray.get(imageSrc, 0, ""));
+			EmbedGlobals.arraySet(dataArray, "thumbnail_width", WpNativeArray.get(imageSrc, 1, 0));
+			EmbedGlobals.arraySet(dataArray, "thumbnail_height", WpNativeArray.get(imageSrc, 2, 0));
+		}
+
+		return dataArray;
+	}
+
 	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
 	{
 		if (!WpNativeArray.isArray(data))
@@ -670,6 +710,12 @@ class EmbedKernel
 			providerName, providerUrl, authorName, authorUrl, title);
 	}
 
+	static function attachmentImageSize(width:Int):php.NativeArray
+	{
+		// WPHX-211: wp_get_attachment_image_src() consumes native indexed image-size arrays.
+		return php.Syntax.code("array({0}, 0)", width);
+	}
+
 	static function providerPair(provider:String, regex:Bool):php.NativeArray
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
@@ -870,6 +916,24 @@ extern class EmbedGlobals
 
 	@:native("get_author_posts_url")
 	public static function getAuthorPostsUrl(userId:NativeValue):String;
+
+	@:native("has_post_thumbnail")
+	public static function hasPostThumbnail(postId:NativeValue):Bool;
+
+	@:native("get_post_thumbnail_id")
+	public static function getPostThumbnailId(post:NativeValue):NativeValue;
+
+	@:native("get_post_type")
+	public static function getPostType(post:NativeValue):String;
+
+	@:native("wp_attachment_is_image")
+	public static function wpAttachmentIsImage(post:NativeValue):Bool;
+
+	@:native("wp_attachment_is")
+	public static function wpAttachmentIs(type:String, post:NativeValue):Bool;
+
+	@:native("wp_get_attachment_image_src")
+	public static function wpGetAttachmentImageSrc(thumbnailId:NativeValue, size:php.NativeArray):php.NativeArray;
 
 	@:native("_x")
 	public static function translateWithContext(text:String, context:String):String;

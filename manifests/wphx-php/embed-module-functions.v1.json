@@ -32,8 +32,8 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 40330,
-      "sha256": "sha256:02995a95c53cd5046ea7aeb0b4498192a2c7303f771fea55759fb30429613f14"
+      "bytes": 42804,
+      "sha256": "sha256:95ec8fdb145b6773761a037d5e74c203dcd97d7bf833fabee6904c259ebc2cab"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
@@ -42,13 +42,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 10122,
-      "sha256": "sha256:6b444ead0356ee178c4f6723d1329bec0415cbdaccb2da005c89aa2ed132fc7f"
+      "bytes": 10524,
+      "sha256": "sha256:dea8c0832736eb7c29532de9d5555c2494355fe9115bef71f968bc87c4172d2f"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 2719,
-      "sha256": "sha256:486c563cac7044508be10efcaf4c5fe3f2b13130d43c1279d274ad39bb043026"
+      "bytes": 2832,
+      "sha256": "sha256:d7483fd117612a7338f1c804e029f4191bbbe55990e4b2da3917734e97c84a81"
     }
   ],
   "upstream_oracle": {
@@ -62,6 +62,7 @@
       "get_post_embed_url",
       "get_post_embed_html",
       "get_oembed_response_data",
+      "get_oembed_response_data_rich",
       "get_oembed_endpoint_url",
       "wp_oembed_ensure_format",
       "_oembed_create_xml",
@@ -99,6 +100,7 @@
       "419-446",
       "490-550",
       "561-629",
+      "719-755",
       "455-481",
       "759-765",
       "828-856",
@@ -130,8 +132,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 5022,
-    "sha256": "sha256:5c7030a67a996461e52227e01b3aff7e4106810e4e6ab8bcb1e80759b16b8460",
+    "bytes": 5198,
+    "sha256": "sha256:4ea800f755da2297eda13a1c24fed57313ee1f082b3e0934b30fcf5511f94327",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -144,6 +146,7 @@
       "function get_post_embed_url($post = null)",
       "function get_post_embed_html($width, $height, $post = null)",
       "function get_oembed_response_data($post, $width)",
+      "function get_oembed_response_data_rich($data, $post, $width, $height)",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
       "function wp_oembed_ensure_format($format)",
       "function _oembed_create_xml($data, $node = null)",
@@ -179,6 +182,7 @@
       "EmbedKernel::postEmbedUrl($post)",
       "EmbedKernel::postEmbedHtml($width, $height, $post)",
       "EmbedKernel::oembedResponseData($post, $width)",
+      "EmbedKernel::oembedResponseDataRich($data, $post, $width, $height)",
       "EmbedKernel::oembedEndpointUrl($permalink, $format)",
       "EmbedKernel::oembedCreateXml($data, $node)",
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
@@ -208,15 +212,15 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 17459,
-    "sha256": "sha256:7b3463037db7b16b44eccbeb8738bfa5368e7d59d214cc82978df832e7d45ffc",
+    "bytes": 18510,
+    "sha256": "sha256:8d7c0a1a227cfa4a6f4506579398df8edcc3266147a3dc267f50a474049fa06b",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 11231,
-    "sha256": "sha256:84782f3045e2cb04f09474c40307b5f8e4cc05744dcffece2b806c2ff951e95f",
+    "bytes": 11546,
+    "sha256": "sha256:1291c24281935a5844c95aebe6b30ab32ddc10989fe7a3eff54ad8d60d15bbd8",
     "declarations": [
       "wp-includes/embed.php:global-function:_oembed_create_xml",
       "wp-includes/embed.php:global-function:_oembed_filter_feed_content",
@@ -224,6 +228,7 @@
       "wp-includes/embed.php:global-function:enqueue_embed_scripts",
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
       "wp-includes/embed.php:global-function:get_oembed_response_data",
+      "wp-includes/embed.php:global-function:get_oembed_response_data_rich",
       "wp-includes/embed.php:global-function:get_post_embed_html",
       "wp-includes/embed.php:global-function:get_post_embed_url",
       "wp-includes/embed.php:global-function:print_embed_comments_button",
@@ -285,6 +290,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -320,6 +327,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -350,6 +359,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -380,6 +391,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -407,6 +420,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -445,6 +460,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -483,6 +500,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -521,6 +540,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -559,6 +580,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -589,6 +612,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -623,6 +648,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -653,6 +680,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -677,6 +706,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -714,6 +745,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -763,6 +796,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -812,6 +847,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -861,6 +898,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -897,6 +936,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -934,6 +975,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -996,6 +1039,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1058,6 +1103,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1107,6 +1154,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1131,6 +1180,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1155,6 +1206,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1187,6 +1240,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1249,6 +1304,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1311,6 +1368,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1374,6 +1433,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1417,6 +1478,331 @@
           ]
         },
         {
+          "id": "oembed-response-data-rich:no-thumbnail",
+          "value": {
+            "version": "1.0",
+            "title": "Base",
+            "width": 600,
+            "height": 338,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                600,
+                338
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:post-thumbnail",
+          "value": {
+            "version": "1.0",
+            "title": "Base",
+            "width": 600,
+            "height": 338,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/post-thumb.jpg",
+            "thumbnail_width": 600,
+            "thumbnail_height": 338
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [
+            7
+          ],
+          "attachment_image_src": [
+            {
+              "id": 45,
+              "size": [
+                600,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                600,
+                338
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:image-attachment",
+          "value": {
+            "version": "1.0",
+            "title": "Image Attachment",
+            "width": 640,
+            "height": 360,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/image-attachment.jpg",
+            "thumbnail_width": 640,
+            "thumbnail_height": 360
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [
+            {
+              "id": 7,
+              "size": [
+                640,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                640,
+                360
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:video-attachment",
+          "value": {
+            "version": "1.0",
+            "title": "Video Attachment",
+            "width": 640,
+            "height": 360,
+            "type": "video",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/video-poster.jpg",
+            "thumbnail_width": 640,
+            "thumbnail_height": 360
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [
+            {
+              "ID": 7,
+              "post_name": "post-7",
+              "post_author": 12
+            }
+          ],
+          "attachment_image_src": [
+            {
+              "id": 56,
+              "size": [
+                640,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                640,
+                360
+              ]
+            }
+          ]
+        },
+        {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
           "embed_calls": [],
@@ -1428,6 +1814,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1461,6 +1849,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1494,6 +1884,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1527,6 +1919,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1560,6 +1954,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1584,6 +1980,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1608,6 +2006,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1632,6 +2032,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1656,6 +2058,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1680,6 +2084,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1704,6 +2110,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1735,6 +2143,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1763,6 +2173,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1792,6 +2204,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1816,6 +2230,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1840,6 +2256,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1869,6 +2287,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1896,6 +2316,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1945,6 +2367,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -1978,6 +2402,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2027,6 +2453,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2081,6 +2509,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2105,6 +2535,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2131,6 +2563,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2155,6 +2589,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": [],
           "removed_actions": [],
@@ -2172,6 +2608,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2196,6 +2634,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2220,6 +2660,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2247,6 +2689,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2280,6 +2724,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2310,6 +2756,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2334,6 +2782,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2358,6 +2808,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [
             {
               "hook": "enqueue_embed_scripts"
@@ -2401,6 +2853,8 @@
           ],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2428,6 +2882,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2465,6 +2921,8 @@
           ],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2495,6 +2953,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2522,6 +2982,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2549,6 +3011,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2582,6 +3046,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2623,6 +3089,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2647,6 +3115,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2671,6 +3141,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2695,6 +3167,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2719,6 +3193,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2743,6 +3219,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2767,6 +3245,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2791,6 +3271,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2815,6 +3297,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2852,6 +3336,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2889,6 +3375,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2926,6 +3414,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2963,6 +3453,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3000,6 +3492,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3024,6 +3518,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3056,6 +3552,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3088,6 +3586,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3120,6 +3620,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3152,6 +3654,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3184,6 +3688,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3211,6 +3717,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3238,6 +3746,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3265,6 +3775,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3292,6 +3804,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3319,6 +3833,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3346,6 +3862,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3373,6 +3891,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3413,6 +3933,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3465,6 +3987,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3511,6 +4035,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3551,6 +4077,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3603,6 +4131,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3648,6 +4178,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3691,6 +4223,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3729,6 +4263,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3765,6 +4301,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3801,6 +4339,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3838,6 +4378,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -3872,6 +4414,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4687,6 +5231,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4722,6 +5268,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4752,6 +5300,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4782,6 +5332,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4809,6 +5361,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4847,6 +5401,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4885,6 +5441,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4923,6 +5481,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4961,6 +5521,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -4991,6 +5553,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5025,6 +5589,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5055,6 +5621,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5079,6 +5647,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5116,6 +5686,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5165,6 +5737,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5214,6 +5788,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5263,6 +5839,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5299,6 +5877,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5336,6 +5916,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5398,6 +5980,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5460,6 +6044,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5509,6 +6095,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5533,6 +6121,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5557,6 +6147,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5589,6 +6181,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5651,6 +6245,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5713,6 +6309,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5776,6 +6374,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5819,6 +6419,331 @@
           ]
         },
         {
+          "id": "oembed-response-data-rich:no-thumbnail",
+          "value": {
+            "version": "1.0",
+            "title": "Base",
+            "width": 600,
+            "height": 338,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                600,
+                338
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:post-thumbnail",
+          "value": {
+            "version": "1.0",
+            "title": "Base",
+            "width": 600,
+            "height": 338,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/post-thumb.jpg",
+            "thumbnail_width": 600,
+            "thumbnail_height": 338
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [
+            7
+          ],
+          "attachment_image_src": [
+            {
+              "id": 45,
+              "size": [
+                600,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"338\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                600,
+                338
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:image-attachment",
+          "value": {
+            "version": "1.0",
+            "title": "Image Attachment",
+            "width": 640,
+            "height": 360,
+            "type": "rich",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/image-attachment.jpg",
+            "thumbnail_width": 640,
+            "thumbnail_height": 360
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [
+            {
+              "id": 7,
+              "size": [
+                640,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                640,
+                360
+              ]
+            }
+          ]
+        },
+        {
+          "id": "oembed-response-data-rich:video-attachment",
+          "value": {
+            "version": "1.0",
+            "title": "Video Attachment",
+            "width": 640,
+            "height": 360,
+            "type": "video",
+            "html": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+            "thumbnail_url": "https://cdn.example/video-poster.jpg",
+            "thumbnail_width": 640,
+            "thumbnail_height": 360
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "thumbnail_ids": [
+            {
+              "ID": 7,
+              "post_name": "post-7",
+              "post_author": 12
+            }
+          ],
+          "attachment_image_src": [
+            {
+              "id": 56,
+              "size": [
+                640,
+                0
+              ]
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"640\" height=\"360\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7",
+                  "post_author": 12
+                },
+                640,
+                360
+              ]
+            }
+          ]
+        },
+        {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
           "embed_calls": [],
@@ -5830,6 +6755,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5863,6 +6790,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5896,6 +6825,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5929,6 +6860,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5962,6 +6895,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -5986,6 +6921,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6010,6 +6947,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6034,6 +6973,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6058,6 +6999,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6082,6 +7025,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6106,6 +7051,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6137,6 +7084,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6165,6 +7114,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6194,6 +7145,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6218,6 +7171,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6242,6 +7197,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6271,6 +7228,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6298,6 +7257,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6347,6 +7308,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6380,6 +7343,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6429,6 +7394,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6483,6 +7450,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6507,6 +7476,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6533,6 +7504,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6557,6 +7530,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": [],
           "removed_actions": [],
@@ -6574,6 +7549,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6598,6 +7575,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6622,6 +7601,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6649,6 +7630,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6682,6 +7665,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6712,6 +7697,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6736,6 +7723,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6760,6 +7749,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [
             {
               "hook": "enqueue_embed_scripts"
@@ -6803,6 +7794,8 @@
           ],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6830,6 +7823,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6867,6 +7862,8 @@
           ],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6897,6 +7894,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6924,6 +7923,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6951,6 +7952,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6984,6 +7987,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7025,6 +8030,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7049,6 +8056,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7073,6 +8082,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7097,6 +8108,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7121,6 +8134,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7145,6 +8160,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7169,6 +8186,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7193,6 +8212,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7217,6 +8238,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7254,6 +8277,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7291,6 +8316,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7328,6 +8355,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7365,6 +8394,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7402,6 +8433,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7426,6 +8459,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7458,6 +8493,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7490,6 +8527,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7522,6 +8561,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7554,6 +8595,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7586,6 +8629,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7613,6 +8658,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7640,6 +8687,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7667,6 +8716,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7694,6 +8745,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7721,6 +8774,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7748,6 +8803,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7775,6 +8832,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7815,6 +8874,8 @@
               "public": true
             }
           ],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7867,6 +8928,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7913,6 +8976,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -7953,6 +9018,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8005,6 +9072,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8050,6 +9119,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8093,6 +9164,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8131,6 +9204,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8167,6 +9242,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8203,6 +9280,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8240,6 +9319,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -8274,6 +9355,8 @@
           "styles": [],
           "page_paths": [],
           "post_type_queries": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -9082,11 +10165,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed response data missing/non-public/non-embeddable false returns, min/max width filtering and clamping, height calculation, provider/site fields, author fallback and override behavior, oembed_response_data filter payloads, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed response data missing/non-public/non-embeddable false returns, min/max width filtering and clamping, height calculation, provider/site fields, author fallback and override behavior, oembed_response_data filter payloads, rich oEmbed response native-array mutation, rich width/height/type/html fields, post thumbnail lookup, image attachment thumbnail selection, video attachment type switching, thumbnail image tuple propagation, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url/oEmbed-response-data helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, oEmbed response data for URL/rich helpers, full installed post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url/oEmbed-response-data/rich-response helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, get_oembed_response_data_for_url(), full installed post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }
