@@ -1,0 +1,84 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-94-feed-embed-widget-privacy-installed-routes-gate",
+  "issue": {
+    "id": "wordpresshx-l76.18.41",
+    "external_ref": "WPHX-312.94",
+    "title": "WPHX-312.94 - Expand installed feed, embed, widget, and privacy routes"
+  },
+  "recorded_at": "2026-07-02T23:55:00Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-312-94-feed-embed-widget-privacy-installed-routes-gate.v1.json",
+      "role": "WPHX-312 feed/embed/widget/privacy installed route gate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-312-94-feed-embed-widget-privacy-installed-routes-gate.v1.json",
+      "role": "ownership manifest for WPHX-312 feed/embed/widget/privacy installed route gate"
+    },
+    {
+      "path": "tools/wp-core/run-wphx-312-feed-embed-widget-privacy-installed-routes-gate.mjs",
+      "role": "installed route gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-312-feed-embed-widget-privacy-installed-routes-gate",
+    "npm run wp:core:wphx-312-feed-embed-widget-privacy-installed-routes-gate:check",
+    "npm run wp:core:wphx-312-public-shell-gap-audit",
+    "npm run wp:core:wphx-312-public-shell-gap-audit:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-312-09-http-mail-feed-embed-installed-gate",
+    "receipt:wphx-312-11-privacy-request-admin-state-oracle-fixture",
+    "receipt:wphx-312-15-rss2-feed-template-oracle-fixture",
+    "receipt:wphx-312-17-rss2-comments-feed-template-oracle-fixture",
+    "receipt:wphx-312-25-rss-widget-helper-oracle-fixture",
+    "receipt:wphx-312-26-wp-widget-rss-class-oracle-fixture",
+    "receipt:wphx-312-27-rss-block-renderer-oracle-fixture",
+    "receipt:wphx-312-30-wp-embed-cache-autoembed-oracle-fixture",
+    "receipt:wphx-312-31-oembed-rest-controller-oracle-fixture"
+  ],
+  "covered_vs_deferred": {
+    "covered": [
+      "front-end RSS2 feed route",
+      "comments RSS2 feed route",
+      "oEmbed REST route",
+      "post embed template route",
+      "RSS widget/sidebar route",
+      "RSS block route",
+      "privacy request confirmation route",
+      "privacy admin list-table route"
+    ],
+    "deferred": [
+      {
+        "id": "database-backed-feed-comment-widget-privacy-state-not-executed",
+        "owner": "WPHX-312.94",
+        "detail": "Routes use deterministic local observations. Real post/comment queries, feed enclosures, user request posts/meta, capabilities, nonces, options, sidebars, and widget instances remain later installed-system work."
+      },
+      {
+        "id": "full-admin-and-block-ownership-deferred",
+        "owner": "WPHX-314/WPHX-315/WPHX-316",
+        "detail": "RSS block and privacy admin/list-table routes are cross-domain evidence only. Broader block package behavior, admin screen rendering, and management workflows remain under their owning domains."
+      },
+      {
+        "id": "live-remote-feed-and-oembed-network-not-executed",
+        "owner": "WPHX-312.94",
+        "detail": "Remote feed fetching, SimplePie network/cache behavior, and live oEmbed provider discovery are not executed in this route gate."
+      },
+      {
+        "id": "public-php-adapter-not-yet-generated",
+        "owner": "WPHX-312.94",
+        "detail": "The gate compares copied oracle PHP package roots; generated original-path PHP replacement remains separate WPHX PHP adapter/compiler work."
+      }
+    ]
+  },
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 9,
+    "covered_route_count": 8,
+    "observations_match": true,
+    "public_php_replacement_claimed": false
+  }
+}

@@ -65,6 +65,7 @@ const PRIMARY_GATE_REFS = {
     "WPHX-312.19",
     "WPHX-312.20",
     "WPHX-312.21",
+    "WPHX-312.94",
     "WPHX-312.25",
     "WPHX-312.26",
     "WPHX-312.27",
@@ -88,7 +89,8 @@ const PRIMARY_GATE_REFS = {
     "WPHX-312.47",
     "WPHX-312.48",
     "WPHX-312.49"
-  ]
+  ],
+  cron_mail_transport: ["WPHX-312.93"]
 };
 
 const GROUP_DEFINITIONS = {
@@ -216,7 +218,7 @@ function main() {
   const duplicatePrimaryRefs = primaryRefs.filter((ref, index) => primaryRefs.indexOf(ref) !== index);
   const failures = [];
 
-  if (copied.length !== 46) failures.push(`expected 46 copied-oracle public surfaces, found ${copied.length}`);
+  if (copied.length !== 48) failures.push(`expected 48 copied-oracle public surfaces, found ${copied.length}`);
   if (missing.length > 0) failures.push(`copied surfaces missing primary gate: ${missing.join(", ")}`);
   if (extra.length > 0) failures.push(`primary gate refs not in copied audit surfaces: ${extra.join(", ")}`);
   if (duplicatePrimaryRefs.length > 0) failures.push(`duplicate primary gate refs: ${[...new Set(duplicatePrimaryRefs)].join(", ")}`);
@@ -382,7 +384,7 @@ function main() {
     manifest_sha256: sha256(manifestText),
     validation_result: validationResult,
     claims: [
-      "All 46 WPHX-312 copied-oracle public surfaces have a primary follow-up gate.",
+      "All 48 WPHX-312 copied-oracle public surfaces have a primary follow-up gate.",
       "Each copied-surface gate has an owner issue, removal gate, and non-claims.",
       "The copied public surface plan distinguishes generated adapters from preserved-vendor, installed-route, live-transport, cron/mail, and upstream-PHPUnit gates."
     ],

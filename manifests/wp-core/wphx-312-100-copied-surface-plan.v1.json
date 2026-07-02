@@ -12,8 +12,8 @@
   "inputs": {
     "public_shell_gap_audit": {
       "path": "manifests/wp-core/wphx-312-95-public-shell-gap-audit.v1.json",
-      "bytes": 117594,
-      "sha256": "sha256:0c1c23c61ce72e49b303cf7aa1ed26152db23f692b5d7a226c3d63f5758820ad"
+      "bytes": 121923,
+      "sha256": "sha256:f5e6f537da47aef6e0ed480bb27c54a9a1edf547830bfe8d5fc7167ded5592d1"
     }
   },
   "owner_issues": {
@@ -49,14 +49,14 @@
     }
   },
   "summary": {
-    "copied_surface_count": 46,
+    "copied_surface_count": 48,
     "gate_count": 6,
     "primary_gate_counts": {
       "generated_adapter": 7,
       "preserved_vendor": 6,
-      "installed_route": 19,
+      "installed_route": 20,
       "live_transport": 14,
-      "cron_mail_transport": 0,
+      "cron_mail_transport": 1,
       "upstream_phpunit": 0
     },
     "generated_adapter_owner": {
@@ -128,7 +128,9 @@
         "WPHX-312.46",
         "WPHX-312.47",
         "WPHX-312.48",
-        "WPHX-312.49"
+        "WPHX-312.49",
+        "WPHX-312.93",
+        "WPHX-312.94"
       ]
     },
     {
@@ -186,7 +188,8 @@
         "WPHX-312.28",
         "WPHX-312.29",
         "WPHX-312.30",
-        "WPHX-312.31"
+        "WPHX-312.31",
+        "WPHX-312.94"
       ],
       "secondary_boundary_refs": []
     },
@@ -234,7 +237,9 @@
         "Cron/mail transport routing does not claim general HTTP transport parity.",
         "Cron/mail transport routing does not claim generated PHP replacement by itself."
       ],
-      "primary_boundary_refs": [],
+      "primary_boundary_refs": [
+        "WPHX-312.93"
+      ],
       "secondary_boundary_refs": [
         "WPHX-312.03",
         "WPHX-312.07",
@@ -302,7 +307,9 @@
         "WPHX-312.46",
         "WPHX-312.47",
         "WPHX-312.48",
-        "WPHX-312.49"
+        "WPHX-312.49",
+        "WPHX-312.93",
+        "WPHX-312.94"
       ]
     }
   ],
@@ -2382,18 +2389,110 @@
         "This copied oracle surface remains behavior evidence, not durable generated public PHP ownership.",
         "Do not broaden to installed behavior, live transport, upstream PHPUnit pass/pass parity, or preserved-vendor ownership unless the named gate passes."
       ]
+    },
+    {
+      "external_ref": "WPHX-312.93",
+      "issue_id": "wordpresshx-l76.18.39",
+      "unit_name": "Cron controlled loopback and PHPMailer SMTP capture transport observations",
+      "unit_kind": "installed_style_cron_mail_transport_gate",
+      "ownership_manifest": "manifests/ownership/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+      "ownership_manifest_sha256": "sha256:ed94f40aa26d21519998f40d6566b07d7e54451e067e43a84ecc5a380b513194",
+      "current_ownership_state": "installed_style_package_gate_with_copied_oracle_php",
+      "current_bridge_kind": "copied-oracle-public-php-with-controlled-cron-mail-transport-boundary",
+      "primary_gate": {
+        "id": "cron_mail_transport",
+        "gate_kind": "live_transport",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.18.39",
+          "external_ref": "WPHX-312.93",
+          "title": "Add real cron and mail transport installed gate"
+        },
+        "removal_gate": "Add controlled installed-style cron loopback/dispatch and wp_mail/PHPMailer transport observations before claiming real cron or mail side effects."
+      },
+      "secondary_gates": [
+        {
+          "id": "generated_adapter",
+          "gate_kind": "generated_adapter",
+          "owner_issue": {
+            "issue_id": "wordpresshx-l76.18.45",
+            "external_ref": "WPHX-312.101",
+            "title": "Generate adapters for copied HTTP feed embed public surfaces"
+          },
+          "removal_gate": "Replace the copied public PHP surface with a WPHX PHP compiler-emitted original-path adapter or file a minimized compiler-pressure blocker; keep the existing oracle fixture green and keep public-shell snapshots/adoption CI green."
+        },
+        {
+          "id": "upstream_phpunit",
+          "gate_kind": "upstream_phpunit",
+          "owner_issue": {
+            "issue_id": "wordpresshx-l76.18.42",
+            "external_ref": "WPHX-312.97",
+            "title": "Unblock HTTP/cron/mail/feed/embed upstream PHPUnit ratchet"
+          },
+          "removal_gate": "Provision non-blocked WPHX-312 upstream PHPUnit ratchet inputs and record pass/pass or known deltas for HTTP, feed/SimplePie, oEmbed/embed, HTTPS, and privacy request groups."
+        }
+      ],
+      "non_claims": [
+        "This copied oracle surface remains behavior evidence, not durable generated public PHP ownership.",
+        "Do not broaden to installed behavior, live transport, upstream PHPUnit pass/pass parity, or preserved-vendor ownership unless the named gate passes."
+      ]
+    },
+    {
+      "external_ref": "WPHX-312.94",
+      "issue_id": "wordpresshx-l76.18.41",
+      "unit_name": "Feed, oEmbed/post embed, RSS widget/block, and privacy management installed-style route observations",
+      "unit_kind": "installed_style_feed_embed_widget_privacy_routes_gate",
+      "ownership_manifest": "manifests/ownership/wphx-312-94-feed-embed-widget-privacy-installed-routes-gate.v1.json",
+      "ownership_manifest_sha256": "sha256:8e670a0c94abf4cf06547676d41c980f4ea0884144cfdd03aa0fa2e1a40d7879",
+      "current_ownership_state": "installed_style_package_gate_with_copied_oracle_php",
+      "current_bridge_kind": "copied-oracle-public-php-with-installed-route-boundary",
+      "primary_gate": {
+        "id": "installed_route",
+        "gate_kind": "installed_route",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.18.41",
+          "external_ref": "WPHX-312.94",
+          "title": "Expand installed feed, embed, widget, and privacy routes"
+        },
+        "removal_gate": "Exercise representative installed feed, embed, RSS widget/block, trackback, and privacy/admin routes against vanilla and candidate packages, then record covered versus deferred public behavior."
+      },
+      "secondary_gates": [
+        {
+          "id": "generated_adapter",
+          "gate_kind": "generated_adapter",
+          "owner_issue": {
+            "issue_id": "wordpresshx-l76.18.45",
+            "external_ref": "WPHX-312.101",
+            "title": "Generate adapters for copied HTTP feed embed public surfaces"
+          },
+          "removal_gate": "Replace the copied public PHP surface with a WPHX PHP compiler-emitted original-path adapter or file a minimized compiler-pressure blocker; keep the existing oracle fixture green and keep public-shell snapshots/adoption CI green."
+        },
+        {
+          "id": "upstream_phpunit",
+          "gate_kind": "upstream_phpunit",
+          "owner_issue": {
+            "issue_id": "wordpresshx-l76.18.42",
+            "external_ref": "WPHX-312.97",
+            "title": "Unblock HTTP/cron/mail/feed/embed upstream PHPUnit ratchet"
+          },
+          "removal_gate": "Provision non-blocked WPHX-312 upstream PHPUnit ratchet inputs and record pass/pass or known deltas for HTTP, feed/SimplePie, oEmbed/embed, HTTPS, and privacy request groups."
+        }
+      ],
+      "non_claims": [
+        "This copied oracle surface remains behavior evidence, not durable generated public PHP ownership.",
+        "Do not broaden to installed behavior, live transport, upstream PHPUnit pass/pass parity, or preserved-vendor ownership unless the named gate passes."
+      ]
     }
   ],
   "validation_result": {
     "status": "passed",
     "failures": [],
-    "copied_surface_count": 46,
+    "copied_surface_count": 48,
     "primary_gate_counts": {
       "generated_adapter": 7,
       "preserved_vendor": 6,
-      "installed_route": 19,
+      "installed_route": 20,
       "live_transport": 14,
-      "cron_mail_transport": 0,
+      "cron_mail_transport": 1,
       "upstream_phpunit": 0
     },
     "all_copied_surfaces_have_primary_gate": true,
