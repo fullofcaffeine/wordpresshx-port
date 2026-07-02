@@ -163,6 +163,33 @@ class EmbedKernel
 		return html;
 	}
 
+	public static function embedExcerptMore(moreString:String):String
+	{
+		if (!EmbedGlobals.isEmbed())
+		{
+			return moreString;
+		}
+
+		final screenReaderTitle = "<span class=\"screen-reader-text\">" + EmbedGlobals.getTheTitle() + "</span>";
+		final continueText = EmbedGlobals.sprintfOne(EmbedGlobals.translate("Continue reading %s"), screenReaderTitle);
+		final link = "<a href=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.getPermalink())
+			+ "\" class=\"wp-embed-more\" target=\"_top\">"
+			+ continueText
+			+ "</a>";
+		return " &hellip; " + link;
+	}
+
+	public static function excerptEmbed():String
+	{
+		return EmbedGlobals.strval(EmbedHooks.applyFiltersNative1("the_excerpt_embed", EmbedGlobals.getTheExcerpt()));
+	}
+
+	public static function embedExcerptAttachment(content:String):String
+	{
+		return EmbedGlobals.isAttachment() ? EmbedGlobals.prependAttachment("") : content;
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -298,6 +325,24 @@ extern class EmbedGlobals
 
 	@:native("get_permalink")
 	public static function getPermalink():String;
+
+	@:native("get_the_title")
+	public static function getTheTitle():String;
+
+	@:native("__")
+	public static function translate(text:String):String;
+
+	@:native("get_the_excerpt")
+	public static function getTheExcerpt():String;
+
+	@:native("is_embed")
+	public static function isEmbed():Bool;
+
+	@:native("is_attachment")
+	public static function isAttachment():Bool;
+
+	@:native("prepend_attachment")
+	public static function prependAttachment(content:String):String;
 
 	@:native("class_exists")
 	public static function classExists(className:String):Bool;

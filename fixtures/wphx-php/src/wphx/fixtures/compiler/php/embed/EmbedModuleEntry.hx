@@ -1,7 +1,10 @@
 package wphx.fixtures.compiler.php.embed;
 
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getOembedEndpointUrl;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theExcerptEmbed;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedDefaults;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedExcerptAttachment;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedExcerptMore;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerAudio;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerVideo;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerYoutube;
@@ -38,6 +41,9 @@ class EmbedModuleEntry
 		wpOembedAddDiscoveryLinks();
 		wpOembedAddHostJs();
 		wpMaybeEnqueueOembedHostJs("");
+		wpEmbedExcerptMore("");
+		theExcerptEmbed();
+		wpEmbedExcerptAttachment("");
 		wpMaybeLoadEmbeds();
 		wpEmbedHandlerYoutube(null, null, "", null);
 		wpEmbedHandlerAudio(null, null, "", null);

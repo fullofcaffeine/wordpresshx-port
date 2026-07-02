@@ -34,6 +34,12 @@ extern class HaxeEmbedKernel
 
 	static function maybeEnqueueOembedHostJs(html:String):String;
 
+	static function embedExcerptMore(moreString:String):String;
+
+	static function excerptEmbed():String;
+
+	static function embedExcerptAttachment(content:String):String;
+
 	static function maybeLoadEmbeds():Void;
 
 	static function embedHandlerYoutube(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;

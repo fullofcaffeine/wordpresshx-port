@@ -45,6 +45,9 @@ const EXACT_PATTERNS = [
   "function wp_oembed_add_discovery_links()",
   "function wp_oembed_add_host_js()",
   "function wp_maybe_enqueue_oembed_host_js($html)",
+  "function wp_embed_excerpt_more($more_string)",
+  "function the_excerpt_embed()",
+  "function wp_embed_excerpt_attachment($content)",
   "function wp_maybe_load_embeds()",
   "function wp_embed_handler_youtube($matches, $attr, $url, $rawattr)",
   "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
@@ -61,6 +64,9 @@ const EXACT_PATTERNS = [
   "EmbedKernel::oembedDiscoveryLinks()",
   "EmbedKernel::oembedAddHostJs()",
   "EmbedKernel::maybeEnqueueOembedHostJs($html)",
+  "EmbedKernel::embedExcerptMore($more_string)",
+  "EmbedKernel::excerptEmbed()",
+  "EmbedKernel::embedExcerptAttachment($content)",
   "EmbedKernel::maybeLoadEmbeds()",
   "EmbedKernel::embedHandlerYoutube($matches, $attr, $url, $rawattr)",
   "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
@@ -232,6 +238,33 @@ function wp_maybe_enqueue_oembed_host_js( $html ) {
 \treturn $html;
 }
 
+function wp_embed_excerpt_more( $more_string ) {
+\tif ( ! is_embed() ) {
+\t\treturn $more_string;
+\t}
+
+\t$link = sprintf(
+\t\t'<a href="%1$s" class="wp-embed-more" target="_top">%2$s</a>',
+\t\tesc_url( get_permalink() ),
+\t\tsprintf( __( 'Continue reading %s' ), '<span class="screen-reader-text">' . get_the_title() . '</span>' )
+\t);
+\treturn ' &hellip; ' . $link;
+}
+
+function the_excerpt_embed() {
+\t$output = get_the_excerpt();
+
+\techo apply_filters( 'the_excerpt_embed', $output );
+}
+
+function wp_embed_excerpt_attachment( $content ) {
+\tif ( is_attachment() ) {
+\t\treturn prepend_attachment( '' );
+\t}
+
+\treturn $content;
+}
+
 function wp_maybe_load_embeds() {
 \tif ( ! apply_filters( 'load_default_embeds', true ) ) {
 \t\treturn;
@@ -346,12 +379,36 @@ function is_post_embeddable() {
 \treturn $GLOBALS['wphx_is_post_embeddable'];
 }
 
+function is_embed() {
+\treturn $GLOBALS['wphx_is_embed'];
+}
+
+function is_attachment() {
+\treturn $GLOBALS['wphx_is_attachment'];
+}
+
 function _x( $text, $context ) {
+\treturn $text;
+}
+
+function __( $text ) {
 \treturn $text;
 }
 
 function get_permalink() {
 \treturn $GLOBALS['wphx_permalink'];
+}
+
+function get_the_title() {
+\treturn $GLOBALS['wphx_post_title'];
+}
+
+function get_the_excerpt() {
+\treturn $GLOBALS['wphx_excerpt'];
+}
+
+function prepend_attachment( $content ) {
+\treturn '[attachment-player]' . $content;
 }
 
 function wp_enqueue_script( $handle ) {
@@ -451,7 +508,11 @@ function wphx_case( $id, $content_width, $filters, $callback ) {
 \t$GLOBALS['wphx_route_log'] = array();
 \t$GLOBALS['wphx_is_singular'] = true;
 \t$GLOBALS['wphx_is_post_embeddable'] = true;
+\t$GLOBALS['wphx_is_embed'] = true;
+\t$GLOBALS['wphx_is_attachment'] = false;
 \t$GLOBALS['wphx_permalink'] = 'https://example.test/post/7/';
+\t$GLOBALS['wphx_post_title'] = 'Embed Title';
+\t$GLOBALS['wphx_excerpt'] = 'Excerpt body';
 \t$GLOBALS['wp_embed'] = new WPHX_Embed_Object();
 \tWP_oEmbed::$early_providers = array();
 \t$oembed = _wp_oembed_get_object();
@@ -603,6 +664,33 @@ $cases[] = wphx_case( 'host-js:no-action', null, array(), function () {
 $cases[] = wphx_case( 'host-js:no-match', null, array(), function () {
 \treturn wp_maybe_enqueue_oembed_host_js( '<div>No post embed</div>' );
 } );
+$cases[] = wphx_case( 'excerpt-more:not-embed', null, array(), function () {
+\t$GLOBALS['wphx_is_embed'] = false;
+\treturn wp_embed_excerpt_more( '[...]' );
+} );
+$cases[] = wphx_case( 'excerpt-more:embed', null, array(), function () {
+\t$GLOBALS['wphx_permalink'] = 'https://example.test/post/7/?a=1&b=2';
+\t$GLOBALS['wphx_post_title'] = 'A Post Title';
+\treturn wp_embed_excerpt_more( '[...]' );
+} );
+$cases[] = wphx_case( 'excerpt-embed:default', null, array(), function () {
+\t$GLOBALS['wphx_excerpt'] = 'Excerpt body';
+\treturn wphx_capture( function () {
+\t\treturn the_excerpt_embed();
+\t} );
+} );
+$cases[] = wphx_case( 'excerpt-embed:filtered', null, array( 'the_excerpt_embed' => 'Filtered excerpt' ), function () {
+\treturn wphx_capture( function () {
+\t\treturn the_excerpt_embed();
+\t} );
+} );
+$cases[] = wphx_case( 'excerpt-attachment:not-attachment', null, array(), function () {
+\treturn wp_embed_excerpt_attachment( 'Plain excerpt' );
+} );
+$cases[] = wphx_case( 'excerpt-attachment:attachment', null, array(), function () {
+\t$GLOBALS['wphx_is_attachment'] = true;
+\treturn wp_embed_excerpt_attachment( 'Plain excerpt' );
+} );
 $cases[] = wphx_case( 'maybe-load:default', null, array(), function () {
 \treturn wp_maybe_load_embeds();
 } );
@@ -638,7 +726,7 @@ $cases[] = wphx_case( 'video:filtered', null, array( 'wp_embed_handler_video' =>
 } );
 
 $reflection = array();
-foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'wp_oembed_get', '_wp_oembed_get_object', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_oembed_register_route', 'wp_oembed_add_discovery_links', 'wp_oembed_add_host_js', 'wp_maybe_enqueue_oembed_host_js', 'wp_maybe_load_embeds', 'wp_embed_handler_youtube', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
+foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'wp_oembed_get', '_wp_oembed_get_object', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_oembed_register_route', 'wp_oembed_add_discovery_links', 'wp_oembed_add_host_js', 'wp_maybe_enqueue_oembed_host_js', 'wp_embed_excerpt_more', 'the_excerpt_embed', 'wp_embed_excerpt_attachment', 'wp_maybe_load_embeds', 'wp_embed_handler_youtube', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -713,7 +801,10 @@ function main() {
   const expectedDeclarations = [
     "wp-includes/embed.php:global-function:_wp_oembed_get_object",
     "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
+    "wp-includes/embed.php:global-function:the_excerpt_embed",
     "wp-includes/embed.php:global-function:wp_embed_defaults",
+    "wp-includes/embed.php:global-function:wp_embed_excerpt_attachment",
+    "wp-includes/embed.php:global-function:wp_embed_excerpt_more",
     "wp-includes/embed.php:global-function:wp_embed_handler_audio",
     "wp-includes/embed.php:global-function:wp_embed_handler_video",
     "wp-includes/embed.php:global-function:wp_embed_handler_youtube",
@@ -762,12 +853,15 @@ function main() {
         "wp_oembed_add_discovery_links",
         "wp_oembed_add_host_js",
         "wp_maybe_enqueue_oembed_host_js",
+        "wp_embed_excerpt_more",
+        "the_excerpt_embed",
+        "wp_embed_excerpt_attachment",
         "wp_maybe_load_embeds",
         "wp_embed_handler_youtube",
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ],
-      selected_source_lines: ["25-29", "40-44", "67-93", "113-117", "126-133", "455-481", "759-765", "147-158", "166-181", "325-329", "337-376", "387", "400-412", "191-232", "242-258", "272-294", "299-321"]
+      selected_source_lines: ["25-29", "40-44", "67-93", "113-117", "126-133", "455-481", "759-765", "147-158", "166-181", "325-329", "337-376", "387", "400-412", "1007-1020", "1028-1043", "1051-1062", "191-232", "242-258", "272-294", "299-321"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -813,12 +907,12 @@ function main() {
     claims: [
       "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
       "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/embed.php ownership.",
       "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-      "This fixture does not claim WP_Embed, WP_oEmbed, or WP_oEmbed_Controller class method ownership beyond the narrow route registration, get_html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, _oembed_create_xml(), post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+      "This fixture does not claim WP_Embed, WP_oEmbed, or WP_oEmbed_Controller class method ownership beyond the narrow route registration, get_html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, excerpt helper calls, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, _oembed_create_xml(), full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
     ]
   };
 
