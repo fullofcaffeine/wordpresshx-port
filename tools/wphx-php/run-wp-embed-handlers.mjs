@@ -58,7 +58,11 @@ const EXACT_PATTERNS = [
   "if ( $this->return_false_on_fail )",
   "esc_url( $url )",
   "esc_html( $url )",
-  "apply_filters( 'embed_maybe_make_link', $output, $url )"
+  "apply_filters( 'embed_maybe_make_link', $output, $url )",
+  "public function delete_oembed_caches($post_id)",
+  "$post_metas = get_post_custom_keys( $post_id );",
+  "str_starts_with( $post_meta_key, '_oembed_' )",
+  "delete_post_meta( $post_id, $post_meta_key );"
 ];
 const CASES = [
   { id: "wp-embed-handlers:property-defaults", focus: "public WP_Embed property defaults are visible without constructor side effects" },
@@ -70,7 +74,9 @@ const CASES = [
   { id: "wp-embed-handlers:get-html-miss", focus: "non-callable and non-matching handlers return false without filtering" },
   { id: "wp-embed-handlers:maybe-link-default", focus: "maybe_make_link creates escaped anchor output and filters it" },
   { id: "wp-embed-handlers:maybe-link-raw", focus: "maybe_make_link preserves raw URL when linkifunknown is false and filters it" },
-  { id: "wp-embed-handlers:maybe-link-false", focus: "maybe_make_link returns false before filtering when return_false_on_fail is true" }
+  { id: "wp-embed-handlers:maybe-link-false", focus: "maybe_make_link returns false before filtering when return_false_on_fail is true" },
+  { id: "wp-embed-handlers:delete-oembed-empty", focus: "delete_oembed_caches returns without deletes when no custom keys exist" },
+  { id: "wp-embed-handlers:delete-oembed-selective", focus: "delete_oembed_caches deletes only _oembed_ prefixed post meta keys" }
 ];
 
 function command(commandName, commandArgs) {
@@ -162,9 +168,22 @@ function apply_filters( $hook_name, $value, ...$args ) {
 \treturn $value . '<!-- filtered:' . $hook_name . ' -->';
 }
 
+function get_post_custom_keys( $post_id ) {
+\treturn $GLOBALS['wphx_post_custom_keys'][ $post_id ] ?? null;
+}
+
+function delete_post_meta( $post_id, $meta_key ) {
+\t$GLOBALS['wphx_post_meta_deletes'][] = array(
+\t\t'post_id' => $post_id,
+\t\t'meta_key' => $meta_key,
+\t);
+}
+
 function wphx_reset_events() {
 \t$GLOBALS['wphx_handler_events'] = array();
 \t$GLOBALS['wphx_filter_events'] = array();
+\t$GLOBALS['wphx_post_meta_deletes'] = array();
+\t$GLOBALS['wphx_post_custom_keys'] = array();
 }
 
 function wphx_embed_false_callback( $matches, $attr, $url, $rawattr ) {
@@ -368,6 +387,27 @@ switch ( $case ) {
 \t\t$assertions['no_filter_before_false'] = array() === $GLOBALS['wphx_filter_events'];
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:delete-oembed-empty':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$GLOBALS['wphx_post_custom_keys'][123] = array();
+\t\t$embed->delete_oembed_caches( 123 );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['post_meta_deletes'] = $GLOBALS['wphx_post_meta_deletes'];
+\t\t$assertions['no_deletes_for_empty_keys'] = array() === $GLOBALS['wphx_post_meta_deletes'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:delete-oembed-selective':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$GLOBALS['wphx_post_custom_keys'][123] = array( '_oembed_alpha', '_oembed_time_alpha', 'plain_meta', '_oembedx' );
+\t\t$embed->delete_oembed_caches( 123 );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['post_meta_deletes'] = $GLOBALS['wphx_post_meta_deletes'];
+\t\t$assertions['only_oembed_keys_deleted'] = array(
+\t\t\tarray( 'post_id' => 123, 'meta_key' => '_oembed_alpha' ),
+\t\t\tarray( 'post_id' => 123, 'meta_key' => '_oembed_time_alpha' ),
+\t\t) === $GLOBALS['wphx_post_meta_deletes'];
+\t\tbreak;
+
 \tdefault:
 \t\tthrow new RuntimeException( 'Unknown case ' . $case );
 }
@@ -409,7 +449,8 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     html: value.html ?? null,
     output: value.output ?? null,
     handler_events: value.handler_events ?? [],
-    filter_events: value.filter_events ?? []
+    filter_events: value.filter_events ?? [],
+    post_meta_deletes: value.post_meta_deletes ?? []
   }]));
   const candidateComparable = Object.fromEntries(Object.entries(candidateObservations).map(([key, value]) => [key, {
     handlers: value.handlers,
@@ -417,7 +458,8 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     html: value.html ?? null,
     output: value.output ?? null,
     handler_events: value.handler_events ?? [],
-    filter_events: value.filter_events ?? []
+    filter_events: value.filter_events ?? [],
+    post_meta_deletes: value.post_meta_deletes ?? []
   }]));
   return {
     schema: "wphx.wphx-php-wp-embed-handlers.v1",
@@ -463,11 +505,12 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
       "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
       "WP_Embed::maybe_make_link returns strict false when configured, otherwise filters either an escaped anchor or the raw URL according to linkifunknown.",
-      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, and maybe-link policy when constructor side effects are bypassed."
+      "WP_Embed::delete_oembed_caches deletes only custom post meta keys with the _oembed_ prefix and returns without side effects for empty key lists.",
+      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, and oEmbed cache key deletion when constructor side effects are bypassed."
     ],
     non_claims: [
       "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-      "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+      "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
       "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
@@ -482,14 +525,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html/maybe-link manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html/maybe-link/delete-cache manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html/maybe-link runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html/maybe-link/delete-cache runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, get_embed_handler_html, and maybe_make_link.",
-      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, and maybe-link policy against the upstream oracle with constructor side effects bypassed."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, and delete_oembed_caches.",
+      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, and selective oEmbed post-meta cache deletion against the upstream oracle with constructor side effects bypassed."
     ]
   };
 }
@@ -520,7 +563,8 @@ for (const fixtureCase of CASES) {
       html: oracleObservations[fixtureCase.id].html ?? null,
       output: oracleObservations[fixtureCase.id].output ?? null,
       handler_events: oracleObservations[fixtureCase.id].handler_events ?? [],
-      filter_events: oracleObservations[fixtureCase.id].filter_events ?? []
+      filter_events: oracleObservations[fixtureCase.id].filter_events ?? [],
+      post_meta_deletes: oracleObservations[fixtureCase.id].post_meta_deletes ?? []
     },
     {
       handlers: candidateObservations[fixtureCase.id].handlers,
@@ -528,7 +572,8 @@ for (const fixtureCase of CASES) {
       html: candidateObservations[fixtureCase.id].html ?? null,
       output: candidateObservations[fixtureCase.id].output ?? null,
       handler_events: candidateObservations[fixtureCase.id].handler_events ?? [],
-      filter_events: candidateObservations[fixtureCase.id].filter_events ?? []
+      filter_events: candidateObservations[fixtureCase.id].filter_events ?? [],
+      post_meta_deletes: candidateObservations[fixtureCase.id].post_meta_deletes ?? []
     },
     fixtureCase.id
   );

@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 68873,
-      "sha256": "sha256:e25ee00321b91d08c0780c6f11cc543b637b68d5860c3a9160e1c699e7516c4a"
+      "bytes": 69630,
+      "sha256": "sha256:3ad1038373cf1fb89a8f57e55b8ea9ed82f8362a4d06edbdb70d1beea56e6d9b"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 539,
-      "sha256": "sha256:d48543d4cb6cc73e04ebf95f6436a28a78d99b55744142731f30a17d8c4bcf2e"
+      "bytes": 574,
+      "sha256": "sha256:514f49d64efe6e126c7e34fe813d324a0c0f383b0986539c52e06b388930b0e1"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 1614,
-      "sha256": "sha256:d8d98b80a15ca3d05138d05d06118640b31aa0907e9a63f75ab6c65d58b4bb58"
+      "bytes": 1743,
+      "sha256": "sha256:5fcd6050a73fde5dcf4fdcf32a190a9305470be0e98c8c0fc92806599014f63c"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:559d5ed7300e4c5f6c4a31b36cc26145ac587770b8d4cec73cfe9d8aaba55608",
+    "sha256": "sha256:2b2c6f85e6d68d1df12aa540d899e9b49db1f79585b365e4d1fea8fab2709dc4",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -68,11 +68,15 @@
       "if ( $this->return_false_on_fail )": true,
       "esc_url( $url )": true,
       "esc_html( $url )": true,
-      "apply_filters( 'embed_maybe_make_link', $output, $url )": true
+      "apply_filters( 'embed_maybe_make_link', $output, $url )": true,
+      "public function delete_oembed_caches($post_id)": true,
+      "$post_metas = get_post_custom_keys( $post_id );": true,
+      "str_starts_with( $post_meta_key, '_oembed_' )": true,
+      "delete_post_meta( $post_id, $post_meta_key );": true
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:154d6ee75644e6d8ad05220528973f39d2c54293b6579b8c4c9838198ad99e7e",
+      "sha256": "sha256:335bd54a0c58a087c794600b606f981449fb688542d3dced6f7cf37a6827b07c",
       "unsupported": [],
       "declarations": [
         {
@@ -95,6 +99,7 @@
         "native-array-nested-write",
         "native-callable-dispatch",
         "stmt.assign",
+        "stmt.foreach",
         "stmt.foreach-key-value",
         "stmt.if",
         "stmt.return",
@@ -148,6 +153,14 @@
     {
       "id": "wp-embed-handlers:maybe-link-false",
       "focus": "maybe_make_link returns false before filtering when return_false_on_fail is true"
+    },
+    {
+      "id": "wp-embed-handlers:delete-oembed-empty",
+      "focus": "delete_oembed_caches returns without deletes when no custom keys exist"
+    },
+    {
+      "id": "wp-embed-handlers:delete-oembed-selective",
+      "focus": "delete_oembed_caches deletes only _oembed_ prefixed post meta keys"
     }
   ],
   "observations": {
@@ -429,6 +442,31 @@
           "strict_false": true,
           "no_filter_before_false": true
         }
+      },
+      "wp-embed-handlers:delete-oembed-empty": {
+        "case": "wp-embed-handlers:delete-oembed-empty",
+        "handlers": [],
+        "post_meta_deletes": [],
+        "assertions": {
+          "no_deletes_for_empty_keys": true
+        }
+      },
+      "wp-embed-handlers:delete-oembed-selective": {
+        "case": "wp-embed-handlers:delete-oembed-selective",
+        "handlers": [],
+        "post_meta_deletes": [
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_alpha"
+          },
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_time_alpha"
+          }
+        ],
+        "assertions": {
+          "only_oembed_keys_deleted": true
+        }
       }
     },
     "candidate": {
@@ -709,6 +747,31 @@
           "strict_false": true,
           "no_filter_before_false": true
         }
+      },
+      "wp-embed-handlers:delete-oembed-empty": {
+        "case": "wp-embed-handlers:delete-oembed-empty",
+        "handlers": [],
+        "post_meta_deletes": [],
+        "assertions": {
+          "no_deletes_for_empty_keys": true
+        }
+      },
+      "wp-embed-handlers:delete-oembed-selective": {
+        "case": "wp-embed-handlers:delete-oembed-selective",
+        "handlers": [],
+        "post_meta_deletes": [
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_alpha"
+          },
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_time_alpha"
+          }
+        ],
+        "assertions": {
+          "only_oembed_keys_deleted": true
+        }
       }
     }
   },
@@ -729,7 +792,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -744,7 +808,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -774,7 +839,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -795,7 +861,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -859,7 +926,8 @@
               }
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -911,7 +979,8 @@
               }
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -930,7 +999,8 @@
         "html": false,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -946,7 +1016,8 @@
               "https://example.test/a path/?x=<tag>"
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -962,7 +1033,8 @@
               "https://raw.example/post"
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -970,7 +1042,35 @@
         "html": null,
         "output": false,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
+      },
+      "wp-embed-handlers:delete-oembed-empty": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": []
+      },
+      "wp-embed-handlers:delete-oembed-selective": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_alpha"
+          },
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_time_alpha"
+          }
+        ]
       }
     },
     "candidate": {
@@ -989,7 +1089,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -1004,7 +1105,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -1034,7 +1136,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -1055,7 +1158,8 @@
         "html": null,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -1119,7 +1223,8 @@
               }
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -1171,7 +1276,8 @@
               }
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -1190,7 +1296,8 @@
         "html": false,
         "output": null,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -1206,7 +1313,8 @@
               "https://example.test/a path/?x=<tag>"
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -1222,7 +1330,8 @@
               "https://raw.example/post"
             ]
           }
-        ]
+        ],
+        "post_meta_deletes": []
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -1230,7 +1339,35 @@
         "html": null,
         "output": false,
         "handler_events": [],
-        "filter_events": []
+        "filter_events": [],
+        "post_meta_deletes": []
+      },
+      "wp-embed-handlers:delete-oembed-empty": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": []
+      },
+      "wp-embed-handlers:delete-oembed-selective": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": null,
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_alpha"
+          },
+          {
+            "post_id": 123,
+            "meta_key": "_oembed_time_alpha"
+          }
+        ]
       }
     }
   },
@@ -1241,11 +1378,12 @@
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
     "WP_Embed::maybe_make_link returns strict false when configured, otherwise filters either an escaped anchor or the raw URL according to linkifunknown.",
-    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, and maybe-link policy when constructor side effects are bypassed."
+    "WP_Embed::delete_oembed_caches deletes only custom post meta keys with the _oembed_ prefix and returns without side effects for empty key lists.",
+    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, and oEmbed cache key deletion when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-    "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

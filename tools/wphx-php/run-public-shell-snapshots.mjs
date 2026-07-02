@@ -185,11 +185,15 @@ const CASES = [
       "if ( $this->return_false_on_fail )",
       "esc_url( $url )",
       "esc_html( $url )",
-      "apply_filters( 'embed_maybe_make_link', $output, $url )"
+      "apply_filters( 'embed_maybe_make_link', $output, $url )",
+      "public function delete_oembed_caches($post_id)",
+      "$post_metas = get_post_custom_keys( $post_id );",
+      "str_starts_with( $post_meta_key, '_oembed_' )",
+      "delete_post_meta( $post_id, $post_meta_key );"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
-      methods: ["register_handler", "unregister_handler", "get_embed_handler_html", "maybe_make_link"]
+      methods: ["register_handler", "unregister_handler", "get_embed_handler_html", "maybe_make_link", "delete_oembed_caches"]
     }
   },
   {

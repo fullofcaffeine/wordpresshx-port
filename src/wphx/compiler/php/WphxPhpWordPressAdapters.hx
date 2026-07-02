@@ -128,6 +128,8 @@ class WphxPhpWordPressAdapters
 				embedGetHandlerHtml(fieldName);
 			case "wp-embed-maybe-make-link":
 				embedMaybeMakeLink(fieldName);
+			case "wp-embed-delete-oembed-caches":
+				embedDeleteOembedCaches(fieldName);
 			case _:
 				null;
 		}
@@ -317,6 +319,21 @@ class WphxPhpWordPressAdapters
 						PhpBinop(".", PhpFunctionCall("esc_html", [url]), PhpString("</a>"))),
 					url)),
 			PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_maybe_make_link"), output, url]))
+		]);
+	}
+
+	static function embedDeleteOembedCaches(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final postId = PhpVar("post_id");
+		final postMetas = PhpVar("post_metas");
+		final postMetaKey = PhpVar("post_meta_key");
+		return plan(["stmt.var", "stmt.if", "stmt.foreach", "stmt.return", "expr.function-call"], [
+			PhpLocal("post_metas", PhpFunctionCall("get_post_custom_keys", [postId])),
+			PhpIf(PhpFunctionCall("empty", [postMetas]), [PhpReturnVoid]),
+			PhpForeach(postMetas, "post_meta_key", [
+				PhpIf(PhpFunctionCall("str_starts_with", [postMetaKey, PhpString("_oembed_")]),
+					[PhpExprStmt(PhpFunctionCall("delete_post_meta", [postId, postMetaKey]))])
+			])
 		]);
 	}
 

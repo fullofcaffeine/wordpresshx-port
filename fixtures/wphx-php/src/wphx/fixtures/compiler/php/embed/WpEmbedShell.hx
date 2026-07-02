@@ -61,4 +61,10 @@ class WpEmbedShell
 		url;
 		return false;
 	}
+
+	@:wp.adapter("wp-embed-delete-oembed-caches")
+	public function delete_oembed_caches(post_id:NativeValue):Void
+	{
+		post_id;
+	}
 }

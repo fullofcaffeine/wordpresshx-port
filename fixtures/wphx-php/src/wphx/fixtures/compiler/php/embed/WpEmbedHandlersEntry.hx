@@ -13,5 +13,6 @@ class WpEmbedHandlersEntry
 		embed.unregister_handler("fixture", 10);
 		embed.get_embed_handler_html(null, "https://example.test/");
 		embed.maybe_make_link("https://example.test/");
+		embed.delete_oembed_caches(123);
 	}
 }
