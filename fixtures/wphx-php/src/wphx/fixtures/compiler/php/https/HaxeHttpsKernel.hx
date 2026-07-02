@@ -14,6 +14,10 @@ extern class HaxeHttpsKernel
 
 	static function isSiteUrlUsingHttps():Bool;
 
+	static function isHttpsSupported():Bool;
+
+	static function getHttpsDetectionErrors():NativeValue;
+
 	static function shouldReplaceInsecureHomeUrl():Bool;
 
 	static function replaceInsecureHomeUrl(content:String):String;

@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
-      "bytes": 5758,
-      "sha256": "sha256:54a67d46610411f512fd04e8a94878911f5644e004dc35818bceb808dcdf148d"
+      "bytes": 9103,
+      "sha256": "sha256:9765499d0cb38a65a8207dab91a1eb644312e31b3b91aab05b550d29a4171834"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/https/HttpsModuleEntry.hx",
-      "bytes": 1082,
-      "sha256": "sha256:3adc1b2ea312632256e227e316e2b9b5a487d17b63c81cb17258e0ae733c0fbe"
+      "bytes": 1302,
+      "sha256": "sha256:35e95a4de000685315adc342ed41834c3aa07562676990c578308d052f9cdbd4"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/https/HttpsModuleSurface.hx",
-      "bytes": 2267,
-      "sha256": "sha256:e920607cf5de08bcbf1b2c8c9fd9e0cb409183b33319151a6dc3071f3abf8185"
+      "bytes": 2748,
+      "sha256": "sha256:1afdbab27b37c46a8cee2fa1064dba16039537d4d53a555033ea87474256c686"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/https/HaxeHttpsKernel.hx",
-      "bytes": 717,
-      "sha256": "sha256:0b200d4eb08e46053bed9bbc6d5c8e17e8702875fa4923a795b1dacc01e6a3fb"
+      "bytes": 817,
+      "sha256": "sha256:de128105a6ba6dc04a8cbd5a2bdad64d49980462b0e6cc19adbc3e4d03b2a43f"
     }
   ],
   "upstream_oracle": {
@@ -60,6 +60,8 @@
       "wp_is_using_https",
       "wp_is_home_url_using_https",
       "wp_is_site_url_using_https",
+      "wp_is_https_supported",
+      "wp_get_https_detection_errors",
       "wp_is_local_html_output",
       "wp_should_replace_insecure_home_url",
       "wp_replace_insecure_home_url",
@@ -71,7 +73,8 @@
         "15-22",
         "34-36",
         "51-57",
-        "148-164"
+        "75-160",
+        "173-189"
       ],
       "https-migration.php": [
         "17-34",
@@ -84,8 +87,8 @@
   "generated_shells": [
     {
       "path": "build/wphx-php/https-module-functions/generated/wp-includes/https-detection.php",
-      "bytes": 960,
-      "sha256": "sha256:56fc429a55283f09d3036d0cc9e22f38bd3b738fc10bc37fd4fa55db7ba23e14",
+      "bytes": 1183,
+      "sha256": "sha256:4f1d70aaef1fa359f818de5bd4cde615186f8f6613c77d9e30e505162162ccdf",
       "php_lint": "passed",
       "php_lint_output": "No syntax errors detected in build/wphx-php/https-module-functions/generated/wp-includes/https-detection.php"
     },
@@ -100,8 +103,8 @@
   "oracle_shells": [
     {
       "path": "build/wphx-php/https-module-functions/oracle/wp-includes/https-detection.php",
-      "bytes": 877,
-      "sha256": "sha256:27e88b6342f8996fc2d330207b29c512d141d243e6c22867ff0b8a3e4935dbc7",
+      "bytes": 2392,
+      "sha256": "sha256:4ecf98e504d686fdbcefc5480c3a08054bb0396a642cc049fbe7d864ca86c2e9",
       "php_lint": "passed",
       "php_lint_output": "No syntax errors detected in build/wphx-php/https-module-functions/oracle/wp-includes/https-detection.php"
     },
@@ -115,10 +118,12 @@
   ],
   "emission_manifest": {
     "path": "build/wphx-php/https-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 3014,
-    "sha256": "sha256:e73f68fd0a4ee3837235408a302c0914ea94e136ee6fe690cd426eb0a0ce46ee",
+    "bytes": 3637,
+    "sha256": "sha256:d4e51aff533b8d1ffc928bcab503c2f156089919b1bb16bb6f254a0034d317f1",
     "declarations": [
+      "wp-includes/https-detection.php:global-function:wp_get_https_detection_errors",
       "wp-includes/https-detection.php:global-function:wp_is_home_url_using_https",
+      "wp-includes/https-detection.php:global-function:wp_is_https_supported",
       "wp-includes/https-detection.php:global-function:wp_is_local_html_output",
       "wp-includes/https-detection.php:global-function:wp_is_site_url_using_https",
       "wp-includes/https-detection.php:global-function:wp_is_using_https",
@@ -145,6 +150,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -160,6 +166,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -190,6 +197,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -203,6 +211,218 @@
           ]
         },
         {
+          "id": "https-supported:default",
+          "value": {
+            "errors": [],
+            "supported": true
+          },
+          "options": {
+            "home": "https://example.test",
+            "siteurl": "https://example.test/wp",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            },
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:pre-error",
+          "value": {
+            "pre_blocked": [
+              "Preflight blocked."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:ssl-verification-failed",
+          "value": {
+            "ssl_verification_failed": [
+              "SSL verification failed."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": false,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:request-failed",
+          "value": {
+            "https_request_failed": [
+              "HTTPS request failed."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": false,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:bad-response-code",
+          "value": {
+            "bad_response_code": [
+              "Unavailable"
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:bad-response-source",
+          "value": {
+            "errors": {
+              "bad_response_source": [
+                "It looks like the response did not come from this site."
+              ]
+            },
+            "supported": false
+          },
+          "options": {
+            "home": "https://example.test",
+            "siteurl": "https://example.test/wp",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            },
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
           "id": "should-replace:true",
           "value": true,
           "options": {
@@ -211,6 +431,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -237,6 +458,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -263,6 +485,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -289,6 +512,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -315,6 +539,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -341,6 +566,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -362,6 +588,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -383,6 +610,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -394,6 +622,7 @@
             "https_migration_required": false,
             "fresh_site": true
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -404,6 +633,7 @@
             "siteurl": "http://example.test",
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -415,6 +645,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -426,6 +657,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -437,6 +669,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -448,6 +681,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         }
       ],
@@ -470,6 +704,22 @@
         },
         "wp_is_site_url_using_https": {
           "name": "wp_is_site_url_using_https",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_is_https_supported": {
+          "name": "wp_is_https_supported",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_get_https_detection_errors": {
+          "name": "wp_get_https_detection_errors",
           "numberOfParameters": 0,
           "numberOfRequiredParameters": 0,
           "returnsReference": false,
@@ -573,6 +823,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -588,6 +839,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -618,6 +870,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -631,6 +884,218 @@
           ]
         },
         {
+          "id": "https-supported:default",
+          "value": {
+            "errors": [],
+            "supported": true
+          },
+          "options": {
+            "home": "https://example.test",
+            "siteurl": "https://example.test/wp",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            },
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:pre-error",
+          "value": {
+            "pre_blocked": [
+              "Preflight blocked."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:ssl-verification-failed",
+          "value": {
+            "ssl_verification_failed": [
+              "SSL verification failed."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": false,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:request-failed",
+          "value": {
+            "https_request_failed": [
+              "HTTPS request failed."
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": false,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:bad-response-code",
+          "value": {
+            "bad_response_code": [
+              "Unavailable"
+            ]
+          },
+          "options": {
+            "home": "http://example.test",
+            "siteurl": "http://example.test",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "https-detection:bad-response-source",
+          "value": {
+            "errors": {
+              "bad_response_source": [
+                "It looks like the response did not come from this site."
+              ]
+            },
+            "supported": false
+          },
+          "options": {
+            "home": "https://example.test",
+            "siteurl": "https://example.test/wp",
+            "https_migration_required": false,
+            "fresh_site": false
+          },
+          "remote_log": [
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            },
+            {
+              "url": "https://example.test/",
+              "sslverify": true,
+              "headers": {
+                "Cache-Control": "no-cache"
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            },
+            {
+              "hook": "pre_wp_get_https_detection_errors",
+              "value": null,
+              "args": []
+            }
+          ]
+        },
+        {
           "id": "should-replace:true",
           "value": true,
           "options": {
@@ -639,6 +1104,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -665,6 +1131,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -691,6 +1158,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -717,6 +1185,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -743,6 +1212,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -769,6 +1239,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -790,6 +1261,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": [
             {
               "hook": "site_url",
@@ -811,6 +1283,7 @@
             "https_migration_required": true,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -822,6 +1295,7 @@
             "https_migration_required": false,
             "fresh_site": true
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -832,6 +1306,7 @@
             "siteurl": "http://example.test",
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -843,6 +1318,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -854,6 +1330,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -865,6 +1342,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         },
         {
@@ -876,6 +1354,7 @@
             "https_migration_required": false,
             "fresh_site": false
           },
+          "remote_log": [],
           "filters": []
         }
       ],
@@ -898,6 +1377,22 @@
         },
         "wp_is_site_url_using_https": {
           "name": "wp_is_site_url_using_https",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_is_https_supported": {
+          "name": "wp_is_https_supported",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_get_https_detection_errors": {
+          "name": "wp_get_https_detection_errors",
           "numberOfParameters": 0,
           "numberOfRequiredParameters": 0,
           "returnsReference": false,
@@ -1006,11 +1501,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original paths wp-includes/https-detection.php and wp-includes/https-migration.php.",
     "The generated selected HTTPS helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for home/site HTTPS URL detection, site_url filtering, insecure home URL replacement, URL option HTTPS migration and revert behavior, migration-required option updates, local RSD/REST HTML source checks, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for home/site HTTPS URL detection, site_url filtering, deterministic HTTPS detection error short-circuiting, verified/unverified wp_remote_request fallback, WP_Error error-array accumulation, response-code/source validation, wp_is_https_supported() empty-error behavior, insecure home URL replacement, URL option HTTPS migration and revert behavior, migration-required option updates, local RSD/REST HTML source checks, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/https-detection.php or wp-includes/https-migration.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim wp_get_https_detection_errors(), wp_is_https_supported(), live remote HTTPS probing, TLS verification, WP_Error native-array boundaries, embed.php, class-wp-oembed.php, class-wp-embed.php, or installed WordPress behavior ownership."
+    "This fixture does not claim live remote HTTPS probing, real TLS verification, Requests transport behavior, embed.php, class-wp-oembed.php, class-wp-embed.php, or installed WordPress behavior ownership."
   ]
 }

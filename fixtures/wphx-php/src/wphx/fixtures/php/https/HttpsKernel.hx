@@ -32,6 +32,50 @@ class HttpsKernel
 		return urlPart(HttpsGlobals.strval(siteUrl), "scheme") == "https";
 	}
 
+	public static function isHttpsSupported():Bool
+	{
+		// WPHX-211: wp_get_https_detection_errors() returns WP_Error::$errors as a native PHP array.
+		final errors:php.NativeArray = cast getHttpsDetectionErrors();
+		return WpNativeArray.count(errors) == 0;
+	}
+
+	public static function getHttpsDetectionErrors():NativeValue
+	{
+		final preErrors = HttpsHooks.applyFiltersNative1("pre_wp_get_https_detection_errors", null);
+		if (HttpsGlobals.isWpError(preErrors))
+		{
+			return existingWpError(preErrors).errors;
+		}
+
+		final supportErrors = new WpError();
+		var response = HttpsGlobals.wpRemoteRequest(HttpsGlobals.homeUrlWithScheme("/", "https"), remoteRequestArgs(true));
+		if (HttpsGlobals.isWpError(response))
+		{
+			final unverifiedResponse = HttpsGlobals.wpRemoteRequest(HttpsGlobals.homeUrlWithScheme("/", "https"), remoteRequestArgs(false));
+			if (HttpsGlobals.isWpError(unverifiedResponse))
+			{
+				supportErrors.add("https_request_failed", HttpsGlobals.translate("HTTPS request failed."));
+			} else
+			{
+				supportErrors.add("ssl_verification_failed", HttpsGlobals.translate("SSL verification failed."));
+			}
+			response = unverifiedResponse;
+		}
+
+		if (!HttpsGlobals.isWpError(response))
+		{
+			if (HttpsGlobals.wpRemoteRetrieveResponseCode(response) != 200)
+			{
+				supportErrors.add("bad_response_code", HttpsGlobals.wpRemoteRetrieveResponseMessage(response));
+			} else if (strictFalse(isLocalHtmlOutput(HttpsGlobals.wpRemoteRetrieveBody(response))))
+			{
+				supportErrors.add("bad_response_source", HttpsGlobals.translate("It looks like the response did not come from this site."));
+			}
+		}
+
+		return supportErrors.errors;
+	}
+
 	public static function shouldReplaceInsecureHomeUrl():Bool
 	{
 		final shouldReplace = isUsingHttps()
@@ -115,6 +159,24 @@ class HttpsKernel
 	{
 		return HttpsGlobals.strval(WpNativeArray.get(HttpsGlobals.wpParseUrl(url), part, ""));
 	}
+
+	static function remoteRequestArgs(sslVerify:Bool):php.NativeArray
+	{
+		// WPHX-211: wp_remote_request() consumes WordPress's native associative args/header array.
+		return php.Syntax.code("array('headers' => array('Cache-Control' => 'no-cache'), 'sslverify' => {0})", sslVerify);
+	}
+
+	static function strictFalse(value:NativeValue):Bool
+	{
+		// WPHX-211: wp_get_https_detection_errors() distinguishes false from null for local HTML detection.
+		return php.Syntax.code("{0} === false", value);
+	}
+
+	static function existingWpError(value:NativeValue):WpError
+	{
+		// WPHX-211: pre_wp_get_https_detection_errors may return a native WP_Error object.
+		return cast value;
+	}
 }
 
 /**
@@ -141,6 +203,21 @@ extern class HttpsGlobals
 	@:native("get_option")
 	public static function getOption(name:String):NativeValue;
 
+	@:native("is_wp_error")
+	public static function isWpError(value:NativeValue):Bool;
+
+	@:native("wp_remote_request")
+	public static function wpRemoteRequest(url:String, args:php.NativeArray):NativeValue;
+
+	@:native("wp_remote_retrieve_response_code")
+	public static function wpRemoteRetrieveResponseCode(response:NativeValue):Int;
+
+	@:native("wp_remote_retrieve_response_message")
+	public static function wpRemoteRetrieveResponseMessage(response:NativeValue):String;
+
+	@:native("wp_remote_retrieve_body")
+	public static function wpRemoteRetrieveBody(response:NativeValue):String;
+
 	@:native("update_option")
 	public static function updateOption(name:String, value:NativeValue):Bool;
 
@@ -158,6 +235,9 @@ extern class HttpsGlobals
 
 	@:native("strval")
 	public static function strval(value:NativeValue):String;
+
+	@:native("__")
+	public static function translate(message:String):String;
 
 	@:native("has_action")
 	public static function hasAction(hookName:String, callback:String):NativeValue;
@@ -177,6 +257,19 @@ extern class HttpsGlobals
 }
 
 /**
+	Typed subset of WP_Error used by deterministic HTTPS detection probes.
+**/
+@:native("WP_Error")
+extern class WpError
+{
+	public var errors:php.NativeArray;
+
+	public function new():Void;
+
+	public function add(code:String, message:String):Void;
+}
+
+/**
 	Narrow extern for WordPress filter dispatch at the public PHP boundary.
 **/
 @:phpGlobal
@@ -184,6 +277,9 @@ extern class HttpsHooks
 {
 	@:native("apply_filters")
 	public static function applyFiltersSiteUrl(hookName:String, value:NativeValue, path:String, scheme:NativeValue, blogId:NativeValue):NativeValue;
+
+	@:native("apply_filters")
+	public static function applyFiltersNative1(hookName:String, value:NativeValue):NativeValue;
 
 	@:native("apply_filters")
 	public static function applyFiltersBool(hookName:String, value:Bool):Bool;

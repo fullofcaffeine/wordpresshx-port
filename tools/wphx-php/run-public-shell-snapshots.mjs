@@ -148,12 +148,22 @@ const CASES = [
       "function wp_is_using_https()",
       "function wp_is_home_url_using_https()",
       "function wp_is_site_url_using_https()",
+      "function wp_is_https_supported()",
+      "function wp_get_https_detection_errors()",
       "function wp_is_local_html_output($html)",
       "HttpsKernel::isUsingHttps()",
+      "HttpsKernel::getHttpsDetectionErrors()",
       "HttpsKernel::isLocalHtmlOutput($html)"
     ],
     ast_expect: {
-      functions: ["wp_is_using_https", "wp_is_home_url_using_https", "wp_is_site_url_using_https", "wp_is_local_html_output"]
+      functions: [
+        "wp_is_using_https",
+        "wp_is_home_url_using_https",
+        "wp_is_site_url_using_https",
+        "wp_is_https_supported",
+        "wp_get_https_detection_errors",
+        "wp_is_local_html_output"
+      ]
     }
   },
   {

@@ -315,7 +315,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 93,
+  "occurrence_count": 97,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -606,6 +606,46 @@
       "source": "return WpNativeArray.values(cast value);",
       "source_sha256": "sha256:1eb53596e0dcd8a0f290d127209418e07c1a4c1f5f60bf709a752262823296ae",
       "justification": "WPHX-211: get_post_custom() stores meta values as native PHP arrays."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
+      "line": 38,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final errors:php.NativeArray = cast getHttpsDetectionErrors();",
+      "source_sha256": "sha256:293d2b8ffaa19105c228146bcb9b919322567cf6fb9c9d9375dc12ee7ac84961",
+      "justification": "WPHX-211: wp_get_https_detection_errors() returns WP_Error::$errors as a native PHP array."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
+      "line": 166,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('headers' => array('Cache-Control' => 'no-cache'), 'sslverify' => {0})\", sslVerify);",
+      "source_sha256": "sha256:fac1ee11c701116637a666c4fc34b3f95429dcaa6f7eac276ece157f120a1868",
+      "justification": "WPHX-211: wp_remote_request() consumes WordPress's native associative args/header array."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
+      "line": 172,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"{0} === false\", value);",
+      "source_sha256": "sha256:909851279582ce8293c5539c7be1a201ab71592bb12085c14837e5071a36e10c",
+      "justification": "WPHX-211: wp_get_https_detection_errors() distinguishes false from null for local HTML detection."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/https/HttpsKernel.hx",
+      "line": 178,
+      "kinds": [
+        "cast"
+      ],
+      "source": "return cast value;",
+      "source_sha256": "sha256:75afe1328c0ef8bef972b26cff3601eb09707dc827fd1fd4fd325d174f520961",
+      "justification": "WPHX-211: pre_wp_get_https_detection_errors may return a native WP_Error object."
     },
     {
       "path": "src/wphx/wp/boundary/CallableValue.hx",
@@ -1249,9 +1289,9 @@
     }
   ],
   "by_kind": {
-    "cast": 14,
+    "cast": 16,
     "Dynamic": 8,
-    "php.Syntax.code": 71
+    "php.Syntax.code": 73
   },
   "validation_result": {
     "status": "passed",

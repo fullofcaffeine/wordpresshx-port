@@ -40,8 +40,11 @@ const EXACT_PATTERNS = [
       "function wp_is_using_https()",
       "function wp_is_home_url_using_https()",
       "function wp_is_site_url_using_https()",
+      "function wp_is_https_supported()",
+      "function wp_get_https_detection_errors()",
       "function wp_is_local_html_output($html)",
       "HttpsKernel::isUsingHttps()",
+      "HttpsKernel::getHttpsDetectionErrors()",
       "HttpsKernel::isLocalHtmlOutput($html)"
     ]
   },
@@ -115,6 +118,67 @@ function wp_is_site_url_using_https() {
 \t$site_url = apply_filters( 'site_url', get_option( 'siteurl' ), '', null, null );
 
 \treturn 'https' === wp_parse_url( $site_url, PHP_URL_SCHEME );
+}
+
+function wp_is_https_supported() {
+\t$https_detection_errors = wp_get_https_detection_errors();
+
+\treturn empty( $https_detection_errors );
+}
+
+function wp_get_https_detection_errors() {
+\t$support_errors = apply_filters( 'pre_wp_get_https_detection_errors', null );
+\tif ( is_wp_error( $support_errors ) ) {
+\t\treturn $support_errors->errors;
+\t}
+
+\t$support_errors = new WP_Error();
+
+\t$response = wp_remote_request(
+\t\thome_url( '/', 'https' ),
+\t\tarray(
+\t\t\t'headers'   => array(
+\t\t\t\t'Cache-Control' => 'no-cache',
+\t\t\t),
+\t\t\t'sslverify' => true,
+\t\t)
+\t);
+
+\tif ( is_wp_error( $response ) ) {
+\t\t$unverified_response = wp_remote_request(
+\t\t\thome_url( '/', 'https' ),
+\t\t\tarray(
+\t\t\t\t'headers'   => array(
+\t\t\t\t\t'Cache-Control' => 'no-cache',
+\t\t\t\t),
+\t\t\t\t'sslverify' => false,
+\t\t\t)
+\t\t);
+
+\t\tif ( is_wp_error( $unverified_response ) ) {
+\t\t\t$support_errors->add(
+\t\t\t\t'https_request_failed',
+\t\t\t\t__( 'HTTPS request failed.' )
+\t\t\t);
+\t\t} else {
+\t\t\t$support_errors->add(
+\t\t\t\t'ssl_verification_failed',
+\t\t\t\t__( 'SSL verification failed.' )
+\t\t\t);
+\t\t}
+
+\t\t$response = $unverified_response;
+\t}
+
+\tif ( ! is_wp_error( $response ) ) {
+\t\tif ( 200 !== wp_remote_retrieve_response_code( $response ) ) {
+\t\t\t$support_errors->add( 'bad_response_code', wp_remote_retrieve_response_message( $response ) );
+\t\t} elseif ( false === wp_is_local_html_output( wp_remote_retrieve_body( $response ) ) ) {
+\t\t\t$support_errors->add( 'bad_response_source', __( 'It looks like the response did not come from this site.' ) );
+\t\t}
+\t}
+
+\treturn $support_errors->errors;
 }
 
 function wp_is_local_html_output( $html ) {
@@ -214,6 +278,30 @@ $GLOBALS['wphx_filter_log'] = array();
 $GLOBALS['wphx_filter_overrides'] = array();
 $GLOBALS['wphx_actions'] = array();
 $GLOBALS['wphx_installing'] = false;
+$GLOBALS['wphx_remote_responses'] = array();
+$GLOBALS['wphx_remote_log'] = array();
+
+class WP_Error {
+\tpublic $errors = array();
+
+\tpublic function __construct( $code = '', $message = '' ) {
+\t\tif ( '' !== $code ) {
+\t\t\t$this->add( $code, $message );
+\t\t}
+\t}
+
+\tpublic function add( $code, $message ) {
+\t\t$this->errors[ $code ][] = $message;
+\t}
+}
+
+function is_wp_error( $thing ) {
+\treturn $thing instanceof WP_Error;
+}
+
+function __( $text ) {
+\treturn $text;
+}
 
 function wphx_https_truthy( $value ) {
 \treturn (bool) $value;
@@ -290,6 +378,31 @@ function get_rest_url() {
 \treturn home_url( '/wp-json/', 'https' );
 }
 
+function wp_remote_request( $url, $args = array() ) {
+\t$GLOBALS['wphx_remote_log'][] = array(
+\t\t'url' => $url,
+\t\t'sslverify' => $args['sslverify'] ?? null,
+\t\t'headers' => $args['headers'] ?? array(),
+\t);
+\t$key = ! empty( $args['sslverify'] ) ? 'verified' : 'unverified';
+\treturn $GLOBALS['wphx_remote_responses'][ $key ] ?? array(
+\t\t'response' => array( 'code' => 200, 'message' => 'OK' ),
+\t\t'body' => '<html><link href="//example.test/xmlrpc.php?rsd" /></html>',
+\t);
+}
+
+function wp_remote_retrieve_response_code( $response ) {
+\treturn $response['response']['code'] ?? null;
+}
+
+function wp_remote_retrieve_response_message( $response ) {
+\treturn $response['response']['message'] ?? '';
+}
+
+function wp_remote_retrieve_body( $response ) {
+\treturn $response['body'] ?? '';
+}
+
 function wp_installing() {
 \treturn $GLOBALS['wphx_installing'];
 }
@@ -315,11 +428,14 @@ function wphx_case( $id, $options, $filters, $actions, $callback ) {
 \t$GLOBALS['wphx_filter_overrides'] = $filters;
 \t$GLOBALS['wphx_actions'] = $actions;
 \t$GLOBALS['wphx_installing'] = false;
+\t$GLOBALS['wphx_remote_responses'] = array();
+\t$GLOBALS['wphx_remote_log'] = array();
 \t$value = $callback();
 \treturn array(
 \t\t'id' => $id,
 \t\t'value' => $value,
 \t\t'options' => $GLOBALS['wphx_options'],
+\t\t'remote_log' => $GLOBALS['wphx_remote_log'],
 \t\t'filters' => $GLOBALS['wphx_filter_log'],
 \t);
 }
@@ -337,6 +453,45 @@ $cases[] = wphx_case( 'using-https:true', array( 'home' => 'https://example.test
 } );
 $cases[] = wphx_case( 'site-url-filtered', array( 'home' => 'https://example.test', 'siteurl' => 'http://example.test/wp' ), array( 'site_url' => 'https://filtered.example/wp' ), array(), function () {
 \treturn wp_is_site_url_using_https();
+} );
+$cases[] = wphx_case( 'https-supported:default', array( 'home' => 'https://example.test', 'siteurl' => 'https://example.test/wp' ), array(), array(), function () {
+\treturn array(
+\t\t'errors' => wp_get_https_detection_errors(),
+\t\t'supported' => wp_is_https_supported(),
+\t);
+} );
+$cases[] = wphx_case( 'https-detection:pre-error', array(), array( 'pre_wp_get_https_detection_errors' => new WP_Error( 'pre_blocked', 'Preflight blocked.' ) ), array(), function () {
+\treturn wp_get_https_detection_errors();
+} );
+$cases[] = wphx_case( 'https-detection:ssl-verification-failed', array(), array(), array(), function () {
+\t$GLOBALS['wphx_remote_responses']['verified'] = new WP_Error( 'ssl_failed', 'SSL failed.' );
+\t$GLOBALS['wphx_remote_responses']['unverified'] = array(
+\t\t'response' => array( 'code' => 200, 'message' => 'OK' ),
+\t\t'body' => '<html></html>',
+\t);
+\treturn wp_get_https_detection_errors();
+} );
+$cases[] = wphx_case( 'https-detection:request-failed', array(), array(), array(), function () {
+\t$GLOBALS['wphx_remote_responses']['verified'] = new WP_Error( 'ssl_failed', 'SSL failed.' );
+\t$GLOBALS['wphx_remote_responses']['unverified'] = new WP_Error( 'http_failed', 'HTTP failed.' );
+\treturn wp_get_https_detection_errors();
+} );
+$cases[] = wphx_case( 'https-detection:bad-response-code', array(), array(), array(), function () {
+\t$GLOBALS['wphx_remote_responses']['verified'] = array(
+\t\t'response' => array( 'code' => 503, 'message' => 'Unavailable' ),
+\t\t'body' => '<html></html>',
+\t);
+\treturn wp_get_https_detection_errors();
+} );
+$cases[] = wphx_case( 'https-detection:bad-response-source', array( 'home' => 'https://example.test', 'siteurl' => 'https://example.test/wp' ), array(), array( 'wp_head:rsd_link' => 10 ), function () {
+\t$GLOBALS['wphx_remote_responses']['verified'] = array(
+\t\t'response' => array( 'code' => 200, 'message' => 'OK' ),
+\t\t'body' => '<html><link href="//other.example/xmlrpc.php?rsd" /></html>',
+\t);
+\treturn array(
+\t\t'errors' => wp_get_https_detection_errors(),
+\t\t'supported' => wp_is_https_supported(),
+\t);
 } );
 $cases[] = wphx_case( 'should-replace:true', array( 'home' => 'https://example.test', 'siteurl' => 'https://example.test/wp', 'https_migration_required' => true ), array(), array(), function () {
 \treturn wp_should_replace_insecure_home_url();
@@ -385,7 +540,7 @@ $cases[] = wphx_case( 'local-html:unknown', array(), array(), array(), function 
 } );
 
 $reflection = array();
-foreach ( array( 'wp_is_using_https', 'wp_is_home_url_using_https', 'wp_is_site_url_using_https', 'wp_is_local_html_output', 'wp_should_replace_insecure_home_url', 'wp_replace_insecure_home_url', 'wp_update_urls_to_https', 'wp_update_https_migration_required' ) as $function_name ) {
+foreach ( array( 'wp_is_using_https', 'wp_is_home_url_using_https', 'wp_is_site_url_using_https', 'wp_is_https_supported', 'wp_get_https_detection_errors', 'wp_is_local_html_output', 'wp_should_replace_insecure_home_url', 'wp_replace_insecure_home_url', 'wp_update_urls_to_https', 'wp_update_https_migration_required' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -463,7 +618,9 @@ function main() {
   const emissionManifest = JSON.parse(readFileSync(EMISSION_MANIFEST, "utf8"));
   const declarations = emissionManifest.files.flatMap((file) => file.declarations.map((entry) => `${file.path}:${entry.kind}:${entry.name}`)).sort();
   const expectedDeclarations = [
+    "wp-includes/https-detection.php:global-function:wp_get_https_detection_errors",
     "wp-includes/https-detection.php:global-function:wp_is_home_url_using_https",
+    "wp-includes/https-detection.php:global-function:wp_is_https_supported",
     "wp-includes/https-detection.php:global-function:wp_is_local_html_output",
     "wp-includes/https-detection.php:global-function:wp_is_site_url_using_https",
     "wp-includes/https-detection.php:global-function:wp_is_using_https",
@@ -498,6 +655,8 @@ function main() {
         "wp_is_using_https",
         "wp_is_home_url_using_https",
         "wp_is_site_url_using_https",
+        "wp_is_https_supported",
+        "wp_get_https_detection_errors",
         "wp_is_local_html_output",
         "wp_should_replace_insecure_home_url",
         "wp_replace_insecure_home_url",
@@ -505,7 +664,7 @@ function main() {
         "wp_update_https_migration_required"
       ],
       selected_source_lines: {
-        "https-detection.php": ["15-22", "34-36", "51-57", "148-164"],
+        "https-detection.php": ["15-22", "34-36", "51-57", "75-160", "173-189"],
         "https-migration.php": ["17-34", "45-66", "78-101", "114-134"]
       }
     },
@@ -571,12 +730,12 @@ function main() {
     claims: [
       "WPHX PHP emits selected unguarded module-level public functions at original paths wp-includes/https-detection.php and wp-includes/https-migration.php.",
       "The generated selected HTTPS helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for home/site HTTPS URL detection, site_url filtering, insecure home URL replacement, URL option HTTPS migration and revert behavior, migration-required option updates, local RSD/REST HTML source checks, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for home/site HTTPS URL detection, site_url filtering, deterministic HTTPS detection error short-circuiting, verified/unverified wp_remote_request fallback, WP_Error error-array accumulation, response-code/source validation, wp_is_https_supported() empty-error behavior, insecure home URL replacement, URL option HTTPS migration and revert behavior, migration-required option updates, local RSD/REST HTML source checks, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/https-detection.php or wp-includes/https-migration.php ownership.",
       "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-      "This fixture does not claim wp_get_https_detection_errors(), wp_is_https_supported(), live remote HTTPS probing, TLS verification, WP_Error native-array boundaries, embed.php, class-wp-oembed.php, class-wp-embed.php, or installed WordPress behavior ownership."
+      "This fixture does not claim live remote HTTPS probing, real TLS verification, Requests transport behavior, embed.php, class-wp-oembed.php, class-wp-embed.php, or installed WordPress behavior ownership."
     ]
   };
 

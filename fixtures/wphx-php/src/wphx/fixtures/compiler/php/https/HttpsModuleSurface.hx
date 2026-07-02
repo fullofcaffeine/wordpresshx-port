@@ -34,6 +34,24 @@ function wpIsSiteUrlUsingHttps():Bool
 
 @:wp.file("wp-includes/https-detection.php")
 @:wp.haxeBootstrap("WPHX_HTTPS_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_is_https_supported")
+@:keep
+function wpIsHttpsSupported():Bool
+{
+	return HaxeHttpsKernel.isHttpsSupported();
+}
+
+@:wp.file("wp-includes/https-detection.php")
+@:wp.haxeBootstrap("WPHX_HTTPS_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_get_https_detection_errors")
+@:keep
+function wpGetHttpsDetectionErrors():NativeValue
+{
+	return HaxeHttpsKernel.getHttpsDetectionErrors();
+}
+
+@:wp.file("wp-includes/https-detection.php")
+@:wp.haxeBootstrap("WPHX_HTTPS_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_is_local_html_output")
 @:keep
 function wpIsLocalHtmlOutput(@:wp.name("html") html:String):NativeValue
