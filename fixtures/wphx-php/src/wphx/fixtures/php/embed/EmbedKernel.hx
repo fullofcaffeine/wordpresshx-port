@@ -110,6 +110,25 @@ class EmbedKernel
 		return false;
 	}
 
+	public static function oembedRegisterRoute():Void
+	{
+		final controller = new WpOembedController();
+		controller.registerRoutes();
+	}
+
+	public static function oembedAddHostJs():Void {}
+
+	public static function maybeEnqueueOembedHostJs(html:String):String
+	{
+		if (EmbedGlobals.truthy(EmbedGlobals.hasAction("wp_head", "wp_oembed_add_host_js"))
+			&& EmbedGlobals.pregMatch("/<blockquote\\s[^>]*?wp-embedded-content/", html) > 0)
+		{
+			EmbedGlobals.wpEnqueueScript("wp-embed");
+		}
+
+		return html;
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -222,6 +241,15 @@ extern class EmbedGlobals
 	@:native("did_action")
 	public static function didAction(hookName:String):Int;
 
+	@:native("has_action")
+	public static function hasAction(hookName:String, callback:String):NativeValue;
+
+	@:native("preg_match")
+	public static function pregMatch(pattern:String, subject:String):Int;
+
+	@:native("wp_enqueue_script")
+	public static function wpEnqueueScript(handle:String):Void;
+
 	@:native("wphx_embed_array_set")
 	public static function arraySet(array:php.NativeArray, key:String, value:NativeValue):Void;
 
@@ -251,6 +279,18 @@ extern class WpOembed
 
 	@:native("_remove_provider_early")
 	public static function removeProviderEarly(format:String):Void;
+}
+
+/**
+	Typed subset of the oEmbed REST controller used by route registration.
+**/
+@:native("WP_oEmbed_Controller")
+extern class WpOembedController
+{
+	public function new():Void;
+
+	@:native("register_routes")
+	public function registerRoutes():Void;
 }
 
 /**

@@ -9,9 +9,12 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedRegisterHandle
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHandler;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddProvider;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddHostJs;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedEnsureFormat;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGet;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGetObject;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeEnqueueOembedHostJs;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRegisterRoute;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRemoveProvider;
 
 /**
@@ -30,6 +33,9 @@ class EmbedModuleEntry
 		wpOembedEnsureFormat("json");
 		wpOembedAddProvider("", "", false);
 		wpOembedRemoveProvider("");
+		wpOembedRegisterRoute();
+		wpOembedAddHostJs();
+		wpMaybeEnqueueOembedHostJs("");
 		wpMaybeLoadEmbeds();
 		wpEmbedHandlerYoutube(null, null, "", null);
 		wpEmbedHandlerAudio(null, null, "", null);

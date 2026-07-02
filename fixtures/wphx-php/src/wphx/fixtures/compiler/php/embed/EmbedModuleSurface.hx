@@ -89,6 +89,33 @@ function wpOembedRemoveProvider(@:wp.name("format") format:String):Bool
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_register_route")
+@:keep
+function wpOembedRegisterRoute():Void
+{
+	HaxeEmbedKernel.oembedRegisterRoute();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_add_host_js")
+@:keep
+function wpOembedAddHostJs():Void
+{
+	HaxeEmbedKernel.oembedAddHostJs();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_maybe_enqueue_oembed_host_js")
+@:keep
+function wpMaybeEnqueueOembedHostJs(@:wp.name("html") html:String):String
+{
+	return HaxeEmbedKernel.maybeEnqueueOembedHostJs(html);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_maybe_load_embeds")
 @:keep
 function wpMaybeLoadEmbeds():Void

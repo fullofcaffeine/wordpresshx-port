@@ -26,6 +26,12 @@ extern class HaxeEmbedKernel
 
 	static function oembedRemoveProvider(format:String):Bool;
 
+	static function oembedRegisterRoute():Void;
+
+	static function oembedAddHostJs():Void;
+
+	static function maybeEnqueueOembedHostJs(html:String):String;
+
 	static function maybeLoadEmbeds():Void;
 
 	static function embedHandlerYoutube(matches:NativeValue, attr:NativeValue, url:String, rawAttr:NativeValue):String;
