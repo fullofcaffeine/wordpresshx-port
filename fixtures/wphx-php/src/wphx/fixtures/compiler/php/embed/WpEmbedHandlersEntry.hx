@@ -9,6 +9,7 @@ class WpEmbedHandlersEntry
 	{
 		// WPHX-211: compile anchor for instance methods without claiming WP_Embed constructor behavior.
 		final embed:WpEmbedShell = cast null;
+		embed.run_shortcode("[embed]https://example.test/[/embed]");
 		embed.register_handler("fixture", "#fixture#", null, 10);
 		embed.unregister_handler("fixture", 10);
 		embed.get_embed_handler_html(null, "https://example.test/");

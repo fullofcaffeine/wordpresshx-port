@@ -31,6 +31,13 @@ class WpEmbedShell
 	@:wp.defaultFalse
 	public var return_false_on_fail:NativeValue;
 
+	@:wp.adapter("wp-embed-run-shortcode")
+	public function run_shortcode(content:String):String
+	{
+		content;
+		return "";
+	}
+
 	@:wp.adapter("wp-embed-register-handler")
 	public function register_handler(id:String, regex:String, callback:NativeValue, priority:Int = 10):Void
 	{

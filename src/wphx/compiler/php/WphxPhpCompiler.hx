@@ -97,6 +97,7 @@ enum PhpCoreStmt
 	PhpTryCatch(tryBody:Array<PhpCoreStmt>, catchType:String, catchVar:String, catchBody:Array<PhpCoreStmt>);
 	PhpAssign(target:PhpCoreExpr, value:PhpCoreExpr);
 	PhpListAssign(names:Array<String>, value:PhpCoreExpr);
+	PhpGlobal(names:Array<String>);
 	PhpLocal(name:String, value:PhpCoreExpr);
 	PhpStaticLocal(name:String, value:PhpCoreExpr);
 	PhpExprStmt(expr:PhpCoreExpr);
@@ -1147,6 +1148,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				+ " ) = "
 				+ emitPhpCoreExpr(value, depth)
 				+ ";";
+			case PhpGlobal(names):
+				prefix + "global " + names.map(name -> "$" + phpIdent(name)).join(", ") + ";";
 			case PhpLocal(name, value):
 				prefix + "$" + phpIdent(name) + " = " + emitPhpCoreExpr(value, depth) + ";";
 			case PhpStaticLocal(name, value):

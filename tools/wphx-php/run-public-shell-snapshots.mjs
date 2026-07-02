@@ -171,6 +171,13 @@ const CASES = [
       "public $last_attr = array();",
       "public $last_url = '';",
       "public $return_false_on_fail = false;",
+      "public function run_shortcode($content)",
+      "global $shortcode_tags;",
+      "$orig_shortcode_tags = $shortcode_tags;",
+      "remove_all_shortcodes();",
+      "add_shortcode( 'embed', array(",
+      "$content = do_shortcode( $content, true );",
+      "$shortcode_tags = $orig_shortcode_tags;",
       "public function register_handler($id, $regex, $callback, $priority = 10)",
       "$this->handlers[ $priority ][ $id ] = array(",
       "'regex'    => $regex",
@@ -225,6 +232,7 @@ const CASES = [
     ast_expect: {
       classes: ["WP_Embed"],
       methods: [
+        "run_shortcode",
         "register_handler",
         "unregister_handler",
         "get_embed_handler_html",

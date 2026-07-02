@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 4538,
-      "sha256": "sha256:f31e9367ae2a3a4b0fa10c1a07f8bda3e97beec1b6aaa6c31fea8b726cb3282d",
+      "bytes": 4852,
+      "sha256": "sha256:2ca210b81893628bca87319313652bebc68b229f983d18af12084d2aa1366fb8",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -292,6 +292,13 @@
         "public $last_attr = array();",
         "public $last_url = '';",
         "public $return_false_on_fail = false;",
+        "public function run_shortcode($content)",
+        "global $shortcode_tags;",
+        "$orig_shortcode_tags = $shortcode_tags;",
+        "remove_all_shortcodes();",
+        "add_shortcode( 'embed', array(",
+        "$content = do_shortcode( $content, true );",
+        "$shortcode_tags = $orig_shortcode_tags;",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -358,6 +365,7 @@
           "get_embed_handler_html",
           "maybe_make_link",
           "register_handler",
+          "run_shortcode",
           "unregister_handler"
         ],
         "protected_methods": [],
@@ -366,8 +374,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1152,
-        "sha256": "sha256:6a75655236ba76483579ba87cbf500f9b5e17d5a544735e9f831feafc419b2ed"
+        "bytes": 1171,
+        "sha256": "sha256:89e1993f7b98f8796746f2fdff3c9b18f86d47227adf26e025ff45255889c61b"
       }
     },
     {

@@ -10,13 +10,13 @@
   "source_files": [
     {
       "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "bytes": 58407,
-      "sha256": "sha256:aacff2babcb839aaa7ab9ae101cfe4245a8d90f9fb4da8d94ac2eea28db8b675"
+      "bytes": 58549,
+      "sha256": "sha256:00b2d4902906436d4d6a24a94f854ab893d41ce9513a37bd28a2ed01aa04a897"
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 75111,
-      "sha256": "sha256:76826ed1ed8d784931bb40964825a18ff0cb79cd1299f1b7fce431830ec35c38"
+      "bytes": 76024,
+      "sha256": "sha256:24aa6ad7354f6f097ba29925d2773205a63cf4db1ad26cd315fd062d834cdced"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 721,
-      "sha256": "sha256:fb6bd4ca528520df4f1932f24fb76527b76d0ccd0634757769b5906c4f8484cc"
+      "bytes": 784,
+      "sha256": "sha256:1b013b39ba46f2aae82966633f03294faa302b505e2f0344cfb6ff0785524f69"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 2266,
-      "sha256": "sha256:3318c96e317d7a749eed66bf7840b804c97ba848fbd1e5af78216d322c3e11e7"
+      "bytes": 2391,
+      "sha256": "sha256:793cb835dccdf2c92cef59dce20aad5479be5320b66f72c0540d984dfc9d2c22"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:f31e9367ae2a3a4b0fa10c1a07f8bda3e97beec1b6aaa6c31fea8b726cb3282d",
+    "sha256": "sha256:2ca210b81893628bca87319313652bebc68b229f983d18af12084d2aa1366fb8",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -52,6 +52,13 @@
       "public $last_attr = array();": true,
       "public $last_url = '';": true,
       "public $return_false_on_fail = false;": true,
+      "public function run_shortcode($content)": true,
+      "global $shortcode_tags;": true,
+      "$orig_shortcode_tags = $shortcode_tags;": true,
+      "remove_all_shortcodes();": true,
+      "add_shortcode( 'embed', array(": true,
+      "$content = do_shortcode( $content, true );": true,
+      "$shortcode_tags = $orig_shortcode_tags;": true,
       "public function register_handler($id, $regex, $callback, $priority = 10)": true,
       "$this->handlers[ $priority ][ $id ] = array(": true,
       "'regex'    => $regex": true,
@@ -107,7 +114,7 @@
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:6a75655236ba76483579ba87cbf500f9b5e17d5a544735e9f831feafc419b2ed",
+      "sha256": "sha256:89e1993f7b98f8796746f2fdff3c9b18f86d47227adf26e025ff45255889c61b",
       "unsupported": [],
       "declarations": [
         {
@@ -136,6 +143,7 @@
         "stmt.expr",
         "stmt.foreach",
         "stmt.foreach-key-value",
+        "stmt.global",
         "stmt.if",
         "stmt.return",
         "stmt.unset",
@@ -152,6 +160,10 @@
     {
       "id": "wp-embed-handlers:property-defaults",
       "focus": "public WP_Embed property defaults are visible without constructor side effects"
+    },
+    {
+      "id": "wp-embed-handlers:run-shortcode-restores-registry",
+      "focus": "run_shortcode registers only the embed shortcode while parsing and restores the prior shortcode registry"
     },
     {
       "id": "wp-embed-handlers:register-default",
@@ -267,6 +279,47 @@
         },
         "assertions": {
           "defaults": true
+        }
+      },
+      "wp-embed-handlers:run-shortcode-restores-registry": {
+        "case": "wp-embed-handlers:run-shortcode-restores-registry",
+        "handlers": [],
+        "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "shortcode_events": [
+          {
+            "event": "remove_all_shortcodes",
+            "before_keys": [
+              "gallery",
+              "caption"
+            ]
+          },
+          {
+            "event": "add_shortcode",
+            "tag": "embed",
+            "callback": {
+              "class": "WP_Embed",
+              "method": "shortcode"
+            }
+          },
+          {
+            "event": "do_shortcode",
+            "content": "Before [embed]https://run.example/video[/embed] after",
+            "ignore_html": true,
+            "tags": [
+              "embed"
+            ]
+          }
+        ],
+        "shortcode_tags": {
+          "gallery": "gallery_shortcode",
+          "caption": "caption_shortcode"
+        },
+        "assertions": {
+          "output_from_do_shortcode": true,
+          "registry_restored": true,
+          "embed_only_during_parse": true,
+          "ignore_html_true": true,
+          "event_order": true
         }
       },
       "wp-embed-handlers:register-default": {
@@ -876,6 +929,47 @@
         },
         "assertions": {
           "defaults": true
+        }
+      },
+      "wp-embed-handlers:run-shortcode-restores-registry": {
+        "case": "wp-embed-handlers:run-shortcode-restores-registry",
+        "handlers": [],
+        "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "shortcode_events": [
+          {
+            "event": "remove_all_shortcodes",
+            "before_keys": [
+              "gallery",
+              "caption"
+            ]
+          },
+          {
+            "event": "add_shortcode",
+            "tag": "embed",
+            "callback": {
+              "class": "WP_Embed",
+              "method": "shortcode"
+            }
+          },
+          {
+            "event": "do_shortcode",
+            "content": "Before [embed]https://run.example/video[/embed] after",
+            "ignore_html": true,
+            "tags": [
+              "embed"
+            ]
+          }
+        ],
+        "shortcode_tags": {
+          "gallery": "gallery_shortcode",
+          "caption": "caption_shortcode"
+        },
+        "assertions": {
+          "output_from_do_shortcode": true,
+          "registry_restored": true,
+          "embed_only_during_parse": true,
+          "ignore_html_true": true,
+          "event_order": true
         }
       },
       "wp-embed-handlers:register-default": {
@@ -1488,6 +1582,59 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:run-shortcode-restores-registry": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "handler_events": [],
+        "filter_events": [],
+        "shortcode_events": [
+          {
+            "event": "remove_all_shortcodes",
+            "before_keys": [
+              "gallery",
+              "caption"
+            ]
+          },
+          {
+            "event": "add_shortcode",
+            "tag": "embed",
+            "callback": {
+              "class": "WP_Embed",
+              "method": "shortcode"
+            }
+          },
+          {
+            "event": "do_shortcode",
+            "content": "Before [embed]https://run.example/video[/embed] after",
+            "ignore_html": true,
+            "tags": [
+              "embed"
+            ]
+          }
+        ],
+        "shortcode_tags": {
+          "gallery": "gallery_shortcode",
+          "caption": "caption_shortcode"
+        },
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1517,6 +1664,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1561,6 +1710,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1596,6 +1747,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1674,6 +1827,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1740,6 +1895,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1773,6 +1930,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1803,6 +1962,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1833,6 +1994,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1855,6 +2018,8 @@
         "output": false,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1877,6 +2042,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -1899,6 +2066,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [
           {
             "post_id": 123,
@@ -1930,6 +2099,8 @@
         "output": "  shortcode:https://auto.example/video:raw  ",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [
           {
@@ -1958,6 +2129,8 @@
         "output": "<p>shortcode:https://auto.example/post:raw</p>",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [
           {
@@ -1986,6 +2159,8 @@
         "output": "Before\nauto:https://auto.example/video\nAfter",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2015,6 +2190,8 @@
         "output": "auto:https://auto.example/post",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2044,6 +2221,8 @@
         "output": "Visit https://auto.example/not-alone inside text.",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2066,6 +2245,8 @@
         "output": "<span\nclass=\"x\">plain</span>",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2097,6 +2278,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2144,6 +2327,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2174,6 +2359,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2196,6 +2383,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2225,6 +2414,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2272,6 +2463,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2317,6 +2510,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2367,6 +2562,59 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:run-shortcode-restores-registry": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "handler_events": [],
+        "filter_events": [],
+        "shortcode_events": [
+          {
+            "event": "remove_all_shortcodes",
+            "before_keys": [
+              "gallery",
+              "caption"
+            ]
+          },
+          {
+            "event": "add_shortcode",
+            "tag": "embed",
+            "callback": {
+              "class": "WP_Embed",
+              "method": "shortcode"
+            }
+          },
+          {
+            "event": "do_shortcode",
+            "content": "Before [embed]https://run.example/video[/embed] after",
+            "ignore_html": true,
+            "tags": [
+              "embed"
+            ]
+          }
+        ],
+        "shortcode_tags": {
+          "gallery": "gallery_shortcode",
+          "caption": "caption_shortcode"
+        },
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2396,6 +2644,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2440,6 +2690,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2475,6 +2727,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2553,6 +2807,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2619,6 +2875,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2652,6 +2910,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2682,6 +2942,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2712,6 +2974,8 @@
             ]
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2734,6 +2998,8 @@
         "output": false,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2756,6 +3022,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2778,6 +3046,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [
           {
             "post_id": 123,
@@ -2809,6 +3079,8 @@
         "output": "  shortcode:https://auto.example/video:raw  ",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [
           {
@@ -2837,6 +3109,8 @@
         "output": "<p>shortcode:https://auto.example/post:raw</p>",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [
           {
@@ -2865,6 +3139,8 @@
         "output": "Before\nauto:https://auto.example/video\nAfter",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2894,6 +3170,8 @@
         "output": "auto:https://auto.example/post",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2923,6 +3201,8 @@
         "output": "Visit https://auto.example/not-alone inside text.",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2945,6 +3225,8 @@
         "output": "<span\nclass=\"x\">plain</span>",
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -2976,6 +3258,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3023,6 +3307,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3053,6 +3339,8 @@
             "args": []
           }
         ],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3075,6 +3363,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3104,6 +3394,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3151,6 +3443,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3196,6 +3490,8 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
         "post_meta_deletes": [],
         "shortcode_calls": [],
         "linkifunknown": null,
@@ -3233,6 +3529,7 @@
   "claims": [
     "WPHX PHP emits original-path wp-includes/class-wp-embed.php with class WP_Embed.",
     "The generated shell preserves #[AllowDynamicProperties] and public WP_Embed property defaults.",
+    "WP_Embed::run_shortcode saves the global shortcode registry, clears it, registers only the embed shortcode callback, calls do_shortcode($content, true), restores the original registry, and returns the processed content.",
     "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
@@ -3242,11 +3539,11 @@
     "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
     "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
     "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
-    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup when constructor side effects are bypassed."
+    "The behavior probe matches upstream for property defaults, run_shortcode registry restoration, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-    "This fixture does not claim run_shortcode implementation, shortcode implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim broad shortcode parser implementation, shortcode implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

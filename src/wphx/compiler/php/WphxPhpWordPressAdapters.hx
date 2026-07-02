@@ -122,6 +122,8 @@ class WphxPhpWordPressAdapters
 				requestNonblocking(fieldName, helpers);
 			case "wp-embed-register-handler":
 				embedRegisterHandler(fieldName);
+			case "wp-embed-run-shortcode":
+				embedRunShortcode(fieldName);
 			case "wp-embed-unregister-handler":
 				embedUnregisterHandler(fieldName);
 			case "wp-embed-get-handler-html":
@@ -242,6 +244,33 @@ class WphxPhpWordPressAdapters
 	static function embedHandlerSlot():PhpCoreExpr
 	{
 		return PhpArrayRead(embedHandlersAtPriority(), PhpVar("id"));
+	}
+
+	static function embedRunShortcode(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final content = PhpVar("content");
+		final shortcodeTags = PhpVar("shortcode_tags");
+		final origShortcodeTags = PhpVar("orig_shortcode_tags");
+		return plan([
+			"stmt.global",
+			"stmt.var",
+			"stmt.assign",
+			"stmt.expr",
+			"stmt.return",
+			"expr.function-call",
+			"expr.long-array"
+		], [
+			PhpGlobal(["shortcode_tags"]),
+			PhpLocal("orig_shortcode_tags", shortcodeTags),
+			PhpExprStmt(PhpFunctionCall("remove_all_shortcodes", [])),
+			PhpExprStmt(PhpFunctionCall("add_shortcode", [
+				PhpString("embed"),
+				PhpLongArray([item(PhpVar("this")), item(PhpString("shortcode"))])
+			])),
+			PhpAssign(content, PhpFunctionCall("do_shortcode", [content, PhpBool(true)])),
+			PhpAssign(shortcodeTags, origShortcodeTags),
+			PhpReturn(content)
+		]);
 	}
 
 	static function embedRegisterHandler(fieldName:String):WordPressMethodAdapterPlan
