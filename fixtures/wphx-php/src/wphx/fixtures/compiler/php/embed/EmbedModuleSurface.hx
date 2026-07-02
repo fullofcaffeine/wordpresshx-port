@@ -126,6 +126,16 @@ function oembedCreateXml(@:wp.name("data") data:NativeValue, @:wp.name("node") n
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("_oembed_rest_pre_serve_request")
+@:keep
+function oembedRestPreServeRequest(@:wp.name("served") served:NativeValue, @:wp.name("result") result:NativeValue, @:wp.name("request") request:NativeValue,
+	@:wp.name("server") server:NativeValue):NativeValue
+{
+	return HaxeEmbedKernel.oembedRestPreServeRequest(served, result, request, server);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_oembed_add_provider")
 @:keep
 function wpOembedAddProvider(@:wp.name("format") format:String, @:wp.name("provider") provider:String, @:wp.name("regex") regex:Bool = false):Void

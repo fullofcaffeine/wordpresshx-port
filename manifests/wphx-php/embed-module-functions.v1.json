@@ -32,8 +32,8 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 46811,
-      "sha256": "sha256:5cef61edf17ed7d2f29c32602a07d662e5acd396a4d73f39ffa635ce67551b85"
+      "bytes": 49087,
+      "sha256": "sha256:febe6f4c7d6f0caa88c5bb078dab74950d12d33c0780d83e792c91f8bf179bdb"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
@@ -42,13 +42,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 10847,
-      "sha256": "sha256:750e5dd14b567ca0762623e31506c3dbe7cfc33f1cb02e326132ca12fe3117d6"
+      "bytes": 11287,
+      "sha256": "sha256:12a8dae5bdd9895b98e61dbdd33947a1de02c1dcc2f8a3d3d458e525dceb1b83"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 2918,
-      "sha256": "sha256:3981bca9a8ea5733402ab820389f3d544e73d2732fe6d957a8c978ebd0383673"
+      "bytes": 3056,
+      "sha256": "sha256:6ce5ecf276a00499dce764898487d314bcff99cf29acf868bf2eef3e19d231a9"
     }
   ],
   "upstream_oracle": {
@@ -66,6 +66,7 @@
       "get_oembed_response_data_for_url",
       "get_oembed_endpoint_url",
       "wp_oembed_ensure_format",
+      "_oembed_rest_pre_serve_request",
       "_oembed_create_xml",
       "wp_oembed_add_provider",
       "wp_oembed_remove_provider",
@@ -104,6 +105,7 @@
       "719-755",
       "640-717",
       "455-481",
+      "782-823",
       "759-765",
       "828-856",
       "147-158",
@@ -134,8 +136,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 5343,
-    "sha256": "sha256:b752b8bd2ca57a8b08a80fc4f5085a3e29b1ce942e2510e7ea404442b523ebd1",
+    "bytes": 5535,
+    "sha256": "sha256:64210a92cd4206483e0afab10a7654b8f78e2d608b7bb34debd8a8c8a75f21d6",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -151,6 +153,7 @@
       "function get_oembed_response_data_rich($data, $post, $width, $height)",
       "function get_oembed_response_data_for_url($url, $args)",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
+      "function _oembed_rest_pre_serve_request($served, $result, $request, $server)",
       "function wp_oembed_ensure_format($format)",
       "function _oembed_create_xml($data, $node = null)",
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
@@ -188,6 +191,7 @@
       "EmbedKernel::oembedResponseDataRich($data, $post, $width, $height)",
       "EmbedKernel::oembedResponseDataForUrl($url, $args)",
       "EmbedKernel::oembedEndpointUrl($permalink, $format)",
+      "EmbedKernel::oembedRestPreServeRequest($served, $result, $request, $server)",
       "EmbedKernel::oembedCreateXml($data, $node)",
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
       "EmbedKernel::oembedRemoveProvider($format)",
@@ -216,18 +220,19 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 19866,
-    "sha256": "sha256:9e05c31eea1a277aeb263c96862415de8c513258b5804af8add10d90af930a39",
+    "bytes": 20647,
+    "sha256": "sha256:ddfb5b961decde218e7247104e82819991c3d20c6daeba5eef541affe1151c52",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 11864,
-    "sha256": "sha256:f9112215fce8a43e5d713339bb2eb7cc593867cdc5debdc3ebf050dbbd026bd2",
+    "bytes": 12180,
+    "sha256": "sha256:e7d042e3bdd3d6d817f7a96dd9404762e3cbc4624599c3d76c23fe5ad208d0b2",
     "declarations": [
       "wp-includes/embed.php:global-function:_oembed_create_xml",
       "wp-includes/embed.php:global-function:_oembed_filter_feed_content",
+      "wp-includes/embed.php:global-function:_oembed_rest_pre_serve_request",
       "wp-includes/embed.php:global-function:_wp_oembed_get_object",
       "wp-includes/embed.php:global-function:enqueue_embed_scripts",
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
@@ -2203,6 +2208,165 @@
               "update_site_meta_cache": false
             }
           ],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:wrong-route",
+          "value": {
+            "return": {
+              "return": "already-served",
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:wrong-method",
+          "value": {
+            "return": {
+              "return": false,
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:json-format",
+          "value": {
+            "return": {
+              "return": false,
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:xml-success",
+          "value": {
+            "return": {
+              "return": true,
+              "server_calls": [
+                {
+                  "action": "response_to_data",
+                  "result": {
+                    "version": "1.0",
+                    "title": "XML & Embed",
+                    "width": 600
+                  },
+                  "embed": false
+                }
+              ],
+              "headers": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml; charset=UTF-8"
+                }
+              ]
+            },
+            "output": "<?xml version=\"1.0\"?>\n<oembed><version>1.0</version><title>XML &amp; Embed</title><width>600</width></oembed>\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
           "switches": [],
           "url_to_postid": [],
           "thumbnail_ids": [],
@@ -5341,6 +5505,113 @@
             }
           ]
         },
+        "get_oembed_response_data": {
+          "name": "get_oembed_response_data",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "post",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "width",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_response_data_rich": {
+          "name": "get_oembed_response_data_rich",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "data",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "post",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "width",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "height",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_response_data_for_url": {
+          "name": "get_oembed_response_data_for_url",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "url",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "args",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "get_oembed_endpoint_url": {
           "name": "get_oembed_endpoint_url",
           "numberOfParameters": 2,
@@ -5380,6 +5651,55 @@
             {
               "name": "format",
               "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "_oembed_rest_pre_serve_request": {
+          "name": "_oembed_rest_pre_serve_request",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "served",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "result",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "request",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "server",
+              "position": 3,
               "isOptional": false,
               "hasDefault": false,
               "default": null,
@@ -7862,6 +8182,165 @@
           "filters": []
         },
         {
+          "id": "rest-pre-serve:wrong-route",
+          "value": {
+            "return": {
+              "return": "already-served",
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:wrong-method",
+          "value": {
+            "return": {
+              "return": false,
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:json-format",
+          "value": {
+            "return": {
+              "return": false,
+              "server_calls": [],
+              "headers": []
+            },
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "rest-pre-serve:xml-success",
+          "value": {
+            "return": {
+              "return": true,
+              "server_calls": [
+                {
+                  "action": "response_to_data",
+                  "result": {
+                    "version": "1.0",
+                    "title": "XML & Embed",
+                    "width": 600
+                  },
+                  "embed": false
+                }
+              ],
+              "headers": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/xml; charset=UTF-8"
+                }
+              ]
+            },
+            "output": "<?xml version=\"1.0\"?>\n<oembed><version>1.0</version><title>XML &amp; Embed</title><width>600</width></oembed>\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "get_sites": [],
+          "switches": [],
+          "url_to_postid": [],
+          "thumbnail_ids": [],
+          "attachment_image_src": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
           "embed_calls": [],
@@ -10983,6 +11462,113 @@
             }
           ]
         },
+        "get_oembed_response_data": {
+          "name": "get_oembed_response_data",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "post",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "width",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_response_data_rich": {
+          "name": "get_oembed_response_data_rich",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "data",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "post",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "width",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "height",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_response_data_for_url": {
+          "name": "get_oembed_response_data_for_url",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "url",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "args",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "get_oembed_endpoint_url": {
           "name": "get_oembed_endpoint_url",
           "numberOfParameters": 2,
@@ -11022,6 +11608,55 @@
             {
               "name": "format",
               "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "_oembed_rest_pre_serve_request": {
+          "name": "_oembed_rest_pre_serve_request",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "served",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "result",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "request",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "server",
+              "position": 3,
               "isOptional": false,
               "hasDefault": false,
               "default": null,
@@ -11572,11 +12207,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed response data missing/non-public/non-embeddable false returns, min/max width filtering and clamping, height calculation, provider/site fields, author fallback and override behavior, oembed_response_data filter payloads, rich oEmbed response native-array mutation, rich width/height/type/html fields, post thumbnail lookup, image attachment thumbnail selection, video attachment type switching, thumbnail image tuple propagation, URL response single-site post lookup, oembed_request_post_id filter override, missing post-id false returns, multisite URL parsing and get_sites query construction, deleted-site rejection, switch_to_blog and restore_current_blog timing, object-cast response shape, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed response data missing/non-public/non-embeddable false returns, min/max width filtering and clamping, height calculation, provider/site fields, author fallback and override behavior, oembed_response_data filter payloads, rich oEmbed response native-array mutation, rich width/height/type/html fields, post thumbnail lookup, image attachment thumbnail selection, video attachment type switching, thumbnail image tuple propagation, URL response single-site post lookup, oembed_request_post_id filter override, missing post-id false returns, multisite URL parsing and get_sites query construction, deleted-site rejection, switch_to_blog and restore_current_blog timing, object-cast response shape, REST pre-serve route/method/format fallthrough, REST response_to_data handoff, XML generation, Content-Type header emission, XML echo output, true served return, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url/oEmbed-response-data/rich-response/URL-response helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full installed post embed rendering, installed browser behavior, installed WordPress behavior, multisite network correctness beyond the deterministic selected URL resolution scenarios, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, WP_REST_Request, WP_REST_Server, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url/oEmbed-response-data/rich-response/URL-response helper calls, XML pre-serve helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, full REST server dispatch, XML fatal die branches, full installed post embed rendering, installed browser behavior, installed WordPress behavior, multisite network correctness beyond the deterministic selected URL resolution scenarios, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

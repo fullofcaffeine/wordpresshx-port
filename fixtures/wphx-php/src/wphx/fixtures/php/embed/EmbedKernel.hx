@@ -300,6 +300,46 @@ class EmbedKernel
 		return xmlNode.asXml();
 	}
 
+	public static function oembedRestPreServeRequest(served:NativeValue, result:NativeValue, request:NativeValue, server:NativeValue):NativeValue
+	{
+		// WPHX-211: REST pre-serve receives native WP_REST_Request/WP_REST_Server objects.
+		final restRequest:WpRestRequest = cast request;
+		final restServer:WpRestServer = cast server;
+		final params = restRequest.getParams();
+
+		if (restRequest.getRoute() != "/oembed/1.0/embed" || restRequest.getMethod() != "GET")
+		{
+			return served;
+		}
+
+		if (!WpNativeArray.issetKey(params, "format") || EmbedGlobals.strval(WpNativeArray.get(params, "format", "")) != "xml")
+		{
+			return served;
+		}
+
+		final data = restServer.responseToData(result, false);
+		if (!EmbedGlobals.classExists("SimpleXMLElement"))
+		{
+			EmbedGlobals.statusHeader(501);
+			EmbedGlobals.die(EmbedGlobals.getStatusHeaderDesc(501));
+		}
+
+		final xml = oembedCreateXml(data);
+		if (!EmbedGlobals.truthy(xml))
+		{
+			EmbedGlobals.statusHeader(501);
+			EmbedGlobals.die(EmbedGlobals.getStatusHeaderDesc(501));
+		}
+
+		if (!EmbedGlobals.headersSent())
+		{
+			restServer.sendHeader("Content-Type", "text/xml; charset=" + EmbedGlobals.strval(EmbedGlobals.getOption("blog_charset")));
+		}
+
+		EmbedGlobals.echoString(EmbedGlobals.strval(xml));
+		return true;
+	}
+
 	public static function oembedAddProvider(format:String, provider:String, regex:Bool):Void
 	{
 		if (EmbedGlobals.didAction("plugins_loaded") > 0)
@@ -1107,6 +1147,21 @@ extern class EmbedGlobals
 	@:native("class_exists")
 	public static function classExists(className:String):Bool;
 
+	@:native("status_header")
+	public static function statusHeader(statusCode:Int):Void;
+
+	@:native("get_status_header_desc")
+	public static function getStatusHeaderDesc(statusCode:Int):String;
+
+	@:native("die")
+	public static function die(message:String):Void;
+
+	@:native("headers_sent")
+	public static function headersSent():Bool;
+
+	@:native("wphx_embed_echo")
+	public static function echoString(value:String):Void;
+
 	@:native("preg_match")
 	public static function pregMatch(pattern:String, subject:String):Int;
 
@@ -1209,6 +1264,33 @@ extern class WpOembedController
 
 	@:native("register_routes")
 	public function registerRoutes():Void;
+}
+
+/**
+	Typed subset of WP_REST_Request used by XML oEmbed pre-serving.
+**/
+extern class WpRestRequest
+{
+	@:native("get_params")
+	public function getParams():php.NativeArray;
+
+	@:native("get_route")
+	public function getRoute():String;
+
+	@:native("get_method")
+	public function getMethod():String;
+}
+
+/**
+	Typed subset of WP_REST_Server used by XML oEmbed pre-serving.
+**/
+extern class WpRestServer
+{
+	@:native("response_to_data")
+	public function responseToData(result:NativeValue, embed:Bool):NativeValue;
+
+	@:native("send_header")
+	public function sendHeader(key:String, value:String):Void;
 }
 
 /**

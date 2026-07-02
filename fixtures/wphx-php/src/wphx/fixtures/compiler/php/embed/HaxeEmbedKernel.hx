@@ -34,6 +34,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue;
 
+	static function oembedRestPreServeRequest(served:NativeValue, result:NativeValue, request:NativeValue, server:NativeValue):NativeValue;
+
 	static function oembedAddProvider(format:String, provider:String, regex:Bool):Void;
 
 	static function oembedRemoveProvider(format:String):Bool;
