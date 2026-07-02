@@ -22,6 +22,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedEnsureFormat(format:String):String;
 
+	static function postEmbedUrl(post:NativeValue = null):NativeValue;
+
 	static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue;
 
 	static function oembedAddProvider(format:String, provider:String, regex:Bool):Void;

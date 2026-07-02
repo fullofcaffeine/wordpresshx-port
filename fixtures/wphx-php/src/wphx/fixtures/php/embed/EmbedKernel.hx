@@ -78,6 +78,25 @@ class EmbedKernel
 		return format == "xml" || format == "json" ? format : "json";
 	}
 
+	public static function postEmbedUrl(post:NativeValue = null):NativeValue
+	{
+		final resolvedPost = EmbedGlobals.getPost(post);
+		if (!EmbedGlobals.truthy(resolvedPost))
+		{
+			return false;
+		}
+
+		var embedUrl = EmbedGlobals.trailingslashit(EmbedGlobals.getPermalinkForPost(resolvedPost)) + EmbedGlobals.userTrailingslashit("embed");
+		final path = EmbedGlobals.strReplace(EmbedGlobals.homeUrl(), "", embedUrl);
+		final pathConflict = EmbedGlobals.getPageByPath(path, "OBJECT", EmbedGlobals.getPostTypes(publicPostTypesQuery()));
+		if (!EmbedGlobals.truthy(EmbedGlobals.getOption("permalink_structure")) || EmbedGlobals.truthy(pathConflict))
+		{
+			embedUrl = EmbedGlobals.addQueryArg(embedQueryArgs(), EmbedGlobals.getPermalinkForPost(resolvedPost));
+		}
+
+		return EmbedGlobals.sanitizeUrl(EmbedHooks.applyFiltersNative2("post_embed_url", embedUrl, resolvedPost));
+	}
+
 	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
 	{
 		if (!WpNativeArray.isArray(data))
@@ -312,6 +331,18 @@ class EmbedKernel
 		return php.Syntax.code("array('url' => urlencode({0}), 'format' => ('json' !== {1}) ? {1} : false)", permalink, format);
 	}
 
+	static function publicPostTypesQuery():php.NativeArray
+	{
+		// WPHX-211: get_post_types() consumes a native associative args array.
+		return php.Syntax.code("array('public' => true)");
+	}
+
+	static function embedQueryArgs():php.NativeArray
+	{
+		// WPHX-211: get_post_embed_url() falls back to native add_query_arg() array semantics.
+		return php.Syntax.code("array('embed' => 'true')");
+	}
+
 	static function providerPair(provider:String, regex:Bool):php.NativeArray
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
@@ -337,8 +368,35 @@ extern class EmbedGlobals
 	@:native("add_query_arg")
 	public static function addQueryArg(args:php.NativeArray, url:String):String;
 
+	@:native("get_post")
+	public static function getPost(post:NativeValue):NativeValue;
+
+	@:native("get_permalink")
+	public static function getPermalinkForPost(post:NativeValue):String;
+
 	@:native("esc_url")
 	public static function escUrl(url:String):String;
+
+	@:native("sanitize_url")
+	public static function sanitizeUrl(url:NativeValue):NativeValue;
+
+	@:native("trailingslashit")
+	public static function trailingslashit(url:String):String;
+
+	@:native("user_trailingslashit")
+	public static function userTrailingslashit(path:String):String;
+
+	@:native("get_page_by_path")
+	public static function getPageByPath(path:String, output:String, postTypes:php.NativeArray):NativeValue;
+
+	@:native("get_post_types")
+	public static function getPostTypes(args:php.NativeArray):php.NativeArray;
+
+	@:native("get_option")
+	public static function getOption(name:String):NativeValue;
+
+	@:native("str_replace")
+	public static function strReplace(search:String, replace:String, subject:String):String;
 
 	@:native("esc_html")
 	public static function escHtml(value:String):String;
