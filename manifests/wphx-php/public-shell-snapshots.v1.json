@@ -278,15 +278,20 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 1611,
-      "sha256": "sha256:38a405fe0682aa43aa0b011d79bde1d20e97fd7f482fb863be240cdee084bba5",
+      "bytes": 1658,
+      "sha256": "sha256:966dd7e2e76393b9b25cd6d975bde29caccdd2ab64adbb261c469c6e274dc3b6",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
         "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))",
         "#[AllowDynamicProperties]",
         "class WP_Embed",
-        "public $handlers;",
+        "public $handlers = array();",
+        "public $usecache = true;",
+        "public $linkifunknown = true;",
+        "public $last_attr = array();",
+        "public $last_url = '';",
+        "public $return_false_on_fail = false;",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -316,7 +321,7 @@
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
         "bytes": 1037,
-        "sha256": "sha256:4b73ce42525bbb819be28e2d17586eb3337035d56171a81fca3752884ca02ec8"
+        "sha256": "sha256:3a2a0b1ff659c16bb397013b1be53ea9e5f876f20df166866207edb24f8a354d"
       }
     },
     {

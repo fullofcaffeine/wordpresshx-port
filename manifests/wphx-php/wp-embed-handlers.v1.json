@@ -10,8 +10,8 @@
   "source_files": [
     {
       "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "bytes": 57827,
-      "sha256": "sha256:cdfae829d8a8b9baa19f68f2407776586ca45844d41d3744638f9a0b092be743"
+      "bytes": 58407,
+      "sha256": "sha256:aacff2babcb839aaa7ab9ae101cfe4245a8d90f9fb4da8d94ac2eea28db8b675"
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
@@ -30,8 +30,8 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 1368,
-      "sha256": "sha256:61b6069d5abbbc91ab021d4cee51f4235fbbc02172b5aeeef00d1bf83045cb60"
+      "bytes": 1485,
+      "sha256": "sha256:db61b883db22fff8c81c638388f6e90282ac3c38e1be361a518b44a8d83419f5"
     }
   ],
   "oracle_source": {
@@ -40,13 +40,18 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:38a405fe0682aa43aa0b011d79bde1d20e97fd7f482fb863be240cdee084bba5",
+    "sha256": "sha256:966dd7e2e76393b9b25cd6d975bde29caccdd2ab64adbb261c469c6e274dc3b6",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
       "#[AllowDynamicProperties]": true,
       "class WP_Embed": true,
-      "public $handlers;": true,
+      "public $handlers = array();": true,
+      "public $usecache = true;": true,
+      "public $linkifunknown = true;": true,
+      "public $last_attr = array();": true,
+      "public $last_url = '';": true,
+      "public $return_false_on_fail = false;": true,
       "public function register_handler($id, $regex, $callback, $priority = 10)": true,
       "$this->handlers[ $priority ][ $id ] = array(": true,
       "'regex'    => $regex": true,
@@ -62,7 +67,7 @@
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:4b73ce42525bbb819be28e2d17586eb3337035d56171a81fca3752884ca02ec8",
+      "sha256": "sha256:3a2a0b1ff659c16bb397013b1be53ea9e5f876f20df166866207edb24f8a354d",
       "unsupported": [],
       "declarations": [
         {
@@ -99,6 +104,10 @@
   },
   "cases": [
     {
+      "id": "wp-embed-handlers:property-defaults",
+      "focus": "public WP_Embed property defaults are visible without constructor side effects"
+    },
+    {
       "id": "wp-embed-handlers:register-default",
       "focus": "default priority handler registration"
     },
@@ -125,6 +134,23 @@
   ],
   "observations": {
     "oracle": {
+      "wp-embed-handlers:property-defaults": {
+        "case": "wp-embed-handlers:property-defaults",
+        "handlers": [],
+        "property_defaults": {
+          "handlers": [],
+          "post_ID_exists": true,
+          "post_ID_value": null,
+          "usecache": true,
+          "linkifunknown": true,
+          "last_attr": [],
+          "last_url": "",
+          "return_false_on_fail": false
+        },
+        "assertions": {
+          "defaults": true
+        }
+      },
       "wp-embed-handlers:register-default": {
         "case": "wp-embed-handlers:register-default",
         "handlers": {
@@ -342,6 +368,23 @@
       }
     },
     "candidate": {
+      "wp-embed-handlers:property-defaults": {
+        "case": "wp-embed-handlers:property-defaults",
+        "handlers": [],
+        "property_defaults": {
+          "handlers": [],
+          "post_ID_exists": true,
+          "post_ID_value": null,
+          "usecache": true,
+          "linkifunknown": true,
+          "last_attr": [],
+          "last_url": "",
+          "return_false_on_fail": false
+        },
+        "assertions": {
+          "defaults": true
+        }
+      },
       "wp-embed-handlers:register-default": {
         "case": "wp-embed-handlers:register-default",
         "handlers": {
@@ -561,6 +604,22 @@
   },
   "comparable_handlers": {
     "oracle": {
+      "wp-embed-handlers:property-defaults": {
+        "handlers": [],
+        "property_defaults": {
+          "handlers": [],
+          "post_ID_exists": true,
+          "post_ID_value": null,
+          "usecache": true,
+          "linkifunknown": true,
+          "last_attr": [],
+          "last_url": "",
+          "return_false_on_fail": false
+        },
+        "html": null,
+        "handler_events": [],
+        "filter_events": []
+      },
       "wp-embed-handlers:register-default": {
         "handlers": {
           "10": {
@@ -570,6 +629,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -598,6 +658,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -617,6 +678,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -636,6 +698,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
         "handler_events": [
           {
@@ -701,6 +764,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
         "handler_events": [
           {
@@ -746,12 +810,29 @@
             }
           }
         },
+        "property_defaults": null,
         "html": false,
         "handler_events": [],
         "filter_events": []
       }
     },
     "candidate": {
+      "wp-embed-handlers:property-defaults": {
+        "handlers": [],
+        "property_defaults": {
+          "handlers": [],
+          "post_ID_exists": true,
+          "post_ID_value": null,
+          "usecache": true,
+          "linkifunknown": true,
+          "last_attr": [],
+          "last_url": "",
+          "return_false_on_fail": false
+        },
+        "html": null,
+        "handler_events": [],
+        "filter_events": []
+      },
       "wp-embed-handlers:register-default": {
         "handlers": {
           "10": {
@@ -761,6 +842,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -789,6 +871,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -808,6 +891,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": null,
         "handler_events": [],
         "filter_events": []
@@ -827,6 +911,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
         "handler_events": [
           {
@@ -892,6 +977,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
         "handler_events": [
           {
@@ -937,6 +1023,7 @@
             }
           }
         },
+        "property_defaults": null,
         "html": false,
         "handler_events": [],
         "filter_events": []
@@ -945,11 +1032,11 @@
   },
   "claims": [
     "WPHX PHP emits original-path wp-includes/class-wp-embed.php with class WP_Embed.",
-    "The generated shell preserves #[AllowDynamicProperties] and public handler-related property declarations.",
+    "The generated shell preserves #[AllowDynamicProperties] and public WP_Embed property defaults.",
     "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
-    "The behavior probe matches upstream for default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
+    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",

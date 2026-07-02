@@ -17,12 +17,18 @@ import wphx.wp.boundary.NativeValue.NativeValue;
 @:keep
 class WpEmbedShell
 {
+	@:wp.defaultArray
 	public var handlers:NativeValue;
 	public var post_ID:NativeValue;
+	@:wp.defaultTrue
 	public var usecache:NativeValue;
+	@:wp.defaultTrue
 	public var linkifunknown:NativeValue;
+	@:wp.defaultArray
 	public var last_attr:NativeValue;
+	@:wp.defaultString("")
 	public var last_url:NativeValue;
+	@:wp.defaultFalse
 	public var return_false_on_fail:NativeValue;
 
 	@:wp.adapter("wp-embed-register-handler")

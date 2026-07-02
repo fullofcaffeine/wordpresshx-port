@@ -36,7 +36,12 @@ const EXACT_PATTERNS = [
   "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))",
   "#[AllowDynamicProperties]",
   "class WP_Embed",
-  "public $handlers;",
+  "public $handlers = array();",
+  "public $usecache = true;",
+  "public $linkifunknown = true;",
+  "public $last_attr = array();",
+  "public $last_url = '';",
+  "public $return_false_on_fail = false;",
   "public function register_handler($id, $regex, $callback, $priority = 10)",
   "$this->handlers[ $priority ][ $id ] = array(",
   "'regex'    => $regex",
@@ -51,6 +56,7 @@ const EXACT_PATTERNS = [
   "apply_filters( 'embed_handler_html', $return, $url, $attr )"
 ];
 const CASES = [
+  { id: "wp-embed-handlers:property-defaults", focus: "public WP_Embed property defaults are visible without constructor side effects" },
   { id: "wp-embed-handlers:register-default", focus: "default priority handler registration" },
   { id: "wp-embed-handlers:register-priorities", focus: "separate priority buckets preserve handler payloads" },
   { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" },
@@ -192,6 +198,31 @@ $result = array( 'case' => $case );
 wphx_reset_events();
 
 switch ( $case ) {
+\tcase 'wp-embed-handlers:property-defaults':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['property_defaults'] = array(
+\t\t\t'handlers' => $embed->handlers,
+\t\t\t'post_ID_exists' => property_exists( $embed, 'post_ID' ),
+\t\t\t'post_ID_value' => $embed->post_ID,
+\t\t\t'usecache' => $embed->usecache,
+\t\t\t'linkifunknown' => $embed->linkifunknown,
+\t\t\t'last_attr' => $embed->last_attr,
+\t\t\t'last_url' => $embed->last_url,
+\t\t\t'return_false_on_fail' => $embed->return_false_on_fail,
+\t\t);
+\t\t$assertions['defaults'] = array(
+\t\t\t'handlers' => array(),
+\t\t\t'post_ID_exists' => true,
+\t\t\t'post_ID_value' => null,
+\t\t\t'usecache' => true,
+\t\t\t'linkifunknown' => true,
+\t\t\t'last_attr' => array(),
+\t\t\t'last_url' => '',
+\t\t\t'return_false_on_fail' => false,
+\t\t) === $result['property_defaults'];
+\t\tbreak;
+
 \tcase 'wp-embed-handlers:register-default':
 \t\t$embed = wphx_new_embed_without_constructor();
 \t\t$embed->register_handler( 'video', '#https://video.example/.+#i', 'wphx_video_callback' );
@@ -325,12 +356,14 @@ function assertAllCaseAssertions(observations, label) {
 function buildManifest({ generatedSource, oracleObservations, candidateObservations, emission }) {
   const oracleComparable = Object.fromEntries(Object.entries(oracleObservations).map(([key, value]) => [key, {
     handlers: value.handlers,
+    property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? []
   }]));
   const candidateComparable = Object.fromEntries(Object.entries(candidateObservations).map(([key, value]) => [key, {
     handlers: value.handlers,
+    property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? []
@@ -374,11 +407,11 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     },
     claims: [
       "WPHX PHP emits original-path wp-includes/class-wp-embed.php with class WP_Embed.",
-      "The generated shell preserves #[AllowDynamicProperties] and public handler-related property declarations.",
+      "The generated shell preserves #[AllowDynamicProperties] and public WP_Embed property defaults.",
       "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
       "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
-      "The behavior probe matches upstream for default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
+      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, and miss behavior when constructor side effects are bypassed."
     ],
     non_claims: [
       "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
@@ -403,8 +436,8 @@ function buildReceipt(manifest) {
       { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for register_handler, unregister_handler, and get_embed_handler_html.",
-      "The generated shell preserves native nested handlers array write/unset, sorted handler matching, callback dispatch, and embed_handler_html filtering against the upstream oracle with constructor side effects bypassed."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, and get_embed_handler_html.",
+      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, and embed_handler_html filtering against the upstream oracle with constructor side effects bypassed."
     ]
   };
 }
@@ -431,12 +464,14 @@ for (const fixtureCase of CASES) {
   assertDeepEqual(
     {
       handlers: oracleObservations[fixtureCase.id].handlers,
+      property_defaults: oracleObservations[fixtureCase.id].property_defaults ?? null,
       html: oracleObservations[fixtureCase.id].html ?? null,
       handler_events: oracleObservations[fixtureCase.id].handler_events ?? [],
       filter_events: oracleObservations[fixtureCase.id].filter_events ?? []
     },
     {
       handlers: candidateObservations[fixtureCase.id].handlers,
+      property_defaults: candidateObservations[fixtureCase.id].property_defaults ?? null,
       html: candidateObservations[fixtureCase.id].html ?? null,
       handler_events: candidateObservations[fixtureCase.id].handler_events ?? [],
       filter_events: candidateObservations[fixtureCase.id].filter_events ?? []

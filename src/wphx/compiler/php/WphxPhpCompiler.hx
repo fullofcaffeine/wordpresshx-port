@@ -922,7 +922,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			final visibility = phpVisibility(field);
 			if (field.kind.match(FVar(_, _)) && visibility != null)
 			{
-				lines.push("\t" + visibility + " $" + phpIdent(field.name) + ";");
+				lines.push("\t" + visibility + " $" + phpIdent(field.name) + emitFieldDefault(field) + ";");
 			}
 		}
 
@@ -978,6 +978,29 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			return decl;
 		}
 		return "if (!class_exists('" + pending.phpName + "', false)) {\n" + indent(decl) + "\n}";
+	}
+
+	function emitFieldDefault(field:ClassField):String
+	{
+		if (hasMetadata(field.meta.get(), "wp.defaultArray"))
+		{
+			return " = array()";
+		}
+		if (hasMetadata(field.meta.get(), "wp.defaultTrue"))
+		{
+			return " = true";
+		}
+		if (hasMetadata(field.meta.get(), "wp.defaultFalse"))
+		{
+			return " = false";
+		}
+		final defaultString = metadataString(field.meta.get(), "wp.defaultString");
+		if (defaultString != null)
+		{
+			return " = " + quote(defaultString);
+		}
+		final expr = field.expr();
+		return expr == null ? "" : " = " + emitExpr(expr);
 	}
 
 	function emitInterface(pending:AdapterClass):String
