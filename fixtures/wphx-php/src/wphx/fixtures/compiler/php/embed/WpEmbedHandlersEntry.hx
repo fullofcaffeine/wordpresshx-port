@@ -17,5 +17,6 @@ class WpEmbedHandlersEntry
 		embed.autoembed_callback(null);
 		embed.autoembed("https://example.test/");
 		embed.cache_oembed(123);
+		embed.find_oembed_post_id("cache-key");
 	}
 }

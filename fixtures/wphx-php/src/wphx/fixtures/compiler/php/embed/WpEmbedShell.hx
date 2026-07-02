@@ -87,4 +87,11 @@ class WpEmbedShell
 	{
 		post_id;
 	}
+
+	@:wp.adapter("wp-embed-find-oembed-post-id")
+	public function find_oembed_post_id(cache_key:String):NativeValue
+	{
+		cache_key;
+		return null;
+	}
 }

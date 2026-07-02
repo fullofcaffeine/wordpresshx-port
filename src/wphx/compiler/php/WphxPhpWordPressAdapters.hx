@@ -136,6 +136,8 @@ class WphxPhpWordPressAdapters
 				embedAutoembed(fieldName);
 			case "wp-embed-cache-oembed":
 				embedCacheOembed(fieldName);
+			case "wp-embed-find-oembed-post-id":
+				embedFindOembedPostId(fieldName);
 			case _:
 				null;
 		}
@@ -427,6 +429,54 @@ class WphxPhpWordPressAdapters
 				PhpExprStmt(PhpMethodCall(thisValue, "autoembed", [content])),
 				PhpAssign(PhpObjectProperty(thisValue, "usecache"), PhpBool(true))
 			])
+		]);
+	}
+
+	static function embedFindOembedPostId(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final cacheKey = PhpVar("cache_key");
+		final cacheGroup = PhpVar("cache_group");
+		final oembedPostId = PhpVar("oembed_post_id");
+		final oembedPostQuery = PhpVar("oembed_post_query");
+		final firstPost = PhpArrayRead(PhpObjectProperty(oembedPostQuery, "posts"), PhpInt(0));
+		final firstPostID = PhpObjectProperty(firstPost, "ID");
+
+		return plan([
+			"stmt.var",
+			"stmt.if",
+			"stmt.assign",
+			"stmt.return",
+			"stmt.expr",
+			"expr.function-call",
+			"expr.object-property",
+			"expr.array-read",
+			"expr.new",
+			"expr.long-array",
+			"expr.binop"
+		], [
+			PhpLocal("cache_group", PhpString("oembed_cache_post")),
+			PhpLocal("oembed_post_id", PhpFunctionCall("wp_cache_get", [cacheKey, cacheGroup])),
+			PhpIf(PhpBinop("&&", oembedPostId, PhpBinop("===", PhpString("oembed_cache"), PhpFunctionCall("get_post_type", [oembedPostId]))),
+				[PhpReturn(oembedPostId)]),
+			PhpLocal("oembed_post_query", PhpNew("WP_Query", [
+				PhpLongArray([
+					entry("post_type", PhpString("oembed_cache")),
+					entry("post_status", PhpString("publish")),
+					entry("name", cacheKey),
+					entry("posts_per_page", PhpInt(1)),
+					entry("no_found_rows", PhpBool(true)),
+					entry("cache_results", PhpBool(true)),
+					entry("update_post_meta_cache", PhpBool(false)),
+					entry("update_post_term_cache", PhpBool(false)),
+					entry("lazy_load_term_meta", PhpBool(false))
+				])
+			])),
+			PhpIf(PhpNot(PhpFunctionCall("empty", [PhpObjectProperty(oembedPostQuery, "posts")])), [
+				PhpAssign(oembedPostId, firstPostID),
+				PhpExprStmt(PhpFunctionCall("wp_cache_set", [cacheKey, oembedPostId, cacheGroup])),
+				PhpReturn(oembedPostId)
+			]),
+			PhpReturn(PhpNull)
 		]);
 	}
 

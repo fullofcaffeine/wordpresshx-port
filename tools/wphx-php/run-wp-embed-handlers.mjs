@@ -84,7 +84,16 @@ const EXACT_PATTERNS = [
   "$this->usecache = false;",
   "$content = $this->run_shortcode( $post->post_content );",
   "$this->autoembed( $content );",
-  "$this->usecache = true;"
+  "$this->usecache = true;",
+  "public function find_oembed_post_id($cache_key)",
+  "$cache_group = 'oembed_cache_post';",
+  "$oembed_post_id = wp_cache_get( $cache_key, $cache_group );",
+  "get_post_type( $oembed_post_id )",
+  "$oembed_post_query = new WP_Query(",
+  "'post_type'              => 'oembed_cache'",
+  "'lazy_load_term_meta'    => false",
+  "$oembed_post_id = $oembed_post_query->posts[ 0 ]->ID;",
+  "wp_cache_set( $cache_key, $oembed_post_id, $cache_group );"
 ];
 const CASES = [
   { id: "wp-embed-handlers:property-defaults", focus: "public WP_Embed property defaults are visible without constructor side effects" },
@@ -107,7 +116,11 @@ const CASES = [
   { id: "wp-embed-handlers:autoembed-restores-tag-newline", focus: "autoembed restores line-break placeholders in HTML tags" },
   { id: "wp-embed-handlers:cache-oembed-eligible", focus: "cache_oembed sets post/usecache state and dispatches shortcode then autoembed for eligible content" },
   { id: "wp-embed-handlers:cache-oembed-disallowed-type", focus: "cache_oembed returns before dispatch for post types outside the filtered allowlist" },
-  { id: "wp-embed-handlers:cache-oembed-empty-content", focus: "cache_oembed skips dispatch when eligible post content is empty" }
+  { id: "wp-embed-handlers:cache-oembed-empty-content", focus: "cache_oembed skips dispatch when eligible post content is empty" },
+  { id: "wp-embed-handlers:find-oembed-cache-hit", focus: "find_oembed_post_id returns valid oembed cache ID from object cache without querying" },
+  { id: "wp-embed-handlers:find-oembed-cache-wrong-type-query-hit", focus: "find_oembed_post_id falls through invalid cached type and stores query hit" },
+  { id: "wp-embed-handlers:find-oembed-query-hit", focus: "find_oembed_post_id queries and caches the first oembed cache post ID" },
+  { id: "wp-embed-handlers:find-oembed-query-miss", focus: "find_oembed_post_id returns null when cache and query miss" }
 ];
 
 function command(commandName, commandArgs) {
@@ -221,6 +234,29 @@ function get_post_types( $args = array() ) {
 \treturn $GLOBALS['wphx_post_types'] ?? array();
 }
 
+function get_post_type( $post = null ) {
+\t$GLOBALS['wphx_get_post_type_calls'][] = $post;
+\treturn $GLOBALS['wphx_post_types_by_id'][ $post ] ?? null;
+}
+
+function wp_cache_get( $key, $group = '' ) {
+\t$GLOBALS['wphx_wp_cache_get_calls'][] = array(
+\t\t'key' => $key,
+\t\t'group' => $group,
+\t);
+\treturn $GLOBALS['wphx_wp_cache'][ $group ][ $key ] ?? false;
+}
+
+function wp_cache_set( $key, $value, $group = '' ) {
+\t$GLOBALS['wphx_wp_cache_set_calls'][] = array(
+\t\t'key' => $key,
+\t\t'value' => $value,
+\t\t'group' => $group,
+\t);
+\t$GLOBALS['wphx_wp_cache'][ $group ][ $key ] = $value;
+\treturn true;
+}
+
 function get_post_custom_keys( $post_id ) {
 \treturn $GLOBALS['wphx_post_custom_keys'][ $post_id ] ?? null;
 }
@@ -232,6 +268,15 @@ function delete_post_meta( $post_id, $meta_key ) {
 \t);
 }
 
+class WP_Query {
+\tpublic $posts = array();
+
+\tpublic function __construct( $args = array() ) {
+\t\t$GLOBALS['wphx_wp_query_calls'][] = $args;
+\t\t$this->posts = $GLOBALS['wphx_wp_query_posts'][ $args['name'] ?? '' ] ?? array();
+\t}
+}
+
 function wphx_reset_events() {
 \t$GLOBALS['wphx_handler_events'] = array();
 \t$GLOBALS['wphx_filter_events'] = array();
@@ -240,6 +285,13 @@ function wphx_reset_events() {
 \t$GLOBALS['wphx_posts'] = array();
 \t$GLOBALS['wphx_post_types'] = array();
 \t$GLOBALS['wphx_get_post_types_calls'] = array();
+\t$GLOBALS['wphx_post_types_by_id'] = array();
+\t$GLOBALS['wphx_get_post_type_calls'] = array();
+\t$GLOBALS['wphx_wp_cache'] = array();
+\t$GLOBALS['wphx_wp_cache_get_calls'] = array();
+\t$GLOBALS['wphx_wp_cache_set_calls'] = array();
+\t$GLOBALS['wphx_wp_query_calls'] = array();
+\t$GLOBALS['wphx_wp_query_posts'] = array();
 }
 
 function wphx_embed_false_callback( $matches, $attr, $url, $rawattr ) {
@@ -675,6 +727,76 @@ switch ( $case ) {
 \t\t$assertions['empty_content_state_unchanged'] = null === $embed->post_ID && true === $embed->usecache;
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:find-oembed-cache-hit':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$GLOBALS['wphx_wp_cache']['oembed_cache_post']['hit-key'] = 501;
+\t\t$GLOBALS['wphx_post_types_by_id'][501] = 'oembed_cache';
+\t\t$found_post_id = $embed->find_oembed_post_id( 'hit-key' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['found_post_id'] = $found_post_id;
+\t\t$result['wp_cache_get_calls'] = $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$result['wp_cache_set_calls'] = $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$result['wp_query_calls'] = $GLOBALS['wphx_wp_query_calls'];
+\t\t$result['get_post_type_calls'] = $GLOBALS['wphx_get_post_type_calls'];
+\t\t$assertions['cache_hit_returned'] = 501 === $found_post_id;
+\t\t$assertions['cache_hit_no_query_or_set'] = array() === $GLOBALS['wphx_wp_query_calls'] && array() === $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$assertions['cached_type_checked'] = array( 501 ) === $GLOBALS['wphx_get_post_type_calls'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:find-oembed-cache-wrong-type-query-hit':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$GLOBALS['wphx_wp_cache']['oembed_cache_post']['wrong-key'] = 601;
+\t\t$GLOBALS['wphx_post_types_by_id'][601] = 'post';
+\t\t$GLOBALS['wphx_wp_query_posts']['wrong-key'] = array( (object) array( 'ID' => 777 ) );
+\t\t$found_post_id = $embed->find_oembed_post_id( 'wrong-key' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['found_post_id'] = $found_post_id;
+\t\t$result['wp_cache_get_calls'] = $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$result['wp_cache_set_calls'] = $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$result['wp_query_calls'] = $GLOBALS['wphx_wp_query_calls'];
+\t\t$result['get_post_type_calls'] = $GLOBALS['wphx_get_post_type_calls'];
+\t\t$assertions['wrong_cached_type_query_returned'] = 777 === $found_post_id;
+\t\t$assertions['wrong_cached_type_checked'] = array( 601 ) === $GLOBALS['wphx_get_post_type_calls'];
+\t\t$assertions['wrong_cached_type_query_name'] = 1 === count( $GLOBALS['wphx_wp_query_calls'] ) && 'wrong-key' === $GLOBALS['wphx_wp_query_calls'][0]['name'];
+\t\t$assertions['wrong_cached_type_cache_set'] = array(
+\t\t\tarray( 'key' => 'wrong-key', 'value' => 777, 'group' => 'oembed_cache_post' ),
+\t\t) === $GLOBALS['wphx_wp_cache_set_calls'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:find-oembed-query-hit':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$GLOBALS['wphx_wp_query_posts']['query-key'] = array( (object) array( 'ID' => 888 ) );
+\t\t$found_post_id = $embed->find_oembed_post_id( 'query-key' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['found_post_id'] = $found_post_id;
+\t\t$result['wp_cache_get_calls'] = $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$result['wp_cache_set_calls'] = $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$result['wp_query_calls'] = $GLOBALS['wphx_wp_query_calls'];
+\t\t$result['get_post_type_calls'] = $GLOBALS['wphx_get_post_type_calls'];
+\t\t$assertions['query_hit_returned'] = 888 === $found_post_id;
+\t\t$assertions['query_hit_cache_lookup'] = array(
+\t\t\tarray( 'key' => 'query-key', 'group' => 'oembed_cache_post' ),
+\t\t) === $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$assertions['query_hit_cache_set'] = array(
+\t\t\tarray( 'key' => 'query-key', 'value' => 888, 'group' => 'oembed_cache_post' ),
+\t\t) === $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$assertions['query_hit_query_name'] = 1 === count( $GLOBALS['wphx_wp_query_calls'] ) && 'query-key' === $GLOBALS['wphx_wp_query_calls'][0]['name'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:find-oembed-query-miss':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$found_post_id = $embed->find_oembed_post_id( 'miss-key' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['found_post_id'] = $found_post_id;
+\t\t$result['wp_cache_get_calls'] = $GLOBALS['wphx_wp_cache_get_calls'];
+\t\t$result['wp_cache_set_calls'] = $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$result['wp_query_calls'] = $GLOBALS['wphx_wp_query_calls'];
+\t\t$result['get_post_type_calls'] = $GLOBALS['wphx_get_post_type_calls'];
+\t\t$assertions['query_miss_returned_null'] = null === $found_post_id;
+\t\t$assertions['query_miss_no_cache_set'] = array() === $GLOBALS['wphx_wp_cache_set_calls'];
+\t\t$assertions['query_miss_query_name'] = 1 === count( $GLOBALS['wphx_wp_query_calls'] ) && 'miss-key' === $GLOBALS['wphx_wp_query_calls'][0]['name'];
+\t\tbreak;
+
 \tdefault:
 \t\tthrow new RuntimeException( 'Unknown case ' . $case );
 }
@@ -725,7 +847,12 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     autoembed_calls: value.autoembed_calls ?? [],
     post_ID: value.post_ID ?? null,
     usecache: value.usecache ?? null,
-    get_post_types_calls: value.get_post_types_calls ?? []
+    get_post_types_calls: value.get_post_types_calls ?? [],
+    found_post_id: value.found_post_id ?? null,
+    wp_cache_get_calls: value.wp_cache_get_calls ?? [],
+    wp_cache_set_calls: value.wp_cache_set_calls ?? [],
+    wp_query_calls: value.wp_query_calls ?? [],
+    get_post_type_calls: value.get_post_type_calls ?? []
   }]));
   const candidateComparable = Object.fromEntries(Object.entries(candidateObservations).map(([key, value]) => [key, {
     handlers: value.handlers,
@@ -742,7 +869,12 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     autoembed_calls: value.autoembed_calls ?? [],
     post_ID: value.post_ID ?? null,
     usecache: value.usecache ?? null,
-    get_post_types_calls: value.get_post_types_calls ?? []
+    get_post_types_calls: value.get_post_types_calls ?? [],
+    found_post_id: value.found_post_id ?? null,
+    wp_cache_get_calls: value.wp_cache_get_calls ?? [],
+    wp_cache_set_calls: value.wp_cache_set_calls ?? [],
+    wp_query_calls: value.wp_query_calls ?? [],
+    get_post_type_calls: value.get_post_type_calls ?? []
   }]));
   return {
     schema: "wphx.wphx-php-wp-embed-handlers.v1",
@@ -792,11 +924,12 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::autoembed_callback temporarily disables linkifunknown, dispatches shortcode(array(), $matches[2]), restores the previous flag, and returns prefix/result/suffix concatenation.",
       "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
       "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
-      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, and cache_oembed dispatch when constructor side effects are bypassed."
+      "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
+      "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup when constructor side effects are bypassed."
     ],
     non_claims: [
       "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-      "This fixture does not claim run_shortcode implementation, shortcode implementation, cache population beyond cache_oembed dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+      "This fixture does not claim run_shortcode implementation, shortcode implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
       "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
@@ -811,14 +944,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, and cache_oembed.",
-      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, and cache_oembed stateful dispatch against the upstream oracle with constructor side effects bypassed."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, cache_oembed, and find_oembed_post_id.",
+      "The generated shell preserves public defaults, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, cache_oembed stateful dispatch, and oEmbed cache-post lookup against the upstream oracle with constructor side effects bypassed."
     ]
   };
 }
@@ -858,7 +991,12 @@ for (const fixtureCase of CASES) {
       autoembed_calls: oracleObservations[fixtureCase.id].autoembed_calls ?? [],
       post_ID: oracleObservations[fixtureCase.id].post_ID ?? null,
       usecache: oracleObservations[fixtureCase.id].usecache ?? null,
-      get_post_types_calls: oracleObservations[fixtureCase.id].get_post_types_calls ?? []
+      get_post_types_calls: oracleObservations[fixtureCase.id].get_post_types_calls ?? [],
+      found_post_id: oracleObservations[fixtureCase.id].found_post_id ?? null,
+      wp_cache_get_calls: oracleObservations[fixtureCase.id].wp_cache_get_calls ?? [],
+      wp_cache_set_calls: oracleObservations[fixtureCase.id].wp_cache_set_calls ?? [],
+      wp_query_calls: oracleObservations[fixtureCase.id].wp_query_calls ?? [],
+      get_post_type_calls: oracleObservations[fixtureCase.id].get_post_type_calls ?? []
     },
     {
       handlers: candidateObservations[fixtureCase.id].handlers,
@@ -875,7 +1013,12 @@ for (const fixtureCase of CASES) {
       autoembed_calls: candidateObservations[fixtureCase.id].autoembed_calls ?? [],
       post_ID: candidateObservations[fixtureCase.id].post_ID ?? null,
       usecache: candidateObservations[fixtureCase.id].usecache ?? null,
-      get_post_types_calls: candidateObservations[fixtureCase.id].get_post_types_calls ?? []
+      get_post_types_calls: candidateObservations[fixtureCase.id].get_post_types_calls ?? [],
+      found_post_id: candidateObservations[fixtureCase.id].found_post_id ?? null,
+      wp_cache_get_calls: candidateObservations[fixtureCase.id].wp_cache_get_calls ?? [],
+      wp_cache_set_calls: candidateObservations[fixtureCase.id].wp_cache_set_calls ?? [],
+      wp_query_calls: candidateObservations[fixtureCase.id].wp_query_calls ?? [],
+      get_post_type_calls: candidateObservations[fixtureCase.id].get_post_type_calls ?? []
     },
     fixtureCase.id
   );

@@ -211,7 +211,16 @@ const CASES = [
       "$this->usecache = false;",
       "$content = $this->run_shortcode( $post->post_content );",
       "$this->autoembed( $content );",
-      "$this->usecache = true;"
+      "$this->usecache = true;",
+      "public function find_oembed_post_id($cache_key)",
+      "$cache_group = 'oembed_cache_post';",
+      "$oembed_post_id = wp_cache_get( $cache_key, $cache_group );",
+      "get_post_type( $oembed_post_id )",
+      "$oembed_post_query = new WP_Query(",
+      "'post_type'              => 'oembed_cache'",
+      "'lazy_load_term_meta'    => false",
+      "$oembed_post_id = $oembed_post_query->posts[ 0 ]->ID;",
+      "wp_cache_set( $cache_key, $oembed_post_id, $cache_group );"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
@@ -223,7 +232,8 @@ const CASES = [
         "delete_oembed_caches",
         "autoembed_callback",
         "autoembed",
-        "cache_oembed"
+        "cache_oembed",
+        "find_oembed_post_id"
       ]
     }
   },
