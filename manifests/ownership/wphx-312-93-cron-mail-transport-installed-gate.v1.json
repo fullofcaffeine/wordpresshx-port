@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/cron-mail-transport-installed-gate",
+  "issue": {
+    "id": "wordpresshx-l76.18.39",
+    "external_ref": "WPHX-312.93"
+  },
+  "unit": {
+    "kind": "installed_style_cron_mail_transport_gate",
+    "name": "Cron controlled loopback and PHPMailer SMTP capture transport observations",
+    "area": "src/wp-includes/cron.php src/wp-cron.php src/wp-includes/pluggable.php src/wp-includes/class-wp-phpmailer.php src/wp-includes/PHPMailer/PHPMailer.php src/wp-includes/PHPMailer/SMTP.php src/wp-includes/PHPMailer/Exception.php",
+    "public_contract": "This gate executes copied WordPress 7.0 cron and wp_mail/PHPMailer source in package roots served by PHP's built-in server. It observes spawn_cron locks and controlled local HTTP loopback success/failure plus wp_mail delivery through a local SMTP capture server and controlled SMTP failure without claiming production cron timing races, external SMTP/PHP-mail delivery, installed database state, public PHP replacement, or whole-domain closure."
+  },
+  "ownership_state": "installed_style_package_gate_with_copied_oracle_php",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-public-php-with-controlled-cron-mail-transport-boundary",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass production-style loopback cron, persistent option/transient/database state, real PHP mail/SMTP operational delivery, selected upstream PHPUnit, and ecosystem fixtures before claiming public PHP ownership or complete installed behavior."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-wphx-312-cron-mail-transport-installed-gate.mjs",
+    "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+    "manifests/ownership/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+    "receipts/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+    "manifests/ownership/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+    "receipts/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+    "build/wp-core/wphx-312-93"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-312-cron-mail-transport-installed-gate",
+      "npm run wp:core:wphx-312-cron-mail-transport-installed-gate:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-312-93-cron-mail-transport-installed-gate"
+    ],
+    "manifest_digest": "sha256:31b7c35fe3f147ada2e23c2f29aa2e0be7354db1ea2d70d3a2858bdaf6615916"
+  }
+}

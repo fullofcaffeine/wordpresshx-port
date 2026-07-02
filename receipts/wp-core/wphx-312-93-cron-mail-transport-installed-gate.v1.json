@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-312-93-cron-mail-transport-installed-gate",
+  "issue": {
+    "id": "wordpresshx-l76.18.39",
+    "external_ref": "WPHX-312.93",
+    "title": "WPHX-312.93 - Add real cron and mail transport installed gate"
+  },
+  "recorded_at": "2026-07-02T23:30:00Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+      "role": "WPHX-312 cron/mail controlled transport installed-style gate manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+      "role": "ownership manifest for copied-oracle cron/mail controlled transport boundary"
+    },
+    {
+      "path": "tools/wp-core/run-wphx-312-cron-mail-transport-installed-gate.mjs",
+      "role": "installed-style cron/mail transport gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-312-cron-mail-transport-installed-gate",
+    "npm run wp:core:wphx-312-cron-mail-transport-installed-gate:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-312-01-http-cron-mail-feed-embed-surface",
+    "receipt:wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate",
+    "receipt:wphx-312-03-http-cron-mail-oracle-fixture",
+    "receipt:wphx-312-09-http-mail-feed-embed-installed-gate",
+    "receipt:wphx-312-12-cron-dispatch-lock-oracle-fixture",
+    "receipt:wphx-312-13-phpmailer-setup-oracle-fixture",
+    "receipt:wphx-312-92-http-transport-parity-gate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "observations_match": true,
+    "controlled_loopback_http_claimed": true,
+    "controlled_smtp_transport_claimed": true,
+    "production_cron_timing_claimed": false,
+    "external_mail_delivery_claimed": false,
+    "public_php_replacement_claimed": false
+  }
+}

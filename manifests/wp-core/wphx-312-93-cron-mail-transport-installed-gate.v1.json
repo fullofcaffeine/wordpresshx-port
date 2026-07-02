@@ -1,0 +1,1011 @@
+{
+  "schema": "wphx.wp-core-cron-mail-transport-installed-gate.v1",
+  "issue": "WPHX-312.93",
+  "generated_at": "2026-07-02T23:30:00Z",
+  "generator": "tools/wp-core/run-wphx-312-cron-mail-transport-installed-gate.mjs",
+  "evidence_classes": [
+    "oracle_package_http",
+    "candidate_package_http",
+    "controlled_loopback_http",
+    "controlled_smtp_capture"
+  ],
+  "artifact_scope": "installed_style_cron_mail_transport_gate",
+  "inputs": {
+    "prior_inputs": [
+      {
+        "path": "manifests/wp-core/wphx-312-01-http-cron-mail-feed-embed-surface.v1.json",
+        "bytes": 67111,
+        "sha256": "sha256:f58b69dfb30aa93304254828e280e67763b9ab8745c1dfaacced1e6f297f934d"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-02-http-cron-mail-feed-embed-adapter-contract-candidate.v1.json",
+        "bytes": 18483,
+        "sha256": "sha256:5937e6ffe97967ed96e2a2c993cada3904d9ac36a91f74debc9c3a9d9e567d82"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-03-http-cron-mail-oracle-fixture.v1.json",
+        "bytes": 38945,
+        "sha256": "sha256:017e1d13c9f442eb5f02a3c37bb3ab6ba9edc661d9c0c6b87aab429e3d7b325a"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-09-http-mail-feed-embed-installed-gate.v1.json",
+        "bytes": 33734,
+        "sha256": "sha256:d07f7fde8fa0c6574367a3b56e8fdd4735c3b5234bbced76067e4e17280c9e56"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-12-cron-dispatch-lock-oracle-fixture.v1.json",
+        "bytes": 20939,
+        "sha256": "sha256:39493aac1eddcbcff01751ec16f4c86ecb07e289c9f5ad2041fd772e2ef478e5"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+        "bytes": 34458,
+        "sha256": "sha256:fcbb4d21f23eefbb1e75e7eb97bb958cbb7d0396a2f574df3f0499c6215a8f09"
+      },
+      {
+        "path": "manifests/wp-core/wphx-312-92-http-transport-parity-gate.v1.json",
+        "bytes": 63239,
+        "sha256": "sha256:ce865d0b1e28df529b7e048e6055d07619f187098eee5af47bb48e644eb61157"
+      }
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-wphx-312-cron-mail-transport-installed-gate.mjs",
+      "bytes": 34518,
+      "sha256": "sha256:4529b8f597ec8e743957f25cada31c280d54097ba099dd395ea34aa995ea62d7"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-includes/cron.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/cron.php",
+        "bytes": 44996,
+        "sha256": "sha256:9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+      },
+      {
+        "path": "src/wp-cron.php",
+        "repo_path": "../wordpress-develop/src/wp-cron.php",
+        "bytes": 5617,
+        "sha256": "sha256:dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+      },
+      {
+        "path": "src/wp-includes/pluggable.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/pluggable.php",
+        "bytes": 127558,
+        "sha256": "sha256:c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+      },
+      {
+        "path": "src/wp-includes/class-wp-phpmailer.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/class-wp-phpmailer.php",
+        "bytes": 4348,
+        "sha256": "sha256:4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/PHPMailer.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/PHPMailer.php",
+        "bytes": 194030,
+        "sha256": "sha256:01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/SMTP.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/SMTP.php",
+        "bytes": 53628,
+        "sha256": "sha256:f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/Exception.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/Exception.php",
+        "bytes": 1256,
+        "sha256": "sha256:22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "boundary:cron-mail-transport-package",
+        "method": "GET",
+        "path": "/__wphx/package-boundary",
+        "focus": "selected WPHX-312 cron/mail source files and prior evidence inputs are present"
+      },
+      {
+        "id": "cron:controlled-loopback-success",
+        "method": "POST",
+        "path": "/__wphx/cron-success",
+        "focus": "spawn_cron sets the lock and sends a real controlled HTTP POST to the local cron capture server"
+      },
+      {
+        "id": "cron:lock-held-suppresses-spawn",
+        "method": "POST",
+        "path": "/__wphx/cron-lock-held",
+        "focus": "spawn_cron observes the lock timeout rule and does not issue a loopback request while a current lock exists"
+      },
+      {
+        "id": "cron:loopback-failure",
+        "method": "POST",
+        "path": "/__wphx/cron-failure",
+        "focus": "spawn_cron records a controlled connection failure and keeps the spawned return value false"
+      },
+      {
+        "id": "mail:smtp-capture-success",
+        "method": "POST",
+        "path": "/__wphx/mail-smtp-success",
+        "focus": "wp_mail sends through PHPMailer SMTP to a local capture server and records envelope/data observations"
+      },
+      {
+        "id": "mail:smtp-capture-failure",
+        "method": "POST",
+        "path": "/__wphx/mail-smtp-failure",
+        "focus": "wp_mail records PHPMailer SMTP connection failure and wp_mail_failed action without external delivery"
+      }
+    ],
+    "source_files": [
+      "src/wp-includes/cron.php",
+      "src/wp-cron.php",
+      "src/wp-includes/pluggable.php",
+      "src/wp-includes/class-wp-phpmailer.php",
+      "src/wp-includes/PHPMailer/PHPMailer.php",
+      "src/wp-includes/PHPMailer/SMTP.php",
+      "src/wp-includes/PHPMailer/Exception.php"
+    ],
+    "side_effect_policy": {
+      "controlled_loopback_http": true,
+      "controlled_smtp_transport": true,
+      "production_cron_timing_races": false,
+      "external_network_delivery": false,
+      "php_mail_transport": false,
+      "database_backed_writes": false
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "copied_oracle_public_php": true,
+      "installed_wordpress_behavior_claimed": "focused installed-style local cron/mail transport gate only"
+    }
+  },
+  "build": {
+    "oracle_root": "build/wp-core/wphx-312-93/oracle-package",
+    "candidate_root": "build/wp-core/wphx-312-93/candidate-package",
+    "controlled_capture_ports_runtime_only": true,
+    "oracle_files": [
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-cron.php",
+        "bytes": 5617,
+        "sha256": "sha256:dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/class-wp-phpmailer.php",
+        "bytes": 4348,
+        "sha256": "sha256:4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/cron.php",
+        "bytes": 44996,
+        "sha256": "sha256:9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/Exception.php",
+        "bytes": 1256,
+        "sha256": "sha256:22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/PHPMailer.php",
+        "bytes": 194030,
+        "sha256": "sha256:01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/SMTP.php",
+        "bytes": 53628,
+        "sha256": "sha256:f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wp-includes/pluggable.php",
+        "bytes": 127558,
+        "sha256": "sha256:c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/oracle-package/wphx-cron-mail-transport-installed-router.php",
+        "bytes": 12680,
+        "sha256": "sha256:000fc1fcfc663b5c70996faa5613aaa0e7de1da558f8c94068f2e6ea8114be49"
+      }
+    ],
+    "candidate_files": [
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-cron.php",
+        "bytes": 5617,
+        "sha256": "sha256:dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/class-wp-phpmailer.php",
+        "bytes": 4348,
+        "sha256": "sha256:4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/cron.php",
+        "bytes": 44996,
+        "sha256": "sha256:9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/Exception.php",
+        "bytes": 1256,
+        "sha256": "sha256:22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/PHPMailer.php",
+        "bytes": 194030,
+        "sha256": "sha256:01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/SMTP.php",
+        "bytes": 53628,
+        "sha256": "sha256:f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wp-includes/pluggable.php",
+        "bytes": 127558,
+        "sha256": "sha256:c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+      },
+      {
+        "path": "build/wp-core/wphx-312-93/candidate-package/wphx-cron-mail-transport-installed-router.php",
+        "bytes": 12680,
+        "sha256": "sha256:000fc1fcfc663b5c70996faa5613aaa0e7de1da558f8c94068f2e6ea8114be49"
+      }
+    ],
+    "php_lint": [
+      {
+        "path": "src/wp-includes/cron.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/cron.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/cron.php"
+      },
+      {
+        "path": "src/wp-cron.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-cron.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-cron.php"
+      },
+      {
+        "path": "src/wp-includes/pluggable.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/pluggable.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/pluggable.php"
+      },
+      {
+        "path": "src/wp-includes/class-wp-phpmailer.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/class-wp-phpmailer.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/class-wp-phpmailer.php"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/PHPMailer.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/PHPMailer.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/PHPMailer.php"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/SMTP.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/SMTP.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/SMTP.php"
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/Exception.php",
+        "oracle_lint": "No syntax errors detected in build/wp-core/wphx-312-93/oracle-package/wp-includes/PHPMailer/Exception.php",
+        "candidate_lint": "No syntax errors detected in build/wp-core/wphx-312-93/candidate-package/wp-includes/PHPMailer/Exception.php"
+      }
+    ]
+  },
+  "observations": {
+    "oracle": {
+      "boundary:cron-mail-transport-package": {
+        "response": {
+          "id": "boundary:cron-mail-transport-package",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "boundary:cron-mail-transport-package",
+            "package_kind": "installed-style-cron-mail-transport-gate",
+            "source_files": [
+              {
+                "path": "wp-includes/cron.php",
+                "exists": true,
+                "bytes": 44996,
+                "sha256": "9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+              },
+              {
+                "path": "wp-cron.php",
+                "exists": true,
+                "bytes": 5617,
+                "sha256": "dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+              },
+              {
+                "path": "wp-includes/pluggable.php",
+                "exists": true,
+                "bytes": 127558,
+                "sha256": "c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+              },
+              {
+                "path": "wp-includes/class-wp-phpmailer.php",
+                "exists": true,
+                "bytes": 4348,
+                "sha256": "4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+              },
+              {
+                "path": "wp-includes/PHPMailer/PHPMailer.php",
+                "exists": true,
+                "bytes": 194030,
+                "sha256": "01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+              },
+              {
+                "path": "wp-includes/PHPMailer/SMTP.php",
+                "exists": true,
+                "bytes": 53628,
+                "sha256": "f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+              },
+              {
+                "path": "wp-includes/PHPMailer/Exception.php",
+                "exists": true,
+                "bytes": 1256,
+                "sha256": "22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+              }
+            ],
+            "public_php_replacement_claimed": false
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "cron:controlled-loopback-success": {
+        "response": {
+          "id": "cron:controlled-loopback-success",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:controlled-loopback-success",
+            "result": {
+              "spawned": true
+            },
+            "transient_writes": [
+              {
+                "op": "set",
+                "name": "doing_cron",
+                "value": "normalized-lock",
+                "expiration": 0
+              }
+            ],
+            "locks": {
+              "doing_cron": "normalized-lock"
+            },
+            "remote_posts": [
+              {
+                "url": "http://127.0.0.1:<port>/wp-cron.php?doing_wp_cron=normalized",
+                "args": {
+                  "timeout": 0.01,
+                  "blocking": false,
+                  "sslverify": false
+                },
+                "status": 204,
+                "elapsed_bucket": "under-250ms",
+                "error": false
+              }
+            ],
+            "actions": [],
+            "filters": [
+              {
+                "hook": "pre_get_ready_cron_jobs",
+                "arg_count": 1
+              },
+              {
+                "hook": "https_local_ssl_verify",
+                "arg_count": 1
+              },
+              {
+                "hook": "cron_request",
+                "arg_count": 2
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [
+          {
+            "method": "POST",
+            "url": "/wp-cron.php?doing_wp_cron=normalized",
+            "headers": {
+              "content-type": "application/x-www-form-urlencoded",
+              "x-wphx-cron": "controlled-loopback"
+            },
+            "body": "blocking=false"
+          }
+        ],
+        "smtp_captures": []
+      },
+      "cron:lock-held-suppresses-spawn": {
+        "response": {
+          "id": "cron:lock-held-suppresses-spawn",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:lock-held-suppresses-spawn",
+            "result": {
+              "spawned": false
+            },
+            "transient_writes": [],
+            "locks": {
+              "doing_cron": 2000
+            },
+            "remote_posts": [],
+            "actions": [],
+            "filters": [],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "cron:loopback-failure": {
+        "response": {
+          "id": "cron:loopback-failure",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:loopback-failure",
+            "result": {
+              "spawned": false
+            },
+            "transient_writes": [
+              {
+                "op": "set",
+                "name": "doing_cron",
+                "value": "normalized-lock",
+                "expiration": 0
+              }
+            ],
+            "locks": {
+              "doing_cron": "normalized-lock"
+            },
+            "remote_posts": [
+              {
+                "url": "http://127.0.0.1:<port>/wp-cron.php/wp-cron.php?doing_wp_cron=normalized",
+                "args": {
+                  "timeout": 0.01,
+                  "blocking": false,
+                  "sslverify": false
+                },
+                "status": 0,
+                "elapsed_bucket": "under-250ms",
+                "error": true
+              }
+            ],
+            "actions": [],
+            "filters": [
+              {
+                "hook": "pre_get_ready_cron_jobs",
+                "arg_count": 1
+              },
+              {
+                "hook": "https_local_ssl_verify",
+                "arg_count": 1
+              },
+              {
+                "hook": "cron_request",
+                "arg_count": 2
+              }
+            ],
+            "php_errors": [
+              {
+                "errno": 2,
+                "message": "file_get_contents(http://127.0.0.1:<port>/wp-cron.php/wp-cron.php?doing_wp_cron=2000.2500000000000000000000): Failed to open stream: Connection refused",
+                "file": "wphx-cron-mail-transport-installed-router.php",
+                "line": 172
+              }
+            ]
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "mail:smtp-capture-success": {
+        "response": {
+          "id": "mail:smtp-capture-success",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "mail:smtp-capture-success",
+            "result": true,
+            "actions": [
+              {
+                "hook": "phpmailer_init",
+                "arg_count": 1,
+                "error_code": null
+              },
+              {
+                "hook": "wp_mail_succeeded",
+                "arg_count": 1,
+                "error_code": null
+              }
+            ],
+            "filters": [
+              {
+                "hook": "wp_mail",
+                "arg_count": 1
+              },
+              {
+                "hook": "pre_wp_mail",
+                "arg_count": 2
+              },
+              {
+                "hook": "wp_mail_from",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_from_name",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_content_type",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_charset",
+                "arg_count": 1
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": [
+          {
+            "mail_from": "<sender@example.test>",
+            "rcpt_to": [
+              "<capture@example.test>"
+            ],
+            "data": {
+              "subject": "SMTP Capture Success",
+              "from": "Sender <sender@example.test>",
+              "to": "Capture User <capture@example.test>",
+              "x_wphx_case": "success",
+              "x_wphx_transport": "smtp-capture",
+              "contains_body": true,
+              "normalized_sha256": "sha256:121828402915f34ce14f6d1626a6a6798939d3e77a008a5f92352db1a5837e89"
+            }
+          }
+        ]
+      },
+      "mail:smtp-capture-failure": {
+        "response": {
+          "id": "mail:smtp-capture-failure",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "mail:smtp-capture-failure",
+            "result": false,
+            "actions": [
+              {
+                "hook": "phpmailer_init",
+                "arg_count": 1,
+                "error_code": null
+              },
+              {
+                "hook": "wp_mail_failed",
+                "arg_count": 1,
+                "error_code": "wp_mail_failed"
+              }
+            ],
+            "filters": [
+              {
+                "hook": "wp_mail",
+                "arg_count": 1
+              },
+              {
+                "hook": "pre_wp_mail",
+                "arg_count": 2
+              },
+              {
+                "hook": "wp_mail_from",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_from_name",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_content_type",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_charset",
+                "arg_count": 1
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      }
+    },
+    "candidate": {
+      "boundary:cron-mail-transport-package": {
+        "response": {
+          "id": "boundary:cron-mail-transport-package",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "boundary:cron-mail-transport-package",
+            "package_kind": "installed-style-cron-mail-transport-gate",
+            "source_files": [
+              {
+                "path": "wp-includes/cron.php",
+                "exists": true,
+                "bytes": 44996,
+                "sha256": "9a19fc154c01bd6a0adb46aa093c2d85cf42a7e2214c9f80f350f0099aee1e32"
+              },
+              {
+                "path": "wp-cron.php",
+                "exists": true,
+                "bytes": 5617,
+                "sha256": "dd1dfcbc2a02ff16ce5ccf878d4f3d2ad9f5b762e2d1fc39ff27a073ae9a8a53"
+              },
+              {
+                "path": "wp-includes/pluggable.php",
+                "exists": true,
+                "bytes": 127558,
+                "sha256": "c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+              },
+              {
+                "path": "wp-includes/class-wp-phpmailer.php",
+                "exists": true,
+                "bytes": 4348,
+                "sha256": "4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+              },
+              {
+                "path": "wp-includes/PHPMailer/PHPMailer.php",
+                "exists": true,
+                "bytes": 194030,
+                "sha256": "01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+              },
+              {
+                "path": "wp-includes/PHPMailer/SMTP.php",
+                "exists": true,
+                "bytes": 53628,
+                "sha256": "f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+              },
+              {
+                "path": "wp-includes/PHPMailer/Exception.php",
+                "exists": true,
+                "bytes": 1256,
+                "sha256": "22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+              }
+            ],
+            "public_php_replacement_claimed": false
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "cron:controlled-loopback-success": {
+        "response": {
+          "id": "cron:controlled-loopback-success",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:controlled-loopback-success",
+            "result": {
+              "spawned": true
+            },
+            "transient_writes": [
+              {
+                "op": "set",
+                "name": "doing_cron",
+                "value": "normalized-lock",
+                "expiration": 0
+              }
+            ],
+            "locks": {
+              "doing_cron": "normalized-lock"
+            },
+            "remote_posts": [
+              {
+                "url": "http://127.0.0.1:<port>/wp-cron.php?doing_wp_cron=normalized",
+                "args": {
+                  "timeout": 0.01,
+                  "blocking": false,
+                  "sslverify": false
+                },
+                "status": 204,
+                "elapsed_bucket": "under-250ms",
+                "error": false
+              }
+            ],
+            "actions": [],
+            "filters": [
+              {
+                "hook": "pre_get_ready_cron_jobs",
+                "arg_count": 1
+              },
+              {
+                "hook": "https_local_ssl_verify",
+                "arg_count": 1
+              },
+              {
+                "hook": "cron_request",
+                "arg_count": 2
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [
+          {
+            "method": "POST",
+            "url": "/wp-cron.php?doing_wp_cron=normalized",
+            "headers": {
+              "content-type": "application/x-www-form-urlencoded",
+              "x-wphx-cron": "controlled-loopback"
+            },
+            "body": "blocking=false"
+          }
+        ],
+        "smtp_captures": []
+      },
+      "cron:lock-held-suppresses-spawn": {
+        "response": {
+          "id": "cron:lock-held-suppresses-spawn",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:lock-held-suppresses-spawn",
+            "result": {
+              "spawned": false
+            },
+            "transient_writes": [],
+            "locks": {
+              "doing_cron": 2000
+            },
+            "remote_posts": [],
+            "actions": [],
+            "filters": [],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "cron:loopback-failure": {
+        "response": {
+          "id": "cron:loopback-failure",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "cron:loopback-failure",
+            "result": {
+              "spawned": false
+            },
+            "transient_writes": [
+              {
+                "op": "set",
+                "name": "doing_cron",
+                "value": "normalized-lock",
+                "expiration": 0
+              }
+            ],
+            "locks": {
+              "doing_cron": "normalized-lock"
+            },
+            "remote_posts": [
+              {
+                "url": "http://127.0.0.1:<port>/wp-cron.php/wp-cron.php?doing_wp_cron=normalized",
+                "args": {
+                  "timeout": 0.01,
+                  "blocking": false,
+                  "sslverify": false
+                },
+                "status": 0,
+                "elapsed_bucket": "under-250ms",
+                "error": true
+              }
+            ],
+            "actions": [],
+            "filters": [
+              {
+                "hook": "pre_get_ready_cron_jobs",
+                "arg_count": 1
+              },
+              {
+                "hook": "https_local_ssl_verify",
+                "arg_count": 1
+              },
+              {
+                "hook": "cron_request",
+                "arg_count": 2
+              }
+            ],
+            "php_errors": [
+              {
+                "errno": 2,
+                "message": "file_get_contents(http://127.0.0.1:<port>/wp-cron.php/wp-cron.php?doing_wp_cron=2000.2500000000000000000000): Failed to open stream: Connection refused",
+                "file": "wphx-cron-mail-transport-installed-router.php",
+                "line": 172
+              }
+            ]
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      },
+      "mail:smtp-capture-success": {
+        "response": {
+          "id": "mail:smtp-capture-success",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "mail:smtp-capture-success",
+            "result": true,
+            "actions": [
+              {
+                "hook": "phpmailer_init",
+                "arg_count": 1,
+                "error_code": null
+              },
+              {
+                "hook": "wp_mail_succeeded",
+                "arg_count": 1,
+                "error_code": null
+              }
+            ],
+            "filters": [
+              {
+                "hook": "wp_mail",
+                "arg_count": 1
+              },
+              {
+                "hook": "pre_wp_mail",
+                "arg_count": 2
+              },
+              {
+                "hook": "wp_mail_from",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_from_name",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_content_type",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_charset",
+                "arg_count": 1
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": [
+          {
+            "mail_from": "<sender@example.test>",
+            "rcpt_to": [
+              "<capture@example.test>"
+            ],
+            "data": {
+              "subject": "SMTP Capture Success",
+              "from": "Sender <sender@example.test>",
+              "to": "Capture User <capture@example.test>",
+              "x_wphx_case": "success",
+              "x_wphx_transport": "smtp-capture",
+              "contains_body": true,
+              "normalized_sha256": "sha256:121828402915f34ce14f6d1626a6a6798939d3e77a008a5f92352db1a5837e89"
+            }
+          }
+        ]
+      },
+      "mail:smtp-capture-failure": {
+        "response": {
+          "id": "mail:smtp-capture-failure",
+          "status": 200,
+          "headers": {
+            "content-type": "application/json; charset=UTF-8"
+          },
+          "body": {
+            "case": "mail:smtp-capture-failure",
+            "result": false,
+            "actions": [
+              {
+                "hook": "phpmailer_init",
+                "arg_count": 1,
+                "error_code": null
+              },
+              {
+                "hook": "wp_mail_failed",
+                "arg_count": 1,
+                "error_code": "wp_mail_failed"
+              }
+            ],
+            "filters": [
+              {
+                "hook": "wp_mail",
+                "arg_count": 1
+              },
+              {
+                "hook": "pre_wp_mail",
+                "arg_count": 2
+              },
+              {
+                "hook": "wp_mail_from",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_from_name",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_content_type",
+                "arg_count": 1
+              },
+              {
+                "hook": "wp_mail_charset",
+                "arg_count": 1
+              }
+            ],
+            "php_errors": []
+          }
+        },
+        "cron_captures": [],
+        "smtp_captures": []
+      }
+    },
+    "match": true,
+    "oracle_sha256": "sha256:daa175ae4317c610c61f86f04cc079a446c16e591999e1762686f5d64e08c940",
+    "candidate_sha256": "sha256:daa175ae4317c610c61f86f04cc079a446c16e591999e1762686f5d64e08c940"
+  },
+  "remaining_gaps": [
+    {
+      "id": "production-cron-loopback-and-races-deferred",
+      "owner": "WPHX-312.93",
+      "detail": "The gate performs local controlled HTTP loopback through a capture server and records lock/failure behavior. It does not claim production web-server loopback routing, process isolation, cache/database-backed locks, concurrent spawn races, timeout variance, alternate cron flushing, or operational scheduling."
+    },
+    {
+      "id": "external-mail-delivery-deferred",
+      "owner": "WPHX-312.93",
+      "detail": "The gate sends through PHPMailer SMTP to a local capture server and records controlled SMTP connection failure. It does not claim PHP mail(), authenticated SMTP, TLS negotiation, DNS/MX behavior, remote server policy, bounces, retries, or operational delivery."
+    },
+    {
+      "id": "installed-database-state-deferred",
+      "owner": "WPHX-312.93",
+      "detail": "The package roots execute copied WordPress source with deterministic hooks and in-memory state. Real cron option/transient storage, user/privacy request tables, recovery mail state, and plugin/theme side effects remain later installed-distribution gates."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-312.93",
+      "detail": "The gate compares copied oracle PHP package roots; generated original-path PHP replacement remains a later cross-domain gate."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "fixture_cases": 6,
+    "observations_match": true,
+    "controlled_loopback_http_claimed": true,
+    "controlled_smtp_transport_claimed": true,
+    "production_cron_timing_claimed": false,
+    "external_mail_delivery_claimed": false,
+    "public_php_replacement_claimed": false
+  }
+}
