@@ -7,13 +7,14 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerVideo;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedHandlerYoutube;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedRegisterHandler;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHandler;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeEnqueueOembedHostJs;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddDiscoveryLinks;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddProvider;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddHostJs;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedEnsureFormat;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGet;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGetObject;
-import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeEnqueueOembedHostJs;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRegisterRoute;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRemoveProvider;
 
@@ -34,6 +35,7 @@ class EmbedModuleEntry
 		wpOembedAddProvider("", "", false);
 		wpOembedRemoveProvider("");
 		wpOembedRegisterRoute();
+		wpOembedAddDiscoveryLinks();
 		wpOembedAddHostJs();
 		wpMaybeEnqueueOembedHostJs("");
 		wpMaybeLoadEmbeds();

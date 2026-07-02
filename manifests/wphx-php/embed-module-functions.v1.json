@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 11229,
-      "sha256": "sha256:434ee1cf07b7491ca32e6cde6db91140fd4c3047722a85f1dfd707a4463b4364"
+      "bytes": 13106,
+      "sha256": "sha256:96ae0d3fee16224f6a41fa088a53bdb8f0a38468eb7a9bb53e5b94853f0f853d"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 1995,
-      "sha256": "sha256:eb0a0e6a2c15fae25cb106e31024483cd7e34a988531bb4975be949709be2eac"
+      "bytes": 2112,
+      "sha256": "sha256:ce0b38d8b3c769862ecdabea97951416a32c555d6753c858f20d7be90d12cfce"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 4929,
-      "sha256": "sha256:156f4410a3bbc7fe10be6d57ebfa403c56580f5183d3afc36cf92cc527af16ae"
+      "bytes": 5176,
+      "sha256": "sha256:6cce3def80df1733cf31cb35c20529627ef76f8d1f8c5eab47bc9cc6f0bba1c0"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 1453,
-      "sha256": "sha256:881f7e38b565e15054fc78ba4acab9c28ab6e3ad72362e01232107c82cbc1a92"
+      "bytes": 1502,
+      "sha256": "sha256:b441c76fff871696b8a355a5eab20a685b3830cb57fa7d738f9dcb781157f4c6"
     }
   ],
   "upstream_oracle": {
@@ -64,6 +64,7 @@
       "wp_oembed_add_provider",
       "wp_oembed_remove_provider",
       "wp_oembed_register_route",
+      "wp_oembed_add_discovery_links",
       "wp_oembed_add_host_js",
       "wp_maybe_enqueue_oembed_host_js",
       "wp_maybe_load_embeds",
@@ -82,6 +83,7 @@
       "147-158",
       "166-181",
       "325-329",
+      "337-376",
       "387",
       "400-412",
       "191-232",
@@ -92,8 +94,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 2670,
-    "sha256": "sha256:ab5c8b82f168d84dec991aee41bdc52c76045cfaab15768da885e86f644aab7b",
+    "bytes": 2784,
+    "sha256": "sha256:8ce54848d57f0f3cbe75e9429d10f3373c4ed1a88320aa7931ec4774eb633ca8",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -108,6 +110,7 @@
       "function wp_oembed_add_provider($format, $provider, $regex = false)",
       "function wp_oembed_remove_provider($format)",
       "function wp_oembed_register_route()",
+      "function wp_oembed_add_discovery_links()",
       "function wp_oembed_add_host_js()",
       "function wp_maybe_enqueue_oembed_host_js($html)",
       "function wp_maybe_load_embeds()",
@@ -123,6 +126,7 @@
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
       "EmbedKernel::oembedRemoveProvider($format)",
       "EmbedKernel::oembedRegisterRoute()",
+      "EmbedKernel::oembedDiscoveryLinks()",
       "EmbedKernel::oembedAddHostJs()",
       "EmbedKernel::maybeEnqueueOembedHostJs($html)",
       "EmbedKernel::maybeLoadEmbeds()",
@@ -132,15 +136,15 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 4037,
-    "sha256": "sha256:1a167721c1c7051650c91dbcc8b686603a6ef3897ee88af532d1ccc1880f07a7",
+    "bytes": 4882,
+    "sha256": "sha256:f9a55a517f679265b3f167331552cd45229633d9503270734ae2307ee3085e7e",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 5327,
-    "sha256": "sha256:c4aca846dbe7f70e9032d537422c1b27b7d75f99a5e20094cff36b11a24dee7d",
+    "bytes": 5661,
+    "sha256": "sha256:1917f0d9a77c3c4c235714b68a43fbf391256b0a7b28fcf80ae3808e50a39496",
     "declarations": [
       "wp-includes/embed.php:global-function:_wp_oembed_get_object",
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
@@ -152,6 +156,7 @@
       "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
       "wp-includes/embed.php:global-function:wp_maybe_enqueue_oembed_host_js",
       "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
+      "wp-includes/embed.php:global-function:wp_oembed_add_discovery_links",
       "wp-includes/embed.php:global-function:wp_oembed_add_host_js",
       "wp-includes/embed.php:global-function:wp_oembed_add_provider",
       "wp-includes/embed.php:global-function:wp_oembed_ensure_format",
@@ -160,7 +165,9 @@
       "wp-includes/embed.php:global-function:wp_oembed_remove_provider"
     ],
     "unsupported": [],
-    "core_ir_features": [],
+    "core_ir_features": [
+      "stmt.echo"
+    ],
     "segment_plans": [],
     "adapter_templates": []
   },
@@ -185,6 +192,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -207,6 +220,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -224,6 +243,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -241,6 +266,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -255,6 +286,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -280,6 +317,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -305,6 +348,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -330,6 +379,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -355,6 +410,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -372,6 +433,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -393,6 +460,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -410,6 +483,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -421,6 +500,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -441,6 +526,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -461,6 +552,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -481,6 +578,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -501,6 +604,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -512,6 +621,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -523,6 +638,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -541,6 +662,12 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -556,6 +683,12 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -572,6 +705,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -583,6 +722,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -594,6 +739,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -610,6 +761,189 @@
               "method": "register_routes"
             }
           ],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "discovery:default",
+          "value": {
+            "return": null,
+            "output": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:not-embeddable",
+          "value": {
+            "return": null,
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_discovery_links",
+              "value": "",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:filtered",
+          "value": {
+            "return": null,
+            "output": "<link data-filtered=\"1\" />"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:wp-head-priority-present",
+          "value": {
+            "return": null,
+            "output": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [
+            {
+              "hook": "wp_head",
+              "callback": "wp_oembed_add_discovery_links"
+            }
+          ],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:wp-head-priority-removed",
+          "value": {
+            "return": null,
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -621,6 +955,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -634,6 +974,12 @@
             "wp-embed"
           ],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -645,6 +991,8 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": [],
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -656,6 +1004,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -689,6 +1043,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -716,6 +1076,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -755,6 +1121,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -787,6 +1159,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_youtube",
@@ -817,6 +1195,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_youtube",
@@ -842,6 +1226,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_audio",
@@ -865,6 +1255,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_audio",
@@ -888,6 +1284,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -912,6 +1314,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -933,6 +1341,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -1192,6 +1606,14 @@
         },
         "wp_oembed_register_route": {
           "name": "wp_oembed_register_route",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_oembed_add_discovery_links": {
+          "name": "wp_oembed_add_discovery_links",
           "numberOfParameters": 0,
           "numberOfRequiredParameters": 0,
           "returnsReference": false,
@@ -1402,6 +1824,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1424,6 +1852,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1441,6 +1875,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1458,6 +1898,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1472,6 +1918,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -1497,6 +1949,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -1522,6 +1980,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -1547,6 +2011,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "embed_defaults",
@@ -1572,6 +2042,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1589,6 +2065,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1610,6 +2092,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1627,6 +2115,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1638,6 +2132,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -1658,6 +2158,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -1678,6 +2184,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -1698,6 +2210,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "oembed_endpoint_url",
@@ -1718,6 +2236,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1729,6 +2253,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1740,6 +2270,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1758,6 +2294,12 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1773,6 +2315,12 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1789,6 +2337,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1800,6 +2354,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1811,6 +2371,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1827,6 +2393,189 @@
               "method": "register_routes"
             }
           ],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "discovery:default",
+          "value": {
+            "return": null,
+            "output": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:not-embeddable",
+          "value": {
+            "return": null,
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_discovery_links",
+              "value": "",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:filtered",
+          "value": {
+            "return": null,
+            "output": "<link data-filtered=\"1\" />"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:wp-head-priority-present",
+          "value": {
+            "return": null,
+            "output": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n"
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [
+            {
+              "hook": "wp_head",
+              "callback": "wp_oembed_add_discovery_links"
+            }
+          ],
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F",
+              "args": [
+                "https://example.test/post/7/",
+                "json"
+              ]
+            },
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            },
+            {
+              "hook": "oembed_discovery_links",
+              "value": "<link rel=\"alternate\" title=\"oEmbed (JSON)\" type=\"application/json+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F\" />\n<link rel=\"alternate\" title=\"oEmbed (XML)\" type=\"text/xml+oembed\" href=\"https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&amp;format=xml\" />\n",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "discovery:wp-head-priority-removed",
+          "value": {
+            "return": null,
+            "output": ""
+          },
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1838,6 +2587,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1851,6 +2606,12 @@
             "wp-embed"
           ],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1862,6 +2623,8 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": [],
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1873,6 +2636,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": []
         },
         {
@@ -1906,6 +2675,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -1933,6 +2708,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -1972,6 +2753,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "load_default_embeds",
@@ -2004,6 +2791,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_youtube",
@@ -2034,6 +2827,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_youtube",
@@ -2059,6 +2858,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_audio",
@@ -2082,6 +2887,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_audio",
@@ -2105,6 +2916,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -2129,6 +2946,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -2150,6 +2973,12 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            }
+          },
+          "removed_actions": [],
           "filters": [
             {
               "hook": "wp_embed_handler_video",
@@ -2415,6 +3244,14 @@
           "hasReturnType": false,
           "parameters": []
         },
+        "wp_oembed_add_discovery_links": {
+          "name": "wp_oembed_add_discovery_links",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
         "wp_oembed_add_host_js": {
           "name": "wp_oembed_add_host_js",
           "numberOfParameters": 0,
@@ -2615,11 +3452,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, oEmbed endpoint URL construction and filters, oEmbed format normalization, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, or WP_oEmbed_Controller class method ownership beyond the narrow route registration, get_html singleton delegation, handler/provider registry, host-JS enqueue marker, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, _oembed_create_xml(), post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, or WP_oEmbed_Controller class method ownership beyond the narrow route registration, get_html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, _oembed_create_xml(), post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

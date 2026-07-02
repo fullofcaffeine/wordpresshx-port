@@ -28,6 +28,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedRegisterRoute():Void;
 
+	static function oembedDiscoveryLinks():String;
+
 	static function oembedAddHostJs():Void;
 
 	static function maybeEnqueueOembedHostJs(html:String):String;

@@ -98,6 +98,16 @@ function wpOembedRegisterRoute():Void
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_add_discovery_links")
+@:wp.echo
+@:keep
+function wpOembedAddDiscoveryLinks():String
+{
+	return HaxeEmbedKernel.oembedDiscoveryLinks();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_oembed_add_host_js")
 @:keep
 function wpOembedAddHostJs():Void

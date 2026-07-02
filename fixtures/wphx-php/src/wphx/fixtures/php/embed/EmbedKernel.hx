@@ -116,6 +116,40 @@ class EmbedKernel
 		controller.registerRoutes();
 	}
 
+	public static function oembedDiscoveryLinks():String
+	{
+		if (EmbedGlobals.doingAction("wp_head") > 0)
+		{
+			if (!EmbedGlobals.truthy(EmbedGlobals.hasActionPriority("wp_head", "wp_oembed_add_discovery_links", 10)))
+			{
+				return "";
+			}
+
+			EmbedGlobals.removeAction("wp_head", "wp_oembed_add_discovery_links");
+		}
+
+		var output = "";
+		if (EmbedGlobals.isSingular() && EmbedGlobals.isPostEmbeddable())
+		{
+			output += "<link rel=\"alternate\" title=\""
+				+ EmbedGlobals.translateWithContext("oEmbed (JSON)", "oEmbed resource link name")
+				+ "\" type=\"application/json+oembed\" href=\""
+				+ EmbedGlobals.escUrl(oembedEndpointUrl(EmbedGlobals.getPermalink(), "json"))
+				+ "\" />\n";
+
+			if (EmbedGlobals.classExists("SimpleXMLElement"))
+			{
+				output += "<link rel=\"alternate\" title=\""
+					+ EmbedGlobals.translateWithContext("oEmbed (XML)", "oEmbed resource link name")
+					+ "\" type=\"text/xml+oembed\" href=\""
+					+ EmbedGlobals.escUrl(oembedEndpointUrl(EmbedGlobals.getPermalink(), "xml"))
+					+ "\" />\n";
+			}
+		}
+
+		return EmbedGlobals.strval(EmbedHooks.applyFiltersNative1("oembed_discovery_links", output));
+	}
+
 	public static function oembedAddHostJs():Void {}
 
 	public static function maybeEnqueueOembedHostJs(html:String):String
@@ -241,8 +275,32 @@ extern class EmbedGlobals
 	@:native("did_action")
 	public static function didAction(hookName:String):Int;
 
+	@:native("doing_action")
+	public static function doingAction(hookName:String):Int;
+
 	@:native("has_action")
 	public static function hasAction(hookName:String, callback:String):NativeValue;
+
+	@:native("has_action")
+	public static function hasActionPriority(hookName:String, callback:String, priority:Int):NativeValue;
+
+	@:native("remove_action")
+	public static function removeAction(hookName:String, callback:String):Void;
+
+	@:native("is_singular")
+	public static function isSingular():Bool;
+
+	@:native("is_post_embeddable")
+	public static function isPostEmbeddable():Bool;
+
+	@:native("_x")
+	public static function translateWithContext(text:String, context:String):String;
+
+	@:native("get_permalink")
+	public static function getPermalink():String;
+
+	@:native("class_exists")
+	public static function classExists(className:String):Bool;
 
 	@:native("preg_match")
 	public static function pregMatch(pattern:String, subject:String):Int;
