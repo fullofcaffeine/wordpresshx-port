@@ -74,6 +74,25 @@ const CASES = [
     }
   },
   {
+    id: "embed-module-functions",
+    hxml: "fixtures/wphx-php/embed-module-functions.hxml",
+    selected: "wp-includes/embed.php",
+    shell_shapes: ["global_function", "wordpress_module_function", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_EMBED_MODULE_BOOTSTRAPPED'))",
+      "function wp_embed_defaults($url = '')",
+      "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
+      "function wp_oembed_ensure_format($format)",
+      "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
+      "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
+      "EmbedKernel::embedDefaults($url)",
+      "EmbedKernel::oembedEndpointUrl($permalink, $format)"
+    ],
+    ast_expect: {
+      functions: ["wp_embed_defaults", "get_oembed_endpoint_url", "wp_oembed_ensure_format", "wp_embed_handler_audio", "wp_embed_handler_video"]
+    }
+  },
+  {
     id: "https-module-functions-detection",
     hxml: "fixtures/wphx-php/https-module-functions.hxml",
     selected: "wp-includes/https-detection.php",

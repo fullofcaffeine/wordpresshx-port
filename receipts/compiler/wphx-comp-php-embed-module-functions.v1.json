@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.compiler-receipt.v1",
+  "id": "receipt:wphx-comp-php-embed-module-functions",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "recorded_at": "2026-07-02T23:59:30Z",
+  "status": "passed",
+  "evidence_class": "module_function_original_path_adapter",
+  "artifact_scope": "selected_wphx_312_04_embed_module_functions",
+  "commands": [
+    "npm run wphx:php:embed-module-functions",
+    "npm run wphx:php:embed-module-functions:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-embed-module-functions.mjs",
+      "role": "deterministic embed module function adapter runner"
+    },
+    {
+      "path": "fixtures/wphx-php/embed-module-functions.hxml",
+      "role": "WPHX PHP original-path embed module shell hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/embed-module-functions-impl.hxml",
+      "role": "stock Haxe PHP embed helper implementation hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
+      "role": "typed Haxe public embed.php module-function shell metadata"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "role": "typed Haxe embed helper behavior"
+    },
+    {
+      "path": "manifests/wphx-php/embed-module-functions.v1.json",
+      "role": "embed module function adapter manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:791cd1935e394307d03a473a5037091498e0f6cfc61507eb51697f50b361e182",
+  "claims": [
+    "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
+    "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+  ],
+  "non_claims": [
+    "This fixture does not claim full wp-includes/embed.php ownership.",
+    "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
+    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership, provider registration, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+  ]
+}

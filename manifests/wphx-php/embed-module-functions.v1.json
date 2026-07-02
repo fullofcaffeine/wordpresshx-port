@@ -1,0 +1,944 @@
+{
+  "schema": "wphx.wphx-php-embed-module-functions.v1",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "generated_at": "2026-07-02T23:59:30Z",
+  "generator": "tools/wphx-php/run-embed-module-functions.mjs",
+  "evidence_class": "module_function_original_path_adapter",
+  "artifact_scope": "selected_wphx_312_04_embed_module_functions",
+  "inputs": [
+    {
+      "path": "fixtures/wphx-php/embed-module-functions-impl.hxml",
+      "bytes": 127,
+      "sha256": "sha256:2a51abd50638390e3457a2748059117e7e3761bef3c6bf9d885d992894f9958d"
+    },
+    {
+      "path": "fixtures/wphx-php/embed-module-functions.hxml",
+      "bytes": 375,
+      "sha256": "sha256:fbea79a8d590eef32cbbc6e3bf159f17a3cdeabc23ff0e568fa908f3abf09538"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 57705,
+      "sha256": "sha256:3b59d66492a8593ad0ba34a6bd1814935852393b046f9bf80a5a3f48589a072a"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedImplEntry.hx",
+      "bytes": 212,
+      "sha256": "sha256:930cd9431b13e42eec5dbd9d6f4e7d7ccef014512e7f9cad88e197319290eaca"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "bytes": 4491,
+      "sha256": "sha256:6f8ec7cb28f0d0cb6e1c6c137bfcf926364f7144c33c6ba7a3cd1c750d582561"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
+      "bytes": 759,
+      "sha256": "sha256:461390be40f83c1666d5b6f1dcd015080d60d0d10d4a869adcf15fd824519361"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
+      "bytes": 1810,
+      "sha256": "sha256:cb325d8cfa49157e94157bf909ae43678b5789326eed699438967ad1e489c3d2"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
+      "bytes": 697,
+      "sha256": "sha256:898f09b215870389d80d3ff139415b97a2318135a2a49ee7637ca9b963dacb53"
+    }
+  ],
+  "upstream_oracle": {
+    "repo_path": "../wordpress-develop/src/wp-includes/embed.php",
+    "selected_symbols": [
+      "wp_embed_defaults",
+      "get_oembed_endpoint_url",
+      "wp_oembed_ensure_format",
+      "wp_embed_handler_audio",
+      "wp_embed_handler_video"
+    ],
+    "selected_source_lines": [
+      "67-93",
+      "455-481",
+      "759-765",
+      "272-294",
+      "299-321"
+    ]
+  },
+  "generated_shell": {
+    "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
+    "bytes": 1250,
+    "sha256": "sha256:4a6d622a43ba301ebc941b5bc0014e0913a087d26b8665c157c9828c36ee34de",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
+    "exact_patterns": [
+      "if (!defined('WPHX_EMBED_MODULE_BOOTSTRAPPED'))",
+      "function wp_embed_defaults($url = '')",
+      "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
+      "function wp_oembed_ensure_format($format)",
+      "function wp_embed_handler_audio($matches, $attr, $url, $rawattr)",
+      "function wp_embed_handler_video($matches, $attr, $url, $rawattr)",
+      "EmbedKernel::embedDefaults($url)",
+      "EmbedKernel::oembedEndpointUrl($permalink, $format)",
+      "EmbedKernel::embedHandlerAudio($matches, $attr, $url, $rawattr)"
+    ]
+  },
+  "oracle_shell": {
+    "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
+    "bytes": 1525,
+    "sha256": "sha256:361edb4e1de801a217e676744bf6e352a957a718f7a42ad1930be8a09537b069",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
+  },
+  "emission_manifest": {
+    "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
+    "bytes": 1928,
+    "sha256": "sha256:0fc7e8d8ed275bb9a183d6855800b497269d68bf80ebde1d3030ea029bb86936",
+    "declarations": [
+      "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
+      "wp-includes/embed.php:global-function:wp_embed_defaults",
+      "wp-includes/embed.php:global-function:wp_embed_handler_audio",
+      "wp-includes/embed.php:global-function:wp_embed_handler_video",
+      "wp-includes/embed.php:global-function:wp_oembed_ensure_format"
+    ],
+    "unsupported": [],
+    "core_ir_features": [],
+    "segment_plans": [],
+    "adapter_templates": []
+  },
+  "observations": {
+    "oracle": {
+      "mode": "oracle",
+      "cases": [
+        {
+          "id": "embed-defaults:fallback",
+          "value": {
+            "width": 500,
+            "height": 750
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 500,
+                "height": 750
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:content-width",
+          "value": {
+            "width": 640,
+            "height": 960
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 640,
+                "height": 960
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:height-capped",
+          "value": {
+            "width": 1200,
+            "height": 1000
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 1200,
+                "height": 1000
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:filtered",
+          "value": {
+            "width": 111,
+            "height": 222
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 320,
+                "height": 480
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:base",
+          "value": "https://example.test/wp-json/oembed/1.0/embed",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed",
+              "args": [
+                "",
+                "json"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:json",
+          "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+              "args": [
+                "https://example.test/post/7/?a=1&b=2",
+                "json"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:xml",
+          "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+              "args": [
+                "https://example.test/post/7/?a=1&b=2",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:filtered",
+          "value": "https://filtered.example/oembed",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "format:json",
+          "value": "json",
+          "filters": []
+        },
+        {
+          "id": "format:xml",
+          "value": "xml",
+          "filters": []
+        },
+        {
+          "id": "format:unknown",
+          "value": "json",
+          "filters": []
+        },
+        {
+          "id": "audio:default",
+          "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_audio",
+              "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://cdn.example/audio.mp3?a=1&b=2",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "audio:filtered",
+          "value": "Filtered Audio",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_audio",
+              "value": "[audio src=\"https://cdn.example/audio.mp3\" /]",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://cdn.example/audio.mp3",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:default",
+          "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4?a=1&b=2",
+                {
+                  "width": 640,
+                  "height": 360
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:no-dimensions",
+          "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:filtered",
+          "value": "Filtered Video",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4",
+                {
+                  "width": 640,
+                  "height": 360
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reflection": {
+        "wp_embed_defaults": {
+          "name": "wp_embed_defaults",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "url",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_endpoint_url": {
+          "name": "get_oembed_endpoint_url",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "permalink",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "format",
+              "position": 1,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "json",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_oembed_ensure_format": {
+          "name": "wp_oembed_ensure_format",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "format",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_handler_audio": {
+          "name": "wp_embed_handler_audio",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_handler_video": {
+          "name": "wp_embed_handler_video",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "generated": {
+      "mode": "generated",
+      "cases": [
+        {
+          "id": "embed-defaults:fallback",
+          "value": {
+            "width": 500,
+            "height": 750
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 500,
+                "height": 750
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:content-width",
+          "value": {
+            "width": 640,
+            "height": 960
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 640,
+                "height": 960
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:height-capped",
+          "value": {
+            "width": 1200,
+            "height": 1000
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 1200,
+                "height": 1000
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "embed-defaults:filtered",
+          "value": {
+            "width": 111,
+            "height": 222
+          },
+          "filters": [
+            {
+              "hook": "embed_defaults",
+              "value": {
+                "width": 320,
+                "height": 480
+              },
+              "args": [
+                "https://media.example/video"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:base",
+          "value": "https://example.test/wp-json/oembed/1.0/embed",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed",
+              "args": [
+                "",
+                "json"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:json",
+          "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2",
+              "args": [
+                "https://example.test/post/7/?a=1&b=2",
+                "json"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:xml",
+          "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F%253Fa%253D1%2526b%253D2&format=xml",
+              "args": [
+                "https://example.test/post/7/?a=1&b=2",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "endpoint:filtered",
+          "value": "https://filtered.example/oembed",
+          "filters": [
+            {
+              "hook": "oembed_endpoint_url",
+              "value": "https://example.test/wp-json/oembed/1.0/embed?url=https%253A%252F%252Fexample.test%252Fpost%252F7%252F&format=xml",
+              "args": [
+                "https://example.test/post/7/",
+                "xml"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "format:json",
+          "value": "json",
+          "filters": []
+        },
+        {
+          "id": "format:xml",
+          "value": "xml",
+          "filters": []
+        },
+        {
+          "id": "format:unknown",
+          "value": "json",
+          "filters": []
+        },
+        {
+          "id": "audio:default",
+          "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_audio",
+              "value": "[audio src=\"https://cdn.example/audio.mp3?a=1&amp;b=2\" /]",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://cdn.example/audio.mp3?a=1&b=2",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "audio:filtered",
+          "value": "Filtered Audio",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_audio",
+              "value": "[audio src=\"https://cdn.example/audio.mp3\" /]",
+              "args": [
+                {
+                  "width": 300
+                },
+                "https://cdn.example/audio.mp3",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:default",
+          "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4?a=1&amp;b=2\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4?a=1&b=2",
+                {
+                  "width": 640,
+                  "height": 360
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:no-dimensions",
+          "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video  src=\"https://cdn.example/video.mp4\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4",
+                []
+              ]
+            }
+          ]
+        },
+        {
+          "id": "video:filtered",
+          "value": "Filtered Video",
+          "filters": [
+            {
+              "hook": "wp_embed_handler_video",
+              "value": "[video width=\"640\" height=\"360\"  src=\"https://cdn.example/video.mp4\" /]",
+              "args": [
+                [],
+                "https://cdn.example/video.mp4",
+                {
+                  "width": 640,
+                  "height": 360
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "reflection": {
+        "wp_embed_defaults": {
+          "name": "wp_embed_defaults",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "url",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_oembed_endpoint_url": {
+          "name": "get_oembed_endpoint_url",
+          "numberOfParameters": 2,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "permalink",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "format",
+              "position": 1,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "json",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_oembed_ensure_format": {
+          "name": "wp_oembed_ensure_format",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "format",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_handler_audio": {
+          "name": "wp_embed_handler_audio",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "wp_embed_handler_video": {
+          "name": "wp_embed_handler_video",
+          "numberOfParameters": 4,
+          "numberOfRequiredParameters": 4,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "matches",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "attr",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "url",
+              "position": 2,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "rawattr",
+              "position": 3,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "match": true
+  },
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "oracle_candidate_behavior_matched": true,
+    "reflection_abi_matched": true,
+    "unsupported_empty": true,
+    "unguarded_module_functions": true,
+    "original_path_embed_php": true,
+    "haxe_bootstrap_delegation": true
+  },
+  "claims": [
+    "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
+    "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for embed defaults sizing and filters, oEmbed endpoint URL construction and filters, oEmbed format normalization, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+  ],
+  "non_claims": [
+    "This fixture does not claim full wp-includes/embed.php ownership.",
+    "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
+    "This fixture does not claim WP_Embed or WP_oEmbed class method ownership, provider registration, remote oEmbed discovery/fetch, REST controller dispatch, _oembed_create_xml(), post embed rendering, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+  ]
+}
