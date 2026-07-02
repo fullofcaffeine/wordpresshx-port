@@ -104,7 +104,7 @@ function main() {
 
   const gap = manifests.gapInventory.validation_result;
   expect(gap.wphx_hxml_count >= 27, "gap inventory must see at least 27 WPHX PHP hxmls", failures);
-  expect(gap.stock_haxe_php_hxml_count === 9, "stock Haxe PHP fallback hxml count must remain exactly 9 until deliberately moved", failures);
+  expect(gap.stock_haxe_php_hxml_count === 10, "stock Haxe PHP fallback hxml count must remain exactly 10 until deliberately moved", failures);
   expect(gap.reflaxe_backed_wphx_hxml_count === gap.wphx_hxml_count, "all WPHX PHP hxmls must be Reflaxe-backed", failures);
   expect(gap.php_raw_block_count === 0, "WordPress profile must have zero PhpRawBlock occurrences", failures);
   expect(gap.render_template_call_count === 0, "WordPress profile must have zero active renderTemplate calls", failures);
@@ -131,6 +131,7 @@ function main() {
   }
   for (const key of [
     "global_function",
+    "wordpress_module_function",
     "public_class",
     "public_interface",
     "protected_method",

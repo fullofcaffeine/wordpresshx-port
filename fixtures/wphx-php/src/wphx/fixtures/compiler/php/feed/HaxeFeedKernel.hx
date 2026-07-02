@@ -1,0 +1,12 @@
+package wphx.fixtures.compiler.php.feed;
+
+/**
+	Extern for the stock Haxe PHP implementation behind generated feed.php functions.
+**/
+@:native("\\wphx\\fixtures\\php\\feed\\FeedKernel")
+extern class HaxeFeedKernel
+{
+	static function defaultFeed():String;
+
+	static function feedContentType(type:Null<String>):String;
+}

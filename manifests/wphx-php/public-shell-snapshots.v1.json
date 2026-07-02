@@ -92,6 +92,46 @@
       }
     },
     {
+      "id": "feed-module-functions",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "global_function",
+        "wordpress_module_function",
+        "top_level_bootstrap_side_effect"
+      ],
+      "hxml": "fixtures/wphx-php/feed-module-functions.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/feed-module-functions/generated/wp-includes/feed.php",
+      "bytes": 725,
+      "sha256": "sha256:0381c1311570801809ebb5980879a07e31180320aa31ffcb6bae78fac2f2bee9",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "if (!defined('WPHX_FEED_MODULE_BOOTSTRAPPED'))",
+        "function get_default_feed()",
+        "function feed_content_type($type = '')",
+        "FeedKernel::defaultFeed()",
+        "FeedKernel::feedContentType($type)"
+      ],
+      "ast_contract": {
+        "functions": [
+          "feed_content_type",
+          "get_default_feed"
+        ],
+        "classes": [],
+        "interfaces": [],
+        "methods": [],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "segment_plan_contract": null,
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/feed-module-functions/generated/wphx-php-emission.v1.json",
+        "bytes": 986,
+        "sha256": "sha256:059eebda390a76d3c0cdd910950680441d2aec42e2f3462e10fd01ef0c0259a8"
+      }
+    },
+    {
       "id": "public-interface-class",
       "evidence_class": "generated_shape",
       "artifact_scope": "minimized_fixture",
@@ -1141,6 +1181,7 @@
   ],
   "shell_shape_coverage": {
     "global_function": true,
+    "wordpress_module_function": true,
     "public_class": true,
     "public_interface": true,
     "protected_method": true,
@@ -1159,7 +1200,7 @@
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 19,
+    "case_count": 20,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,

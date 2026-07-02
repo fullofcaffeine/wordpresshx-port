@@ -1,0 +1,56 @@
+{
+  "schema": "wphx.compiler-receipt.v1",
+  "id": "receipt:wphx-comp-php-module-function-adapters",
+  "issue": {
+    "id": "wordpresshx-a89x",
+    "external_ref": "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
+    "title": "Add module-function original-path adapters for feed embed HTTPS helpers"
+  },
+  "recorded_at": "2026-07-02T23:58:00Z",
+  "status": "passed",
+  "evidence_class": "module_function_original_path_adapter",
+  "artifact_scope": "selected_wphx_312_04_feed_module_functions",
+  "commands": [
+    "npm run wphx:php:feed-module-functions",
+    "npm run wphx:php:feed-module-functions:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-feed-module-functions.mjs",
+      "role": "deterministic feed module function adapter runner"
+    },
+    {
+      "path": "fixtures/wphx-php/feed-module-functions.hxml",
+      "role": "WPHX PHP original-path feed module shell hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/feed-module-functions-impl.hxml",
+      "role": "stock Haxe PHP feed helper implementation hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
+      "role": "typed Haxe public feed.php module-function shell metadata"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
+      "role": "typed Haxe feed helper behavior"
+    },
+    {
+      "path": "manifests/wphx-php/feed-module-functions.v1.json",
+      "role": "feed module function adapter manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:4d52c3a5118cebf4d8b10c6bc1b67170dc2ef5980711afd7e249ae292cbbb185",
+  "claims": [
+    "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/feed.php.",
+    "The generated get_default_feed and feed_content_type functions preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for default feed normalization, feed content-type mapping, PHP empty('0') behavior, and filter payloads."
+  ],
+  "non_claims": [
+    "This fixture does not claim full wp-includes/feed.php ownership.",
+    "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
+    "This fixture does not claim feed template rendering, installed WordPress feed behavior, remote feed/oEmbed behavior, class-wp-oembed.php, class-wp-embed.php, embed.php, https-detection.php, or https-migration.php ownership.",
+    "This fixture does not claim arbitrary module-function lowering beyond the selected original-path feed helpers."
+  ]
+}

@@ -58,6 +58,22 @@ const CASES = [
     }
   },
   {
+    id: "feed-module-functions",
+    hxml: "fixtures/wphx-php/feed-module-functions.hxml",
+    selected: "wp-includes/feed.php",
+    shell_shapes: ["global_function", "wordpress_module_function", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_FEED_MODULE_BOOTSTRAPPED'))",
+      "function get_default_feed()",
+      "function feed_content_type($type = '')",
+      "FeedKernel::defaultFeed()",
+      "FeedKernel::feedContentType($type)"
+    ],
+    ast_expect: {
+      functions: ["get_default_feed", "feed_content_type"]
+    }
+  },
+  {
     id: "public-interface-class",
     hxml: "fixtures/wphx-php/f4-public-class.hxml",
     selected: "wp-includes/class-wphx-public-class.php",
@@ -692,6 +708,7 @@ function main() {
     cases: results,
     shell_shape_coverage: {
       global_function: results.some((item) => item.shell_shapes.includes("global_function")),
+      wordpress_module_function: results.some((item) => item.shell_shapes.includes("wordpress_module_function")),
       public_class: results.some((item) => item.shell_shapes.includes("public_class")),
       public_interface: results.some((item) => item.shell_shapes.includes("public_interface")),
       protected_method: results.some((item) => item.shell_shapes.includes("protected_method")),
@@ -741,7 +758,7 @@ function main() {
     validation_result: manifest.validation_result,
     claims: [
       "WPHX PHP public-shell generated shapes are compiled twice from clean roots and checked for byte stability.",
-      "The snapshot lane covers current generated global function, public class/interface, protected method, by-reference parameter, conditional declaration, typed statement lowering, native array mutation, top-level bootstrap side-effect, and include-return/direct file-scope script shell shapes.",
+      "The snapshot lane covers current generated global function, WordPress module function, public class/interface, protected method, by-reference parameter, conditional declaration, typed statement lowering, native array mutation, top-level bootstrap side-effect, and include-return/direct file-scope script shell shapes.",
       "Template segment shell cases assert compiler-emitted segment_plan metadata for original path, adapter, adoption mode, ordered segment kinds, caller-scope facts, include semantics, observable effects, and unsupported constructs.",
       "Selected exact PHP excerpts and AST-normalized declarations are checked without treating generated shape as behavior parity."
     ],

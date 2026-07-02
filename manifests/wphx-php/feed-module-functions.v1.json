@@ -1,0 +1,408 @@
+{
+  "schema": "wphx.wphx-php-feed-module-functions.v1",
+  "issue": {
+    "id": "wordpresshx-a89x",
+    "external_ref": "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
+    "title": "Add module-function original-path adapters for feed embed HTTPS helpers"
+  },
+  "generated_at": "2026-07-02T23:58:00Z",
+  "generator": "tools/wphx-php/run-feed-module-functions.mjs",
+  "evidence_class": "module_function_original_path_adapter",
+  "artifact_scope": "selected_wphx_312_04_feed_module_functions",
+  "inputs": [
+    {
+      "path": "fixtures/wphx-php/feed-module-functions-impl.hxml",
+      "bytes": 116,
+      "sha256": "sha256:4aa373c6c2003bec7aaa36ab8e591c9a9f8a9ea19017f6226a9ecfb23ca97e74"
+    },
+    {
+      "path": "fixtures/wphx-php/feed-module-functions.hxml",
+      "bytes": 371,
+      "sha256": "sha256:ee8c995dbcc91d9cf60efc82c9419778c04210d983df2a37f03bc99064745071"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 55597,
+      "sha256": "sha256:4d4b438b30e3a5bfaafd059e22db6d6aca2f76449704d419e598a4ce1f8dee36"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedImplEntry.hx",
+      "bytes": 233,
+      "sha256": "sha256:89a33f20e947a446e54204db846c57b39b2116023115b4b50c9700bd93478954"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
+      "bytes": 1282,
+      "sha256": "sha256:f88a8198ef7307646434530c319ffc5cac05843de8ecd981a41ffd34f4baea29"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleEntry.hx",
+      "bytes": 371,
+      "sha256": "sha256:c7a8a0989bc1d2d96088ff8be6314aca3c3ffea5f2b1ad619798dbddff8dbf00"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
+      "bytes": 587,
+      "sha256": "sha256:1bc556a9a965f63e22589a9d7a44e17a4d6ad8d20cdfbbe2621963ba6c2c28fb"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/HaxeFeedKernel.hx",
+      "bytes": 317,
+      "sha256": "sha256:d3074144985988b4fdec6d0b17e471aa11fcd9387da8b29dcc51a1a4d57fba33"
+    }
+  ],
+  "upstream_oracle": {
+    "repo_path": "../wordpress-develop/src/wp-includes/feed.php",
+    "selected_symbols": [
+      "get_default_feed",
+      "feed_content_type"
+    ],
+    "selected_source_lines": [
+      "80-91",
+      "768-791"
+    ]
+  },
+  "generated_shell": {
+    "path": "build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
+    "bytes": 725,
+    "sha256": "sha256:0381c1311570801809ebb5980879a07e31180320aa31ffcb6bae78fac2f2bee9",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
+    "exact_patterns": [
+      "function get_default_feed()",
+      "function feed_content_type($type = '')",
+      "FeedKernel::defaultFeed()",
+      "FeedKernel::feedContentType($type)"
+    ]
+  },
+  "oracle_shell": {
+    "path": "build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php",
+    "bytes": 636,
+    "sha256": "sha256:93754850efaa9c8c630269702b668d7a7e8e895499a5b9de0e27c116837a2931",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php"
+  },
+  "emission_manifest": {
+    "path": "build/wphx-php/feed-module-functions/generated/wphx-php-emission.v1.json",
+    "bytes": 986,
+    "sha256": "sha256:059eebda390a76d3c0cdd910950680441d2aec42e2f3462e10fd01ef0c0259a8",
+    "declarations": [
+      "wp-includes/feed.php:global-function:feed_content_type",
+      "wp-includes/feed.php:global-function:get_default_feed"
+    ],
+    "unsupported": [],
+    "core_ir_features": [],
+    "segment_plans": [],
+    "adapter_templates": []
+  },
+  "observations": {
+    "oracle": {
+      "mode": "oracle",
+      "cases": [
+        {
+          "id": "default-feed:default",
+          "value": "rss2",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "default-feed:rss-normalized",
+          "value": "rss2",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "default-feed:atom-filter",
+          "value": "atom",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:empty-uses-default",
+          "value": "application/atom+xml",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "feed_content_type",
+              "value": "application/atom+xml",
+              "args": [
+                "atom"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:zero-uses-default",
+          "value": "text/xml",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "feed_content_type",
+              "value": "text/xml",
+              "args": [
+                "rss-http"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:rss-http",
+          "value": "text/xml",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "text/xml",
+              "args": [
+                "rss-http"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:unknown",
+          "value": "application/octet-stream",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "application/octet-stream",
+              "args": [
+                "custom"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:filtered",
+          "value": "custom/atom",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "application/atom+xml",
+              "args": [
+                "atom"
+              ]
+            }
+          ]
+        }
+      ],
+      "reflection": {
+        "get_default_feed": {
+          "name": "get_default_feed",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "feed_content_type": {
+          "name": "feed_content_type",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "generated": {
+      "mode": "generated",
+      "cases": [
+        {
+          "id": "default-feed:default",
+          "value": "rss2",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "default-feed:rss-normalized",
+          "value": "rss2",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "default-feed:atom-filter",
+          "value": "atom",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:empty-uses-default",
+          "value": "application/atom+xml",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "feed_content_type",
+              "value": "application/atom+xml",
+              "args": [
+                "atom"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:zero-uses-default",
+          "value": "text/xml",
+          "filters": [
+            {
+              "hook": "default_feed",
+              "value": "rss2",
+              "args": []
+            },
+            {
+              "hook": "feed_content_type",
+              "value": "text/xml",
+              "args": [
+                "rss-http"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:rss-http",
+          "value": "text/xml",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "text/xml",
+              "args": [
+                "rss-http"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:unknown",
+          "value": "application/octet-stream",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "application/octet-stream",
+              "args": [
+                "custom"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "feed-content-type:filtered",
+          "value": "custom/atom",
+          "filters": [
+            {
+              "hook": "feed_content_type",
+              "value": "application/atom+xml",
+              "args": [
+                "atom"
+              ]
+            }
+          ]
+        }
+      ],
+      "reflection": {
+        "get_default_feed": {
+          "name": "get_default_feed",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "feed_content_type": {
+          "name": "feed_content_type",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "type",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": "",
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "match": true
+  },
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "oracle_candidate_behavior_matched": true,
+    "reflection_abi_matched": true,
+    "unsupported_empty": true,
+    "unguarded_module_functions": true,
+    "original_path_feed_php": true,
+    "haxe_bootstrap_delegation": true
+  },
+  "claims": [
+    "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/feed.php.",
+    "The generated get_default_feed and feed_content_type functions preserve reflection-visible parameters/defaults for the selected fixture.",
+    "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for default feed normalization, feed content-type mapping, PHP empty('0') behavior, and filter payloads."
+  ],
+  "non_claims": [
+    "This fixture does not claim full wp-includes/feed.php ownership.",
+    "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
+    "This fixture does not claim feed template rendering, installed WordPress feed behavior, remote feed/oEmbed behavior, class-wp-oembed.php, class-wp-embed.php, embed.php, https-detection.php, or https-migration.php ownership.",
+    "This fixture does not claim arbitrary module-function lowering beyond the selected original-path feed helpers."
+  ]
+}
