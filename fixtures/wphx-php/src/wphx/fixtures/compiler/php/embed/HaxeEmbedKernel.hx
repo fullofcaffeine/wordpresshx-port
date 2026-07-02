@@ -46,6 +46,8 @@ extern class HaxeEmbedKernel
 
 	static function enqueueEmbedScripts():Void;
 
+	static function enqueueEmbedStyles():Void;
+
 	static function embedSiteTitle():String;
 
 	static function filterPreOembedResult(result:NativeValue, url:String, args:NativeValue):NativeValue;

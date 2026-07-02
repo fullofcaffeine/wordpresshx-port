@@ -181,6 +181,15 @@ function enqueueEmbedScripts():Void
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_enqueue_embed_styles")
+@:keep
+function wpEnqueueEmbedStyles():Void
+{
+	HaxeEmbedKernel.enqueueEmbedStyles();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("the_embed_site_title")
 @:wp.echo
 @:keep

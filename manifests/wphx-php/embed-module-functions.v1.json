@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 22860,
-      "sha256": "sha256:ed2c8b900d5edecc6dd9d0402e5356e81d23e8f7ca8014058ab6a8d5e3e6f814"
+      "bytes": 24105,
+      "sha256": "sha256:82c964e4f5d692f46ac952430b195efa21dd6654db8c4d500423f66199ea2923"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 3315,
-      "sha256": "sha256:d44cb326769c735d8ec945fc7baf6aa896a1a9d18d6ca62de946c0b7429bdfff"
+      "bytes": 3422,
+      "sha256": "sha256:e55927a1e96a7c95699721bba9f7e0924feb2a1e4638e3d05a292a1021e33216"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 8069,
-      "sha256": "sha256:60ead9a262a25218ca212b367c9e9bf8afb5bb3e2fc1d74e7296e56827a1f948"
+      "bytes": 8284,
+      "sha256": "sha256:0f0dfe1c3d9ee8a8c4a420c7a5c52b3c665d8fa6051b45208e1c7958cf110109"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 2192,
-      "sha256": "sha256:1b4d2c6030b6b31912fd2c8247e4295857438987b5b4534e8690730b6d5c448b"
+      "bytes": 2237,
+      "sha256": "sha256:01a42676435ab6cedc4d5ceaf04870244c74a93781970e4d15aec63e8ff968f5"
     }
   ],
   "upstream_oracle": {
@@ -73,6 +73,7 @@
       "the_excerpt_embed",
       "wp_embed_excerpt_attachment",
       "enqueue_embed_scripts",
+      "wp_enqueue_embed_styles",
       "the_embed_site_title",
       "wp_filter_pre_oembed_result",
       "_oembed_filter_feed_content",
@@ -103,6 +104,7 @@
       "1028-1043",
       "1051-1062",
       "1069-1077",
+      "1084-1097",
       "1232-1256",
       "1267-1275",
       "1119-1129",
@@ -116,8 +118,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 4100,
-    "sha256": "sha256:3c14488646ba92bcde32942be865ed489e23fe722b96fe14a8f67cf64c4f8696",
+    "bytes": 4201,
+    "sha256": "sha256:5549c9a5f224182b2087a5c29b4b7702e87d6c5a3b7a4446d8353b450111b672",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -141,6 +143,7 @@
       "function the_excerpt_embed()",
       "function wp_embed_excerpt_attachment($content)",
       "function enqueue_embed_scripts()",
+      "function wp_enqueue_embed_styles()",
       "function the_embed_site_title()",
       "function wp_filter_pre_oembed_result($result, $url, $args)",
       "function _oembed_filter_feed_content($content)",
@@ -168,6 +171,7 @@
       "EmbedKernel::excerptEmbed()",
       "EmbedKernel::embedExcerptAttachment($content)",
       "EmbedKernel::enqueueEmbedScripts()",
+      "EmbedKernel::enqueueEmbedStyles()",
       "EmbedKernel::embedSiteTitle()",
       "EmbedKernel::filterPreOembedResult($result, $url, $args)",
       "EmbedKernel::oembedFilterFeedContent($content)",
@@ -180,15 +184,15 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 8614,
-    "sha256": "sha256:51591b6a0eb77d01dfa2c72f6b7e756217446ad78374ea711169628422d65d89",
+    "bytes": 9109,
+    "sha256": "sha256:58352e73e36d4e2b501089fdc64d02a7ab6b7e9dfd0e1c0dab06f90c1a0e8898",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 9056,
-    "sha256": "sha256:1f6a5ab7f52420debf7d100dc690a4eaa3a853c19cd901b8b17c577d3a3ff68f",
+    "bytes": 9365,
+    "sha256": "sha256:46288471805c8202721a9e27e26d436af0448bba660e9efebc7b12acc89c3a81",
     "declarations": [
       "wp-includes/embed.php:global-function:_oembed_create_xml",
       "wp-includes/embed.php:global-function:_oembed_filter_feed_content",
@@ -208,6 +212,7 @@
       "wp-includes/embed.php:global-function:wp_embed_handler_youtube",
       "wp-includes/embed.php:global-function:wp_embed_register_handler",
       "wp-includes/embed.php:global-function:wp_embed_unregister_handler",
+      "wp-includes/embed.php:global-function:wp_enqueue_embed_styles",
       "wp-includes/embed.php:global-function:wp_filter_pre_oembed_result",
       "wp-includes/embed.php:global-function:wp_maybe_enqueue_oembed_host_js",
       "wp-includes/embed.php:global-function:wp_maybe_load_embeds",
@@ -247,12 +252,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -278,12 +287,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -304,12 +317,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -330,12 +347,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -353,12 +374,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -387,12 +412,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -421,12 +450,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -455,12 +488,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -489,12 +526,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -515,12 +556,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -545,12 +590,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -571,12 +620,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -591,12 +644,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -611,6 +668,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -630,6 +688,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -655,6 +716,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -674,6 +736,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -699,6 +764,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -718,6 +784,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -743,6 +812,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -762,6 +832,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -787,12 +860,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -816,12 +893,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -845,12 +926,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -874,12 +959,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -903,12 +992,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -923,12 +1016,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -943,12 +1040,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -963,12 +1064,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -983,12 +1088,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1003,12 +1112,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1023,12 +1136,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1050,12 +1167,16 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1074,12 +1195,16 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1099,12 +1224,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1119,12 +1248,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1139,12 +1272,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1164,12 +1301,16 @@
               "method": "register_routes"
             }
           ],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1187,12 +1328,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1232,12 +1377,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1261,12 +1410,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1306,12 +1459,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [
@@ -1356,12 +1513,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1376,12 +1537,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1398,12 +1563,16 @@
             "wp-embed"
           ],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1418,6 +1587,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
@@ -1434,12 +1604,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1454,12 +1628,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1474,12 +1652,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1497,12 +1679,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1526,12 +1712,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1552,12 +1742,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1572,12 +1766,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1592,6 +1790,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [
@@ -1602,9 +1801,118 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:default",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [
+            {
+              "action": "register",
+              "handle": "wp-embed-template",
+              "src": false
+            },
+            {
+              "action": "inline",
+              "handle": "wp-embed-template",
+              "data": "body{background:#fff}.wp-embed{display:block}\n"
+            },
+            {
+              "action": "enqueue",
+              "handle": "wp-embed-template"
+            }
+          ],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [
+            {
+              "hook": "embed_head",
+              "callback": "print_embed_styles"
+            }
+          ],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:unhooked",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:suffix-min",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [
+            {
+              "action": "register",
+              "handle": "wp-embed-template",
+              "src": false
+            },
+            {
+              "action": "inline",
+              "handle": "wp-embed-template",
+              "data": "body{background:#fff}.wp-embed{display:block}\n/* min */\n"
+            },
+            {
+              "action": "enqueue",
+              "handle": "wp-embed-template"
+            }
+          ],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [
+            {
+              "hook": "embed_head",
+              "callback": "print_embed_styles"
+            }
+          ],
           "filters": []
         },
         {
@@ -1619,12 +1927,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1648,12 +1960,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1685,12 +2001,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1705,12 +2025,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1725,12 +2049,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1745,12 +2073,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1765,12 +2097,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1785,12 +2121,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1808,12 +2148,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1831,12 +2175,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1854,12 +2202,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1877,12 +2229,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1900,12 +2256,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1923,12 +2283,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1946,12 +2310,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -1988,12 +2356,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2024,12 +2396,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2072,12 +2448,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2113,12 +2493,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2152,12 +2536,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2186,12 +2574,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2218,12 +2610,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2250,12 +2646,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2283,12 +2683,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2313,12 +2717,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -2718,6 +3126,14 @@
         },
         "enqueue_embed_scripts": {
           "name": "enqueue_embed_scripts",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "wp_enqueue_embed_styles": {
+          "name": "wp_enqueue_embed_styles",
           "numberOfParameters": 0,
           "numberOfRequiredParameters": 0,
           "returnsReference": false,
@@ -2983,12 +3399,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3014,12 +3434,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3040,12 +3464,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3066,12 +3494,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3089,12 +3521,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3123,12 +3559,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3157,12 +3597,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3191,12 +3635,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3225,12 +3673,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3251,12 +3703,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3281,12 +3737,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3307,12 +3767,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3327,12 +3791,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3347,6 +3815,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -3366,6 +3835,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3391,6 +3863,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -3410,6 +3883,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3435,6 +3911,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -3454,6 +3931,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3479,6 +3959,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [
             {
               "path": "/post/7/embed/",
@@ -3498,6 +3979,9 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3523,12 +4007,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3552,12 +4040,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3581,12 +4073,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3610,12 +4106,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3639,12 +4139,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3659,12 +4163,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3679,12 +4187,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3699,12 +4211,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3719,12 +4235,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3739,12 +4259,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3759,12 +4283,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3786,12 +4314,16 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3810,12 +4342,16 @@
           },
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3835,12 +4371,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3855,12 +4395,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3875,12 +4419,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3900,12 +4448,16 @@
               "method": "register_routes"
             }
           ],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3923,12 +4475,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3968,12 +4524,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -3997,12 +4557,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4042,12 +4606,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [
@@ -4092,12 +4660,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4112,12 +4684,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4134,12 +4710,16 @@
             "wp-embed"
           ],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4154,6 +4734,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
@@ -4170,12 +4751,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4190,12 +4775,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4210,12 +4799,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4233,12 +4826,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4262,12 +4859,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4288,12 +4889,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4308,12 +4913,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4328,6 +4937,7 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [
@@ -4338,9 +4948,118 @@
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:default",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [
+            {
+              "action": "register",
+              "handle": "wp-embed-template",
+              "src": false
+            },
+            {
+              "action": "inline",
+              "handle": "wp-embed-template",
+              "data": "body{background:#fff}.wp-embed{display:block}\n"
+            },
+            {
+              "action": "enqueue",
+              "handle": "wp-embed-template"
+            }
+          ],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [
+            {
+              "hook": "embed_head",
+              "callback": "print_embed_styles"
+            }
+          ],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:unhooked",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "embed-styles:suffix-min",
+          "value": null,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [
+            {
+              "action": "register",
+              "handle": "wp-embed-template",
+              "src": false
+            },
+            {
+              "action": "inline",
+              "handle": "wp-embed-template",
+              "data": "body{background:#fff}.wp-embed{display:block}\n/* min */\n"
+            },
+            {
+              "action": "enqueue",
+              "handle": "wp-embed-template"
+            }
+          ],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": []
+          },
+          "removed_actions": [
+            {
+              "hook": "embed_head",
+              "callback": "print_embed_styles"
+            }
+          ],
           "filters": []
         },
         {
@@ -4355,12 +5074,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4384,12 +5107,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4421,12 +5148,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4441,12 +5172,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4461,12 +5196,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4481,12 +5220,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4501,12 +5244,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4521,12 +5268,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4544,12 +5295,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4567,12 +5322,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4590,12 +5349,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4613,12 +5376,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4636,12 +5403,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4659,12 +5430,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4682,12 +5457,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4724,12 +5503,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4760,12 +5543,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4808,12 +5595,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4849,12 +5640,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4888,12 +5683,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4922,12 +5721,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4954,12 +5757,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -4986,12 +5793,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -5019,12 +5830,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -5049,12 +5864,16 @@
           "early_providers": [],
           "enqueued_scripts": [],
           "routes": [],
+          "styles": [],
           "page_paths": [],
           "post_type_queries": [],
           "actions_fired": [],
           "actions": {
             "wp_head": {
               "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
             }
           },
           "removed_actions": [],
@@ -5460,6 +6279,14 @@
           "hasReturnType": false,
           "parameters": []
         },
+        "wp_enqueue_embed_styles": {
+          "name": "wp_enqueue_embed_styles",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
         "the_embed_site_title": {
           "name": "the_embed_site_title",
           "numberOfParameters": 0,
@@ -5715,11 +6542,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, or WP_HTML_Tag_Processor class method ownership beyond the narrow route registration, get_html/data2html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, comments/sharing-button markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, or WP_HTML_Tag_Processor class method ownership beyond the narrow route registration, get_html/data2html singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed-style enqueue helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, comments/sharing-button markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

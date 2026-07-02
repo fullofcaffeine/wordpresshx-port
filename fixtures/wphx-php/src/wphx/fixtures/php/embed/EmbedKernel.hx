@@ -246,6 +246,22 @@ class EmbedKernel
 		EmbedGlobals.doAction("enqueue_embed_scripts");
 	}
 
+	public static function enqueueEmbedStyles():Void
+	{
+		if (!EmbedGlobals.truthy(EmbedGlobals.hasAction("embed_head", "print_embed_styles")))
+		{
+			return;
+		}
+
+		EmbedGlobals.removeAction("embed_head", "print_embed_styles");
+
+		final suffix = EmbedGlobals.wpScriptsGetSuffix();
+		final handle = "wp-embed-template";
+		EmbedGlobals.wpRegisterStyle(handle, false);
+		EmbedGlobals.wpAddInlineStyle(handle, EmbedGlobals.fileGetContents(wpIncludesPath("/css/wp-embed-template" + suffix + ".css")));
+		EmbedGlobals.wpEnqueueStyle(handle);
+	}
+
 	public static function embedSiteTitle():String
 	{
 		final siteTitle = "<div class=\"wp-embed-site-title\"><a href=\""
@@ -397,6 +413,12 @@ class EmbedKernel
 	{
 		// WPHX-211: WP_HTML_Tag_Processor::next_tag() consumes a native query array.
 		return php.Syntax.code("array('tag_name' => {0})", tagName);
+	}
+
+	static function wpIncludesPath(path:String):String
+	{
+		// WPHX-211: WordPress asset paths are assembled from the native ABSPATH and WPINC constants.
+		return php.Syntax.code("ABSPATH . WPINC . {0}", path);
 	}
 
 	static function existingSimpleXmlNode(node:NativeValue):SimpleXmlElement
@@ -570,6 +592,21 @@ extern class EmbedGlobals
 
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
+
+	@:native("wp_scripts_get_suffix")
+	public static function wpScriptsGetSuffix():String;
+
+	@:native("wp_register_style")
+	public static function wpRegisterStyle(handle:String, source:NativeValue):Void;
+
+	@:native("wp_add_inline_style")
+	public static function wpAddInlineStyle(handle:String, data:String):Void;
+
+	@:native("wp_enqueue_style")
+	public static function wpEnqueueStyle(handle:String):Void;
+
+	@:native("file_get_contents")
+	public static function fileGetContents(path:String):String;
 
 	@:native("get_oembed_response_data_for_url")
 	public static function getOembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;
