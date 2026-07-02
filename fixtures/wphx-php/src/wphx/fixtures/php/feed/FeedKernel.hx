@@ -1,6 +1,7 @@
 package wphx.fixtures.php.feed;
 
 import php.Const;
+import php.DateTimeZone;
 import php.Global;
 import php.NativeIndexedArray;
 import php.SuperGlobal;
@@ -316,6 +317,36 @@ class FeedKernel
 		return output;
 	}
 
+	public static function getFeedBuildDate(format:String):NativeValue
+	{
+		// WPHX-211: WordPress exposes global $wp_query as a native PHP object.
+		final wpQuery:Null<WpQuery> = cast WpNativeArray.get(SuperGlobal.GLOBALS, "wp_query", null);
+		final utc = new DateTimeZone("UTC");
+		var datetime:NativeValue = false;
+		var maxModifiedTime:NativeValue = false;
+		if (wpQuery != null && wpQuery.havePosts())
+		{
+			var modifiedTimes = WpFeedGlobals.wpListPluck(wpQuery.posts, "post_modified_gmt");
+			if (wpQuery.isCommentFeed() && wpQuery.comment_count != 0)
+			{
+				modifiedTimes = WpFeedGlobals.arrayMerge(modifiedTimes, WpFeedGlobals.wpListPluck(wpQuery.comments, "comment_date_gmt"));
+			}
+			datetime = WpFeedGlobals.dateCreateImmutableFromFormat("Y-m-d H:i:s", WpFeedGlobals.maxArray(modifiedTimes), utc);
+		}
+
+		if (datetime == false)
+		{
+			datetime = WpFeedGlobals.dateCreateImmutableFromFormat("Y-m-d H:i:s", WpFeedGlobals.getLastpostmodified("GMT"), utc);
+		}
+
+		if (datetime != false)
+		{
+			maxModifiedTime = WpFeedGlobals.dateFormat(datetime, format);
+		}
+
+		return WpHooks.applyFiltersNative2("get_feed_build_date", maxModifiedTime, format);
+	}
+
 	static function isPhpEmptyString(value:Null<String>):Bool
 	{
 		return value == null || value == "" || value == "0";
@@ -438,6 +469,24 @@ extern class WpFeedGlobals
 	@:native("sprintf")
 	public static function sprintfAtom(format:String, arg1:String, arg2:String, arg3:String):String;
 
+	@:native("wp_list_pluck")
+	public static function wpListPluck(inputList:php.NativeArray, field:String):php.NativeArray;
+
+	@:native("array_merge")
+	public static function arrayMerge(first:php.NativeArray, second:php.NativeArray):php.NativeArray;
+
+	@:native("max")
+	public static function maxArray(values:php.NativeArray):String;
+
+	@:native("date_create_immutable_from_format")
+	public static function dateCreateImmutableFromFormat(format:String, datetime:String, timezone:DateTimeZone):NativeValue;
+
+	@:native("date_format")
+	public static function dateFormat(datetime:NativeValue, format:String):NativeValue;
+
+	@:native("get_lastpostmodified")
+	public static function getLastpostmodified(timezone:String):String;
+
 	@:native("get_comment")
 	public static function getComment(commentId:NativeValue):Null<WpComment>;
 
@@ -479,6 +528,22 @@ extern class WpTerm
 }
 
 /**
+	Typed subset of WP_Query state used by selected feed build date behavior.
+**/
+extern class WpQuery
+{
+	public var posts:php.NativeArray;
+	public var comments:php.NativeArray;
+	public var comment_count:Int;
+
+	@:native("have_posts")
+	public function havePosts():Bool;
+
+	@:native("is_comment_feed")
+	public function isCommentFeed():Bool;
+}
+
+/**
 	Narrow extern for WordPress filter dispatch at the public PHP boundary.
 **/
 @:phpGlobal
@@ -489,4 +554,7 @@ extern class WpHooks
 
 	@:native("apply_filters")
 	public static function applyFilters2(hookName:String, value:String, arg:String):String;
+
+	@:native("apply_filters")
+	public static function applyFiltersNative2(hookName:String, value:NativeValue, arg:String):NativeValue;
 }

@@ -63,4 +63,6 @@ extern class HaxeFeedKernel
 	static function rssEnclosure():String;
 
 	static function atomEnclosure():String;
+
+	static function getFeedBuildDate(format:String):NativeValue;
 }

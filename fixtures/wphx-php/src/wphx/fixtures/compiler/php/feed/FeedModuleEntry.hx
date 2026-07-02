@@ -13,6 +13,7 @@ import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getBloginfoRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentAuthorRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentGuid;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getDefaultFeed;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getFeedBuildDate;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getSelfLink;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheCategoryRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheContentFeed;
@@ -64,5 +65,6 @@ class FeedModuleEntry
 		selfLink();
 		rssEnclosure();
 		atomEnclosure();
+		getFeedBuildDate("c");
 	}
 }

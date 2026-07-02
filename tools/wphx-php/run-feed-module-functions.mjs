@@ -92,7 +92,9 @@ const EXACT_PATTERNS = [
   "function rss_enclosure()",
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::rssEnclosure();",
   "function atom_enclosure()",
-  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomEnclosure();"
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomEnclosure();",
+  "function get_feed_build_date($format)",
+  "FeedKernel::getFeedBuildDate($format)"
 ];
 
 function run(command, args, options = {}) {
@@ -416,6 +418,35 @@ function atom_enclosure() {
 \t\t}
 \t}
 }
+
+function get_feed_build_date( $format ) {
+\tglobal $wp_query;
+
+\t$datetime          = false;
+\t$max_modified_time = false;
+\t$utc               = new DateTimeZone( 'UTC' );
+
+\tif ( ! empty( $wp_query ) && $wp_query->have_posts() ) {
+\t\t$modified_times = wp_list_pluck( $wp_query->posts, 'post_modified_gmt' );
+
+\t\tif ( $wp_query->is_comment_feed() && $wp_query->comment_count ) {
+\t\t\t$comment_times = wp_list_pluck( $wp_query->comments, 'comment_date_gmt' );
+\t\t\t$modified_times = array_merge( $modified_times, $comment_times );
+\t\t}
+
+\t\t$datetime = date_create_immutable_from_format( 'Y-m-d H:i:s', max( $modified_times ), $utc );
+\t}
+
+\tif ( false === $datetime ) {
+\t\t$datetime = date_create_immutable_from_format( 'Y-m-d H:i:s', get_lastpostmodified( 'GMT' ), $utc );
+\t}
+
+\tif ( false !== $datetime ) {
+\t\t$max_modified_time = $datetime->format( $format );
+\t}
+
+\treturn apply_filters( 'get_feed_build_date', $max_modified_time, $format );
+}
 `;
 }
 
@@ -426,6 +457,30 @@ $shell = $argv[2];
 $GLOBALS['wphx_filter_log'] = array();
 $GLOBALS['wphx_filter_overrides'] = array();
 $GLOBALS['wphx_deprecated_log'] = array();
+
+class WPHX_Feed_Query {
+\tpublic $posts;
+\tpublic $comments;
+\tpublic $comment_count;
+\tprivate $has_posts;
+\tprivate $comment_feed;
+
+\tpublic function __construct( $posts, $comments = array(), $comment_feed = false, $has_posts = true ) {
+\t\t$this->posts         = $posts;
+\t\t$this->comments      = $comments;
+\t\t$this->comment_count = count( $comments );
+\t\t$this->comment_feed  = $comment_feed;
+\t\t$this->has_posts     = $has_posts;
+\t}
+
+\tpublic function have_posts() {
+\t\treturn $this->has_posts;
+\t}
+
+\tpublic function is_comment_feed() {
+\t\treturn $this->comment_feed;
+\t}
+}
 
 function apply_filters( $hook_name, $value, ...$args ) {
 \t$GLOBALS['wphx_filter_log'][] = array(
@@ -552,6 +607,22 @@ function absint( $value ) {
 \treturn abs( intval( $value ) );
 }
 
+function wp_list_pluck( $input_list, $field ) {
+\t$values = array();
+\tforeach ( $input_list as $item ) {
+\t\tif ( is_array( $item ) && array_key_exists( $field, $item ) ) {
+\t\t\t$values[] = $item[ $field ];
+\t\t} elseif ( is_object( $item ) && isset( $item->$field ) ) {
+\t\t\t$values[] = $item->$field;
+\t\t}
+\t}
+\treturn $values;
+}
+
+function get_lastpostmodified( $timezone ) {
+\treturn $GLOBALS['wphx_lastpostmodified'] ?? '2026-06-25 04:05:06';
+}
+
 function get_comment( $comment_id = null ) {
 \tif ( 'missing' === $comment_id ) {
 \t\treturn null;
@@ -600,6 +671,8 @@ function wphx_case( $id, $overrides, $callback ) {
 \t$GLOBALS['wphx_html_type'] = 'application/xhtml+xml';
 \t$GLOBALS['wphx_home_url'] = 'https://example.test:8443/home';
 \t$GLOBALS['wphx_post_password_required'] = false;
+\t$GLOBALS['wphx_lastpostmodified'] = '2026-06-25 04:05:06';
+\t$GLOBALS['wp_query'] = null;
 \tunset( $GLOBALS['wphx_post_custom'] );
 \t$_SERVER['REQUEST_URI'] = '/feed/?x=1\\&y=2';
 \tob_start();
@@ -846,9 +919,40 @@ $cases[] = wphx_case( 'atom-enclosure:password-required', array(), function () {
 \t$GLOBALS['wphx_post_password_required'] = true;
 \treturn atom_enclosure();
 } );
+$cases[] = wphx_case( 'feed-build-date:post-max', array(), function () {
+\t$GLOBALS['wp_query'] = new WPHX_Feed_Query(
+\t\tarray(
+\t\t\t(object) array( 'post_modified_gmt' => '2026-06-24 01:02:03' ),
+\t\t\t(object) array( 'post_modified_gmt' => '2026-06-26 03:04:05' ),
+\t\t)
+\t);
+\treturn get_feed_build_date( 'c' );
+} );
+$cases[] = wphx_case( 'feed-build-date:comment-feed-max', array(), function () {
+\t$GLOBALS['wp_query'] = new WPHX_Feed_Query(
+\t\tarray( (object) array( 'post_modified_gmt' => '2026-06-24 01:02:03' ) ),
+\t\tarray( (object) array( 'comment_date_gmt' => '2026-06-27 06:07:08' ) ),
+\t\ttrue
+\t);
+\treturn get_feed_build_date( 'Y-m-d H:i:s' );
+} );
+$cases[] = wphx_case( 'feed-build-date:fallback', array(), function () {
+\t$GLOBALS['wp_query'] = new WPHX_Feed_Query( array(), array(), false, false );
+\treturn get_feed_build_date( 'Y-m-d H:i:s' );
+} );
+$cases[] = wphx_case( 'feed-build-date:invalid-fallback', array(), function () {
+\t$GLOBALS['wphx_lastpostmodified'] = 'not-a-date';
+\treturn get_feed_build_date( 'Y-m-d H:i:s' );
+} );
+$cases[] = wphx_case( 'feed-build-date:filtered', array( 'get_feed_build_date' => 'Filtered Build Date' ), function () {
+\t$GLOBALS['wp_query'] = new WPHX_Feed_Query(
+\t\tarray( (object) array( 'post_modified_gmt' => '2026-06-26 03:04:05' ) )
+\t);
+\treturn get_feed_build_date( 'c' );
+} );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon', 'get_self_link', 'self_link', 'rss_enclosure', 'atom_enclosure' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon', 'get_self_link', 'self_link', 'rss_enclosure', 'atom_enclosure', 'get_feed_build_date' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -933,6 +1037,7 @@ function main() {
     "wp-includes/feed.php:global-function:get_comment_author_rss",
     "wp-includes/feed.php:global-function:get_comment_guid",
     "wp-includes/feed.php:global-function:get_default_feed",
+    "wp-includes/feed.php:global-function:get_feed_build_date",
     "wp-includes/feed.php:global-function:get_self_link",
     "wp-includes/feed.php:global-function:get_the_category_rss",
     "wp-includes/feed.php:global-function:get_the_content_feed",
@@ -997,9 +1102,10 @@ function main() {
         "get_self_link",
         "self_link",
         "rss_enclosure",
-        "atom_enclosure"
+        "atom_enclosure",
+        "get_feed_build_date"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661", "670-679", "688-700", "475-504", "519-569"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661", "670-679", "688-700", "475-504", "519-569", "715-757"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -1047,7 +1153,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, RSS/Atom enclosure output and password short-circuit behavior, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, RSS/Atom enclosure output and password short-circuit behavior, feed build date post/comment/fallback/filter behavior, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

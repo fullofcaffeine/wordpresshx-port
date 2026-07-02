@@ -37,23 +37,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
-      "bytes": 14252,
-      "sha256": "sha256:d13ba780ded6c758e9d4af8fa7c6f7b400c824d382a3cea1c0f2ca711afe4b5c"
+      "bytes": 16626,
+      "sha256": "sha256:dc57b3c019b1cf790faf0a8d6c71e7b1719fc232183ed8018e118b58b0834b9a"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleEntry.hx",
-      "bytes": 2796,
-      "sha256": "sha256:0eca4e5dd6334afded0dda1b817de968a297f6cd0d22f3792b9a87422214dd90"
+      "bytes": 2896,
+      "sha256": "sha256:71cdb194c93948cdd5739464fca96268496236c6e67a5f6e05cc24e1e53482be"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
-      "bytes": 6684,
-      "sha256": "sha256:b9e0a62ed0d57c413a4c0c371bb9e543c61c3c18dabcd31043fac204adaae94e"
+      "bytes": 6939,
+      "sha256": "sha256:b966a7265d2f1d623b70d8bf2772521fe328e6c18b21269f937c1aec9b73cab0"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/HaxeFeedKernel.hx",
-      "bytes": 1670,
-      "sha256": "sha256:c0727cc7bcc5f306fb671bf175a4ac345c031ee6ace092a9172126b8f51551e3"
+      "bytes": 1733,
+      "sha256": "sha256:678a0c3a7901bcff2d877dba3d2ab732b7da2017118c0c7a05f2ff41228d53f5"
     }
   ],
   "upstream_oracle": {
@@ -86,7 +86,8 @@
       "get_self_link",
       "self_link",
       "rss_enclosure",
-      "atom_enclosure"
+      "atom_enclosure",
+      "get_feed_build_date"
     ],
     "selected_source_lines": [
       "27-41",
@@ -114,13 +115,14 @@
       "670-679",
       "688-700",
       "475-504",
-      "519-569"
+      "519-569",
+      "715-757"
     ]
   },
   "generated_shell": {
     "path": "build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
-    "bytes": 3409,
-    "sha256": "sha256:983bb7003ebfb07c33b2e90aeb6565bd7de206a8f08caf04fba28a532adf4215",
+    "bytes": 3523,
+    "sha256": "sha256:d8a3e9941499a3e1a575fc0b85463d53981af6af836002c14adeb6f668dc335b",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
     "exact_patterns": [
@@ -179,20 +181,22 @@
       "function rss_enclosure()",
       "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::rssEnclosure();",
       "function atom_enclosure()",
-      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomEnclosure();"
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomEnclosure();",
+      "function get_feed_build_date($format)",
+      "FeedKernel::getFeedBuildDate($format)"
     ]
   },
   "oracle_shell": {
     "path": "build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php",
-    "bytes": 7205,
-    "sha256": "sha256:3853c85b6e4224899e171d7147594681237d8b3c7edf7d55fa7061f234c45033",
+    "bytes": 8134,
+    "sha256": "sha256:c57a1ec5bc74f30fae2ee82a7ad00271ef340ff2138bdd63550938661c274afd",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/feed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 8732,
-    "sha256": "sha256:19f48e66502ca441727f9e882339e33fa546b46c49cc59c8c249cfc97675da21",
+    "bytes": 9033,
+    "sha256": "sha256:a09305d97981da062634ddb6dd608a6e944cb0cd58b96a2b19ea03bedef087f0",
     "declarations": [
       "wp-includes/feed.php:global-function:atom_enclosure",
       "wp-includes/feed.php:global-function:atom_site_icon",
@@ -207,6 +211,7 @@
       "wp-includes/feed.php:global-function:get_comment_author_rss",
       "wp-includes/feed.php:global-function:get_comment_guid",
       "wp-includes/feed.php:global-function:get_default_feed",
+      "wp-includes/feed.php:global-function:get_feed_build_date",
       "wp-includes/feed.php:global-function:get_self_link",
       "wp-includes/feed.php:global-function:get_the_category_rss",
       "wp-includes/feed.php:global-function:get_the_content_feed",
@@ -1352,6 +1357,81 @@
           "output": "",
           "filters": [],
           "deprecated": []
+        },
+        {
+          "id": "feed-build-date:post-max",
+          "value": "2026-06-26T03:04:05+00:00",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-26T03:04:05+00:00",
+              "args": [
+                "c"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:comment-feed-max",
+          "value": "2026-06-27 06:07:08",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-27 06:07:08",
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:fallback",
+          "value": "2026-06-25 04:05:06",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-25 04:05:06",
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:invalid-fallback",
+          "value": false,
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": false,
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:filtered",
+          "value": "Filtered Build Date",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-26T03:04:05+00:00",
+              "args": [
+                "c"
+              ]
+            }
+          ],
+          "deprecated": []
         }
       ],
       "reflection": {
@@ -1721,6 +1801,25 @@
           "returnsReference": false,
           "hasReturnType": false,
           "parameters": []
+        },
+        "get_feed_build_date": {
+          "name": "get_feed_build_date",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "format",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
         }
       }
     },
@@ -2845,6 +2944,81 @@
           "output": "",
           "filters": [],
           "deprecated": []
+        },
+        {
+          "id": "feed-build-date:post-max",
+          "value": "2026-06-26T03:04:05+00:00",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-26T03:04:05+00:00",
+              "args": [
+                "c"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:comment-feed-max",
+          "value": "2026-06-27 06:07:08",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-27 06:07:08",
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:fallback",
+          "value": "2026-06-25 04:05:06",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-25 04:05:06",
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:invalid-fallback",
+          "value": false,
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": false,
+              "args": [
+                "Y-m-d H:i:s"
+              ]
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "feed-build-date:filtered",
+          "value": "Filtered Build Date",
+          "output": "",
+          "filters": [
+            {
+              "hook": "get_feed_build_date",
+              "value": "2026-06-26T03:04:05+00:00",
+              "args": [
+                "c"
+              ]
+            }
+          ],
+          "deprecated": []
         }
       ],
       "reflection": {
@@ -3214,6 +3388,25 @@
           "returnsReference": false,
           "hasReturnType": false,
           "parameters": []
+        },
+        "get_feed_build_date": {
+          "name": "get_feed_build_date",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 1,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "format",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
         }
       }
     },
@@ -3235,7 +3428,7 @@
     "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
     "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
     "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, RSS/Atom enclosure output and password short-circuit behavior, PHP empty('0') behavior, output capture, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, RSS/Atom enclosure output and password short-circuit behavior, feed build date post/comment/fallback/filter behavior, PHP empty('0') behavior, output capture, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/feed.php ownership.",

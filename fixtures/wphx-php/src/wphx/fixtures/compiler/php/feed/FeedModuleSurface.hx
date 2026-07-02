@@ -274,3 +274,12 @@ function atomEnclosure():String
 {
 	return HaxeFeedKernel.atomEnclosure();
 }
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_feed_build_date")
+@:keep
+function getFeedBuildDate(@:wp.name("format") format:String):NativeValue
+{
+	return HaxeFeedKernel.getFeedBuildDate(format);
+}
