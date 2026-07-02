@@ -219,6 +219,16 @@ function printEmbedSharingButton():String
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("print_embed_comments_button")
+@:wp.echo
+@:keep
+function printEmbedCommentsButton():String
+{
+	return HaxeEmbedKernel.printEmbedCommentsButton();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("wp_maybe_load_embeds")
 @:keep
 function wpMaybeLoadEmbeds():Void

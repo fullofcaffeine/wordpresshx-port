@@ -5,6 +5,7 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.getPostEmbedUrl;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.enqueueEmbedScripts;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.oembedFilterFeedContent;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.oembedCreateXml;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.printEmbedCommentsButton;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.printEmbedSharingButton;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theExcerptEmbed;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.theEmbedSiteTitle;
@@ -58,6 +59,7 @@ class EmbedModuleEntry
 		wpFilterPreOembedResult(null, "", null);
 		oembedFilterFeedContent("");
 		printEmbedSharingButton();
+		printEmbedCommentsButton();
 		wpMaybeLoadEmbeds();
 		wpEmbedHandlerYoutube(null, null, "", null);
 		wpEmbedHandlerAudio(null, null, "", null);

@@ -297,6 +297,24 @@ class EmbedKernel
 			+ "\">\n\t\t\t<span class=\"dashicons dashicons-share\"></span>\n\t\t</button>\n\t</div>\n\t";
 	}
 
+	public static function printEmbedCommentsButton():String
+	{
+		final commentsNumber = EmbedGlobals.getCommentsNumber();
+		if (EmbedGlobals.is404() || !(commentsNumber != 0 || EmbedGlobals.commentsOpen()))
+		{
+			return "";
+		}
+
+		final commentText = EmbedGlobals.sprintfOne(EmbedGlobals.translatePlural("%s <span class=\"screen-reader-text\">Comment</span>",
+			"%s <span class=\"screen-reader-text\">Comments</span>", commentsNumber),
+			EmbedGlobals.numberFormatI18n(commentsNumber));
+		return "\t<div class=\"wp-embed-comments\">\n\t\t<a href=\""
+			+ EmbedGlobals.escUrl(EmbedGlobals.getCommentsLink())
+			+ "\" target=\"_top\">\n\t\t\t<span class=\"dashicons dashicons-admin-comments\"></span>\n\t\t\t"
+			+ commentText
+			+ "\t\t</a>\n\t</div>\n\t";
+	}
+
 	public static function maybeLoadEmbeds():Void
 	{
 		if (!EmbedGlobals.truthy(EmbedHooks.applyFiltersNative1("load_default_embeds", true)))
@@ -514,6 +532,12 @@ extern class EmbedGlobals
 	@:native("__")
 	public static function translate(text:String):String;
 
+	@:native("_n")
+	public static function translatePlural(singular:String, plural:String, number:Int):String;
+
+	@:native("number_format_i18n")
+	public static function numberFormatI18n(number:Int):String;
+
 	@:native("get_the_excerpt")
 	public static function getTheExcerpt():String;
 
@@ -525,6 +549,15 @@ extern class EmbedGlobals
 
 	@:native("is_404")
 	public static function is404():Bool;
+
+	@:native("get_comments_number")
+	public static function getCommentsNumber():Int;
+
+	@:native("comments_open")
+	public static function commentsOpen():Bool;
+
+	@:native("get_comments_link")
+	public static function getCommentsLink():String;
 
 	@:native("prepend_attachment")
 	public static function prependAttachment(content:String):String;
