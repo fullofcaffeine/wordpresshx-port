@@ -97,6 +97,32 @@ class EmbedKernel
 		return EmbedGlobals.sanitizeUrl(EmbedHooks.applyFiltersNative2("post_embed_url", embedUrl, resolvedPost));
 	}
 
+	public static function postEmbedHtml(width:Int, height:Int, post:NativeValue = null):NativeValue
+	{
+		final resolvedPost = EmbedGlobals.getPost(post);
+		if (!EmbedGlobals.truthy(resolvedPost))
+		{
+			return false;
+		}
+
+		final secret = EmbedGlobals.wpGeneratePassword(10, false);
+		final embedUrl = EmbedGlobals.strval(postEmbedUrl(resolvedPost)) + "#?secret=" + secret;
+		var output = EmbedGlobals.sprintfThree("<blockquote class=\"wp-embedded-content\" data-secret=\"%s\"><a href=\"%s\">%s</a></blockquote>",
+			EmbedGlobals.escAttr(secret), EmbedGlobals.escUrl(EmbedGlobals.getPermalinkForPost(resolvedPost)), EmbedGlobals.getTheTitleForPost(resolvedPost));
+		output += EmbedGlobals.sprintfFive("<iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"%s\" width=\"%d\" height=\"%d\" title=\"%s\" data-secret=\"%s\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe>",
+			EmbedGlobals.escUrl(embedUrl), EmbedGlobals.absint(width), EmbedGlobals.absint(height),
+			EmbedGlobals.escAttr(EmbedGlobals.sprintfTwo(EmbedGlobals.translate("&#8220;%1$s&#8221; &#8212; %2$s"),
+				EmbedGlobals.getTheTitleForPost(resolvedPost), EmbedGlobals.getBloginfo("name"))),
+			EmbedGlobals.escAttr(secret));
+
+		final jsPath = "/js/wp-embed" + EmbedGlobals.wpScriptsGetSuffix() + ".js";
+		output += EmbedGlobals.wpGetInlineScriptTag(EmbedGlobals.trim(EmbedGlobals.fileGetContents(wpIncludesPath(jsPath)))
+			+ "\n//# sourceURL="
+			+ EmbedGlobals.escUrlRaw(EmbedGlobals.includesUrl(jsPath)));
+
+		return EmbedHooks.applyFiltersNative4("embed_html", output, resolvedPost, width, height);
+	}
+
 	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
 	{
 		if (!WpNativeArray.isArray(data))
@@ -489,7 +515,7 @@ class EmbedKernel
 			+ "\" aria-describedby=\""
 			+ descriptionHtmlId
 			+ "\" tabindex=\"0\" readonly>"
-			+ EmbedGlobals.escTextarea(EmbedGlobals.getPostEmbedHtml(600, 400, null))
+			+ EmbedGlobals.escTextarea(EmbedGlobals.strval(postEmbedHtml(600, 400, null)))
 			+ "</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\""
 			+ descriptionHtmlId
 			+ "\">\n\t\t\t\t\t\t"
@@ -725,6 +751,12 @@ extern class EmbedGlobals
 	public static function sprintfTwo(format:String, arg1:String, arg2:String):String;
 
 	@:native("sprintf")
+	public static function sprintfThree(format:String, arg1:String, arg2:String, arg3:String):String;
+
+	@:native("sprintf")
+	public static function sprintfFive(format:String, arg1:String, arg2:Int, arg3:Int, arg4:String, arg5:String):String;
+
+	@:native("sprintf")
 	public static function sprintfInt(format:String, arg:Int):String;
 
 	@:native("strval")
@@ -732,6 +764,9 @@ extern class EmbedGlobals
 
 	@:native("intval")
 	public static function intval(value:NativeValue):Int;
+
+	@:native("absint")
+	public static function absint(value:NativeValue):Int;
 
 	@:native("is_numeric")
 	public static function isNumeric(value:NativeValue):Bool;
@@ -777,6 +812,9 @@ extern class EmbedGlobals
 
 	@:native("get_the_title")
 	public static function getTheTitle():String;
+
+	@:native("get_the_title")
+	public static function getTheTitleForPost(post:NativeValue):String;
 
 	@:native("get_the_ID")
 	public static function getTheId():NativeValue;
@@ -841,9 +879,6 @@ extern class EmbedGlobals
 	@:native("wp_rand")
 	public static function wpRand():NativeValue;
 
-	@:native("get_post_embed_html")
-	public static function getPostEmbedHtml(width:Int, height:Int, post:NativeValue):String;
-
 	@:native("wp_enqueue_script")
 	public static function wpEnqueueScript(handle:String):Void;
 
@@ -867,6 +902,9 @@ extern class EmbedGlobals
 
 	@:native("wp_print_inline_script_tag")
 	public static function wpPrintInlineScriptTag(script:String):Void;
+
+	@:native("wp_get_inline_script_tag")
+	public static function wpGetInlineScriptTag(script:String):String;
 
 	@:native("get_oembed_response_data_for_url")
 	public static function getOembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;

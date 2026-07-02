@@ -29,12 +29,16 @@ const GENERATED_STYLE = `${GENERATED_ROOT}/wp-includes/css/wp-embed-template.css
 const GENERATED_MIN_STYLE = `${GENERATED_ROOT}/wp-includes/css/wp-embed-template.min.css`;
 const GENERATED_SCRIPT = `${GENERATED_ROOT}/wp-includes/js/wp-embed-template.js`;
 const GENERATED_MIN_SCRIPT = `${GENERATED_ROOT}/wp-includes/js/wp-embed-template.min.js`;
+const GENERATED_HOST_SCRIPT = `${GENERATED_ROOT}/wp-includes/js/wp-embed.js`;
+const GENERATED_MIN_HOST_SCRIPT = `${GENERATED_ROOT}/wp-includes/js/wp-embed.min.js`;
 const EMISSION_MANIFEST = `${GENERATED_ROOT}/wphx-php-emission.v1.json`;
 const ORACLE_SHELL = `${OUT_ROOT}/oracle/wp-includes/embed.php`;
 const ORACLE_STYLE = `${OUT_ROOT}/oracle/wp-includes/css/wp-embed-template.css`;
 const ORACLE_MIN_STYLE = `${OUT_ROOT}/oracle/wp-includes/css/wp-embed-template.min.css`;
 const ORACLE_SCRIPT = `${OUT_ROOT}/oracle/wp-includes/js/wp-embed-template.js`;
 const ORACLE_MIN_SCRIPT = `${OUT_ROOT}/oracle/wp-includes/js/wp-embed-template.min.js`;
+const ORACLE_HOST_SCRIPT = `${OUT_ROOT}/oracle/wp-includes/js/wp-embed.js`;
+const ORACLE_MIN_HOST_SCRIPT = `${OUT_ROOT}/oracle/wp-includes/js/wp-embed.min.js`;
 const PROBE = `${OUT_ROOT}/probe.php`;
 const MANIFEST = "manifests/wphx-php/embed-module-functions.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-embed-module-functions.v1.json";
@@ -46,6 +50,7 @@ const EXACT_PATTERNS = [
   "function wp_oembed_get($url, $args = '')",
   "function _wp_oembed_get_object()",
   "function get_post_embed_url($post = null)",
+  "function get_post_embed_html($width, $height, $post = null)",
   "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
   "function wp_oembed_ensure_format($format)",
   "function _oembed_create_xml($data, $node = null)",
@@ -79,6 +84,7 @@ const EXACT_PATTERNS = [
   "EmbedKernel::oembedGet($url, $args)",
   "EmbedKernel::oembedGetObject()",
   "EmbedKernel::postEmbedUrl($post)",
+  "EmbedKernel::postEmbedHtml($width, $height, $post)",
   "EmbedKernel::oembedEndpointUrl($permalink, $format)",
   "EmbedKernel::oembedCreateXml($data, $node)",
   "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
@@ -139,6 +145,8 @@ function writeEmbedAssetFixtures() {
   const minStyle = "body{background:#fff}.wp-embed{display:block}\n/* min */\n";
   const script = "window.wpEmbedTemplate = true;\n\n";
   const minScript = "window.wpEmbedTemplate=true;\n";
+  const hostScript = "window.wpEmbed = true;\n\n";
+  const minHostScript = "window.wpEmbed=true;\n";
   for (const [path, content] of [
     [ORACLE_STYLE, style],
     [GENERATED_STYLE, style],
@@ -147,7 +155,11 @@ function writeEmbedAssetFixtures() {
     [ORACLE_SCRIPT, script],
     [GENERATED_SCRIPT, script],
     [ORACLE_MIN_SCRIPT, minScript],
-    [GENERATED_MIN_SCRIPT, minScript]
+    [GENERATED_MIN_SCRIPT, minScript],
+    [ORACLE_HOST_SCRIPT, hostScript],
+    [GENERATED_HOST_SCRIPT, hostScript],
+    [ORACLE_MIN_HOST_SCRIPT, minHostScript],
+    [GENERATED_MIN_HOST_SCRIPT, minHostScript]
   ]) {
     mkdirSync(dirname(path), { recursive: true });
     writeFileSync(path, content);
@@ -219,6 +231,48 @@ function get_post_embed_url( $post = null ) {
 \t}
 
 \treturn sanitize_url( apply_filters( 'post_embed_url', $embed_url, $post ) );
+}
+
+function get_post_embed_html( $width, $height, $post = null ) {
+\t$post = get_post( $post );
+
+\tif ( ! $post ) {
+\t\treturn false;
+\t}
+
+\t$embed_url = get_post_embed_url( $post );
+
+\t$secret     = wp_generate_password( 10, false );
+\t$embed_url .= "#?secret={$secret}";
+
+\t$output = sprintf(
+\t\t'<blockquote class="wp-embedded-content" data-secret="%1$s"><a href="%2$s">%3$s</a></blockquote>',
+\t\tesc_attr( $secret ),
+\t\tesc_url( get_permalink( $post ) ),
+\t\tget_the_title( $post )
+\t);
+
+\t$output .= sprintf(
+\t\t'<iframe sandbox="allow-scripts" security="restricted" src="%1$s" width="%2$d" height="%3$d" title="%4$s" data-secret="%5$s" frameborder="0" marginwidth="0" marginheight="0" scrolling="no" class="wp-embedded-content"></iframe>',
+\t\tesc_url( $embed_url ),
+\t\tabsint( $width ),
+\t\tabsint( $height ),
+\t\tesc_attr(
+\t\t\tsprintf(
+\t\t\t\t__( '&#8220;%1$s&#8221; &#8212; %2$s' ),
+\t\t\t\tget_the_title( $post ),
+\t\t\t\tget_bloginfo( 'name' )
+\t\t\t)
+\t\t),
+\t\tesc_attr( $secret )
+\t);
+
+\t$js_path = '/js/wp-embed' . wp_scripts_get_suffix() . '.js';
+\t$output .= wp_get_inline_script_tag(
+\t\ttrim( file_get_contents( ABSPATH . WPINC . $js_path ) ) . "\\n//# sourceURL=" . esc_url_raw( includes_url( $js_path ) )
+\t);
+
+\treturn apply_filters( 'embed_html', $output, $post, $width, $height );
 }
 
 function get_oembed_endpoint_url( $permalink = '', $format = 'json' ) {
@@ -940,7 +994,7 @@ function get_bloginfo( $show = '' ) {
 \treturn 'Example Site';
 }
 
-function get_the_title() {
+function get_the_title( $post = null ) {
 \treturn $GLOBALS['wphx_post_title'];
 }
 
@@ -991,6 +1045,10 @@ function wp_print_inline_script_tag( $javascript ) {
 \techo '<script>' . $javascript . '</script>';
 }
 
+function wp_get_inline_script_tag( $javascript ) {
+\treturn '<script>' . $javascript . '</script>';
+}
+
 function esc_html( $value ) {
 \treturn htmlspecialchars( (string) $value, ENT_QUOTES, 'UTF-8' );
 }
@@ -1015,8 +1073,8 @@ function wp_rand( $min = null, $max = null ) {
 \treturn 314;
 }
 
-function get_post_embed_html( $width, $height, $post = null ) {
-\treturn '<iframe src="' . get_permalink( $post ) . 'embed/" width="' . (int) $width . '" height="' . (int) $height . '"></iframe>';
+function absint( $maybeint ) {
+\treturn abs( (int) $maybeint );
 }
 
 function get_oembed_response_data_for_url( $url, $args ) {
@@ -1286,6 +1344,21 @@ $cases[] = wphx_case( 'post-embed-url:path-conflict', null, array(), function ()
 } );
 $cases[] = wphx_case( 'post-embed-url:filtered-sanitized', null, array( 'post_embed_url' => 'https://filtered.example/embed url' ), function () {
 \treturn get_post_embed_url( 7 );
+} );
+$cases[] = wphx_case( 'post-embed-html:missing-post', null, array(), function () {
+\treturn get_post_embed_html( 600, 400, 'missing' );
+} );
+$cases[] = wphx_case( 'post-embed-html:default', null, array(), function () {
+\t$GLOBALS['wphx_permalink'] = 'https://example.test/post/7/?a=1&b=2';
+\t$GLOBALS['wphx_post_title'] = 'Embed <Title>';
+\treturn get_post_embed_html( 600, 400, 7 );
+} );
+$cases[] = wphx_case( 'post-embed-html:suffix-min', null, array(), function () {
+\t$GLOBALS['wphx_scripts_suffix'] = '.min';
+\treturn get_post_embed_html( 600, 400, 7 );
+} );
+$cases[] = wphx_case( 'post-embed-html:filtered', null, array( 'embed_html' => 'Filtered embed html' ), function () {
+\treturn get_post_embed_html( 600, 400, 7 );
 } );
 $cases[] = wphx_case( 'endpoint:base', null, array(), function () {
 \treturn get_oembed_endpoint_url();
@@ -1620,7 +1693,7 @@ $cases[] = wphx_case( 'video:filtered', null, array( 'wp_embed_handler_video' =>
 } );
 
 $reflection = array();
-foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'wp_oembed_get', '_wp_oembed_get_object', 'get_post_embed_url', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', '_oembed_create_xml', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_oembed_register_route', 'wp_oembed_add_discovery_links', 'wp_oembed_add_host_js', 'wp_maybe_enqueue_oembed_host_js', 'wp_embed_excerpt_more', 'the_excerpt_embed', 'wp_embed_excerpt_attachment', 'enqueue_embed_scripts', 'wp_enqueue_embed_styles', 'print_embed_scripts', 'the_embed_site_title', 'wp_filter_pre_oembed_result', '_oembed_filter_feed_content', 'wp_filter_oembed_iframe_title_attribute', 'wp_filter_oembed_result', 'print_embed_comments_button', 'print_embed_sharing_button', 'print_embed_sharing_dialog', 'wp_maybe_load_embeds', 'wp_embed_handler_youtube', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
+foreach ( array( 'wp_embed_register_handler', 'wp_embed_unregister_handler', 'wp_embed_defaults', 'wp_oembed_get', '_wp_oembed_get_object', 'get_post_embed_url', 'get_post_embed_html', 'get_oembed_endpoint_url', 'wp_oembed_ensure_format', '_oembed_create_xml', 'wp_oembed_add_provider', 'wp_oembed_remove_provider', 'wp_oembed_register_route', 'wp_oembed_add_discovery_links', 'wp_oembed_add_host_js', 'wp_maybe_enqueue_oembed_host_js', 'wp_embed_excerpt_more', 'the_excerpt_embed', 'wp_embed_excerpt_attachment', 'enqueue_embed_scripts', 'wp_enqueue_embed_styles', 'print_embed_scripts', 'the_embed_site_title', 'wp_filter_pre_oembed_result', '_oembed_filter_feed_content', 'wp_filter_oembed_iframe_title_attribute', 'wp_filter_oembed_result', 'print_embed_comments_button', 'print_embed_sharing_button', 'print_embed_sharing_dialog', 'wp_maybe_load_embeds', 'wp_embed_handler_youtube', 'wp_embed_handler_audio', 'wp_embed_handler_video' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -1699,6 +1772,7 @@ function main() {
     "wp-includes/embed.php:global-function:_wp_oembed_get_object",
     "wp-includes/embed.php:global-function:enqueue_embed_scripts",
     "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
+    "wp-includes/embed.php:global-function:get_post_embed_html",
     "wp-includes/embed.php:global-function:get_post_embed_url",
     "wp-includes/embed.php:global-function:print_embed_comments_button",
     "wp-includes/embed.php:global-function:print_embed_scripts",
@@ -1754,6 +1828,7 @@ function main() {
         "wp_oembed_get",
         "_wp_oembed_get_object",
         "get_post_embed_url",
+        "get_post_embed_html",
         "get_oembed_endpoint_url",
         "wp_oembed_ensure_format",
         "_oembed_create_xml",
@@ -1782,7 +1857,7 @@ function main() {
         "wp_embed_handler_audio",
         "wp_embed_handler_video"
       ],
-      selected_source_lines: ["25-29", "40-44", "67-93", "113-117", "126-133", "419-446", "455-481", "759-765", "828-856", "147-158", "166-181", "325-329", "337-376", "387", "400-412", "1007-1020", "1028-1043", "1051-1062", "1069-1077", "1084-1097", "1103-1110", "1232-1256", "1267-1275", "1119-1129", "863-922", "945-997", "1134-1156", "1163-1177", "1181-1222", "191-232", "242-258", "272-294", "299-321"]
+      selected_source_lines: ["25-29", "40-44", "67-93", "113-117", "126-133", "419-446", "490-550", "455-481", "759-765", "828-856", "147-158", "166-181", "325-329", "337-376", "387", "400-412", "1007-1020", "1028-1043", "1051-1062", "1069-1077", "1084-1097", "1103-1110", "1232-1256", "1267-1275", "1119-1129", "863-922", "945-997", "1134-1156", "1163-1177", "1181-1222", "191-232", "242-258", "272-294", "299-321"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -1828,12 +1903,12 @@ function main() {
     claims: [
       "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
       "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/embed.php ownership.",
       "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-      "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), wp_list_pluck(), or get_post_embed_html() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+      "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, oEmbed response data helpers, full installed post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
     ]
   };
 

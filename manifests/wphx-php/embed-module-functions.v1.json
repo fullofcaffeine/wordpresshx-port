@@ -32,23 +32,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "bytes": 35451,
-      "sha256": "sha256:8657cd23a2c4719ed6cce00b65b1b7e21ee7c06bad27c4ad8347a451ab2292f9"
+      "bytes": 37515,
+      "sha256": "sha256:412afc9297f38b5068eccaf64a8e6f51d070aff5c893f1c5ff7fcf79cb2cdfae"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleEntry.hx",
-      "bytes": 3902,
-      "sha256": "sha256:c74f7616ccb8e588ed0df83b3eddb450aad12e62e1255cae1208ab451b4da885"
+      "bytes": 4015,
+      "sha256": "sha256:be2919d9bca2adbd92a202543fbf91775ec028eff3e19ba7752502a6ccd3bfdf"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/EmbedModuleSurface.hx",
-      "bytes": 9478,
-      "sha256": "sha256:2a73ca1d7c96f7a00467e8580e1d6750654ef0807315c99c3b575c0b434d5006"
+      "bytes": 9816,
+      "sha256": "sha256:3b04bba085a3b2a5d7efeded3662e47f558059af6704a7ff85aacb356e23ad9d"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/HaxeEmbedKernel.hx",
-      "bytes": 2547,
-      "sha256": "sha256:961071387ea7e2a93844e3233dffc07ee12ec57c687204c9ab87293a2ae7d454"
+      "bytes": 2640,
+      "sha256": "sha256:02d30be3e648abbc57ed20d6600b5e998d68f040e851f979222e1e85d69c8831"
     }
   ],
   "upstream_oracle": {
@@ -60,6 +60,7 @@
       "wp_oembed_get",
       "_wp_oembed_get_object",
       "get_post_embed_url",
+      "get_post_embed_html",
       "get_oembed_endpoint_url",
       "wp_oembed_ensure_format",
       "_oembed_create_xml",
@@ -95,6 +96,7 @@
       "113-117",
       "126-133",
       "419-446",
+      "490-550",
       "455-481",
       "759-765",
       "828-856",
@@ -126,8 +128,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
-    "bytes": 4737,
-    "sha256": "sha256:f9b276d86586a5bc270446b7f979d0ada4c73e5426ea73dc4be23b362f28dbac",
+    "bytes": 4887,
+    "sha256": "sha256:fc248739fdf7f2f34d64b43e249cc9f6420fdbfba24fcb9fd1357f4235f2e56c",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/generated/wp-includes/embed.php",
     "exact_patterns": [
@@ -138,6 +140,7 @@
       "function wp_oembed_get($url, $args = '')",
       "function _wp_oembed_get_object()",
       "function get_post_embed_url($post = null)",
+      "function get_post_embed_html($width, $height, $post = null)",
       "function get_oembed_endpoint_url($permalink = '', $format = 'json')",
       "function wp_oembed_ensure_format($format)",
       "function _oembed_create_xml($data, $node = null)",
@@ -171,6 +174,7 @@
       "EmbedKernel::oembedGet($url, $args)",
       "EmbedKernel::oembedGetObject()",
       "EmbedKernel::postEmbedUrl($post)",
+      "EmbedKernel::postEmbedHtml($width, $height, $post)",
       "EmbedKernel::oembedEndpointUrl($permalink, $format)",
       "EmbedKernel::oembedCreateXml($data, $node)",
       "EmbedKernel::oembedAddProvider($format, $provider, $regex)",
@@ -200,21 +204,22 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php",
-    "bytes": 15134,
-    "sha256": "sha256:ed675cf2b0bd58175277b28699903fe5171a88605314fb934ff7f970e2166416",
+    "bytes": 16388,
+    "sha256": "sha256:8f4e4390e91b28b1a5f2a27f6cc216a0078ebc94a27cf0b26efeac1f8c49b962",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/embed-module-functions/oracle/wp-includes/embed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/embed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 10616,
-    "sha256": "sha256:9051622e0db101d42c846bacb97500faf96c1132d497c804c03c53bf45c992de",
+    "bytes": 10921,
+    "sha256": "sha256:0e0fc4c0d2e320425250c93672c99e076b0d2c84b2a538f9a0c893a5b3d84900",
     "declarations": [
       "wp-includes/embed.php:global-function:_oembed_create_xml",
       "wp-includes/embed.php:global-function:_oembed_filter_feed_content",
       "wp-includes/embed.php:global-function:_wp_oembed_get_object",
       "wp-includes/embed.php:global-function:enqueue_embed_scripts",
       "wp-includes/embed.php:global-function:get_oembed_endpoint_url",
+      "wp-includes/embed.php:global-function:get_post_embed_html",
       "wp-includes/embed.php:global-function:get_post_embed_url",
       "wp-includes/embed.php:global-function:print_embed_comments_button",
       "wp-includes/embed.php:global-function:print_embed_scripts",
@@ -867,6 +872,210 @@
                   "ID": 7,
                   "post_name": "post-7"
                 }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "post-embed-html:missing-post",
+          "value": false,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "post-embed-html:default",
+          "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed <Title></a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed &lt;Title&gt;&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/?a=1&b=2/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/?a=1&b=2/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed <Title></a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed &lt;Title&gt;&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
+        },
+        {
+          "id": "post-embed-html:suffix-min",
+          "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed=true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.min.js</script>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed=true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.min.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
+        },
+        {
+          "id": "post-embed-html:filtered",
+          "value": "Filtered embed html",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
               ]
             }
           ]
@@ -2844,7 +3053,7 @@
           "id": "sharing-dialog:default",
           "value": {
             "return": null,
-            "output": "\t<div class=\"wp-embed-share-dialog hidden\" role=\"dialog\" aria-label=\"Sharing options\">\n\t\t<div class=\"wp-embed-share-dialog-content\">\n\t\t\t<div class=\"wp-embed-share-dialog-text\">\n\t\t\t\t<ul class=\"wp-embed-share-tabs\" role=\"tablist\">\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-wordpress\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-wordpress-7-314\" aria-selected=\"true\" tabindex=\"0\">WordPress Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-html\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-html-7-314\" aria-selected=\"false\" tabindex=\"-1\">HTML Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div id=\"wp-embed-share-tab-wordpress-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"false\">\n\t\t\t\t\t<input type=\"text\" value=\"https://example.test/post/7/?a=1&amp;b=2\" class=\"wp-embed-share-input\" aria-label=\"URL\" aria-describedby=\"wp-embed-share-description-wordpress-7-314\" tabindex=\"0\" readonly/>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-wordpress-7-314\">\n\t\t\t\t\t\tCopy and paste this URL into your WordPress site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"wp-embed-share-tab-html-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"true\">\n\t\t\t\t\t<textarea class=\"wp-embed-share-input\" aria-label=\"HTML\" aria-describedby=\"wp-embed-share-description-html-7-314\" tabindex=\"0\" readonly>&lt;iframe src=\"https://example.test/post/7/?a=1&amp;b=2embed/\" width=\"600\" height=\"400\"&gt;&lt;/iframe&gt;</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-html-7-314\">\n\t\t\t\t\t\tCopy and paste this code into your site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<button type=\"button\" class=\"wp-embed-share-dialog-close\" aria-label=\"Close sharing dialog\">\n\t\t\t\t<span class=\"dashicons dashicons-no\"></span>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n\t"
+            "output": "\t<div class=\"wp-embed-share-dialog hidden\" role=\"dialog\" aria-label=\"Sharing options\">\n\t\t<div class=\"wp-embed-share-dialog-content\">\n\t\t\t<div class=\"wp-embed-share-dialog-text\">\n\t\t\t\t<ul class=\"wp-embed-share-tabs\" role=\"tablist\">\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-wordpress\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-wordpress-7-314\" aria-selected=\"true\" tabindex=\"0\">WordPress Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-html\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-html-7-314\" aria-selected=\"false\" tabindex=\"-1\">HTML Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div id=\"wp-embed-share-tab-wordpress-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"false\">\n\t\t\t\t\t<input type=\"text\" value=\"https://example.test/post/7/?a=1&amp;b=2\" class=\"wp-embed-share-input\" aria-label=\"URL\" aria-describedby=\"wp-embed-share-description-wordpress-7-314\" tabindex=\"0\" readonly/>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-wordpress-7-314\">\n\t\t\t\t\t\tCopy and paste this URL into your WordPress site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"wp-embed-share-tab-html-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"true\">\n\t\t\t\t\t<textarea class=\"wp-embed-share-input\" aria-label=\"HTML\" aria-describedby=\"wp-embed-share-description-html-7-314\" tabindex=\"0\" readonly>&lt;blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"&gt;&lt;a href=\"https://example.test/post/7/?a=1&amp;amp;b=2\"&gt;Embed Title&lt;/a&gt;&lt;/blockquote&gt;&lt;iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;amp;#8220;Embed Title&amp;amp;#8221; &amp;amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"&gt;&lt;/iframe&gt;&lt;script&gt;window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js&lt;/script&gt;</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-html-7-314\">\n\t\t\t\t\t\tCopy and paste this code into your site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<button type=\"button\" class=\"wp-embed-share-dialog-close\" aria-label=\"Close sharing dialog\">\n\t\t\t\t<span class=\"dashicons dashicons-no\"></span>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n\t"
           },
           "embed_calls": [],
           "oembed_calls": [],
@@ -2853,8 +3062,21 @@
           "enqueued_scripts": [],
           "routes": [],
           "styles": [],
-          "page_paths": [],
-          "post_type_queries": [],
+          "page_paths": [
+            {
+              "path": "/post/7/?a=1&b=2/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -2865,7 +3087,30 @@
             }
           },
           "removed_actions": [],
-          "filters": []
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/?a=1&b=2/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
         },
         {
           "id": "sharing-dialog:is-404",
@@ -3460,6 +3705,45 @@
             {
               "name": "post",
               "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_post_embed_html": {
+          "name": "get_post_embed_html",
+          "numberOfParameters": 3,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "width",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "height",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "post",
+              "position": 2,
               "isOptional": true,
               "hasDefault": true,
               "default": null,
@@ -4662,6 +4946,210 @@
           ]
         },
         {
+          "id": "post-embed-html:missing-post",
+          "value": false,
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [],
+          "post_type_queries": [],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": []
+        },
+        {
+          "id": "post-embed-html:default",
+          "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed <Title></a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed &lt;Title&gt;&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/?a=1&b=2/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/?a=1&b=2/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed <Title></a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed &lt;Title&gt;&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
+        },
+        {
+          "id": "post-embed-html:suffix-min",
+          "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed=true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.min.js</script>",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed=true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.min.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
+        },
+        {
+          "id": "post-embed-html:filtered",
+          "value": "Filtered embed html",
+          "embed_calls": [],
+          "oembed_calls": [],
+          "providers": [],
+          "early_providers": [],
+          "enqueued_scripts": [],
+          "routes": [],
+          "styles": [],
+          "page_paths": [
+            {
+              "path": "/post/7/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
+          "actions_fired": [],
+          "actions": {
+            "wp_head": {
+              "wp_oembed_add_host_js": 10
+            },
+            "embed_head": {
+              "print_embed_styles": 10
+            }
+          },
+          "removed_actions": [],
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
+        },
+        {
           "id": "endpoint:base",
           "value": "https://example.test/wp-json/oembed/1.0/embed",
           "embed_calls": [],
@@ -6634,7 +7122,7 @@
           "id": "sharing-dialog:default",
           "value": {
             "return": null,
-            "output": "\t<div class=\"wp-embed-share-dialog hidden\" role=\"dialog\" aria-label=\"Sharing options\">\n\t\t<div class=\"wp-embed-share-dialog-content\">\n\t\t\t<div class=\"wp-embed-share-dialog-text\">\n\t\t\t\t<ul class=\"wp-embed-share-tabs\" role=\"tablist\">\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-wordpress\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-wordpress-7-314\" aria-selected=\"true\" tabindex=\"0\">WordPress Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-html\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-html-7-314\" aria-selected=\"false\" tabindex=\"-1\">HTML Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div id=\"wp-embed-share-tab-wordpress-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"false\">\n\t\t\t\t\t<input type=\"text\" value=\"https://example.test/post/7/?a=1&amp;b=2\" class=\"wp-embed-share-input\" aria-label=\"URL\" aria-describedby=\"wp-embed-share-description-wordpress-7-314\" tabindex=\"0\" readonly/>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-wordpress-7-314\">\n\t\t\t\t\t\tCopy and paste this URL into your WordPress site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"wp-embed-share-tab-html-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"true\">\n\t\t\t\t\t<textarea class=\"wp-embed-share-input\" aria-label=\"HTML\" aria-describedby=\"wp-embed-share-description-html-7-314\" tabindex=\"0\" readonly>&lt;iframe src=\"https://example.test/post/7/?a=1&amp;b=2embed/\" width=\"600\" height=\"400\"&gt;&lt;/iframe&gt;</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-html-7-314\">\n\t\t\t\t\t\tCopy and paste this code into your site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<button type=\"button\" class=\"wp-embed-share-dialog-close\" aria-label=\"Close sharing dialog\">\n\t\t\t\t<span class=\"dashicons dashicons-no\"></span>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n\t"
+            "output": "\t<div class=\"wp-embed-share-dialog hidden\" role=\"dialog\" aria-label=\"Sharing options\">\n\t\t<div class=\"wp-embed-share-dialog-content\">\n\t\t\t<div class=\"wp-embed-share-dialog-text\">\n\t\t\t\t<ul class=\"wp-embed-share-tabs\" role=\"tablist\">\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-wordpress\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-wordpress-7-314\" aria-selected=\"true\" tabindex=\"0\">WordPress Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t\t<li class=\"wp-embed-share-tab-button wp-embed-share-tab-button-html\" role=\"presentation\">\n\t\t\t\t\t\t<button type=\"button\" role=\"tab\" aria-controls=\"wp-embed-share-tab-html-7-314\" aria-selected=\"false\" tabindex=\"-1\">HTML Embed</button>\n\t\t\t\t\t</li>\n\t\t\t\t</ul>\n\t\t\t\t<div id=\"wp-embed-share-tab-wordpress-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"false\">\n\t\t\t\t\t<input type=\"text\" value=\"https://example.test/post/7/?a=1&amp;b=2\" class=\"wp-embed-share-input\" aria-label=\"URL\" aria-describedby=\"wp-embed-share-description-wordpress-7-314\" tabindex=\"0\" readonly/>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-wordpress-7-314\">\n\t\t\t\t\t\tCopy and paste this URL into your WordPress site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t\t<div id=\"wp-embed-share-tab-html-7-314\" class=\"wp-embed-share-tab\" role=\"tabpanel\" aria-hidden=\"true\">\n\t\t\t\t\t<textarea class=\"wp-embed-share-input\" aria-label=\"HTML\" aria-describedby=\"wp-embed-share-description-html-7-314\" tabindex=\"0\" readonly>&lt;blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"&gt;&lt;a href=\"https://example.test/post/7/?a=1&amp;amp;b=2\"&gt;Embed Title&lt;/a&gt;&lt;/blockquote&gt;&lt;iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;amp;#8220;Embed Title&amp;amp;#8221; &amp;amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"&gt;&lt;/iframe&gt;&lt;script&gt;window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js&lt;/script&gt;</textarea>\n\n\t\t\t\t\t<p class=\"wp-embed-share-description\" id=\"wp-embed-share-description-html-7-314\">\n\t\t\t\t\t\tCopy and paste this code into your site to embed\t\t\t\t\t</p>\n\t\t\t\t</div>\n\t\t\t</div>\n\n\t\t\t<button type=\"button\" class=\"wp-embed-share-dialog-close\" aria-label=\"Close sharing dialog\">\n\t\t\t\t<span class=\"dashicons dashicons-no\"></span>\n\t\t\t</button>\n\t\t</div>\n\t</div>\n\t"
           },
           "embed_calls": [],
           "oembed_calls": [],
@@ -6643,8 +7131,21 @@
           "enqueued_scripts": [],
           "routes": [],
           "styles": [],
-          "page_paths": [],
-          "post_type_queries": [],
+          "page_paths": [
+            {
+              "path": "/post/7/?a=1&b=2/embed/",
+              "output": "OBJECT",
+              "post_types": [
+                "post",
+                "page"
+              ]
+            }
+          ],
+          "post_type_queries": [
+            {
+              "public": true
+            }
+          ],
           "actions_fired": [],
           "actions": {
             "wp_head": {
@@ -6655,7 +7156,30 @@
             }
           },
           "removed_actions": [],
-          "filters": []
+          "filters": [
+            {
+              "hook": "post_embed_url",
+              "value": "https://example.test/post/7/?a=1&b=2/embed/",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                }
+              ]
+            },
+            {
+              "hook": "embed_html",
+              "value": "<blockquote class=\"wp-embedded-content\" data-secret=\"secretsecr\"><a href=\"https://example.test/post/7/?a=1&amp;b=2\">Embed Title</a></blockquote><iframe sandbox=\"allow-scripts\" security=\"restricted\" src=\"https://example.test/post/7/?a=1&amp;b=2/embed/#?secret=secretsecr\" width=\"600\" height=\"400\" title=\"&amp;#8220;Embed Title&amp;#8221; &amp;#8212; Example Site\" data-secret=\"secretsecr\" frameborder=\"0\" marginwidth=\"0\" marginheight=\"0\" scrolling=\"no\" class=\"wp-embedded-content\"></iframe><script>window.wpEmbed = true;\n//# sourceURL=https://example.test/wp-includes/js/wp-embed.js</script>",
+              "args": [
+                {
+                  "ID": 7,
+                  "post_name": "post-7"
+                },
+                600,
+                400
+              ]
+            }
+          ]
         },
         {
           "id": "sharing-dialog:is-404",
@@ -7259,6 +7783,45 @@
             }
           ]
         },
+        "get_post_embed_html": {
+          "name": "get_post_embed_html",
+          "numberOfParameters": 3,
+          "numberOfRequiredParameters": 2,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "width",
+              "position": 0,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "height",
+              "position": 1,
+              "isOptional": false,
+              "hasDefault": false,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            },
+            {
+              "name": "post",
+              "position": 2,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
         "get_oembed_endpoint_url": {
           "name": "get_oembed_endpoint_url",
           "numberOfParameters": 2,
@@ -7848,11 +8411,11 @@
   "claims": [
     "WPHX PHP emits selected unguarded module-level public functions at original path wp-includes/embed.php.",
     "The generated selected embed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for local handler register/unregister delegation, embed defaults sizing and filters, oEmbed singleton creation, wp_oembed_get() get_html delegation and raw args forwarding, post embed URL construction, permalink-structure and path-conflict fallback, post_embed_url filtering and sanitize_url behavior, post embed HTML missing-post false returns, deterministic secret insertion, blockquote and iframe markup, title/site title formatting, absint width/height normalization, suffix-aware wp-embed script loading, inline script tag output, embed_html filtering, oEmbed endpoint URL construction and filters, oEmbed format normalization, recursive _oembed_create_xml() false-return and SimpleXML output behavior, early and post-plugins-loaded provider add/remove registry behavior, oEmbed route controller delegation, discovery link echo output, wp_head priority fallback/removal behavior, deprecated empty host-JS marker behavior, conditional wp-embed script enqueue detection, embed excerpt more-link formatting, excerpt embed echo/filter behavior, attachment excerpt replacement, embed script action dispatch, embed style enqueue action gating, print_embed_styles removal, suffix-aware CSS file loading, inline style registration/enqueue side effects, embed script inline-tag output, trimmed JavaScript asset loading, sourceURL construction, embed site title echo/filter behavior, pre-oEmbed local data2html delegation and fallback preservation, feed-content embedded iframe style removal through WP_HTML_Tag_Processor, oEmbed iframe title strict-false and non-rich passthrough, provider data title fallback, wp_kses_hair() iframe attribute parsing, mixed-case title attribute normalization, existing-title replacement, oembed_iframe_title_attribute filter handling, empty-title fallback preservation, title escaping, oEmbed result strict-false and non-rich passthrough, trusted-provider bypass, KSES allowlist handoff, iframe extraction failure, deterministic secret insertion, data-secret allowlist promotion, blockquote fallback iframe hiding, wp-embedded-content class insertion, sandbox/security iframe rewriting, comments button comment-count/open/404 gating, comments link output, pluralized screen-reader text, localized number formatting, sharing button 404 suppression and escaped aria-label output, sharing dialog 404 suppression, deterministic tab/description ids, permalink output, textarea escaping of get_post_embed_html(), translated labels/descriptions, default handler loading and callback filters, local YouTube autoembed delegation, local audio/video shortcode handler output, video dimensions, URL escaping, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/embed.php ownership.",
     "This fixture does not retire the WPHX-312.04 copied feed/embed/HTTPS oracle fixture.",
-    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), wp_list_pluck(), or get_post_embed_html() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, full post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
+    "This fixture does not claim WP_Embed, WP_oEmbed, WP_oEmbed_Controller, WP_HTML_Tag_Processor, wp_kses(), wp_kses_hair(), or wp_list_pluck() ownership beyond the narrow route registration, get_html/data2html/get_provider singleton delegation, handler/provider registry, discovery-link helper calls, host-JS enqueue marker, embed style/script/helper calls, post embed HTML helper calls, excerpt/site-title/post-embed-url helper calls, feed-content iframe traversal/style removal, iframe title/result filter interactions, comments/sharing-button/sharing-dialog markup output, and autoembed interactions required by selected module functions, remote oEmbed discovery/fetch, REST server dispatch, oEmbed response data helpers, full installed post embed rendering, installed browser behavior, installed WordPress behavior, or arbitrary module-function lowering beyond the selected original-path embed helpers."
   ]
 }

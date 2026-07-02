@@ -80,6 +80,15 @@ function getPostEmbedUrl(@:wp.name("post") post:NativeValue = null):NativeValue
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_post_embed_html")
+@:keep
+function getPostEmbedHtml(@:wp.name("width") width:Int, @:wp.name("height") height:Int, @:wp.name("post") post:NativeValue = null):NativeValue
+{
+	return HaxeEmbedKernel.postEmbedHtml(width, height, post);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("_oembed_create_xml")
 @:keep
 function oembedCreateXml(@:wp.name("data") data:NativeValue, @:wp.name("node") node:NativeValue = null):NativeValue
