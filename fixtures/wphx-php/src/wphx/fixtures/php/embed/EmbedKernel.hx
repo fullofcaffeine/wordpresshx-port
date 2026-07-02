@@ -10,6 +10,8 @@ import wphx.wp.boundary.NativeValue.NativeValue;
 @:keep
 class EmbedKernel
 {
+	static var wpOembed:Null<WpOembed> = null;
+
 	public static function embedRegisterHandler(id:String, regex:String, callback:NativeValue, priority:Int):Void
 	{
 		// WPHX-211: WordPress stores the process-global WP_Embed instance in $GLOBALS['wp_embed'].
@@ -42,6 +44,24 @@ class EmbedKernel
 		return EmbedHooks.applyFiltersNative2("embed_defaults", embedSize(width, height), url);
 	}
 
+	public static function oembedGet(url:String, args:NativeValue):NativeValue
+	{
+		final oembed = oembedGetObject();
+		// WPHX-211: wp_oembed_get() forwards WordPress's raw array|string args to WP_oEmbed.
+		return oembed.getHtml(url, args);
+	}
+
+	public static function oembedGetObject():WpOembed
+	{
+		if (wpOembed == null)
+		{
+			// WPHX-211: this preserves WordPress's native WP_oEmbed singleton object boundary.
+			wpOembed = new WpOembed();
+		}
+
+		return wpOembed;
+	}
+
 	public static function oembedEndpointUrl(permalink:String, format:String):String
 	{
 		var url = EmbedGlobals.restUrl("oembed/1.0/embed");
@@ -62,7 +82,7 @@ class EmbedKernel
 	{
 		if (EmbedGlobals.didAction("plugins_loaded") > 0)
 		{
-			final oembed = EmbedGlobals.oembedGetObject();
+			final oembed = oembedGetObject();
 			// WPHX-211: WP_oEmbed providers is a public native PHP associative array.
 			EmbedGlobals.arraySet(oembed.providers, format, providerPair(provider, regex));
 		} else
@@ -75,7 +95,7 @@ class EmbedKernel
 	{
 		if (EmbedGlobals.didAction("plugins_loaded") > 0)
 		{
-			final oembed = EmbedGlobals.oembedGetObject();
+			final oembed = oembedGetObject();
 			if (WpNativeArray.issetKey(oembed.providers, format))
 			{
 				// WPHX-211: provider removal mutates WP_oEmbed's native public providers array.
@@ -202,9 +222,6 @@ extern class EmbedGlobals
 	@:native("did_action")
 	public static function didAction(hookName:String):Int;
 
-	@:native("_wp_oembed_get_object")
-	public static function oembedGetObject():WpOembed;
-
 	@:native("wphx_embed_array_set")
 	public static function arraySet(array:php.NativeArray, key:String, value:NativeValue):Void;
 
@@ -223,6 +240,11 @@ extern class EmbedGlobals
 extern class WpOembed
 {
 	public var providers:php.NativeArray;
+
+	public function new():Void;
+
+	@:native("get_html")
+	public function getHtml(url:String, args:NativeValue):NativeValue;
 
 	@:native("_add_provider_early")
 	public static function addProviderEarly(format:String, provider:String, regex:Bool):Void;

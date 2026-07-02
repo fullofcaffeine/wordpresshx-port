@@ -14,6 +14,10 @@ extern class HaxeEmbedKernel
 
 	static function embedDefaults(url:String):NativeValue;
 
+	static function oembedGet(url:String, args:NativeValue):NativeValue;
+
+	static function oembedGetObject():NativeValue;
+
 	static function oembedEndpointUrl(permalink:String, format:String):String;
 
 	static function oembedEnsureFormat(format:String):String;

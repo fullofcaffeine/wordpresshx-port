@@ -10,6 +10,8 @@ import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpEmbedUnregisterHand
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpMaybeLoadEmbeds;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedAddProvider;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedEnsureFormat;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGet;
+import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedGetObject;
 import wphx.fixtures.compiler.php.embed.EmbedModuleSurface.wpOembedRemoveProvider;
 
 /**
@@ -22,6 +24,8 @@ class EmbedModuleEntry
 		wpEmbedRegisterHandler("", "", null, 10);
 		wpEmbedUnregisterHandler("", 10);
 		wpEmbedDefaults("");
+		wpOembedGet("", "");
+		wpOembedGetObject();
 		getOembedEndpointUrl("", "json");
 		wpOembedEnsureFormat("json");
 		wpOembedAddProvider("", "", false);

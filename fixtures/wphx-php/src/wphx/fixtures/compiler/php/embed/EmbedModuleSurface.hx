@@ -35,6 +35,24 @@ function wpEmbedDefaults(@:wp.name("url") url:String = ""):NativeValue
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("wp_oembed_get")
+@:keep
+function wpOembedGet(@:wp.name("url") url:String, @:wp.name("args") args:NativeValue = ""):NativeValue
+{
+	return HaxeEmbedKernel.oembedGet(url, args);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("_wp_oembed_get_object")
+@:keep
+function wpOembedGetObject():NativeValue
+{
+	return HaxeEmbedKernel.oembedGetObject();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("get_oembed_endpoint_url")
 @:keep
 function getOembedEndpointUrl(@:wp.name("permalink") permalink:String = "", @:wp.name("format") format:String = "json"):String
