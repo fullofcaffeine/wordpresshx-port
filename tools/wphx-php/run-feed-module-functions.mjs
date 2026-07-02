@@ -56,6 +56,18 @@ const EXACT_PATTERNS = [
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::thePermalinkRss();",
   "function comments_link_feed()",
   "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentsLinkFeed();",
+  "function comment_guid($comment_id = null)",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentGuid( $comment_id );",
+  "function get_comment_guid($comment_id = null)",
+  "FeedKernel::getCommentGuid($comment_id)",
+  "function comment_link($comment = null)",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentLink( $comment );",
+  "function get_comment_author_rss()",
+  "FeedKernel::getCommentAuthorRss()",
+  "function comment_author_rss()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentAuthorRss();",
+  "function comment_text_rss()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentTextRss();",
   "function get_the_content_feed($feed_type = null)",
   "FeedKernel::getTheContentFeed($feed_type)",
   "function the_content_feed($feed_type = null)",
@@ -158,6 +170,38 @@ function the_permalink_rss() {
 
 function comments_link_feed() {
 \techo esc_url( apply_filters( 'comments_link_feed', get_comments_link() ) );
+}
+
+function comment_guid( $comment_id = null ) {
+\techo esc_url( get_comment_guid( $comment_id ) );
+}
+
+function get_comment_guid( $comment_id = null ) {
+\t$comment = get_comment( $comment_id );
+
+\tif ( ! is_object( $comment ) ) {
+\t\treturn false;
+\t}
+
+\treturn get_the_guid( $comment->comment_post_ID ) . '#comment-' . $comment->comment_ID;
+}
+
+function comment_link( $comment = null ) {
+\techo esc_url( apply_filters( 'comment_link', get_comment_link( $comment ) ) );
+}
+
+function get_comment_author_rss() {
+\treturn apply_filters( 'comment_author_rss', get_comment_author() );
+}
+
+function comment_author_rss() {
+\techo get_comment_author_rss();
+}
+
+function comment_text_rss() {
+\t$comment_text = get_comment_text();
+\t$comment_text = apply_filters( 'comment_text_rss', $comment_text );
+\techo $comment_text;
 }
 
 function get_the_content_feed( $feed_type = null ) {
@@ -265,6 +309,32 @@ function get_permalink() {
 
 function get_comments_link() {
 \treturn 'https://example.test/post#comments?raw=1&x=2';
+}
+
+function get_comment( $comment_id = null ) {
+\tif ( 'missing' === $comment_id ) {
+\t\treturn null;
+\t}
+\treturn (object) array(
+\t\t'comment_post_ID' => 45,
+\t\t'comment_ID' => 901,
+\t);
+}
+
+function get_the_guid( $post_id ) {
+\treturn 'post-guid-' . (string) $post_id;
+}
+
+function get_comment_link( $comment = null ) {
+\treturn 'https://example.test/comment/' . ( null === $comment ? 'current' : (string) $comment ) . '?a=1&b=2';
+}
+
+function get_comment_author() {
+\treturn 'Fixture Author <Raw>';
+}
+
+function get_comment_text() {
+\treturn 'Fixture Comment <Raw>';
 }
 
 function esc_url( $url ) {
@@ -380,6 +450,42 @@ $cases[] = wphx_case( 'comments-link-feed:display', array(), function () {
 $cases[] = wphx_case( 'comments-link-feed:display-filtered', array( 'comments_link_feed' => 'https://filtered.test/comments?x=1&y=2' ), function () {
 \treturn comments_link_feed();
 } );
+$cases[] = wphx_case( 'comment-guid:get-default', array(), function () {
+\treturn get_comment_guid();
+} );
+$cases[] = wphx_case( 'comment-guid:get-missing', array(), function () {
+\treturn get_comment_guid( 'missing' );
+} );
+$cases[] = wphx_case( 'comment-guid:display-default', array(), function () {
+\treturn comment_guid();
+} );
+$cases[] = wphx_case( 'comment-guid:display-missing', array(), function () {
+\treturn comment_guid( 'missing' );
+} );
+$cases[] = wphx_case( 'comment-link:display-default', array(), function () {
+\treturn comment_link();
+} );
+$cases[] = wphx_case( 'comment-link:display-explicit', array(), function () {
+\treturn comment_link( 17 );
+} );
+$cases[] = wphx_case( 'comment-link:display-filtered', array( 'comment_link' => 'https://filtered.test/comment?x=1&y=2' ), function () {
+\treturn comment_link();
+} );
+$cases[] = wphx_case( 'comment-author-rss:get', array(), function () {
+\treturn get_comment_author_rss();
+} );
+$cases[] = wphx_case( 'comment-author-rss:get-filtered', array( 'comment_author_rss' => 'Filtered Author' ), function () {
+\treturn get_comment_author_rss();
+} );
+$cases[] = wphx_case( 'comment-author-rss:display-filtered', array( 'comment_author_rss' => 'Displayed Author' ), function () {
+\treturn comment_author_rss();
+} );
+$cases[] = wphx_case( 'comment-text-rss:display', array(), function () {
+\treturn comment_text_rss();
+} );
+$cases[] = wphx_case( 'comment-text-rss:display-filtered', array( 'comment_text_rss' => 'Displayed Comment' ), function () {
+\treturn comment_text_rss();
+} );
 $cases[] = wphx_case( 'content-feed:default-feed', array( 'default_feed' => 'atom' ), function () {
 \treturn get_the_content_feed();
 } );
@@ -403,7 +509,7 @@ $cases[] = wphx_case( 'content-feed:display-filtered', array( 'the_content_feed'
 } );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'get_the_content_feed', 'the_content_feed', 'feed_content_type' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -476,9 +582,15 @@ function main() {
   const declarations = emissionManifest.files.flatMap((file) => file.declarations.map((entry) => `${file.path}:${entry.kind}:${entry.name}`)).sort();
   const expectedDeclarations = [
     "wp-includes/feed.php:global-function:bloginfo_rss",
+    "wp-includes/feed.php:global-function:comment_author_rss",
+    "wp-includes/feed.php:global-function:comment_guid",
+    "wp-includes/feed.php:global-function:comment_link",
+    "wp-includes/feed.php:global-function:comment_text_rss",
     "wp-includes/feed.php:global-function:comments_link_feed",
     "wp-includes/feed.php:global-function:feed_content_type",
     "wp-includes/feed.php:global-function:get_bloginfo_rss",
+    "wp-includes/feed.php:global-function:get_comment_author_rss",
+    "wp-includes/feed.php:global-function:get_comment_guid",
     "wp-includes/feed.php:global-function:get_default_feed",
     "wp-includes/feed.php:global-function:get_the_content_feed",
     "wp-includes/feed.php:global-function:get_the_title_rss",
@@ -520,11 +632,17 @@ function main() {
         "the_excerpt_rss",
         "the_permalink_rss",
         "comments_link_feed",
+        "comment_guid",
+        "get_comment_guid",
+        "comment_link",
+        "get_comment_author_rss",
+        "comment_author_rss",
+        "comment_text_rss",
         "get_the_content_feed",
         "the_content_feed",
         "feed_content_type"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "190-209", "218-220", "768-791"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -572,7 +690,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comments-link display URL escaping, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

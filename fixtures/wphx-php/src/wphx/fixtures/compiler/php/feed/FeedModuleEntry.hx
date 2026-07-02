@@ -2,8 +2,14 @@ package wphx.fixtures.compiler.php.feed;
 
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.feedContentType;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.bloginfoRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentAuthorRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentGuid;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentLink;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentTextRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentsLinkFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getBloginfoRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentAuthorRss;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getCommentGuid;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getDefaultFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheContentFeed;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheTitleRss;
@@ -31,6 +37,12 @@ class FeedModuleEntry
 		theExcerptRss();
 		thePermalinkRss();
 		commentsLinkFeed();
+		commentGuid(null);
+		getCommentGuid(null);
+		commentLink(null);
+		getCommentAuthorRss();
+		commentAuthorRss();
+		commentTextRss();
 		getTheContentFeed("rss2");
 		theContentFeed("rss2");
 		feedContentType("rss2");

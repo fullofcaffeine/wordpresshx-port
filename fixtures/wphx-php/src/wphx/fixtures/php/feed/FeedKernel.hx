@@ -1,5 +1,7 @@
 package wphx.fixtures.php.feed;
 
+import wphx.wp.boundary.NativeValue.NativeValue;
+
 /**
 	Selected feed helper behavior owned by Haxe behind original-path PHP functions.
 **/
@@ -67,6 +69,41 @@ class FeedKernel
 	public static function commentsLinkFeed():String
 	{
 		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("comments_link_feed", WpFeedGlobals.getCommentsLink()));
+	}
+
+	public static function getCommentGuid(commentId:NativeValue):NativeValue
+	{
+		final comment = WpFeedGlobals.getComment(commentId);
+		if (comment == null)
+		{
+			return false;
+		}
+		return WpFeedGlobals.getTheGuid(comment.comment_post_ID) + "#comment-" + comment.comment_ID;
+	}
+
+	public static function commentGuid(commentId:NativeValue):String
+	{
+		return WpFeedGlobals.escUrl(getCommentGuid(commentId));
+	}
+
+	public static function commentLink(comment:NativeValue):String
+	{
+		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("comment_link", WpFeedGlobals.getCommentLink(comment)));
+	}
+
+	public static function getCommentAuthorRss():String
+	{
+		return WpHooks.applyFilters1("comment_author_rss", WpFeedGlobals.getCommentAuthor());
+	}
+
+	public static function commentAuthorRss():String
+	{
+		return getCommentAuthorRss();
+	}
+
+	public static function commentTextRss():String
+	{
+		return WpHooks.applyFilters1("comment_text_rss", WpFeedGlobals.getCommentText());
 	}
 
 	public static function getTheContentFeed(feedType:Null<String>):String
@@ -149,11 +186,35 @@ extern class WpFeedGlobals
 	@:native("get_comments_link")
 	public static function getCommentsLink():String;
 
+	@:native("get_comment")
+	public static function getComment(commentId:NativeValue):Null<WpComment>;
+
+	@:native("get_the_guid")
+	public static function getTheGuid(postId:Int):String;
+
+	@:native("get_comment_link")
+	public static function getCommentLink(comment:NativeValue):String;
+
+	@:native("get_comment_author")
+	public static function getCommentAuthor():String;
+
+	@:native("get_comment_text")
+	public static function getCommentText():String;
+
 	@:native("esc_url")
-	public static function escUrl(value:String):String;
+	public static function escUrl(value:NativeValue):String;
 
 	@:native("str_replace")
 	public static function strReplace(search:String, replace:String, subject:String):String;
+}
+
+/**
+	Typed subset of the comment object fields used by selected feed helpers.
+**/
+extern class WpComment
+{
+	public var comment_post_ID:Int;
+	public var comment_ID:Int;
 }
 
 /**

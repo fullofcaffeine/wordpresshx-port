@@ -1,5 +1,7 @@
 package wphx.fixtures.compiler.php.feed;
 
+import wphx.wp.boundary.NativeValue.NativeValue;
+
 /**
 	Extern for the stock Haxe PHP implementation behind generated feed.php functions.
 **/
@@ -25,6 +27,18 @@ extern class HaxeFeedKernel
 	static function thePermalinkRss():String;
 
 	static function commentsLinkFeed():String;
+
+	static function getCommentGuid(commentId:NativeValue):NativeValue;
+
+	static function commentGuid(commentId:NativeValue):String;
+
+	static function commentLink(comment:NativeValue):String;
+
+	static function getCommentAuthorRss():String;
+
+	static function commentAuthorRss():String;
+
+	static function commentTextRss():String;
 
 	static function getTheContentFeed(feedType:Null<String>):String;
 

@@ -17,8 +17,8 @@
   "inputs": [
     {
       "path": "fixtures/wphx-php/feed-module-functions-impl.hxml",
-      "bytes": 116,
-      "sha256": "sha256:4aa373c6c2003bec7aaa36ab8e591c9a9f8a9ea19017f6226a9ecfb23ca97e74"
+      "bytes": 124,
+      "sha256": "sha256:d1e0a9f2af4ef4cd6f97dd9ee86771db85aa35a79a7f8fa9c57d1e226e0729ae"
     },
     {
       "path": "fixtures/wphx-php/feed-module-functions.hxml",
@@ -37,23 +37,23 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/feed/FeedKernel.hx",
-      "bytes": 5005,
-      "sha256": "sha256:ee46e4894f6a52fa1f33e38bfd02df2079fe3996b6f3603bd3308312ff1b36d5"
+      "bytes": 6643,
+      "sha256": "sha256:942319a071d1056328fd6bf959ed11289f475eb9502c52d856d6e2bf9957f4a5"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleEntry.hx",
-      "bytes": 1407,
-      "sha256": "sha256:5b0c0b0e613cfaa5178e5f3d3d0b3049a8d71105e2084a9adf13fa19ecce0d9f"
+      "bytes": 1979,
+      "sha256": "sha256:135643b7cc7736e19b9c4adbe5f4c5ff0e0ec5b36069c99953334a9e94838c0b"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/FeedModuleSurface.hx",
-      "bytes": 3239,
-      "sha256": "sha256:a09b7ee1b24c8297b59bee98c3b60b2e9988117e24e0552f014fd4b83dbd7b4f"
+      "bytes": 4736,
+      "sha256": "sha256:e237614b4280d5bad3a899a8a04b04c0e3afacea1d7859d507ec4cc76f0f2b9e"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/feed/HaxeFeedKernel.hx",
-      "bytes": 890,
-      "sha256": "sha256:b7f0e44ed5d114f4a2e4540ad5869e8b37aac40ade7c55c1d21498a0033e72b8"
+      "bytes": 1265,
+      "sha256": "sha256:0715c9e77bfe403ac548db3fad15819d2658e29f561b7c93fd6130600dc27ec3"
     }
   ],
   "upstream_oracle": {
@@ -69,6 +69,12 @@
       "the_excerpt_rss",
       "the_permalink_rss",
       "comments_link_feed",
+      "comment_guid",
+      "get_comment_guid",
+      "comment_link",
+      "get_comment_author_rss",
+      "comment_author_rss",
+      "comment_text_rss",
       "get_the_content_feed",
       "the_content_feed",
       "feed_content_type"
@@ -84,6 +90,10 @@
       "227-237",
       "244-253",
       "260-270",
+      "279-299",
+      "309-320",
+      "329-349",
+      "356-367",
       "190-209",
       "218-220",
       "768-791"
@@ -91,8 +101,8 @@
   },
   "generated_shell": {
     "path": "build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
-    "bytes": 1918,
-    "sha256": "sha256:a7258ad4feafd63aff5ce41e019539eba177da6414905aa63c8e02932c432c4d",
+    "bytes": 2566,
+    "sha256": "sha256:df776ed470326404375c548422a150d919d89651b84b083604a9f1bc420fcdee",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/generated/wp-includes/feed.php",
     "exact_patterns": [
@@ -115,6 +125,18 @@
       "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::thePermalinkRss();",
       "function comments_link_feed()",
       "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentsLinkFeed();",
+      "function comment_guid($comment_id = null)",
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentGuid( $comment_id );",
+      "function get_comment_guid($comment_id = null)",
+      "FeedKernel::getCommentGuid($comment_id)",
+      "function comment_link($comment = null)",
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentLink( $comment );",
+      "function get_comment_author_rss()",
+      "FeedKernel::getCommentAuthorRss()",
+      "function comment_author_rss()",
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentAuthorRss();",
+      "function comment_text_rss()",
+      "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::commentTextRss();",
       "function get_the_content_feed($feed_type = null)",
       "FeedKernel::getTheContentFeed($feed_type)",
       "function the_content_feed($feed_type = null)",
@@ -126,20 +148,26 @@
   },
   "oracle_shell": {
     "path": "build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php",
-    "bytes": 2454,
-    "sha256": "sha256:63046e031e869c69c1e344b558a8b46c15dbe849378e15e9795e905f541c0e44",
+    "bytes": 3250,
+    "sha256": "sha256:cfdb788651b436df1b593f36e7b964c9db4effaef7708fa58f499f25928ac107",
     "php_lint": "passed",
     "php_lint_output": "No syntax errors detected in build/wphx-php/feed-module-functions/oracle/wp-includes/feed.php"
   },
   "emission_manifest": {
     "path": "build/wphx-php/feed-module-functions/generated/wphx-php-emission.v1.json",
-    "bytes": 4280,
-    "sha256": "sha256:79bf17d0fb3c89f0c178773082df4fda77822764ce5187350b458d5b7c262a29",
+    "bytes": 6068,
+    "sha256": "sha256:8f8d43db45fa35e660d84a231668c0f01a46b44fb705961fcae2ea39fa75cb0d",
     "declarations": [
       "wp-includes/feed.php:global-function:bloginfo_rss",
+      "wp-includes/feed.php:global-function:comment_author_rss",
+      "wp-includes/feed.php:global-function:comment_guid",
+      "wp-includes/feed.php:global-function:comment_link",
+      "wp-includes/feed.php:global-function:comment_text_rss",
       "wp-includes/feed.php:global-function:comments_link_feed",
       "wp-includes/feed.php:global-function:feed_content_type",
       "wp-includes/feed.php:global-function:get_bloginfo_rss",
+      "wp-includes/feed.php:global-function:get_comment_author_rss",
+      "wp-includes/feed.php:global-function:get_comment_guid",
       "wp-includes/feed.php:global-function:get_default_feed",
       "wp-includes/feed.php:global-function:get_the_content_feed",
       "wp-includes/feed.php:global-function:get_the_title_rss",
@@ -641,6 +669,138 @@
           "deprecated": []
         },
         {
+          "id": "comment-guid:get-default",
+          "value": "post-guid-45#comment-901",
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:get-missing",
+          "value": false,
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:display-default",
+          "value": null,
+          "output": "post-guid-45#comment-901",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:display-missing",
+          "value": null,
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-default",
+          "value": null,
+          "output": "https://example.test/comment/current?a=1&amp;b=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/current?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-explicit",
+          "value": null,
+          "output": "https://example.test/comment/17?a=1&amp;b=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/17?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-filtered",
+          "value": null,
+          "output": "https://filtered.test/comment?x=1&amp;y=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/current?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:get",
+          "value": "Fixture Author <Raw>",
+          "output": "",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:get-filtered",
+          "value": "Filtered Author",
+          "output": "",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:display-filtered",
+          "value": null,
+          "output": "Displayed Author",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-text-rss:display",
+          "value": null,
+          "output": "Fixture Comment <Raw>",
+          "filters": [
+            {
+              "hook": "comment_text_rss",
+              "value": "Fixture Comment <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-text-rss:display-filtered",
+          "value": null,
+          "output": "Displayed Comment",
+          "filters": [
+            {
+              "hook": "comment_text_rss",
+              "value": "Fixture Comment <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
           "id": "content-feed:default-feed",
           "value": "Before ]]&gt; After",
           "output": "",
@@ -921,6 +1081,87 @@
         },
         "comments_link_feed": {
           "name": "comments_link_feed",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "comment_guid": {
+          "name": "comment_guid",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment_id",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_comment_guid": {
+          "name": "get_comment_guid",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment_id",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "comment_link": {
+          "name": "comment_link",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_comment_author_rss": {
+          "name": "get_comment_author_rss",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "comment_author_rss": {
+          "name": "comment_author_rss",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "comment_text_rss": {
+          "name": "comment_text_rss",
           "numberOfParameters": 0,
           "numberOfRequiredParameters": 0,
           "returnsReference": false,
@@ -1469,6 +1710,138 @@
           "deprecated": []
         },
         {
+          "id": "comment-guid:get-default",
+          "value": "post-guid-45#comment-901",
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:get-missing",
+          "value": false,
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:display-default",
+          "value": null,
+          "output": "post-guid-45#comment-901",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-guid:display-missing",
+          "value": null,
+          "output": "",
+          "filters": [],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-default",
+          "value": null,
+          "output": "https://example.test/comment/current?a=1&amp;b=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/current?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-explicit",
+          "value": null,
+          "output": "https://example.test/comment/17?a=1&amp;b=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/17?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-link:display-filtered",
+          "value": null,
+          "output": "https://filtered.test/comment?x=1&amp;y=2",
+          "filters": [
+            {
+              "hook": "comment_link",
+              "value": "https://example.test/comment/current?a=1&b=2",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:get",
+          "value": "Fixture Author <Raw>",
+          "output": "",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:get-filtered",
+          "value": "Filtered Author",
+          "output": "",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-author-rss:display-filtered",
+          "value": null,
+          "output": "Displayed Author",
+          "filters": [
+            {
+              "hook": "comment_author_rss",
+              "value": "Fixture Author <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-text-rss:display",
+          "value": null,
+          "output": "Fixture Comment <Raw>",
+          "filters": [
+            {
+              "hook": "comment_text_rss",
+              "value": "Fixture Comment <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
+          "id": "comment-text-rss:display-filtered",
+          "value": null,
+          "output": "Displayed Comment",
+          "filters": [
+            {
+              "hook": "comment_text_rss",
+              "value": "Fixture Comment <Raw>",
+              "args": []
+            }
+          ],
+          "deprecated": []
+        },
+        {
           "id": "content-feed:default-feed",
           "value": "Before ]]&gt; After",
           "output": "",
@@ -1755,6 +2128,87 @@
           "hasReturnType": false,
           "parameters": []
         },
+        "comment_guid": {
+          "name": "comment_guid",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment_id",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_comment_guid": {
+          "name": "get_comment_guid",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment_id",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "comment_link": {
+          "name": "comment_link",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": [
+            {
+              "name": "comment",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        },
+        "get_comment_author_rss": {
+          "name": "get_comment_author_rss",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "comment_author_rss": {
+          "name": "comment_author_rss",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
+        "comment_text_rss": {
+          "name": "comment_text_rss",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": false,
+          "parameters": []
+        },
         "get_the_content_feed": {
           "name": "get_the_content_feed",
           "numberOfParameters": 1,
@@ -1832,7 +2286,7 @@
     "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
     "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
     "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comments-link display URL escaping, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
+    "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, PHP empty('0') behavior, output capture, and filter payloads."
   ],
   "non_claims": [
     "This fixture does not claim full wp-includes/feed.php ownership.",

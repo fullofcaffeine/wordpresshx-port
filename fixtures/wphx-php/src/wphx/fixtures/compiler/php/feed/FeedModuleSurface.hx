@@ -1,5 +1,7 @@
 package wphx.fixtures.compiler.php.feed;
 
+import wphx.wp.boundary.NativeValue.NativeValue;
+
 /**
 	Selected unguarded WordPress feed.php module functions emitted at the original path.
 **/
@@ -97,6 +99,64 @@ function thePermalinkRss():String
 function commentsLinkFeed():String
 {
 	return HaxeFeedKernel.commentsLinkFeed();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("comment_guid")
+@:wp.echo
+@:keep
+function commentGuid(@:wp.name("comment_id") commentId:NativeValue = null):String
+{
+	return HaxeFeedKernel.commentGuid(commentId);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_comment_guid")
+@:keep
+function getCommentGuid(@:wp.name("comment_id") commentId:NativeValue = null):NativeValue
+{
+	return HaxeFeedKernel.getCommentGuid(commentId);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("comment_link")
+@:wp.echo
+@:keep
+function commentLink(@:wp.name("comment") comment:NativeValue = null):String
+{
+	return HaxeFeedKernel.commentLink(comment);
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_comment_author_rss")
+@:keep
+function getCommentAuthorRss():String
+{
+	return HaxeFeedKernel.getCommentAuthorRss();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("comment_author_rss")
+@:wp.echo
+@:keep
+function commentAuthorRss():String
+{
+	return HaxeFeedKernel.commentAuthorRss();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("comment_text_rss")
+@:wp.echo
+@:keep
+function commentTextRss():String
+{
+	return HaxeFeedKernel.commentTextRss();
 }
 
 @:wp.file("wp-includes/feed.php")
