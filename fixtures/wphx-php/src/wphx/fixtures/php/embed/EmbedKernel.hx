@@ -262,6 +262,14 @@ class EmbedKernel
 		EmbedGlobals.wpEnqueueStyle(handle);
 	}
 
+	public static function printEmbedScripts():Void
+	{
+		final jsPath = "/js/wp-embed-template" + EmbedGlobals.wpScriptsGetSuffix() + ".js";
+		EmbedGlobals.wpPrintInlineScriptTag(EmbedGlobals.trim(EmbedGlobals.fileGetContents(wpIncludesPath(jsPath)))
+			+ "\n//# sourceURL="
+			+ EmbedGlobals.escUrlRaw(EmbedGlobals.includesUrl(jsPath)));
+	}
+
 	public static function embedSiteTitle():String
 	{
 		final siteTitle = "<div class=\"wp-embed-site-title\"><a href=\""
@@ -449,6 +457,9 @@ extern class EmbedGlobals
 	@:native("esc_url")
 	public static function escUrl(url:String):String;
 
+	@:native("esc_url_raw")
+	public static function escUrlRaw(url:String):String;
+
 	@:native("sanitize_url")
 	public static function sanitizeUrl(url:NativeValue):NativeValue;
 
@@ -607,6 +618,12 @@ extern class EmbedGlobals
 
 	@:native("file_get_contents")
 	public static function fileGetContents(path:String):String;
+
+	@:native("trim")
+	public static function trim(value:String):String;
+
+	@:native("wp_print_inline_script_tag")
+	public static function wpPrintInlineScriptTag(script:String):Void;
 
 	@:native("get_oembed_response_data_for_url")
 	public static function getOembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;

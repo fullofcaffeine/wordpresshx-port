@@ -190,6 +190,15 @@ function wpEnqueueEmbedStyles():Void
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("print_embed_scripts")
+@:keep
+function printEmbedScripts():Void
+{
+	HaxeEmbedKernel.printEmbedScripts();
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("the_embed_site_title")
 @:wp.echo
 @:keep
