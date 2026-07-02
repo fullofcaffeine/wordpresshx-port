@@ -333,6 +333,15 @@ class WphxPhpWordPressAdapters
 		final embedHandlerHtml = PhpVar("embed_handler_html");
 		final thisValue = PhpVar("this");
 		final srcAttr = PhpArrayRead(attr, PhpString("src"));
+		final post = PhpVar("post");
+		final postId = PhpVar("post_id");
+		final keySuffix = PhpVar("key_suffix");
+		final cachekey = PhpVar("cachekey");
+		final cachekeyTime = PhpVar("cachekey_time");
+		final ttl = PhpVar("ttl");
+		final cache = PhpVar("cache");
+		final cacheTime = PhpVar("cache_time");
+		final cachedRecently = PhpVar("cached_recently");
 
 		return plan([
 			"stmt.var",
@@ -359,6 +368,28 @@ class WphxPhpWordPressAdapters
 			PhpAssign(url, PhpFunctionCall("str_replace", [PhpString("&amp;"), PhpString("&"), url])),
 			PhpLocal("embed_handler_html", PhpMethodCall(thisValue, "get_embed_handler_html", [rawattr, url])),
 			PhpIf(PhpBinop("!==", PhpBool(false), embedHandlerHtml), [PhpReturn(embedHandlerHtml)]),
+			PhpLocal("post_id", PhpTernary(PhpNot(PhpFunctionCall("empty", [PhpObjectProperty(post, "ID")])), PhpObjectProperty(post, "ID"), PhpNull)),
+			PhpIf(PhpNot(PhpFunctionCall("empty", [PhpObjectProperty(thisValue, "post_ID")])), [PhpAssign(postId, PhpObjectProperty(thisValue, "post_ID"))]),
+			PhpLocal("key_suffix", PhpFunctionCall("md5", [PhpBinop(".", url, PhpFunctionCall("serialize", [attr]))])),
+			PhpLocal("cachekey", PhpBinop(".", PhpString("_oembed_"), keySuffix)),
+			PhpLocal("cachekey_time", PhpBinop(".", PhpString("_oembed_time_"), keySuffix)),
+			PhpLocal("ttl", PhpFunctionCall("apply_filters", [PhpString("oembed_ttl"), PhpConst("DAY_IN_SECONDS"), url, attr, postId])),
+			PhpLocal("cache", PhpString("")),
+			PhpLocal("cache_time", PhpInt(0)),
+			PhpLocal("cached_post_id", PhpMethodCall(thisValue, "find_oembed_post_id", [keySuffix])),
+			PhpIf(postId,
+				[
+					PhpAssign(cache, PhpFunctionCall("get_post_meta", [postId, cachekey, PhpBool(true)])),
+					PhpAssign(cacheTime, PhpFunctionCall("get_post_meta", [postId, cachekeyTime, PhpBool(true)])),
+					PhpIf(PhpNot(cacheTime), [PhpAssign(cacheTime, PhpInt(0))])
+				]),
+			PhpLocal("cached_recently", PhpBinop("<", PhpBinop("-", PhpFunctionCall("time", []), cacheTime), ttl)),
+			PhpIf(PhpBinop("||", PhpObjectProperty(thisValue, "usecache"), cachedRecently), [
+				PhpIf(PhpBinop("===", PhpString("{{unknown}}"), cache), [PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))]),
+				PhpIf(PhpNot(PhpFunctionCall("empty", [cache])), [
+					PhpReturn(PhpFunctionCall("apply_filters", [PhpString("embed_oembed_html"), cache, url, attr, postId]))
+				])
+			]),
 			PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))
 		]);
 	}

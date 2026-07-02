@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 6498,
-      "sha256": "sha256:035cb72d04187e4b764cedce010ed3291c779025e35b23f17255c9e2b4084c09",
+      "bytes": 7438,
+      "sha256": "sha256:603942d1150e2370b44cdf4573b257d7cde93953834ed8dedc07a956fa7bdb1f",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -319,6 +319,15 @@
         "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
         "$url = str_replace( '&amp;', '&', $url );",
         "$embed_handler_html = $this->get_embed_handler_html( $rawattr, $url );",
+        "$post_id = ! empty( $post->ID ) ? $post->ID : null;",
+        "$key_suffix = md5( $url . serialize( $attr ) );",
+        "$cachekey = '_oembed_' . $key_suffix;",
+        "$cachekey_time = '_oembed_time_' . $key_suffix;",
+        "apply_filters( 'oembed_ttl', DAY_IN_SECONDS, $url, $attr, $post_id )",
+        "$cached_post_id = $this->find_oembed_post_id( $key_suffix );",
+        "$cache = get_post_meta( $post_id, $cachekey, true );",
+        "$cached_recently = time() - $cache_time < $ttl;",
+        "apply_filters( 'embed_oembed_html', $cache, $url, $attr, $post_id )",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -398,7 +407,7 @@
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
         "bytes": 1188,
-        "sha256": "sha256:f51906b297537ab13753efaeca5392c52d4ac6794248c919ff63964d95534281"
+        "sha256": "sha256:0f09e5b0798c5094718ac22afe603cbe2fbc161e32fde6c15ea145c57fc6ac09"
       }
     },
     {
