@@ -315,7 +315,7 @@
     "src/wphx/wp/themes/ThemeTemplateAdapterContract.hx"
   ],
   "lookback_lines": 6,
-  "occurrence_count": 109,
+  "occurrence_count": 114,
   "occurrences": [
     {
       "path": "fixtures/php-facade/src/wphx/fixtures/php/facade/FacadeKernel.hx",
@@ -523,13 +523,33 @@
       "kinds": [
         "cast"
       ],
+      "source": "final urlPartsArray:php.NativeArray = cast urlParts;",
+      "source_sha256": "sha256:59ae828fc3525d08a79c08d54570a37135f0502f5ed7a7c2185c9c9d204c8de3",
+      "justification": "WPHX-211: wp_parse_args(wp_parse_url()) returns a native associative URL-parts array."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 260,
+      "kinds": [
+        "cast"
+      ],
+      "source": "final argsArray:php.NativeArray = cast args;",
+      "source_sha256": "sha256:4aa6ffa65559d82a1479a488d57b0f840c4174332c357d97486879470ebcef35",
+      "justification": "WPHX-211: get_oembed_response_data_for_url() accepts native PHP args arrays from REST/oEmbed callers."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 279,
+      "kinds": [
+        "cast"
+      ],
       "source": "final dataArray:php.NativeArray = cast data;",
       "source_sha256": "sha256:d865f0157e1b9db72c5bbbbcb565d3b3a56f8f7335aa74948c6a705436e3518a",
       "justification": "WPHX-211: _oembed_create_xml() accepts arbitrary native PHP arrays at the public ABI."
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 459,
+      "line": 523,
       "kinds": [
         "cast"
       ],
@@ -539,7 +559,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 644,
+      "line": 708,
       "kinds": [
         "cast"
       ],
@@ -549,7 +569,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 647,
+      "line": 711,
       "kinds": [
         "cast"
       ],
@@ -559,7 +579,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 662,
+      "line": 726,
       "kinds": [
         "cast"
       ],
@@ -569,7 +589,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 678,
+      "line": 742,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -579,7 +599,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 684,
+      "line": 748,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -589,7 +609,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 690,
+      "line": 754,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -599,7 +619,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 696,
+      "line": 760,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -609,7 +629,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 702,
+      "line": 766,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -619,7 +639,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 709,
+      "line": 773,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -629,7 +649,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 716,
+      "line": 780,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -639,7 +659,37 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 722,
+      "line": 786,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('host' => '', 'port' => null, 'path' => '/')\");",
+      "source_sha256": "sha256:e24936e56b13f304cd463f3e74422656634ff6e9d85a102a91be5c22ce27d152",
+      "justification": "WPHX-211: wp_parse_args() merges native URL-part arrays with WordPress defaults."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 792,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"array('domain' => {0}, 'path' => '/', 'update_site_meta_cache' => false)\", domain);",
+      "source_sha256": "sha256:ae9b74102ee8aab70f4d19d4169468b79279aec211b8005a5ecd7d9bcb312138",
+      "justification": "WPHX-211: get_sites() consumes a native query array with false cache flags."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 798,
+      "kinds": [
+        "php.Syntax.code"
+      ],
+      "source": "return php.Syntax.code(\"(object) {0}\", value);",
+      "source_sha256": "sha256:6f2fa0e13e8c725e462d0e1e012a638c2e1b6c848c977a05838c8de5e54edc69",
+      "justification": "WPHX-211: WordPress casts oEmbed response arrays to stdClass objects for REST-facing consumers."
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
+      "line": 804,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -649,7 +699,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 728,
+      "line": 810,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -659,7 +709,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 735,
+      "line": 817,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -669,7 +719,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 741,
+      "line": 823,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -679,7 +729,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 747,
+      "line": 829,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -689,7 +739,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 753,
+      "line": 835,
       "kinds": [
         "cast"
       ],
@@ -699,7 +749,7 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/php/embed/EmbedKernel.hx",
-      "line": 759,
+      "line": 841,
       "kinds": [
         "php.Syntax.code"
       ],
@@ -1409,9 +1459,9 @@
     }
   ],
   "by_kind": {
-    "cast": 20,
+    "cast": 22,
     "Dynamic": 8,
-    "php.Syntax.code": 81
+    "php.Syntax.code": 84
   },
   "validation_result": {
     "status": "passed",

@@ -30,6 +30,8 @@ extern class HaxeEmbedKernel
 
 	static function oembedResponseDataRich(data:NativeValue, post:NativeValue, width:Int, height:Int):NativeValue;
 
+	static function oembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;
+
 	static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue;
 
 	static function oembedAddProvider(format:String, provider:String, regex:Bool):Void;

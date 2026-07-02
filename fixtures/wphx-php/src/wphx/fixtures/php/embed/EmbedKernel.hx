@@ -204,6 +204,70 @@ class EmbedKernel
 		return dataArray;
 	}
 
+	public static function oembedResponseDataForUrl(url:String, args:NativeValue):NativeValue
+	{
+		var switchedBlog = false;
+
+		if (EmbedGlobals.isMultisite())
+		{
+			final urlParts = EmbedGlobals.wpParseArgs(EmbedGlobals.wpParseUrl(url), urlPartDefaults());
+			// WPHX-211: wp_parse_args(wp_parse_url()) returns a native associative URL-parts array.
+			final urlPartsArray:php.NativeArray = cast urlParts;
+			final port = WpNativeArray.get(urlPartsArray, "port", null);
+			final domain = EmbedGlobals.strval(WpNativeArray.get(urlPartsArray, "host", ""))
+				+ (EmbedGlobals.truthy(port) ? ":" + EmbedGlobals.strval(port) : "");
+			final qv = siteQueryArgs(domain);
+
+			if (!EmbedGlobals.isSubdomainInstall())
+			{
+				final pathParts = EmbedGlobals.explode("/", EmbedGlobals.ltrim(EmbedGlobals.strval(WpNativeArray.get(urlPartsArray, "path", "/")), "/"));
+				final path = EmbedGlobals.reset(pathParts);
+				if (EmbedGlobals.truthy(path))
+				{
+					EmbedGlobals.arraySet(qv, "path", objectFieldString(EmbedGlobals.getNetwork(), "path") + EmbedGlobals.strval(path) + "/");
+				}
+			}
+
+			final sites = EmbedGlobals.getSites(qv);
+			final site = EmbedGlobals.reset(sites);
+			if (EmbedGlobals.truthy(site)
+				&& (objectFieldTruthy(site, "deleted") || objectFieldTruthy(site, "spam") || objectFieldTruthy(site, "archived")))
+			{
+				return false;
+			}
+
+			if (EmbedGlobals.truthy(site)
+				&& EmbedGlobals.getCurrentBlogId() != EmbedGlobals.intval(EmbedGlobals.objectField(site, "blog_id")))
+			{
+				EmbedGlobals.switchToBlog(EmbedGlobals.objectField(site, "blog_id"));
+				switchedBlog = true;
+			}
+		}
+
+		var postId:NativeValue = EmbedGlobals.urlToPostId(url);
+		postId = EmbedHooks.applyFiltersNative2("oembed_request_post_id", postId, url);
+		if (!EmbedGlobals.truthy(postId))
+		{
+			if (switchedBlog)
+			{
+				EmbedGlobals.restoreCurrentBlog();
+			}
+
+			return false;
+		}
+
+		// WPHX-211: get_oembed_response_data_for_url() accepts native PHP args arrays from REST/oEmbed callers.
+		final argsArray:php.NativeArray = cast args;
+		final width = EmbedGlobals.intval(WpNativeArray.get(argsArray, "width", 0));
+		final data = oembedResponseData(postId, width);
+		if (switchedBlog)
+		{
+			EmbedGlobals.restoreCurrentBlog();
+		}
+
+		return EmbedGlobals.truthy(data) ? nativeObject(data) : false;
+	}
+
 	public static function oembedCreateXml(data:NativeValue, node:NativeValue = null):NativeValue
 	{
 		if (!WpNativeArray.isArray(data))
@@ -393,7 +457,7 @@ class EmbedKernel
 
 	public static function filterPreOembedResult(result:NativeValue, url:String, args:NativeValue):NativeValue
 	{
-		final data = EmbedGlobals.getOembedResponseDataForUrl(url, args);
+		final data = oembedResponseDataForUrl(url, args);
 		if (EmbedGlobals.truthy(data))
 		{
 			return oembedGetObject().dataToHtml(data, url);
@@ -716,6 +780,24 @@ class EmbedKernel
 		return php.Syntax.code("array({0}, 0)", width);
 	}
 
+	static function urlPartDefaults():php.NativeArray
+	{
+		// WPHX-211: wp_parse_args() merges native URL-part arrays with WordPress defaults.
+		return php.Syntax.code("array('host' => '', 'port' => null, 'path' => '/')");
+	}
+
+	static function siteQueryArgs(domain:String):php.NativeArray
+	{
+		// WPHX-211: get_sites() consumes a native query array with false cache flags.
+		return php.Syntax.code("array('domain' => {0}, 'path' => '/', 'update_site_meta_cache' => false)", domain);
+	}
+
+	static function nativeObject(value:NativeValue):NativeValue
+	{
+		// WPHX-211: WordPress casts oEmbed response arrays to stdClass objects for REST-facing consumers.
+		return php.Syntax.code("(object) {0}", value);
+	}
+
 	static function providerPair(provider:String, regex:Bool):php.NativeArray
 	{
 		// WPHX-211: WordPress stores oEmbed provider tuples as native indexed arrays.
@@ -935,6 +1017,45 @@ extern class EmbedGlobals
 	@:native("wp_get_attachment_image_src")
 	public static function wpGetAttachmentImageSrc(thumbnailId:NativeValue, size:php.NativeArray):php.NativeArray;
 
+	@:native("is_multisite")
+	public static function isMultisite():Bool;
+
+	@:native("wp_parse_url")
+	public static function wpParseUrl(url:String):NativeValue;
+
+	@:native("wp_parse_args")
+	public static function wpParseArgs(args:NativeValue, defaults:php.NativeArray):NativeValue;
+
+	@:native("is_subdomain_install")
+	public static function isSubdomainInstall():Bool;
+
+	@:native("ltrim")
+	public static function ltrim(value:String, characters:String):String;
+
+	@:native("explode")
+	public static function explode(separator:String, value:String):php.NativeArray;
+
+	@:native("reset")
+	public static function reset(value:php.NativeArray):NativeValue;
+
+	@:native("get_network")
+	public static function getNetwork():NativeValue;
+
+	@:native("get_sites")
+	public static function getSites(query:php.NativeArray):php.NativeArray;
+
+	@:native("get_current_blog_id")
+	public static function getCurrentBlogId():Int;
+
+	@:native("switch_to_blog")
+	public static function switchToBlog(blogId:NativeValue):Void;
+
+	@:native("restore_current_blog")
+	public static function restoreCurrentBlog():Void;
+
+	@:native("url_to_postid")
+	public static function urlToPostId(url:String):NativeValue;
+
 	@:native("_x")
 	public static function translateWithContext(text:String, context:String):String;
 
@@ -1036,9 +1157,6 @@ extern class EmbedGlobals
 
 	@:native("wp_get_inline_script_tag")
 	public static function wpGetInlineScriptTag(script:String):String;
-
-	@:native("get_oembed_response_data_for_url")
-	public static function getOembedResponseDataForUrl(url:String, args:NativeValue):NativeValue;
 
 	@:native("wphx_embed_array_set")
 	public static function arraySet(array:php.NativeArray, key:String, value:NativeValue):Void;

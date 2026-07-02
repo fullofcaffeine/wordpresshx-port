@@ -108,6 +108,15 @@ function getOembedResponseDataRich(@:wp.name("data") data:NativeValue, @:wp.name
 
 @:wp.file("wp-includes/embed.php")
 @:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
+@:wp.global("get_oembed_response_data_for_url")
+@:keep
+function getOembedResponseDataForUrl(@:wp.name("url") url:String, @:wp.name("args") args:NativeValue):NativeValue
+{
+	return HaxeEmbedKernel.oembedResponseDataForUrl(url, args);
+}
+
+@:wp.file("wp-includes/embed.php")
+@:wp.haxeBootstrap("WPHX_EMBED_MODULE_BOOTSTRAPPED")
 @:wp.global("_oembed_create_xml")
 @:keep
 function oembedCreateXml(@:wp.name("data") data:NativeValue, @:wp.name("node") node:NativeValue = null):NativeValue
