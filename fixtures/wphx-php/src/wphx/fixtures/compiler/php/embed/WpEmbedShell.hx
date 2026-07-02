@@ -44,6 +44,14 @@ class WpEmbedShell
 	@:wp.adapter("wp-embed-maybe-run-ajax-cache")
 	public function maybe_run_ajax_cache():Void {}
 
+	@:wp.adapter("wp-embed-shortcode")
+	public function shortcode(attr:NativeValue, url:String = ""):NativeValue
+	{
+		attr;
+		url;
+		return false;
+	}
+
 	@:wp.adapter("wp-embed-register-handler")
 	public function register_handler(id:String, regex:String, callback:NativeValue, priority:Int = 10):Void
 	{

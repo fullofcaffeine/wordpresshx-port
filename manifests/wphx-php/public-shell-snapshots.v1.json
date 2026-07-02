@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 5904,
-      "sha256": "sha256:251ea18128ce0a6d93202d2f722d3572dfb4e28383a767ce5c73a8e610f93bd7",
+      "bytes": 6498,
+      "sha256": "sha256:035cb72d04187e4b764cedce010ed3291c779025e35b23f17255c9e2b4084c09",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -311,6 +311,14 @@
         "empty( $_GET['message'] )",
         "admin_url( 'admin-ajax.php', 'relative' )",
         "?action=oembed-cache&post=",
+        "public function shortcode($attr, $url = '')",
+        "$url = $attr['src'];",
+        "$this->last_url = $url;",
+        "$this->last_attr = $attr;",
+        "$rawattr = $attr;",
+        "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
+        "$url = str_replace( '&amp;', '&', $url );",
+        "$embed_handler_html = $this->get_embed_handler_html( $rawattr, $url );",
         "public function register_handler($id, $regex, $callback, $priority = 10)",
         "$this->handlers[ $priority ][ $id ] = array(",
         "'regex'    => $regex",
@@ -380,6 +388,7 @@
           "maybe_run_ajax_cache",
           "register_handler",
           "run_shortcode",
+          "shortcode",
           "unregister_handler"
         ],
         "protected_methods": [],
@@ -389,7 +398,7 @@
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
         "bytes": 1188,
-        "sha256": "sha256:70437a6948aa35bde15c7306f4f146bb2f8183e2ea5621686dbb811b34437509"
+        "sha256": "sha256:f51906b297537ab13753efaeca5392c52d4ac6794248c919ff63964d95534281"
       }
     },
     {

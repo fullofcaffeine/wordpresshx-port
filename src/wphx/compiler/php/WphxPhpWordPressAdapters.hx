@@ -128,6 +128,8 @@ class WphxPhpWordPressAdapters
 				embedRunShortcode(fieldName);
 			case "wp-embed-maybe-run-ajax-cache":
 				embedMaybeRunAjaxCache(fieldName);
+			case "wp-embed-shortcode":
+				embedShortcode(fieldName);
 			case "wp-embed-unregister-handler":
 				embedUnregisterHandler(fieldName);
 			case "wp-embed-get-handler-html":
@@ -320,6 +322,44 @@ class WphxPhpWordPressAdapters
 			PhpLocal("post", PhpFunctionCall("get_post", [])),
 			PhpIf(PhpBinop("||", PhpNot(post), PhpFunctionCall("empty", [PhpArrayRead(PhpVar("_GET"), PhpString("message"))])), [PhpReturnVoid]),
 			PhpEcho(script)
+		]);
+	}
+
+	static function embedShortcode(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final attr = PhpVar("attr");
+		final url = PhpVar("url");
+		final rawattr = PhpVar("rawattr");
+		final embedHandlerHtml = PhpVar("embed_handler_html");
+		final thisValue = PhpVar("this");
+		final srcAttr = PhpArrayRead(attr, PhpString("src"));
+
+		return plan([
+			"stmt.var",
+			"stmt.if",
+			"stmt.assign",
+			"stmt.return",
+			"expr.array-read",
+			"expr.object-property",
+			"expr.function-call",
+			"expr.method-call",
+			"expr.binop"
+		], [
+			PhpLocal("post", PhpFunctionCall("get_post", [])),
+			PhpIf(PhpBinop("&&", PhpFunctionCall("empty", [url]), PhpNot(PhpFunctionCall("empty", [srcAttr]))), [PhpAssign(url, srcAttr)]),
+			PhpAssign(PhpObjectProperty(thisValue, "last_url"), url),
+			PhpIf(PhpFunctionCall("empty", [url]),
+				[
+					PhpAssign(PhpObjectProperty(thisValue, "last_attr"), attr),
+					PhpReturn(PhpString(""))
+				]),
+			PhpLocal("rawattr", attr),
+			PhpAssign(attr, PhpFunctionCall("wp_parse_args", [attr, PhpFunctionCall("wp_embed_defaults", [url])])),
+			PhpAssign(PhpObjectProperty(thisValue, "last_attr"), attr),
+			PhpAssign(url, PhpFunctionCall("str_replace", [PhpString("&amp;"), PhpString("&"), url])),
+			PhpLocal("embed_handler_html", PhpMethodCall(thisValue, "get_embed_handler_html", [rawattr, url])),
+			PhpIf(PhpBinop("!==", PhpBool(false), embedHandlerHtml), [PhpReturn(embedHandlerHtml)]),
+			PhpReturn(PhpMethodCall(thisValue, "maybe_make_link", [url]))
 		]);
 	}
 

@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 78487,
-      "sha256": "sha256:b68af24e4105b59041f262b9b8caa6a60641f0f52b4d7edd8c852e6a02892a4c"
+      "bytes": 80037,
+      "sha256": "sha256:3f5931344472065a3da0dc8cf70f91af734bf59903b6f8c7d104845c9afd2f4a"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 816,
-      "sha256": "sha256:1834614867e98a4ea3d0ed5fd61056d6e8bfb57bdeef97e9e63f8ec8855770d7"
+      "bytes": 866,
+      "sha256": "sha256:65396661ae7fadb7ebf010653163cb3127066c243724cad59933e4c27db5f8ef"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 2555,
-      "sha256": "sha256:83609be6f557680623d13f47ecc38747a300bc4d01d7a49af2e0ca5b2ae03348"
+      "bytes": 2703,
+      "sha256": "sha256:f3a0078eec1c89d5c7a82ad07195b7ca9e455dcf7b26c5f63f96a87da91f728b"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:251ea18128ce0a6d93202d2f722d3572dfb4e28383a767ce5c73a8e610f93bd7",
+    "sha256": "sha256:035cb72d04187e4b764cedce010ed3291c779025e35b23f17255c9e2b4084c09",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -71,6 +71,14 @@
       "empty( $_GET['message'] )": true,
       "admin_url( 'admin-ajax.php', 'relative' )": true,
       "?action=oembed-cache&post=": true,
+      "public function shortcode($attr, $url = '')": true,
+      "$url = $attr['src'];": true,
+      "$this->last_url = $url;": true,
+      "$this->last_attr = $attr;": true,
+      "$rawattr = $attr;": true,
+      "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );": true,
+      "$url = str_replace( '&amp;', '&', $url );": true,
+      "$embed_handler_html = $this->get_embed_handler_html( $rawattr, $url );": true,
       "public function register_handler($id, $regex, $callback, $priority = 10)": true,
       "$this->handlers[ $priority ][ $id ] = array(": true,
       "'regex'    => $regex": true,
@@ -78,8 +86,6 @@
       "public function unregister_handler($id, $priority = 10)": true,
       "unset( $this->handlers[ $priority ][ $id ] );": true,
       "public function get_embed_handler_html($attr, $url)": true,
-      "$rawattr = $attr;": true,
-      "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );": true,
       "ksort( $this->handlers );": true,
       "call_user_func( $handler['callback'], $matches, $attr, $url, $rawattr )": true,
       "apply_filters( 'embed_handler_html', $return, $url, $attr )": true,
@@ -126,7 +132,7 @@
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:70437a6948aa35bde15c7306f4f146bb2f8183e2ea5621686dbb811b34437509",
+      "sha256": "sha256:f51906b297537ab13753efaeca5392c52d4ac6794248c919ff63964d95534281",
       "unsupported": [],
       "declarations": [
         {
@@ -193,6 +199,22 @@
     {
       "id": "wp-embed-handlers:maybe-ajax-output",
       "focus": "maybe_run_ajax_cache outputs the oEmbed cache Ajax script for a saved post"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-empty-url",
+      "focus": "shortcode records empty URL attrs and returns an empty string"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-src-fallback",
+      "focus": "shortcode falls back to attr src before internal handler dispatch"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-handler-hit",
+      "focus": "shortcode normalizes attrs/url and returns internal handler HTML before oEmbed cache/fetch work"
+    },
+    {
+      "id": "wp-embed-handlers:shortcode-amp-normalization-handler-hit",
+      "focus": "shortcode decodes ampersands before internal handler matching"
     },
     {
       "id": "wp-embed-handlers:register-default",
@@ -480,6 +502,181 @@
         "assertions": {
           "ajax_script_contains_post": true,
           "admin_url_called_relative": true
+        }
+      },
+      "wp-embed-handlers:shortcode-empty-url": {
+        "case": "wp-embed-handlers:shortcode-empty-url",
+        "handlers": [],
+        "output": "",
+        "last_url": "",
+        "last_attr": {
+          "width": 222
+        },
+        "handler_events": [],
+        "filter_events": [],
+        "assertions": {
+          "empty_url_returns_empty_string": true,
+          "empty_url_state": true,
+          "empty_url_no_handler_or_filter": true
+        }
+      },
+      "wp-embed-handlers:shortcode-src-fallback": {
+        "case": "wp-embed-handlers:shortcode-src-fallback",
+        "handlers": {
+          "10": {
+            "src-handler": {
+              "regex": "#https://src\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://src.example/clip",
+        "last_attr": {
+          "width": 333,
+          "height": 281,
+          "src": "https://src.example/clip"
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://src.example/clip",
+              "clip"
+            ],
+            "attr": {
+              "width": 333,
+              "height": 281,
+              "src": "https://src.example/clip"
+            },
+            "url": "https://src.example/clip",
+            "rawattr": {
+              "src": "https://src.example/clip",
+              "width": 333
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://src.example/clip",
+              {
+                "width": 333,
+                "height": 281,
+                "src": "https://src.example/clip"
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "src_fallback_handler_output": true,
+          "src_fallback_last_url": true,
+          "src_fallback_attr_defaults": true,
+          "src_fallback_rawattr_preserved": true
+        }
+      },
+      "wp-embed-handlers:shortcode-handler-hit": {
+        "case": "wp-embed-handlers:shortcode-handler-hit",
+        "handlers": {
+          "10": {
+            "direct-handler": {
+              "regex": "#https://shortcode\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://shortcode.example/movie",
+        "last_attr": {
+          "width": 500,
+          "height": 444
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://shortcode.example/movie",
+              "movie"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 444
+            },
+            "url": "https://shortcode.example/movie",
+            "rawattr": {
+              "height": 444
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe>",
+            "args": [
+              "https://shortcode.example/movie",
+              {
+                "width": 500,
+                "height": 444
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "direct_handler_output": true,
+          "direct_handler_last_attr": true,
+          "direct_handler_filtered_once": true
+        }
+      },
+      "wp-embed-handlers:shortcode-amp-normalization-handler-hit": {
+        "case": "wp-embed-handlers:shortcode-amp-normalization-handler-hit",
+        "handlers": {
+          "10": {
+            "amp-handler": {
+              "regex": "#https://amp\\.example/video\\?a=1&b=([0-9]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://amp.example/video?a=1&amp;b=2",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://amp.example/video?a=1&b=2",
+              "2"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 281
+            },
+            "url": "https://amp.example/video?a=1&b=2",
+            "rawattr": []
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://amp.example/video?a=1&b=2",
+              {
+                "width": 500,
+                "height": 281
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "amp_handler_output": true,
+          "amp_last_url_pre_normalization": true,
+          "amp_handler_url_normalized": true
         }
       },
       "wp-embed-handlers:register-default": {
@@ -1261,6 +1458,181 @@
         "assertions": {
           "ajax_script_contains_post": true,
           "admin_url_called_relative": true
+        }
+      },
+      "wp-embed-handlers:shortcode-empty-url": {
+        "case": "wp-embed-handlers:shortcode-empty-url",
+        "handlers": [],
+        "output": "",
+        "last_url": "",
+        "last_attr": {
+          "width": 222
+        },
+        "handler_events": [],
+        "filter_events": [],
+        "assertions": {
+          "empty_url_returns_empty_string": true,
+          "empty_url_state": true,
+          "empty_url_no_handler_or_filter": true
+        }
+      },
+      "wp-embed-handlers:shortcode-src-fallback": {
+        "case": "wp-embed-handlers:shortcode-src-fallback",
+        "handlers": {
+          "10": {
+            "src-handler": {
+              "regex": "#https://src\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://src.example/clip",
+        "last_attr": {
+          "width": 333,
+          "height": 281,
+          "src": "https://src.example/clip"
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://src.example/clip",
+              "clip"
+            ],
+            "attr": {
+              "width": 333,
+              "height": 281,
+              "src": "https://src.example/clip"
+            },
+            "url": "https://src.example/clip",
+            "rawattr": {
+              "src": "https://src.example/clip",
+              "width": 333
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://src.example/clip",
+              {
+                "width": 333,
+                "height": 281,
+                "src": "https://src.example/clip"
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "src_fallback_handler_output": true,
+          "src_fallback_last_url": true,
+          "src_fallback_attr_defaults": true,
+          "src_fallback_rawattr_preserved": true
+        }
+      },
+      "wp-embed-handlers:shortcode-handler-hit": {
+        "case": "wp-embed-handlers:shortcode-handler-hit",
+        "handlers": {
+          "10": {
+            "direct-handler": {
+              "regex": "#https://shortcode\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://shortcode.example/movie",
+        "last_attr": {
+          "width": 500,
+          "height": 444
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://shortcode.example/movie",
+              "movie"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 444
+            },
+            "url": "https://shortcode.example/movie",
+            "rawattr": {
+              "height": 444
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe>",
+            "args": [
+              "https://shortcode.example/movie",
+              {
+                "width": 500,
+                "height": 444
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "direct_handler_output": true,
+          "direct_handler_last_attr": true,
+          "direct_handler_filtered_once": true
+        }
+      },
+      "wp-embed-handlers:shortcode-amp-normalization-handler-hit": {
+        "case": "wp-embed-handlers:shortcode-amp-normalization-handler-hit",
+        "handlers": {
+          "10": {
+            "amp-handler": {
+              "regex": "#https://amp\\.example/video\\?a=1&b=([0-9]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "output": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://amp.example/video?a=1&amp;b=2",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://amp.example/video?a=1&b=2",
+              "2"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 281
+            },
+            "url": "https://amp.example/video?a=1&b=2",
+            "rawattr": []
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://amp.example/video?a=1&b=2",
+              {
+                "width": 500,
+                "height": 281
+              }
+            ]
+          }
+        ],
+        "assertions": {
+          "amp_handler_output": true,
+          "amp_last_url_pre_normalization": true,
+          "amp_handler_url_normalized": true
         }
       },
       "wp-embed-handlers:register-default": {
@@ -1871,6 +2243,8 @@
         },
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -1898,6 +2272,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [
@@ -2007,6 +2383,8 @@
         "property_defaults": null,
         "html": null,
         "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2061,6 +2439,8 @@
         "property_defaults": null,
         "html": null,
         "output": "",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2088,6 +2468,8 @@
         "property_defaults": null,
         "html": null,
         "output": "",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2115,6 +2497,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<script>\n\tjQuery( function($) {\n\t\t$.get(\"esc-url:admin-url%3Arelative%3Aadmin-ajax.php?action=oembed-cache&post=654\");\n\t} );\n</script>\n\t\t",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2142,6 +2526,240 @@
         "wp_query_calls": [],
         "get_post_type_calls": []
       },
+      "wp-embed-handlers:shortcode-empty-url": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "",
+        "last_url": "",
+        "last_attr": {
+          "width": 222
+        },
+        "handler_events": [],
+        "filter_events": [],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-src-fallback": {
+        "handlers": {
+          "10": {
+            "src-handler": {
+              "regex": "#https://src\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://src.example/clip",
+        "last_attr": {
+          "width": 333,
+          "height": 281,
+          "src": "https://src.example/clip"
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://src.example/clip",
+              "clip"
+            ],
+            "attr": {
+              "width": 333,
+              "height": 281,
+              "src": "https://src.example/clip"
+            },
+            "url": "https://src.example/clip",
+            "rawattr": {
+              "src": "https://src.example/clip",
+              "width": 333
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://src.example/clip",
+              {
+                "width": 333,
+                "height": 281,
+                "src": "https://src.example/clip"
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-handler-hit": {
+        "handlers": {
+          "10": {
+            "direct-handler": {
+              "regex": "#https://shortcode\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://shortcode.example/movie",
+        "last_attr": {
+          "width": 500,
+          "height": 444
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://shortcode.example/movie",
+              "movie"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 444
+            },
+            "url": "https://shortcode.example/movie",
+            "rawattr": {
+              "height": 444
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe>",
+            "args": [
+              "https://shortcode.example/movie",
+              {
+                "width": 500,
+                "height": 444
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-amp-normalization-handler-hit": {
+        "handlers": {
+          "10": {
+            "amp-handler": {
+              "regex": "#https://amp\\.example/video\\?a=1&b=([0-9]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://amp.example/video?a=1&amp;b=2",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://amp.example/video?a=1&b=2",
+              "2"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 281
+            },
+            "url": "https://amp.example/video?a=1&b=2",
+            "rawattr": []
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://amp.example/video?a=1&b=2",
+              {
+                "width": 500,
+                "height": 281
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
       "wp-embed-handlers:register-default": {
         "handlers": {
           "10": {
@@ -2154,6 +2772,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2203,6 +2823,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2243,6 +2865,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2283,6 +2907,8 @@
         "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [
           {
             "callback": "wphx_embed_false_callback",
@@ -2369,6 +2995,8 @@
         "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [
           {
             "callback": "Fixture_Handler::render",
@@ -2435,6 +3063,8 @@
         "property_defaults": null,
         "html": false,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2462,6 +3092,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -2497,6 +3129,8 @@
         "property_defaults": null,
         "html": null,
         "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -2532,6 +3166,8 @@
         "property_defaults": null,
         "html": null,
         "output": false,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2559,6 +3195,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2586,6 +3224,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2622,6 +3262,8 @@
         "property_defaults": null,
         "html": null,
         "output": "  shortcode:https://auto.example/video:raw  ",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2655,6 +3297,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2688,6 +3332,8 @@
         "property_defaults": null,
         "html": null,
         "output": "Before\nauto:https://auto.example/video\nAfter",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2722,6 +3368,8 @@
         "property_defaults": null,
         "html": null,
         "output": "auto:https://auto.example/post",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2756,6 +3404,8 @@
         "property_defaults": null,
         "html": null,
         "output": "Visit https://auto.example/not-alone inside text.",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2783,6 +3433,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<span\nclass=\"x\">plain</span>",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2810,6 +3462,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -2862,6 +3516,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -2898,6 +3554,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -2933,6 +3591,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -2967,6 +3627,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3019,6 +3681,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3069,6 +3733,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3124,6 +3790,8 @@
         },
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3151,6 +3819,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [
@@ -3260,6 +3930,8 @@
         "property_defaults": null,
         "html": null,
         "output": "processed:Before [embed]https://run.example/video[/embed] after:embed-registered",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3314,6 +3986,8 @@
         "property_defaults": null,
         "html": null,
         "output": "",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3341,6 +4015,8 @@
         "property_defaults": null,
         "html": null,
         "output": "",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3368,6 +4044,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<script>\n\tjQuery( function($) {\n\t\t$.get(\"esc-url:admin-url%3Arelative%3Aadmin-ajax.php?action=oembed-cache&post=654\");\n\t} );\n</script>\n\t\t",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3395,6 +4073,240 @@
         "wp_query_calls": [],
         "get_post_type_calls": []
       },
+      "wp-embed-handlers:shortcode-empty-url": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "",
+        "last_url": "",
+        "last_attr": {
+          "width": 222
+        },
+        "handler_events": [],
+        "filter_events": [],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-src-fallback": {
+        "handlers": {
+          "10": {
+            "src-handler": {
+              "regex": "#https://src\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://src.example/clip",
+        "last_attr": {
+          "width": 333,
+          "height": 281,
+          "src": "https://src.example/clip"
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://src.example/clip",
+              "clip"
+            ],
+            "attr": {
+              "width": 333,
+              "height": 281,
+              "src": "https://src.example/clip"
+            },
+            "url": "https://src.example/clip",
+            "rawattr": {
+              "src": "https://src.example/clip",
+              "width": 333
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"clip\" data-width=\"333\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://src.example/clip",
+              {
+                "width": 333,
+                "height": 281,
+                "src": "https://src.example/clip"
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-handler-hit": {
+        "handlers": {
+          "10": {
+            "direct-handler": {
+              "regex": "#https://shortcode\\.example/([a-z]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://shortcode.example/movie",
+        "last_attr": {
+          "width": 500,
+          "height": 444
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://shortcode.example/movie",
+              "movie"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 444
+            },
+            "url": "https://shortcode.example/movie",
+            "rawattr": {
+              "height": 444
+            }
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"movie\" data-width=\"500\" data-height=\"444\"></iframe>",
+            "args": [
+              "https://shortcode.example/movie",
+              {
+                "width": 500,
+                "height": 444
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
+      "wp-embed-handlers:shortcode-amp-normalization-handler-hit": {
+        "handlers": {
+          "10": {
+            "amp-handler": {
+              "regex": "#https://amp\\.example/video\\?a=1&b=([0-9]+)#",
+              "callback": "wphx_embed_html_callback"
+            }
+          }
+        },
+        "property_defaults": null,
+        "html": null,
+        "output": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
+        "last_url": "https://amp.example/video?a=1&amp;b=2",
+        "last_attr": {
+          "width": 500,
+          "height": 281
+        },
+        "handler_events": [
+          {
+            "callback": "wphx_embed_html_callback",
+            "matches": [
+              "https://amp.example/video?a=1&b=2",
+              "2"
+            ],
+            "attr": {
+              "width": 500,
+              "height": 281
+            },
+            "url": "https://amp.example/video?a=1&b=2",
+            "rawattr": []
+          }
+        ],
+        "filter_events": [
+          {
+            "hook": "embed_handler_html",
+            "value": "<iframe data-match=\"2\" data-width=\"500\" data-height=\"281\"></iframe>",
+            "args": [
+              "https://amp.example/video?a=1&b=2",
+              {
+                "width": 500,
+                "height": 281
+              }
+            ]
+          }
+        ],
+        "filter_registrations": [],
+        "action_registrations": [],
+        "shortcode_events": [],
+        "shortcode_tags": null,
+        "admin_url_calls": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null,
+        "autoembed_callback_calls": [],
+        "run_shortcode_calls": [],
+        "autoembed_calls": [],
+        "post_ID": null,
+        "usecache": null,
+        "get_post_types_calls": [],
+        "found_post_id": null,
+        "wp_cache_get_calls": [],
+        "wp_cache_set_calls": [],
+        "wp_query_calls": [],
+        "get_post_type_calls": []
+      },
       "wp-embed-handlers:register-default": {
         "handlers": {
           "10": {
@@ -3407,6 +4319,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3456,6 +4370,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3496,6 +4412,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3536,6 +4454,8 @@
         "property_defaults": null,
         "html": "<iframe data-match=\"clip\" data-width=\"320\" data-height=\"281\"></iframe><!-- filtered:embed_handler_html -->",
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [
           {
             "callback": "wphx_embed_false_callback",
@@ -3622,6 +4542,8 @@
         "property_defaults": null,
         "html": "<div data-priority=\"early\" data-width=\"640\"></div><!-- filtered:embed_handler_html -->",
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [
           {
             "callback": "Fixture_Handler::render",
@@ -3688,6 +4610,8 @@
         "property_defaults": null,
         "html": false,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3715,6 +4639,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<a href=\"esc-url:https%3A%2F%2Fexample.test%2Fa%20path%2F%3Fx%3D%3Ctag%3E\">esc-html:https://example.test/a path/?x=&lt;tag&gt;</a><!-- filtered:embed_maybe_make_link -->",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -3750,6 +4676,8 @@
         "property_defaults": null,
         "html": null,
         "output": "https://raw.example/post<!-- filtered:embed_maybe_make_link -->",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -3785,6 +4713,8 @@
         "property_defaults": null,
         "html": null,
         "output": false,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3812,6 +4742,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3839,6 +4771,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3875,6 +4809,8 @@
         "property_defaults": null,
         "html": null,
         "output": "  shortcode:https://auto.example/video:raw  ",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3908,6 +4844,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3941,6 +4879,8 @@
         "property_defaults": null,
         "html": null,
         "output": "Before\nauto:https://auto.example/video\nAfter",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -3975,6 +4915,8 @@
         "property_defaults": null,
         "html": null,
         "output": "auto:https://auto.example/post",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4009,6 +4951,8 @@
         "property_defaults": null,
         "html": null,
         "output": "Visit https://auto.example/not-alone inside text.",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4036,6 +4980,8 @@
         "property_defaults": null,
         "html": null,
         "output": "<span\nclass=\"x\">plain</span>",
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4063,6 +5009,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -4115,6 +5063,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -4151,6 +5101,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [
           {
@@ -4186,6 +5138,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4220,6 +5174,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4272,6 +5228,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4322,6 +5280,8 @@
         "property_defaults": null,
         "html": null,
         "output": null,
+        "last_url": null,
+        "last_attr": null,
         "handler_events": [],
         "filter_events": [],
         "filter_registrations": [],
@@ -4369,6 +5329,7 @@
     "WP_Embed::__construct registers run_shortcode content/widget filters, the embed placeholder shortcode, autoembed content/widget filters, and edit-form cache actions.",
     "WP_Embed::run_shortcode saves the global shortcode registry, clears it, registers only the embed shortcode callback, calls do_shortcode($content, true), restores the original registry, and returns the processed content.",
     "WP_Embed::maybe_run_ajax_cache gates on current post and edit-form message state, then outputs the oEmbed cache Ajax script using esc_url(admin_url('admin-ajax.php', 'relative')) and the current post ID.",
+    "WP_Embed::shortcode preserves the empty-URL return path, attr src URL fallback, last_url/last_attr state, default attr parsing, ampersand normalization, and early internal handler HTML return before oEmbed cache/fetch work.",
     "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
     "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
@@ -4378,11 +5339,11 @@
     "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
     "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
     "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
-    "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
+    "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
   ],
   "non_claims": [
     "This fixture does not claim browser execution of the maybe_run_ajax_cache script or installed edit-form Ajax behavior.",
-    "This fixture does not claim broad shortcode parser implementation, shortcode implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim shortcode oEmbed cache reads/writes, post meta cache handling, remote wp_oembed_get fetching, oEmbed cache post insertion/update, broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

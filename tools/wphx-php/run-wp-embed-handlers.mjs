@@ -61,6 +61,15 @@ const EXACT_PATTERNS = [
   "empty( $_GET['message'] )",
   "admin_url( 'admin-ajax.php', 'relative' )",
   "?action=oembed-cache&post=",
+  "public function shortcode($attr, $url = '')",
+  "$post = get_post();",
+  "$url = $attr['src'];",
+  "$this->last_url = $url;",
+  "$this->last_attr = $attr;",
+  "$rawattr = $attr;",
+  "$attr = wp_parse_args( $attr, wp_embed_defaults( $url ) );",
+  "$url = str_replace( '&amp;', '&', $url );",
+  "$embed_handler_html = $this->get_embed_handler_html( $rawattr, $url );",
   "public function register_handler($id, $regex, $callback, $priority = 10)",
   "$this->handlers[ $priority ][ $id ] = array(",
   "'regex'    => $regex",
@@ -121,6 +130,10 @@ const CASES = [
   { id: "wp-embed-handlers:maybe-ajax-no-post", focus: "maybe_run_ajax_cache returns without output when no current post is available" },
   { id: "wp-embed-handlers:maybe-ajax-no-message", focus: "maybe_run_ajax_cache returns without output when edit-form message is absent" },
   { id: "wp-embed-handlers:maybe-ajax-output", focus: "maybe_run_ajax_cache outputs the oEmbed cache Ajax script for a saved post" },
+  { id: "wp-embed-handlers:shortcode-empty-url", focus: "shortcode records empty URL attrs and returns an empty string" },
+  { id: "wp-embed-handlers:shortcode-src-fallback", focus: "shortcode falls back to attr src before internal handler dispatch" },
+  { id: "wp-embed-handlers:shortcode-handler-hit", focus: "shortcode normalizes attrs/url and returns internal handler HTML before oEmbed cache/fetch work" },
+  { id: "wp-embed-handlers:shortcode-amp-normalization-handler-hit", focus: "shortcode decodes ampersands before internal handler matching" },
   { id: "wp-embed-handlers:register-default", focus: "default priority handler registration" },
   { id: "wp-embed-handlers:register-priorities", focus: "separate priority buckets preserve handler payloads" },
   { id: "wp-embed-handlers:unregister", focus: "unregister removes only the selected priority/id slot" },
@@ -623,6 +636,75 @@ switch ( $case ) {
 \t\t) === $GLOBALS['wphx_admin_url_calls'];
 \t\tbreak;
 
+\tcase 'wp-embed-handlers:shortcode-empty-url':
+\t\t$embed = wphx_new_embed_without_constructor();
+\t\t$output = $embed->shortcode( array( 'width' => 222 ), '' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['empty_url_returns_empty_string'] = '' === $output;
+\t\t$assertions['empty_url_state'] = '' === $embed->last_url && array( 'width' => 222 ) === $embed->last_attr;
+\t\t$assertions['empty_url_no_handler_or_filter'] = array() === $GLOBALS['wphx_handler_events'] && array() === $GLOBALS['wphx_filter_events'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-src-fallback':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t10 => array(
+\t\t\t\t'src-handler' => array( 'regex' => '#https://src\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t) );
+\t\t$output = $embed->shortcode( array( 'src' => 'https://src.example/clip', 'width' => 333 ), '' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['src_fallback_handler_output'] = '<iframe data-match="clip" data-width="333" data-height="281"></iframe><!-- filtered:embed_handler_html -->' === $output;
+\t\t$assertions['src_fallback_last_url'] = 'https://src.example/clip' === $embed->last_url;
+\t\t$assertions['src_fallback_attr_defaults'] = 333 === $embed->last_attr['width'] && 281 === $embed->last_attr['height'];
+\t\t$assertions['src_fallback_rawattr_preserved'] = array( 'src' => 'https://src.example/clip', 'width' => 333 ) === $GLOBALS['wphx_handler_events'][0]['rawattr'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-handler-hit':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t10 => array(
+\t\t\t\t'direct-handler' => array( 'regex' => '#https://shortcode\\\\.example/([a-z]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t) );
+\t\t$output = $embed->shortcode( array( 'height' => 444 ), 'https://shortcode.example/movie' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['direct_handler_output'] = '<iframe data-match="movie" data-width="500" data-height="444"></iframe><!-- filtered:embed_handler_html -->' === $output;
+\t\t$assertions['direct_handler_last_attr'] = array( 'width' => 500, 'height' => 444 ) === $embed->last_attr;
+\t\t$assertions['direct_handler_filtered_once'] = 1 === count( $GLOBALS['wphx_filter_events'] ) && 'embed_handler_html' === $GLOBALS['wphx_filter_events'][0]['hook'];
+\t\tbreak;
+
+\tcase 'wp-embed-handlers:shortcode-amp-normalization-handler-hit':
+\t\t$embed = wphx_new_embed_without_constructor( array(
+\t\t\t10 => array(
+\t\t\t\t'amp-handler' => array( 'regex' => '#https://amp\\\\.example/video\\\\?a=1&b=([0-9]+)#', 'callback' => 'wphx_embed_html_callback' ),
+\t\t\t),
+\t\t) );
+\t\t$output = $embed->shortcode( array(), 'https://amp.example/video?a=1&amp;b=2' );
+\t\t$result['handlers'] = $embed->handlers;
+\t\t$result['output'] = $output;
+\t\t$result['last_url'] = $embed->last_url;
+\t\t$result['last_attr'] = $embed->last_attr;
+\t\t$result['handler_events'] = $GLOBALS['wphx_handler_events'];
+\t\t$result['filter_events'] = $GLOBALS['wphx_filter_events'];
+\t\t$assertions['amp_handler_output'] = '<iframe data-match="2" data-width="500" data-height="281"></iframe><!-- filtered:embed_handler_html -->' === $output;
+\t\t$assertions['amp_last_url_pre_normalization'] = 'https://amp.example/video?a=1&amp;b=2' === $embed->last_url;
+\t\t$assertions['amp_handler_url_normalized'] = 'https://amp.example/video?a=1&b=2' === $GLOBALS['wphx_handler_events'][0]['url'];
+\t\tbreak;
+
 \tcase 'wp-embed-handlers:register-default':
 \t\t$embed = wphx_new_embed_without_constructor();
 \t\t$embed->register_handler( 'video', '#https://video.example/.+#i', 'wphx_video_callback' );
@@ -1022,6 +1104,8 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
     output: value.output ?? null,
+    last_url: value.last_url ?? null,
+    last_attr: value.last_attr ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? [],
     filter_registrations: value.filter_registrations ?? [],
@@ -1049,6 +1133,8 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
     property_defaults: value.property_defaults ?? null,
     html: value.html ?? null,
     output: value.output ?? null,
+    last_url: value.last_url ?? null,
+    last_attr: value.last_attr ?? null,
     handler_events: value.handler_events ?? [],
     filter_events: value.filter_events ?? [],
     filter_registrations: value.filter_registrations ?? [],
@@ -1114,6 +1200,7 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::__construct registers run_shortcode content/widget filters, the embed placeholder shortcode, autoembed content/widget filters, and edit-form cache actions.",
       "WP_Embed::run_shortcode saves the global shortcode registry, clears it, registers only the embed shortcode callback, calls do_shortcode($content, true), restores the original registry, and returns the processed content.",
       "WP_Embed::maybe_run_ajax_cache gates on current post and edit-form message state, then outputs the oEmbed cache Ajax script using esc_url(admin_url('admin-ajax.php', 'relative')) and the current post ID.",
+      "WP_Embed::shortcode preserves the empty-URL return path, attr src URL fallback, last_url/last_attr state, default attr parsing, ampersand normalization, and early internal handler HTML return before oEmbed cache/fetch work.",
       "WP_Embed::register_handler writes the native PHP nested handlers array at $this->handlers[$priority][$id].",
       "WP_Embed::unregister_handler unsets only the selected native PHP nested handlers slot.",
       "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
@@ -1123,11 +1210,11 @@ function buildManifest({ generatedSource, oracleObservations, candidateObservati
       "WP_Embed::autoembed replaces own-line and paragraph URLs through autoembed_callback, leaves inline URLs unchanged, and restores HTML-tag line-break placeholders.",
       "WP_Embed::cache_oembed queries UI post types, filters embed_cache_oembed_types, gates on post ID/type/content, sets post_ID/usecache state, and dispatches run_shortcode then autoembed for eligible content.",
       "WP_Embed::find_oembed_post_id reads the oembed_cache_post object-cache entry, validates cached IDs by post type, queries publish oembed_cache posts by cache key on misses or invalid cached types, stores query hits, and returns null on misses.",
-      "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
+      "The behavior probe matches upstream for property defaults, constructor hook registration, run_shortcode registry restoration, maybe_run_ajax_cache gating/output, bounded shortcode empty/src/handler paths, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, autoembed callback state restoration, autoembed scanning, cache_oembed dispatch, and oEmbed cache-post lookup."
     ],
     non_claims: [
       "This fixture does not claim browser execution of the maybe_run_ajax_cache script or installed edit-form Ajax behavior.",
-      "This fixture does not claim broad shortcode parser implementation, shortcode implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+      "This fixture does not claim shortcode oEmbed cache reads/writes, post meta cache handling, remote wp_oembed_get fetching, oEmbed cache post insertion/update, broad shortcode parser implementation, cache population beyond cache_oembed/find_oembed_post_id dispatch, autoembed-to-shortcode behavior beyond callback dispatch, broad WP_Query/post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
       "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
     ]
   };
@@ -1142,14 +1229,14 @@ function buildReceipt(manifest) {
     status: "passed",
     commands: ["npm run wphx:php:wp-embed-handlers", "npm run wphx:php:wp-embed-handlers:check"],
     artifacts: [
-      { path: MANIFEST, role: "WPHX PHP WP_Embed constructor/run-shortcode/ajax-cache/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
+      { path: MANIFEST, role: "WPHX PHP WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed manifest", sha256: sha256(JSON.stringify(manifest, null, 2) + "\n") },
       { path: GENERATED_SHELL, role: "compiler-emitted original-path class-wp-embed.php", sha256: sha256File(GENERATED_SHELL) },
       { path: EMISSION_MANIFEST, role: "WPHX PHP emission manifest", sha256: sha256File(EMISSION_MANIFEST) },
-      { path: RUNNER, role: "deterministic WP_Embed constructor/run-shortcode/ajax-cache/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed runner", sha256: sha256File(RUNNER) }
+      { path: RUNNER, role: "deterministic WP_Embed constructor/run-shortcode/ajax-cache/shortcode-entry/handler-registry/get-html/maybe-link/delete-cache/autoembed/cache-oembed/find-oembed runner", sha256: sha256File(RUNNER) }
     ],
     summary: [
-      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, __construct, run_shortcode, maybe_run_ajax_cache, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, cache_oembed, and find_oembed_post_id.",
-      "The generated shell preserves public defaults, constructor hook/shortcode registrations, shortcode registry save/clear/embed-only parse/restore behavior, edit-form Ajax cache script gating/output, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, cache_oembed stateful dispatch, and oEmbed cache-post lookup against the upstream oracle."
+      "WPHX PHP emits a bounded WP_Embed public class shell for public property defaults, __construct, run_shortcode, maybe_run_ajax_cache, shortcode early paths, register_handler, unregister_handler, get_embed_handler_html, maybe_make_link, delete_oembed_caches, autoembed_callback, autoembed, cache_oembed, and find_oembed_post_id.",
+      "The generated shell preserves public defaults, constructor hook/shortcode registrations, shortcode registry save/clear/embed-only parse/restore behavior, edit-form Ajax cache script gating/output, shortcode empty/src/internal-handler entry behavior, native nested handlers array write/unset, sorted handler matching, callback dispatch, embed_handler_html filtering, maybe-link policy, selective oEmbed post-meta cache deletion, autoembed callback linkifunknown restoration, autoembed scanner dispatch, cache_oembed stateful dispatch, and oEmbed cache-post lookup against the upstream oracle."
     ]
   };
 }
@@ -1179,6 +1266,8 @@ for (const fixtureCase of CASES) {
       property_defaults: oracleObservations[fixtureCase.id].property_defaults ?? null,
       html: oracleObservations[fixtureCase.id].html ?? null,
       output: oracleObservations[fixtureCase.id].output ?? null,
+      last_url: oracleObservations[fixtureCase.id].last_url ?? null,
+      last_attr: oracleObservations[fixtureCase.id].last_attr ?? null,
       handler_events: oracleObservations[fixtureCase.id].handler_events ?? [],
       filter_events: oracleObservations[fixtureCase.id].filter_events ?? [],
       filter_registrations: oracleObservations[fixtureCase.id].filter_registrations ?? [],
@@ -1206,6 +1295,8 @@ for (const fixtureCase of CASES) {
       property_defaults: candidateObservations[fixtureCase.id].property_defaults ?? null,
       html: candidateObservations[fixtureCase.id].html ?? null,
       output: candidateObservations[fixtureCase.id].output ?? null,
+      last_url: candidateObservations[fixtureCase.id].last_url ?? null,
+      last_attr: candidateObservations[fixtureCase.id].last_attr ?? null,
       handler_events: candidateObservations[fixtureCase.id].handler_events ?? [],
       filter_events: candidateObservations[fixtureCase.id].filter_events ?? [],
       filter_registrations: candidateObservations[fixtureCase.id].filter_registrations ?? [],

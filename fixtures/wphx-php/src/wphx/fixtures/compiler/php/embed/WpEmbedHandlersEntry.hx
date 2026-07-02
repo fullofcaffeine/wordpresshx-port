@@ -11,6 +11,7 @@ class WpEmbedHandlersEntry
 		final embed:WpEmbedShell = cast null;
 		embed.run_shortcode("[embed]https://example.test/[/embed]");
 		embed.maybe_run_ajax_cache();
+		embed.shortcode(null, "https://example.test/");
 		embed.register_handler("fixture", "#fixture#", null, 10);
 		embed.unregister_handler("fixture", 10);
 		embed.get_embed_handler_html(null, "https://example.test/");
