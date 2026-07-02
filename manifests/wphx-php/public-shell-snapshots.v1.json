@@ -278,8 +278,8 @@
       ],
       "hxml": "fixtures/wphx-php/wp-embed-handlers.hxml",
       "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wp-includes/class-wp-embed.php",
-      "bytes": 2251,
-      "sha256": "sha256:2b2c6f85e6d68d1df12aa540d899e9b49db1f79585b365e4d1fea8fab2709dc4",
+      "bytes": 2509,
+      "sha256": "sha256:697e6b015b4c18ca1a89983c5e5e3943a7c5db1c901d23059d2c138fcc35b8b2",
       "byte_stable_across_clean_compiles": true,
       "php_lint": "passed",
       "exact_patterns": [
@@ -310,7 +310,13 @@
         "public function delete_oembed_caches($post_id)",
         "$post_metas = get_post_custom_keys( $post_id );",
         "str_starts_with( $post_meta_key, '_oembed_' )",
-        "delete_post_meta( $post_id, $post_meta_key );"
+        "delete_post_meta( $post_id, $post_meta_key );",
+        "public function autoembed_callback($matches)",
+        "$oldval = $this->linkifunknown;",
+        "$this->linkifunknown = false;",
+        "$return = $this->shortcode( array(), $matches[ 2 ] );",
+        "$this->linkifunknown = $oldval;",
+        "return $matches[ 1 ] . $return . $matches[ 3 ];"
       ],
       "ast_contract": {
         "functions": [],
@@ -319,6 +325,7 @@
         ],
         "interfaces": [],
         "methods": [
+          "autoembed_callback",
           "delete_oembed_caches",
           "get_embed_handler_html",
           "maybe_make_link",
@@ -331,8 +338,8 @@
       "segment_plan_contract": null,
       "manifest": {
         "path": "build/wphx-php/public-shell-snapshots/first/wp-embed-handler-class-shell/generated/wphx-php-emission.v1.json",
-        "bytes": 1077,
-        "sha256": "sha256:335bd54a0c58a087c794600b606f981449fb688542d3dced6f7cf37a6827b07c"
+        "bytes": 1101,
+        "sha256": "sha256:d95b20771a178ebeb22520a96657a598ab647fbf16930ffe5f8511db8da6f695"
       }
     },
     {

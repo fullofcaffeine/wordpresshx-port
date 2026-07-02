@@ -130,6 +130,8 @@ class WphxPhpWordPressAdapters
 				embedMaybeMakeLink(fieldName);
 			case "wp-embed-delete-oembed-caches":
 				embedDeleteOembedCaches(fieldName);
+			case "wp-embed-autoembed-callback":
+				embedAutoembedCallback(fieldName);
 			case _:
 				null;
 		}
@@ -334,6 +336,29 @@ class WphxPhpWordPressAdapters
 				PhpIf(PhpFunctionCall("str_starts_with", [postMetaKey, PhpString("_oembed_")]),
 					[PhpExprStmt(PhpFunctionCall("delete_post_meta", [postId, postMetaKey]))])
 			])
+		]);
+	}
+
+	static function embedAutoembedCallback(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final matches = PhpVar("matches");
+		final oldval = PhpVar("oldval");
+		final returnValue = PhpVar("return");
+		final linkIfUnknown = PhpObjectProperty(PhpVar("this"), "linkifunknown");
+		return plan([
+			"stmt.var",
+			"stmt.assign",
+			"stmt.return",
+			"expr.object-property",
+			"expr.array-read",
+			"expr.method-call",
+			"expr.binop"
+		], [
+			PhpLocal("oldval", linkIfUnknown),
+			PhpAssign(linkIfUnknown, PhpBool(false)),
+			PhpLocal("return", PhpMethodCall(PhpVar("this"), "shortcode", [PhpLongArray([]), PhpArrayRead(matches, PhpInt(2))])),
+			PhpAssign(linkIfUnknown, oldval),
+			PhpReturn(PhpBinop(".", PhpBinop(".", PhpArrayRead(matches, PhpInt(1)), returnValue), PhpArrayRead(matches, PhpInt(3))))
 		]);
 	}
 

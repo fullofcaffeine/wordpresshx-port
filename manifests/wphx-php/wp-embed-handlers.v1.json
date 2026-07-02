@@ -15,8 +15,8 @@
     },
     {
       "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
-      "bytes": 69630,
-      "sha256": "sha256:3ad1038373cf1fb89a8f57e55b8ea9ed82f8362a4d06edbdb70d1beea56e6d9b"
+      "bytes": 70521,
+      "sha256": "sha256:48f2fd059de45439d902101546b96114d6ab290708405c8bdbd08d66894465d8"
     },
     {
       "path": "fixtures/wphx-php/wp-embed-handlers.hxml",
@@ -25,13 +25,13 @@
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedHandlersEntry.hx",
-      "bytes": 574,
-      "sha256": "sha256:514f49d64efe6e126c7e34fe813d324a0c0f383b0986539c52e06b388930b0e1"
+      "bytes": 608,
+      "sha256": "sha256:da4e6153589ab9c83cca8e926b23d8782fb6a142ec58ac3cacc9337137270dff"
     },
     {
       "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpEmbedShell.hx",
-      "bytes": 1743,
-      "sha256": "sha256:5fcd6050a73fde5dcf4fdcf32a190a9305470be0e98c8c0fc92806599014f63c"
+      "bytes": 1888,
+      "sha256": "sha256:f8f00ef143c70cebfc0e9249e18306fb8fb2971db1ab5a6f8532ca8ec24bb723"
     }
   ],
   "oracle_source": {
@@ -40,7 +40,7 @@
   },
   "generated": {
     "path": "build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
-    "sha256": "sha256:2b2c6f85e6d68d1df12aa540d899e9b49db1f79585b365e4d1fea8fab2709dc4",
+    "sha256": "sha256:697e6b015b4c18ca1a89983c5e5e3943a7c5db1c901d23059d2c138fcc35b8b2",
     "lint": "No syntax errors detected in build/wphx-php/wp-embed-handlers/generated/wp-includes/class-wp-embed.php",
     "exact_patterns": {
       "if (!defined('WPHX_WP_EMBED_BOOTSTRAPPED'))": true,
@@ -72,11 +72,17 @@
       "public function delete_oembed_caches($post_id)": true,
       "$post_metas = get_post_custom_keys( $post_id );": true,
       "str_starts_with( $post_meta_key, '_oembed_' )": true,
-      "delete_post_meta( $post_id, $post_meta_key );": true
+      "delete_post_meta( $post_id, $post_meta_key );": true,
+      "public function autoembed_callback($matches)": true,
+      "$oldval = $this->linkifunknown;": true,
+      "$this->linkifunknown = false;": true,
+      "$return = $this->shortcode( array(), $matches[ 2 ] );": true,
+      "$this->linkifunknown = $oldval;": true,
+      "return $matches[ 1 ] . $return . $matches[ 3 ];": true
     },
     "emission_manifest": {
       "path": "build/wphx-php/wp-embed-handlers/generated/wphx-php-emission.v1.json",
-      "sha256": "sha256:335bd54a0c58a087c794600b606f981449fb688542d3dced6f7cf37a6827b07c",
+      "sha256": "sha256:d95b20771a178ebeb22520a96657a598ab647fbf16930ffe5f8511db8da6f695",
       "unsupported": [],
       "declarations": [
         {
@@ -92,6 +98,7 @@
         "expr.binop",
         "expr.function-call",
         "expr.long-array",
+        "expr.method-call",
         "expr.object-property",
         "expr.ternary",
         "native-array-iteration",
@@ -161,6 +168,14 @@
     {
       "id": "wp-embed-handlers:delete-oembed-selective",
       "focus": "delete_oembed_caches deletes only _oembed_ prefixed post meta keys"
+    },
+    {
+      "id": "wp-embed-handlers:autoembed-callback-restore-true",
+      "focus": "autoembed_callback restores true linkifunknown after shortcode dispatch"
+    },
+    {
+      "id": "wp-embed-handlers:autoembed-callback-restore-false",
+      "focus": "autoembed_callback restores false linkifunknown after shortcode dispatch"
     }
   ],
   "observations": {
@@ -467,6 +482,42 @@
         "assertions": {
           "only_oembed_keys_deleted": true
         }
+      },
+      "wp-embed-handlers:autoembed-callback-restore-true": {
+        "case": "wp-embed-handlers:autoembed-callback-restore-true",
+        "output": "  shortcode:https://auto.example/video:raw  ",
+        "handlers": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/video",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": true,
+        "assertions": {
+          "output_wraps_shortcode": true,
+          "shortcode_called_with_url_and_forced_raw": true,
+          "linkifunknown_restored_true": true
+        }
+      },
+      "wp-embed-handlers:autoembed-callback-restore-false": {
+        "case": "wp-embed-handlers:autoembed-callback-restore-false",
+        "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "handlers": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/post",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": false,
+        "assertions": {
+          "paragraph_output_wraps_shortcode": true,
+          "shortcode_called_once_with_raw_mode": true,
+          "linkifunknown_restored_false": true
+        }
       }
     },
     "candidate": {
@@ -772,6 +823,42 @@
         "assertions": {
           "only_oembed_keys_deleted": true
         }
+      },
+      "wp-embed-handlers:autoembed-callback-restore-true": {
+        "case": "wp-embed-handlers:autoembed-callback-restore-true",
+        "output": "  shortcode:https://auto.example/video:raw  ",
+        "handlers": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/video",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": true,
+        "assertions": {
+          "output_wraps_shortcode": true,
+          "shortcode_called_with_url_and_forced_raw": true,
+          "linkifunknown_restored_true": true
+        }
+      },
+      "wp-embed-handlers:autoembed-callback-restore-false": {
+        "case": "wp-embed-handlers:autoembed-callback-restore-false",
+        "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "handlers": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/post",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": false,
+        "assertions": {
+          "paragraph_output_wraps_shortcode": true,
+          "shortcode_called_once_with_raw_mode": true,
+          "linkifunknown_restored_false": true
+        }
       }
     }
   },
@@ -793,7 +880,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -809,7 +898,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -840,7 +931,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -862,7 +955,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -927,7 +1022,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -980,7 +1077,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -1000,7 +1099,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -1017,7 +1118,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -1034,7 +1137,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -1043,7 +1148,9 @@
         "output": false,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:delete-oembed-empty": {
         "handlers": [],
@@ -1052,7 +1159,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:delete-oembed-selective": {
         "handlers": [],
@@ -1070,7 +1179,43 @@
             "post_id": 123,
             "meta_key": "_oembed_time_alpha"
           }
-        ]
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null
+      },
+      "wp-embed-handlers:autoembed-callback-restore-true": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "  shortcode:https://auto.example/video:raw  ",
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/video",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": true
+      },
+      "wp-embed-handlers:autoembed-callback-restore-false": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/post",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": false
       }
     },
     "candidate": {
@@ -1090,7 +1235,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:register-default": {
         "handlers": {
@@ -1106,7 +1253,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:register-priorities": {
         "handlers": {
@@ -1137,7 +1286,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:unregister": {
         "handlers": {
@@ -1159,7 +1310,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-match": {
         "handlers": {
@@ -1224,7 +1377,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-priority": {
         "handlers": {
@@ -1277,7 +1432,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:get-html-miss": {
         "handlers": {
@@ -1297,7 +1454,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-default": {
         "handlers": [],
@@ -1314,7 +1473,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-raw": {
         "handlers": [],
@@ -1331,7 +1492,9 @@
             ]
           }
         ],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:maybe-link-false": {
         "handlers": [],
@@ -1340,7 +1503,9 @@
         "output": false,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:delete-oembed-empty": {
         "handlers": [],
@@ -1349,7 +1514,9 @@
         "output": null,
         "handler_events": [],
         "filter_events": [],
-        "post_meta_deletes": []
+        "post_meta_deletes": [],
+        "shortcode_calls": [],
+        "linkifunknown": null
       },
       "wp-embed-handlers:delete-oembed-selective": {
         "handlers": [],
@@ -1367,7 +1534,43 @@
             "post_id": 123,
             "meta_key": "_oembed_time_alpha"
           }
-        ]
+        ],
+        "shortcode_calls": [],
+        "linkifunknown": null
+      },
+      "wp-embed-handlers:autoembed-callback-restore-true": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "  shortcode:https://auto.example/video:raw  ",
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/video",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": true
+      },
+      "wp-embed-handlers:autoembed-callback-restore-false": {
+        "handlers": [],
+        "property_defaults": null,
+        "html": null,
+        "output": "<p>shortcode:https://auto.example/post:raw</p>",
+        "handler_events": [],
+        "filter_events": [],
+        "post_meta_deletes": [],
+        "shortcode_calls": [
+          {
+            "attr": [],
+            "url": "https://auto.example/post",
+            "linkifunknown": false
+          }
+        ],
+        "linkifunknown": false
       }
     }
   },
@@ -1379,11 +1582,12 @@
     "WP_Embed::get_embed_handler_html sorts handler priorities, checks regex/callable pairs, dispatches callbacks with matches/parsed attrs/raw attrs, applies embed_handler_html, and returns false on misses.",
     "WP_Embed::maybe_make_link returns strict false when configured, otherwise filters either an escaped anchor or the raw URL according to linkifunknown.",
     "WP_Embed::delete_oembed_caches deletes only custom post meta keys with the _oembed_ prefix and returns without side effects for empty key lists.",
-    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, and oEmbed cache key deletion when constructor side effects are bypassed."
+    "WP_Embed::autoembed_callback temporarily disables linkifunknown, dispatches shortcode(array(), $matches[2]), restores the previous flag, and returns prefix/result/suffix concatenation.",
+    "The behavior probe matches upstream for property defaults, default registration, multi-priority registration, selected unregister, handler HTML match/filter, priority ordering, miss behavior, maybe-link policy, oEmbed cache key deletion, and autoembed callback state restoration when constructor side effects are bypassed."
   ],
   "non_claims": [
     "This fixture does not claim WP_Embed::__construct hook/shortcode registration.",
-    "This fixture does not claim run_shortcode, shortcode, cache_oembed, autoembed, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
+    "This fixture does not claim run_shortcode, shortcode implementation, cache_oembed, autoembed scanning, broad post-meta/object-cache behavior, remote oEmbed, installed editor/admin behavior, or full class-wp-embed.php ownership.",
     "This fixture does not claim generic arbitrary Haxe nested array assignment/callable/string-output lowering; the selected method bodies are bounded WordPress-profile Adapter IR pressure."
   ]
 }

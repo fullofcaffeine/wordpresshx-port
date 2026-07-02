@@ -189,11 +189,24 @@ const CASES = [
       "public function delete_oembed_caches($post_id)",
       "$post_metas = get_post_custom_keys( $post_id );",
       "str_starts_with( $post_meta_key, '_oembed_' )",
-      "delete_post_meta( $post_id, $post_meta_key );"
+      "delete_post_meta( $post_id, $post_meta_key );",
+      "public function autoembed_callback($matches)",
+      "$oldval = $this->linkifunknown;",
+      "$this->linkifunknown = false;",
+      "$return = $this->shortcode( array(), $matches[ 2 ] );",
+      "$this->linkifunknown = $oldval;",
+      "return $matches[ 1 ] . $return . $matches[ 3 ];"
     ],
     ast_expect: {
       classes: ["WP_Embed"],
-      methods: ["register_handler", "unregister_handler", "get_embed_handler_html", "maybe_make_link", "delete_oembed_caches"]
+      methods: [
+        "register_handler",
+        "unregister_handler",
+        "get_embed_handler_html",
+        "maybe_make_link",
+        "delete_oembed_caches",
+        "autoembed_callback"
+      ]
     }
   },
   {

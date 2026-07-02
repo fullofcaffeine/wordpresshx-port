@@ -67,4 +67,11 @@ class WpEmbedShell
 	{
 		post_id;
 	}
+
+	@:wp.adapter("wp-embed-autoembed-callback")
+	public function autoembed_callback(matches:NativeValue):NativeValue
+	{
+		matches;
+		return "";
+	}
 }
