@@ -254,3 +254,23 @@ function selfLink():String
 {
 	return HaxeFeedKernel.selfLink();
 }
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("rss_enclosure")
+@:wp.echo
+@:keep
+function rssEnclosure():String
+{
+	return HaxeFeedKernel.rssEnclosure();
+}
+
+@:wp.file("wp-includes/feed.php")
+@:wp.haxeBootstrap("WPHX_FEED_MODULE_BOOTSTRAPPED")
+@:wp.global("atom_enclosure")
+@:wp.echo
+@:keep
+function atomEnclosure():String
+{
+	return HaxeFeedKernel.atomEnclosure();
+}

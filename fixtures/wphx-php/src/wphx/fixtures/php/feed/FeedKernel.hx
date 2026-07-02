@@ -238,6 +238,84 @@ class FeedKernel
 		return WpFeedGlobals.escUrl(WpHooks.applyFilters1("self_link", getSelfLink()));
 	}
 
+	public static function rssEnclosure():String
+	{
+		if (WpFeedGlobals.postPasswordRequired())
+		{
+			return "";
+		}
+
+		var output = "";
+		for (pair in WpFeedGlobals.getPostCustom().keyValueIterator())
+		{
+			if (pair.key == "enclosure")
+			{
+				for (enc in postCustomValues(pair.value))
+				{
+					final enclosure = WpFeedGlobals.explode("\n", WpFeedGlobals.strval(enc));
+					if (Global.count(enclosure) < 3)
+					{
+						continue;
+					}
+
+					final parts = WpFeedGlobals.pregSplit("/[ \t]/", WpFeedGlobals.trim(enclosure[2]));
+					final type = WpFeedGlobals.strval(WpNativeArray.get(parts, 0, ""));
+					final htmlLinkTag = '<enclosure url="' + WpFeedGlobals.escUrl(WpFeedGlobals.trim(enclosure[0])) + '" length="'
+						+ WpFeedGlobals.absint(WpFeedGlobals.trim(enclosure[1])) + '" type="' + WpFeedGlobals.escAttr(type) + '" />\n';
+					output += WpHooks.applyFilters1("rss_enclosure", htmlLinkTag);
+				}
+			}
+		}
+		return output;
+	}
+
+	public static function atomEnclosure():String
+	{
+		if (WpFeedGlobals.postPasswordRequired())
+		{
+			return "";
+		}
+
+		var output = "";
+		for (pair in WpFeedGlobals.getPostCustom().keyValueIterator())
+		{
+			if (pair.key == "enclosure")
+			{
+				for (enc in postCustomValues(pair.value))
+				{
+					final enclosure = WpFeedGlobals.explode("\n", WpFeedGlobals.strval(enc));
+					var url = "";
+					var type = "";
+					var length = "0";
+					final mimes = WpFeedGlobals.getAllowedMimeTypes();
+					for (i in 1...3)
+					{
+						if (Global.count(enclosure) > i)
+						{
+							final value = enclosure[i];
+							if (Global.is_numeric(value))
+							{
+								length = WpFeedGlobals.trim(value);
+							} else if (Global.in_array(value, mimes, true))
+							{
+								type = WpFeedGlobals.trim(value);
+							}
+						}
+					}
+					if (Global.count(enclosure) > 0)
+					{
+						url = WpFeedGlobals.trim(enclosure[0]);
+					}
+
+					output += WpHooks.applyFilters1("atom_enclosure",
+						WpFeedGlobals.sprintfAtom("<link href=\"%s\" rel=\"enclosure\" length=\"%d\" type=\"%s\" />\n", WpFeedGlobals.escUrl(url),
+							WpFeedGlobals.escAttr(length), WpFeedGlobals.escAttr(type)));
+				}
+			}
+		}
+		return output;
+	}
+
 	static function isPhpEmptyString(value:Null<String>):Bool
 	{
 		return value == null || value == "" || value == "0";
@@ -249,6 +327,12 @@ class FeedKernel
 		{
 			values.push(value);
 		}
+	}
+
+	static function postCustomValues(value:NativeValue):NativeIndexedArray<NativeValue>
+	{
+		// WPHX-211: get_post_custom() stores meta values as native PHP arrays.
+		return WpNativeArray.values(cast value);
 	}
 }
 
@@ -329,6 +413,30 @@ extern class WpFeedGlobals
 
 	@:native("set_url_scheme")
 	public static function setUrlScheme(url:String):String;
+
+	@:native("post_password_required")
+	public static function postPasswordRequired():Bool;
+
+	@:native("get_post_custom")
+	public static function getPostCustom():php.NativeAssocArray<NativeValue>;
+
+	@:native("explode")
+	public static function explode(delimiter:String, value:String):NativeIndexedArray<String>;
+
+	@:native("preg_split")
+	public static function pregSplit(pattern:String, value:String):php.NativeArray;
+
+	@:native("trim")
+	public static function trim(value:String):String;
+
+	@:native("absint")
+	public static function absint(value:String):Int;
+
+	@:native("get_allowed_mime_types")
+	public static function getAllowedMimeTypes():php.NativeArray;
+
+	@:native("sprintf")
+	public static function sprintfAtom(format:String, arg1:String, arg2:String, arg3:String):String;
 
 	@:native("get_comment")
 	public static function getComment(commentId:NativeValue):Null<WpComment>;

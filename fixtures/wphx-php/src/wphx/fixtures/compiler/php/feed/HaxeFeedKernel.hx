@@ -59,4 +59,8 @@ extern class HaxeFeedKernel
 	static function getSelfLink():String;
 
 	static function selfLink():String;
+
+	static function rssEnclosure():String;
+
+	static function atomEnclosure():String;
 }

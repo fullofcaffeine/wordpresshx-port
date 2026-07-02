@@ -88,7 +88,11 @@ const EXACT_PATTERNS = [
   "function get_self_link()",
   "FeedKernel::getSelfLink()",
   "function self_link()",
-  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::selfLink();"
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::selfLink();",
+  "function rss_enclosure()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::rssEnclosure();",
+  "function atom_enclosure()",
+  "echo \\wphx\\fixtures\\php\\feed\\FeedKernel::atomEnclosure();"
 ];
 
 function run(command, args, options = {}) {
@@ -346,6 +350,72 @@ function get_self_link() {
 function self_link() {
 \techo esc_url( apply_filters( 'self_link', get_self_link() ) );
 }
+
+function rss_enclosure() {
+\tif ( post_password_required() ) {
+\t\treturn;
+\t}
+
+\tforeach ( (array) get_post_custom() as $key => $val ) {
+\t\tif ( 'enclosure' === $key ) {
+\t\t\tforeach ( (array) $val as $enc ) {
+\t\t\t\t$enclosure = explode( "\\n", $enc );
+
+\t\t\t\tif ( count( $enclosure ) < 3 ) {
+\t\t\t\t\tcontinue;
+\t\t\t\t}
+
+\t\t\t\t$t    = preg_split( '/[ \\t]/', trim( $enclosure[2] ) );
+\t\t\t\t$type = $t[0];
+
+\t\t\t\techo apply_filters( 'rss_enclosure', '<enclosure url="' . esc_url( trim( $enclosure[0] ) ) . '" length="' . absint( trim( $enclosure[1] ) ) . '" type="' . esc_attr( $type ) . '" />' . "\\n" );
+\t\t\t}
+\t\t}
+\t}
+}
+
+function atom_enclosure() {
+\tif ( post_password_required() ) {
+\t\treturn;
+\t}
+
+\tforeach ( (array) get_post_custom() as $key => $val ) {
+\t\tif ( 'enclosure' === $key ) {
+\t\t\tforeach ( (array) $val as $enc ) {
+\t\t\t\t$enclosure = explode( "\\n", $enc );
+
+\t\t\t\t$url    = '';
+\t\t\t\t$type   = '';
+\t\t\t\t$length = 0;
+
+\t\t\t\t$mimes = get_allowed_mime_types();
+
+\t\t\t\tif ( isset( $enclosure[0] ) && is_string( $enclosure[0] ) ) {
+\t\t\t\t\t$url = trim( $enclosure[0] );
+\t\t\t\t}
+
+\t\t\t\tfor ( $i = 1; $i <= 2; $i++ ) {
+\t\t\t\t\tif ( isset( $enclosure[ $i ] ) ) {
+\t\t\t\t\t\tif ( is_numeric( $enclosure[ $i ] ) ) {
+\t\t\t\t\t\t\t$length = trim( $enclosure[ $i ] );
+\t\t\t\t\t\t} elseif ( in_array( $enclosure[ $i ], $mimes, true ) ) {
+\t\t\t\t\t\t\t$type = trim( $enclosure[ $i ] );
+\t\t\t\t\t\t}
+\t\t\t\t\t}
+\t\t\t\t}
+
+\t\t\t\t$html_link_tag = sprintf(
+\t\t\t\t\t"<link href=\\"%s\\" rel=\\"enclosure\\" length=\\"%d\\" type=\\"%s\\" />\\n",
+\t\t\t\t\tesc_url( $url ),
+\t\t\t\t\tesc_attr( $length ),
+\t\t\t\t\tesc_attr( $type )
+\t\t\t\t);
+
+\t\t\t\techo apply_filters( 'atom_enclosure', $html_link_tag );
+\t\t\t}
+\t\t}
+\t}
+}
 `;
 }
 
@@ -457,6 +527,31 @@ function set_url_scheme( $url ) {
 \treturn preg_replace( '/^http:/', 'https:', (string) $url );
 }
 
+function post_password_required() {
+\treturn $GLOBALS['wphx_post_password_required'] ?? false;
+}
+
+function get_post_custom() {
+\treturn $GLOBALS['wphx_post_custom'] ?? array(
+\t\t'ignored' => array( 'ignored' ),
+\t\t'enclosure' => array(
+\t\t\t"https://example.test/audio.mp3?a=1&b=2\\n12345\\naudio/mpeg mpga mp2 mp3",
+\t\t\t"incomplete\\nonly-two-lines",
+\t\t),
+\t);
+}
+
+function get_allowed_mime_types() {
+\treturn array(
+\t\t'mp3' => 'audio/mpeg',
+\t\t'mp4' => 'video/mp4',
+\t);
+}
+
+function absint( $value ) {
+\treturn abs( intval( $value ) );
+}
+
 function get_comment( $comment_id = null ) {
 \tif ( 'missing' === $comment_id ) {
 \t\treturn null;
@@ -504,6 +599,8 @@ function wphx_case( $id, $overrides, $callback ) {
 \t$GLOBALS['wphx_site_icon_url'] = 'https://example.test/icon.png?a=1&b=2';
 \t$GLOBALS['wphx_html_type'] = 'application/xhtml+xml';
 \t$GLOBALS['wphx_home_url'] = 'https://example.test:8443/home';
+\t$GLOBALS['wphx_post_password_required'] = false;
+\tunset( $GLOBALS['wphx_post_custom'] );
 \t$_SERVER['REQUEST_URI'] = '/feed/?x=1\\&y=2';
 \tob_start();
 \t$value = $callback();
@@ -720,9 +817,38 @@ $cases[] = wphx_case( 'self-link:display', array(), function () {
 $cases[] = wphx_case( 'self-link:display-filtered', array( 'self_link' => 'https://filtered.test/feed?x=1&y=2' ), function () {
 \treturn self_link();
 } );
+$cases[] = wphx_case( 'rss-enclosure:display', array(), function () {
+\treturn rss_enclosure();
+} );
+$cases[] = wphx_case( 'rss-enclosure:filtered', array( 'rss_enclosure' => "Filtered RSS Enclosure\\n" ), function () {
+\t$GLOBALS['wphx_post_custom'] = array(
+\t\t'enclosure' => array( "https://example.test/filtered.mp3?x=1&y=2\\n99\\naudio/mpeg" ),
+\t);
+\treturn rss_enclosure();
+} );
+$cases[] = wphx_case( 'rss-enclosure:password-required', array(), function () {
+\t$GLOBALS['wphx_post_password_required'] = true;
+\treturn rss_enclosure();
+} );
+$cases[] = wphx_case( 'atom-enclosure:display', array(), function () {
+\t$GLOBALS['wphx_post_custom'] = array(
+\t\t'enclosure' => array( "https://example.test/video.mp4?a=1&b=2\\nvideo/mp4\\n9876" ),
+\t);
+\treturn atom_enclosure();
+} );
+$cases[] = wphx_case( 'atom-enclosure:filtered', array( 'atom_enclosure' => "Filtered Atom Enclosure\\n" ), function () {
+\t$GLOBALS['wphx_post_custom'] = array(
+\t\t'enclosure' => array( "https://example.test/filtered.mp4?x=1&y=2\\n321\\nvideo/mp4" ),
+\t);
+\treturn atom_enclosure();
+} );
+$cases[] = wphx_case( 'atom-enclosure:password-required', array(), function () {
+\t$GLOBALS['wphx_post_password_required'] = true;
+\treturn atom_enclosure();
+} );
 
 $reflection = array();
-foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon', 'get_self_link', 'self_link' ) as $function_name ) {
+foreach ( array( 'get_bloginfo_rss', 'bloginfo_rss', 'get_default_feed', 'get_wp_title_rss', 'wp_title_rss', 'get_the_title_rss', 'the_title_rss', 'the_excerpt_rss', 'the_permalink_rss', 'comments_link_feed', 'comment_guid', 'get_comment_guid', 'comment_link', 'get_comment_author_rss', 'comment_author_rss', 'comment_text_rss', 'get_the_content_feed', 'the_content_feed', 'feed_content_type', 'get_the_category_rss', 'the_category_rss', 'html_type_rss', 'atom_site_icon', 'rss2_site_icon', 'get_self_link', 'self_link', 'rss_enclosure', 'atom_enclosure' ) as $function_name ) {
 \t$function = new ReflectionFunction( $function_name );
 \t$params = array();
 \tforeach ( $function->getParameters() as $parameter ) {
@@ -794,6 +920,7 @@ function main() {
   const emissionManifest = JSON.parse(readFileSync(EMISSION_MANIFEST, "utf8"));
   const declarations = emissionManifest.files.flatMap((file) => file.declarations.map((entry) => `${file.path}:${entry.kind}:${entry.name}`)).sort();
   const expectedDeclarations = [
+    "wp-includes/feed.php:global-function:atom_enclosure",
     "wp-includes/feed.php:global-function:atom_site_icon",
     "wp-includes/feed.php:global-function:bloginfo_rss",
     "wp-includes/feed.php:global-function:comment_author_rss",
@@ -813,6 +940,7 @@ function main() {
     "wp-includes/feed.php:global-function:get_wp_title_rss",
     "wp-includes/feed.php:global-function:html_type_rss",
     "wp-includes/feed.php:global-function:rss2_site_icon",
+    "wp-includes/feed.php:global-function:rss_enclosure",
     "wp-includes/feed.php:global-function:self_link",
     "wp-includes/feed.php:global-function:the_category_rss",
     "wp-includes/feed.php:global-function:the_content_feed",
@@ -867,9 +995,11 @@ function main() {
         "atom_site_icon",
         "rss2_site_icon",
         "get_self_link",
-        "self_link"
+        "self_link",
+        "rss_enclosure",
+        "atom_enclosure"
       ],
-      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661", "670-679", "688-700"]
+      selected_source_lines: ["27-41", "56-68", "80-91", "103-119", "129-147", "158-169", "176-178", "227-237", "244-253", "260-270", "279-299", "309-320", "329-349", "356-367", "190-209", "218-220", "768-791", "381-428", "440-442", "451-459", "632-637", "644-661", "670-679", "688-700", "475-504", "519-569"]
     },
     generated_shell: {
       path: GENERATED_SHELL,
@@ -917,7 +1047,7 @@ function main() {
       "The generated selected getter and display feed helpers preserve reflection-visible parameters/defaults for the selected fixture.",
       "The WPHX PHP core IR emits selected public display wrappers with idiomatic PHP echo statements via @:wp.echo metadata.",
       "The generated functions delegate selected behavior to a stock Haxe PHP implementation through the WPHX PHP bootstrap while preserving native apply_filters timing at the public PHP boundary.",
-      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, PHP empty('0') behavior, output capture, and filter payloads."
+      "The minimized oracle/candidate probe matches WordPress 7.0 behavior for bloginfo RSS sanitization/conversion/display, default feed normalization, feed title deprecation/filtering/display, title RSS filtering/display, excerpt display filtering, permalink/comment display URL escaping, comment GUID string-or-false behavior, comment author/text filtering/display, feed content filtering/escaping/display, feed content-type mapping, category RSS/Atom/RDF markup, category deduplication, HTML type display, Atom/RSS2 site-icon output, self-link URL construction/filtering/display escaping, RSS/Atom enclosure output and password short-circuit behavior, PHP empty('0') behavior, output capture, and filter payloads."
     ],
     non_claims: [
       "This fixture does not claim full wp-includes/feed.php ownership.",

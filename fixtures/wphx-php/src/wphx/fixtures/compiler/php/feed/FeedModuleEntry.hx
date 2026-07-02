@@ -1,6 +1,7 @@
 package wphx.fixtures.compiler.php.feed;
 
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.feedContentType;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.atomEnclosure;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.atomSiteIcon;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.bloginfoRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.commentAuthorRss;
@@ -19,6 +20,7 @@ import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getTheTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.getWpTitleRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.htmlTypeRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.rss2SiteIcon;
+import wphx.fixtures.compiler.php.feed.FeedModuleSurface.rssEnclosure;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.selfLink;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theCategoryRss;
 import wphx.fixtures.compiler.php.feed.FeedModuleSurface.theContentFeed;
@@ -60,5 +62,7 @@ class FeedModuleEntry
 		rss2SiteIcon();
 		getSelfLink();
 		selfLink();
+		rssEnclosure();
+		atomEnclosure();
 	}
 }
