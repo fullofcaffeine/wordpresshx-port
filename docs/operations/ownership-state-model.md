@@ -78,6 +78,8 @@ The entire original WordPress public file is owned by Haxe/WPHX inputs, includin
 
 Copied, transformed, hand-authored, or JavaScript-patched shells can support `bridge_shell` and `generated_helper_with_temporary_shell` evidence only. A durable public PHP claim must cite `compiler_emitted_original_path_shell`, `durable_public_adapter`, `whole_file_owned`, or a documented backend/custom-target improvement with compiler-pressure evidence and an ADR. If a temporary shell would be reused for a second durable claim class, file a blocker and move the adapter into WPHX PHP or the accepted backend lane first.
 
+`npm run operations:bridge-claim-guardrails:check` enforces the copied/router side of this policy. When a manifest or receipt is owned by a copied public PHP, copied package root, deterministic router, or bridge-router evidence lane, the guard fails broad `behavior_parity_claimed`, public PHP replacement, installed route execution, durable original-path adapter, and whole-file ownership claims unless the file also records non-empty generated candidate overlay evidence. Overlay records must list the replaced path, generated WPHX/compiler source, adapter/compiler manifest, replaced upstream hash, and an empty unexpected candidate-package difference list.
+
 ## Smell Fixes
 
 Smell fixes are allowed when evidence protects the compatibility boundary.

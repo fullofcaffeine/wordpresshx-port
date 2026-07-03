@@ -8,14 +8,19 @@
   },
   "recorded_at": "2026-06-29T00:00:00.000Z",
   "command": "npm run wp:core:wphx-314-blocks-installed",
-  "evidence_class": "installed_style_http_parity",
+  "evidence_class": "bridge_router_package_topology",
   "artifact_scope": "packaged_distribution",
-  "behavior_parity_claimed": true,
+  "behavior_parity_claimed": false,
+  "router_observation_parity_claimed": true,
+  "package_topology_claimed": true,
+  "mirrored_upstream_source_executed_by_router": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "candidate_generated_overlay_claimed": false,
   "artifacts": [
     {
       "path": "manifests/wp-core/wphx-314-12-blocks-installed-gate.v1.json",
       "role": "blocks/interactivity installed-style HTTP gate manifest",
-      "sha256": "sha256:35bc50ec75395f4e297c3066fcab147e211c0dc79efba1023514c621b3cbe0c4"
+      "sha256": "sha256:e434903987a989d0121218b91df12129507ba0f8febd2354ea5ac43390f9a594"
     },
     {
       "path": "manifests/ownership/wphx-314-12-blocks-installed-gate.v1.json",
@@ -37,7 +42,19 @@
     "cases": 7,
     "source_file_count": 14,
     "oracle_candidate_match": true,
-    "behavior_parity_claimed": true,
+    "behavior_parity_claimed": false,
+    "router_observation_parity_claimed": true,
+    "package_topology_claimed": true,
+    "mirrored_upstream_source_executed_by_router": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "candidate_generated_overlay_claimed": false,
     "public_php_replacement_claimed": false
-  }
+  },
+  "scope_summary": "This receipt proves that regenerated oracle and candidate package roots contain selected upstream WordPress block/style/HTML/interactivity PHP source files at locked hashes, and that both roots, served through the same deterministic bridge router, produce matching JSON observations for seven representative block-rendering URLs. The router is test harness code. It does not dispatch into mirrored WordPress route files for these HTTP cases, does not prove generated public PHP replacement, does not prove Haxe-owned block runtime logic, and does not prove installed WordPress block-rendering parity.",
+  "non_claims": [
+    "The deterministic router is not an implementation artifact. Router-emitted PHP/HTML strings are fixture observations, not WPHX-owned block templates, not generated original-path adapters, and not distributable runtime code.",
+    "Mirrored upstream PHP files under build/wp-core/**/{oracle,candidate}-package are regenerated test inputs. They must not be edited, committed, distributed, or cited as WPHX implementation source.",
+    "WPHX-314.12 does not claim that mirrored WordPress block/style/HTML/interactivity files execute through WordPress bootstrap under the installed HTTP server.",
+    "Any future public PHP replacement claim over this package-root gate requires a non-empty candidate overlay manifest, generated original-path adapter evidence, PHP lint, generated-shape or AST contracts, static/runtime PHP ABI checks, oracle/candidate behavior probes, selected upstream PHPUnit, installed route execution, and ecosystem/browser/database gates appropriate to the claimed boundary."
+  ]
 }

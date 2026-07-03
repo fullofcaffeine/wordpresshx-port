@@ -125,6 +125,14 @@ function writeRouter(root) {
   writeFileSync(
     `${root}/${ROUTER}`,
     `<?php
+/**
+ * WPHX bridge test harness only.
+ *
+ * Not a WordPress implementation file. Not distributable as candidate runtime
+ * logic. Do not use for public PHP ownership, generated adapter, installed
+ * WordPress route execution, or durable template ownership claims.
+ */
+
 $path = parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH );
 $query_string = parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_QUERY ) ?? '';
 parse_str( $query_string, $query );
@@ -420,7 +428,7 @@ function ownershipManifest(manifestSha) {
       adapter_contract_owner: "haxe_typed_for_selected_decisions",
       emission_strategy: "copied_upstream_public_php_with_deterministic_router",
       execution_provider: "php_cli_builtin_server",
-      compatibility_evidence: "installed_style_http_parity"
+      compatibility_evidence: "package_topology_and_bridge_router_observation_match"
     },
     bridge: {
       exists: true,
@@ -440,7 +448,7 @@ function ownershipManifest(manifestSha) {
       manifest_digest: manifestSha
     },
     notes:
-      "This gate proves installed-style package routing and deterministic observations only. It does not perform real image processing, database writes, remote filesystem transports, or durable generated original-path PHP replacement."
+      "This gate proves package topology and deterministic bridge-router observation matching only. The router does not dispatch into mirrored WordPress media/upload route files for these HTTP cases. It does not perform real image processing, database writes, remote filesystem transports, installed route execution, or durable generated original-path PHP replacement."
   };
 }
 
@@ -470,9 +478,15 @@ async function main() {
     issue: ISSUE.external_ref,
     generated_at: RECORDED_AT,
     generator: RUNNER,
-    evidence_class: "installed_style_http_parity",
+    evidence_class: "bridge_router_package_topology",
     artifact_scope: "packaged_distribution",
-    behavior_parity_claimed: true,
+    behavior_parity_claimed: false,
+    router_observation_parity_claimed: true,
+    package_topology_claimed: true,
+    mirrored_upstream_source_executed_by_router: false,
+    installed_wordpress_route_execution_claimed: false,
+    candidate_generated_overlay_claimed: false,
+    durable_original_path_adapter_claimed: false,
     inputs: {
       prior_inputs: PRIOR_INPUTS.map(inputRecord),
       upstream_sources: SOURCE_FILES.map(sourceRecord),
@@ -515,7 +529,12 @@ async function main() {
       status: "passed",
       cases: CASES.length,
       oracle_candidate_match: matches,
-      behavior_parity_claimed: true,
+      behavior_parity_claimed: false,
+      router_observation_parity_claimed: true,
+      package_topology_claimed: true,
+      mirrored_upstream_source_executed_by_router: false,
+      installed_wordpress_route_execution_claimed: false,
+      candidate_generated_overlay_claimed: false,
       public_php_replacement_claimed: false
     }
   };
@@ -532,6 +551,11 @@ async function main() {
     evidence_class: manifest.evidence_class,
     artifact_scope: manifest.artifact_scope,
     behavior_parity_claimed: manifest.behavior_parity_claimed,
+    router_observation_parity_claimed: manifest.router_observation_parity_claimed,
+    package_topology_claimed: manifest.package_topology_claimed,
+    mirrored_upstream_source_executed_by_router: manifest.mirrored_upstream_source_executed_by_router,
+    installed_wordpress_route_execution_claimed: manifest.installed_wordpress_route_execution_claimed,
+    candidate_generated_overlay_claimed: manifest.candidate_generated_overlay_claimed,
     artifacts: [
       { path: OUT, role: "media/upload installed-style HTTP gate manifest", sha256: manifestSha },
       { path: OWNERSHIP, role: "ownership manifest for media/upload installed-style gate" },
@@ -543,7 +567,15 @@ async function main() {
       "npm run receipts:validate",
       "npm run beads:validate"
     ],
-    validation_result: manifest.validation_result
+    validation_result: manifest.validation_result,
+    scope_summary:
+      "This receipt proves that regenerated oracle and candidate package roots contain selected upstream WordPress media/upload/filesystem PHP source files at locked hashes, and that both roots, served through the same deterministic bridge router, produce matching JSON observations for seven representative media/upload URLs. The router is test harness code. It does not dispatch into mirrored WordPress route files for these HTTP cases, does not prove generated public PHP replacement, does not prove Haxe-owned media/upload runtime logic, and does not prove installed WordPress media/upload parity.",
+    non_claims: [
+      "The deterministic router is not an implementation artifact. Router-emitted PHP/HTML strings are fixture observations, not WPHX-owned media/upload templates, not generated original-path adapters, and not distributable runtime code.",
+      "Mirrored upstream PHP files under build/wp-core/**/{oracle,candidate}-package are regenerated test inputs. They must not be edited, committed, distributed, or cited as WPHX implementation source.",
+      "WPHX-313.08 does not claim that mirrored WordPress media/upload/admin/REST route files execute through WordPress bootstrap under the installed HTTP server.",
+      "Any future public PHP replacement claim over this package-root gate requires a non-empty candidate overlay manifest, generated original-path adapter evidence, PHP lint, generated-shape or AST contracts, static/runtime PHP ABI checks, oracle/candidate behavior probes, selected upstream PHPUnit, installed route execution, and ecosystem/browser/database gates appropriate to the claimed boundary."
+    ]
   };
   const receiptText = JSON.stringify(receipt, null, 2) + "\n";
 
@@ -565,6 +597,8 @@ async function main() {
         receipt: RECEIPT,
         cases: CASES.length,
         behavior_parity_claimed: manifest.behavior_parity_claimed,
+        router_observation_parity_claimed: manifest.router_observation_parity_claimed,
+        package_topology_claimed: manifest.package_topology_claimed,
         public_php_replacement_claimed: false
       },
       null,
