@@ -128,6 +128,7 @@ enum PhpCoreExpr
 	PhpNewDynamic(classExpr:PhpCoreExpr, args:Array<PhpCoreExpr>);
 	PhpStaticCall(className:String, method:String, args:Array<PhpCoreExpr>);
 	PhpClassConst(className:String, constName:String);
+	PhpStaticProperty(className:String, property:String);
 	PhpMethodCall(target:PhpCoreExpr, method:String, args:Array<PhpCoreExpr>);
 	PhpObjectProperty(target:PhpCoreExpr, property:String);
 	PhpDynamicObjectProperty(target:PhpCoreExpr, property:PhpCoreExpr);
@@ -914,8 +915,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			{
 				continue;
 			}
-			final expr = field.expr();
-			lines.push("\t" + visibility + " static $" + phpIdent(field.name) + (expr == null ? "" : " = " + emitExpr(expr)) + ";");
+			lines.push("\t" + visibility + " static $" + phpIdent(field.name) + emitFieldDefault(field) + ";");
 		}
 
 		for (field in pending.classType.fields.get())
@@ -1209,6 +1209,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				className + "::" + phpIdent(method) + emitPhpCoreCallArgs(args, depth);
 			case PhpClassConst(className, constName):
 				className + "::" + phpIdent(constName);
+			case PhpStaticProperty(className, property):
+				className + "::$" + phpIdent(property);
 			case PhpMethodCall(target, method, args):
 				emitPhpCoreExpr(target, depth)
 				+ "->"

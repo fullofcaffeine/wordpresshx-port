@@ -33,12 +33,13 @@ Prompt bundles:
 - [Original-path PHP emission strategy](oracle-original-path-php-emission-review.md)
 - [WPHX PHP backend strategy](oracle-wphx-php-backend-strategy-review.md)
 - [WPHX PHP compiler adoption](oracle-wphx-php-compiler-adoption-review.md)
+- [WPHX PHP pivot soundness](oracle-wphx-php-pivot-soundness-review.md)
 
-Accepted response:
+Accepted responses:
 
 - The 2026-06-29 original-path PHP emission response keeps the hybrid execution strategy: stock Haxe PHP is the private implementation emitter; WPHX PHP is the staged custom compiler lane for bounded WordPress original-path public adapters. The response does not recommend a stock PHP generator fork or immediate arbitrary-Haxe `reflaxe.php` backend flip yet.
+- The 2026-07-03 pivot-soundness response keeps the ADR-015/ADR-016/ADR-017 direction: the WPHX PHP pivot is sound with amber conditions after the usable-compiler gate and first post-pivot public slices. WPHX PHP should remain the in-repo staged Adapter IR / reusable PHP core IR / WordPress-profile lane for new public WordPress PHP emission. Stock Haxe PHP remains the private implementation emitter and `std/php` behavior oracle until a later backend-promotion ADR. Do not start a parallel extracted `reflaxe.php` target yet; start extraction hygiene and add profile-accretion, continuous adoption-CI, private-emitter ladder, plugin/reflection/stack-trace, and whole-file inventory gates. The response is recorded in `receipts/operations/wphx-comp-php-pivot-soundness-oracle-response.v1.json` and summarized in `docs/operations/oracle-wphx-php-pivot-soundness-response.md`.
 
 Pending review:
 
-- ADR-015 keeps WPHX PHP on the staged Adapter IR path while acknowledging that the in-repo compiler uses Reflaxe infrastructure. Before WPHX PHP is promoted to a full backend or extracted `reflaxe.php` target, send the backend strategy prompt bundle to the oracle or record a deliberate deferral.
-- ADR-016 moves near-term focus to making WPHX PHP usable as the primary WordPress PHP compiler path. Before fully abandoning stock Haxe PHP as the private implementation emitter or claiming mature `reflaxe.php` scope, send the compiler adoption prompt bundle to the oracle or record a deliberate deferral.
+- Before WPHX PHP is promoted to a full backend, stock Haxe PHP is abandoned as private implementation emitter, or an extracted `reflaxe.php` target is claimed mature, the next ADR must either satisfy the 2026-07-03 pivot-soundness stop/promotion criteria or record a deliberate deferral with rationale. The earlier backend-strategy and compiler-adoption prompt bundles remain useful ADR inputs, but the pivot-soundness response is now the governing oracle checkpoint.

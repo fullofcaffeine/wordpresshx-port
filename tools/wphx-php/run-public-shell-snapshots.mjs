@@ -293,6 +293,29 @@ const CASES = [
     }
   },
   {
+    id: "wp-oembed-provider-class-shell",
+    hxml: "fixtures/wphx-php/wp-oembed-providers.hxml",
+    selected: "wp-includes/class-wp-oembed.php",
+    shell_shapes: ["public_class", "allow_dynamic_properties", "native_array_mutation", "top_level_bootstrap_side_effect"],
+    exact_patterns: [
+      "if (!defined('WPHX_WP_OEMBED_BOOTSTRAPPED'))",
+      "#[AllowDynamicProperties]",
+      "class WP_oEmbed",
+      "public $providers = array();",
+      "public static $early_providers = array();",
+      "public static function _add_provider_early($format, $provider, $regex = false)",
+      "empty( self::$early_providers['add'] )",
+      "self::$early_providers['add'][ $format ] = array(",
+      "public static function _remove_provider_early($format)",
+      "empty( self::$early_providers['remove'] )",
+      "self::$early_providers['remove'][] = $format;"
+    ],
+    ast_expect: {
+      classes: ["WP_oEmbed"],
+      methods: ["_add_provider_early", "_remove_provider_early"]
+    }
+  },
+  {
     id: "https-module-functions-detection",
     hxml: "fixtures/wphx-php/https-module-functions.hxml",
     selected: "wp-includes/https-detection.php",

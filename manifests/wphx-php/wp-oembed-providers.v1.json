@@ -1,0 +1,375 @@
+{
+  "schema": "wphx.wphx-php-wp-oembed-providers.v1",
+  "issue": {
+    "id": "wordpresshx-f2w7",
+    "external_ref": "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER",
+    "title": "Expand feed embed HTTPS original-path adapters"
+  },
+  "recorded_at": "2026-07-02T23:59:45Z",
+  "evidence_class": "compiler_emitted_original_path_shell",
+  "source_files": [
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 58645,
+      "sha256": "sha256:0e2c354d225ff1488f6370dffd875dd2604d9ff9c954d712c69d210477d6d9b1"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "bytes": 85983,
+      "sha256": "sha256:3507856113016d936ae40607cb89d58e4125835b5c7deb18770b39db04c590c8"
+    },
+    {
+      "path": "fixtures/wphx-php/wp-oembed-providers.hxml",
+      "bytes": 375,
+      "sha256": "sha256:50202a5f68e3c05544bd7945aa042713e24dcabeee8ebd0934efe7729442063f"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpOembedProvidersEntry.hx",
+      "bytes": 357,
+      "sha256": "sha256:37ce70d3cf2a2115a7cf5ee16451e6f9f4deb09aa8337328a8b97da551245e42"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpOembedShell.hx",
+      "bytes": 1042,
+      "sha256": "sha256:ea037466260b8baf2cddcf28eea707bd440911ca89bdc268eee21420edefa2c6"
+    }
+  ],
+  "oracle_source": {
+    "path": "../wordpress-develop/src/wp-includes/class-wp-oembed.php",
+    "sha256": "sha256:e393199542d6a35d421a9966beb6e169a8495dbeafcfe11924a86346ad2ad43b"
+  },
+  "generated": {
+    "path": "build/wphx-php/wp-oembed-providers/generated/wp-includes/class-wp-oembed.php",
+    "sha256": "sha256:976f8835a8a6fb1ac826d989bd7ebea3907e358b92e7932c71a15b4a2d0fb790",
+    "lint": "No syntax errors detected in build/wphx-php/wp-oembed-providers/generated/wp-includes/class-wp-oembed.php",
+    "exact_patterns": {
+      "if (!defined('WPHX_WP_OEMBED_BOOTSTRAPPED'))": true,
+      "#[AllowDynamicProperties]": true,
+      "class WP_oEmbed": true,
+      "public $providers = array();": true,
+      "public static $early_providers = array();": true,
+      "public static function _add_provider_early($format, $provider, $regex = false)": true,
+      "empty( self::$early_providers['add'] )": true,
+      "self::$early_providers['add'][ $format ] = array(": true,
+      "public static function _remove_provider_early($format)": true,
+      "empty( self::$early_providers['remove'] )": true,
+      "self::$early_providers['remove'][] = $format;": true
+    },
+    "emission_manifest": {
+      "path": "build/wphx-php/wp-oembed-providers/generated/wphx-php-emission.v1.json",
+      "sha256": "sha256:8569b374e62f1c30cd7e222caa1b9ea7a82f56f5d60cf71acd2b057c2318b228",
+      "unsupported": [],
+      "declarations": [
+        {
+          "name": "WP_oEmbed",
+          "haxeModule": "wphx.fixtures.compiler.php.embed.WpOembedShell",
+          "source": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/embed/WpOembedShell.hx",
+          "kind": "class",
+          "guarded": false
+        }
+      ],
+      "core_ir_features": [
+        "expr.array-append",
+        "expr.array-read",
+        "expr.function-call",
+        "expr.long-array",
+        "expr.static-property",
+        "stmt.assign",
+        "stmt.if"
+      ]
+    }
+  },
+  "oracle": {
+    "path": "build/wphx-php/wp-oembed-providers/oracle/wp-includes/class-wp-oembed.php",
+    "sha256": "sha256:e393199542d6a35d421a9966beb6e169a8495dbeafcfe11924a86346ad2ad43b",
+    "lint": "No syntax errors detected in build/wphx-php/wp-oembed-providers/oracle/wp-includes/class-wp-oembed.php"
+  },
+  "cases": [
+    {
+      "id": "wp-oembed-providers:property-defaults",
+      "focus": "reflection-visible providers and early_providers default arrays"
+    },
+    {
+      "id": "wp-oembed-providers:add-default-regex-false",
+      "focus": "_add_provider_early writes provider and default false regex"
+    },
+    {
+      "id": "wp-oembed-providers:add-regex-true",
+      "focus": "_add_provider_early preserves true regex flag"
+    },
+    {
+      "id": "wp-oembed-providers:remove-order",
+      "focus": "_remove_provider_early appends formats in call order"
+    },
+    {
+      "id": "wp-oembed-providers:add-remove-buckets",
+      "focus": "add and remove buckets coexist without clobbering each other"
+    }
+  ],
+  "observations": {
+    "oracle": {
+      "wp-oembed-providers:property-defaults": {
+        "case": "wp-oembed-providers:property-defaults",
+        "property_defaults": {
+          "providers": [],
+          "early_providers": []
+        },
+        "assertions": {
+          "providers_default_array": true,
+          "early_providers_default_array": true
+        }
+      },
+      "wp-oembed-providers:add-default-regex-false": {
+        "case": "wp-oembed-providers:add-default-regex-false",
+        "early_providers": {
+          "add": {
+            "https://early.example/*": [
+              "https://early.example/oembed",
+              false
+            ]
+          }
+        },
+        "assertions": {
+          "add_bucket": true
+        }
+      },
+      "wp-oembed-providers:add-regex-true": {
+        "case": "wp-oembed-providers:add-regex-true",
+        "early_providers": {
+          "add": {
+            "#https://regex.example/(.*)#i": [
+              "https://regex.example/oembed",
+              true
+            ]
+          }
+        },
+        "assertions": {
+          "regex_true": true
+        }
+      },
+      "wp-oembed-providers:remove-order": {
+        "case": "wp-oembed-providers:remove-order",
+        "early_providers": {
+          "remove": [
+            "https://removed.example/*",
+            "#https://regex-remove.example/(.*)#i"
+          ]
+        },
+        "assertions": {
+          "remove_order": true
+        }
+      },
+      "wp-oembed-providers:add-remove-buckets": {
+        "case": "wp-oembed-providers:add-remove-buckets",
+        "early_providers": {
+          "add": {
+            "https://both.example/*": [
+              "https://both.example/oembed",
+              false
+            ]
+          },
+          "remove": [
+            "https://old.example/*"
+          ]
+        },
+        "assertions": {
+          "add_bucket_preserved": true,
+          "remove_bucket_preserved": true
+        }
+      }
+    },
+    "candidate": {
+      "wp-oembed-providers:property-defaults": {
+        "case": "wp-oembed-providers:property-defaults",
+        "property_defaults": {
+          "providers": [],
+          "early_providers": []
+        },
+        "assertions": {
+          "providers_default_array": true,
+          "early_providers_default_array": true
+        }
+      },
+      "wp-oembed-providers:add-default-regex-false": {
+        "case": "wp-oembed-providers:add-default-regex-false",
+        "early_providers": {
+          "add": {
+            "https://early.example/*": [
+              "https://early.example/oembed",
+              false
+            ]
+          }
+        },
+        "assertions": {
+          "add_bucket": true
+        }
+      },
+      "wp-oembed-providers:add-regex-true": {
+        "case": "wp-oembed-providers:add-regex-true",
+        "early_providers": {
+          "add": {
+            "#https://regex.example/(.*)#i": [
+              "https://regex.example/oembed",
+              true
+            ]
+          }
+        },
+        "assertions": {
+          "regex_true": true
+        }
+      },
+      "wp-oembed-providers:remove-order": {
+        "case": "wp-oembed-providers:remove-order",
+        "early_providers": {
+          "remove": [
+            "https://removed.example/*",
+            "#https://regex-remove.example/(.*)#i"
+          ]
+        },
+        "assertions": {
+          "remove_order": true
+        }
+      },
+      "wp-oembed-providers:add-remove-buckets": {
+        "case": "wp-oembed-providers:add-remove-buckets",
+        "early_providers": {
+          "add": {
+            "https://both.example/*": [
+              "https://both.example/oembed",
+              false
+            ]
+          },
+          "remove": [
+            "https://old.example/*"
+          ]
+        },
+        "assertions": {
+          "add_bucket_preserved": true,
+          "remove_bucket_preserved": true
+        }
+      }
+    }
+  },
+  "comparable": {
+    "oracle": {
+      "wp-oembed-providers:property-defaults": {
+        "property_defaults": {
+          "providers": [],
+          "early_providers": []
+        },
+        "early_providers": null
+      },
+      "wp-oembed-providers:add-default-regex-false": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "https://early.example/*": [
+              "https://early.example/oembed",
+              false
+            ]
+          }
+        }
+      },
+      "wp-oembed-providers:add-regex-true": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "#https://regex.example/(.*)#i": [
+              "https://regex.example/oembed",
+              true
+            ]
+          }
+        }
+      },
+      "wp-oembed-providers:remove-order": {
+        "property_defaults": null,
+        "early_providers": {
+          "remove": [
+            "https://removed.example/*",
+            "#https://regex-remove.example/(.*)#i"
+          ]
+        }
+      },
+      "wp-oembed-providers:add-remove-buckets": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "https://both.example/*": [
+              "https://both.example/oembed",
+              false
+            ]
+          },
+          "remove": [
+            "https://old.example/*"
+          ]
+        }
+      }
+    },
+    "candidate": {
+      "wp-oembed-providers:property-defaults": {
+        "property_defaults": {
+          "providers": [],
+          "early_providers": []
+        },
+        "early_providers": null
+      },
+      "wp-oembed-providers:add-default-regex-false": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "https://early.example/*": [
+              "https://early.example/oembed",
+              false
+            ]
+          }
+        }
+      },
+      "wp-oembed-providers:add-regex-true": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "#https://regex.example/(.*)#i": [
+              "https://regex.example/oembed",
+              true
+            ]
+          }
+        }
+      },
+      "wp-oembed-providers:remove-order": {
+        "property_defaults": null,
+        "early_providers": {
+          "remove": [
+            "https://removed.example/*",
+            "#https://regex-remove.example/(.*)#i"
+          ]
+        }
+      },
+      "wp-oembed-providers:add-remove-buckets": {
+        "property_defaults": null,
+        "early_providers": {
+          "add": {
+            "https://both.example/*": [
+              "https://both.example/oembed",
+              false
+            ]
+          },
+          "remove": [
+            "https://old.example/*"
+          ]
+        }
+      }
+    }
+  },
+  "claims": [
+    "WPHX PHP emits an original-path wp-includes/class-wp-oembed.php shell with class WP_oEmbed.",
+    "The generated shell preserves #[AllowDynamicProperties] plus reflection-visible public providers and public static early_providers default arrays.",
+    "The WordPress-profile Adapter IR emits _add_provider_early queue initialization and keyed provider writes through self::$early_providers without raw PHP blocks.",
+    "The WordPress-profile Adapter IR emits _remove_provider_early queue initialization and append writes through self::$early_providers without raw PHP blocks.",
+    "The compiler core now has PhpStaticProperty IR and static property default metadata support used by this shell."
+  ],
+  "non_claims": [
+    "This fixture does not claim WP_oEmbed::__construct, the built-in provider table, provider matching, __call, get_provider, get_data, get_html, discover, fetch, JSON/XML parsing, data2html, _strip_newlines, live oEmbed network behavior, REST controller behavior, or installed WordPress behavior.",
+    "This fixture does not claim full class-wp-oembed.php ownership.",
+    "This fixture does not claim arbitrary Haxe static property lowering beyond the bounded WPHX PHP IR feature exercised here."
+  ]
+}

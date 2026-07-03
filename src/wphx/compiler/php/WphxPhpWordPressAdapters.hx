@@ -146,6 +146,10 @@ class WphxPhpWordPressAdapters
 				embedCacheOembed(fieldName);
 			case "wp-embed-find-oembed-post-id":
 				embedFindOembedPostId(fieldName);
+			case "wp-oembed-add-provider-early":
+				oembedAddProviderEarly(fieldName);
+			case "wp-oembed-remove-provider-early":
+				oembedRemoveProviderEarly(fieldName);
 			case _:
 				null;
 		}
@@ -690,6 +694,47 @@ class WphxPhpWordPressAdapters
 				PhpReturn(oembedPostId)
 			]),
 			PhpReturn(PhpNull)
+		]);
+	}
+
+	static function earlyProvidersBucket(name:String):PhpCoreExpr
+	{
+		return PhpArrayRead(PhpStaticProperty("self", "early_providers"), PhpString(name));
+	}
+
+	static function oembedAddProviderEarly(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final addBucket = earlyProvidersBucket("add");
+		final providerSlot = PhpArrayRead(addBucket, PhpVar("format"));
+
+		return plan([
+			"stmt.if",
+			"stmt.assign",
+			"expr.static-property",
+			"expr.array-read",
+			"expr.long-array",
+			"expr.function-call"
+		], [
+			PhpIf(PhpFunctionCall("empty", [addBucket]), [PhpAssign(addBucket, PhpLongArray([]))]),
+			PhpAssign(providerSlot, PhpLongArray([item(PhpVar("provider")), item(PhpVar("regex"))]))
+		]);
+	}
+
+	static function oembedRemoveProviderEarly(fieldName:String):WordPressMethodAdapterPlan
+	{
+		final removeBucket = earlyProvidersBucket("remove");
+
+		return plan([
+			"stmt.if",
+			"stmt.assign",
+			"expr.static-property",
+			"expr.array-read",
+			"expr.array-append",
+			"expr.long-array",
+			"expr.function-call"
+		], [
+			PhpIf(PhpFunctionCall("empty", [removeBucket]), [PhpAssign(removeBucket, PhpLongArray([]))]),
+			PhpAssign(PhpArrayAppend(removeBucket), PhpVar("format"))
 		]);
 	}
 

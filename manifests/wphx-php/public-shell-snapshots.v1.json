@@ -426,6 +426,55 @@
       }
     },
     {
+      "id": "wp-oembed-provider-class-shell",
+      "evidence_class": "generated_shape",
+      "artifact_scope": "minimized_fixture",
+      "shell_shapes": [
+        "public_class",
+        "allow_dynamic_properties",
+        "native_array_mutation",
+        "top_level_bootstrap_side_effect"
+      ],
+      "hxml": "fixtures/wphx-php/wp-oembed-providers.hxml",
+      "selected_file": "build/wphx-php/public-shell-snapshots/first/wp-oembed-provider-class-shell/generated/wp-includes/class-wp-oembed.php",
+      "bytes": 1117,
+      "sha256": "sha256:976f8835a8a6fb1ac826d989bd7ebea3907e358b92e7932c71a15b4a2d0fb790",
+      "byte_stable_across_clean_compiles": true,
+      "php_lint": "passed",
+      "exact_patterns": [
+        "if (!defined('WPHX_WP_OEMBED_BOOTSTRAPPED'))",
+        "#[AllowDynamicProperties]",
+        "class WP_oEmbed",
+        "public $providers = array();",
+        "public static $early_providers = array();",
+        "public static function _add_provider_early($format, $provider, $regex = false)",
+        "empty( self::$early_providers['add'] )",
+        "self::$early_providers['add'][ $format ] = array(",
+        "public static function _remove_provider_early($format)",
+        "empty( self::$early_providers['remove'] )",
+        "self::$early_providers['remove'][] = $format;"
+      ],
+      "ast_contract": {
+        "functions": [],
+        "classes": [
+          "WP_oEmbed"
+        ],
+        "interfaces": [],
+        "methods": [
+          "_add_provider_early",
+          "_remove_provider_early"
+        ],
+        "protected_methods": [],
+        "by_reference_parameters": []
+      },
+      "segment_plan_contract": null,
+      "manifest": {
+        "path": "build/wphx-php/public-shell-snapshots/first/wp-oembed-provider-class-shell/generated/wphx-php-emission.v1.json",
+        "bytes": 837,
+        "sha256": "sha256:8569b374e62f1c30cd7e222caa1b9ea7a82f56f5d60cf71acd2b057c2318b228"
+      }
+    },
+    {
       "id": "https-module-functions-detection",
       "evidence_class": "generated_shape",
       "artifact_scope": "minimized_fixture",
@@ -1587,7 +1636,7 @@
   "validation_result": {
     "status": "passed",
     "clean_compile_passes": 2,
-    "case_count": 24,
+    "case_count": 25,
     "all_selected_outputs_byte_stable": true,
     "php_lint_passed": true,
     "exact_contracts_passed": true,
