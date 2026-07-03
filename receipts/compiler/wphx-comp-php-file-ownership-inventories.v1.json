@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-file-ownership-inventories",
+  "issue": {
+    "id": "wordpresshx-9esi",
+    "external_ref": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+    "title": "Inventory HTTP/embed/oEmbed whole-file ownership gates"
+  },
+  "recorded_at": "2026-07-03T12:00:00Z",
+  "status": "passed",
+  "evidence_class": "whole_file_ownership_inventory_gate",
+  "artifact_scope": "source_surface_inventory_for_class_wp_http_embed_oembed_before_full_file_claims",
+  "command": "npm run wphx:php:file-ownership-inventories",
+  "check_command": "npm run wphx:php:file-ownership-inventories:check",
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-file-ownership-inventories.mjs",
+      "role": "deterministic source-surface inventory runner"
+    },
+    {
+      "path": "manifests/wphx-php/file-ownership-inventories.v1.json",
+      "role": "file ownership inventory manifest"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation updated with inventory gate"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program progress matrix updated with inventory gate"
+    }
+  ],
+  "manifest_sha256": "sha256:f7657fdedccbbdd1d62a5ef3df3077c6aabd862b123a4c9522b7a87df31467a9",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "inventory_count": 3,
+    "expected_file_count": 3,
+    "all_expected_classes_found": true,
+    "all_current_claimed_symbols_exist_in_source": true,
+    "all_files_have_whole_file_gate_checklists": true,
+    "no_full_file_ownership_claims": true
+  },
+  "claims": [
+    "The three HTTP/embed/oEmbed class files now have source-derived inventories and whole-file ownership gate checklists.",
+    "Current generated WPHX PHP evidence for these files is classified as selected-boundary evidence, not full-file ownership.",
+    "Future class-wp-http.php, class-wp-embed.php, and class-wp-oembed.php method additions should cite the relevant inventory before broadening ownership claims."
+  ],
+  "non_claims": [
+    "This manifest does not claim full class-wp-http.php, class-wp-embed.php, or class-wp-oembed.php ownership.",
+    "This manifest does not claim installed WordPress distribution behavior, live HTTP/oEmbed transport ownership, full WP_Embed editor/admin behavior, or complete upstream PHPUnit parity.",
+    "This manifest does not reduce the need for plugin/theme reflection, packaged stack-trace/source-map, readability, and installed/package gates before broad public distribution claims."
+  ]
+}

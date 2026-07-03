@@ -133,6 +133,15 @@ const REQUIRED_MANIFEST_CHECKS = [
       "Routes current direct-script, minimized whole-file, and template segment adapters through the reusable file-segment plan registry instead of named script switches."
   },
   {
+    key: "fileOwnershipInventories",
+    path: "manifests/wphx-php/file-ownership-inventories.v1.json",
+    script: "wphx:php:file-ownership-inventories:check",
+    applies_to_public_boundary: false,
+    continuous_outcomes: ["whole_file_ownership_gate", "filed_backend_pressure_evidence"],
+    outcome_note:
+      "Keeps class-wp-http.php, class-wp-embed.php, and class-wp-oembed.php current generated shells classified as selected-boundary evidence until source-surface, installed/package, reflection, stack-trace, and PHPUnit whole-file gates pass."
+  },
+  {
     key: "bootstrapAutoload",
     path: "manifests/wphx-php/bootstrap-autoload.v1.json",
     script: "wphx:php:bootstrap-autoload:check",
