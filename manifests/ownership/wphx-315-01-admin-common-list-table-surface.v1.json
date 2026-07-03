@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/admin-common-list-table-surface",
+  "issue": {
+    "id": "wordpresshx-l76.21.1",
+    "external_ref": "WPHX-315.01"
+  },
+  "unit": {
+    "kind": "surface_inventory",
+    "name": "admin common, admin chrome, current screen, menus, notices, and list-table surface",
+    "area": "wp-admin/admin.php wp-admin/admin-header.php wp-admin/admin-footer.php wp-admin/includes/class-wp-screen.php wp-admin/includes/class-wp-list-table.php wp-admin/includes/list-table.php wp-admin/menu.php",
+    "public_contract": "This slice inventories WordPress admin common/list-table runtime boundaries and fixture targets. It does not claim migrated runtime behavior, feature-screen ownership, admin AJAX ownership, or public PHP ABI replacement."
+  },
+  "ownership_state": "oracle_surface_inventory",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_described",
+    "adapter_contract_owner": "not_yet_started",
+    "emission_strategy": "none",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "surface_inventory"
+  },
+  "bridge": {
+    "exists": false,
+    "kind": "not_applicable",
+    "removal_gate": "Promote bounded admin common/list-table decisions to typed Haxe adapter contracts, then later to typed Adapter IR/original-path PHP with admin request, screen, list-table, menu, notices, installed admin, and upstream PHPUnit/e2e evidence."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-admin-common-list-table-surface.mjs",
+    "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+    "manifests/ownership/wphx-315-01-admin-common-list-table-surface.v1.json",
+    "receipts/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+    "manifests/ownership/wphx-315-01-admin-common-list-table-surface.v1.json",
+    "receipts/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-315-admin-common-list-table-surface",
+      "npm run wp:core:wphx-315-admin-common-list-table-surface:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-315-01-admin-common-list-table-surface"
+    ],
+    "manifest_digest": "sha256:85887acd510bedc90b2d24644965961ea909f6bfe6a72eee6452dbe4665c7a22"
+  }
+}

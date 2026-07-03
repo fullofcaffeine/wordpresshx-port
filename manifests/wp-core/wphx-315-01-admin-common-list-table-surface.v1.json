@@ -1,0 +1,2671 @@
+{
+  "schema": "wphx.wp-core-admin-common-list-table-surface.v1",
+  "issue": "WPHX-315.01",
+  "generated_at": "2026-07-03T14:00:00.000Z",
+  "generator": "tools/wp-core/run-admin-common-list-table-surface.mjs",
+  "inputs": {
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    },
+    "vendor_closure": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    }
+  },
+  "scope": {
+    "owner": "WPHX-315",
+    "included": "C1 WordPress 7.0 PHP source and distribution artifacts classified to admin bootstrap/chrome, shared admin helpers, screens/help/options, menu/navigation helpers, list-table base and selected specializations, dashboard/site-health helpers, privacy tools, import/export helpers, and shared admin output by the WPHX-322 owner rules.",
+    "cross_domain_notes": [
+      {
+        "owner": "WPHX-306",
+        "reason": "Admin common behavior depends on users, capabilities, auth cookies, nonces, and application passwords without moving those primitives into WPHX-315."
+      },
+      {
+        "owner": "WPHX-307/WPHX-308",
+        "reason": "Post, comment, taxonomy, and term admin list tables need source-domain query/storage behavior before installed admin claims."
+      },
+      {
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and navigation menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "owner": "WPHX-312/WPHX-313",
+        "reason": "Privacy export/erasure, media, filesystem, and upload admin paths coordinate with HTTP/mail/privacy and media/filesystem source domains."
+      },
+      {
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX flows build on admin common/list-table primitives and remain the next admin layer."
+      },
+      {
+        "owner": "WPHX-317/WPHX-319",
+        "reason": "Network admin, updater/installer/recovery, and filesystem transport behavior require multisite/update domain evidence before admin ownership claims."
+      },
+      {
+        "owner": "WPHX-323",
+        "reason": "PclZip and any other bundled-library internals remain preserved-vendor/library boundaries and are not claimed as Haxe-owned admin logic."
+      }
+    ],
+    "semantic_handoff_candidates": [
+      {
+        "path": "src/wp-admin/_index.php",
+        "owner": "WPHX-309",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-admin/admin-ajax.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/admin-post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/async-upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/authorize-application.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/credits.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/customize.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/edit-comments.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/edit-form-advanced.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/edit-form-blocks.php",
+        "owner": "WPHX-314",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-admin/edit-form-comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/edit-link-form.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/edit-tag-form.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/edit-tags.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/edit.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/includes/ajax-actions.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-bulk-theme-upgrader-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-core-upgrader.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-custom-image-header.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-file-upload-upgrader.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-installer-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-upgrader-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-upgrader.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-application-passwords-list-table.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-comments-list-table.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-filesystem-base.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-filesystem-direct.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-filesystem-ftpext.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-filesystem-ftpsockets.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-filesystem-ssh2.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-media-list-table.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ms-sites-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ms-themes-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ms-users-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-post-comments-list-table.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-posts-list-table.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php",
+        "owner": "WPHX-312",
+        "reason": "Privacy export/erasure mail, HTTP, and feed/embed helpers remain WPHX-312 behavior beneath admin UI entry points."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-data-removal-requests-list-table.php",
+        "owner": "WPHX-312",
+        "reason": "Privacy export/erasure mail, HTTP, and feed/embed helpers remain WPHX-312 behavior beneath admin UI entry points."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-requests-table.php",
+        "owner": "WPHX-312",
+        "reason": "Privacy export/erasure mail, HTTP, and feed/embed helpers remain WPHX-312 behavior beneath admin UI entry points."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-terms-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-theme-install-list-table.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-themes-list-table.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-upgrader-skins.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-upgrader.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-users-list-table.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/credits.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/includes/edit-tag-messages.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/includes/file.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/image-edit.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/image.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/ms-admin-filters.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/ms-deprecated.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/includes/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/privacy-tools.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/includes/revision.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/taxonomy.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/includes/template.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/theme.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/translation-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/user.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/index.php",
+        "owner": "WPHX-309",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-admin/install-helper.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/media-new.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/media-upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-admin.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-delete-site.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-edit.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-options.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-sites.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-themes.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-upgrade-network.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/ms-users.php",
+        "owner": "WPHX-317",
+        "reason": "Network admin, multisite list tables, and site/user network state remain WPHX-317 behavior."
+      },
+      {
+        "path": "src/wp-admin/network/about.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/admin.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/contribute.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/credits.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/edit.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/freedoms.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/index.php",
+        "owner": "WPHX-309",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-admin/network/plugin-editor.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/plugins.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/privacy.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/profile.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/network/settings.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/setup.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/site-info.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/site-new.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/site-settings.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/site-themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/site-users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/network/sites.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/theme-editor.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/upgrade.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/network/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/network/user-new.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/network/users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/options-connectors.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-discussion.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-general.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-head.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/options-permalink.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-privacy.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-reading.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/options-writing.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/plugin-editor.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/post-new.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/profile.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/revision.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/site-editor.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/term.php",
+        "owner": "WPHX-308",
+        "reason": "Admin post, taxonomy, and comment screens expose list-table behavior while storage/query/comment semantics remain their source-domain owners."
+      },
+      {
+        "path": "src/wp-admin/theme-editor.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/tools.php",
+        "owner": "WPHX-316",
+        "reason": "Feature screens and AJAX are the next admin layer after common chrome, request state, and list-table primitives."
+      },
+      {
+        "path": "src/wp-admin/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, recovery, and filesystem transport flows wrap admin common surfaces but remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/image/filesystem helpers are used by admin screens but remain WPHX-313 source-domain behavior."
+      },
+      {
+        "path": "src/wp-admin/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user-new.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/about.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/admin.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/contribute.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/credits.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/freedoms.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/index.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/menu.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/privacy.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/profile.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/user/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin screens depend on users, capabilities, nonces, application passwords, and auth state, but those primitives remain WPHX-306 ownership."
+      },
+      {
+        "path": "src/wp-admin/widgets-form-blocks.php",
+        "owner": "WPHX-314",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/footer-menus-widgets.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwenty/template-parts/modal-menu.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyfour/patterns/gallery-full-screen-image.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-content/themes/twentytwentyone/inc/menu-functions.php",
+        "owner": "WPHX-320",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/admin-bar.php",
+        "owner": "WPHX-301",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/blocks/navigation-link/shared/render-submenu-icon.php",
+        "owner": "WPHX-314",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/blocks/navigation-submenu.php",
+        "owner": "WPHX-314",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/build/pages/font-library/page-wp-admin.php",
+        "owner": "WPHX-301",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/build/pages/options-connectors/page-wp-admin.php",
+        "owner": "WPHX-304",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/class-wp-admin-bar.php",
+        "owner": "WPHX-301",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/class-wp-classic-to-block-menu-converter.php",
+        "owner": "WPHX-314",
+        "reason": "Current owner rules assign this path to another domain; WPHX-315 must coordinate behavior without changing ownership there."
+      },
+      {
+        "path": "src/wp-includes/class-wp-customize-nav-menus.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-auto-add-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-item-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-item-setting.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-location-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-locations-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-name-control.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-includes/customize/class-wp-customize-nav-menu-section.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, and nav-menu admin surfaces share admin chrome but remain theme/customizer ownership."
+      }
+    ]
+  },
+  "coverage": {
+    "source_count": 86,
+    "artifact_count": 86,
+    "abi_entry_count": 1141,
+    "class_count": 28,
+    "named_class_count": 28,
+    "test_count": 73,
+    "source_by_group": {
+      "about_credits_pages": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/about.php",
+          "src/wp-admin/contribute.php",
+          "src/wp-admin/freedoms.php"
+        ]
+      },
+      "admin_asset_loader": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/load-scripts.php",
+          "src/wp-admin/load-styles.php"
+        ]
+      },
+      "admin_bootstrap_chrome": {
+        "count": 5,
+        "paths": [
+          "src/wp-admin/admin-footer.php",
+          "src/wp-admin/admin-functions.php",
+          "src/wp-admin/admin-header.php",
+          "src/wp-admin/admin.php",
+          "src/wp-admin/includes/admin.php"
+        ]
+      },
+      "admin_common_shared": {
+        "count": 22,
+        "paths": [
+          "src/wp-admin/custom-background.php",
+          "src/wp-admin/custom-header.php",
+          "src/wp-admin/font-library.php",
+          "src/wp-admin/includes/admin-filters.php",
+          "src/wp-admin/includes/class-custom-background.php",
+          "src/wp-admin/includes/class-wp-internal-pointers.php",
+          "src/wp-admin/includes/class-wp-site-icon.php",
+          "src/wp-admin/includes/meta-boxes.php",
+          "src/wp-admin/includes/ms.php",
+          "src/wp-admin/includes/network.php",
+          "src/wp-admin/includes/options.php",
+          "src/wp-admin/includes/schema.php",
+          "src/wp-admin/includes/widgets.php",
+          "src/wp-admin/link.php",
+          "src/wp-admin/maint/repair.php",
+          "src/wp-admin/my-sites.php",
+          "src/wp-admin/network.php",
+          "src/wp-admin/options.php",
+          "src/wp-admin/press-this.php",
+          "src/wp-admin/setup-config.php",
+          "src/wp-admin/widgets-form.php",
+          "src/wp-admin/widgets.php"
+        ]
+      },
+      "admin_misc_compat": {
+        "count": 5,
+        "paths": [
+          "src/wp-admin/includes/continents-cities.php",
+          "src/wp-admin/includes/deprecated.php",
+          "src/wp-admin/includes/misc.php",
+          "src/wp-admin/includes/noop.php",
+          "src/wp-admin/moderation.php"
+        ]
+      },
+      "dashboard_site_health": {
+        "count": 6,
+        "paths": [
+          "src/wp-admin/includes/class-wp-community-events.php",
+          "src/wp-admin/includes/class-wp-debug-data.php",
+          "src/wp-admin/includes/class-wp-site-health.php",
+          "src/wp-admin/includes/dashboard.php",
+          "src/wp-admin/site-health-info.php",
+          "src/wp-admin/site-health.php"
+        ]
+      },
+      "filesystem_update_handoff": {
+        "count": 7,
+        "paths": [
+          "src/wp-admin/includes/class-ftp-pure.php",
+          "src/wp-admin/includes/class-ftp-sockets.php",
+          "src/wp-admin/includes/class-ftp.php",
+          "src/wp-admin/includes/class-pclzip.php",
+          "src/wp-admin/includes/upgrade.php",
+          "src/wp-admin/upgrade-functions.php",
+          "src/wp-admin/upgrade.php"
+        ]
+      },
+      "import_export_tools": {
+        "count": 5,
+        "paths": [
+          "src/wp-admin/export.php",
+          "src/wp-admin/import.php",
+          "src/wp-admin/includes/class-wp-importer.php",
+          "src/wp-admin/includes/export.php",
+          "src/wp-admin/includes/import.php"
+        ]
+      },
+      "links_bookmarks_admin": {
+        "count": 4,
+        "paths": [
+          "src/wp-admin/includes/bookmark.php",
+          "src/wp-admin/link-add.php",
+          "src/wp-admin/link-manager.php",
+          "src/wp-admin/link-parse-opml.php"
+        ]
+      },
+      "list_table_base_and_specializations": {
+        "count": 6,
+        "paths": [
+          "src/wp-admin/includes/class-wp-links-list-table.php",
+          "src/wp-admin/includes/class-wp-list-table-compat.php",
+          "src/wp-admin/includes/class-wp-list-table.php",
+          "src/wp-admin/includes/class-wp-plugin-install-list-table.php",
+          "src/wp-admin/includes/class-wp-plugins-list-table.php",
+          "src/wp-admin/includes/list-table.php"
+        ]
+      },
+      "menus_navigation_common": {
+        "count": 12,
+        "paths": [
+          "src/wp-admin/includes/class-walker-category-checklist.php",
+          "src/wp-admin/includes/class-walker-nav-menu-checklist.php",
+          "src/wp-admin/includes/class-walker-nav-menu-edit.php",
+          "src/wp-admin/includes/menu.php",
+          "src/wp-admin/includes/nav-menu.php",
+          "src/wp-admin/menu-header.php",
+          "src/wp-admin/menu.php",
+          "src/wp-admin/nav-menus.php",
+          "src/wp-admin/network/menu.php",
+          "src/wp-includes/class-walker-nav-menu.php",
+          "src/wp-includes/nav-menu.php",
+          "src/wp-includes/widgets/class-wp-nav-menu-widget.php"
+        ]
+      },
+      "plugin_admin_common": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/includes/plugin.php",
+          "src/wp-admin/plugins.php"
+        ]
+      },
+      "privacy_tools_admin": {
+        "count": 5,
+        "paths": [
+          "src/wp-admin/erase-personal-data.php",
+          "src/wp-admin/export-personal-data.php",
+          "src/wp-admin/includes/class-wp-privacy-policy-content.php",
+          "src/wp-admin/privacy-policy-guide.php",
+          "src/wp-admin/privacy.php"
+        ]
+      },
+      "screen_help_options": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/includes/class-wp-screen.php",
+          "src/wp-admin/includes/screen.php"
+        ]
+      }
+    },
+    "artifact_by_group": {
+      "about_credits_pages": {
+        "count": 3,
+        "paths": [
+          "wp-admin/about.php",
+          "wp-admin/contribute.php",
+          "wp-admin/freedoms.php"
+        ]
+      },
+      "admin_asset_loader": {
+        "count": 2,
+        "paths": [
+          "wp-admin/load-scripts.php",
+          "wp-admin/load-styles.php"
+        ]
+      },
+      "admin_bootstrap_chrome": {
+        "count": 5,
+        "paths": [
+          "wp-admin/admin-footer.php",
+          "wp-admin/admin-functions.php",
+          "wp-admin/admin-header.php",
+          "wp-admin/admin.php",
+          "wp-admin/includes/admin.php"
+        ]
+      },
+      "admin_common_shared": {
+        "count": 22,
+        "paths": [
+          "wp-admin/custom-background.php",
+          "wp-admin/custom-header.php",
+          "wp-admin/font-library.php",
+          "wp-admin/includes/admin-filters.php",
+          "wp-admin/includes/class-custom-background.php",
+          "wp-admin/includes/class-wp-internal-pointers.php",
+          "wp-admin/includes/class-wp-site-icon.php",
+          "wp-admin/includes/meta-boxes.php",
+          "wp-admin/includes/ms.php",
+          "wp-admin/includes/network.php",
+          "wp-admin/includes/options.php",
+          "wp-admin/includes/schema.php",
+          "wp-admin/includes/widgets.php",
+          "wp-admin/link.php",
+          "wp-admin/maint/repair.php",
+          "wp-admin/my-sites.php",
+          "wp-admin/network.php",
+          "wp-admin/options.php",
+          "wp-admin/press-this.php",
+          "wp-admin/setup-config.php",
+          "wp-admin/widgets-form.php",
+          "wp-admin/widgets.php"
+        ]
+      },
+      "admin_misc_compat": {
+        "count": 5,
+        "paths": [
+          "wp-admin/includes/continents-cities.php",
+          "wp-admin/includes/deprecated.php",
+          "wp-admin/includes/misc.php",
+          "wp-admin/includes/noop.php",
+          "wp-admin/moderation.php"
+        ]
+      },
+      "dashboard_site_health": {
+        "count": 6,
+        "paths": [
+          "wp-admin/includes/class-wp-community-events.php",
+          "wp-admin/includes/class-wp-debug-data.php",
+          "wp-admin/includes/class-wp-site-health.php",
+          "wp-admin/includes/dashboard.php",
+          "wp-admin/site-health-info.php",
+          "wp-admin/site-health.php"
+        ]
+      },
+      "filesystem_update_handoff": {
+        "count": 7,
+        "paths": [
+          "wp-admin/includes/class-ftp-pure.php",
+          "wp-admin/includes/class-ftp-sockets.php",
+          "wp-admin/includes/class-ftp.php",
+          "wp-admin/includes/class-pclzip.php",
+          "wp-admin/includes/upgrade.php",
+          "wp-admin/upgrade-functions.php",
+          "wp-admin/upgrade.php"
+        ]
+      },
+      "import_export_tools": {
+        "count": 5,
+        "paths": [
+          "wp-admin/export.php",
+          "wp-admin/import.php",
+          "wp-admin/includes/class-wp-importer.php",
+          "wp-admin/includes/export.php",
+          "wp-admin/includes/import.php"
+        ]
+      },
+      "links_bookmarks_admin": {
+        "count": 4,
+        "paths": [
+          "wp-admin/includes/bookmark.php",
+          "wp-admin/link-add.php",
+          "wp-admin/link-manager.php",
+          "wp-admin/link-parse-opml.php"
+        ]
+      },
+      "list_table_base_and_specializations": {
+        "count": 6,
+        "paths": [
+          "wp-admin/includes/class-wp-links-list-table.php",
+          "wp-admin/includes/class-wp-list-table-compat.php",
+          "wp-admin/includes/class-wp-list-table.php",
+          "wp-admin/includes/class-wp-plugin-install-list-table.php",
+          "wp-admin/includes/class-wp-plugins-list-table.php",
+          "wp-admin/includes/list-table.php"
+        ]
+      },
+      "menus_navigation_common": {
+        "count": 12,
+        "paths": [
+          "wp-admin/includes/class-walker-category-checklist.php",
+          "wp-admin/includes/class-walker-nav-menu-checklist.php",
+          "wp-admin/includes/class-walker-nav-menu-edit.php",
+          "wp-admin/includes/menu.php",
+          "wp-admin/includes/nav-menu.php",
+          "wp-admin/menu-header.php",
+          "wp-admin/menu.php",
+          "wp-admin/nav-menus.php",
+          "wp-admin/network/menu.php",
+          "wp-includes/class-walker-nav-menu.php",
+          "wp-includes/nav-menu.php",
+          "wp-includes/widgets/class-wp-nav-menu-widget.php"
+        ]
+      },
+      "plugin_admin_common": {
+        "count": 2,
+        "paths": [
+          "wp-admin/includes/plugin.php",
+          "wp-admin/plugins.php"
+        ]
+      },
+      "privacy_tools_admin": {
+        "count": 5,
+        "paths": [
+          "wp-admin/erase-personal-data.php",
+          "wp-admin/export-personal-data.php",
+          "wp-admin/includes/class-wp-privacy-policy-content.php",
+          "wp-admin/privacy-policy-guide.php",
+          "wp-admin/privacy.php"
+        ]
+      },
+      "screen_help_options": {
+        "count": 2,
+        "paths": [
+          "wp-admin/includes/class-wp-screen.php",
+          "wp-admin/includes/screen.php"
+        ]
+      }
+    },
+    "abi_by_group": {
+      "admin_asset_loader": {
+        "count": 5,
+        "functions": [],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "admin_bootstrap_chrome": {
+        "count": 6,
+        "functions": [],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "admin_common_shared": {
+        "count": 132,
+        "functions": [
+          "_access_denied_splash",
+          "_sort_name_callback",
+          "_thickbox_path_admin_subfolder",
+          "allow_subdirectory_install",
+          "allow_subdomain_install",
+          "attachment_id3_data_meta_box",
+          "attachment_submit_meta_box",
+          "avoid_blog_page_permalink_collision",
+          "can_edit_network",
+          "check_import_new_users",
+          "check_upload_size",
+          "choose_primary_blog",
+          "confirm_delete_users",
+          "display_space_usage",
+          "fix_import_form_size",
+          "format_code_lang",
+          "get_clean_basedomain",
+          "get_site_screen_help_sidebar_content",
+          "get_site_screen_help_tab_args",
+          "install_network",
+          "link_advanced_meta_box",
+          "link_categories_meta_box",
+          "link_submit_meta_box",
+          "link_target_meta_box",
+          "link_xfn_meta_box",
+          "mu_dropdown_languages",
+          "network_domain_check",
+          "network_edit_site_nav",
+          "network_settings_add_js",
+          "network_step1",
+          "network_step2",
+          "next_widget_id_number",
+          "options_discussion_add_js",
+          "options_general_add_js",
+          "options_reading_add_js",
+          "options_reading_blog_charset",
+          "page_attributes_meta_box",
+          "populate_network",
+          "populate_network_meta",
+          "populate_options",
+          "populate_roles",
+          "populate_roles_160",
+          "populate_roles_210",
+          "populate_roles_230",
+          "populate_roles_250",
+          "populate_roles_260",
+          "populate_roles_270",
+          "populate_roles_280",
+          "populate_roles_300",
+          "populate_site_meta",
+          "post_author_meta_box",
+          "post_categories_meta_box",
+          "post_comment_meta_box",
+          "post_comment_meta_box_thead",
+          "post_comment_status_meta_box",
+          "post_custom_meta_box",
+          "post_excerpt_meta_box",
+          "post_format_meta_box",
+          "post_revisions_meta_box",
+          "post_slug_meta_box",
+          "post_submit_meta_box",
+          "post_tags_meta_box",
+          "post_thumbnail_meta_box",
+          "post_trackback_meta_box",
+          "refresh_user_details",
+          "register_and_do_post_meta_boxes",
+          "setup_config_display_header",
+          "site_admin_notice",
+          "upload_is_user_over_quota",
+          "upload_space_setting",
+          "wp_ensure_editable_role",
+          "wp_get_db_schema",
+          "wp_list_widget_controls",
+          "wp_list_widget_controls_dynamic_sidebar",
+          "wp_list_widgets",
+          "wp_load_press_this",
+          "wp_widget_control",
+          "wp_widgets_access_body_class",
+          "wpmu_delete_blog",
+          "wpmu_delete_user",
+          "xfn_check"
+        ],
+        "classes": [
+          "Custom_Background",
+          "WP_Internal_Pointers",
+          "WP_Site_Icon"
+        ],
+        "methods": [
+          "Custom_Background::__construct",
+          "Custom_Background::admin_load",
+          "Custom_Background::admin_page",
+          "Custom_Background::ajax_background_add",
+          "Custom_Background::attachment_fields_to_edit",
+          "Custom_Background::filter_upload_tabs",
+          "Custom_Background::handle_upload",
+          "Custom_Background::init",
+          "Custom_Background::take_action",
+          "Custom_Background::wp_set_background_image",
+          "WP_Internal_Pointers::dismiss_pointers_for_new_users",
+          "WP_Internal_Pointers::enqueue_scripts",
+          "WP_Internal_Pointers::pointer_wp330_media_uploader",
+          "WP_Internal_Pointers::pointer_wp330_saving_widgets",
+          "WP_Internal_Pointers::pointer_wp330_toolbar",
+          "WP_Internal_Pointers::pointer_wp340_choose_image_from_library",
+          "WP_Internal_Pointers::pointer_wp340_customize_current_theme_link",
+          "WP_Internal_Pointers::pointer_wp350_media",
+          "WP_Internal_Pointers::pointer_wp360_locks",
+          "WP_Internal_Pointers::pointer_wp360_revisions",
+          "WP_Internal_Pointers::pointer_wp390_widgets",
+          "WP_Internal_Pointers::pointer_wp410_dfw",
+          "WP_Internal_Pointers::pointer_wp496_privacy",
+          "WP_Internal_Pointers::print_js",
+          "WP_Site_Icon::__construct",
+          "WP_Site_Icon::additional_sizes",
+          "WP_Site_Icon::create_attachment_object",
+          "WP_Site_Icon::delete_attachment_data",
+          "WP_Site_Icon::get_post_metadata",
+          "WP_Site_Icon::insert_attachment",
+          "WP_Site_Icon::intermediate_image_sizes"
+        ],
+        "properties": [
+          "Custom_Background::$admin_header_callback",
+          "Custom_Background::$admin_image_div_callback",
+          "Custom_Background::$updated",
+          "WP_Site_Icon::$min_size",
+          "WP_Site_Icon::$page_crop",
+          "WP_Site_Icon::$site_icon_sizes"
+        ]
+      },
+      "admin_misc_compat": {
+        "count": 156,
+        "functions": [
+          "__",
+          "_customizer_mobile_viewport_meta",
+          "_insert_into_post_button",
+          "_media_button",
+          "_relocate_children",
+          "_wp_privacy_requests_screen_options",
+          "_wp_privacy_settings_filter_draft_page_titles",
+          "_x",
+          "add_action",
+          "add_contextual_help",
+          "add_filter",
+          "add_object_page",
+          "add_option_update_handler",
+          "add_utility_page",
+          "admin_color_scheme_picker",
+          "admin_url",
+          "apply_filters",
+          "codepress_footer_js",
+          "codepress_get_lang",
+          "current_theme_info",
+          "did_action",
+          "do_action_ref_array",
+          "documentation_link",
+          "dropdown_categories",
+          "dropdown_link_categories",
+          "esc_attr",
+          "extract_from_markers",
+          "favorite_actions",
+          "get_allowed_themes",
+          "get_author_user_ids",
+          "get_bloginfo",
+          "get_broken_themes",
+          "get_default_page_to_edit",
+          "get_editable_authors",
+          "get_editable_user_ids",
+          "get_file",
+          "get_nonauthor_user_ids",
+          "get_option",
+          "get_others_drafts",
+          "get_others_pending",
+          "get_others_unpublished_posts",
+          "get_post_to_edit",
+          "get_real_file_to_edit",
+          "get_screen_icon",
+          "get_udims",
+          "got_mod_rewrite",
+          "got_url_rewrite",
+          "has_filter",
+          "heartbeat_autosave",
+          "home_url",
+          "iis7_add_rewrite_rule",
+          "iis7_delete_rewrite_rule",
+          "iis7_rewrite_rule_exists",
+          "iis7_save_url_rewrite_rules",
+          "image_attachment_fields_to_save",
+          "includes_url",
+          "insert_with_markers",
+          "is_admin",
+          "is_lighttpd_before_150",
+          "media_upload_audio",
+          "media_upload_file",
+          "media_upload_image",
+          "media_upload_video",
+          "options_permalink_add_js",
+          "post_form_autocomplete_off",
+          "remove_option_update_handler",
+          "saveDomDocument",
+          "save_mod_rewrite_rules",
+          "screen_icon",
+          "screen_layout",
+          "screen_meta",
+          "screen_options",
+          "set_screen_options",
+          "show_message",
+          "site_url",
+          "the_attachment_links",
+          "tinymce_include",
+          "type_url_form_audio",
+          "type_url_form_file",
+          "type_url_form_image",
+          "type_url_form_video",
+          "update_home_siteurl",
+          "update_option_new_admin_email",
+          "update_recently_edited",
+          "use_codepress",
+          "wp_admin_canonical_url",
+          "wp_admin_viewport_meta",
+          "wp_check_locked_posts",
+          "wp_check_php_version",
+          "wp_color_scheme_settings",
+          "wp_create_thumbnail",
+          "wp_dashboard_incoming_links",
+          "wp_dashboard_incoming_links_control",
+          "wp_dashboard_incoming_links_output",
+          "wp_dashboard_plugins",
+          "wp_dashboard_plugins_output",
+          "wp_dashboard_primary_control",
+          "wp_dashboard_quick_press_output",
+          "wp_dashboard_recent_comments_control",
+          "wp_dashboard_secondary",
+          "wp_dashboard_secondary_control",
+          "wp_dashboard_secondary_output",
+          "wp_doc_link_parse",
+          "wp_dropdown_cats",
+          "wp_guess_url",
+          "wp_heartbeat_set_suspension",
+          "wp_make_plugin_file_tree",
+          "wp_make_theme_file_tree",
+          "wp_nav_menu_locations_meta_box",
+          "wp_page_reload_on_back_button_js",
+          "wp_preload_dialogs",
+          "wp_print_editor_js",
+          "wp_print_plugin_file_tree",
+          "wp_print_theme_file_tree",
+          "wp_quicktags",
+          "wp_refresh_heartbeat_nonces",
+          "wp_refresh_metabox_loader_nonces",
+          "wp_refresh_post_lock",
+          "wp_refresh_post_nonces",
+          "wp_reset_vars",
+          "wp_shrink_dimensions",
+          "wp_tiny_mce",
+          "wp_update_core",
+          "wp_update_plugin",
+          "wp_update_theme"
+        ],
+        "classes": [
+          "WP_Privacy_Data_Export_Requests_Table",
+          "WP_Privacy_Data_Removal_Requests_Table",
+          "WP_User_Search"
+        ],
+        "methods": [
+          "WP_Privacy_Data_Export_Requests_Table::__construct",
+          "WP_Privacy_Data_Removal_Requests_Table::__construct",
+          "WP_User_Search::WP_User_Search",
+          "WP_User_Search::__construct",
+          "WP_User_Search::do_paging",
+          "WP_User_Search::get_results",
+          "WP_User_Search::is_search",
+          "WP_User_Search::page_links",
+          "WP_User_Search::prepare_query",
+          "WP_User_Search::prepare_vars_for_template_usage",
+          "WP_User_Search::query",
+          "WP_User_Search::results_are_paged"
+        ],
+        "properties": [
+          "WP_User_Search::$first_user",
+          "WP_User_Search::$last_user",
+          "WP_User_Search::$page",
+          "WP_User_Search::$paging_text",
+          "WP_User_Search::$query_from",
+          "WP_User_Search::$query_limit",
+          "WP_User_Search::$query_orderby",
+          "WP_User_Search::$query_where",
+          "WP_User_Search::$raw_page",
+          "WP_User_Search::$results",
+          "WP_User_Search::$role",
+          "WP_User_Search::$search_errors",
+          "WP_User_Search::$search_term",
+          "WP_User_Search::$too_many_total_users",
+          "WP_User_Search::$total_users_for_query",
+          "WP_User_Search::$users_per_page"
+        ]
+      },
+      "dashboard_site_health": {
+        "count": 136,
+        "functions": [
+          "_wp_dashboard_control_callback",
+          "_wp_dashboard_recent_comments_row",
+          "dashboard_browser_nag_class",
+          "dashboard_php_nag_class",
+          "wp_add_dashboard_widget",
+          "wp_check_browser_version",
+          "wp_dashboard",
+          "wp_dashboard_browser_nag",
+          "wp_dashboard_cached_rss_widget",
+          "wp_dashboard_empty",
+          "wp_dashboard_events_news",
+          "wp_dashboard_php_nag",
+          "wp_dashboard_primary",
+          "wp_dashboard_primary_output",
+          "wp_dashboard_quick_press",
+          "wp_dashboard_quota",
+          "wp_dashboard_recent_comments",
+          "wp_dashboard_recent_drafts",
+          "wp_dashboard_recent_posts",
+          "wp_dashboard_right_now",
+          "wp_dashboard_rss_control",
+          "wp_dashboard_rss_output",
+          "wp_dashboard_setup",
+          "wp_dashboard_site_activity",
+          "wp_dashboard_site_health",
+          "wp_dashboard_trigger_widget_control",
+          "wp_network_dashboard_right_now",
+          "wp_print_community_events_markup",
+          "wp_print_community_events_templates",
+          "wp_welcome_panel"
+        ],
+        "classes": [
+          "WP_Community_Events",
+          "WP_Debug_Data",
+          "WP_Site_Health"
+        ],
+        "methods": [
+          "WP_Community_Events::__construct",
+          "WP_Community_Events::cache_events",
+          "WP_Community_Events::coordinates_match",
+          "WP_Community_Events::format_event_data_time",
+          "WP_Community_Events::get_cached_events",
+          "WP_Community_Events::get_events",
+          "WP_Community_Events::get_events_transient_key",
+          "WP_Community_Events::get_request_args",
+          "WP_Community_Events::get_unsafe_client_ip",
+          "WP_Community_Events::maybe_log_events_response",
+          "WP_Community_Events::trim_events",
+          "WP_Debug_Data::check_for_updates",
+          "WP_Debug_Data::debug_data",
+          "WP_Debug_Data::format",
+          "WP_Debug_Data::get_database_size",
+          "WP_Debug_Data::get_mysql_var",
+          "WP_Debug_Data::get_sizes",
+          "WP_Debug_Data::get_wp_active_theme",
+          "WP_Debug_Data::get_wp_constants",
+          "WP_Debug_Data::get_wp_core",
+          "WP_Debug_Data::get_wp_database",
+          "WP_Debug_Data::get_wp_dropins",
+          "WP_Debug_Data::get_wp_filesystem",
+          "WP_Debug_Data::get_wp_media",
+          "WP_Debug_Data::get_wp_mu_plugins",
+          "WP_Debug_Data::get_wp_parent_theme",
+          "WP_Debug_Data::get_wp_paths_sizes",
+          "WP_Debug_Data::get_wp_plugins_active",
+          "WP_Debug_Data::get_wp_plugins_inactive",
+          "WP_Debug_Data::get_wp_plugins_raw_data",
+          "WP_Debug_Data::get_wp_server",
+          "WP_Debug_Data::get_wp_themes_inactive",
+          "WP_Site_Health::__construct",
+          "WP_Site_Health::admin_body_class",
+          "WP_Site_Health::available_object_cache_services",
+          "WP_Site_Health::can_perform_loopback",
+          "WP_Site_Health::check_for_page_caching",
+          "WP_Site_Health::check_wp_version_check_exists",
+          "WP_Site_Health::detect_plugin_theme_auto_update_issues",
+          "WP_Site_Health::enqueue_scripts",
+          "WP_Site_Health::get_autoloaded_options_size",
+          "WP_Site_Health::get_cron_tasks",
+          "WP_Site_Health::get_good_response_time_threshold",
+          "WP_Site_Health::get_instance",
+          "WP_Site_Health::get_page_cache_detail",
+          "WP_Site_Health::get_page_cache_headers",
+          "WP_Site_Health::get_test_authorization_header",
+          "WP_Site_Health::get_test_autoloaded_options",
+          "WP_Site_Health::get_test_available_updates_disk_space",
+          "WP_Site_Health::get_test_background_updates",
+          "WP_Site_Health::get_test_dotorg_communication",
+          "WP_Site_Health::get_test_file_uploads",
+          "WP_Site_Health::get_test_http_requests",
+          "WP_Site_Health::get_test_https_status",
+          "WP_Site_Health::get_test_insecure_registration",
+          "WP_Site_Health::get_test_is_in_debug_mode",
+          "WP_Site_Health::get_test_loopback_requests",
+          "WP_Site_Health::get_test_opcode_cache",
+          "WP_Site_Health::get_test_page_cache",
+          "WP_Site_Health::get_test_persistent_object_cache",
+          "WP_Site_Health::get_test_php_default_timezone",
+          "WP_Site_Health::get_test_php_extensions",
+          "WP_Site_Health::get_test_php_sessions",
+          "WP_Site_Health::get_test_php_version",
+          "WP_Site_Health::get_test_plugin_theme_auto_updates",
+          "WP_Site_Health::get_test_plugin_version",
+          "WP_Site_Health::get_test_rest_availability",
+          "WP_Site_Health::get_test_scheduled_events",
+          "WP_Site_Health::get_test_search_engine_visibility",
+          "WP_Site_Health::get_test_sql_server",
+          "WP_Site_Health::get_test_ssl_support",
+          "WP_Site_Health::get_test_theme_version",
+          "WP_Site_Health::get_test_update_temp_backup_writable",
+          "WP_Site_Health::get_test_wordpress_version",
+          "WP_Site_Health::get_tests",
+          "WP_Site_Health::has_late_cron",
+          "WP_Site_Health::has_missed_cron",
+          "WP_Site_Health::is_development_environment",
+          "WP_Site_Health::maybe_create_scheduled_event",
+          "WP_Site_Health::perform_test",
+          "WP_Site_Health::prepare_sql_data",
+          "WP_Site_Health::should_suggest_persistent_object_cache",
+          "WP_Site_Health::show_site_health_tab",
+          "WP_Site_Health::test_php_extension_availability",
+          "WP_Site_Health::wp_cron_scheduled_check",
+          "WP_Site_Health::wp_schedule_test_init"
+        ],
+        "properties": [
+          "WP_Community_Events::$user_id",
+          "WP_Community_Events::$user_location",
+          "WP_Site_Health::$crons",
+          "WP_Site_Health::$instance",
+          "WP_Site_Health::$is_acceptable_mysql_version",
+          "WP_Site_Health::$is_mariadb",
+          "WP_Site_Health::$is_recommended_mysql_version",
+          "WP_Site_Health::$last_late_cron",
+          "WP_Site_Health::$last_missed_cron",
+          "WP_Site_Health::$mariadb_recommended_version",
+          "WP_Site_Health::$mysql_recommended_version",
+          "WP_Site_Health::$mysql_required_version",
+          "WP_Site_Health::$mysql_server_version",
+          "WP_Site_Health::$php_memory_limit",
+          "WP_Site_Health::$schedules",
+          "WP_Site_Health::$timeout_late_cron",
+          "WP_Site_Health::$timeout_missed_cron"
+        ]
+      },
+      "filesystem_update_handoff": {
+        "count": 314,
+        "functions": [
+          "PclZipUtilCopyBlock",
+          "PclZipUtilOptionText",
+          "PclZipUtilPathInclusion",
+          "PclZipUtilPathReduction",
+          "PclZipUtilRename",
+          "PclZipUtilTranslateWinPath",
+          "__get_option",
+          "add_clean_index",
+          "dbDelta",
+          "deslash",
+          "drop_index",
+          "get_alloptions_110",
+          "make_db_current",
+          "make_db_current_silent",
+          "make_site_theme",
+          "make_site_theme_from_default",
+          "make_site_theme_from_oldschool",
+          "maybe_add_column",
+          "maybe_convert_table_to_utf8mb4",
+          "maybe_create_table",
+          "maybe_disable_automattic_widgets",
+          "maybe_disable_link_manager",
+          "pre_schema_upgrade",
+          "translate_level_to_role",
+          "upgrade_100",
+          "upgrade_101",
+          "upgrade_110",
+          "upgrade_130",
+          "upgrade_160",
+          "upgrade_210",
+          "upgrade_230",
+          "upgrade_230_old_tables",
+          "upgrade_230_options_table",
+          "upgrade_250",
+          "upgrade_252",
+          "upgrade_260",
+          "upgrade_270",
+          "upgrade_280",
+          "upgrade_290",
+          "upgrade_300",
+          "upgrade_330",
+          "upgrade_340",
+          "upgrade_350",
+          "upgrade_370",
+          "upgrade_372",
+          "upgrade_380",
+          "upgrade_400",
+          "upgrade_420",
+          "upgrade_430",
+          "upgrade_430_fix_comments",
+          "upgrade_431",
+          "upgrade_440",
+          "upgrade_450",
+          "upgrade_460",
+          "upgrade_500",
+          "upgrade_510",
+          "upgrade_530",
+          "upgrade_550",
+          "upgrade_560",
+          "upgrade_590",
+          "upgrade_600",
+          "upgrade_630",
+          "upgrade_640",
+          "upgrade_650",
+          "upgrade_670",
+          "upgrade_682",
+          "upgrade_700",
+          "upgrade_all",
+          "upgrade_network",
+          "upgrade_old_slugs",
+          "wp_check_mysql_version",
+          "wp_install",
+          "wp_install_defaults",
+          "wp_install_maybe_enable_pretty_permalinks",
+          "wp_new_blog_notification",
+          "wp_should_upgrade_global_tables",
+          "wp_upgrade"
+        ],
+        "classes": [
+          "PclZip",
+          "ftp",
+          "ftp",
+          "ftp_base",
+          "ftp_pure",
+          "ftp_sockets"
+        ],
+        "methods": [
+          "PclZip::PclZip",
+          "PclZip::__construct",
+          "PclZip::add",
+          "PclZip::create",
+          "PclZip::delete",
+          "PclZip::deleteByIndex",
+          "PclZip::duplicate",
+          "PclZip::errorCode",
+          "PclZip::errorInfo",
+          "PclZip::errorName",
+          "PclZip::extract",
+          "PclZip::extractByIndex",
+          "PclZip::listContent",
+          "PclZip::merge",
+          "PclZip::privAdd",
+          "PclZip::privAddFile",
+          "PclZip::privAddFileList",
+          "PclZip::privAddFileUsingTempFile",
+          "PclZip::privAddList",
+          "PclZip::privCalculateStoredFilename",
+          "PclZip::privCheckFileHeaders",
+          "PclZip::privCheckFormat",
+          "PclZip::privCloseFd",
+          "PclZip::privConvertHeader2FileInfo",
+          "PclZip::privCreate",
+          "PclZip::privDeleteByRule",
+          "PclZip::privDirCheck",
+          "PclZip::privDisableMagicQuotes",
+          "PclZip::privDuplicate",
+          "PclZip::privErrorLog",
+          "PclZip::privErrorReset",
+          "PclZip::privExtractByRule",
+          "PclZip::privExtractFile",
+          "PclZip::privExtractFileAsString",
+          "PclZip::privExtractFileInOutput",
+          "PclZip::privExtractFileUsingTempFile",
+          "PclZip::privFileDescrExpand",
+          "PclZip::privFileDescrParseAtt",
+          "PclZip::privList",
+          "PclZip::privMerge",
+          "PclZip::privOpenFd",
+          "PclZip::privOptionDefaultThreshold",
+          "PclZip::privParseOptions",
+          "PclZip::privReadCentralFileHeader",
+          "PclZip::privReadEndCentralDir",
+          "PclZip::privReadFileHeader",
+          "PclZip::privSwapBackMagicQuotes",
+          "PclZip::privWriteCentralFileHeader",
+          "PclZip::privWriteCentralHeader",
+          "PclZip::privWriteFileHeader",
+          "PclZip::properties",
+          "ftp_base::Passive",
+          "ftp_base::PopError",
+          "ftp_base::PushError",
+          "ftp_base::SendMSG",
+          "ftp_base::SetServer",
+          "ftp_base::SetTimeout",
+          "ftp_base::SetType",
+          "ftp_base::SetUmask",
+          "ftp_base::__construct",
+          "ftp_base::_checkCode",
+          "ftp_base::_list",
+          "ftp_base::_settype",
+          "ftp_base::abort",
+          "ftp_base::cdup",
+          "ftp_base::chdir",
+          "ftp_base::chmod",
+          "ftp_base::connect",
+          "ftp_base::delete",
+          "ftp_base::dirlist",
+          "ftp_base::features",
+          "ftp_base::fget",
+          "ftp_base::file_exists",
+          "ftp_base::filesize",
+          "ftp_base::fput",
+          "ftp_base::ftp_base",
+          "ftp_base::get",
+          "ftp_base::glob",
+          "ftp_base::glob_pattern_match",
+          "ftp_base::glob_regexp",
+          "ftp_base::is_exists",
+          "ftp_base::login",
+          "ftp_base::mdel",
+          "ftp_base::mdtm",
+          "ftp_base::mget",
+          "ftp_base::mkdir",
+          "ftp_base::mmkdir",
+          "ftp_base::mput",
+          "ftp_base::nlist",
+          "ftp_base::parselisting",
+          "ftp_base::put",
+          "ftp_base::pwd",
+          "ftp_base::quit",
+          "ftp_base::rawlist",
+          "ftp_base::rename",
+          "ftp_base::restore",
+          "ftp_base::rmdir",
+          "ftp_base::site",
+          "ftp_base::systype",
+          "ftp_pure::__construct",
+          "ftp_pure::_connect",
+          "ftp_pure::_data_close",
+          "ftp_pure::_data_prepare",
+          "ftp_pure::_data_read",
+          "ftp_pure::_data_write",
+          "ftp_pure::_data_write_block",
+          "ftp_pure::_exec",
+          "ftp_pure::_quit",
+          "ftp_pure::_readmsg",
+          "ftp_pure::_settimeout",
+          "ftp_sockets::__construct",
+          "ftp_sockets::_connect",
+          "ftp_sockets::_data_close",
+          "ftp_sockets::_data_prepare",
+          "ftp_sockets::_data_read",
+          "ftp_sockets::_data_write",
+          "ftp_sockets::_data_write_block",
+          "ftp_sockets::_exec",
+          "ftp_sockets::_quit",
+          "ftp_sockets::_readmsg",
+          "ftp_sockets::_settimeout"
+        ],
+        "properties": [
+          "PclZip::$error_code",
+          "PclZip::$error_string",
+          "PclZip::$magic_quotes_status",
+          "PclZip::$zip_fd",
+          "PclZip::$zipname",
+          "ftp_base::$AuthorizedTransferMode",
+          "ftp_base::$AutoAsciiExt",
+          "ftp_base::$LocalEcho",
+          "ftp_base::$OS_FullName",
+          "ftp_base::$OS_local",
+          "ftp_base::$OS_remote",
+          "ftp_base::$Verbose",
+          "ftp_base::$_can_restore",
+          "ftp_base::$_code",
+          "ftp_base::$_connected",
+          "ftp_base::$_curtype",
+          "ftp_base::$_datahost",
+          "ftp_base::$_dataport",
+          "ftp_base::$_eol_code",
+          "ftp_base::$_error_array",
+          "ftp_base::$_errors",
+          "ftp_base::$_features",
+          "ftp_base::$_ftp_buff_size",
+          "ftp_base::$_ftp_control_sock",
+          "ftp_base::$_ftp_data_sock",
+          "ftp_base::$_ftp_temp_sock",
+          "ftp_base::$_fullhost",
+          "ftp_base::$_host",
+          "ftp_base::$_lastaction",
+          "ftp_base::$_login",
+          "ftp_base::$_message",
+          "ftp_base::$_passive",
+          "ftp_base::$_password",
+          "ftp_base::$_port",
+          "ftp_base::$_port_available",
+          "ftp_base::$_ready",
+          "ftp_base::$_timeout",
+          "ftp_base::$_type",
+          "ftp_base::$_umask"
+        ]
+      },
+      "import_export_tools": {
+        "count": 38,
+        "functions": [
+          "_usort_by_first_member",
+          "export_add_js",
+          "export_date_options",
+          "export_wp",
+          "get_cli_args",
+          "get_importers",
+          "register_importer",
+          "wp_get_popular_importers",
+          "wp_import_cleanup",
+          "wp_import_handle_upload",
+          "wxr_authors_list",
+          "wxr_cat_name",
+          "wxr_category_description",
+          "wxr_cdata",
+          "wxr_filter_postmeta",
+          "wxr_nav_menu_terms",
+          "wxr_post_taxonomy",
+          "wxr_site_url",
+          "wxr_tag_description",
+          "wxr_tag_name",
+          "wxr_term_description",
+          "wxr_term_meta",
+          "wxr_term_name"
+        ],
+        "classes": [
+          "WP_Importer"
+        ],
+        "methods": [
+          "WP_Importer::__construct",
+          "WP_Importer::bump_request_timeout",
+          "WP_Importer::cmpr_strlen",
+          "WP_Importer::count_imported_posts",
+          "WP_Importer::get_imported_comments",
+          "WP_Importer::get_imported_posts",
+          "WP_Importer::get_page",
+          "WP_Importer::is_user_over_quota",
+          "WP_Importer::min_whitespace",
+          "WP_Importer::set_blog",
+          "WP_Importer::set_user",
+          "WP_Importer::stop_the_insanity"
+        ],
+        "properties": []
+      },
+      "links_bookmarks_admin": {
+        "count": 12,
+        "functions": [
+          "add_link",
+          "edit_link",
+          "endElement",
+          "get_default_link_to_edit",
+          "get_link_to_edit",
+          "startElement",
+          "wp_delete_link",
+          "wp_get_link_cats",
+          "wp_insert_link",
+          "wp_link_manager_disabled_message",
+          "wp_set_link_cats",
+          "wp_update_link"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "list_table_base_and_specializations": {
+        "count": 132,
+        "functions": [
+          "_get_list_table",
+          "print_column_headers",
+          "register_column_headers"
+        ],
+        "classes": [
+          "WP_Links_List_Table",
+          "WP_List_Table",
+          "WP_Plugin_Install_List_Table",
+          "WP_Plugins_List_Table",
+          "_WP_List_Table_Compat"
+        ],
+        "methods": [
+          "WP_Links_List_Table::__construct",
+          "WP_Links_List_Table::ajax_user_can",
+          "WP_Links_List_Table::column_categories",
+          "WP_Links_List_Table::column_cb",
+          "WP_Links_List_Table::column_default",
+          "WP_Links_List_Table::column_name",
+          "WP_Links_List_Table::column_rating",
+          "WP_Links_List_Table::column_rel",
+          "WP_Links_List_Table::column_url",
+          "WP_Links_List_Table::column_visible",
+          "WP_Links_List_Table::display_rows",
+          "WP_Links_List_Table::extra_tablenav",
+          "WP_Links_List_Table::get_bulk_actions",
+          "WP_Links_List_Table::get_columns",
+          "WP_Links_List_Table::get_default_primary_column_name",
+          "WP_Links_List_Table::get_sortable_columns",
+          "WP_Links_List_Table::handle_row_actions",
+          "WP_Links_List_Table::no_items",
+          "WP_Links_List_Table::prepare_items",
+          "WP_List_Table::__call",
+          "WP_List_Table::__construct",
+          "WP_List_Table::__get",
+          "WP_List_Table::__isset",
+          "WP_List_Table::__set",
+          "WP_List_Table::__unset",
+          "WP_List_Table::_js_vars",
+          "WP_List_Table::ajax_response",
+          "WP_List_Table::ajax_user_can",
+          "WP_List_Table::bulk_actions",
+          "WP_List_Table::column_cb",
+          "WP_List_Table::column_default",
+          "WP_List_Table::comments_bubble",
+          "WP_List_Table::current_action",
+          "WP_List_Table::display",
+          "WP_List_Table::display_rows",
+          "WP_List_Table::display_rows_or_placeholder",
+          "WP_List_Table::display_tablenav",
+          "WP_List_Table::extra_tablenav",
+          "WP_List_Table::get_bulk_actions",
+          "WP_List_Table::get_column_count",
+          "WP_List_Table::get_column_info",
+          "WP_List_Table::get_columns",
+          "WP_List_Table::get_default_primary_column_name",
+          "WP_List_Table::get_items_per_page",
+          "WP_List_Table::get_pagenum",
+          "WP_List_Table::get_pagination_arg",
+          "WP_List_Table::get_primary_column",
+          "WP_List_Table::get_primary_column_name",
+          "WP_List_Table::get_sortable_columns",
+          "WP_List_Table::get_table_classes",
+          "WP_List_Table::get_views",
+          "WP_List_Table::get_views_links",
+          "WP_List_Table::handle_row_actions",
+          "WP_List_Table::has_items",
+          "WP_List_Table::months_dropdown",
+          "WP_List_Table::no_items",
+          "WP_List_Table::pagination",
+          "WP_List_Table::prepare_items",
+          "WP_List_Table::print_column_headers",
+          "WP_List_Table::print_table_description",
+          "WP_List_Table::row_actions",
+          "WP_List_Table::search_box",
+          "WP_List_Table::set_pagination_args",
+          "WP_List_Table::single_row",
+          "WP_List_Table::single_row_columns",
+          "WP_List_Table::view_switcher",
+          "WP_List_Table::views",
+          "WP_Plugin_Install_List_Table::ajax_user_can",
+          "WP_Plugin_Install_List_Table::display",
+          "WP_Plugin_Install_List_Table::display_rows",
+          "WP_Plugin_Install_List_Table::display_tablenav",
+          "WP_Plugin_Install_List_Table::get_columns",
+          "WP_Plugin_Install_List_Table::get_dependencies_notice",
+          "WP_Plugin_Install_List_Table::get_installed_plugin_slugs",
+          "WP_Plugin_Install_List_Table::get_installed_plugins",
+          "WP_Plugin_Install_List_Table::get_more_details_link",
+          "WP_Plugin_Install_List_Table::get_table_classes",
+          "WP_Plugin_Install_List_Table::get_views",
+          "WP_Plugin_Install_List_Table::no_items",
+          "WP_Plugin_Install_List_Table::order_callback",
+          "WP_Plugin_Install_List_Table::prepare_items",
+          "WP_Plugin_Install_List_Table::views",
+          "WP_Plugins_List_Table::__construct",
+          "WP_Plugins_List_Table::_order_callback",
+          "WP_Plugins_List_Table::_search_callback",
+          "WP_Plugins_List_Table::add_dependencies_to_dependent_plugin_row",
+          "WP_Plugins_List_Table::add_dependents_to_dependency_plugin_row",
+          "WP_Plugins_List_Table::ajax_user_can",
+          "WP_Plugins_List_Table::bulk_actions",
+          "WP_Plugins_List_Table::current_action",
+          "WP_Plugins_List_Table::display_rows",
+          "WP_Plugins_List_Table::extra_tablenav",
+          "WP_Plugins_List_Table::get_bulk_actions",
+          "WP_Plugins_List_Table::get_columns",
+          "WP_Plugins_List_Table::get_dependency_view_details_link",
+          "WP_Plugins_List_Table::get_primary_column_name",
+          "WP_Plugins_List_Table::get_sortable_columns",
+          "WP_Plugins_List_Table::get_table_classes",
+          "WP_Plugins_List_Table::get_view_details_link",
+          "WP_Plugins_List_Table::get_views",
+          "WP_Plugins_List_Table::no_items",
+          "WP_Plugins_List_Table::prepare_items",
+          "WP_Plugins_List_Table::search_box",
+          "WP_Plugins_List_Table::single_row",
+          "_WP_List_Table_Compat::__construct",
+          "_WP_List_Table_Compat::get_column_info",
+          "_WP_List_Table_Compat::get_columns"
+        ],
+        "properties": [
+          "WP_List_Table::$_actions",
+          "WP_List_Table::$_args",
+          "WP_List_Table::$_column_headers",
+          "WP_List_Table::$_pagination",
+          "WP_List_Table::$_pagination_args",
+          "WP_List_Table::$compat_fields",
+          "WP_List_Table::$compat_methods",
+          "WP_List_Table::$items",
+          "WP_List_Table::$modes",
+          "WP_List_Table::$screen",
+          "WP_Plugin_Install_List_Table::$error",
+          "WP_Plugin_Install_List_Table::$groups",
+          "WP_Plugin_Install_List_Table::$order",
+          "WP_Plugin_Install_List_Table::$orderby",
+          "WP_Plugins_List_Table::$show_autoupdates",
+          "_WP_List_Table_Compat::$_columns",
+          "_WP_List_Table_Compat::$_screen"
+        ]
+      },
+      "menus_navigation_common": {
+        "count": 81,
+        "functions": [
+          "_add_plugin_file_editor_to_tools",
+          "_add_themes_utility_last",
+          "_is_valid_nav_menu_item",
+          "_wp_ajax_menu_quick_search",
+          "_wp_auto_add_pages_to_menu",
+          "_wp_delete_customize_changeset_dependent_auto_drafts",
+          "_wp_delete_orphaned_draft_menu_items",
+          "_wp_delete_post_menu_item",
+          "_wp_delete_tax_menu_item",
+          "_wp_expand_nav_menu_post_data",
+          "_wp_menu_output",
+          "_wp_menus_changed",
+          "_wp_nav_menu_meta_box_object",
+          "_wp_reset_invalid_menu_item_parent",
+          "add_cssclass",
+          "add_menu_classes",
+          "get_nav_menu_locations",
+          "get_registered_nav_menus",
+          "has_nav_menu",
+          "is_nav_menu",
+          "is_nav_menu_item",
+          "register_nav_menu",
+          "register_nav_menus",
+          "sort_menu",
+          "unregister_nav_menu",
+          "update_menu_item_cache",
+          "wp_create_nav_menu",
+          "wp_delete_nav_menu",
+          "wp_get_associated_nav_menu_items",
+          "wp_get_nav_menu_items",
+          "wp_get_nav_menu_name",
+          "wp_get_nav_menu_object",
+          "wp_get_nav_menu_to_edit",
+          "wp_get_nav_menus",
+          "wp_initial_nav_menu_meta_boxes",
+          "wp_map_nav_menu_locations",
+          "wp_nav_menu_disabled_check",
+          "wp_nav_menu_item_link_meta_box",
+          "wp_nav_menu_item_post_type_meta_box",
+          "wp_nav_menu_item_taxonomy_meta_box",
+          "wp_nav_menu_manage_columns",
+          "wp_nav_menu_max_depth",
+          "wp_nav_menu_post_type_meta_boxes",
+          "wp_nav_menu_setup",
+          "wp_nav_menu_taxonomy_meta_boxes",
+          "wp_nav_menu_update_menu_items",
+          "wp_save_nav_menu_items",
+          "wp_setup_nav_menu_item",
+          "wp_update_nav_menu_item",
+          "wp_update_nav_menu_object"
+        ],
+        "classes": [
+          "WP_Nav_Menu_Widget",
+          "Walker_Category_Checklist",
+          "Walker_Nav_Menu",
+          "Walker_Nav_Menu_Checklist",
+          "Walker_Nav_Menu_Edit"
+        ],
+        "methods": [
+          "WP_Nav_Menu_Widget::__construct",
+          "WP_Nav_Menu_Widget::form",
+          "WP_Nav_Menu_Widget::update",
+          "WP_Nav_Menu_Widget::widget",
+          "Walker_Category_Checklist::end_el",
+          "Walker_Category_Checklist::end_lvl",
+          "Walker_Category_Checklist::start_el",
+          "Walker_Category_Checklist::start_lvl",
+          "Walker_Nav_Menu::__construct",
+          "Walker_Nav_Menu::build_atts",
+          "Walker_Nav_Menu::end_el",
+          "Walker_Nav_Menu::end_lvl",
+          "Walker_Nav_Menu::start_el",
+          "Walker_Nav_Menu::start_lvl",
+          "Walker_Nav_Menu_Checklist::__construct",
+          "Walker_Nav_Menu_Checklist::end_lvl",
+          "Walker_Nav_Menu_Checklist::start_el",
+          "Walker_Nav_Menu_Checklist::start_lvl",
+          "Walker_Nav_Menu_Edit::end_lvl",
+          "Walker_Nav_Menu_Edit::start_el",
+          "Walker_Nav_Menu_Edit::start_lvl"
+        ],
+        "properties": [
+          "Walker_Category_Checklist::$db_fields",
+          "Walker_Category_Checklist::$tree_type",
+          "Walker_Nav_Menu::$db_fields",
+          "Walker_Nav_Menu::$privacy_policy_url",
+          "Walker_Nav_Menu::$tree_type"
+        ]
+      },
+      "plugin_admin_common": {
+        "count": 56,
+        "functions": [
+          "_get_dropins",
+          "_get_plugin_data_markup_translate",
+          "_sort_uname_callback",
+          "activate_plugin",
+          "activate_plugins",
+          "add_allowed_options",
+          "add_comments_page",
+          "add_dashboard_page",
+          "add_links_page",
+          "add_management_page",
+          "add_media_page",
+          "add_menu_page",
+          "add_options_page",
+          "add_pages_page",
+          "add_plugins_page",
+          "add_posts_page",
+          "add_submenu_page",
+          "add_theme_page",
+          "add_users_page",
+          "deactivate_plugins",
+          "deactivated_plugins_notice",
+          "delete_plugins",
+          "get_admin_page_parent",
+          "get_admin_page_title",
+          "get_dropins",
+          "get_mu_plugins",
+          "get_plugin_data",
+          "get_plugin_files",
+          "get_plugin_page_hook",
+          "get_plugin_page_hookname",
+          "get_plugins",
+          "is_network_only_plugin",
+          "is_plugin_active",
+          "is_plugin_active_for_network",
+          "is_plugin_inactive",
+          "is_plugin_paused",
+          "is_uninstallable_plugin",
+          "menu_page_url",
+          "option_update_filter",
+          "paused_plugins_notice",
+          "plugin_sandbox_scrape",
+          "remove_allowed_options",
+          "remove_menu_page",
+          "remove_submenu_page",
+          "resume_plugin",
+          "settings_fields",
+          "uninstall_plugin",
+          "user_can_access_admin_page",
+          "validate_active_plugins",
+          "validate_plugin",
+          "validate_plugin_requirements",
+          "wp_add_privacy_policy_content",
+          "wp_clean_plugins_cache",
+          "wp_get_plugin_error"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "privacy_tools_admin": {
+        "count": 12,
+        "functions": [],
+        "classes": [
+          "WP_Privacy_Policy_Content"
+        ],
+        "methods": [
+          "WP_Privacy_Policy_Content::__construct",
+          "WP_Privacy_Policy_Content::_policy_page_updated",
+          "WP_Privacy_Policy_Content::add",
+          "WP_Privacy_Policy_Content::add_suggested_content",
+          "WP_Privacy_Policy_Content::get_default_content",
+          "WP_Privacy_Policy_Content::get_suggested_policy_text",
+          "WP_Privacy_Policy_Content::notice",
+          "WP_Privacy_Policy_Content::policy_text_changed_notice",
+          "WP_Privacy_Policy_Content::privacy_policy_guide",
+          "WP_Privacy_Policy_Content::text_change_check"
+        ],
+        "properties": [
+          "WP_Privacy_Policy_Content::$policy_content"
+        ]
+      },
+      "screen_help_options": {
+        "count": 61,
+        "functions": [
+          "add_screen_option",
+          "get_column_headers",
+          "get_current_screen",
+          "get_hidden_columns",
+          "get_hidden_meta_boxes",
+          "meta_box_prefs",
+          "set_current_screen"
+        ],
+        "classes": [
+          "WP_Screen"
+        ],
+        "methods": [
+          "WP_Screen::__construct",
+          "WP_Screen::add_help_tab",
+          "WP_Screen::add_old_compat_help",
+          "WP_Screen::add_option",
+          "WP_Screen::get",
+          "WP_Screen::get_columns",
+          "WP_Screen::get_help_sidebar",
+          "WP_Screen::get_help_tab",
+          "WP_Screen::get_help_tabs",
+          "WP_Screen::get_option",
+          "WP_Screen::get_options",
+          "WP_Screen::get_screen_reader_content",
+          "WP_Screen::get_screen_reader_text",
+          "WP_Screen::in_admin",
+          "WP_Screen::is_block_editor",
+          "WP_Screen::remove_help_tab",
+          "WP_Screen::remove_help_tabs",
+          "WP_Screen::remove_option",
+          "WP_Screen::remove_options",
+          "WP_Screen::remove_screen_reader_content",
+          "WP_Screen::render_list_table_columns_preferences",
+          "WP_Screen::render_meta_boxes_preferences",
+          "WP_Screen::render_per_page_options",
+          "WP_Screen::render_screen_layout",
+          "WP_Screen::render_screen_meta",
+          "WP_Screen::render_screen_options",
+          "WP_Screen::render_screen_reader_content",
+          "WP_Screen::render_view_mode",
+          "WP_Screen::set_current_screen",
+          "WP_Screen::set_help_sidebar",
+          "WP_Screen::set_parentage",
+          "WP_Screen::set_screen_reader_content",
+          "WP_Screen::show_screen_options"
+        ],
+        "properties": [
+          "WP_Screen::$_help_sidebar",
+          "WP_Screen::$_help_tabs",
+          "WP_Screen::$_old_compat_help",
+          "WP_Screen::$_options",
+          "WP_Screen::$_registry",
+          "WP_Screen::$_screen_reader_content",
+          "WP_Screen::$_screen_settings",
+          "WP_Screen::$_show_screen_options",
+          "WP_Screen::$action",
+          "WP_Screen::$base",
+          "WP_Screen::$columns",
+          "WP_Screen::$id",
+          "WP_Screen::$in_admin",
+          "WP_Screen::$is_block_editor",
+          "WP_Screen::$is_network",
+          "WP_Screen::$is_user",
+          "WP_Screen::$parent_base",
+          "WP_Screen::$parent_file",
+          "WP_Screen::$post_type",
+          "WP_Screen::$taxonomy"
+        ]
+      }
+    },
+    "classes": [
+      "Custom_Background",
+      "PclZip",
+      "WP_Community_Events",
+      "WP_Debug_Data",
+      "WP_Importer",
+      "WP_Internal_Pointers",
+      "WP_Links_List_Table",
+      "WP_List_Table",
+      "WP_Nav_Menu_Widget",
+      "WP_Plugin_Install_List_Table",
+      "WP_Plugins_List_Table",
+      "WP_Privacy_Data_Export_Requests_Table",
+      "WP_Privacy_Data_Removal_Requests_Table",
+      "WP_Privacy_Policy_Content",
+      "WP_Screen",
+      "WP_Site_Health",
+      "WP_Site_Icon",
+      "WP_User_Search",
+      "Walker_Category_Checklist",
+      "Walker_Nav_Menu",
+      "Walker_Nav_Menu_Checklist",
+      "Walker_Nav_Menu_Edit",
+      "_WP_List_Table_Compat",
+      "ftp",
+      "ftp",
+      "ftp_base",
+      "ftp_pure",
+      "ftp_sockets"
+    ],
+    "abi_risks": {
+      "functions_with_reference_parameters": [
+        "_wp_dashboard_recent_comments_row"
+      ],
+      "methods_with_reference_parameters": [
+        "PclZip::privAdd",
+        "PclZip::privAddFile",
+        "PclZip::privAddFileList",
+        "PclZip::privAddFileUsingTempFile",
+        "PclZip::privAddList",
+        "PclZip::privCalculateStoredFilename",
+        "PclZip::privCheckFileHeaders",
+        "PclZip::privConvertHeader2FileInfo",
+        "PclZip::privCreate",
+        "PclZip::privDeleteByRule",
+        "PclZip::privExtractByRule",
+        "PclZip::privExtractFile",
+        "PclZip::privExtractFileAsString",
+        "PclZip::privExtractFileInOutput",
+        "PclZip::privExtractFileUsingTempFile",
+        "PclZip::privFileDescrExpand",
+        "PclZip::privFileDescrParseAtt",
+        "PclZip::privList",
+        "PclZip::privMerge",
+        "PclZip::privOptionDefaultThreshold",
+        "PclZip::privParseOptions",
+        "PclZip::privReadCentralFileHeader",
+        "PclZip::privReadEndCentralDir",
+        "PclZip::privReadFileHeader",
+        "PclZip::privWriteCentralFileHeader",
+        "PclZip::privWriteFileHeader",
+        "Walker_Category_Checklist::end_el",
+        "Walker_Category_Checklist::end_lvl",
+        "Walker_Category_Checklist::start_el",
+        "Walker_Category_Checklist::start_lvl",
+        "Walker_Nav_Menu::end_el",
+        "Walker_Nav_Menu::end_lvl",
+        "Walker_Nav_Menu::start_el",
+        "Walker_Nav_Menu::start_lvl",
+        "Walker_Nav_Menu_Checklist::end_lvl",
+        "Walker_Nav_Menu_Checklist::start_el",
+        "Walker_Nav_Menu_Checklist::start_lvl",
+        "Walker_Nav_Menu_Edit::end_lvl",
+        "Walker_Nav_Menu_Edit::start_el",
+        "Walker_Nav_Menu_Edit::start_lvl"
+      ],
+      "variadic_functions": [
+        "wp_dashboard_cached_rss_widget"
+      ],
+      "conditional_functions": [
+        "install_network",
+        "sort_menu",
+        "wp_install",
+        "wp_install_defaults",
+        "wp_new_blog_notification",
+        "wp_upgrade",
+        "wxr_authors_list",
+        "wxr_cat_name",
+        "wxr_category_description",
+        "wxr_cdata",
+        "wxr_filter_postmeta",
+        "wxr_nav_menu_terms",
+        "wxr_post_taxonomy",
+        "wxr_site_url",
+        "wxr_tag_description",
+        "wxr_tag_name",
+        "wxr_term_description",
+        "wxr_term_meta",
+        "wxr_term_name"
+      ]
+    },
+    "test_paths": [
+      "tests/e2e/specs/dashboard.test.js",
+      "tests/phpunit/tests/admin/Admin_Includes_User_WpIsAuthorizeApplicationPasswordRequestValid_Test.php",
+      "tests/phpunit/tests/admin/Admin_Includes_User_WpIsAuthorizeApplicationRedirectUrlValid_Test.php",
+      "tests/phpunit/tests/admin/exportWp.php",
+      "tests/phpunit/tests/admin/includes/wpGetPluginActionButton.php",
+      "tests/phpunit/tests/admin/includesComment.php",
+      "tests/phpunit/tests/admin/includesFile.php",
+      "tests/phpunit/tests/admin/includesMisc.php",
+      "tests/phpunit/tests/admin/includesPlugin.php",
+      "tests/phpunit/tests/admin/includesPost.php",
+      "tests/phpunit/tests/admin/includesSchema.php",
+      "tests/phpunit/tests/admin/includesScreen.php",
+      "tests/phpunit/tests/admin/includesTemplate.php",
+      "tests/phpunit/tests/admin/includesTheme.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/base.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependencies.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependencyData.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependencyFilepath.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependencyNames.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependentFilepath.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependentNames.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/getDependents.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/hasActiveDependents.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/hasCircularDependency.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/hasDependencies.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/hasDependents.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/hasUnmetDependencies.php",
+      "tests/phpunit/tests/admin/plugin-dependencies/initialize.php",
+      "tests/phpunit/tests/admin/themeBodyClass.php",
+      "tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+      "tests/phpunit/tests/admin/wpCommentsListTable.php",
+      "tests/phpunit/tests/admin/wpCommunityEvents.php",
+      "tests/phpunit/tests/admin/wpListTable.php",
+      "tests/phpunit/tests/admin/wpMediaListTable.php",
+      "tests/phpunit/tests/admin/wpPluginInstallListTable.php",
+      "tests/phpunit/tests/admin/wpPluginsListTable.php",
+      "tests/phpunit/tests/admin/wpPostCommentsListTable.php",
+      "tests/phpunit/tests/admin/wpPostsListTable.php",
+      "tests/phpunit/tests/admin/wpPrivacyRequestsTable.php",
+      "tests/phpunit/tests/admin/wpSiteHealth.php",
+      "tests/phpunit/tests/admin/wpTermsListTable.php",
+      "tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+      "tests/phpunit/tests/admin/wpUpgrader.php",
+      "tests/phpunit/tests/admin/wpUserSearch.php",
+      "tests/phpunit/tests/admin/wpUsersListTable.php",
+      "tests/phpunit/tests/adminbar.php",
+      "tests/phpunit/tests/functions/wpAdminNotice.php",
+      "tests/phpunit/tests/functions/wpGetAdminNotice.php",
+      "tests/phpunit/tests/import/import.php",
+      "tests/phpunit/tests/link/getDashboardUrl.php",
+      "tests/phpunit/tests/link/selfAdminUrl.php",
+      "tests/phpunit/tests/menu/nav-menu.php",
+      "tests/phpunit/tests/menu/walker-nav-menu-edit.php",
+      "tests/phpunit/tests/menu/walker-nav-menu.php",
+      "tests/phpunit/tests/menu/wp-nav-menu.php",
+      "tests/phpunit/tests/menu/wpAjaxMenuQuickSearch.php",
+      "tests/phpunit/tests/menu/wpExpandNavMenuPostData.php",
+      "tests/phpunit/tests/menu/wpNavMenuRemoveMenuItemHasChildrenClass.php",
+      "tests/phpunit/tests/multisite/wpMsSitesListTable.php",
+      "tests/phpunit/tests/multisite/wpMsThemesListTable.php",
+      "tests/phpunit/tests/multisite/wpMsUsersListTable.php",
+      "tests/phpunit/tests/privacy/wpCreateUserRequest.php",
+      "tests/phpunit/tests/privacy/wpPrivacyCompletedRequest.php",
+      "tests/phpunit/tests/privacy/wpPrivacyDeleteOldExportFiles.php",
+      "tests/phpunit/tests/privacy/wpPrivacyGeneratePersonalDataExportFile.php",
+      "tests/phpunit/tests/privacy/wpPrivacyGeneratePersonalDataExportGroupHtml.php",
+      "tests/phpunit/tests/privacy/wpPrivacyProcessPersonalDataExportPage.php",
+      "tests/phpunit/tests/privacy/wpPrivacySendErasureFulfillmentNotification.php",
+      "tests/phpunit/tests/privacy/wpPrivacySendPersonalDataExportEmail.php",
+      "tests/phpunit/tests/privacy/wpPrivacySendRequestConfirmationNotification.php",
+      "tests/phpunit/tests/rest-api/application-passwords.php",
+      "tests/phpunit/tests/rest-api/rest-application-passwords-controller.php",
+      "tests/phpunit/tests/rest-api/rest-site-health-controller.php"
+    ]
+  },
+  "evidence_plan": {
+    "first_haxe_candidate": "A typed admin common/list-table adapter-contract model for admin request state, screen/help/options, list-table columns/actions/pagination, admin notices, menu registration, capability/nonce hook intent, and selected output fragments.",
+    "required_next_fixtures": [
+      "admin request/bootstrap state and screen setup oracle fixture",
+      "WP_Screen help tabs/options/current-screen fixture",
+      "WP_List_Table base ABI, columns, bulk actions, pagination, and output fixture",
+      "selected users/plugins/privacy list-table specializations fixture",
+      "admin menu/submenu registration and ordering fixture",
+      "admin notices, header/footer, and common output helpers fixture",
+      "admin nonce/capability integration fixture",
+      "selected upstream PHPUnit admin/list-table ratchet",
+      "installed-style admin common/list-table package gate"
+    ],
+    "claim": "This surface manifest bounds WPHX-315 and names fixture gates. It does not claim public PHP replacement, Haxe-owned runtime logic, complete admin feature screens, admin AJAX, installed WordPress admin parity, or browser/editor ownership."
+  },
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "source_count": 86,
+    "artifact_count": 86,
+    "abi_entry_count": 1141,
+    "class_count": 28,
+    "test_count": 73
+  }
+}
