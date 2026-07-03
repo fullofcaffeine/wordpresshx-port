@@ -28,7 +28,7 @@ npm run wphx:php:gap-inventory
 npm run wphx:php:gap-inventory:check
 ```
 
-It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 33 Reflaxe-backed WPHX PHP public-adapter hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 5 script adapters, 23 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 21 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
+It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 34 Reflaxe-backed WPHX PHP public-adapter hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 5 script adapters, 28 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 22 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
 
 Use that manifest when moving gaps: reusable expression, statement, array, object, call, loop, cast, and std/php behavior belongs in WPHX PHP core or runtime/std strategy; original-path ABI, pluggable timing, conditional declarations, and WordPress-specific shell compatibility stay in the WordPress profile. Helper/bootstrap bridges are temporary fallbacks until a targeted whole-file or core-lowering gate retires them. Runner copies used as oracle setup are not durable public ownership claims.
 
@@ -59,6 +59,15 @@ npm run wphx:php:core-lowering-pilot:check
 
 It records `manifests/wphx-php/core-lowering-pilot.v1.json` and `receipts/compiler/wphx-comp-php-core-lowering-pilot.v1.json`. The fixture emits `wp-includes/wphx-core-lowering.php` from ordinary typed Haxe bodies with no `@:wp.adapter`, `@:wp.haxeHelper`, or `@:wp.haxeBootstrap` bridge. It proves generic `if`, `while`, `break`, and `continue` statement lowering, PHP lint, exact generated-shape patterns, runtime behavior, `unsupported=[]`, and `core_ir_features=["typed.stmt.break","typed.stmt.continue","typed.stmt.if","typed.stmt.while"]`.
 
+The native-array core fixture is:
+
+```bash
+npm run wphx:php:native-array-mutation-core
+npm run wphx:php:native-array-mutation-core:check
+```
+
+It records `manifests/wphx-php/native-array-mutation-core.v1.json` and `receipts/compiler/wphx-comp-php-native-array-mutation-core.v1.json`. The fixture emits `wp-includes/wphx-native-array-mutation.php` from ordinary typed Haxe bodies with no `@:wp.adapter`, `@:wp.haxeHelper`, or `@:wp.haxeBootstrap` bridge. It proves typed native array indexed reads/writes, nested indexed mutation, associative fallback reads, keyed writes, appends, unset, `array_key_exists`, `isset`, and `empty` lowering, plus PHP distinctions for null, false, `0`, `'0'`, empty string, and missing keys. The fixture records `unsupported=[]` and `core_ir_features=["typed.expr.anonymous-object-field","typed.expr.anonymous-object-literal","typed.expr.array-access","typed.expr.array-empty","typed.expr.array-fallback-read","typed.expr.array-isset","typed.expr.array-key-exists","typed.expr.array-literal","typed.stmt.array-append","typed.stmt.array-unset","typed.stmt.array-write"]`. By-reference array slot aliasing and the full PHP key-coercion/sparse/sort/serialization matrix remain deferred pressure.
+
 The static/member core fixture is:
 
 ```bash
@@ -84,7 +93,7 @@ npm run wphx:php:adoption-ci
 npm run wphx:php:adoption-ci:check
 ```
 
-It records `manifests/ci/wphx-php-adoption-ci.v1.json`, `receipts/compiler/wphx-comp-php-adoption-ci.v1.json`, and `receipts/compiler/wphx-comp-php-continuous-adoption-ci.v1.json`. The executable gate now runs 22 manifest-backed WPHX PHP checks covering every current `manifests/wphx-php/*.json` file. The CI manifest reports the included and excluded WPHX PHP evidence surfaces; the current excluded set is empty. New public-boundary manifests must record at least one continuous-adoption outcome: core IR promotion, profile-only ABI justification, stock fallback reduction, bootstrap/helper reduction, or filed backend-pressure evidence. The gate also verifies generated PHP quality, `unsupported=[]` for claimed boundaries, zero inline public raw PHP bodies, zero active adapter templates, public-shell snapshot coverage, runtime/std/bootstrap/debug probes, bounded stock Haxe PHP fallback surfaces, and zero unclassified or stale profile/script adapter classifications. A passing adoption CI unblocks bounded parallel WordPress Core work under these rules; it does not claim mature arbitrary-Haxe `reflaxe.php` backend scope, WPHX runtime/std ownership, installed WordPress parity, complete `WP_Http` ownership, live HTTP behavior, Gutenberg/browser ownership, or abandonment of stock Haxe PHP as the private implementation/stdphp oracle.
+It records `manifests/ci/wphx-php-adoption-ci.v1.json`, `receipts/compiler/wphx-comp-php-adoption-ci.v1.json`, and `receipts/compiler/wphx-comp-php-continuous-adoption-ci.v1.json`. The executable gate now runs 23 manifest-backed WPHX PHP checks covering every current `manifests/wphx-php/*.json` file. The CI manifest reports the included and excluded WPHX PHP evidence surfaces; the current excluded set is empty. New public-boundary manifests must record at least one continuous-adoption outcome: core IR promotion, profile-only ABI justification, stock fallback reduction, bootstrap/helper reduction, or filed backend-pressure evidence. The gate also verifies generated PHP quality, `unsupported=[]` for claimed boundaries, zero inline public raw PHP bodies, zero active adapter templates, public-shell snapshot coverage, runtime/std/bootstrap/debug probes, bounded stock Haxe PHP fallback surfaces, and zero unclassified or stale profile/script adapter classifications. A passing adoption CI unblocks bounded parallel WordPress Core work under these rules; it does not claim mature arbitrary-Haxe `reflaxe.php` backend scope, WPHX runtime/std ownership, installed WordPress parity, complete `WP_Http` ownership, live HTTP behavior, Gutenberg/browser ownership, or abandonment of stock Haxe PHP as the private implementation/stdphp oracle.
 
 The first post-adoption Core audit is:
 
@@ -128,6 +137,8 @@ npm run wphx:php:runtime-stdlib-strategy
 npm run wphx:php:runtime-stdlib-strategy:check
 npm run wphx:php:core-lowering-pilot
 npm run wphx:php:core-lowering-pilot:check
+npm run wphx:php:native-array-mutation-core
+npm run wphx:php:native-array-mutation-core:check
 npm run wphx:php:static-dynamic-member-core
 npm run wphx:php:static-dynamic-member-core:check
 npm run wphx:php:whole-file-class-http

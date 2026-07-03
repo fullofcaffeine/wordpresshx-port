@@ -80,6 +80,15 @@ const REQUIRED_MANIFEST_CHECKS = [
     outcome_note: "Proves reusable typed statement lowering without WordPress-profile/helper/bootstrap fallback."
   },
   {
+    key: "nativeArrayMutationCore",
+    path: "manifests/wphx-php/native-array-mutation-core.v1.json",
+    script: "wphx:php:native-array-mutation-core:check",
+    applies_to_public_boundary: true,
+    continuous_outcomes: ["core_ir_promotion", "filed_backend_pressure_evidence"],
+    outcome_note:
+      "Promotes native array read/write/append/unset/isset/empty and falsey-value-preserving distinctions into a non-WordPress core fixture while deferring reference aliasing and broad key-coercion matrices."
+  },
+  {
     key: "staticDynamicMemberCore",
     path: "manifests/wphx-php/static-dynamic-member-core.v1.json",
     script: "wphx:php:static-dynamic-member-core:check",

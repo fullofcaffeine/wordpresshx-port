@@ -1,0 +1,203 @@
+{
+  "schema": "wphx.wphx-php-native-array-mutation-core.v1",
+  "issue": {
+    "id": "wordpresshx-f808",
+    "external_ref": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+    "title": "Promote native array mutation into reusable PHP core IR"
+  },
+  "generated_at": "2026-07-03T08:00:00Z",
+  "generator": "tools/wphx-php/run-native-array-mutation-core.mjs",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "typed_native_array_mutation_without_wordpress_profile_adapter",
+  "inputs": [
+    {
+      "path": "fixtures/wphx-php/native-array-mutation-core.hxml",
+      "bytes": 390,
+      "sha256": "sha256:a35ee4e372969a493c0677ed2a63868eb6166df796ee79b6dc3ff06ad8366c74"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 61165,
+      "sha256": "sha256:3d15a0481058b95d523bb2f43664f0e05075570c6f78693beb64b9031cad8d29"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/NativeArrayMutationEntry.hx",
+      "bytes": 228,
+      "sha256": "sha256:e1ec5fa8600acbf771b0f172cc435360ebdfe4df2f67678e106e059a88691952"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/NativeArrayMutationSurface.hx",
+      "bytes": 4787,
+      "sha256": "sha256:555c5a07a900d32f08c7f9535ea8ca0820b5b0e393b341fd13a963df40b15747"
+    }
+  ],
+  "generated_shell": {
+    "path": "build/wphx-php/native-array-mutation-core/generated/wp-includes/wphx-native-array-mutation.php",
+    "bytes": 2275,
+    "sha256": "sha256:4c1e1c9efd2580dea21dc216de0efb3dc600dabe94dde2539de11654c54318a0",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/native-array-mutation-core/generated/wp-includes/wphx-native-array-mutation.php",
+    "exact_patterns": [
+      "class WPHX_Native_Array_Mutation",
+      "$indexed = [1, 2];",
+      "$indexed[1] = 20;",
+      "$indexed[] = 5;",
+      "$nested = [[1, 2], [3, 4]];",
+      "$nested[1][0] = $indexed[1] + $indexed[2];",
+      "$assoc = WPHX_Native_Array_Mutation::seed();",
+      "array_key_exists('nullValue', $assoc)",
+      "isset($assoc['nullValue'])",
+      "empty($assoc['nullValue'])",
+      "$zeroStringRead = (array_key_exists('zeroString', $assoc) ? $assoc['zeroString'] : 'fallback');",
+      "$missingFallback = (array_key_exists('missing', $assoc) ? $assoc['missing'] : 'fallback');",
+      "$assoc['zeroValue'] = $assoc['zeroValue'] + 7;",
+      "$assoc['added'] = 'tail';",
+      "$assoc[] = 'loose';",
+      "unset($assoc['falseValue']);",
+      "return ['nullValue' => null, 'falseValue' => false, 'zeroValue' => 0, 'zeroString' => '0', 'emptyString' => ''];"
+    ]
+  },
+  "emission_manifest": {
+    "path": "build/wphx-php/native-array-mutation-core/generated/wphx-php-emission.v1.json",
+    "bytes": 1100,
+    "sha256": "sha256:14e652016acef73a943bc941f4483b98608e921833658aab13f0ec2052201f3b",
+    "declarations": [
+      "class:WPHX_Native_Array_Mutation"
+    ],
+    "core_ir_features": [
+      "typed.expr.anonymous-object-field",
+      "typed.expr.anonymous-object-literal",
+      "typed.expr.array-access",
+      "typed.expr.array-empty",
+      "typed.expr.array-fallback-read",
+      "typed.expr.array-isset",
+      "typed.expr.array-key-exists",
+      "typed.expr.array-literal",
+      "typed.stmt.array-append",
+      "typed.stmt.array-unset",
+      "typed.stmt.array-write"
+    ],
+    "required_core_ir_features": [
+      "typed.expr.anonymous-object-field",
+      "typed.expr.anonymous-object-literal",
+      "typed.expr.array-access",
+      "typed.expr.array-empty",
+      "typed.expr.array-fallback-read",
+      "typed.expr.array-isset",
+      "typed.expr.array-key-exists",
+      "typed.expr.array-literal",
+      "typed.stmt.array-append",
+      "typed.stmt.array-unset",
+      "typed.stmt.array-write"
+    ],
+    "unsupported": [],
+    "adapter_templates": [],
+    "segment_plans": []
+  },
+  "runtime_probe": {
+    "path": "build/wphx-php/native-array-mutation-core/probe.php",
+    "observed": {
+      "indexed": [
+        1,
+        20,
+        5
+      ],
+      "nested": [
+        [
+          1,
+          2
+        ],
+        [
+          25,
+          4
+        ]
+      ],
+      "nullKeyExists": true,
+      "nullIsset": false,
+      "nullEmpty": true,
+      "falseReadBeforeUnset": false,
+      "falseIssetBeforeUnset": true,
+      "falseEmptyBeforeUnset": true,
+      "falseKeyExistsAfterUnset": false,
+      "zeroReadAfterWrite": 7,
+      "zeroEmpty": true,
+      "zeroStringRead": "0",
+      "zeroStringEmpty": true,
+      "emptyStringEmpty": true,
+      "missingKeyExists": false,
+      "missingIsset": false,
+      "missingEmpty": true,
+      "missingFallback": "fallback",
+      "added": "tail",
+      "appended": "loose"
+    },
+    "expected": {
+      "indexed": [
+        1,
+        20,
+        5
+      ],
+      "nested": [
+        [
+          1,
+          2
+        ],
+        [
+          25,
+          4
+        ]
+      ],
+      "nullKeyExists": true,
+      "nullIsset": false,
+      "nullEmpty": true,
+      "falseReadBeforeUnset": false,
+      "falseIssetBeforeUnset": true,
+      "falseEmptyBeforeUnset": true,
+      "falseKeyExistsAfterUnset": false,
+      "zeroReadAfterWrite": 7,
+      "zeroEmpty": true,
+      "zeroStringRead": "0",
+      "zeroStringEmpty": true,
+      "emptyStringEmpty": true,
+      "missingKeyExists": false,
+      "missingIsset": false,
+      "missingEmpty": true,
+      "missingFallback": "fallback",
+      "added": "tail",
+      "appended": "loose"
+    },
+    "status": "passed"
+  },
+  "profile_core_audit_pressure_addressed": [
+    {
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "promoted_pressure": "native array read/write/append/unset/isset/empty and falsey-value-preserving distinctions now have a non-WordPress core fixture"
+    },
+    {
+      "adapter_group": "HTTP response/cookie/header adapters",
+      "promoted_pressure": "the profile/core audit's native-array promotion gate has executable core evidence for repeated associative-array mechanics"
+    }
+  ],
+  "deferred_pressure": [
+    {
+      "feature": "by-reference array slot mutation",
+      "reason": "The fixture proves emitted PHP mutates local native array variables and nested slots; by-reference parameter/slot aliasing remains covered by existing by-ref ABI fixtures and needs a narrower follow-up before replacing broader WordPress reference-heavy bodies."
+    },
+    {
+      "feature": "full PHP array key coercion matrix",
+      "reason": "The fixture covers string and numeric-string access for the claimed falsey cases; broad PHP key coercion, sparse arrays, sorting, serialization, and references remain runtime/std or backend-promotion pressure."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "runtime_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapters": true,
+    "no_haxe_helper_bridge": true,
+    "no_haxe_bootstrap_bridge": true,
+    "required_core_ir_features_present": true,
+    "reference_and_key_coercion_non_claims_recorded": true
+  }
+}

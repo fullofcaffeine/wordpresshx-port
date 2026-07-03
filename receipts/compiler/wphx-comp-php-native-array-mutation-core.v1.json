@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-native-array-mutation-core",
+  "issue": {
+    "id": "wordpresshx-f808",
+    "external_ref": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+    "title": "Promote native array mutation into reusable PHP core IR"
+  },
+  "recorded_at": "2026-07-03T08:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "typed_native_array_mutation_without_wordpress_profile_adapter",
+  "commands": [
+    "npm run wphx:php:native-array-mutation-core",
+    "npm run wphx:php:native-array-mutation-core:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-native-array-mutation-core.mjs",
+      "role": "deterministic native array mutation core fixture runner"
+    },
+    {
+      "path": "fixtures/wphx-php/native-array-mutation-core.hxml",
+      "role": "Reflaxe-backed WPHX PHP hxml for the generic native array mutation fixture"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/NativeArrayMutationSurface.hx",
+      "role": "ordinary typed Haxe surface for native array read/write/append/unset/isset/empty lowering"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler typed native array lowering implementation"
+    },
+    {
+      "path": "manifests/wphx-php/native-array-mutation-core.v1.json",
+      "role": "native array mutation core fixture manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:f1554b415d65f8a06eaf8afa74e2c4bd954effada8661dd83aa3039bf1294bce",
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "runtime_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapters": true,
+    "no_haxe_helper_bridge": true,
+    "no_haxe_bootstrap_bridge": true,
+    "required_core_ir_features_present": true,
+    "reference_and_key_coercion_non_claims_recorded": true
+  },
+  "claims": [
+    "WPHX PHP has a non-WordPress core fixture for typed native array read/write/append/unset/isset/empty lowering and nested indexed array mutation.",
+    "The generated native-array shell lints with php -l, executes the expected runtime probe, records unsupported=[], and records the required typed expression/statement features in the emission manifest.",
+    "The fixture preserves PHP distinctions between array_key_exists, isset, and empty for null, false, 0, '0', empty string, and missing keys."
+  ],
+  "non_claims": [
+    "This does not claim full PHP array key coercion, sparse array, sorting, serialization, or reference aliasing behavior.",
+    "This does not claim WPHX PHP owns std/php NativeArray or can replace stock Haxe PHP runtime/std behavior.",
+    "This does not retire HTTP response/cookie/header WordPress-profile adapters by itself or claim full class-wp-http.php ownership."
+  ]
+}

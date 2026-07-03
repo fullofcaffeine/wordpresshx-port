@@ -1669,14 +1669,71 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				reportUnsupported("php array get lowering expects 3 arguments for " + classType.module + "." + field.name);
 				return "null";
 			}
+			recordCoreIrFeatures(["typed.expr.array-fallback-read"]);
 			final array = emitExpr(args[0]);
 			final key = emitExpr(args[1]);
 			final fallback = emitExpr(args[2]);
 			return "(array_key_exists(" + key + ", " + array + ") ? " + array + "[" + key + "] : " + fallback + ")";
 		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpArrayIsset"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php array isset lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "false";
+			}
+			recordCoreIrFeatures(["typed.expr.array-isset"]);
+			return "isset(" + emitExpr(args[0]) + "[" + emitExpr(args[1]) + "])";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpArrayEmpty"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php array empty lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "false";
+			}
+			recordCoreIrFeatures(["typed.expr.array-empty"]);
+			return "empty(" + emitExpr(args[0]) + "[" + emitExpr(args[1]) + "])";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpArraySet"))
+		{
+			if (args.length != 3)
+			{
+				reportUnsupported("php array set lowering expects 3 arguments for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.stmt.array-write"]);
+			return emitExpr(args[0]) + "[" + emitExpr(args[1]) + "] = " + emitExpr(args[2]);
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpArrayAppend"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php array append lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.stmt.array-append"]);
+			return emitExpr(args[0]) + "[] = " + emitExpr(args[1]);
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpArrayUnset"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php array unset lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.stmt.array-unset"]);
+			return "unset(" + emitExpr(args[0]) + "[" + emitExpr(args[1]) + "])";
+		}
 		return switch (field.name)
 		{
 			case "keyExists" if (args.length == 2):
+				recordCoreIrFeatures(["typed.expr.array-key-exists"]);
 				"array_key_exists(" + emitExpr(args[1]) + ", " + emitExpr(args[0]) + ")";
 			case _:
 				null;
