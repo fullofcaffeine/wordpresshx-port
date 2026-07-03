@@ -1,0 +1,160 @@
+{
+  "schema": "wphx.wphx-php-static-dynamic-member-core.v1",
+  "issue": {
+    "id": "wordpresshx-sbot",
+    "external_ref": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+    "title": "Promote static and dynamic member lowering"
+  },
+  "generated_at": "2026-07-03T07:00:00Z",
+  "generator": "tools/wphx-php/run-static-dynamic-member-core.mjs",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "typed_static_member_lowering_without_wordpress_profile_adapter",
+  "inputs": [
+    {
+      "path": "fixtures/wphx-php/static-dynamic-member-core.hxml",
+      "bytes": 390,
+      "sha256": "sha256:c16d0d954867a2bc5f8af90e23b64cbd0a09e5e235ee4c99f570f5c9f69e938e"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "bytes": 59247,
+      "sha256": "sha256:5a5039de17026cc1ec6d101921f79ece978373e67a3fac1b1825efaf954933ab"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/StaticDynamicMemberEntry.hx",
+      "bytes": 320,
+      "sha256": "sha256:872a11b90ee7231adaf522c0a44e63bdf47835bf20eee3ad64a46cb4374c2254"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/StaticDynamicMemberSurface.hx",
+      "bytes": 1357,
+      "sha256": "sha256:19a7ed6824e28536f8116af981833e914f2db699b5ea347e1325a71c47cc3445"
+    }
+  ],
+  "generated_shell": {
+    "path": "build/wphx-php/static-dynamic-member-core/generated/wp-includes/wphx-static-dynamic-member.php",
+    "bytes": 1169,
+    "sha256": "sha256:fe90a4d5023915d37e173f15f0a4264ed11bbf7ce4223300abdd3598197b38ed",
+    "php_lint": "passed",
+    "php_lint_output": "No syntax errors detected in build/wphx-php/static-dynamic-member-core/generated/wp-includes/wphx-static-dynamic-member.php",
+    "exact_patterns": [
+      "class WPHX_Static_Dynamic_Member",
+      "public static $counter = 3;",
+      "public static $values = [2, 4, 8];",
+      "public $name;",
+      "public $hits;",
+      "WPHX_Static_Dynamic_Member::$counter += $delta;",
+      "WPHX_Static_Dynamic_Member::$values[1] = WPHX_Static_Dynamic_Member::$values[1] + WPHX_Static_Dynamic_Member::$counter;",
+      "return ['label' => 'item', 'amount' => $value];",
+      "$row = WPHX_Static_Dynamic_Member::row($value);",
+      "return $row['label'] . ':' . $row['amount'];",
+      "$item = new WPHX_Static_Dynamic_Member($name);",
+      "$this->hits = 0;",
+      "$this->name = $next;",
+      "$this->hits += 1;"
+    ]
+  },
+  "emission_manifest": {
+    "path": "build/wphx-php/static-dynamic-member-core/generated/wphx-php-emission.v1.json",
+    "bytes": 975,
+    "sha256": "sha256:a5615c6b0fd6ce9a7218e0cd4d4d3f4e01b5f39234d4e4393931dcd45fdd495f",
+    "declarations": [
+      "class:WPHX_Static_Dynamic_Member"
+    ],
+    "core_ir_features": [
+      "typed.expr.anonymous-object-field",
+      "typed.expr.anonymous-object-literal",
+      "typed.expr.array-access",
+      "typed.expr.array-literal",
+      "typed.expr.instance-property",
+      "typed.expr.static-new",
+      "typed.expr.static-property"
+    ],
+    "required_core_ir_features": [
+      "typed.expr.anonymous-object-field",
+      "typed.expr.anonymous-object-literal",
+      "typed.expr.array-access",
+      "typed.expr.array-literal",
+      "typed.expr.instance-property",
+      "typed.expr.static-new",
+      "typed.expr.static-property"
+    ],
+    "unsupported": [],
+    "adapter_templates": [],
+    "segment_plans": []
+  },
+  "runtime_probe": {
+    "path": "build/wphx-php/static-dynamic-member-core/probe.php",
+    "observed": {
+      "class_guard": true,
+      "default_counter": 3,
+      "default_values": [
+        2,
+        4,
+        8
+      ],
+      "bump": 12,
+      "counter_after": 8,
+      "values_after": [
+        2,
+        12,
+        8
+      ],
+      "describe": "item:9",
+      "make_name": "made-core:1",
+      "instance_rename": "second:1"
+    },
+    "expected": {
+      "class_guard": true,
+      "default_counter": 3,
+      "default_values": [
+        2,
+        4,
+        8
+      ],
+      "bump": 12,
+      "counter_after": 8,
+      "values_after": [
+        2,
+        12,
+        8
+      ],
+      "describe": "item:9",
+      "make_name": "made-core:1",
+      "instance_rename": "second:1"
+    },
+    "status": "passed"
+  },
+  "profile_core_audit_pressure_addressed": [
+    {
+      "adapter": "wp-oembed-add-provider-early",
+      "promoted_pressure": "static property defaults, static array storage, and static member mutation now have a non-WordPress core fixture"
+    },
+    {
+      "adapter": "wp-oembed-remove-provider-early",
+      "promoted_pressure": "static property defaults, static array storage, and static member mutation now have a non-WordPress core fixture"
+    }
+  ],
+  "deferred_pressure": [
+    {
+      "feature": "runtime dynamic property names",
+      "reason": "Normal typed Haxe source does not provide a narrow safe runtime-property-name construct without an escape hatch; keep this for a minimized follow-up before dynamic WordPress member surfaces grow."
+    },
+    {
+      "feature": "runtime dynamic new/class-string construction",
+      "reason": "The fixture proves typed static new and class member access; runtime dynamic new remains backend-promotion pressure until it can be expressed without untyped source."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "runtime_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapters": true,
+    "no_haxe_helper_bridge": true,
+    "no_haxe_bootstrap_bridge": true,
+    "required_core_ir_features_present": true,
+    "dynamic_runtime_constructs_deferred_with_owner": true
+  }
+}

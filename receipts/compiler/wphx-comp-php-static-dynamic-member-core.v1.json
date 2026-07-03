@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-static-dynamic-member-core",
+  "issue": {
+    "id": "wordpresshx-sbot",
+    "external_ref": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+    "title": "Promote static and dynamic member lowering"
+  },
+  "recorded_at": "2026-07-03T07:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "typed_static_member_lowering_without_wordpress_profile_adapter",
+  "commands": [
+    "npm run wphx:php:static-dynamic-member-core",
+    "npm run wphx:php:static-dynamic-member-core:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-static-dynamic-member-core.mjs",
+      "role": "deterministic static/dynamic member core fixture runner"
+    },
+    {
+      "path": "fixtures/wphx-php/static-dynamic-member-core.hxml",
+      "role": "Reflaxe-backed WPHX PHP hxml for the generic static/member lowering fixture"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/StaticDynamicMemberSurface.hx",
+      "role": "ordinary typed Haxe surface for static property, instance property, array access, anonymous object, and static new lowering"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler typed expression lowering implementation"
+    },
+    {
+      "path": "manifests/wphx-php/static-dynamic-member-core.v1.json",
+      "role": "static/dynamic member core fixture manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:1a815f53dd918b020d49b271eab881d49870733bfb2f83f502e433b95bf3fc71",
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "runtime_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapters": true,
+    "no_haxe_helper_bridge": true,
+    "no_haxe_bootstrap_bridge": true,
+    "required_core_ir_features_present": true,
+    "dynamic_runtime_constructs_deferred_with_owner": true
+  },
+  "claims": [
+    "WPHX PHP has a non-WordPress core fixture for typed static property defaults, static property read/write, indexed static array mutation, instance property mutation, anonymous-structure field access, and typed static object construction.",
+    "The generated static/member shell lints with php -l, executes the expected runtime probe, records unsupported=[], and records the required typed expression features in the emission manifest.",
+    "The fixture uses no @:wp.adapter, @:wp.haxeHelper, or @:wp.haxeBootstrap bridge."
+  ],
+  "non_claims": [
+    "This does not claim arbitrary dynamic property-name lowering or runtime dynamic new/class-string construction.",
+    "This does not claim full PHP object model, reflection, late static binding, magic methods, traits, namespaces, or std/php runtime replacement.",
+    "This does not retire the WP_oEmbed profile adapters by itself or claim full class-wp-oembed.php ownership."
+  ]
+}

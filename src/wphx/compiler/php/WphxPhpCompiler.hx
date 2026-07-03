@@ -1586,10 +1586,16 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			case TCall(target, args):
 				emitCall(target, args);
 			case TNew(classRef, _, args):
+				recordCoreIrFeatures(["typed.expr.static-new"]);
 				"new " + phpClassName(classRef.get()) + "(" + args.map(emitExpr).join(", ") + ")";
+			case TArray(base, key):
+				recordCoreIrFeatures(["typed.expr.array-access"]);
+				emitExpr(base) + "[" + emitExpr(key) + "]";
 			case TArrayDecl(values):
+				recordCoreIrFeatures(["typed.expr.array-literal"]);
 				"[" + values.map(emitExpr).join(", ") + "]";
 			case TObjectDecl(fields):
+				recordCoreIrFeatures(["typed.expr.anonymous-object-literal"]);
 				"[" + fields.map(field -> quote(field.name) + " => " + emitExpr(field.expr)).join(", ") + "]";
 			case _:
 				reportUnsupported("unsupported expression " + expr.expr.getName() + " at " + sourceLabel(expr.pos));
@@ -1687,14 +1693,23 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return switch (access)
 		{
 			case FInstance(_, _, field):
+				if (field.get().kind.match(FVar(_, _)))
+				{
+					recordCoreIrFeatures(["typed.expr.instance-property"]);
+				}
 				emitExpr(target) + "->" + phpIdent(field.get().name);
 			case FStatic(classRef, field):
 				final fieldValue = field.get();
+				if (fieldValue.kind.match(FVar(_, _)))
+				{
+					recordCoreIrFeatures(["typed.expr.static-property"]);
+				}
 				final delimiter = fieldValue.kind.match(FVar(_, _)) ? "::$" : "::";
 				phpClassName(classRef.get()) + delimiter + phpIdent(fieldValue.name);
 			case FClosure(_, field):
 				emitExpr(target) + "->" + phpIdent(field.get().name);
 			case FAnon(field):
+				recordCoreIrFeatures(["typed.expr.anonymous-object-field"]);
 				emitExpr(target) + "[" + quote(field.get().name) + "]";
 			case FDynamic(name):
 				emitExpr(target) + "->" + phpIdent(name);

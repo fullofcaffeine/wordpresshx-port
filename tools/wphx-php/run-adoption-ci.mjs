@@ -80,6 +80,15 @@ const REQUIRED_MANIFEST_CHECKS = [
     outcome_note: "Proves reusable typed statement lowering without WordPress-profile/helper/bootstrap fallback."
   },
   {
+    key: "staticDynamicMemberCore",
+    path: "manifests/wphx-php/static-dynamic-member-core.v1.json",
+    script: "wphx:php:static-dynamic-member-core:check",
+    applies_to_public_boundary: true,
+    continuous_outcomes: ["core_ir_promotion", "filed_backend_pressure_evidence"],
+    outcome_note:
+      "Promotes static property/default, indexed static array mutation, instance property, anonymous member, and typed static new pressure into a non-WordPress core fixture while deferring runtime dynamic new/property names."
+  },
+  {
     key: "wholeFilePilot",
     path: "manifests/wphx-php/whole-file-class-http.v1.json",
     script: "wphx:php:whole-file-class-http:check",
