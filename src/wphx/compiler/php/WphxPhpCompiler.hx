@@ -1666,6 +1666,9 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				PhpLocal(phpVarName(v), value == null ? PhpNull : phpCoreExprFromTypedExpr(value));
 			case TCall(target, args):
 				PhpExprStmt(phpCoreCallFromTypedCall(target, args, expr.pos));
+			case TThrow(value):
+				recordCoreIrFeatures(["typed.stmt.throw"]);
+				PhpThrow(phpCoreExprFromTypedExpr(value));
 			case _:
 				reportUnsupported("unsupported static closure statement " + expr.expr.getName() + " at " + sourceLabel(expr.pos));
 				PhpExprStmt(PhpNull);
@@ -1721,6 +1724,9 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			case TContinue:
 				recordCoreIrFeatures(["typed.stmt.continue"]);
 				prefix + "continue;";
+			case TThrow(value):
+				recordCoreIrFeatures(["typed.stmt.throw"]);
+				prefix + "throw " + emitExpr(value) + ";";
 			case TBlock(_):
 				emitBody(expr, depth);
 			case _:

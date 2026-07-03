@@ -107,6 +107,15 @@ const REQUIRED_MANIFEST_CHECKS = [
       "Promotes static property/default, indexed static array mutation, instance property, anonymous member, and typed static new pressure into a non-WordPress core fixture while deferring runtime dynamic new/property names."
   },
   {
+    key: "privateEmitterPilot",
+    path: "manifests/wphx-php/private-emitter-pilot.v1.json",
+    script: "wphx:php:private-emitter-pilot:check",
+    applies_to_public_boundary: false,
+    continuous_outcomes: ["private_emitter_replacement_ladder", "filed_backend_pressure_evidence"],
+    outcome_note:
+      "Adds the first private-emitter replacement ladder rung by comparing one existing stock Haxe PHP private-output hxml with a WPHX private candidate while recording source-map, runtime/std, exception-identity, and ADR gates before broader stock replacement."
+  },
+  {
     key: "wholeFilePilot",
     path: "manifests/wphx-php/whole-file-class-http.v1.json",
     script: "wphx:php:whole-file-class-http:check",

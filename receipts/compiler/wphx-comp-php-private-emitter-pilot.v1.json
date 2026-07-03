@@ -1,0 +1,69 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-private-emitter-pilot",
+  "issue": {
+    "id": "wordpresshx-4j86",
+    "external_ref": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+    "title": "Prove WPHX PHP private-output replacement ladder"
+  },
+  "recorded_at": "2026-07-03T10:00:00Z",
+  "status": "passed",
+  "evidence_class": "private_emitter_replacement_pilot",
+  "artifact_scope": "one_stock_private_hxml_compared_to_wphx_private_candidate",
+  "commands": [
+    "npm run wphx:php:private-emitter-pilot",
+    "npm run wphx:php:private-emitter-pilot:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-private-emitter-pilot.mjs",
+      "role": "deterministic private-emitter pilot runner"
+    },
+    {
+      "path": "fixtures/wphx-php/bootstrap-autoload-impl.hxml",
+      "role": "selected existing stock Haxe PHP private-output hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/private-emitter-pilot.hxml",
+      "role": "WPHX PHP private candidate hxml"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/priv/PrivateEmitterPilotKernel.hx",
+      "role": "typed WPHX private candidate source"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler typed throw/static/private lowering implementation"
+    },
+    {
+      "path": "manifests/wphx-php/private-emitter-pilot.v1.json",
+      "role": "private-emitter pilot manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:d68c3644f70bd7bc92cd1c6fcb8bbb842e76cdd0de896b176fcbac9ad352950f",
+  "validation_result": {
+    "status": "passed",
+    "selected_stock_hxml_compiled": true,
+    "wphx_private_candidate_compiled": true,
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "comparable_behavior_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapter": true,
+    "no_stock_haxe_bootstrap_for_wphx_candidate": true,
+    "exception_class_gap_recorded": true,
+    "debug_source_map_gap_recorded": true,
+    "replacement_ladder_recorded": true
+  },
+  "claims": [
+    "One existing stock Haxe PHP private-output hxml now has a bounded WPHX PHP private candidate with matching comparable mark/snapshot/failure-message behavior.",
+    "WPHX PHP can emit this private candidate without stock Haxe bootstrap, helper bridge, WordPress profile adapter, or unsupported constructs.",
+    "The private-emitter replacement ladder is recorded with explicit source-map, runtime/std, and ADR gates before broader stock-target replacement."
+  ],
+  "non_claims": [
+    "This does not deprecate stock Haxe PHP as the default private implementation emitter.",
+    "This does not claim WPHX PHP owns Haxe std/php runtime, source maps, source comments, Haxe exception wrapper identity, closures with captures, reflection, dynamic dispatch, or arbitrary private Haxe modules.",
+    "This does not replace feed/embed/HTTPS/HTTP private implementation hxmls or any production WordPress private implementation output.",
+    "This does not promote WPHX PHP to a mature arbitrary-Haxe PHP backend or extracted reflaxe.php target."
+  ]
+}
