@@ -1,0 +1,663 @@
+{
+  "schema": "wphx.wp-core-admin-request-screen-list-table-oracle-fixture.v1",
+  "issue": "WPHX-315.03",
+  "generated_at": "2026-07-03T16:00:00.000Z",
+  "generator": "tools/wp-core/run-admin-request-screen-list-table-oracle-fixture.mjs",
+  "evidence_class": "oracle_source_mirror",
+  "artifact_scope": "helper",
+  "inputs": {
+    "surface": {
+      "path": "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+      "bytes": 109821,
+      "sha256": "sha256:85887acd510bedc90b2d24644965961ea909f6bfe6a72eee6452dbe4665c7a22"
+    },
+    "adapter_contract": {
+      "path": "manifests/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+      "bytes": 19334,
+      "sha256": "sha256:7d1d6868ccd647ad9c83bc76c24d2c1c4e63e8f63d8890ee67ea09319c858b80"
+    },
+    "source_files": [
+      {
+        "path": "src/wp-admin/includes/class-wp-screen.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/class-wp-screen.php",
+        "bytes": 37440,
+        "sha256": "sha256:47af86c046bf2449c754a35f38734971725f1f01698f91c45fbff97d2fe544f6"
+      },
+      {
+        "path": "src/wp-admin/includes/screen.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/screen.php",
+        "bytes": 6390,
+        "sha256": "sha256:5eb0ace1297a8eb8180a21abdc850b91bba9e8ea71925c6767f0e577c9697908"
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-list-table.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/class-wp-list-table.php",
+        "bytes": 53080,
+        "sha256": "sha256:399c755daccbe5e24357d8b7d48c3cb025d65bd6d4c82036f864c851b03d21f5"
+      },
+      {
+        "path": "src/wp-includes/pluggable.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/pluggable.php",
+        "bytes": 127558,
+        "sha256": "sha256:c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+      }
+    ]
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/includes/class-wp-screen.php",
+      "src/wp-admin/includes/screen.php",
+      "src/wp-admin/includes/class-wp-list-table.php",
+      "src/wp-includes/pluggable.php"
+    ],
+    "covered_symbols": [
+      "WP_Screen::get",
+      "WP_Screen::set_current_screen",
+      "WP_Screen::set_parentage",
+      "WP_Screen::add_help_tab",
+      "WP_Screen::get_help_tabs",
+      "WP_Screen::add_option",
+      "WP_Screen::get_option",
+      "WP_Screen::set_screen_reader_content",
+      "get_current_screen",
+      "set_current_screen",
+      "add_screen_option",
+      "get_column_headers",
+      "get_hidden_columns",
+      "WP_List_Table::__construct",
+      "WP_List_Table::get_column_info",
+      "WP_List_Table::current_action",
+      "WP_List_Table::set_pagination_args",
+      "WP_List_Table::get_pagination_arg",
+      "WP_List_Table::row_actions",
+      "WP_List_Table::display",
+      "check_admin_referer"
+    ],
+    "cases": [
+      {
+        "id": "admin-request:current-screen",
+        "focus": "admin request routing, current screen globals, parentage, block-editor flag, and current_screen action"
+      },
+      {
+        "id": "screen:help-options",
+        "focus": "WP_Screen help-tab priority ordering, screen options, sidebar, reader text, and add_screen_option handoff"
+      },
+      {
+        "id": "list-table:columns-actions",
+        "focus": "WP_List_Table column headers, hidden columns, sortable metadata, bulk action/current_action, row actions, and table classes"
+      },
+      {
+        "id": "list-table:pagination-display",
+        "focus": "WP_List_Table pagination args, nonce field, tablenav, column headers, rows, and output fragments"
+      },
+      {
+        "id": "guard:nonce-capability",
+        "focus": "check_admin_referer valid and referer-fallback branches plus capability guard stubs"
+      }
+    ],
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "semantic_owner": "upstream_php_oracle_mirrored",
+      "durable_adapter_owner": "not_claimed",
+      "installed_admin_parity_claimed": false,
+      "browser_or_editor_ownership_claimed": false,
+      "removal_gate": "Replace copied candidate PHP with Haxe-owned admin request, WP_Screen, WP_List_Table, nonce/capability, and generated original-path adapter evidence before claiming public PHP ownership."
+    }
+  },
+  "runs": [
+    {
+      "id": "admin-request:current-screen",
+      "focus": "admin request routing, current screen globals, parentage, block-editor flag, and current_screen action",
+      "oracle": {
+        "case": "admin-request:current-screen",
+        "current": {
+          "id": "edit-post",
+          "base": "edit",
+          "action": "",
+          "post_type": "post",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": true,
+          "in_admin_network": false,
+          "is_block_editor": true,
+          "parent_file": "edit.php?post_type=post",
+          "parent_base": "edit"
+        },
+        "network": {
+          "id": "dashboard-network",
+          "base": "dashboard-network",
+          "action": "",
+          "post_type": "",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": false,
+          "in_admin_network": true,
+          "is_block_editor": false,
+          "parent_file": null,
+          "parent_base": null
+        },
+        "globals": {
+          "typenow": "post",
+          "taxnow": ""
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "current_screen",
+            "arg_count": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "candidate": {
+        "case": "admin-request:current-screen",
+        "current": {
+          "id": "edit-post",
+          "base": "edit",
+          "action": "",
+          "post_type": "post",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": true,
+          "in_admin_network": false,
+          "is_block_editor": true,
+          "parent_file": "edit.php?post_type=post",
+          "parent_base": "edit"
+        },
+        "network": {
+          "id": "dashboard-network",
+          "base": "dashboard-network",
+          "action": "",
+          "post_type": "",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": false,
+          "in_admin_network": true,
+          "is_block_editor": false,
+          "parent_file": null,
+          "parent_base": null
+        },
+        "globals": {
+          "typenow": "post",
+          "taxnow": ""
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "current_screen",
+            "arg_count": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "matches": true
+    },
+    {
+      "id": "screen:help-options",
+      "focus": "WP_Screen help-tab priority ordering, screen options, sidebar, reader text, and add_screen_option handoff",
+      "oracle": {
+        "case": "screen:help-options",
+        "screen": {
+          "id": "tools",
+          "base": "tools",
+          "action": "",
+          "post_type": "",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": true,
+          "in_admin_network": false,
+          "is_block_editor": false,
+          "parent_file": null,
+          "parent_base": null
+        },
+        "help_order": [
+          "first",
+          "latertab"
+        ],
+        "help_first": {
+          "title": "First",
+          "id": "first",
+          "content": "<p>First</p>",
+          "callback": false,
+          "priority": 5
+        },
+        "help_sidebar": "<p>Sidebar</p>",
+        "per_page_default": 25,
+        "screen_reader": {
+          "heading_views": "Filter items list",
+          "heading_pagination": "Items list navigation",
+          "heading_list": "Fixture items"
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "current_screen",
+            "arg_count": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "candidate": {
+        "case": "screen:help-options",
+        "screen": {
+          "id": "tools",
+          "base": "tools",
+          "action": "",
+          "post_type": "",
+          "taxonomy": "",
+          "in_admin_any": true,
+          "in_admin_site": true,
+          "in_admin_network": false,
+          "is_block_editor": false,
+          "parent_file": null,
+          "parent_base": null
+        },
+        "help_order": [
+          "first",
+          "latertab"
+        ],
+        "help_first": {
+          "title": "First",
+          "id": "first",
+          "content": "<p>First</p>",
+          "callback": false,
+          "priority": 5
+        },
+        "help_sidebar": "<p>Sidebar</p>",
+        "per_page_default": 25,
+        "screen_reader": {
+          "heading_views": "Filter items list",
+          "heading_pagination": "Items list navigation",
+          "heading_list": "Fixture items"
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "current_screen",
+            "arg_count": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "matches": true
+    },
+    {
+      "id": "list-table:columns-actions",
+      "focus": "WP_List_Table column headers, hidden columns, sortable metadata, bulk action/current_action, row actions, and table classes",
+      "oracle": {
+        "case": "list-table:columns-actions",
+        "columns": [
+          "cb",
+          "name",
+          "status",
+          "comments"
+        ],
+        "hidden": [
+          "status"
+        ],
+        "sortable": {
+          "name": [
+            "name",
+            false,
+            "Name",
+            "Sort by name.",
+            "asc"
+          ],
+          "status": [
+            "status",
+            true,
+            "",
+            "Sort by status.",
+            false
+          ]
+        },
+        "primary": "name",
+        "bulk_action": "delete",
+        "filtered_action": false,
+        "row_actions": "<div class=\"row-actions visible\"><span class='edit'><a>Edit</a> | </span><span class='delete'><a>Delete</a></span></div><button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>",
+        "table_classes": [
+          "widefat",
+          "fixed",
+          "striped",
+          "table-view-excerpt",
+          "wphx-items"
+        ],
+        "filters": [
+          {
+            "hook": "add_filter:manage_edit-post_columns",
+            "priority": 0,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "manage_edit-post_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "hidden_columns",
+            "arg_count": 3
+          },
+          {
+            "hook": "manage_edit-post_sortable_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "list_table_primary_column",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "candidate": {
+        "case": "list-table:columns-actions",
+        "columns": [
+          "cb",
+          "name",
+          "status",
+          "comments"
+        ],
+        "hidden": [
+          "status"
+        ],
+        "sortable": {
+          "name": [
+            "name",
+            false,
+            "Name",
+            "Sort by name.",
+            "asc"
+          ],
+          "status": [
+            "status",
+            true,
+            "",
+            "Sort by status.",
+            false
+          ]
+        },
+        "primary": "name",
+        "bulk_action": "delete",
+        "filtered_action": false,
+        "row_actions": "<div class=\"row-actions visible\"><span class='edit'><a>Edit</a> | </span><span class='delete'><a>Delete</a></span></div><button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>",
+        "table_classes": [
+          "widefat",
+          "fixed",
+          "striped",
+          "table-view-excerpt",
+          "wphx-items"
+        ],
+        "filters": [
+          {
+            "hook": "add_filter:manage_edit-post_columns",
+            "priority": 0,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "manage_edit-post_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "hidden_columns",
+            "arg_count": 3
+          },
+          {
+            "hook": "manage_edit-post_sortable_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "list_table_primary_column",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "matches": true
+    },
+    {
+      "id": "list-table:pagination-display",
+      "focus": "WP_List_Table pagination args, nonce field, tablenav, column headers, rows, and output fragments",
+      "oracle": {
+        "case": "list-table:pagination-display",
+        "page": 2,
+        "total_pages": 3,
+        "per_page": 20,
+        "html_sha256": "sha256:7ba129d73ec6fe1b754c291b00a91036eaa711a965812d56cf6617f983ebb0cf",
+        "contains": {
+          "nonce": true,
+          "tablenav": true,
+          "hidden_column": true,
+          "row_action": true,
+          "pagination": true
+        },
+        "html_excerpt": "<input type=\"hidden\" name=\"_wpnonce\" value=\"nonce:bulk-wphx-items\" /><input type=\"hidden\" name=\"_wp_http_referer\" value=\"/wp-admin/edit.php\" /> <div class=\"tablenav top\"> <div class=\"alignleft actions bulkactions\"> <label for=\"bulk-action-selector-top\" class=\"screen-reader-text\">Select bulk action</label><select name=\"action\" id=\"bulk-action-selector-top\"> <",
+        "filters": [
+          {
+            "hook": "add_filter:manage_edit-post_columns",
+            "priority": 0,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "bulk_actions-edit-post",
+            "arg_count": 1
+          },
+          {
+            "hook": "manage_edit-post_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "hidden_columns",
+            "arg_count": 3
+          },
+          {
+            "hook": "manage_edit-post_sortable_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "list_table_primary_column",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "candidate": {
+        "case": "list-table:pagination-display",
+        "page": 2,
+        "total_pages": 3,
+        "per_page": 20,
+        "html_sha256": "sha256:7ba129d73ec6fe1b754c291b00a91036eaa711a965812d56cf6617f983ebb0cf",
+        "contains": {
+          "nonce": true,
+          "tablenav": true,
+          "hidden_column": true,
+          "row_action": true,
+          "pagination": true
+        },
+        "html_excerpt": "<input type=\"hidden\" name=\"_wpnonce\" value=\"nonce:bulk-wphx-items\" /><input type=\"hidden\" name=\"_wp_http_referer\" value=\"/wp-admin/edit.php\" /> <div class=\"tablenav top\"> <div class=\"alignleft actions bulkactions\"> <label for=\"bulk-action-selector-top\" class=\"screen-reader-text\">Select bulk action</label><select name=\"action\" id=\"bulk-action-selector-top\"> <",
+        "filters": [
+          {
+            "hook": "add_filter:manage_edit-post_columns",
+            "priority": 0,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "bulk_actions-edit-post",
+            "arg_count": 1
+          },
+          {
+            "hook": "manage_edit-post_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "hidden_columns",
+            "arg_count": 3
+          },
+          {
+            "hook": "manage_edit-post_sortable_columns",
+            "arg_count": 1
+          },
+          {
+            "hook": "list_table_primary_column",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_footer",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "errors": [],
+        "wrong": [],
+        "nonce_ays": []
+      },
+      "matches": true
+    },
+    {
+      "id": "guard:nonce-capability",
+      "focus": "check_admin_referer valid and referer-fallback branches plus capability guard stubs",
+      "oracle": {
+        "case": "guard:nonce-capability",
+        "nonce_valid": 1,
+        "nonce_referer_fallback": false,
+        "caps": {
+          "manage_options": true,
+          "delete_posts": false
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "check_admin_referer",
+            "arg_count": 2
+          },
+          {
+            "hook": "check_admin_referer",
+            "arg_count": 2
+          }
+        ],
+        "errors": [],
+        "wrong": [
+          {
+            "function_name": "check_admin_referer",
+            "message": "You should specify an action to be verified by using the first parameter.",
+            "version": "3.2.0"
+          }
+        ],
+        "nonce_ays": []
+      },
+      "candidate": {
+        "case": "guard:nonce-capability",
+        "nonce_valid": 1,
+        "nonce_referer_fallback": false,
+        "caps": {
+          "manage_options": true,
+          "delete_posts": false
+        },
+        "filters": [],
+        "actions": [
+          {
+            "hook": "check_admin_referer",
+            "arg_count": 2
+          },
+          {
+            "hook": "check_admin_referer",
+            "arg_count": 2
+          }
+        ],
+        "errors": [],
+        "wrong": [
+          {
+            "function_name": "check_admin_referer",
+            "message": "You should specify an action to be verified by using the first parameter.",
+            "version": "3.2.0"
+          }
+        ],
+        "nonce_ays": []
+      },
+      "matches": true
+    }
+  ],
+  "remaining_gaps": [
+    {
+      "id": "admin-menu-notice-output-fixture-not-yet-built",
+      "owner": "WPHX-315.03",
+      "detail": "Menu/submenu registration, admin notice markup, admin header/footer, and broader common output helpers are reserved for the WPHX-315.04 fixture."
+    },
+    {
+      "id": "installed-admin-distribution-not-covered",
+      "owner": "WPHX-315.03",
+      "detail": "No installed wp-admin request, browser, database-backed list table, real user/capability, real nonce/session, admin Ajax, e2e, or upstream PHPUnit pass/pass behavior is claimed."
+    },
+    {
+      "id": "public-php-adapter-not-generated",
+      "owner": "WPHX-315.03",
+      "detail": "No original-path admin bootstrap, WP_Screen, WP_List_Table, nonce/capability, or output adapter replacement is claimed; candidate files are copied upstream PHP source for bridge evidence."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "covered_symbol_count": 21,
+    "source_file_count": 4,
+    "oracle_candidate_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "browser_or_editor_ownership_claimed": false
+  }
+}

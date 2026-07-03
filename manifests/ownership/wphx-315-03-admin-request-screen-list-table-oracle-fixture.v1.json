@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/admin-request-screen-list-table-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.21.3",
+    "external_ref": "WPHX-315.03"
+  },
+  "unit": {
+    "kind": "oracle_fixture",
+    "name": "admin request state, WP_Screen help/options, WP_List_Table columns/actions/pagination/output, and nonce/capability guard behavior",
+    "area": "wp-admin/includes/class-wp-screen.php wp-admin/includes/screen.php wp-admin/includes/class-wp-list-table.php wp-includes/pluggable.php",
+    "public_contract": "This fixture mirrors upstream WordPress PHP into oracle and candidate roots to capture selected admin request, screen, list-table, and guard behavior. It does not claim Haxe-owned runtime logic or public PHP ABI replacement."
+  },
+  "ownership_state": "bridge_oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_php_oracle_mirrored",
+    "adapter_contract_owner": "haxe_typed_prior_candidate",
+    "emission_strategy": "copied_oracle_php_candidate",
+    "execution_provider": "php_cli",
+    "compatibility_evidence": "oracle_candidate_behavior_match"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "copied_oracle_candidate_php",
+    "removal_gate": "Promote admin request/screen/list-table/guard decisions into Haxe-owned implementation and generated original-path PHP adapters, then rerun admin request, menu/notice/output, upstream PHPUnit/e2e, and installed distribution gates."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-admin-request-screen-list-table-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+    "build/wp-core/wphx-315-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-315-admin-request-screen-list-table-oracle-fixture",
+      "npm run wp:core:wphx-315-admin-request-screen-list-table-oracle-fixture:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-315-03-admin-request-screen-list-table-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:d1b82fb990bcabfc1e6cd8d1f1416ac9e50199baf44a1cca6eb87d1c3af2bcd7"
+  },
+  "notes": "The probe stubs surrounding WordPress services deliberately to keep the selected copied PHP behavior deterministic; this is bridge evidence, not complete WPHX-315 ownership."
+}
