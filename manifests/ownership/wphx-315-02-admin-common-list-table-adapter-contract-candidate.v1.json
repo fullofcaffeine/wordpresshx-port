@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/admin-common-list-table-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.21.2",
+    "external_ref": "WPHX-315.02"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "admin request, screen, list-table, menu, notice, guard, and output decisions",
+    "area": "wp-admin/admin.php wp-admin/includes/class-wp-screen.php wp-admin/includes/class-wp-list-table.php wp-admin/includes/menu.php wp-admin/includes/template.php wp-admin/menu.php wp-admin/menu-header.php",
+    "public_contract": "Haxe owns a typed WPHX-315 admin common/list-table adapter-contract decision model. Public PHP ABI replacement, admin feature screens, admin Ajax, full WP_Screen/WP_List_Table ownership, installed admin behavior, and browser/editor behavior are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_semantic_parity"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Install these decisions through typed Adapter IR/original-path generation and pass PHP-authored admin request, WP_Screen, WP_List_Table, menu, notice/output, nonce/capability, selected upstream PHPUnit/e2e, and installed admin common/list-table fixtures before claiming public PHP ABI ownership."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/admin-common-list-table-adapter-contract-candidate.hxml",
+    "src/wphx/wp/admin/AdminCommonListTableAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-admin-common-list-table-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-315-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-315-admin-common-list-table-adapter-contract-candidate",
+      "npm run wp:core:wphx-315-admin-common-list-table-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-315-02-admin-common-list-table-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:7d1d6868ccd647ad9c83bc76c24d2c1c4e63e8f63d8890ee67ea09319c858b80"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate with module-level Haxe functions. It adds no handwritten production PHP shell and no public WordPress file replacement."
+}

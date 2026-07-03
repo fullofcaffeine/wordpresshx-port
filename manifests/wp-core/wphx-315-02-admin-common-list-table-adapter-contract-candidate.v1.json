@@ -1,0 +1,418 @@
+{
+  "schema": "wphx.wp-core-admin-common-list-table-adapter-contract-candidate.v1",
+  "issue": "WPHX-315.02",
+  "generated_at": "2026-07-03T15:00:00.000Z",
+  "generator": "tools/wp-core/run-admin-common-list-table-adapter-contract-candidate.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "generated_shape"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "prior_manifest": {
+      "path": "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+      "bytes": 109821,
+      "sha256": "sha256:85887acd510bedc90b2d24644965961ea909f6bfe6a72eee6452dbe4665c7a22"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7785,
+      "sha256": "sha256:bd3b78a748f224f7d4bc654098ee29a22f2c186ff392b352abd64f349f9eef9c"
+    },
+    "hxml": {
+      "path": "fixtures/wp-core/admin-common-list-table-adapter-contract-candidate.hxml",
+      "bytes": 147,
+      "sha256": "sha256:da12f1390076aaf54007da8897439ff6642bf15f9e0f40e414cee973bf902adf"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/admin-common-list-table-adapter-contract-candidate.hxml",
+        "bytes": 147,
+        "sha256": "sha256:da12f1390076aaf54007da8897439ff6642bf15f9e0f40e414cee973bf902adf"
+      },
+      {
+        "path": "src/wphx/wp/admin/AdminCommonListTableAdapterContract.hx",
+        "bytes": 7069,
+        "sha256": "sha256:68dd5b0e91612d67d724c3df2e396e22df53bf17f44c4aa93195fc98d5911460"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.hx",
+        "bytes": 4105,
+        "sha256": "sha256:4a8205cc83368269c0bf8560f3a187546e224b19ecafcfa667a8f8698168256f"
+      }
+    ]
+  },
+  "fixture": {
+    "candidate_kind": "haxe_admin_common_list_table_adapter_contract_candidate",
+    "promoted_contracts": [
+      "admin request/bootstrap intent for denied access, network admin, user admin, action dispatch, screen-bound, and dashboard routes",
+      "current-screen intent for missing screens, list-table screens, screen options, help tabs, and ordinary current screens",
+      "list-table intent for empty tables, bulk actions, row actions, clamped pages, hidden columns, search filters, and ordinary display",
+      "admin menu intent for capability-hidden entries, duplicate slugs, orphan submenus, registered submenus, position reordering, and top-level entries",
+      "admin notice intent for suppression, stored settings errors, dismissible notices, escaped output, and success/warning/error/info types",
+      "capability, nonce, and hook guard intent before admin callbacks mutate state",
+      "common admin output phase intent for header, notices, list-table body, footer, and complete responses"
+    ],
+    "upstream_reference_functions": [
+      "wp-admin/admin.php",
+      "set_current_screen",
+      "get_current_screen",
+      "WP_Screen::add_help_tab",
+      "WP_Screen::add_option",
+      "WP_List_Table::display",
+      "WP_List_Table::current_action",
+      "WP_List_Table::pagination",
+      "add_menu_page",
+      "add_submenu_page",
+      "_wp_menu_output",
+      "wp_admin_notice",
+      "wp_get_admin_notice",
+      "settings_errors",
+      "check_admin_referer",
+      "current_user_can"
+    ],
+    "expected_observations": {
+      "request:denied": "admin_request_access_denied",
+      "request:network": "admin_request_network_admin",
+      "request:user": "admin_request_user_admin",
+      "request:action": "admin_request_do_action",
+      "request:screen": "admin_request_screen_bound",
+      "request:dashboard": "admin_request_dashboard",
+      "screen:missing": "screen_missing",
+      "screen:list-table": "screen_list_table",
+      "screen:options": "screen_options",
+      "screen:help": "screen_help",
+      "screen:current": "screen_current",
+      "table:empty": "list_table_empty",
+      "table:bulk": "list_table_bulk_action",
+      "table:row": "list_table_row_action",
+      "table:page": "list_table_page_clamped",
+      "table:hidden": "list_table_hidden_columns",
+      "table:search": "list_table_search_filter",
+      "table:display": "list_table_display",
+      "menu:capability": "menu_capability_hidden",
+      "menu:duplicate": "menu_duplicate_slug",
+      "menu:orphan": "menu_orphan_submenu",
+      "menu:submenu": "menu_submenu_registered",
+      "menu:reorder": "menu_position_reordered",
+      "menu:top": "menu_top_registered",
+      "notice:suppressed": "notice_suppressed",
+      "notice:stored": "notice_stored",
+      "notice:dismissible": "notice_dismissible",
+      "notice:escaped": "notice_escaped",
+      "notice:success": "notice_success",
+      "notice:warning": "notice_warning",
+      "notice:error": "notice_error",
+      "notice:info": "notice_info",
+      "guard:capability": "guard_capability_denied",
+      "guard:nonce-missing": "guard_nonce_missing",
+      "guard:nonce-failed": "guard_nonce_failed",
+      "guard:hook": "guard_hook_short_circuit",
+      "guard:ready": "guard_ready",
+      "output:header": "output_header",
+      "output:notices": "output_notice_stack",
+      "output:list-table": "output_list_table",
+      "output:footer": "output_footer",
+      "output:complete": "output_complete"
+    },
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "adapter_contract_owner": "haxe_typed",
+      "semantic_owner": "haxe",
+      "installed_admin_parity_claimed": false,
+      "browser_or_editor_ownership_claimed": false,
+      "removal_gate": "Install through typed Adapter IR/original-path generation and run differential PHP admin request, screen, list-table, menu, notice/output, nonce/capability, selected upstream PHPUnit/e2e, and installed admin fixtures before claiming public PHP ABI ownership."
+    },
+    "source_escape_audits": [
+      {
+        "path": "src/wphx/wp/admin/AdminCommonListTableAdapterContract.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      }
+    ]
+  },
+  "toolchain": {
+    "haxe_version": "4.3.7",
+    "locked_haxe_version": "4.3.7",
+    "php_cli_profile": "8.4"
+  },
+  "build": {
+    "generated_file_hash_policy": "normalize_haxe_std_source_map_paths",
+    "generated_haxe_files": [
+      {
+        "path": "index.php",
+        "bytes": 406,
+        "sha256": "fe900be9905641ebfc56e7a694921a708db23c73cfdc237de0bb765af3c025d6"
+      },
+      {
+        "path": "lib/Array_hx.php",
+        "bytes": 22828,
+        "sha256": "32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39"
+      },
+      {
+        "path": "lib/haxe/Exception.php",
+        "bytes": 3562,
+        "sha256": "316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1140,
+        "sha256": "6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 481,
+        "sha256": "03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012"
+      },
+      {
+        "path": "lib/haxe/ValueException.php",
+        "bytes": 1008,
+        "sha256": "38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858"
+      },
+      {
+        "path": "lib/php/_Boot/HxAnon.php",
+        "bytes": 1182,
+        "sha256": "ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706"
+      },
+      {
+        "path": "lib/php/_Boot/HxClass.php",
+        "bytes": 2861,
+        "sha256": "74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a"
+      },
+      {
+        "path": "lib/php/_Boot/HxClosure.php",
+        "bytes": 2757,
+        "sha256": "4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb"
+      },
+      {
+        "path": "lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 3952,
+        "sha256": "721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00"
+      },
+      {
+        "path": "lib/php/_Boot/HxEnum.php",
+        "bytes": 1181,
+        "sha256": "f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a"
+      },
+      {
+        "path": "lib/php/_Boot/HxString.php",
+        "bytes": 8211,
+        "sha256": "d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b"
+      },
+      {
+        "path": "lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "lib/php/Boot.php",
+        "bytes": 36175,
+        "sha256": "d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9"
+      },
+      {
+        "path": "lib/Std.php",
+        "bytes": 1104,
+        "sha256": "fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea"
+      },
+      {
+        "path": "lib/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.php",
+        "bytes": 13177,
+        "sha256": "c65fcb94e32a0014858fe3af922f84e7217d84b61ecd2abaeb9cd9237448476a"
+      },
+      {
+        "path": "lib/wphx/wp/admin/_AdminCommonListTableAdapterContract/AdminCommonListTableAdapterContract_Fields_.php",
+        "bytes": 18199,
+        "sha256": "c678c31cde809fe295601492899a1806e980e78b557192b7ebb10e207f346368"
+      }
+    ],
+    "php_lint": [
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/index.php",
+        "relative_path": "index.php",
+        "sha256": "sha256:fe900be9905641ebfc56e7a694921a708db23c73cfdc237de0bb765af3c025d6",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/index.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/Array_hx.php",
+        "relative_path": "lib/Array_hx.php",
+        "sha256": "sha256:32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/Array_hx.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/haxe/Exception.php",
+        "relative_path": "lib/haxe/Exception.php",
+        "sha256": "sha256:316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/haxe/Exception.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayIterator.php",
+        "sha256": "sha256:6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/haxe/iterators/ArrayIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "sha256": "sha256:03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/haxe/ValueException.php",
+        "relative_path": "lib/haxe/ValueException.php",
+        "sha256": "sha256:38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/haxe/ValueException.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxAnon.php",
+        "relative_path": "lib/php/_Boot/HxAnon.php",
+        "sha256": "sha256:ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxAnon.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxClass.php",
+        "relative_path": "lib/php/_Boot/HxClass.php",
+        "sha256": "sha256:74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxClass.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxClosure.php",
+        "relative_path": "lib/php/_Boot/HxClosure.php",
+        "sha256": "sha256:4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxClosure.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "relative_path": "lib/php/_Boot/HxDynamicStr.php",
+        "sha256": "sha256:721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxDynamicStr.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxEnum.php",
+        "relative_path": "lib/php/_Boot/HxEnum.php",
+        "sha256": "sha256:f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxEnum.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxString.php",
+        "relative_path": "lib/php/_Boot/HxString.php",
+        "sha256": "sha256:d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_Boot/HxString.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/_polyfills.php",
+        "relative_path": "lib/php/_polyfills.php",
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/_polyfills.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/php/Boot.php",
+        "relative_path": "lib/php/Boot.php",
+        "sha256": "sha256:d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/php/Boot.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/Std.php",
+        "relative_path": "lib/Std.php",
+        "sha256": "sha256:fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/Std.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.php",
+        "relative_path": "lib/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.php",
+        "sha256": "sha256:c65fcb94e32a0014858fe3af922f84e7217d84b61ecd2abaeb9cd9237448476a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/wphx/fixtures/wp/core/AdminCommonListTableAdapterContractCandidateEntry.php"
+      },
+      {
+        "path": "build/wp-core/wphx-315-02/haxe/lib/wphx/wp/admin/_AdminCommonListTableAdapterContract/AdminCommonListTableAdapterContract_Fields_.php",
+        "relative_path": "lib/wphx/wp/admin/_AdminCommonListTableAdapterContract/AdminCommonListTableAdapterContract_Fields_.php",
+        "sha256": "sha256:c678c31cde809fe295601492899a1806e980e78b557192b7ebb10e207f346368",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-315-02/haxe/lib/wphx/wp/admin/_AdminCommonListTableAdapterContract/AdminCommonListTableAdapterContract_Fields_.php"
+      }
+    ]
+  },
+  "run": {
+    "command": "php build/wp-core/wphx-315-02/haxe/index.php",
+    "raw_output_sha256": "sha256:5d8db9b131ff536a31852504a113fbd4b864c2dfc5551ead6db3ec3cb892c82f",
+    "observations": {
+      "request:denied": "admin_request_access_denied",
+      "request:network": "admin_request_network_admin",
+      "request:user": "admin_request_user_admin",
+      "request:action": "admin_request_do_action",
+      "request:screen": "admin_request_screen_bound",
+      "request:dashboard": "admin_request_dashboard",
+      "screen:missing": "screen_missing",
+      "screen:list-table": "screen_list_table",
+      "screen:options": "screen_options",
+      "screen:help": "screen_help",
+      "screen:current": "screen_current",
+      "table:empty": "list_table_empty",
+      "table:bulk": "list_table_bulk_action",
+      "table:row": "list_table_row_action",
+      "table:page": "list_table_page_clamped",
+      "table:hidden": "list_table_hidden_columns",
+      "table:search": "list_table_search_filter",
+      "table:display": "list_table_display",
+      "menu:capability": "menu_capability_hidden",
+      "menu:duplicate": "menu_duplicate_slug",
+      "menu:orphan": "menu_orphan_submenu",
+      "menu:submenu": "menu_submenu_registered",
+      "menu:reorder": "menu_position_reordered",
+      "menu:top": "menu_top_registered",
+      "notice:suppressed": "notice_suppressed",
+      "notice:stored": "notice_stored",
+      "notice:dismissible": "notice_dismissible",
+      "notice:escaped": "notice_escaped",
+      "notice:success": "notice_success",
+      "notice:warning": "notice_warning",
+      "notice:error": "notice_error",
+      "notice:info": "notice_info",
+      "guard:capability": "guard_capability_denied",
+      "guard:nonce-missing": "guard_nonce_missing",
+      "guard:nonce-failed": "guard_nonce_failed",
+      "guard:hook": "guard_hook_short_circuit",
+      "guard:ready": "guard_ready",
+      "output:header": "output_header",
+      "output:notices": "output_notice_stack",
+      "output:list-table": "output_list_table",
+      "output:footer": "output_footer",
+      "output:complete": "output_complete"
+    },
+    "matches_expected": true
+  },
+  "remaining_gaps": [
+    {
+      "id": "php-authored-admin-common-list-table-oracle-fixtures-not-yet-built",
+      "owner": "WPHX-315.02",
+      "detail": "The candidate has not yet run through vanilla WordPress and packaged candidate admin request/bootstrap, WP_Screen, WP_List_Table, menu/submenu, admin notice/output, nonce/capability, selected upstream PHPUnit/e2e, or installed admin observations."
+    },
+    {
+      "id": "public-php-adapter-not-yet-generated",
+      "owner": "WPHX-315.02",
+      "detail": "No original-path admin bootstrap, WP_Screen, WP_List_Table, menu, notice/output, feature-screen, or admin Ajax adapter is claimed in this slice."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "candidate_kind": "haxe_admin_common_list_table_adapter_contract_candidate",
+    "promoted_contracts": 7,
+    "runtime_runs": 1,
+    "observation_count": 42,
+    "source_escape_audit_passed": true,
+    "public_php_replacement_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "browser_or_editor_ownership_claimed": false
+  }
+}
