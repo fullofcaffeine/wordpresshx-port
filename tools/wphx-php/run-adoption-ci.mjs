@@ -142,6 +142,15 @@ const REQUIRED_MANIFEST_CHECKS = [
       "Keeps class-wp-http.php, class-wp-embed.php, and class-wp-oembed.php current generated shells classified as selected-boundary evidence until source-surface, installed/package, reflection, stack-trace, and PHPUnit whole-file gates pass."
   },
   {
+    key: "pluginReflectionStacktrace",
+    path: "manifests/wphx-php/plugin-reflection-stacktrace.v1.json",
+    script: "wphx:php:plugin-reflection-stacktrace:check",
+    applies_to_public_boundary: false,
+    continuous_outcomes: ["plugin_reflection_stacktrace_gate", "filed_backend_pressure_evidence"],
+    outcome_note:
+      "Adds a plugin/theme-style ecosystem gate for generated public PHP reflection, subclassing, packaged original-path stack traces, and debug source-map observations before broad public distribution claims."
+  },
+  {
     key: "bootstrapAutoload",
     path: "manifests/wphx-php/bootstrap-autoload.v1.json",
     script: "wphx:php:bootstrap-autoload:check",

@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-plugin-reflection-stacktrace",
+  "issue": {
+    "id": "wordpresshx-b2pt",
+    "external_ref": "WPHX-COMP-PHP-PLUGIN-REFLECTION-STACKTRACE",
+    "title": "Add public generated PHP ecosystem gate"
+  },
+  "recorded_at": "2026-07-03T13:00:00Z",
+  "status": "passed",
+  "evidence_class": "plugin_theme_reflection_stacktrace_gate",
+  "artifact_scope": "packaged_plugin_fixture_reflecting_selected_generated_public_php_shells",
+  "command": "npm run wphx:php:plugin-reflection-stacktrace",
+  "check_command": "npm run wphx:php:plugin-reflection-stacktrace:check",
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-plugin-reflection-stacktrace.mjs",
+      "role": "deterministic plugin/reflection/stacktrace runner"
+    },
+    {
+      "path": "manifests/wphx-php/plugin-reflection-stacktrace.v1.json",
+      "role": "plugin reflection and packaged stacktrace manifest"
+    },
+    {
+      "path": "build/wphx-php/plugin-reflection-stacktrace/package/wp-content/plugins/wphx-ecosystem-probe/wphx-ecosystem-probe.php",
+      "role": "generated package plugin probe artifact",
+      "generated": true
+    }
+  ],
+  "manifest_sha256": "sha256:175caf30bf416d95e0d62f49338844770bd65af4415527725e962c0c804e387a",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "plugin_reflection_files_are_packaged_original_paths": true,
+    "subclass_probe_passed": true,
+    "allow_dynamic_properties_attribute_seen": true,
+    "packaged_stacktrace_has_plugin_shell_and_haxe_frames": true,
+    "packaged_debug_source_map_present": true,
+    "all_emission_manifests_unsupported_empty": true
+  },
+  "claims": [
+    "A plugin-style PHP fixture can reflect selected WPHX-generated public function/class shells from packaged original paths.",
+    "The fixture verifies generated function parameter defaults, generated class properties/methods/defaults, plugin subclassing, WP_oEmbed AllowDynamicProperties/static property reflection, and static provider queue behavior.",
+    "The fixture captures a packaged stack trace crossing plugin, WPHX original-path shell, and the adjacent Haxe implementation library with a packaged debug source map present."
+  ],
+  "non_claims": [
+    "This does not claim broad public distribution readiness for all generated PHP.",
+    "This does not claim full plugin/theme ecosystem compatibility, installed WordPress parity, complete WP_Http/WP_Embed/WP_oEmbed ownership, warning/deprecation matrix coverage, or source-map frame rewriting.",
+    "This does not remove the need for whole-file ownership inventories, installed package gates, selected upstream PHPUnit ratchets, and human/AST generated-PHP readability review before stronger claims."
+  ]
+}

@@ -28,7 +28,7 @@ npm run wphx:php:gap-inventory
 npm run wphx:php:gap-inventory:check
 ```
 
-It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 36 Reflaxe-backed WPHX PHP hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 5 script adapters, 36 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 26 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
+It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 36 Reflaxe-backed WPHX PHP hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 5 script adapters, 36 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 27 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
 
 Use that manifest when moving gaps: reusable expression, statement, array, object, call, loop, cast, and std/php behavior belongs in WPHX PHP core or runtime/std strategy; original-path ABI, pluggable timing, conditional declarations, and WordPress-specific shell compatibility stay in the WordPress profile. Helper/bootstrap bridges are temporary fallbacks until a targeted whole-file or core-lowering gate retires them. Runner copies used as oracle setup are not durable public ownership claims.
 
@@ -122,6 +122,15 @@ npm run wphx:php:file-segment-core-api:check
 
 It records `manifests/wphx-php/file-segment-core-api.v1.json` and `receipts/compiler/wphx-comp-php-file-segment-core-api.v1.json`. The fixture verifies the current five script adapters (`include-side-effects`, `deprecated-class-http`, `template-segment-admin-style`, `template-segment-nested-parent`, and `template-segment-nested-partial`) are selected through the reusable `PhpFileSegmentPlan` registry instead of an `emitScript` name switch. It also verifies the downstream include-side-effects, whole-file class-http, admin-style segment, and nested segment manifests record `file-segment.plan-registry`, have matching `segment_plans`, and keep `unsupported=[]`. This is compiler-core extraction hygiene for direct scripts, minimized whole-file files, and template segments; it does not claim arbitrary mixed PHP/HTML template ownership, broad file-scope arbitrary-Haxe lowering, include graph ownership, or stock Haxe PHP deprecation.
 
+The plugin/reflection/stack-trace ecosystem gate is:
+
+```bash
+npm run wphx:php:plugin-reflection-stacktrace
+npm run wphx:php:plugin-reflection-stacktrace:check
+```
+
+It records `manifests/wphx-php/plugin-reflection-stacktrace.v1.json` and `receipts/compiler/wphx-comp-php-plugin-reflection-stacktrace.v1.json`. The fixture assembles a package-style WordPress root containing generated original-path public shells for `wp-includes/plugin.php`, `wp-includes/class-wphx-public-class.php`, `wp-includes/class-wp-oembed.php`, and `wp-includes/wphx-bootstrap-debug.php`, plus the adjacent Haxe implementation library required by the current WPHX bootstrap topology. A plugin-style PHP probe reflects generated function/class files, parameter defaults, properties, methods, inheritance, interfaces, and `AllowDynamicProperties`; subclasses the generated public class; exercises `add_filter()` delegation and `WP_oEmbed` static provider queues; and captures a stack trace crossing plugin code, WPHX original-path shell code, and Haxe implementation code with the debug source map present. This is an ecosystem-quality gate for selected generated public PHP, not a claim of broad plugin/theme compatibility, installed WordPress parity, full `WP_Http`/`WP_Embed`/`WP_oEmbed` ownership, warning/deprecation matrix coverage, or source-map frame rewriting.
+
 The adoption CI lane closes the usable-compiler gate:
 
 ```bash
@@ -129,7 +138,7 @@ npm run wphx:php:adoption-ci
 npm run wphx:php:adoption-ci:check
 ```
 
-It records `manifests/ci/wphx-php-adoption-ci.v1.json`, `receipts/compiler/wphx-comp-php-adoption-ci.v1.json`, and `receipts/compiler/wphx-comp-php-continuous-adoption-ci.v1.json`. The executable gate now runs 27 manifest-backed WPHX PHP checks covering every current `manifests/wphx-php/*.json` file, including 17 public-boundary manifests plus the non-public private-emitter replacement pilot and file-ownership inventory gate. The CI manifest reports the included and excluded WPHX PHP evidence surfaces; the current excluded set is empty. New public-boundary manifests must record at least one continuous-adoption outcome: core IR promotion, profile-only ABI justification, stock fallback reduction, bootstrap/helper reduction, or filed backend-pressure evidence. The gate also verifies generated PHP quality, `unsupported=[]` for claimed boundaries, zero inline public raw PHP bodies, zero active adapter templates, public-shell snapshot coverage, runtime/std/bootstrap/debug probes, bounded stock Haxe PHP fallback surfaces, the private-emitter replacement ladder, whole-file ownership inventory governance, and zero unclassified or stale profile/script adapter classifications. A passing adoption CI unblocks bounded parallel WordPress Core work under these rules; it does not claim mature arbitrary-Haxe `reflaxe.php` backend scope, WPHX runtime/std ownership, installed WordPress parity, complete `WP_Http` ownership, live HTTP behavior, Gutenberg/browser ownership, or abandonment of stock Haxe PHP as the private implementation/stdphp oracle.
+It records `manifests/ci/wphx-php-adoption-ci.v1.json`, `receipts/compiler/wphx-comp-php-adoption-ci.v1.json`, and `receipts/compiler/wphx-comp-php-continuous-adoption-ci.v1.json`. The executable gate now runs 28 manifest-backed WPHX PHP checks covering every current `manifests/wphx-php/*.json` file, including 17 public-boundary manifests plus the non-public private-emitter replacement pilot, file-ownership inventory gate, and plugin/reflection/stack-trace ecosystem gate. The CI manifest reports the included and excluded WPHX PHP evidence surfaces; the current excluded set is empty. New public-boundary manifests must record at least one continuous-adoption outcome: core IR promotion, profile-only ABI justification, stock fallback reduction, bootstrap/helper reduction, or filed backend-pressure evidence. The gate also verifies generated PHP quality, `unsupported=[]` for claimed boundaries, zero inline public raw PHP bodies, zero active adapter templates, public-shell snapshot coverage, runtime/std/bootstrap/debug probes, bounded stock Haxe PHP fallback surfaces, the private-emitter replacement ladder, whole-file ownership inventory governance, plugin-style reflection/subclassing/packaged stack-trace evidence, and zero unclassified or stale profile/script adapter classifications. A passing adoption CI unblocks bounded parallel WordPress Core work under these rules; it does not claim mature arbitrary-Haxe `reflaxe.php` backend scope, WPHX runtime/std ownership, installed WordPress parity, complete `WP_Http` ownership, live HTTP behavior, Gutenberg/browser ownership, or abandonment of stock Haxe PHP as the private implementation/stdphp oracle.
 
 The first post-adoption Core audit is:
 
@@ -175,12 +184,20 @@ npm run wphx:php:core-lowering-pilot
 npm run wphx:php:core-lowering-pilot:check
 npm run wphx:php:native-array-mutation-core
 npm run wphx:php:native-array-mutation-core:check
+npm run wphx:php:callable-closure-core
+npm run wphx:php:callable-closure-core:check
 npm run wphx:php:static-dynamic-member-core
 npm run wphx:php:static-dynamic-member-core:check
+npm run wphx:php:private-emitter-pilot
+npm run wphx:php:private-emitter-pilot:check
 npm run wphx:php:whole-file-class-http
 npm run wphx:php:whole-file-class-http:check
 npm run wphx:php:file-segment-core-api
 npm run wphx:php:file-segment-core-api:check
+npm run wphx:php:file-ownership-inventories
+npm run wphx:php:file-ownership-inventories:check
+npm run wphx:php:plugin-reflection-stacktrace
+npm run wphx:php:plugin-reflection-stacktrace:check
 npm run wphx:php:adoption-ci
 npm run wphx:php:adoption-ci:check
 npm run wphx:php:pluggable-timing
