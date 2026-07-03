@@ -1,0 +1,206 @@
+{
+  "schema": "wphx.wp-core-admin-common-list-table-upstream-ratchets.v1",
+  "issue": "WPHX-315.05",
+  "generated_at": "2026-07-03T00:00:00.000Z",
+  "generator": "tests/upstream/phpunit/groups.json plus tools/upstream/provision-phpunit-ratchet-env.mjs",
+  "evidence_class": "upstream_suite_parity_scope",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "inputs": {
+    "phpunit_groups": {
+      "path": "tests/upstream/phpunit/groups.json",
+      "sha256": "sha256:e965dd24f4e9f584309b98107fec4699b1e2097a81c651adfdc2714aa1b33d82"
+    },
+    "upstream_phpunit_ratchet_manifest": {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "sha256": "sha256:01f7efab9649ea23cbc115d11bf1d66a7fe022c2bba8f4af7ecddec2e2dd19e0"
+    },
+    "upstream_phpunit_provision_manifest": {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "sha256": "sha256:58131bfcb23e484054dec0d572ed388dd270e0af6a0f50f96c24dd4cd31cc394"
+    },
+    "upstream_phpunit_report": {
+      "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+      "sha256": "sha256:dd525e4636c670b1ef8852608889f53f8ca2aedd590fd5708b2518c17345763d"
+    },
+    "ratchet_documentation": {
+      "path": "docs/operations/upstream-phpunit-ratchet.md",
+      "sha256": "sha256:eabcb7702b6a9e32272be8650f78a6df8c925239b739701056d190944332f8ed"
+    },
+    "reference_lock": {
+      "path": "upstream.lock.json",
+      "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+    }
+  },
+  "selected_phpunit_groups": [
+    {
+      "id": "admin-screen-output-common",
+      "owner": "WPHX-315",
+      "scope": "current screen setup, help tabs/options, admin notices/settings errors, meta boxes/dashboard widget helpers, and miscellaneous shared admin helpers",
+      "files": [
+        "tests/phpunit/tests/admin/includesScreen.php",
+        "tests/phpunit/tests/admin/includesTemplate.php",
+        "tests/phpunit/tests/admin/includesMisc.php"
+      ],
+      "classification": {
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    },
+    {
+      "id": "admin-menu-plugin-common",
+      "owner": "WPHX-315",
+      "scope": "menu page URLs, top-level/submenu insertion ordering, admin menu helper wrappers, duplicate parent slug behavior, and invalid position diagnostics",
+      "files": [
+        "tests/phpunit/tests/admin/includesPlugin.php"
+      ],
+      "classification": {
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    },
+    {
+      "id": "admin-list-table-base-specializations",
+      "owner": "WPHX-315",
+      "scope": "WP_List_Table base behavior plus users, legacy user search, plugins, plugin install, and privacy request list-table specializations",
+      "files": [
+        "tests/phpunit/tests/admin/wpListTable.php",
+        "tests/phpunit/tests/admin/wpUsersListTable.php",
+        "tests/phpunit/tests/admin/wpUserSearch.php",
+        "tests/phpunit/tests/admin/wpPluginsListTable.php",
+        "tests/phpunit/tests/admin/wpPluginInstallListTable.php",
+        "tests/phpunit/tests/admin/wpPrivacyRequestsTable.php"
+      ],
+      "classification": {
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    },
+    {
+      "id": "admin-cross-domain-list-tables",
+      "owner": "WPHX-315",
+      "scope": "post, comment, term, media, and theme-install list-table chrome with storage/query/media/theme semantics retained by source-domain owners",
+      "handoffs": [
+        "WPHX-307",
+        "WPHX-308",
+        "WPHX-310",
+        "WPHX-313"
+      ],
+      "files": [
+        "tests/phpunit/tests/admin/wpPostsListTable.php",
+        "tests/phpunit/tests/admin/wpPostCommentsListTable.php",
+        "tests/phpunit/tests/admin/wpCommentsListTable.php",
+        "tests/phpunit/tests/admin/wpTermsListTable.php",
+        "tests/phpunit/tests/admin/wpMediaListTable.php",
+        "tests/phpunit/tests/admin/wpThemeInstallListTable.php"
+      ],
+      "classification": {
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      }
+    }
+  ],
+  "selected_e2e_flows": [
+    {
+      "id": "admin-dashboard-quick-draft",
+      "file": "tests/e2e/specs/dashboard.test.js",
+      "tests": [
+        "Allows draft to be created with Title and Content",
+        "Allows draft to be created without Title or Content"
+      ],
+      "scope": "dashboard admin chrome, Quick Draft output, and transition to the posts list table",
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_315_e2e_runner"
+    },
+    {
+      "id": "admin-edit-posts-list-table",
+      "file": "tests/e2e/specs/edit-posts.test.js",
+      "tests": [
+        "displays a message in the posts table when no posts are present",
+        "shows a single post after one is published with the correct title",
+        "allows an existing post to be edited using the Edit button",
+        "allows an existing post to be quick edited using the Quick Edit button",
+        "allows an existing post to be deleted using the Trash button"
+      ],
+      "scope": "posts list-table empty state, row visibility, row actions, and quick-edit chrome",
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_315_e2e_runner"
+    },
+    {
+      "id": "admin-trash-restore-list-table-notices",
+      "file": "tests/e2e/specs/empty-trash-restore-trashed-posts.test.js",
+      "tests": [
+        "Empty Trash",
+        "Restore trash post"
+      ],
+      "scope": "trash view navigation, list-table row actions, and admin success notices",
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_315_e2e_runner"
+    },
+    {
+      "id": "admin-fatal-error-notice",
+      "file": "tests/e2e/specs/fatal-error-handler.test.js",
+      "tests": [
+        "should display fatal error notice"
+      ],
+      "scope": "admin notice rendering for fatal-error recovery output",
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_315_e2e_runner"
+    }
+  ],
+  "markup_authoring_precedent": {
+    "status": "reference_only",
+    "references": [
+      {
+        "id": "haxe-elixir-codex",
+        "path": "../haxe.elixir.codex",
+        "commit": "35021e2f8778253dde571a3861a7adc1a9070d0f",
+        "evidence": [
+          "plans/active/hxx2-default-authoring-path.md",
+          "docs/05-architecture/HXX_ARCHITECTURE.md"
+        ]
+      },
+      {
+        "id": "haxe-ruby",
+        "path": "../haxe.ruby",
+        "commit": "2b43f557bd0e0e504fe7922ee810cc49116bfece",
+        "evidence": [
+          "AGENTS.md",
+          "examples/todoapp_rails",
+          "std/rails/action_view",
+          "src/reflaxe/ruby/macros/RailsInlineMarkup.hx"
+        ]
+      }
+    ],
+    "wphx_direction": "Future WPHX-owned PHP/HTML templates should adapt the PhoenixHx/RailsHx pattern: author typed HXX/HHX inline markup in Haxe, use typed template references, locals, route/action URLs, nonce/capability/form/list-table field helpers where practical, and lower to ordinary WordPress-compatible PHP/HTML. Raw PHP/HTML segments remain explicit adoption boundaries with provenance and removal gates; HXX must not bypass WordPress include order, globals, output buffering, hook timing, or template-loader parity.",
+    "implementation_claimed": false
+  },
+  "non_claims": [
+    "No complete upstream admin PHPUnit suite parity is claimed.",
+    "No WPHX-315 browser/e2e execution is claimed; selected e2e flows are declared but blocked until an installed admin e2e runner exists.",
+    "No Haxe-owned admin runtime logic is added by this ratchet task.",
+    "No generated original-path public admin PHP replacement is claimed.",
+    "No installed wp-admin parity, real user/session/capability/nonce ownership, admin Ajax ownership, or editor/browser ownership is claimed."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "phpunit_environment_ready": true,
+    "selected_wphx_315_phpunit_group_count": 4,
+    "selected_wphx_315_phpunit_test_file_count": 16,
+    "selected_wphx_315_phpunit_classifications": {
+      "parity_pass": 4,
+      "environment_or_upstream_baseline_failure": 0,
+      "unowned_candidate_regression": 0
+    },
+    "selected_wphx_315_e2e_flow_count": 4,
+    "e2e_provisioning_status": "blocked",
+    "behavior_parity_claimed": false,
+    "complete_admin_suite_parity_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "typed_hxx_markup_direction_recorded": true
+  }
+}
