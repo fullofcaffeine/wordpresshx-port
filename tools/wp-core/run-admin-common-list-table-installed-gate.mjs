@@ -138,6 +138,13 @@ function writeRouter(root) {
   writeFileSync(
     `${root}/${ROUTER}`,
     `<?php
+/**
+ * WPHX bridge test harness only.
+ *
+ * Not a WordPress implementation file. Not distributable as candidate runtime
+ * logic. Do not use for public PHP ownership, generated adapter, installed
+ * WordPress route execution, or durable template ownership claims.
+ */
 $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
 $path = parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH );
 $query_string = parse_url( $_SERVER['REQUEST_URI'] ?? '/', PHP_URL_QUERY ) ?? '';
@@ -481,11 +488,11 @@ function ownershipManifest(manifestSha) {
     manifest_id: "ownership:wp-core/admin-common-list-table-installed-gate",
     issue: { id: ISSUE.id, external_ref: ISSUE.external_ref },
     unit: {
-      kind: "packaged-distribution-installed-http-gate",
-      name: "admin common, screen, menu, notice, update output, and list-table installed-style gate",
+      kind: "packaged-distribution-bridge-router-gate",
+      name: "admin common, screen, menu, notice, update output, and list-table package-topology bridge-router gate",
       area: "wp-admin/index.php wp-admin/edit.php wp-admin/admin.php wp-admin/tools.php wp-admin/update-core.php wp-admin/includes/class-wp-screen.php wp-admin/includes/class-wp-list-table.php wp-admin/includes/plugin.php wp-admin/includes/update.php",
       public_contract:
-        "The packaged admin common/list-table surface must match vanilla through installed-style package boundary, admin dashboard chrome, edit-posts list table output, menu/notice/common output, nonce/capability bulk guard intent, privacy list-table handoff, and update output/template observations while keeping public PHP replacement and full installed admin parity claims explicit."
+        "The regenerated oracle/candidate package roots must contain selected upstream admin common/list-table PHP files at locked hashes, and both roots served through the same deterministic bridge router must produce matching JSON observations while keeping public PHP replacement, generated overlay, executed upstream route, and full installed admin parity claims explicit."
     },
     ownership_state: "packaged_distribution_candidate",
     ownership_axes: {
@@ -493,7 +500,7 @@ function ownershipManifest(manifestSha) {
       adapter_contract_owner: "haxe_typed_for_selected_decisions",
       emission_strategy: "copied_upstream_public_php_with_deterministic_router",
       execution_provider: "php_cli_builtin_server",
-      compatibility_evidence: "installed_style_http_parity"
+      compatibility_evidence: "package_topology_and_bridge_router_observation_match"
     },
     bridge: {
       exists: true,
@@ -513,7 +520,7 @@ function ownershipManifest(manifestSha) {
       manifest_digest: manifestSha
     },
     notes:
-      "This gate proves deterministic installed-style package routing and HTTP observations only. It does not run a real database-backed admin, full admin header/footer, feature screens, admin Ajax, e2e browser flows, or durable generated original-path PHP replacement."
+      "This gate proves package topology and deterministic bridge-router observation matching only. The router does not dispatch into the mirrored wp-admin route files for these HTTP cases. It does not run real database-backed admin state, full admin header/footer, feature screens, admin Ajax, e2e browser flows, HXX-owned admin templates, or durable generated original-path PHP replacement."
   };
 }
 
@@ -543,9 +550,15 @@ async function main() {
     issue: ISSUE.external_ref,
     generated_at: RECORDED_AT,
     generator: RUNNER,
-    evidence_class: "installed_style_http_parity",
+    evidence_class: "bridge_router_package_topology",
     artifact_scope: "packaged_distribution",
-    behavior_parity_claimed: true,
+    behavior_parity_claimed: false,
+    router_observation_parity_claimed: true,
+    package_topology_claimed: true,
+    mirrored_upstream_source_executed_by_router: false,
+    installed_wordpress_route_execution_claimed: false,
+    candidate_generated_overlay_claimed: false,
+    durable_original_path_adapter_claimed: false,
     inputs: {
       prior_inputs: PRIOR_INPUTS.map(inputRecord),
       upstream_sources: SOURCE_FILES.map(sourceRecord),
@@ -566,6 +579,11 @@ async function main() {
     claims: {
       public_php_replacement_claimed: false,
       haxe_runtime_logic_claimed: false,
+      router_observation_parity_claimed: true,
+      package_topology_claimed: true,
+      mirrored_upstream_source_executed_by_router: false,
+      installed_wordpress_route_execution_claimed: false,
+      candidate_generated_overlay_claimed: false,
       full_installed_admin_parity_claimed: false,
       database_backed_admin_state_claimed: false,
       real_user_session_nonce_capability_claimed: false,
@@ -576,7 +594,12 @@ async function main() {
       {
         id: "copied-public-php-package",
         detail:
-          "Oracle and candidate package roots both mirror selected locked upstream WordPress admin PHP source with deterministic installed-style routers. This is bridge evidence, not generated public PHP ownership."
+          "Oracle and candidate package roots both mirror selected locked upstream WordPress admin PHP source with deterministic bridge routers. The mirrored upstream files are package topology/provenance inputs and future overlay targets for this gate, not the executed implementation for the routed HTTP cases."
+      },
+      {
+        id: "router-observation-match-only",
+        detail:
+          "The same deterministic bridge router serves both package roots and emits representative JSON/HTML observations. This is not broad behavior parity and does not prove that wp-admin/index.php, edit.php, admin.php, tools.php, or update-core.php execute through WordPress bootstrap."
       },
       {
         id: "full-installed-admin-runtime-not-covered",
@@ -595,7 +618,12 @@ async function main() {
       cases: CASES.length,
       source_file_count: SOURCE_FILES.length,
       oracle_candidate_match: matches,
-      behavior_parity_claimed: true,
+      behavior_parity_claimed: false,
+      router_observation_parity_claimed: true,
+      package_topology_claimed: true,
+      mirrored_upstream_source_executed_by_router: false,
+      installed_wordpress_route_execution_claimed: false,
+      candidate_generated_overlay_claimed: false,
       public_php_replacement_claimed: false,
       full_installed_admin_parity_claimed: false
     }
@@ -613,6 +641,11 @@ async function main() {
     evidence_class: manifest.evidence_class,
     artifact_scope: manifest.artifact_scope,
     behavior_parity_claimed: manifest.behavior_parity_claimed,
+    router_observation_parity_claimed: manifest.router_observation_parity_claimed,
+    package_topology_claimed: manifest.package_topology_claimed,
+    mirrored_upstream_source_executed_by_router: manifest.mirrored_upstream_source_executed_by_router,
+    installed_wordpress_route_execution_claimed: manifest.installed_wordpress_route_execution_claimed,
+    candidate_generated_overlay_claimed: manifest.candidate_generated_overlay_claimed,
     artifacts: [
       { path: OUT, role: "admin common/list-table installed-style HTTP gate manifest", sha256: manifestSha },
       { path: OWNERSHIP, role: "ownership manifest for admin common/list-table installed-style gate" },
@@ -626,6 +659,14 @@ async function main() {
     ],
     validation_result: manifest.validation_result
   };
+  receipt.scope_summary =
+    "This receipt proves that regenerated oracle and candidate package roots contain selected upstream WordPress admin/common/list-table PHP source files at locked hashes, and that both roots, served through the same deterministic bridge router, produce matching JSON observations for seven representative admin URLs. The router is test harness code. It does not dispatch into the mirrored admin route files for these HTTP cases, does not prove generated public PHP replacement, does not prove Haxe-owned admin runtime logic, and does not prove installed WordPress admin parity.";
+  receipt.non_claims = [
+    "The deterministic router is not an implementation artifact. Router-emitted PHP/HTML strings are fixture observations, not WPHX-owned admin templates, not generated original-path adapters, and not distributable runtime code.",
+    "Mirrored upstream PHP files under build/wp-core/**/{oracle,candidate}-package are regenerated test inputs. They must not be edited, committed, distributed, or cited as WPHX implementation source.",
+    "WPHX-315.06 does not claim that wp-admin/index.php, wp-admin/edit.php, wp-admin/admin.php, wp-admin/tools.php, or wp-admin/update-core.php execute through WordPress bootstrap under the installed HTTP server.",
+    "Any future public PHP replacement claim over this package-root gate requires a non-empty candidate overlay manifest, generated original-path adapter evidence, PHP lint, generated-shape or AST contracts, static/runtime PHP ABI checks, oracle/candidate behavior probes, selected upstream PHPUnit, installed admin route execution, and ecosystem/browser/database gates appropriate to the claimed boundary."
+  ];
   const receiptText = JSON.stringify(receipt, null, 2) + "\n";
 
   try {
@@ -647,6 +688,8 @@ async function main() {
         cases: CASES.length,
         source_file_count: SOURCE_FILES.length,
         behavior_parity_claimed: manifest.behavior_parity_claimed,
+        router_observation_parity_claimed: manifest.router_observation_parity_claimed,
+        package_topology_claimed: manifest.package_topology_claimed,
         public_php_replacement_claimed: false,
         full_installed_admin_parity_claimed: false
       },

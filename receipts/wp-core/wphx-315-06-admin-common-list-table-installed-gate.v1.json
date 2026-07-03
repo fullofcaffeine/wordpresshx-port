@@ -8,14 +8,19 @@
   },
   "recorded_at": "2026-07-03T00:00:00.000Z",
   "command": "npm run wp:core:wphx-315-admin-common-list-table-installed-gate",
-  "evidence_class": "installed_style_http_parity",
+  "evidence_class": "bridge_router_package_topology",
   "artifact_scope": "packaged_distribution",
-  "behavior_parity_claimed": true,
+  "behavior_parity_claimed": false,
+  "router_observation_parity_claimed": true,
+  "package_topology_claimed": true,
+  "mirrored_upstream_source_executed_by_router": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "candidate_generated_overlay_claimed": false,
   "artifacts": [
     {
       "path": "manifests/wp-core/wphx-315-06-admin-common-list-table-installed-gate.v1.json",
       "role": "admin common/list-table installed-style HTTP gate manifest",
-      "sha256": "sha256:5708b73af62cb28c1efb08c7aad2b175dd2b5ae0b9ea5ea31bbc865b1697fbe2"
+      "sha256": "sha256:df51fb4f2c086645e5f571441dc3779fbd886bd03e44acfff96522ab85a90e99"
     },
     {
       "path": "manifests/ownership/wphx-315-06-admin-common-list-table-installed-gate.v1.json",
@@ -37,8 +42,20 @@
     "cases": 7,
     "source_file_count": 24,
     "oracle_candidate_match": true,
-    "behavior_parity_claimed": true,
+    "behavior_parity_claimed": false,
+    "router_observation_parity_claimed": true,
+    "package_topology_claimed": true,
+    "mirrored_upstream_source_executed_by_router": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "candidate_generated_overlay_claimed": false,
     "public_php_replacement_claimed": false,
     "full_installed_admin_parity_claimed": false
-  }
+  },
+  "scope_summary": "This receipt proves that regenerated oracle and candidate package roots contain selected upstream WordPress admin/common/list-table PHP source files at locked hashes, and that both roots, served through the same deterministic bridge router, produce matching JSON observations for seven representative admin URLs. The router is test harness code. It does not dispatch into the mirrored admin route files for these HTTP cases, does not prove generated public PHP replacement, does not prove Haxe-owned admin runtime logic, and does not prove installed WordPress admin parity.",
+  "non_claims": [
+    "The deterministic router is not an implementation artifact. Router-emitted PHP/HTML strings are fixture observations, not WPHX-owned admin templates, not generated original-path adapters, and not distributable runtime code.",
+    "Mirrored upstream PHP files under build/wp-core/**/{oracle,candidate}-package are regenerated test inputs. They must not be edited, committed, distributed, or cited as WPHX implementation source.",
+    "WPHX-315.06 does not claim that wp-admin/index.php, wp-admin/edit.php, wp-admin/admin.php, wp-admin/tools.php, or wp-admin/update-core.php execute through WordPress bootstrap under the installed HTTP server.",
+    "Any future public PHP replacement claim over this package-root gate requires a non-empty candidate overlay manifest, generated original-path adapter evidence, PHP lint, generated-shape or AST contracts, static/runtime PHP ABI checks, oracle/candidate behavior probes, selected upstream PHPUnit, installed admin route execution, and ecosystem/browser/database gates appropriate to the claimed boundary."
+  ]
 }

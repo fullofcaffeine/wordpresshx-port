@@ -1,0 +1,101 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-315-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.21.7",
+    "external_ref": "WPHX-315.07",
+    "title": "WPHX-315.07 — Close admin common list-table domain evidence"
+  },
+  "recorded_at": "2026-07-03T21:30:00.000Z",
+  "command": "domain closure audit over WPHX-315.01 through WPHX-315.06 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, upstream_suite_parity, packaged_distribution",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+      "role": "admin common/list-table source, distribution, ABI, upstream test, handoff, and fixture surface inventory",
+      "sha256": "sha256:535d0862383205553fdc30d9284b0264bf69b93ef8304279130ed3947aefa0c0"
+    },
+    {
+      "path": "receipts/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+      "role": "typed Haxe admin common/list-table adapter-contract evidence",
+      "sha256": "sha256:8cd6e8a73d48c11a05c7d12ff42d3d4e69ab2e38745d51bdf51cc7f866530d3f"
+    },
+    {
+      "path": "receipts/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+      "role": "deterministic admin request, WP_Screen, WP_List_Table, nonce, capability, and output-fragment oracle-source-mirror evidence",
+      "sha256": "sha256:7778ee58ce3484630322321b206c8ddeca57f51b5da8b7f9d66adacb2738cd13"
+    },
+    {
+      "path": "receipts/wp-core/wphx-315-04-admin-menu-notice-output-oracle-fixture.v1.json",
+      "role": "deterministic admin menu/submenu, notice, common output, update count, and notice-template oracle-source-mirror evidence",
+      "sha256": "sha256:53258c374da763be63acfc72907bed56ff13a0ced3de98e65d83c98300c486e4"
+    },
+    {
+      "path": "receipts/wp-core/wphx-315-05-admin-common-list-table-upstream-ratchets.v1.json",
+      "role": "selected upstream admin common/list-table PHPUnit pass/pass ratchet scope plus blocked e2e flow declarations and typed HXX/HHX direction",
+      "sha256": "sha256:9dec373b36f12eca8681b43c3d9e529f46a1fc0c97d9c452ef6e3b953a894432"
+    },
+    {
+      "path": "receipts/wp-core/wphx-315-06-admin-common-list-table-installed-gate.v1.json",
+      "role": "admin common/list-table package-topology and deterministic bridge-router observation evidence",
+      "sha256": "sha256:0e8139dc072bde617a730a812678563e77b17a4b3964d0d48716d5c200c0faa1"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-315 closure interpretation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-315-admin-common-list-table-surface:check",
+    "npm run wp:core:wphx-315-admin-common-list-table-adapter-contract-candidate:check",
+    "npm run wp:core:wphx-315-admin-request-screen-list-table-oracle-fixture:check",
+    "npm run wp:core:wphx-315-admin-menu-notice-output-oracle-fixture:check",
+    "npm run wp:core:wphx-315-admin-common-list-table-installed-gate:check",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run upstream:phpunit-ratchet:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "AdminCommonListTableAdapterContract"
+    ],
+    "fixtures_cover": [
+      "admin bootstrap/chrome, current screen/help/options, menus/navigation, list-table base/specializations, dashboard/site-health, privacy tools, import/export, plugin admin helpers, links/bookmarks, admin asset loading, and filesystem/update handoffs",
+      "typed adapter-contract intent for admin request/bootstrap routing, screen setup, list-table routing, menu/submenu registration, notices, capability/nonce/hook guards, and output phases",
+      "copied-oracle/candidate admin request, current-screen, WP_Screen help/options, WP_List_Table columns/hidden/sortable/primary metadata, current actions, pagination, row actions, nonce/tablenav/output fragments, and guard observations",
+      "copied-oracle/candidate top-level menu and submenu registration/order/no-priv tracking, menu URL/parent/title/access/removal branches, admin notice markup/output filters, viewport/canonical/color output, update count aggregation, and notice JavaScript templates",
+      "selected upstream admin common/list-table PHPUnit groups with vanilla pass / candidate pass classifications and selected e2e flows blocked until an installed admin e2e runner exists",
+      "package-topology and deterministic bridge-router observations for selected admin package boundary, dashboard chrome/current screen/menu/notices/update counts, edit-posts list-table columns/actions/pagination/output fragments, menu/notice/common output, bulk guard intent, privacy export list-table handoff, and update-core notice-template paths without claiming mirrored upstream route-file execution"
+    ],
+    "remaining_gaps": [
+      "Generated public PHP replacement for admin common/list-table original paths is not claimed; current copied public PHP and deterministic routers remain bridge evidence where noted.",
+      "Full WP_Screen, WP_List_Table, WP_Posts_List_Table, privacy list-table, dashboard, admin header/footer, screen-meta, plugin page, and update-core runtime ownership is not claimed.",
+      "Real user/session/capability/nonce behavior, persistent database-backed admin state, feature-screen behavior, admin Ajax, admin browser/e2e execution, and complete installed wp-admin parity remain later work.",
+      "Selected WPHX-315 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream admin suite parity is not claimed and selected e2e flows remain blocked until an installed admin e2e runner exists.",
+      "Typed HXX/HHX admin PHP/HTML template compilation remains future work tracked by wordpresshx-u87c / WPHX-315.08; WPHX-315 only records the direction and non-claim.",
+      "WPHX-315.06 contributes package-topology and bridge-router observation evidence only; it must not be used as precedent that copied upstream PHP plus deterministic router PHP is an acceptable durable implementation path for future admin or template-heavy domains.",
+      "Bridge-router durable-claim and generated-overlay validator guardrails remain future work tracked by wordpresshx-fyqs / WPHX-315.09.",
+      "Cross-domain admin feature screens, management state, media/upload list tables, updates/installers, multisite admin, and default theme PHP remain WPHX-316, WPHX-313, WPHX-319, WPHX-317, WPHX-320, or later distribution work.",
+      "This closes the bounded WPHX-315 admin common/list-table evidence slice, not all WordPress admin behavior or complete ecosystem parity."
+    ],
+    "follow_up_issues": [
+      {
+        "id": "wordpresshx-u87c",
+        "external_ref": "WPHX-315.08",
+        "title": "Pilot typed HXX admin PHP markup authoring",
+        "relationship": "discovered-from WPHX-315.07; not a blocking child of the bounded WPHX-315 closure"
+      },
+      {
+        "id": "wordpresshx-fyqs",
+        "external_ref": "WPHX-315.09",
+        "title": "Add bridge-router overlay and durable-claim guardrails",
+        "relationship": "discovered-from WPHX-315.07; not a blocking child of the bounded WPHX-315 closure"
+      }
+    ]
+  }
+}

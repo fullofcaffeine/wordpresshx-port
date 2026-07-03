@@ -1,0 +1,59 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-315-parent-closure",
+  "issue": {
+    "id": "wordpresshx-l76.21",
+    "external_ref": "WPHX-315",
+    "title": "WPHX-315 — Admin common and list tables"
+  },
+  "recorded_at": "2026-07-03T21:30:15.000Z",
+  "command": "parent closure after WPHX-315.07 bounded domain-closure receipt",
+  "evidence_class": "parent_domain_closure",
+  "artifact_scope": "wp_core_admin_common_list_tables",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-315-domain-closure.v1.json",
+      "role": "bounded WPHX-315 domain-closure receipt"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program matrix marking WPHX-315 bounded closed"
+    },
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "tracked Beads export with WPHX-315 parent closure"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "domain_closure_receipt": "receipt:wphx-315-domain-closure",
+    "bounded_parent_closed": true,
+    "required_child_gates_closed": [
+      "WPHX-315.01",
+      "WPHX-315.02",
+      "WPHX-315.03",
+      "WPHX-315.04",
+      "WPHX-315.05",
+      "WPHX-315.06",
+      "WPHX-315.07"
+    ],
+    "remaining_gaps_preserved": [
+      "generated public PHP replacement",
+      "full WP_Screen/WP_List_Table ownership",
+      "full admin header/footer and feature-screen ownership",
+      "real user/session/capability/nonce ownership",
+      "database-backed installed admin state",
+      "admin Ajax and browser/e2e execution",
+      "typed HXX/HHX admin template compilation",
+      "bridge-router generated-overlay and durable-claim validator guardrails",
+      "full installed wp-admin parity"
+    ],
+    "non_blocking_follow_up": "wordpresshx-u87c / WPHX-315.08 tracks the typed HXX admin markup pilot outside the bounded WPHX-315 parent closure.",
+    "non_blocking_guardrail_follow_up": "wordpresshx-fyqs / WPHX-315.09 tracks copied-package-root bridge-router overlay and durable-claim guardrails."
+  }
+}

@@ -3,9 +3,15 @@
   "issue": "WPHX-315.06",
   "generated_at": "2026-07-03T00:00:00.000Z",
   "generator": "tools/wp-core/run-admin-common-list-table-installed-gate.mjs",
-  "evidence_class": "installed_style_http_parity",
+  "evidence_class": "bridge_router_package_topology",
   "artifact_scope": "packaged_distribution",
-  "behavior_parity_claimed": true,
+  "behavior_parity_claimed": false,
+  "router_observation_parity_claimed": true,
+  "package_topology_claimed": true,
+  "mirrored_upstream_source_executed_by_router": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "candidate_generated_overlay_claimed": false,
+  "durable_original_path_adapter_claimed": false,
   "inputs": {
     "prior_inputs": [
       {
@@ -187,8 +193,8 @@
     ],
     "runner": {
       "path": "tools/wp-core/run-admin-common-list-table-installed-gate.mjs",
-      "bytes": 29803,
-      "sha256": "sha256:6fbdd2d7158c00a7bd978cc9c302236a44bad794c19fd9ab25fe9484e1d878e4"
+      "bytes": 33779,
+      "sha256": "sha256:e1388302bb8a58c7c920cef805d4bb5a518b490e256d94ec84a7df18b7923c3d"
     }
   },
   "package_roots": {
@@ -317,8 +323,8 @@
       },
       {
         "path": "build/wp-core/wphx-315-06/oracle-package/wphx-admin-common-list-table-installed-router.php",
-        "bytes": 12549,
-        "sha256": "sha256:a41ccd4cf3e6a7197fd3a7a663731411fc121e099efcdffa9e3f5a33c343e245"
+        "bytes": 12817,
+        "sha256": "sha256:7544a482f49756b126450d4361954b90a15ac7e02b794088745cb7b3adedd1ec"
       }
     ],
     "candidate_files": [
@@ -444,8 +450,8 @@
       },
       {
         "path": "build/wp-core/wphx-315-06/candidate-package/wphx-admin-common-list-table-installed-router.php",
-        "bytes": 12549,
-        "sha256": "sha256:a41ccd4cf3e6a7197fd3a7a663731411fc121e099efcdffa9e3f5a33c343e245"
+        "bytes": 12817,
+        "sha256": "sha256:7544a482f49756b126450d4361954b90a15ac7e02b794088745cb7b3adedd1ec"
       }
     ]
   },
@@ -1446,6 +1452,11 @@
   "claims": {
     "public_php_replacement_claimed": false,
     "haxe_runtime_logic_claimed": false,
+    "router_observation_parity_claimed": true,
+    "package_topology_claimed": true,
+    "mirrored_upstream_source_executed_by_router": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "candidate_generated_overlay_claimed": false,
     "full_installed_admin_parity_claimed": false,
     "database_backed_admin_state_claimed": false,
     "real_user_session_nonce_capability_claimed": false,
@@ -1455,7 +1466,11 @@
   "remaining_gaps": [
     {
       "id": "copied-public-php-package",
-      "detail": "Oracle and candidate package roots both mirror selected locked upstream WordPress admin PHP source with deterministic installed-style routers. This is bridge evidence, not generated public PHP ownership."
+      "detail": "Oracle and candidate package roots both mirror selected locked upstream WordPress admin PHP source with deterministic bridge routers. The mirrored upstream files are package topology/provenance inputs and future overlay targets for this gate, not the executed implementation for the routed HTTP cases."
+    },
+    {
+      "id": "router-observation-match-only",
+      "detail": "The same deterministic bridge router serves both package roots and emits representative JSON/HTML observations. This is not broad behavior parity and does not prove that wp-admin/index.php, edit.php, admin.php, tools.php, or update-core.php execute through WordPress bootstrap."
     },
     {
       "id": "full-installed-admin-runtime-not-covered",
@@ -1472,7 +1487,12 @@
     "cases": 7,
     "source_file_count": 24,
     "oracle_candidate_match": true,
-    "behavior_parity_claimed": true,
+    "behavior_parity_claimed": false,
+    "router_observation_parity_claimed": true,
+    "package_topology_claimed": true,
+    "mirrored_upstream_source_executed_by_router": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "candidate_generated_overlay_claimed": false,
     "public_php_replacement_claimed": false,
     "full_installed_admin_parity_claimed": false
   }
