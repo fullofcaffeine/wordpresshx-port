@@ -1,15 +1,15 @@
 {
   "schema": "wphx.compiler-core-driver-receipt.v1",
-  "id": "receipt:wphx-comp-php-adoption-ci",
+  "id": "receipt:wphx-comp-php-continuous-adoption-ci",
   "issue": {
-    "id": "wordpresshx-w91.24.5",
-    "external_ref": "WPHX-COMP-PHP-ADOPTION-CI",
-    "title": "Define usable-compiler quality gate for parallel Core work"
+    "id": "wordpresshx-apvq",
+    "external_ref": "WPHX-COMP-PHP-CONTINUOUS-ADOPTION-CI",
+    "title": "Make adoption CI a continuous gate"
   },
   "recorded_at": "2026-07-03T06:05:00Z",
   "status": "passed",
-  "evidence_class": "compiler_adoption_ci",
-  "artifact_scope": "wphx_php_usable_compiler_gate",
+  "evidence_class": "compiler_continuous_adoption_ci",
+  "artifact_scope": "wphx_php_manifest_coverage_and_public_boundary_outcome_gate",
   "commands": [
     "npm run wphx:php:adoption-ci",
     "npm run wphx:php:adoption-ci:check"
@@ -17,19 +17,23 @@
   "artifacts": [
     {
       "path": "tools/wphx-php/run-adoption-ci.mjs",
-      "role": "executable WPHX PHP usable-compiler adoption gate"
+      "role": "executable continuous adoption CI coverage gate"
     },
     {
       "path": "manifests/ci/wphx-php-adoption-ci.v1.json",
-      "role": "WPHX PHP adoption CI decision manifest"
+      "role": "adoption CI manifest with included/excluded WPHX PHP evidence inventory"
+    },
+    {
+      "path": "receipts/compiler/wphx-comp-php-continuous-adoption-ci.v1.json",
+      "role": "machine-readable receipt for the continuous adoption CI follow-up"
     },
     {
       "path": "docs/operations/wphx-php-compiler.md",
-      "role": "compiler operations documentation updated with adoption CI scope"
+      "role": "compiler operations documentation updated with continuous adoption CI semantics"
     },
     {
       "path": "docs/operations/progress-matrix.md",
-      "role": "program rollup updated with WPHX-COMP-PHP-USABLE closure"
+      "role": "program rollup updated with continuous adoption CI checkpoint"
     }
   ],
   "manifest_sha256": "sha256:de359459e24bb5b93055bd6a61fbc18b2fd4cf8b0e7e16b53e4c22a353d3bdc0",
@@ -55,11 +59,10 @@
     "parallel_core_port_work_unblocked": true
   },
   "claims": [
-    "WPHX PHP passes the usable-compiler adoption gate for bounded parallel WordPress Core port slices.",
-    "The gate verifies generated PHP quality, public-shell snapshots, runtime/std and bootstrap/debug probes, raw-block/template debt, unsupported=[] for claimed boundaries, and bounded stock fallback surfaces.",
-    "The gate now includes the profile/core promotion audit so WordPress-profile adapter growth must carry classification, rationale, owner, and promotion gate evidence.",
-    "The gate reports all included and excluded WPHX PHP evidence manifests so future public-slice evidence cannot drift outside adoption CI silently.",
-    "Parallel Core work may resume when it routes new public PHP gaps into WPHX PHP and keeps oracle/candidate evidence current."
+    "Adoption CI now covers every current WPHX PHP evidence manifest under manifests/wphx-php with a required check.",
+    "The manifest reports included and excluded WPHX PHP evidence surfaces; the current excluded set is empty.",
+    "Public-boundary manifests carry a continuous-adoption outcome covering core IR promotion, profile-only ABI justification, stock fallback reduction, bootstrap/helper reduction, or filed backend-pressure evidence.",
+    "The gate fails when a new WPHX PHP evidence manifest appears without inclusion or explicit exclusion."
   ],
   "non_claims": [
     "This does not claim WPHX PHP is a mature arbitrary-Haxe reflaxe.php target.",
