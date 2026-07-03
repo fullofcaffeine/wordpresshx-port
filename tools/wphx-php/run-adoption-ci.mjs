@@ -5,7 +5,7 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname } from "node:path";
 
 const checkOnly = process.argv.includes("--check");
-const RECORDED_AT = "2026-07-02T21:00:00Z";
+const RECORDED_AT = "2026-07-03T06:05:00Z";
 const ISSUE = {
   id: "wordpresshx-w91.24.5",
   external_ref: "WPHX-COMP-PHP-ADOPTION-CI",
@@ -16,6 +16,7 @@ const MANIFEST = "manifests/ci/wphx-php-adoption-ci.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-adoption-ci.v1.json";
 
 const REQUIRED_NPM_CHECKS = [
+  "wphx:php:profile-core-promotion-audit:check",
   "wphx:php:gap-inventory:check",
   "wphx:php:adapter-raw-blocks:check",
   "wphx:php:public-shell-snapshots:check",
@@ -30,6 +31,7 @@ const REQUIRED_NPM_CHECKS = [
 ];
 
 const MANIFESTS = {
+  profileCorePromotionAudit: "manifests/wphx-php/profile-core-promotion-audit.v1.json",
   gapInventory: "manifests/wphx-php/compiler-gap-inventory.v1.json",
   rawBlockPolicy: "manifests/wphx-php/adapter-raw-block-policy.v1.json",
   publicShellSnapshots: "manifests/wphx-php/public-shell-snapshots.v1.json",
@@ -107,6 +109,19 @@ function main() {
   }
 
   const gap = manifests.gapInventory.validation_result;
+  const profileCore = manifests.profileCorePromotionAudit.validation_result;
+  expect(profileCore.unclassified_count === 0, "profile/core promotion audit must have zero unclassified adapters", failures);
+  expect(profileCore.stale_classification_count === 0, "profile/core promotion audit must have zero stale classifications", failures);
+  expect(
+    manifests.profileCorePromotionAudit.summary.method_adapter_count === manifests.gapInventory.summary.method_adapter_registry_count,
+    "profile/core audit method count must match gap inventory method adapter registry count",
+    failures
+  );
+  expect(
+    manifests.profileCorePromotionAudit.summary.script_adapter_count === manifests.gapInventory.summary.script_adapter_registry_count,
+    "profile/core audit script count must match gap inventory script adapter registry count",
+    failures
+  );
   expect(gap.wphx_hxml_count >= 27, "gap inventory must see at least 27 WPHX PHP hxmls", failures);
   expect(gap.stock_haxe_php_hxml_count === 12, "stock Haxe PHP fallback hxml count must remain exactly 12 until deliberately moved", failures);
   expect(gap.reflaxe_backed_wphx_hxml_count === gap.wphx_hxml_count, "all WPHX PHP hxmls must be Reflaxe-backed", failures);
@@ -229,7 +244,11 @@ function main() {
       public_shell_snapshot_case_count: snapshotValidation.case_count,
       wordpress_profile_method_adapter_count: manifests.gapInventory.summary.method_adapter_registry_count,
       script_adapter_count: gap.wp_script_adapter_metadata_count,
-      unsupported_report_site_count: manifests.gapInventory.summary.unsupported_report_site_count
+      unsupported_report_site_count: manifests.gapInventory.summary.unsupported_report_site_count,
+      profile_core_promotion_core_ir_candidate_count: manifests.profileCorePromotionAudit.summary.core_ir_candidate_count,
+      profile_core_promotion_profile_only_abi_constraint_count: manifests.profileCorePromotionAudit.summary.profile_only_abi_constraint_count,
+      profile_core_promotion_backend_pressure_count: manifests.profileCorePromotionAudit.summary.backend_promotion_pressure_count,
+      profile_core_promotion_temporary_bridge_count: manifests.profileCorePromotionAudit.summary.temporary_bridge_count
     },
     decision: {
       status: "passed",
@@ -244,7 +263,8 @@ function main() {
         "unsupported=[] for the claimed boundary",
         "public-shell snapshot or stronger generated-shape evidence when public PHP shape changes",
         "oracle/candidate behavior evidence for WordPress-observable behavior",
-        "explicit non-claims for installed behavior, full backend maturity, and remaining stock fallbacks"
+        "explicit non-claims for installed behavior, full backend maturity, and remaining stock fallbacks",
+        "fresh profile/core promotion classification when WordPress-profile or script adapter registries change"
       ]
     },
     validation_result: validationResult,
@@ -289,6 +309,7 @@ function main() {
     claims: [
       "WPHX PHP passes the usable-compiler adoption gate for bounded parallel WordPress Core port slices.",
       "The gate verifies generated PHP quality, public-shell snapshots, runtime/std and bootstrap/debug probes, raw-block/template debt, unsupported=[] for claimed boundaries, and bounded stock fallback surfaces.",
+      "The gate now includes the profile/core promotion audit so WordPress-profile adapter growth must carry classification, rationale, owner, and promotion gate evidence.",
       "Parallel Core work may resume when it routes new public PHP gaps into WPHX PHP and keeps oracle/candidate evidence current."
     ],
     non_claims: manifest.non_claims

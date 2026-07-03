@@ -6,7 +6,7 @@ import { dirname, join } from "node:path";
 const args = new Set(process.argv.slice(2));
 const checkOnly = args.has("--check");
 
-const RECORDED_AT = "2026-07-02T12:00:00Z";
+const RECORDED_AT = "2026-07-03T06:00:00Z";
 const RUNNER = "tools/wphx-php/run-compiler-gap-inventory.mjs";
 const MANIFEST = "manifests/wphx-php/compiler-gap-inventory.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-gap-inventory.v1.json";
@@ -15,6 +15,7 @@ const WORDPRESS_PROFILE = "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx";
 const FIXTURE_SOURCE_ROOT = "fixtures/wphx-php/src";
 const FIXTURE_HXML_ROOT = "fixtures/wphx-php";
 const WPHX_MANIFEST_ROOT = "manifests/wphx-php";
+const PROFILE_CORE_AUDIT_MANIFEST = "manifests/wphx-php/profile-core-promotion-audit.v1.json";
 const ISSUE = {
   id: "wordpresshx-w91.24.1",
   external_ref: "WPHX-COMP-PHP-GAP-INVENTORY",
@@ -355,6 +356,11 @@ function manifestSummary(path) {
   };
 }
 
+function readJsonIfExists(path) {
+  if (!existsSync(path)) return null;
+  return JSON.parse(readFileSync(path, "utf8"));
+}
+
 function packageWphxRunnerPaths() {
   const parsed = JSON.parse(readFileSync("package.json", "utf8"));
   const runners = [];
@@ -427,7 +433,17 @@ function unique(values) {
   return [...new Set(values)].sort();
 }
 
-function gapClassification({ hxmls, metadata, methodRegistry, scriptRegistry, rawDebt, unsupportedSites, runnerSurfaces, references }) {
+function gapClassification({
+  hxmls,
+  metadata,
+  methodRegistry,
+  scriptRegistry,
+  rawDebt,
+  unsupportedSites,
+  runnerSurfaces,
+  references,
+  profileCoreAudit
+}) {
   const stockHxmls = hxmls.filter((record) => record.stock_php_output !== null);
   const wphxHxmls = hxmls.filter((record) => record.wphx_php_output !== null);
   const copiedSurfaces = runnerSurfaces.filter(
@@ -474,21 +490,34 @@ function gapClassification({ hxmls, metadata, methodRegistry, scriptRegistry, ra
     },
     {
       id: "wordpress_profile_method_adapters",
-      classification: "wordpress_profile_abi_constraint",
+      classification: "profile_accretion_gate",
       severity: methodRegistry.length > 0 ? "active_profile_scope" : "clear",
-      follow_up_owner: "WPHX-COMP-PHP-CORE-LOWERING-PILOT",
+      follow_up_owner: "WPHX-COMP-PHP-PROFILE-CORE-PROMOTION-AUDIT",
       count: methodRegistry.length,
       adapters: methodRegistry.map((record) => record.adapter),
-      note: "Generic constructs should migrate to reusable PHP core IR; WordPress ABI-only choices should stay named in the profile."
+      core_ir_candidate_count: profileCoreAudit?.summary?.core_ir_candidate_count ?? null,
+      backend_promotion_pressure_count: profileCoreAudit?.summary?.backend_promotion_pressure_count ?? null,
+      note: "Every current method adapter is classified by the profile/core promotion audit; generic constructs should migrate to reusable PHP core IR while WordPress ABI-only choices stay named in the profile."
     },
     {
       id: "script_adapter_switches",
-      classification: "wordpress_profile_abi_constraint",
+      classification: "profile_accretion_gate",
       severity: scriptRegistry.length > 0 ? "active_profile_scope" : "clear",
-      follow_up_owner: "WPHX-COMP-PHP-WHOLE-FILE-PILOT",
+      follow_up_owner: "WPHX-COMP-PHP-PROFILE-CORE-PROMOTION-AUDIT",
       count: scriptRegistry.length,
       adapters: scriptRegistry.map((record) => record.adapter),
-      note: "Direct-script and template segment switches are compiler pressure for broader file/segment lowering before mixed-template ownership."
+      temporary_bridge_count: profileCoreAudit?.summary?.temporary_bridge_count ?? null,
+      note: "Every current script adapter is classified by the profile/core promotion audit; direct-script and template segment switches remain pressure for broader file/segment lowering before mixed-template ownership."
+    },
+    {
+      id: "profile_core_promotion_audit",
+      classification: "continuous_governance_gate",
+      severity: profileCoreAudit?.validation_result?.status === "passed" ? "active_gate" : "missing_or_stale",
+      follow_up_owner: "WPHX-COMP-PHP-CONTINUOUS-ADOPTION-CI",
+      count: profileCoreAudit?.summary?.classified_adapter_count ?? 0,
+      manifest: PROFILE_CORE_AUDIT_MANIFEST,
+      classification_counts: profileCoreAudit?.validation_result?.classification_counts ?? [],
+      note: "This amber-condition gate prevents WordPress-profile adapter growth from silently becoming a WordPress-only backend."
     },
     {
       id: "typed_lowering_unsupported_report_sites",
@@ -528,7 +557,7 @@ function gapClassification({ hxmls, metadata, methodRegistry, scriptRegistry, ra
   ];
 }
 
-function validationResult({ hxmls, metadata, rawDebt, manifests, references, classifications }) {
+function validationResult({ hxmls, metadata, methodRegistry, scriptRegistry, rawDebt, manifests, references, classifications, profileCoreAudit }) {
   const wphxHxmls = hxmls.filter((record) => record.wphx_php_output !== null);
   const stockHxmls = hxmls.filter((record) => record.stock_php_output !== null);
   const missingReferences = references.filter((record) => !record.exists);
@@ -542,10 +571,27 @@ function validationResult({ hxmls, metadata, rawDebt, manifests, references, cla
   if (rawDebt.render_template_call_count !== 0) failed.push("WordPress profile contains renderTemplate calls");
   if (missingReferences.length > 0) failed.push("stock Haxe PHP reference files are missing");
   if (staleManifests.length > 0) failed.push("a WPHX PHP evidence manifest reports non-passed status");
+  if (profileCoreAudit === null) failed.push("profile/core promotion audit manifest is missing");
+  if (profileCoreAudit !== null && profileCoreAudit.validation_result?.status !== "passed") {
+    failed.push("profile/core promotion audit manifest is not passed");
+  }
+  if (profileCoreAudit !== null && profileCoreAudit.summary?.method_adapter_count !== methodRegistry.length) {
+    failed.push("profile/core promotion audit method count no longer matches the profile adapter registry");
+  }
+  if (profileCoreAudit !== null && profileCoreAudit.summary?.script_adapter_count !== scriptRegistry.length) {
+    failed.push("profile/core promotion audit script count no longer matches the script adapter registry");
+  }
+  if (profileCoreAudit !== null && profileCoreAudit.validation_result?.unclassified_count !== 0) {
+    failed.push("profile/core promotion audit has unclassified adapters");
+  }
+  if (profileCoreAudit !== null && profileCoreAudit.validation_result?.stale_classification_count !== 0) {
+    failed.push("profile/core promotion audit has stale adapter classifications");
+  }
   for (const id of [
     "stock_haxe_php_private_outputs",
     "helper_bridge_metadata",
     "wordpress_profile_method_adapters",
+    "profile_core_promotion_audit",
     "typed_lowering_unsupported_report_sites",
     "stock_haxe_php_oracle_references"
   ]) {
@@ -568,6 +614,9 @@ function validationResult({ hxmls, metadata, rawDebt, manifests, references, cla
     render_template_call_count: rawDebt.render_template_call_count,
     manifest_count: manifests.length,
     manifest_statuses_passed: staleManifests.length === 0,
+    profile_core_promotion_audit_passed: profileCoreAudit?.validation_result?.status === "passed",
+    profile_core_promotion_unclassified_count: profileCoreAudit?.validation_result?.unclassified_count ?? null,
+    profile_core_promotion_stale_classification_count: profileCoreAudit?.validation_result?.stale_classification_count ?? null,
     stock_haxe_reference_count: references.length,
     stock_haxe_reference_missing_count: missingReferences.length
   };
@@ -579,6 +628,7 @@ function buildInventory() {
   const metadata = metadataInventory(fixtureSources);
   const methodRegistry = methodAdapterRegistry();
   const scriptRegistry = scriptAdapterRegistry();
+  const profileCoreAudit = readJsonIfExists(PROFILE_CORE_AUDIT_MANIFEST);
   const rawDebt = rawTemplateDebt();
   const unsupportedSites = unsupportedReportSites();
   const manifests = walk(WPHX_MANIFEST_ROOT, (path) => path.endsWith(".json") && path !== MANIFEST).map(manifestSummary);
@@ -592,15 +642,19 @@ function buildInventory() {
     rawDebt,
     unsupportedSites,
     runnerSurfaces,
-    references
+    references,
+    profileCoreAudit
   });
   const validation = validationResult({
     hxmls,
     metadata,
+    methodRegistry,
+    scriptRegistry,
     rawDebt,
     manifests,
     references,
-    classifications
+    classifications,
+    profileCoreAudit
   });
 
   return {
@@ -619,6 +673,7 @@ function buildInventory() {
       inputRecord("package.json"),
       inputRecord(COMPILER),
       inputRecord(WORDPRESS_PROFILE),
+      ...(profileCoreAudit === null ? [] : [inputRecord(PROFILE_CORE_AUDIT_MANIFEST)]),
       ...hxmls.map((record) => inputRecord(record.path)),
       ...fixtureSources.map(inputRecord)
     ].sort((left, right) => left.path.localeCompare(right.path)),
@@ -641,6 +696,10 @@ function buildInventory() {
       php_raw_block_count: rawDebt.php_raw_block_count,
       render_template_call_count: rawDebt.render_template_call_count,
       wphx_manifest_count: manifests.length,
+      profile_core_promotion_audit_status: profileCoreAudit?.validation_result?.status ?? null,
+      profile_core_promotion_core_ir_candidate_count: profileCoreAudit?.summary?.core_ir_candidate_count ?? null,
+      profile_core_promotion_backend_pressure_count: profileCoreAudit?.summary?.backend_promotion_pressure_count ?? null,
+      profile_core_promotion_temporary_bridge_count: profileCoreAudit?.summary?.temporary_bridge_count ?? null,
       stock_haxe_reference_missing_count: validation.stock_haxe_reference_missing_count
     },
     hxmls,
@@ -697,7 +756,7 @@ function buildReceipt(manifest, manifestText) {
       "The inventory records current WPHX PHP hxmls, stock Haxe PHP private-output dependencies, Reflaxe-backed public adapter hxmls, helper/bootstrap metadata, WordPress profile adapters, script adapters, unsupported typed-lowering report sites, runner copy/patch surfaces, WPHX evidence manifests, and local stock Haxe PHP reference files.",
       "The current WordPress profile remains at zero PhpRawBlock occurrences and zero renderTemplate calls.",
       "Every current WPHX PHP public-adapter hxml uses the Reflaxe classpath and the WPHX CompilerInit macro.",
-      "Follow-up ownership is classified across reusable PHP core IR, WordPress profile ABI constraints, std/php runtime borrowing, temporary fallbacks, and backend pressure."
+      "Follow-up ownership is classified across reusable PHP core IR, WordPress profile ABI constraints, std/php runtime borrowing, temporary fallbacks, backend pressure, and the executable profile/core promotion audit."
     ],
     non_claims: manifest.non_claims
   };

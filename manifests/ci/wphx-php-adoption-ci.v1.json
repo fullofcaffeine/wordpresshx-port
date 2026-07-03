@@ -5,11 +5,17 @@
     "external_ref": "WPHX-COMP-PHP-ADOPTION-CI",
     "title": "Define usable-compiler quality gate for parallel Core work"
   },
-  "generated_at": "2026-07-02T21:00:00Z",
+  "generated_at": "2026-07-03T06:05:00Z",
   "generator": "tools/wphx-php/run-adoption-ci.mjs",
   "evidence_class": "compiler_adoption_ci",
   "artifact_scope": "wphx_php_usable_compiler_gate",
   "required_checks": [
+    {
+      "command": "npm run wphx:php:profile-core-promotion-audit:check",
+      "status": "passed",
+      "stdout_sha256": "sha256:bd9bbadbad5890091fbdf57ca3d83d6084705d4b2228e6375646bb94012ce612",
+      "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
     {
       "command": "npm run wphx:php:gap-inventory:check",
       "status": "passed",
@@ -79,9 +85,14 @@
   ],
   "evidence_manifests": [
     {
+      "path": "manifests/wphx-php/profile-core-promotion-audit.v1.json",
+      "bytes": 52940,
+      "sha256": "sha256:081af972e839f805b65ccb6b08e53efeac4004e44cc022d082be02cccd685a89"
+    },
+    {
       "path": "manifests/wphx-php/compiler-gap-inventory.v1.json",
-      "bytes": 266464,
-      "sha256": "sha256:f07ec314a34fb1d40144a418d8b5a664eaa19d46ae663c26cb05b27b8981a964"
+      "bytes": 269017,
+      "sha256": "sha256:975da9146ef09ff7dd05d8c1004a0482df0b118db3ef1cff95a2bcecc51e2d6a"
     },
     {
       "path": "manifests/wphx-php/adapter-raw-block-policy.v1.json",
@@ -137,11 +148,15 @@
   "summary": {
     "wphx_hxml_count": 32,
     "stock_haxe_php_fallback_hxml_count": 12,
-    "wphx_evidence_manifest_count": 19,
+    "wphx_evidence_manifest_count": 20,
     "public_shell_snapshot_case_count": 25,
     "wordpress_profile_method_adapter_count": 54,
     "script_adapter_count": 5,
-    "unsupported_report_site_count": 23
+    "unsupported_report_site_count": 23,
+    "profile_core_promotion_core_ir_candidate_count": 31,
+    "profile_core_promotion_profile_only_abi_constraint_count": 22,
+    "profile_core_promotion_backend_pressure_count": 3,
+    "profile_core_promotion_temporary_bridge_count": 3
   },
   "decision": {
     "status": "passed",
@@ -156,13 +171,14 @@
       "unsupported=[] for the claimed boundary",
       "public-shell snapshot or stronger generated-shape evidence when public PHP shape changes",
       "oracle/candidate behavior evidence for WordPress-observable behavior",
-      "explicit non-claims for installed behavior, full backend maturity, and remaining stock fallbacks"
+      "explicit non-claims for installed behavior, full backend maturity, and remaining stock fallbacks",
+      "fresh profile/core promotion classification when WordPress-profile or script adapter registries change"
     ]
   },
   "validation_result": {
     "status": "passed",
     "failures": [],
-    "required_check_count": 11,
+    "required_check_count": 12,
     "required_checks_passed": true,
     "generated_php_quality_gate_passed": true,
     "unsupported_empty_for_claimed_boundaries": true,

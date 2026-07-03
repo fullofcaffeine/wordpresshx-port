@@ -1,0 +1,878 @@
+{
+  "schema": "wphx.wphx-php-profile-core-promotion-audit.v1",
+  "issue": {
+    "id": "wordpresshx-sm45",
+    "external_ref": "WPHX-COMP-PHP-PROFILE-CORE-PROMOTION-AUDIT",
+    "title": "Classify profile adapters for core promotion"
+  },
+  "generated_at": "2026-07-03T06:00:00Z",
+  "generator": "tools/wphx-php/run-profile-core-promotion-audit.mjs",
+  "evidence_class": "compiler_profile_core_promotion_audit",
+  "artifact_scope": "wphx_php_wordpress_profile_adapter_accretion_gate",
+  "review_basis": {
+    "oracle_response": "docs/operations/oracle-wphx-php-pivot-soundness-response.md",
+    "source_inputs": [
+      {
+        "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+        "bytes": 58645,
+        "sha256": "sha256:0e2c354d225ff1488f6370dffd875dd2604d9ff9c954d712c69d210477d6d9b1"
+      },
+      {
+        "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+        "bytes": 85983,
+        "sha256": "sha256:3507856113016d936ae40607cb89d58e4125835b5c7deb18770b39db04c590c8"
+      },
+      {
+        "path": "docs/operations/oracle-wphx-php-pivot-soundness-response.md",
+        "bytes": 21117,
+        "sha256": "sha256:ca439a5d64848777104f1ee7cb7a96b927fef23e78ce3403f837649598fe8310"
+      }
+    ]
+  },
+  "policy": {
+    "accepted_classifications": [
+      "backend_promotion_pressure",
+      "core_ir_candidate",
+      "profile_only_abi_constraint",
+      "temporary_bridge"
+    ],
+    "rule": "Every current WordPress-profile method adapter and compiler script adapter must have an explicit classification, rationale, follow-up owner, and promotion gate before adoption CI can remain green.",
+    "oracle_condition": "Keep moving repeated generic constructs out of WphxPhpWordPressAdapters.hx and into reusable core IR; make profile growth trend-gated, not merely pass/fail gated."
+  },
+  "summary": {
+    "method_adapter_count": 54,
+    "script_adapter_count": 5,
+    "classified_adapter_count": 59,
+    "core_ir_candidate_count": 31,
+    "profile_only_abi_constraint_count": 22,
+    "temporary_bridge_count": 3,
+    "backend_promotion_pressure_count": 3,
+    "unclassified_count": 0,
+    "stale_classification_count": 0
+  },
+  "adapter_classifications": [
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-autoembed",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 143,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-autoembed-callback",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 141,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-cache-oembed",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 145,
+      "domain": "embed",
+      "classification": "backend_promotion_pressure",
+      "follow_up_owner": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+      "follow_up_issue_id": "wordpresshx-4j86",
+      "rationale": "These adapters are larger orchestration bodies. If similar slices keep appearing, Adapter IR will be doing backend work rather than bounded public ABI shaping.",
+      "promotion_gate": "Before adding comparable orchestration adapters, either reduce the repeated constructs into reusable core IR or file backend-promotion evidence through the private-emitter ladder."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-construct",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 123,
+      "domain": "embed",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These WP_Embed methods are profile-sensitive because their value is hook timing, shortcode registration, cache-post timing, and filter-visible WordPress output behavior.",
+      "promotion_gate": "Hold these as profile-only until the embed whole-file inventory separates hook/shortcode ABI from generic callback, array, and output-buffer lowering needs."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-delete-oembed-caches",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 139,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-find-oembed-post-id",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 147,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-get-handler-html",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 135,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-maybe-make-link",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 137,
+      "domain": "embed",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These WP_Embed methods are profile-sensitive because their value is hook timing, shortcode registration, cache-post timing, and filter-visible WordPress output behavior.",
+      "promotion_gate": "Hold these as profile-only until the embed whole-file inventory separates hook/shortcode ABI from generic callback, array, and output-buffer lowering needs."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-maybe-run-ajax-cache",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 129,
+      "domain": "embed",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These WP_Embed methods are profile-sensitive because their value is hook timing, shortcode registration, cache-post timing, and filter-visible WordPress output behavior.",
+      "promotion_gate": "Hold these as profile-only until the embed whole-file inventory separates hook/shortcode ABI from generic callback, array, and output-buffer lowering needs."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-register-handler",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 125,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-run-shortcode",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 127,
+      "domain": "embed",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These WP_Embed methods are profile-sensitive because their value is hook timing, shortcode registration, cache-post timing, and filter-visible WordPress output behavior.",
+      "promotion_gate": "Hold these as profile-only until the embed whole-file inventory separates hook/shortcode ABI from generic callback, array, and output-buffer lowering needs."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-shortcode",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 131,
+      "domain": "embed",
+      "classification": "backend_promotion_pressure",
+      "follow_up_owner": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+      "follow_up_issue_id": "wordpresshx-4j86",
+      "rationale": "These adapters are larger orchestration bodies. If similar slices keep appearing, Adapter IR will be doing backend work rather than bounded public ABI shaping.",
+      "promotion_gate": "Before adding comparable orchestration adapters, either reduce the repeated constructs into reusable core IR or file backend-promotion evidence through the private-emitter ladder."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-embed-unregister-handler",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 133,
+      "domain": "embed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-block-request",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 57,
+      "domain": "http",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These are WordPress HTTP policy and URL-safety boundaries whose observable value is matching core constants, filters, and public method ABI, even though individual expressions may later use core IR.",
+      "promotion_gate": "Keep these classified as profile ABI constraints until whole-file HTTP inventory shows repeated generic lowering pressure that is not specific to WordPress HTTP policy."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-browser-redirect-compatibility",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 51,
+      "domain": "http",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These are WordPress HTTP policy and URL-safety boundaries whose observable value is matching core constants, filters, and public method ABI, even though individual expressions may later use core IR.",
+      "promotion_gate": "Keep these classified as profile ABI constraints until whole-file HTTP inventory shows repeated generic lowering pressure that is not specific to WordPress HTTP policy."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-build-cookie-header",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 47,
+      "domain": "http",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-cookie-construct",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 105,
+      "domain": "http_cookie",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-cookie-get-attributes",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 113,
+      "domain": "http_cookie",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-cookie-get-full-header",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 111,
+      "domain": "http_cookie",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-cookie-get-header-value",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 109,
+      "domain": "http_cookie",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-cookie-test",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 107,
+      "domain": "http_cookie",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-accept-encoding",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 67,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-compatible-gzinflate",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 65,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-compress",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 61,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-content-encoding",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 69,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-decompress",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 63,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-is-available",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 73,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-encoding-should-decode",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 71,
+      "domain": "http_encoding",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-handle-redirects",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 59,
+      "domain": "http",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-is-ip-address",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 49,
+      "domain": "http",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These are WordPress HTTP policy and URL-safety boundaries whose observable value is matching core constants, filters, and public method ABI, even though individual expressions may later use core IR.",
+      "promotion_gate": "Keep these classified as profile ABI constraints until whole-file HTTP inventory shows repeated generic lowering pressure that is not specific to WordPress HTTP policy."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-make-absolute-url",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 55,
+      "domain": "http",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These are WordPress HTTP policy and URL-safety boundaries whose observable value is matching core constants, filters, and public method ABI, even though individual expressions may later use core IR.",
+      "promotion_gate": "Keep these classified as profile ABI constraints until whole-file HTTP inventory shows repeated generic lowering pressure that is not specific to WordPress HTTP policy."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-normalize-cookies",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 115,
+      "domain": "http",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-process-headers",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 45,
+      "domain": "http",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-authentication",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 81,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-authentication-header",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 83,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-constant",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 79,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-is-enabled",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 75,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-send-through-proxy",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 85,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-proxy-use-authentication",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 77,
+      "domain": "http_proxy",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These wrappers are dominated by WordPress-visible proxy/encoding constants, method names, and PHP extension handoff policy; broad behavior remains a file/domain ownership question.",
+      "promotion_gate": "Do not broaden beyond selected adapters until HTTP whole-file ownership gates inventory proxy, TLS, headers, streams, live transport, and Requests handoff behavior."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-request-nonblocking",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 121,
+      "domain": "http",
+      "classification": "backend_promotion_pressure",
+      "follow_up_owner": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+      "follow_up_issue_id": "wordpresshx-4j86",
+      "rationale": "These adapters are larger orchestration bodies. If similar slices keep appearing, Adapter IR will be doing backend work rather than bounded public ABI shaping.",
+      "promotion_gate": "Before adding comparable orchestration adapters, either reduce the repeated constructs into reusable core IR or file backend-promotion evidence through the private-emitter ladder."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-construct",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 87,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-get-data",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 89,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-get-headers",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 93,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-get-status",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 99,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-header",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 97,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-json-serialize",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 103,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-set-data",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 91,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-set-headers",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 95,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-response-set-status",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 101,
+      "domain": "http_response",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+      "follow_up_issue_id": "wordpresshx-f808",
+      "rationale": "These adapters repeatedly exercise native associative arrays, object-field storage, falsey-value-preserving reads, array appends, and structured header/cookie mutation that should be reusable PHP core IR.",
+      "promotion_gate": "Before adding similar header, response, or cookie profile bodies, promote the repeated array read/write/append/isset/empty/null distinction behavior into a generic native-array core fixture."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-transport-dispatch-request",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 119,
+      "domain": "http_transport",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-transport-get-first-available",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 117,
+      "domain": "http_transport",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+      "follow_up_issue_id": "wordpresshx-ze8a",
+      "rationale": "These bodies combine WordPress ABI calls with reusable PHP mechanics: callable arrays, dynamic helper calls, hook payload arrays, nested mutation, and callback-style control flow.",
+      "promotion_gate": "Before expanding callback-heavy HTTP/embed adapters, add a core callable/closure fixture that covers callable arrays, call_user_func-style dispatch, accepted-args behavior, and reference-sensitive payload mutation."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-http-validate-redirects",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 53,
+      "domain": "http",
+      "classification": "profile_only_abi_constraint",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+      "follow_up_issue_id": "wordpresshx-9esi",
+      "rationale": "These are WordPress HTTP policy and URL-safety boundaries whose observable value is matching core constants, filters, and public method ABI, even though individual expressions may later use core IR.",
+      "promotion_gate": "Keep these classified as profile ABI constraints until whole-file HTTP inventory shows repeated generic lowering pressure that is not specific to WordPress HTTP policy."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-oembed-add-provider-early",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 149,
+      "domain": "oembed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+      "follow_up_issue_id": "wordpresshx-sbot",
+      "rationale": "The early-provider adapters exist because WP_oEmbed exposes static provider queues and mutable native arrays; the useful compiler pressure is static-property and dynamic-member lowering.",
+      "promotion_gate": "Before claiming broader WP_oEmbed ownership, move static property defaults, static array mutation, dynamic class/member access, and class-string behavior into reusable core IR fixtures."
+    },
+    {
+      "registry_kind": "method_adapter",
+      "adapter": "wp-oembed-remove-provider-early",
+      "source_path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
+      "source_line": 151,
+      "domain": "oembed",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+      "follow_up_issue_id": "wordpresshx-sbot",
+      "rationale": "The early-provider adapters exist because WP_oEmbed exposes static provider queues and mutable native arrays; the useful compiler pressure is static-property and dynamic-member lowering.",
+      "promotion_gate": "Before claiming broader WP_oEmbed ownership, move static property defaults, static array mutation, dynamic class/member access, and class-string behavior into reusable core IR fixtures."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "deprecated-class-http",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 516,
+      "domain": "deprecated_file_whole_file_pilot",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+      "follow_up_issue_id": "wordpresshx-jcyk",
+      "rationale": "These named script switches represent generic file-scope statement emission, require/require_once, include timing, and return/direct-script behavior.",
+      "promotion_gate": "Move direct file-scope statements and include/require emission toward a reusable file-segment IR API before adding more named script switches."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "include-side-effects",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 514,
+      "domain": "direct_file_scope",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+      "follow_up_issue_id": "wordpresshx-jcyk",
+      "rationale": "These named script switches represent generic file-scope statement emission, require/require_once, include timing, and return/direct-script behavior.",
+      "promotion_gate": "Move direct file-scope statements and include/require emission toward a reusable file-segment IR API before adding more named script switches."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "template-segment-admin-style",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 518,
+      "domain": "template_segment",
+      "classification": "temporary_bridge",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+      "follow_up_issue_id": "wordpresshx-jcyk",
+      "rationale": "The template-segment switches are minimized mixed-template probes; keeping them named is acceptable only while the segment model is still fixture-bounded.",
+      "promotion_gate": "Replace named template script switches with generic segment registration and caller-scope metadata before claiming mixed-template ownership."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "template-segment-nested-parent",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 520,
+      "domain": "template_segment",
+      "classification": "temporary_bridge",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+      "follow_up_issue_id": "wordpresshx-jcyk",
+      "rationale": "The template-segment switches are minimized mixed-template probes; keeping them named is acceptable only while the segment model is still fixture-bounded.",
+      "promotion_gate": "Replace named template script switches with generic segment registration and caller-scope metadata before claiming mixed-template ownership."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "template-segment-nested-partial",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 522,
+      "domain": "template_segment",
+      "classification": "temporary_bridge",
+      "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+      "follow_up_issue_id": "wordpresshx-jcyk",
+      "rationale": "The template-segment switches are minimized mixed-template probes; keeping them named is acceptable only while the segment model is still fixture-bounded.",
+      "promotion_gate": "Replace named template script switches with generic segment registration and caller-scope metadata before claiming mixed-template ownership."
+    }
+  ],
+  "unclassified_adapters": [],
+  "stale_classifications": [],
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "method_adapter_count": 54,
+    "script_adapter_count": 5,
+    "classified_method_adapter_count": 54,
+    "classified_script_adapter_count": 5,
+    "unclassified_count": 0,
+    "stale_classification_count": 0,
+    "duplicate_assignment_count": 0,
+    "classification_counts": [
+      {
+        "value": "backend_promotion_pressure",
+        "count": 3
+      },
+      {
+        "value": "core_ir_candidate",
+        "count": 31
+      },
+      {
+        "value": "profile_only_abi_constraint",
+        "count": 22
+      },
+      {
+        "value": "temporary_bridge",
+        "count": 3
+      }
+    ],
+    "domain_counts": [
+      {
+        "value": "deprecated_file_whole_file_pilot",
+        "count": 1
+      },
+      {
+        "value": "direct_file_scope",
+        "count": 1
+      },
+      {
+        "value": "embed",
+        "count": 13
+      },
+      {
+        "value": "http",
+        "count": 10
+      },
+      {
+        "value": "http_cookie",
+        "count": 5
+      },
+      {
+        "value": "http_encoding",
+        "count": 7
+      },
+      {
+        "value": "http_proxy",
+        "count": 6
+      },
+      {
+        "value": "http_response",
+        "count": 9
+      },
+      {
+        "value": "http_transport",
+        "count": 2
+      },
+      {
+        "value": "oembed",
+        "count": 2
+      },
+      {
+        "value": "template_segment",
+        "count": 3
+      }
+    ],
+    "owner_counts": [
+      {
+        "value": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+        "count": 10
+      },
+      {
+        "value": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+        "count": 22
+      },
+      {
+        "value": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+        "count": 5
+      },
+      {
+        "value": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+        "count": 17
+      },
+      {
+        "value": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+        "count": 3
+      },
+      {
+        "value": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+        "count": 2
+      }
+    ],
+    "profile_accretion_gate_active": true
+  },
+  "claims": [
+    "All current WPHX PHP WordPress-profile method adapters and compiler script adapters are explicitly classified for profile/core promotion pressure.",
+    "The audit is executable and fails when adapter registries drift without updating classification, rationale, owner, and promotion gate.",
+    "The audit records which current adapters are profile-only ABI constraints, reusable core IR candidates, temporary bridges, or backend-promotion pressure."
+  ],
+  "non_claims": [
+    "This audit does not move any adapter out of the WordPress profile by itself.",
+    "This audit does not claim WPHX PHP is a mature arbitrary-Haxe PHP backend.",
+    "This audit does not claim stock Haxe PHP can be abandoned as private implementation emitter.",
+    "This audit does not claim full class-wp-http.php, class-wp-embed.php, or class-wp-oembed.php ownership."
+  ]
+}

@@ -1,0 +1,149 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-profile-core-promotion-audit",
+  "issue": {
+    "id": "wordpresshx-sm45",
+    "external_ref": "WPHX-COMP-PHP-PROFILE-CORE-PROMOTION-AUDIT",
+    "title": "Classify profile adapters for core promotion"
+  },
+  "recorded_at": "2026-07-03T06:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_profile_core_promotion_audit",
+  "artifact_scope": "wphx_php_wordpress_profile_adapter_accretion_gate",
+  "commands": [
+    "npm run wphx:php:profile-core-promotion-audit",
+    "npm run wphx:php:profile-core-promotion-audit:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-profile-core-promotion-audit.mjs",
+      "role": "deterministic profile/core promotion audit runner"
+    },
+    {
+      "path": "manifests/wphx-php/profile-core-promotion-audit.v1.json",
+      "role": "machine-readable adapter classification and promotion-gate manifest"
+    },
+    {
+      "path": "docs/operations/wphx-php-compiler.md",
+      "role": "compiler operations documentation updated with profile/core audit scope"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program rollup updated with the oracle amber-condition profile-accretion gate"
+    }
+  ],
+  "manifest_sha256": "sha256:081af972e839f805b65ccb6b08e53efeac4004e44cc022d082be02cccd685a89",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "method_adapter_count": 54,
+    "script_adapter_count": 5,
+    "classified_method_adapter_count": 54,
+    "classified_script_adapter_count": 5,
+    "unclassified_count": 0,
+    "stale_classification_count": 0,
+    "duplicate_assignment_count": 0,
+    "classification_counts": [
+      {
+        "value": "backend_promotion_pressure",
+        "count": 3
+      },
+      {
+        "value": "core_ir_candidate",
+        "count": 31
+      },
+      {
+        "value": "profile_only_abi_constraint",
+        "count": 22
+      },
+      {
+        "value": "temporary_bridge",
+        "count": 3
+      }
+    ],
+    "domain_counts": [
+      {
+        "value": "deprecated_file_whole_file_pilot",
+        "count": 1
+      },
+      {
+        "value": "direct_file_scope",
+        "count": 1
+      },
+      {
+        "value": "embed",
+        "count": 13
+      },
+      {
+        "value": "http",
+        "count": 10
+      },
+      {
+        "value": "http_cookie",
+        "count": 5
+      },
+      {
+        "value": "http_encoding",
+        "count": 7
+      },
+      {
+        "value": "http_proxy",
+        "count": 6
+      },
+      {
+        "value": "http_response",
+        "count": 9
+      },
+      {
+        "value": "http_transport",
+        "count": 2
+      },
+      {
+        "value": "oembed",
+        "count": 2
+      },
+      {
+        "value": "template_segment",
+        "count": 3
+      }
+    ],
+    "owner_counts": [
+      {
+        "value": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+        "count": 10
+      },
+      {
+        "value": "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES",
+        "count": 22
+      },
+      {
+        "value": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+        "count": 5
+      },
+      {
+        "value": "WPHX-COMP-PHP-NATIVE-ARRAY-MUTATION-CORE",
+        "count": 17
+      },
+      {
+        "value": "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT",
+        "count": 3
+      },
+      {
+        "value": "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE",
+        "count": 2
+      }
+    ],
+    "profile_accretion_gate_active": true
+  },
+  "claims": [
+    "All current WPHX PHP WordPress-profile method adapters and compiler script adapters are explicitly classified for profile/core promotion pressure.",
+    "The audit is executable and fails when adapter registries drift without updating classification, rationale, owner, and promotion gate.",
+    "The audit records which current adapters are profile-only ABI constraints, reusable core IR candidates, temporary bridges, or backend-promotion pressure."
+  ],
+  "non_claims": [
+    "This audit does not move any adapter out of the WordPress profile by itself.",
+    "This audit does not claim WPHX PHP is a mature arbitrary-Haxe PHP backend.",
+    "This audit does not claim stock Haxe PHP can be abandoned as private implementation emitter.",
+    "This audit does not claim full class-wp-http.php, class-wp-embed.php, or class-wp-oembed.php ownership."
+  ]
+}
