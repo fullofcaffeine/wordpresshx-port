@@ -5,7 +5,7 @@
     "external_ref": "WPHX-312.101",
     "title": "Generate adapters for copied HTTP feed embed public surfaces"
   },
-  "generated_at": "2026-07-02T23:55:00Z",
+  "generated_at": "2026-07-03T11:30:00Z",
   "generator": "tools/wp-core/run-wphx-312-generated-adapter-coverage.mjs",
   "evidence_class": "generated_adapter_coverage_gate",
   "artifact_scope": "wphx_312_generated_adapter_copied_public_surfaces",
@@ -16,6 +16,31 @@
       "sha256": "sha256:f8624597efc5a4738a8f571d3c0843525945b9d8544e887bc5873025d4aa9e2a"
     },
     "successor_manifests": [
+      {
+        "path": "manifests/wphx-php/feed-module-functions.v1.json",
+        "bytes": 103720,
+        "sha256": "sha256:67aeb1123b34858eb0fa968ffb7f147a8c04d41839851f6e1d416ba4e9230e25"
+      },
+      {
+        "path": "manifests/wphx-php/embed-module-functions.v1.json",
+        "bytes": 388056,
+        "sha256": "sha256:ea65d44ff48602b04c1e5cb7e246e2ef9e9d6036218fe10a1421cba177d12c6d"
+      },
+      {
+        "path": "manifests/wphx-php/https-module-functions.v1.json",
+        "bytes": 45220,
+        "sha256": "sha256:1677ed15792bd92d37c6cdf6608447ad951506cb7a6b32e053cdfa84482aa64c"
+      },
+      {
+        "path": "manifests/wphx-php/wp-embed-handlers.v1.json",
+        "bytes": 266503,
+        "sha256": "sha256:d28ebdb1126f264d6971a2ae5c741bf149ceb536ec68c6a86d42fc4cc650dd42"
+      },
+      {
+        "path": "manifests/wphx-php/wp-oembed-providers.v1.json",
+        "bytes": 12292,
+        "sha256": "sha256:0a9bfe8746faed4000ebc537b49ef0118a665c46f354a7d389e3926ad998e811"
+      },
       {
         "path": "manifests/wp-core/wphx-312-52-http-response-candidate.v1.json",
         "bytes": 17426,
@@ -78,35 +103,34 @@
       },
       {
         "path": "manifests/wphx-php/whole-file-class-http.v1.json",
-        "bytes": 6325,
-        "sha256": "sha256:3421ae18a39f556ac947053910a8fe30acc6eb6cb4560ea87e3f150b38aefb11"
+        "bytes": 6391,
+        "sha256": "sha256:47d403d79081af1511ae84676971f2517c24befd63c63387ec168b1420d1127c"
       }
     ]
   },
   "summary": {
     "generated_adapter_surface_count": 7,
-    "covered_by_generated_successor_count": 6,
-    "compiler_pressure_blocked_count": 1,
-    "blocker_refs": [
-      {
-        "issue_id": "wordpresshx-a89x",
-        "external_ref": "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
-        "title": "Add module-function original-path adapters for feed embed HTTPS helpers"
-      }
-    ],
+    "covered_by_generated_successor_count": 7,
+    "compiler_pressure_blocked_count": 0,
+    "blocker_refs": [],
     "close_wphx_312_101": true
   },
   "boundaries": [
     {
       "source_ref": "WPHX-312.04",
-      "status": "compiler_pressure_blocked",
-      "blocker": {
-        "issue_id": "wordpresshx-a89x",
-        "external_ref": "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
-        "title": "Add module-function original-path adapters for feed embed HTTPS helpers"
-      },
-      "pressure_kind": "module_function_and_mixed_class_original_path_adapters",
-      "covered_symbols": [
+      "status": "covered_by_generated_successor",
+      "successor_refs": [
+        "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
+        "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER"
+      ],
+      "successor_manifests": [
+        "manifests/wphx-php/feed-module-functions.v1.json",
+        "manifests/wphx-php/embed-module-functions.v1.json",
+        "manifests/wphx-php/https-module-functions.v1.json",
+        "manifests/wphx-php/wp-embed-handlers.v1.json",
+        "manifests/wphx-php/wp-oembed-providers.v1.json"
+      ],
+      "promoted_symbols": [
         "get_bloginfo_rss",
         "bloginfo_rss",
         "get_default_feed",
@@ -138,7 +162,7 @@
         "wp_is_https_supported",
         "wp_is_local_html_output"
       ],
-      "blocker_reason": "The surface mixes module-level public functions, WP_Embed/WP_oEmbed methods, globals, hooks, output helpers, option mutation, and HTTPS detection boundaries across six original WordPress paths. It needs WPHX PHP module-function/class original-path adapter support instead of copied-oracle PHP.",
+      "successor_note": "The WPHX PHP successor evidence is selected-boundary compiler-emitted original-path public PHP for feed.php, embed.php, https-detection.php, https-migration.php, class-wp-embed.php, and class-wp-oembed.php. WPHX-312.04 copied-oracle evidence remains retained for broader behavior until installed/package and full-file gates pass.",
       "source_issue_id": "wordpresshx-l76.18.4",
       "source_unit_name": "feed helper, embed/oEmbed local routing, and HTTPS detection/migration behavior",
       "source_unit_kind": "oracle_source_mirror_fixture",
@@ -375,8 +399,8 @@
     "status": "passed",
     "failures": [],
     "generated_adapter_surface_count": 7,
-    "covered_by_generated_successor_count": 6,
-    "compiler_pressure_blocked_count": 1,
+    "covered_by_generated_successor_count": 7,
+    "compiler_pressure_blocked_count": 0,
     "all_generated_adapter_surfaces_accounted_for": true,
     "copied_oracle_fixtures_retained_as_behavior_evidence": true
   },
@@ -384,8 +408,8 @@
     "status": "passed",
     "close_wphx_312_101": true,
     "notes": [
-      "Six copied-oracle WPHX-312 generated-adapter surfaces already have WPHX PHP compiler-emitted original-path successor candidates.",
-      "WPHX-312.04 remains copied-oracle behavior evidence and is routed to an explicit WPHX PHP compiler-pressure blocker for module-level feed/embed/HTTPS original-path adapter support.",
+      "All seven copied-oracle WPHX-312 generated-adapter surfaces now have WPHX PHP compiler-emitted original-path successor evidence or bounded selected-boundary successor evidence.",
+      "WPHX-312.04 remains copied-oracle behavior evidence while selected feed/embed/oEmbed/HTTPS generated successor gates stay bounded by their receipts and non-claims.",
       "No copied public PHP fixture is promoted to durable ownership by this coverage gate."
     ]
   },

@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync, statSync, writeFileSync } from "no
 import { dirname } from "node:path";
 
 const checkOnly = process.argv.includes("--check");
-const RECORDED_AT = "2026-07-02T23:55:00Z";
+const RECORDED_AT = "2026-07-03T11:30:00Z";
 const ISSUE = {
   id: "wordpresshx-l76.18.45",
   external_ref: "WPHX-312.101",
@@ -19,14 +19,16 @@ const RECEIPT = "receipts/wp-core/wphx-312-101-generated-adapter-coverage.v1.jso
 const COVERAGE = [
   {
     source_ref: "WPHX-312.04",
-    status: "compiler_pressure_blocked",
-    blocker: {
-      issue_id: "wordpresshx-a89x",
-      external_ref: "WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS",
-      title: "Add module-function original-path adapters for feed embed HTTPS helpers"
-    },
-    pressure_kind: "module_function_and_mixed_class_original_path_adapters",
-    covered_symbols: [
+    status: "covered_by_generated_successor",
+    successor_refs: ["WPHX-COMP-PHP-MODULE-FUNCTION-ADAPTERS", "WPHX-COMP-PHP-FEED-EMBED-HTTPS-REMAINDER"],
+    successor_manifests: [
+      "manifests/wphx-php/feed-module-functions.v1.json",
+      "manifests/wphx-php/embed-module-functions.v1.json",
+      "manifests/wphx-php/https-module-functions.v1.json",
+      "manifests/wphx-php/wp-embed-handlers.v1.json",
+      "manifests/wphx-php/wp-oembed-providers.v1.json"
+    ],
+    promoted_symbols: [
       "get_bloginfo_rss",
       "bloginfo_rss",
       "get_default_feed",
@@ -58,8 +60,8 @@ const COVERAGE = [
       "wp_is_https_supported",
       "wp_is_local_html_output"
     ],
-    blocker_reason:
-      "The surface mixes module-level public functions, WP_Embed/WP_oEmbed methods, globals, hooks, output helpers, option mutation, and HTTPS detection boundaries across six original WordPress paths. It needs WPHX PHP module-function/class original-path adapter support instead of copied-oracle PHP."
+    successor_note:
+      "The WPHX PHP successor evidence is selected-boundary compiler-emitted original-path public PHP for feed.php, embed.php, https-detection.php, https-migration.php, class-wp-embed.php, and class-wp-oembed.php. WPHX-312.04 copied-oracle evidence remains retained for broader behavior until installed/package and full-file gates pass."
   },
   {
     source_ref: "WPHX-312.38",
@@ -192,6 +194,10 @@ function assertGeneratedSuccessor(entry, failures) {
     const candidate = manifest.candidate ?? {};
     const publicShell = candidate.compiler_emitted_public_shell ?? candidate.public_shell ?? candidate.compiler ?? null;
     const shellPolicy = candidate.public_shell_policy ?? candidate.public_shell?.shape ?? candidate.public_shell ?? {};
+    const wphxCompilerManifest =
+      manifest.schema?.startsWith("wphx.wphx-php-") &&
+      (manifest.validation_result?.status === "passed" || manifest.generated?.lint?.startsWith("No syntax errors detected")) &&
+      (manifest.validation_result?.unsupported_empty === true || (manifest.generated?.emission_manifest?.unsupported ?? []).length === 0);
     const wholeFileOwned =
       manifest.validation_result?.whole_file_owned_segment_plan === true && manifest.validation_result?.unsupported_empty === true;
     const compilerEmitted =
@@ -200,8 +206,9 @@ function assertGeneratedSuccessor(entry, failures) {
       shellPolicy.compiler_emitted === true ||
       shellPolicy.compiler_emitted_public_php === true ||
       candidate.public_shell_policy?.compiler_emitted_public_php === true ||
+      wphxCompilerManifest ||
       wholeFileOwned;
-    if ((!publicShell && !wholeFileOwned) || !compilerEmitted) {
+    if ((!publicShell && !wholeFileOwned && !wphxCompilerManifest) || !compilerEmitted) {
       failures.push(`${entry.source_ref} successor ${path} does not record a compiler-emitted public shell`);
     }
   }
@@ -243,8 +250,8 @@ function main() {
 
   const coveredCount = boundaries.filter((entry) => entry.status === "covered_by_generated_successor").length;
   const blockedCount = boundaries.filter((entry) => entry.status === "compiler_pressure_blocked").length;
-  if (coveredCount !== 6) failures.push(`expected 6 generated-successor surfaces, found ${coveredCount}`);
-  if (blockedCount !== 1) failures.push(`expected 1 compiler-pressure blocker, found ${blockedCount}`);
+  if (coveredCount !== 7) failures.push(`expected 7 generated-successor surfaces, found ${coveredCount}`);
+  if (blockedCount !== 0) failures.push(`expected 0 compiler-pressure blockers, found ${blockedCount}`);
 
   const validationResult = {
     status: failures.length === 0 ? "passed" : "failed",
@@ -286,8 +293,8 @@ function main() {
       status: "passed",
       close_wphx_312_101: true,
       notes: [
-        "Six copied-oracle WPHX-312 generated-adapter surfaces already have WPHX PHP compiler-emitted original-path successor candidates.",
-        "WPHX-312.04 remains copied-oracle behavior evidence and is routed to an explicit WPHX PHP compiler-pressure blocker for module-level feed/embed/HTTPS original-path adapter support.",
+        "All seven copied-oracle WPHX-312 generated-adapter surfaces now have WPHX PHP compiler-emitted original-path successor evidence or bounded selected-boundary successor evidence.",
+        "WPHX-312.04 remains copied-oracle behavior evidence while selected feed/embed/oEmbed/HTTPS generated successor gates stay bounded by their receipts and non-claims.",
         "No copied public PHP fixture is promoted to durable ownership by this coverage gate."
       ]
     },
@@ -311,7 +318,7 @@ function main() {
       name: "WPHX-312 generated-adapter copied public surface coverage",
       area: "HTTP response/cookie/encoding helpers, WP_Http helpers/parser/shim, and feed/embed/HTTPS copied public surfaces",
       public_contract:
-        "This gate accounts for copied public surfaces routed to generated adapters. It maps existing generated successor candidates and records explicit compiler-pressure blockers; copied oracle fixtures remain behavior evidence until replacement gates pass."
+        "This gate accounts for copied public surfaces routed to generated adapters. It maps existing generated successor candidates and selected-boundary successor gates; copied oracle fixtures remain behavior evidence until replacement gates pass."
     },
     ownership_state: "design_plan",
     bridge: {
@@ -366,8 +373,8 @@ function main() {
     validation_result: validationResult,
     claims: [
       "All seven WPHX-312 copied surfaces routed to generated_adapter are accounted for.",
-      "Six generated-adapter copied surfaces map to existing WPHX PHP compiler-emitted original-path successor candidates.",
-      "The remaining feed/embed/HTTPS surface maps to an explicit WPHX PHP compiler-pressure blocker."
+      "All seven generated-adapter copied surfaces map to existing WPHX PHP compiler-emitted original-path successor candidates or selected-boundary successor gates.",
+      "The feed/embed/oEmbed/HTTPS copied-oracle surface remains behavior evidence and is not retired by this coverage gate."
     ],
     non_claims: manifest.non_claims
   };
