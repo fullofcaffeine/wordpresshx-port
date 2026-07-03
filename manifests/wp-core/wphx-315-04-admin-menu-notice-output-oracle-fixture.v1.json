@@ -1,0 +1,2546 @@
+{
+  "schema": "wphx.wp-core-admin-menu-notice-output-oracle-fixture.v1",
+  "issue": "WPHX-315.04",
+  "generated_at": "2026-07-03T17:00:00.000Z",
+  "generator": "tools/wp-core/run-admin-menu-notice-output-oracle-fixture.mjs",
+  "evidence_class": "oracle_source_mirror",
+  "artifact_scope": "helper",
+  "inputs": {
+    "surface": {
+      "path": "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+      "bytes": 109821,
+      "sha256": "sha256:85887acd510bedc90b2d24644965961ea909f6bfe6a72eee6452dbe4665c7a22"
+    },
+    "adapter_contract": {
+      "path": "manifests/wp-core/wphx-315-02-admin-common-list-table-adapter-contract-candidate.v1.json",
+      "bytes": 19334,
+      "sha256": "sha256:7d1d6868ccd647ad9c83bc76c24d2c1c4e63e8f63d8890ee67ea09319c858b80"
+    },
+    "request_screen_fixture": {
+      "path": "manifests/wp-core/wphx-315-03-admin-request-screen-list-table-oracle-fixture.v1.json",
+      "bytes": 20485,
+      "sha256": "sha256:d1b82fb990bcabfc1e6cd8d1f1416ac9e50199baf44a1cca6eb87d1c3af2bcd7"
+    },
+    "source_files": [
+      {
+        "path": "src/wp-admin/includes/plugin.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/plugin.php",
+        "bytes": 93281,
+        "sha256": "sha256:794037bced480bf6653098e094b76729d0cc8ba1bca1d6a756f6f32c9864c007"
+      },
+      {
+        "path": "src/wp-admin/includes/misc.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/misc.php",
+        "bytes": 46443,
+        "sha256": "sha256:7937d8d6d77da0fbdf761176592501c8663e41a44b70f35a801355153ccbeaea"
+      },
+      {
+        "path": "src/wp-admin/includes/update.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/update.php",
+        "bytes": 34844,
+        "sha256": "sha256:4b283793019da3561e3070a171715b3eb85b20ef1bae188faff5d544f74170cc"
+      },
+      {
+        "path": "src/wp-includes/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/functions.php",
+        "bytes": 290326,
+        "sha256": "sha256:1da1a76b610bca873081ed4cbc68b5dce303df0fad16570e6abae1d50b236faf"
+      },
+      {
+        "path": "src/wp-includes/update.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/update.php",
+        "bytes": 38276,
+        "sha256": "sha256:a0f944cef4856535db9b53a1eb21f3bdf4f19ebca21d7d3e77d649db017245ec"
+      }
+    ],
+    "support_stubs": [
+      "wp-includes/option.php"
+    ]
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/includes/plugin.php",
+      "src/wp-admin/includes/misc.php",
+      "src/wp-admin/includes/update.php",
+      "src/wp-includes/functions.php",
+      "src/wp-includes/update.php"
+    ],
+    "support_stubs": [
+      "wp-includes/option.php"
+    ],
+    "covered_symbols": [
+      "add_menu_page",
+      "add_submenu_page",
+      "remove_menu_page",
+      "remove_submenu_page",
+      "menu_page_url",
+      "get_admin_page_parent",
+      "get_admin_page_title",
+      "user_can_access_admin_page",
+      "wp_get_admin_notice",
+      "wp_admin_notice",
+      "wp_admin_viewport_meta",
+      "wp_admin_canonical_url",
+      "wp_color_scheme_settings",
+      "wp_print_admin_notice_templates",
+      "wp_get_update_data",
+      "get_core_updates",
+      "wp_get_translation_updates"
+    ],
+    "cases": [
+      {
+        "id": "menu:registration-order",
+        "focus": "top-level menu registration, collision positions, submenu insertion/order, callbacks, parent pages, and no-priv tracking"
+      },
+      {
+        "id": "menu:lookup-removal",
+        "focus": "menu_page_url, parent/title lookup, access checks, submenu removal, and top-level removal"
+      },
+      {
+        "id": "notice:markup-output",
+        "focus": "admin notice argument/markup filters, attributes, dismissible classes, echoed output, and doing-it-wrong hook"
+      },
+      {
+        "id": "common-output:viewport-canonical-color",
+        "focus": "viewport meta filter, canonical URL cleanup output, and admin color scheme JavaScript"
+      },
+      {
+        "id": "update-output:data-templates",
+        "focus": "update counts/title aggregation and admin notice JavaScript templates"
+      }
+    ],
+    "public_abi_policy": {
+      "public_php_replacement_claimed": false,
+      "handwritten_php_shells_added": false,
+      "semantic_owner": "upstream_php_oracle_mirrored",
+      "durable_adapter_owner": "not_claimed",
+      "installed_admin_parity_claimed": false,
+      "browser_or_editor_ownership_claimed": false,
+      "removal_gate": "Replace copied candidate PHP with Haxe-owned menu, notice, common output, and generated original-path adapter evidence before claiming public PHP ownership."
+    }
+  },
+  "runs": [
+    {
+      "id": "menu:registration-order",
+      "focus": "top-level menu registration, collision positions, submenu insertion/order, callbacks, parent pages, and no-priv tracking",
+      "oracle": {
+        "case": "menu:registration-order",
+        "hooks": {
+          "top": "toplevel_page_wphx-fixture",
+          "collision": "toplevel_page_wphx-second",
+          "sub_first": "fixture_page_wphx-sub-first",
+          "sub_later": "fixture_page_wphx-sub-later",
+          "denied": false
+        },
+        "summary": {
+          "menu": [
+            {
+              "position": "65",
+              "title": "Fixture",
+              "capability": "manage_options",
+              "slug": "wphx-fixture",
+              "page_title": "Fixture Admin",
+              "hook": "toplevel_page_wphx-fixture",
+              "icon": "dashicons-admin-generic"
+            },
+            {
+              "position": "65.13894",
+              "title": "Second",
+              "capability": "manage_options",
+              "slug": "wphx-second",
+              "page_title": "Second Admin",
+              "hook": "toplevel_page_wphx-second",
+              "icon": "https://cdn.example/icon.svg"
+            }
+          ],
+          "submenu": {
+            "wphx-fixture": [
+              {
+                "title": "Sub First",
+                "capability": "manage_options",
+                "slug": "wphx-sub-first",
+                "page_title": "Sub First"
+              },
+              {
+                "title": "Fixture",
+                "capability": "manage_options",
+                "slug": "wphx-fixture",
+                "page_title": "Fixture Admin"
+              },
+              {
+                "title": "Sub Later",
+                "capability": "manage_options",
+                "slug": "wphx-sub-later",
+                "page_title": "Sub Later"
+              }
+            ]
+          }
+        },
+        "registered_pages": [
+          "toplevel_page_wphx-fixture",
+          "toplevel_page_wphx-second",
+          "fixture_page_wphx-sub-first",
+          "fixture_page_wphx-sub-later"
+        ],
+        "parent_pages": {
+          "wphx-fixture": false,
+          "wphx-second": false,
+          "wphx-sub-first": "wphx-fixture",
+          "wphx-sub-later": "wphx-fixture"
+        },
+        "nopriv": {
+          "wphx-fixture": {
+            "wphx-denied": true
+          }
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "candidate": {
+        "case": "menu:registration-order",
+        "hooks": {
+          "top": "toplevel_page_wphx-fixture",
+          "collision": "toplevel_page_wphx-second",
+          "sub_first": "fixture_page_wphx-sub-first",
+          "sub_later": "fixture_page_wphx-sub-later",
+          "denied": false
+        },
+        "summary": {
+          "menu": [
+            {
+              "position": "65",
+              "title": "Fixture",
+              "capability": "manage_options",
+              "slug": "wphx-fixture",
+              "page_title": "Fixture Admin",
+              "hook": "toplevel_page_wphx-fixture",
+              "icon": "dashicons-admin-generic"
+            },
+            {
+              "position": "65.13894",
+              "title": "Second",
+              "capability": "manage_options",
+              "slug": "wphx-second",
+              "page_title": "Second Admin",
+              "hook": "toplevel_page_wphx-second",
+              "icon": "https://cdn.example/icon.svg"
+            }
+          ],
+          "submenu": {
+            "wphx-fixture": [
+              {
+                "title": "Sub First",
+                "capability": "manage_options",
+                "slug": "wphx-sub-first",
+                "page_title": "Sub First"
+              },
+              {
+                "title": "Fixture",
+                "capability": "manage_options",
+                "slug": "wphx-fixture",
+                "page_title": "Fixture Admin"
+              },
+              {
+                "title": "Sub Later",
+                "capability": "manage_options",
+                "slug": "wphx-sub-later",
+                "page_title": "Sub Later"
+              }
+            ]
+          }
+        },
+        "registered_pages": [
+          "toplevel_page_wphx-fixture",
+          "toplevel_page_wphx-second",
+          "fixture_page_wphx-sub-first",
+          "fixture_page_wphx-sub-later"
+        ],
+        "parent_pages": {
+          "wphx-fixture": false,
+          "wphx-second": false,
+          "wphx-sub-first": "wphx-fixture",
+          "wphx-sub-later": "wphx-fixture"
+        },
+        "nopriv": {
+          "wphx-fixture": {
+            "wphx-denied": true
+          }
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "matches": true
+    },
+    {
+      "id": "menu:lookup-removal",
+      "focus": "menu_page_url, parent/title lookup, access checks, submenu removal, and top-level removal",
+      "oracle": {
+        "case": "menu:lookup-removal",
+        "url": "https://example.test/wp-admin/admin.php?page=wphx-sub-first",
+        "parent": "wphx-fixture",
+        "title": "Sub First",
+        "access": true,
+        "removed_sub": [
+          "Sub First",
+          "manage_options",
+          "wphx-sub-first",
+          "Sub First"
+        ],
+        "removed_top": [
+          "Fixture",
+          "manage_options",
+          "wphx-fixture",
+          "Fixture Admin",
+          "menu-top menu-icon-generic toplevel_page_wphx-fixture",
+          "toplevel_page_wphx-fixture",
+          "dashicons-admin-generic"
+        ],
+        "after": {
+          "menu": [],
+          "submenu": {
+            "wphx-fixture": [
+              {
+                "title": "Fixture",
+                "capability": "manage_options",
+                "slug": "wphx-fixture",
+                "page_title": "Fixture Admin"
+              }
+            ]
+          }
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "candidate": {
+        "case": "menu:lookup-removal",
+        "url": "https://example.test/wp-admin/admin.php?page=wphx-sub-first",
+        "parent": "wphx-fixture",
+        "title": "Sub First",
+        "access": true,
+        "removed_sub": [
+          "Sub First",
+          "manage_options",
+          "wphx-sub-first",
+          "Sub First"
+        ],
+        "removed_top": [
+          "Fixture",
+          "manage_options",
+          "wphx-fixture",
+          "Fixture Admin",
+          "menu-top menu-icon-generic toplevel_page_wphx-fixture",
+          "toplevel_page_wphx-fixture",
+          "dashicons-admin-generic"
+        ],
+        "after": {
+          "menu": [],
+          "submenu": {
+            "wphx-fixture": [
+              {
+                "title": "Fixture",
+                "capability": "manage_options",
+                "slug": "wphx-fixture",
+                "page_title": "Fixture Admin"
+              }
+            ]
+          }
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:toplevel_page_wphx-fixture",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:fixture_page_wphx-sub-first",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "matches": true
+    },
+    {
+      "id": "notice:markup-output",
+      "focus": "admin notice argument/markup filters, attributes, dismissible classes, echoed output, and doing-it-wrong hook",
+      "oracle": {
+        "case": "notice:markup-output",
+        "markup": "<div id=\"fixture-notice\" class=\"notice notice-success is-dismissible extra filtered\" data-kind=\"fixture\" role=\"status\"><p>Filtered <strong>message</strong></p></div><!--filtered-->",
+        "echoed": "<div class=\"notice notice-warning filtered\">Echoed notice</div><!--filtered-->",
+        "bad_type": "<div class=\"notice notice-bad type filtered\"><p>Bad type</p></div><!--filtered-->",
+        "contains": {
+          "dismissible": true,
+          "filtered": true,
+          "role": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_admin_notice_args",
+            "priority": 10,
+            "accepted_args": 2
+          },
+          {
+            "hook": "add_filter:wp_admin_notice_markup",
+            "priority": 10,
+            "accepted_args": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "wp_admin_notice",
+            "arg_count": 2
+          },
+          {
+            "hook": "doing_it_wrong_run",
+            "arg_count": 3
+          }
+        ]
+      },
+      "candidate": {
+        "case": "notice:markup-output",
+        "markup": "<div id=\"fixture-notice\" class=\"notice notice-success is-dismissible extra filtered\" data-kind=\"fixture\" role=\"status\"><p>Filtered <strong>message</strong></p></div><!--filtered-->",
+        "echoed": "<div class=\"notice notice-warning filtered\">Echoed notice</div><!--filtered-->",
+        "bad_type": "<div class=\"notice notice-bad type filtered\"><p>Bad type</p></div><!--filtered-->",
+        "contains": {
+          "dismissible": true,
+          "filtered": true,
+          "role": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_admin_notice_args",
+            "priority": 10,
+            "accepted_args": 2
+          },
+          {
+            "hook": "add_filter:wp_admin_notice_markup",
+            "priority": 10,
+            "accepted_args": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          },
+          {
+            "hook": "wp_admin_notice_args",
+            "arg_count": 2
+          },
+          {
+            "hook": "wp_admin_notice_markup",
+            "arg_count": 3
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "wp_admin_notice",
+            "arg_count": 2
+          },
+          {
+            "hook": "doing_it_wrong_run",
+            "arg_count": 3
+          }
+        ]
+      },
+      "matches": true
+    },
+    {
+      "id": "common-output:viewport-canonical-color",
+      "focus": "viewport meta filter, canonical URL cleanup output, and admin color scheme JavaScript",
+      "oracle": {
+        "case": "common-output:viewport-canonical-color",
+        "output": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,viewport-fit=cover\"> <link id=\"wp-admin-canonical\" rel=\"canonical\" href=\"https://example.test/wp-admin/admin.php?page=wphx-fixture&_wpnonce=abc#filtered\" /> <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, document.getElementById( 'wp-admin-canonical' ).href + window.location.hash ); } </script> <script>var _wpColorScheme = {\"icons\":{\"base\":\"#1d2327\",\"focus\":\"#2271b1\",\"current\":\"#ffffff\"}};</script>",
+        "contains": {
+          "viewport": true,
+          "canonical": true,
+          "nonce_removed": false,
+          "color_scheme": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_viewport_meta",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_admin_canonical_url",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "admin_viewport_meta",
+            "arg_count": 1
+          },
+          {
+            "hook": "removable_query_args",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_admin_canonical_url",
+            "arg_count": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "candidate": {
+        "case": "common-output:viewport-canonical-color",
+        "output": "<meta name=\"viewport\" content=\"width=device-width,initial-scale=1.0,viewport-fit=cover\"> <link id=\"wp-admin-canonical\" rel=\"canonical\" href=\"https://example.test/wp-admin/admin.php?page=wphx-fixture&_wpnonce=abc#filtered\" /> <script> if ( window.history.replaceState ) { window.history.replaceState( null, null, document.getElementById( 'wp-admin-canonical' ).href + window.location.hash ); } </script> <script>var _wpColorScheme = {\"icons\":{\"base\":\"#1d2327\",\"focus\":\"#2271b1\",\"current\":\"#ffffff\"}};</script>",
+        "contains": {
+          "viewport": true,
+          "canonical": true,
+          "nonce_removed": false,
+          "color_scheme": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_viewport_meta",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_admin_canonical_url",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "admin_viewport_meta",
+            "arg_count": 1
+          },
+          {
+            "hook": "removable_query_args",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_parse_str",
+            "arg_count": 1
+          },
+          {
+            "hook": "wp_admin_canonical_url",
+            "arg_count": 1
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "matches": true
+    },
+    {
+      "id": "update-output:data-templates",
+      "focus": "update counts/title aggregation and admin notice JavaScript templates",
+      "oracle": {
+        "case": "update-output:data-templates",
+        "counts": {
+          "plugins": 2,
+          "themes": 1,
+          "wordpress": 1,
+          "translations": 1,
+          "total": 5
+        },
+        "titles": "1 WordPress Update, 2 Plugin Updates, 1 Theme Update, Translation Updates",
+        "templates_sha256": "sha256:830f8f7a3958d5e4cc67ed525c9b734239c4bfa06f9bb04945cecda45ef8be9f",
+        "contains": {
+          "admin_notice_template": true,
+          "bulk_notice_template": true,
+          "screen_reader": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "wp_get_update_data",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "candidate": {
+        "case": "update-output:data-templates",
+        "counts": {
+          "plugins": 2,
+          "themes": 1,
+          "wordpress": 1,
+          "translations": 1,
+          "total": 5
+        },
+        "titles": "1 WordPress Update, 2 Plugin Updates, 1 Theme Update, Translation Updates",
+        "templates_sha256": "sha256:830f8f7a3958d5e4cc67ed525c9b734239c4bfa06f9bb04945cecda45ef8be9f",
+        "contains": {
+          "admin_notice_template": true,
+          "bulk_notice_template": true,
+          "screen_reader": true
+        },
+        "filters": [
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_filter:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_filter:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "wp_get_update_data",
+            "arg_count": 2
+          }
+        ],
+        "actions": [
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_version_check",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-plugins.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_plugins",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-themes.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:load-update-core.php",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:admin_init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_update_themes",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:update_option_WPLANG",
+            "priority": 10,
+            "accepted_args": 0
+          },
+          {
+            "hook": "add_action:wp_maybe_auto_update",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:init",
+            "priority": 10,
+            "accepted_args": 1
+          },
+          {
+            "hook": "add_action:wp_delete_temp_updater_backups",
+            "priority": 10,
+            "accepted_args": 1
+          }
+        ]
+      },
+      "matches": true
+    }
+  ],
+  "remaining_gaps": [
+    {
+      "id": "full-admin-header-footer-not-covered",
+      "owner": "WPHX-315.04",
+      "detail": "This fixture covers shared menu, notice, viewport/canonical/color, update-data, and notice-template helpers. Full admin-header.php/admin-footer.php, iframe header/footer, screen-meta rendering, asset queues, and browser behavior remain installed/admin-shell work."
+    },
+    {
+      "id": "installed-admin-distribution-not-covered",
+      "owner": "WPHX-315.04",
+      "detail": "No installed wp-admin request, browser, database-backed menu/list table, real user/capability/nonce/session, admin Ajax, e2e, or upstream PHPUnit pass/pass behavior is claimed."
+    },
+    {
+      "id": "public-php-adapter-not-generated",
+      "owner": "WPHX-315.04",
+      "detail": "No original-path admin menu, notice, header/footer, update, or common-output adapter replacement is claimed; candidate files are copied upstream PHP source for bridge evidence."
+    }
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-315-04-admin-menu-notice-output-oracle-fixture.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "covered_symbol_count": 17,
+    "source_file_count": 5,
+    "support_stub_count": 1,
+    "oracle_candidate_match": true,
+    "public_php_replacement_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "browser_or_editor_ownership_claimed": false
+  }
+}
