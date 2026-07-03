@@ -140,6 +140,7 @@ enum PhpCoreExpr
 	PhpAssignExpr(target:PhpCoreExpr, value:PhpCoreExpr);
 	PhpPostDecrement(target:PhpCoreExpr);
 	PhpStaticClosure(parameters:Array<String>, body:Array<PhpCoreStmt>);
+	PhpReference(expr:PhpCoreExpr);
 	PhpNot(expr:PhpCoreExpr);
 	PhpCastArray(expr:PhpCoreExpr);
 	PhpCastBool(expr:PhpCoreExpr);
@@ -1307,6 +1308,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				emitPhpCoreExpr(target, depth) + "--";
 			case PhpStaticClosure(parameters, body):
 				emitPhpCoreStaticClosure(parameters, body, depth);
+			case PhpReference(inner):
+				"&" + emitPhpCoreExpr(inner, depth);
 			case PhpNot(inner):
 				"! " + emitPhpCoreExpr(inner, depth);
 			case PhpCastArray(inner):
@@ -1323,8 +1326,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 	function emitPhpCoreStaticClosure(parameters:Array<String>, body:Array<PhpCoreStmt>, depth:Int):String
 	{
 		return "static function ("
-			+ parameters.map(parameter -> " $" + phpIdent(parameter)).join(",")
-			+ " ) {\n"
+			+ parameters.map(parameter -> "$" + phpIdent(parameter)).join(", ")
+			+ ") {\n"
 			+ emitPhpCoreStatements(body, depth + 1)
 			+ "\n"
 			+ tabs(depth)
@@ -1545,11 +1548,127 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 				}
 			case TLocal(v):
 				PhpVar(phpVarName(v));
+			case TParenthesis(inner):
+				phpCoreExprFromTypedExpr(inner);
+			case TBinop(op, left, right):
+				phpCoreExprFromTypedBinop(op, left, right);
+			case TField(target, access):
+				phpCoreExprFromTypedField(target, access);
 			case TCall(target, args):
 				phpCoreCallFromTypedCall(target, args, expr.pos);
+			case TArray(base, key):
+				recordCoreIrFeatures(["typed.expr.array-access"]);
+				PhpArrayRead(phpCoreExprFromTypedExpr(base), phpCoreExprFromTypedExpr(key));
+			case TArrayDecl(values):
+				recordCoreIrFeatures(["typed.expr.array-literal"]);
+				PhpLongArray(values.map(value -> ({
+					key: null,
+					value: phpCoreExprFromTypedExpr(value)
+				})));
+			case TObjectDecl(fields):
+				recordCoreIrFeatures(["typed.expr.anonymous-object-literal"]);
+				PhpLongArray(fields.map(field -> ({
+					key: PhpString(field.name),
+					value: phpCoreExprFromTypedExpr(field.expr)
+				})));
+			case TFunction(fn):
+				phpCoreStaticClosureFromTypedFunction(fn, expr.pos);
 			case _:
 				reportUnsupported("unsupported @:wp.echo expression " + expr.expr.getName() + " at " + sourceLabel(expr.pos));
 				PhpNull;
+		}
+	}
+
+	function phpCoreExprFromTypedBinop(op:Binop, left:TypedExpr, right:TypedExpr):PhpCoreExpr
+	{
+		final opText = switch (op)
+		{
+			case OpAdd if (isStringExpr(left) || isStringExpr(right)): ".";
+			case OpAdd: "+";
+			case OpSub: "-";
+			case OpMult: "*";
+			case OpDiv: "/";
+			case OpEq: "==";
+			case OpNotEq: "!=";
+			case OpGt: ">";
+			case OpGte: ">=";
+			case OpLt: "<";
+			case OpLte: "<=";
+			case OpBoolAnd: "&&";
+			case OpBoolOr: "||";
+			case _:
+				reportUnsupported("unsupported @:wp.echo binary operator " + Std.string(op));
+				return PhpNull;
+		}
+		return PhpBinop(opText, phpCoreExprFromTypedExpr(left), phpCoreExprFromTypedExpr(right));
+	}
+
+	function phpCoreExprFromTypedField(target:TypedExpr, access:FieldAccess):PhpCoreExpr
+	{
+		return switch (access)
+		{
+			case FInstance(_, _, field):
+				if (field.get().kind.match(FVar(_, _)))
+				{
+					recordCoreIrFeatures(["typed.expr.instance-property"]);
+				}
+				PhpObjectProperty(phpCoreExprFromTypedExpr(target), field.get().name);
+			case FStatic(classRef, field):
+				final fieldValue = field.get();
+				if (fieldValue.kind.match(FVar(_, _)))
+				{
+					recordCoreIrFeatures(["typed.expr.static-property"]);
+					PhpStaticProperty(phpClassName(classRef.get()), fieldValue.name);
+				} else
+				{
+					PhpClassConst(phpClassName(classRef.get()), fieldValue.name);
+				}
+			case FAnon(field):
+				recordCoreIrFeatures(["typed.expr.anonymous-object-field"]);
+				PhpArrayRead(phpCoreExprFromTypedExpr(target), PhpString(field.get().name));
+			case FDynamic(name):
+				PhpObjectProperty(phpCoreExprFromTypedExpr(target), name);
+			case _:
+				reportUnsupported("unsupported @:wp.echo field access at " + sourceLabel(target.pos));
+				PhpNull;
+		}
+	}
+
+	function phpCoreStaticClosureFromTypedFunction(fn:TFunc, pos:Position):PhpCoreExpr
+	{
+		recordCoreIrFeatures(["expr.static-closure", "typed.expr.static-closure"]);
+		final unsupportedDefaults = fn.args.filter(arg -> arg.value != null).map(arg -> arg.v.name);
+		if (unsupportedDefaults.length > 0)
+		{
+			reportUnsupported("unsupported static closure default parameters " + unsupportedDefaults.join(", ") + " at " + sourceLabel(pos));
+		}
+		return PhpStaticClosure(fn.args.map(arg -> phpVarName(arg.v)), phpCoreStatementsFromTypedFunctionBody(fn.expr));
+	}
+
+	function phpCoreStatementsFromTypedFunctionBody(expr:TypedExpr):Array<PhpCoreStmt>
+	{
+		return switch (expr.expr)
+		{
+			case TBlock(exprs):
+				exprs.map(expr -> phpCoreStatementFromTypedExpr(expr));
+			case _:
+				[phpCoreStatementFromTypedExpr(expr)];
+		}
+	}
+
+	function phpCoreStatementFromTypedExpr(expr:TypedExpr):PhpCoreStmt
+	{
+		return switch (expr.expr)
+		{
+			case TReturn(value):
+				value == null ? PhpReturnVoid : PhpReturn(phpCoreExprFromTypedExpr(value));
+			case TVar(v, value):
+				PhpLocal(phpVarName(v), value == null ? PhpNull : phpCoreExprFromTypedExpr(value));
+			case TCall(target, args):
+				PhpExprStmt(phpCoreCallFromTypedCall(target, args, expr.pos));
+			case _:
+				reportUnsupported("unsupported static closure statement " + expr.expr.getName() + " at " + sourceLabel(expr.pos));
+				PhpExprStmt(PhpNull);
 		}
 	}
 
@@ -1664,6 +1783,8 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 			case TObjectDecl(fields):
 				recordCoreIrFeatures(["typed.expr.anonymous-object-literal"]);
 				"[" + fields.map(field -> quote(field.name) + " => " + emitExpr(field.expr)).join(", ") + "]";
+			case TFunction(fn):
+				emitPhpCoreExpr(phpCoreStaticClosureFromTypedFunction(fn, expr.pos), 0);
 			case _:
 				reportUnsupported("unsupported expression " + expr.expr.getName() + " at " + sourceLabel(expr.pos));
 				"null";
@@ -1727,6 +1848,56 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		if (phpFunction != null)
 		{
 			return phpFunction + "(" + args.map(emitExpr).join(", ") + ")";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpCallableArray"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php callable array lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.expr.callable-array"]);
+			return "[" + emitExpr(args[0]) + ", " + emitExpr(args[1]) + "]";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpCallUserFunc"))
+		{
+			if (args.length < 1)
+			{
+				reportUnsupported("php call_user_func lowering expects at least 1 argument for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.expr.call-user-func"]);
+			return "call_user_func(" + args.map(emitExpr).join(", ") + ")";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpCallUserFuncArray"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php call_user_func_array lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "null";
+			}
+			recordCoreIrFeatures(["typed.expr.call-user-func-array"]);
+			return "call_user_func_array(" + emitExpr(args[0]) + ", " + emitExpr(args[1]) + ")";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpAcceptedArgs"))
+		{
+			if (args.length != 2)
+			{
+				reportUnsupported("php accepted-args lowering expects 2 arguments for " + classType.module + "." + field.name);
+				return "[]";
+			}
+			recordCoreIrFeatures(["typed.expr.accepted-args-slice"]);
+			return "array_slice(" + emitExpr(args[0]) + ", 0, " + emitExpr(args[1]) + ")";
+		}
+
+		if (hasMetadata(field.meta.get(), "wp.phpReferenceArray"))
+		{
+			recordCoreIrFeatures(["expr.reference", "typed.expr.reference-array"]);
+			return "[" + args.map(arg -> emitPhpCoreExpr(PhpReference(phpCoreExprFromTypedExpr(arg)), 0)).join(", ") + "]";
 		}
 
 		if (hasMetadata(field.meta.get(), "wp.phpArrayGet"))

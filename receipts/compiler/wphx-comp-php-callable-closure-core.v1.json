@@ -1,0 +1,63 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-callable-closure-core",
+  "issue": {
+    "id": "wordpresshx-ze8a",
+    "external_ref": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
+    "title": "Promote PHP callables and closures into reusable core IR"
+  },
+  "recorded_at": "2026-07-03T09:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "typed_callable_closure_lowering_without_wordpress_profile_adapter",
+  "commands": [
+    "npm run wphx:php:callable-closure-core",
+    "npm run wphx:php:callable-closure-core:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-callable-closure-core.mjs",
+      "role": "deterministic callable/closure core fixture runner"
+    },
+    {
+      "path": "fixtures/wphx-php/callable-closure-core.hxml",
+      "role": "Reflaxe-backed WPHX PHP hxml for the generic callable/closure lowering fixture"
+    },
+    {
+      "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/core/CallableClosureSurface.hx",
+      "role": "ordinary typed Haxe surface for static closures, callable arrays, accepted-args slicing, and reference-sensitive callback payloads"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler typed expression and callable intrinsic lowering implementation"
+    },
+    {
+      "path": "manifests/wphx-php/callable-closure-core.v1.json",
+      "role": "callable/closure core fixture manifest"
+    }
+  ],
+  "manifest_sha256": "sha256:e38180e9f42d714090f00af2fa7052284bdab2ddcf598169a13f188a5ccfa30d",
+  "validation_result": {
+    "status": "passed",
+    "php_lint_passed": true,
+    "exact_contracts_passed": true,
+    "runtime_probe_passed": true,
+    "unsupported_empty": true,
+    "no_wordpress_profile_adapters": true,
+    "no_haxe_helper_bridge": true,
+    "no_haxe_bootstrap_bridge": true,
+    "required_core_ir_features_present": true,
+    "by_reference_callback_payload_mutation_passed": true,
+    "deferred_broad_callable_shapes_recorded": true
+  },
+  "claims": [
+    "WPHX PHP has a non-WordPress core fixture for static closures generated from anonymous Haxe functions, static class/method callable arrays, call_user_func dispatch, call_user_func_array dispatch, accepted-args slicing, and by-reference callback payload mutation.",
+    "The generated callable/closure shell lints with php -l, executes the expected runtime probe, records unsupported=[], and records the required typed expression features in the emission manifest.",
+    "The fixture uses no @:wp.adapter, @:wp.haxeHelper, or @:wp.haxeBootstrap bridge."
+  ],
+  "non_claims": [
+    "This does not claim arbitrary PHP callable-shape coverage, string function callbacks, object/method callback arrays, invokable objects, visibility edge cases, or is_callable diagnostics.",
+    "This does not claim closure capture lowering, by-reference closure parameter lowering, generator/arrow-function lowering, or full Haxe Function runtime ownership.",
+    "This does not retire WP_Embed, WP_oEmbed, WP_Hook, or HTTP profile adapters by itself, and it does not claim full class-wp-embed.php, class-wp-oembed.php, or hook-kernel ownership."
+  ]
+}
