@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "receipt:wphx-323-php-vendor-manifest-closure",
+  "issue": {
+    "id": "wordpresshx-l76.26",
+    "external_ref": "WPHX-323",
+    "title": "PHP vendor manifest closure"
+  },
+  "recorded_at": "2026-07-03T13:00:00.000Z",
+  "status": "passed",
+  "evidence_class": "php_vendor_manifest_closure",
+  "artifact_scope": "wordpress_7_0_php_vendor_and_bundled_library_boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-php-vendor-manifest",
+    "npm run wp:core:wphx-323-php-vendor-manifest:check",
+    "npm run license:provenance:check",
+    "npm run wp:core:wphx-312-copied-surface-plan:check"
+  ],
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "role": "machine-readable PHP vendor manifest closure"
+    },
+    {
+      "path": "manifests/ownership/wphx-323-php-vendor-manifest-closure.v1.json",
+      "role": "ownership manifest for preserved vendor/library policy"
+    },
+    {
+      "path": "tools/wp-core/run-php-vendor-manifest-closure.mjs",
+      "role": "deterministic generator and check-mode validator"
+    },
+    {
+      "path": "manifests/license-provenance.v1.json",
+      "role": "license/provenance input"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+      "role": "WPHX-312 preserved-vendor copied-surface input"
+    }
+  ],
+  "manifest_sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319",
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "c3_php_vendor_source_entries": 293,
+    "c3_php_vendor_distribution_artifacts": 293,
+    "c3_php_vendor_entries_covered": 293,
+    "preserved_vendor_surface_count": 6,
+    "vendor_boundary_count": 16,
+    "c3_vendor_boundary_count": 8,
+    "additional_bundled_library_boundary_count": 8
+  },
+  "claims": [
+    "All PHP source-inventory entries marked vendor_source for the WordPress 7.0 baseline are covered by a WPHX-323 preserved-vendor record.",
+    "The corresponding WordPress 7.0 distribution PHP artifacts for those vendor boundaries are covered by WPHX-323 preserved-vendor records.",
+    "Additional bundled PHP library boundaries encountered by current WordPress Core slices are verified and explicitly excepted with removal gates.",
+    "The six WPHX-312 preserved-vendor copied-surface gates are linked to this closure."
+  ],
+  "non_claims": [
+    "This manifest does not claim the listed vendor or bundled-library internals are Haxe-authored.",
+    "This manifest does not claim full PRD C3 runtime ownership, security parity, license legal review, or generated replacement code for vendor libraries.",
+    "This manifest does not claim browser vendor internals; the TinyMCE PHP loader is only recorded here because it is a PHP vendor-source entry.",
+    "This manifest does not claim WordPress wrapper files around vendor libraries are fully generated or installed-route owned."
+  ]
+}

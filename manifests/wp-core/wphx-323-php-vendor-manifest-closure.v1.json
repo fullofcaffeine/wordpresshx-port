@@ -1,0 +1,1313 @@
+{
+  "schema": "wphx.wp-core.php-vendor-manifest-closure.v1",
+  "issue": {
+    "id": "wordpresshx-l76.26",
+    "external_ref": "WPHX-323",
+    "title": "PHP vendor manifest closure"
+  },
+  "generated_at": "2026-07-03T13:00:00.000Z",
+  "generator": "tools/wp-core/run-php-vendor-manifest-closure.mjs",
+  "scope": {
+    "wordpress_baseline": {
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tag": "7.0.0",
+      "distribution_sha256": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b"
+    },
+    "c3_php_vendor_source_entries": 293,
+    "c3_php_vendor_distribution_artifacts": 293,
+    "additional_preserved_bundled_library_boundaries": 8,
+    "closure_state": "verified_and_explicitly_excepted_or_preserved_with_removal_gates"
+  },
+  "inputs": [
+    {
+      "path": "manifests/upstream/wordpress-7.0-baseline.v1.json",
+      "bytes": 3724,
+      "sha256": "sha256:0177846c27750a6e34cc596dc56ce664b8ba57fd82eaa0b161ee09de72aee32e"
+    },
+    {
+      "path": "manifests/license-provenance.v1.json",
+      "bytes": 8559,
+      "sha256": "sha256:00d55db5838b902b6b04770999dd49b3461378d70f20c92f49a13e994035edfa"
+    },
+    {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    {
+      "path": "manifests/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+      "bytes": 131672,
+      "sha256": "sha256:f8624597efc5a4738a8f571d3c0843525945b9d8544e887bc5873025d4aa9e2a"
+    }
+  ],
+  "closure_policy": {
+    "accepted_strategies": [
+      "direct Haxe port preserving vendor API",
+      "Haxe reimplementation backed by host primitive with fallback",
+      "generated wrapper around an external runtime dependency only when the official WordPress distribution has the same assumption",
+      "temporary upstream artifact exception with removal gate"
+    ],
+    "current_strategy": "preserve upstream/vendor or bundled-library boundary with explicit removal gates",
+    "sbom_implications": [
+      "The listed PHP vendor and bundled-library files remain upstream-origin artifacts in any distribution until a later port/wrapper receipt replaces them.",
+      "Package-specific notice files recorded in license provenance must be preserved.",
+      "Boundaries without package notice files in the WordPress distribution require header/provenance review before generated replacement or distribution divergence.",
+      "Generated Haxe replacements must record source path, locked upstream commit, generator, artifact hash, and license/notice treatment before shipment."
+    ],
+    "c3_non_claim": "C3 PHP vendor entries are closed by verified preserved-vendor exceptions and removal gates; this does not claim Haxe-authored vendor runtime logic."
+  },
+  "vendor_boundaries": [
+    {
+      "id": "getid3",
+      "name": "getID3",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/ID3",
+      "distribution_path": "wp-includes/ID3",
+      "role": "media metadata parsing library bundled by WordPress",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-313"
+      ],
+      "source_tree": {
+        "file_count": 18,
+        "php_file_count": 16,
+        "sha256": "sha256:a9da025e364be7c14a61bfe8150b3a737cebc4139c83bca31c97ce4f2a9e6d84"
+      },
+      "source_inventory": {
+        "count": 16,
+        "kind_counts": {
+          "vendor_source": 16
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 16
+        },
+        "sample_paths": [
+          "src/wp-includes/ID3/getid3.lib.php",
+          "src/wp-includes/ID3/getid3.php",
+          "src/wp-includes/ID3/module.audio-video.asf.php",
+          "src/wp-includes/ID3/module.audio-video.flv.php",
+          "src/wp-includes/ID3/module.audio-video.matroska.php",
+          "src/wp-includes/ID3/module.audio-video.quicktime.php",
+          "src/wp-includes/ID3/module.audio-video.riff.php",
+          "src/wp-includes/ID3/module.audio.ac3.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 16,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 16
+        },
+        "sample_paths": [
+          "wp-includes/ID3/getid3.lib.php",
+          "wp-includes/ID3/getid3.php",
+          "wp-includes/ID3/module.audio-video.asf.php",
+          "wp-includes/ID3/module.audio-video.flv.php",
+          "wp-includes/ID3/module.audio-video.matroska.php",
+          "wp-includes/ID3/module.audio-video.quicktime.php",
+          "wp-includes/ID3/module.audio-video.riff.php",
+          "wp-includes/ID3/module.audio.ac3.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [
+          "wp-includes/ID3/license.txt",
+          "wp-includes/ID3/readme.txt"
+        ],
+        "notice_files_recorded_in_license_manifest": [
+          "wp-includes/ID3/license.txt",
+          "wp-includes/ID3/readme.txt"
+        ],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "Preserve recorded package notice files plus WordPress project notice while this remains a preserved upstream artifact."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "ixr",
+      "name": "IXR",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/IXR",
+      "distribution_path": "wp-includes/IXR",
+      "role": "Incutio XML-RPC library classes bundled by WordPress",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-318",
+        "WPHX-312"
+      ],
+      "source_tree": {
+        "file_count": 10,
+        "php_file_count": 10,
+        "sha256": "sha256:70e1e52242f6ff11b2c1b0822bc89016b10e4b9b55d4721bd84a87049eead4db"
+      },
+      "source_inventory": {
+        "count": 10,
+        "kind_counts": {
+          "vendor_source": 10
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 10
+        },
+        "sample_paths": [
+          "src/wp-includes/IXR/class-IXR-base64.php",
+          "src/wp-includes/IXR/class-IXR-client.php",
+          "src/wp-includes/IXR/class-IXR-clientmulticall.php",
+          "src/wp-includes/IXR/class-IXR-date.php",
+          "src/wp-includes/IXR/class-IXR-error.php",
+          "src/wp-includes/IXR/class-IXR-introspectionserver.php",
+          "src/wp-includes/IXR/class-IXR-message.php",
+          "src/wp-includes/IXR/class-IXR-request.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 10,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 10
+        },
+        "sample_paths": [
+          "wp-includes/IXR/class-IXR-base64.php",
+          "wp-includes/IXR/class-IXR-client.php",
+          "wp-includes/IXR/class-IXR-clientmulticall.php",
+          "wp-includes/IXR/class-IXR-date.php",
+          "wp-includes/IXR/class-IXR-error.php",
+          "wp-includes/IXR/class-IXR-introspectionserver.php",
+          "wp-includes/IXR/class-IXR-message.php",
+          "wp-includes/IXR/class-IXR-request.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "phpmailer",
+      "name": "PHPMailer",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/PHPMailer",
+      "distribution_path": "wp-includes/PHPMailer",
+      "role": "mail transport library used by wp_mail and WordPress mail wrappers",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312.13"
+      ],
+      "source_tree": {
+        "file_count": 7,
+        "php_file_count": 7,
+        "sha256": "sha256:bd9581601a98e748ee8575c8149f88ffaa85b07bbc1a78c327dcb629411f96a1"
+      },
+      "source_inventory": {
+        "count": 7,
+        "kind_counts": {
+          "vendor_source": 7
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 7
+        },
+        "sample_paths": [
+          "src/wp-includes/PHPMailer/DSNConfigurator.php",
+          "src/wp-includes/PHPMailer/Exception.php",
+          "src/wp-includes/PHPMailer/OAuth.php",
+          "src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+          "src/wp-includes/PHPMailer/PHPMailer.php",
+          "src/wp-includes/PHPMailer/POP3.php",
+          "src/wp-includes/PHPMailer/SMTP.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 7,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 7
+        },
+        "sample_paths": [
+          "wp-includes/PHPMailer/DSNConfigurator.php",
+          "wp-includes/PHPMailer/Exception.php",
+          "wp-includes/PHPMailer/OAuth.php",
+          "wp-includes/PHPMailer/OAuthTokenProvider.php",
+          "wp-includes/PHPMailer/PHPMailer.php",
+          "wp-includes/PHPMailer/POP3.php",
+          "wp-includes/PHPMailer/SMTP.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "requests",
+      "name": "Requests",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/Requests",
+      "distribution_path": "wp-includes/Requests",
+      "role": "HTTP client library used by WP_Http and Requests bridge paths",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312"
+      ],
+      "source_tree": {
+        "file_count": 65,
+        "php_file_count": 65,
+        "sha256": "sha256:5a11a957a29872c10b6383574f72848def1f443737742d4cafd0ced43b92adc6"
+      },
+      "source_inventory": {
+        "count": 65,
+        "kind_counts": {
+          "vendor_source": 65
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 65
+        },
+        "sample_paths": [
+          "src/wp-includes/Requests/library/Requests.php",
+          "src/wp-includes/Requests/src/Auth.php",
+          "src/wp-includes/Requests/src/Auth/Basic.php",
+          "src/wp-includes/Requests/src/Autoload.php",
+          "src/wp-includes/Requests/src/Capability.php",
+          "src/wp-includes/Requests/src/Cookie.php",
+          "src/wp-includes/Requests/src/Cookie/Jar.php",
+          "src/wp-includes/Requests/src/Exception.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 65,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 65
+        },
+        "sample_paths": [
+          "wp-includes/Requests/library/Requests.php",
+          "wp-includes/Requests/src/Auth.php",
+          "wp-includes/Requests/src/Auth/Basic.php",
+          "wp-includes/Requests/src/Autoload.php",
+          "wp-includes/Requests/src/Capability.php",
+          "wp-includes/Requests/src/Cookie.php",
+          "wp-includes/Requests/src/Cookie/Jar.php",
+          "wp-includes/Requests/src/Exception.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "simplepie",
+      "name": "SimplePie",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/SimplePie",
+      "distribution_path": "wp-includes/SimplePie",
+      "role": "feed parsing library used by WordPress feed and RSS wrapper paths",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312.37"
+      ],
+      "source_tree": {
+        "file_count": 82,
+        "php_file_count": 82,
+        "sha256": "sha256:4b5ebbcb9dfd290bc0bd5015e5f461ff254cd545b397134621ad01eacc0e9852"
+      },
+      "source_inventory": {
+        "count": 82,
+        "kind_counts": {
+          "vendor_source": 82
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 82
+        },
+        "sample_paths": [
+          "src/wp-includes/SimplePie/autoloader.php",
+          "src/wp-includes/SimplePie/library/SimplePie.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Author.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Cache.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+          "src/wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 82,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 82
+        },
+        "sample_paths": [
+          "wp-includes/SimplePie/autoloader.php",
+          "wp-includes/SimplePie/library/SimplePie.php",
+          "wp-includes/SimplePie/library/SimplePie/Author.php",
+          "wp-includes/SimplePie/library/SimplePie/Cache.php",
+          "wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+          "wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+          "wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+          "wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "text_diff",
+      "name": "Text_Diff",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/Text",
+      "distribution_path": "wp-includes/Text",
+      "role": "text diff library used by WordPress diff renderers",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-315",
+        "WPHX-316"
+      ],
+      "source_tree": {
+        "file_count": 8,
+        "php_file_count": 8,
+        "sha256": "sha256:76a922d3584d593b48d7fdfdb8a1af05ddc62d857c083cfbee7a4f24cd13dc55"
+      },
+      "source_inventory": {
+        "count": 8,
+        "kind_counts": {
+          "vendor_source": 8
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 8
+        },
+        "sample_paths": [
+          "src/wp-includes/Text/Diff.php",
+          "src/wp-includes/Text/Diff/Engine/native.php",
+          "src/wp-includes/Text/Diff/Engine/shell.php",
+          "src/wp-includes/Text/Diff/Engine/string.php",
+          "src/wp-includes/Text/Diff/Engine/xdiff.php",
+          "src/wp-includes/Text/Diff/Renderer.php",
+          "src/wp-includes/Text/Diff/Renderer/inline.php",
+          "src/wp-includes/Text/Exception.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 8,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 8
+        },
+        "sample_paths": [
+          "wp-includes/Text/Diff.php",
+          "wp-includes/Text/Diff/Engine/native.php",
+          "wp-includes/Text/Diff/Engine/shell.php",
+          "wp-includes/Text/Diff/Engine/string.php",
+          "wp-includes/Text/Diff/Engine/xdiff.php",
+          "wp-includes/Text/Diff/Renderer.php",
+          "wp-includes/Text/Diff/Renderer/inline.php",
+          "wp-includes/Text/Exception.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "sodium_compat",
+      "name": "sodium_compat",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/sodium_compat",
+      "distribution_path": "wp-includes/sodium_compat",
+      "role": "Paragon Initiative sodium polyfill library bundled by WordPress",
+      "strategy": "preserved_upstream_vendor_boundary",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-306",
+        "WPHX-303"
+      ],
+      "source_tree": {
+        "file_count": 108,
+        "php_file_count": 104,
+        "sha256": "sha256:67baf8bf3456fb6b2bdd8dfee3068227eea1e765ba627268b30f44d76aa8cff4"
+      },
+      "source_inventory": {
+        "count": 104,
+        "kind_counts": {
+          "vendor_source": 104
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 104
+        },
+        "sample_paths": [
+          "src/wp-includes/sodium_compat/autoload-php7.php",
+          "src/wp-includes/sodium_compat/autoload.php",
+          "src/wp-includes/sodium_compat/lib/constants.php",
+          "src/wp-includes/sodium_compat/lib/namespaced.php",
+          "src/wp-includes/sodium_compat/lib/php72compat_const.php",
+          "src/wp-includes/sodium_compat/lib/php72compat.php",
+          "src/wp-includes/sodium_compat/lib/php84compat_const.php",
+          "src/wp-includes/sodium_compat/lib/php84compat.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 104,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 104
+        },
+        "sample_paths": [
+          "wp-includes/sodium_compat/autoload-php7.php",
+          "wp-includes/sodium_compat/autoload.php",
+          "wp-includes/sodium_compat/lib/constants.php",
+          "wp-includes/sodium_compat/lib/namespaced.php",
+          "wp-includes/sodium_compat/lib/php72compat_const.php",
+          "wp-includes/sodium_compat/lib/php72compat.php",
+          "wp-includes/sodium_compat/lib/php84compat_const.php",
+          "wp-includes/sodium_compat/lib/php84compat.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [
+          "wp-includes/sodium_compat/LICENSE",
+          "wp-includes/sodium_compat/composer.json",
+          "wp-includes/sodium_compat/src/Core/Curve25519/README.md",
+          "wp-includes/sodium_compat/src/Core32/Curve25519/README.md"
+        ],
+        "notice_files_recorded_in_license_manifest": [
+          "wp-includes/sodium_compat/LICENSE"
+        ],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "Preserve recorded package notice files plus WordPress project notice while this remains a preserved upstream artifact."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "tinymce_php_loader",
+      "name": "TinyMCE PHP loader",
+      "kind": "c3_php_vendor_php_loader",
+      "source_path": "js/_enqueues/vendor/tinymce/wp-tinymce.php",
+      "distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+      "role": "PHP loader shipped with the TinyMCE browser vendor tree",
+      "strategy": "preserved_upstream_vendor_boundary_with_browser_vendor_followup",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-609"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:52c184fecd93d069eb989098358530667f1743a4d82a96d1d1a163358c56d1f9"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "vendor_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/js/_enqueues/vendor/tinymce/wp-tinymce.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/js/tinymce/wp-tinymce.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": true,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_vendor_boundary",
+      "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "php_ai_client",
+      "name": "WordPress PHP AI Client",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/php-ai-client",
+      "distribution_path": "wp-includes/php-ai-client",
+      "role": "bundled AI client DTO/provider/transporter library used by WordPress AI HTTP wrappers",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312.05"
+      ],
+      "source_tree": {
+        "file_count": 146,
+        "php_file_count": 146,
+        "sha256": "sha256:b8030cca152ee2fdd87d0c940d0fd1274880bb007ffaaf0603b0539c8c984279"
+      },
+      "source_inventory": {
+        "count": 146,
+        "kind_counts": {
+          "runtime_source": 146
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 146
+        },
+        "sample_paths": [
+          "src/wp-includes/php-ai-client/autoload.php",
+          "src/wp-includes/php-ai-client/src/AiClient.php",
+          "src/wp-includes/php-ai-client/src/Builders/MessageBuilder.php",
+          "src/wp-includes/php-ai-client/src/Builders/PromptBuilder.php",
+          "src/wp-includes/php-ai-client/src/Common/AbstractDataTransferObject.php",
+          "src/wp-includes/php-ai-client/src/Common/AbstractEnum.php",
+          "src/wp-includes/php-ai-client/src/Common/Contracts/AiClientExceptionInterface.php",
+          "src/wp-includes/php-ai-client/src/Common/Contracts/CachesDataInterface.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 146,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 146
+        },
+        "sample_paths": [
+          "wp-includes/php-ai-client/autoload.php",
+          "wp-includes/php-ai-client/src/AiClient.php",
+          "wp-includes/php-ai-client/src/Builders/MessageBuilder.php",
+          "wp-includes/php-ai-client/src/Builders/PromptBuilder.php",
+          "wp-includes/php-ai-client/src/Common/AbstractDataTransferObject.php",
+          "wp-includes/php-ai-client/src/Common/AbstractEnum.php",
+          "wp-includes/php-ai-client/src/Common/Contracts/AiClientExceptionInterface.php",
+          "wp-includes/php-ai-client/src/Common/Contracts/CachesDataInterface.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "php_compat",
+      "name": "php-compat",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/php-compat",
+      "distribution_path": "wp-includes/php-compat",
+      "role": "compatibility shim library shipped under wp-includes",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-301",
+        "WPHX-303"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:f688a50787d626ba83fe925cdc7f4799a641487d6cbb6ac7678a0531277b5907"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-includes/php-compat/readonly.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/php-compat/readonly.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "pomo",
+      "name": "POMO",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/pomo",
+      "distribution_path": "wp-includes/pomo",
+      "role": "PO/MO translation parsing library used by localization code",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-301",
+        "WPHX-315",
+        "WPHX-316"
+      ],
+      "source_tree": {
+        "file_count": 6,
+        "php_file_count": 6,
+        "sha256": "sha256:ce3ea25c5d10bd5b5a1f28bfbd0d2c1cf112eda2283a517642632556520c0cc7"
+      },
+      "source_inventory": {
+        "count": 6,
+        "kind_counts": {
+          "runtime_source": 6
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 6
+        },
+        "sample_paths": [
+          "src/wp-includes/pomo/entry.php",
+          "src/wp-includes/pomo/mo.php",
+          "src/wp-includes/pomo/plural-forms.php",
+          "src/wp-includes/pomo/po.php",
+          "src/wp-includes/pomo/streams.php",
+          "src/wp-includes/pomo/translations.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 6,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 6
+        },
+        "sample_paths": [
+          "wp-includes/pomo/entry.php",
+          "wp-includes/pomo/mo.php",
+          "wp-includes/pomo/plural-forms.php",
+          "wp-includes/pomo/po.php",
+          "wp-includes/pomo/streams.php",
+          "wp-includes/pomo/translations.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "magpie_rss",
+      "name": "MagpieRSS",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/rss.php",
+      "distribution_path": "wp-includes/rss.php",
+      "role": "legacy MagpieRSS parser/cache/display code preserved for deprecated feed compatibility",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312.22",
+        "WPHX-312.23",
+        "WPHX-312.24"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:7fb1f63e48222dfcdf8f917be4808c4ed51f148d0c29674d7c6d48ba7ee6f99f"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-includes/rss.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/rss.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "pclzip",
+      "name": "PclZip",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-admin/includes/class-pclzip.php",
+      "distribution_path": "wp-admin/includes/class-pclzip.php",
+      "role": "legacy ZIP archive library used by upgrader/install flows",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-319"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:b6c591c6c853c0584d59ae9785c1f52d9b91d16948d53042b13efdc0ccae7148"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-admin/includes/class-pclzip.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-admin/includes/class-pclzip.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "phpass",
+      "name": "phpass",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-phpass.php",
+      "distribution_path": "wp-includes/class-phpass.php",
+      "role": "portable password hashing framework preserved for WordPress password compatibility",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-306"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:14965dc20bb4d3f9251e9392697ac3bcb4ab0265ef2e48e68bdd95011f97b652"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-includes/class-phpass.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/class-phpass.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": false,
+          "license": false,
+          "public_domain": true
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "services_json",
+      "name": "Services_JSON",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-json.php",
+      "distribution_path": "wp-includes/class-json.php",
+      "role": "deprecated Services_JSON compatibility library retained by WordPress",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-303",
+        "WPHX-318"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:d14636ec40451b4450514ce8b8898f72cbac6a65309c6f8f167defe41a16650d"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-includes/class-json.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/class-json.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    },
+    {
+      "id": "snoopy",
+      "name": "Snoopy",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-snoopy.php",
+      "distribution_path": "wp-includes/class-snoopy.php",
+      "role": "deprecated Snoopy HTTP client compatibility library retained by WordPress",
+      "strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "owner_issue": {
+        "issue_id": "wordpresshx-l76.26",
+        "external_ref": "WPHX-323",
+        "title": "PHP vendor manifest closure"
+      },
+      "related_refs": [
+        "WPHX-312",
+        "WPHX-318"
+      ],
+      "source_tree": {
+        "file_count": 1,
+        "php_file_count": 1,
+        "sha256": "sha256:b011caee444fec4e591d169bb5f518b66d0d2b03bbc26118ee2988d8dfff5229"
+      },
+      "source_inventory": {
+        "count": 1,
+        "kind_counts": {
+          "runtime_source": 1
+        },
+        "status_counts": {
+          "upstream_oracle_unported": 1
+        },
+        "sample_paths": [
+          "src/wp-includes/class-snoopy.php"
+        ]
+      },
+      "distribution_artifacts": {
+        "count": 1,
+        "migration_status_counts": {
+          "pending_haxe_generation_or_approved_exception": 1
+        },
+        "sample_paths": [
+          "wp-includes/class-snoopy.php"
+        ]
+      },
+      "license_provenance": {
+        "package_notice_files": [],
+        "notice_files_recorded_in_license_manifest": [],
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+      },
+      "c3_php_vendor_inventory": false,
+      "closure_state": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary",
+      "removal_gate": "Before broadening beyond preserved upstream/library code, add a source-surface inventory, API/reflection fixture where observable, license/provenance review, and either Haxe-owned implementation evidence or a generated WordPress wrapper receipt.",
+      "non_claims": [
+        "This record does not claim Haxe ownership of the vendor or bundled-library implementation.",
+        "This record does not claim C3 runtime parity beyond preserved upstream artifact provenance.",
+        "WordPress wrappers around this boundary still need their own adapter, installed-route, or domain receipts before durable Haxe ownership claims."
+      ]
+    }
+  ],
+  "wphx_312_preserved_vendor_surfaces": [
+    {
+      "external_ref": "WPHX-312.05",
+      "issue_id": "wordpresshx-l76.18.5",
+      "unit_name": "bundled PHP AI Client HTTP DTO, utility, transporter, and WordPress HTTP adapter behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-05-ai-http-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    },
+    {
+      "external_ref": "WPHX-312.13",
+      "issue_id": "wordpresshx-l76.18.13",
+      "unit_name": "wp_mail PHPMailer setup, header, attachment, embed, init-hook, and failure behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    },
+    {
+      "external_ref": "WPHX-312.22",
+      "issue_id": "wordpresshx-l76.18.22",
+      "unit_name": "MagpieRSS parser and pure helper behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    },
+    {
+      "external_ref": "WPHX-312.23",
+      "issue_id": "wordpresshx-ri4",
+      "unit_name": "MagpieRSS fetch and transient cache behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    },
+    {
+      "external_ref": "WPHX-312.24",
+      "issue_id": "wordpresshx-d7p",
+      "unit_name": "MagpieRSS display helper behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    },
+    {
+      "external_ref": "WPHX-312.37",
+      "issue_id": "wordpresshx-l76.18.24",
+      "unit_name": "SimplePie feed wrapper load-order compatibility",
+      "ownership_manifest": "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+      "primary_gate": {
+        "id": "preserved_vendor",
+        "gate_kind": "preserved_vendor",
+        "owner_issue": {
+          "issue_id": "wordpresshx-l76.26",
+          "external_ref": "WPHX-323",
+          "title": "PHP vendor manifest closure"
+        },
+        "removal_gate": "Classify the surface under the PHP vendor manifest as preserved upstream/vendor code, approved exception, or separate generated WordPress wrapper before claiming durable ownership."
+      },
+      "closure_state": "linked_to_wphx_323_preserved_vendor_policy"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "c3_php_vendor_source_entries": 293,
+    "c3_php_vendor_distribution_artifacts": 293,
+    "c3_php_vendor_entries_covered": 293,
+    "preserved_vendor_surface_count": 6,
+    "vendor_boundary_count": 16,
+    "c3_vendor_boundary_count": 8,
+    "additional_bundled_library_boundary_count": 8
+  },
+  "claims": [
+    "All PHP source-inventory entries marked vendor_source for the WordPress 7.0 baseline are covered by a WPHX-323 preserved-vendor record.",
+    "The corresponding WordPress 7.0 distribution PHP artifacts for those vendor boundaries are covered by WPHX-323 preserved-vendor records.",
+    "Additional bundled PHP library boundaries encountered by current WordPress Core slices are verified and explicitly excepted with removal gates.",
+    "The six WPHX-312 preserved-vendor copied-surface gates are linked to this closure."
+  ],
+  "non_claims": [
+    "This manifest does not claim the listed vendor or bundled-library internals are Haxe-authored.",
+    "This manifest does not claim full PRD C3 runtime ownership, security parity, license legal review, or generated replacement code for vendor libraries.",
+    "This manifest does not claim browser vendor internals; the TinyMCE PHP loader is only recorded here because it is a PHP vendor-source entry.",
+    "This manifest does not claim WordPress wrapper files around vendor libraries are fully generated or installed-route owned."
+  ]
+}

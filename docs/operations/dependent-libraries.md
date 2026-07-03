@@ -100,3 +100,11 @@ Split a smaller library into its own repo only when at least one is true:
 - multiple agents need to work on it without touching WordPress/Gutenberg-owned paths.
 
 Vendor code should still remain inventoried even when it is not split. A bundled vendor may be a direct Haxe port, a Haxe reimplementation over host primitives, a generated wrapper only when upstream has the same runtime dependency assumption, or a temporary exception with a removal gate.
+
+## PHP Vendor Closure
+
+`WPHX-323` records the current WordPress 7.0 bundled PHP vendor/library closure in `manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json` and `receipts/wp-core/wphx-323-php-vendor-manifest-closure.v1.json`.
+
+The closure verifies 293 PHP `vendor_source` entries and 293 matching distribution artifacts as preserved upstream vendor boundaries, including Requests, SimplePie, PHPMailer, getID3, IXR, Text_Diff, sodium_compat, and the TinyMCE PHP loader. It also records additional preserved bundled-library boundaries for php-ai-client, php-compat, POMO, MagpieRSS, PclZip, phpass, Services_JSON, and Snoopy.
+
+This is not Haxe ownership of those implementations. It is an explicit preserved-vendor/library exception with removal gates: future work must either port the API to Haxe, reimplement behavior over a host primitive with fallback, generate a wrapper around an upstream-equivalent dependency, or renew the preserved-artifact exception with tests and provenance.

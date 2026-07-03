@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-php-vendor-manifest-closure",
+  "issue": {
+    "id": "wordpresshx-l76.26",
+    "external_ref": "WPHX-323"
+  },
+  "unit": {
+    "kind": "vendor_manifest_closure",
+    "name": "WordPress 7.0 bundled PHP vendor and library boundaries",
+    "area": "C3 PHP vendor source/distribution artifacts plus preserved bundled-library boundaries",
+    "public_contract": "This closure owns classification, provenance, license/SBOM implications, and removal gates for preserved PHP vendor/library artifacts. It does not own vendor implementation behavior as Haxe source."
+  },
+  "ownership_state": "preserved_vendor_policy",
+  "bridge": {
+    "exists": true,
+    "kind": "preserved-upstream-vendor-and-library-boundary",
+    "removal_gate": "Before replacing or claiming Haxe ownership, choose and evidence one of the PRD-approved vendor strategies: direct Haxe port preserving vendor API, behavior-compatible Haxe reimplementation over host primitives with fallback, generated wrapper around an external runtime dependency only when the official WordPress distribution has the same dependency assumption, or a renewed temporary upstream artifact exception with explicit tests and provenance."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-php-vendor-manifest-closure.mjs",
+    "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "manifests/ownership/wphx-323-php-vendor-manifest-closure.v1.json",
+    "receipts/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "docs/operations/dependent-libraries.md",
+    "docs/operations/license-provenance.md",
+    "docs/operations/progress-matrix.md"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "manifests/ownership/wphx-323-php-vendor-manifest-closure.v1.json",
+    "receipts/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-php-vendor-manifest",
+      "npm run wp:core:wphx-323-php-vendor-manifest:check",
+      "npm run license:provenance:check",
+      "npm run wp:core:wphx-312-copied-surface-plan:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-php-vendor-manifest-closure"
+    ],
+    "manifest_digest": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+  }
+}

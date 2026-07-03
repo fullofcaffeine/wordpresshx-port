@@ -34,6 +34,12 @@ Forward Gutenberg `v23.4.0` records `GPL-2.0-or-later` at the project level. The
 
 The 36 route/widget package files are not blockers for bootstrap. Treat them as inheriting the repository license unless package-level evidence appears during a port slice. Before moving any of those packages to `gutenberghx` or shipping generated replacements, rerun the audit and record the package receipt.
 
+## PHP Vendor Closure
+
+`WPHX-323` records the PHP vendor/library closure in `manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json`. The closure keeps the current WordPress 7.0 PHP vendor and bundled-library files as preserved upstream artifacts with removal gates; it does not claim legal review, Haxe ownership, or generated replacement code.
+
+For current distributions, preserve WordPress project notices plus package notice files recorded by `manifests/license-provenance.v1.json`, including getID3 and sodium_compat notices. Boundaries without a package notice file in the WordPress distribution must preserve upstream file headers and receive license/provenance review before generated replacement or distribution divergence.
+
 ## Porting Rules
 
 Preserve upstream notices when generating or distributing replacements. Generated Haxe outputs need adjacent provenance that names the upstream source unit, locked ref, generator, build profile, and digest.
