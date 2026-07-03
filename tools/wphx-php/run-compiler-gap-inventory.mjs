@@ -259,11 +259,11 @@ function methodAdapterRegistry() {
 
 function scriptAdapterRegistry() {
   const source = readFileSync(COMPILER, "utf8");
-  const start = source.indexOf("function emitScript");
-  const end = source.indexOf("function emitIncludeSideEffectsScript", start);
+  const start = source.indexOf("function fileSegmentPlans");
+  const end = source.indexOf("function emitFunction", start);
   const slice = start === -1 || end === -1 ? "" : source.slice(start, end);
   const entries = [];
-  const adapterCase = /case "([^"]+)":/g;
+  const adapterCase = /adapter:\s*"([^"]+)"/g;
   let match;
   while ((match = adapterCase.exec(slice)) !== null) {
     entries.push({
@@ -500,14 +500,14 @@ function gapClassification({
       note: "Every current method adapter is classified by the profile/core promotion audit; generic constructs should migrate to reusable PHP core IR while WordPress ABI-only choices stay named in the profile."
     },
     {
-      id: "script_adapter_switches",
+      id: "file_segment_plan_registry",
       classification: "profile_accretion_gate",
       severity: scriptRegistry.length > 0 ? "active_profile_scope" : "clear",
       follow_up_owner: "WPHX-COMP-PHP-PROFILE-CORE-PROMOTION-AUDIT",
       count: scriptRegistry.length,
       adapters: scriptRegistry.map((record) => record.adapter),
       temporary_bridge_count: profileCoreAudit?.summary?.temporary_bridge_count ?? null,
-      note: "Every current script adapter is classified by the profile/core promotion audit; direct-script and template segment switches remain pressure for broader file/segment lowering before mixed-template ownership."
+      note: "Every current script adapter is classified by the profile/core promotion audit and emitted through the file-segment plan registry; direct-script and template segment plans remain pressure for broader file/segment lowering before mixed-template ownership."
     },
     {
       id: "profile_core_promotion_audit",

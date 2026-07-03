@@ -77,11 +77,11 @@ function methodAdapterRegistry() {
 
 function scriptAdapterRegistry() {
   const source = readFileSync(COMPILER, "utf8");
-  const start = source.indexOf("function emitScript");
-  const end = source.indexOf("function emitIncludeSideEffectsScript", start);
+  const start = source.indexOf("function fileSegmentPlans");
+  const end = source.indexOf("function emitFunction", start);
   const slice = start === -1 || end === -1 ? "" : source.slice(start, end);
   const entries = [];
-  const adapterCase = /case "([^"]+)":/g;
+  const adapterCase = /adapter:\s*"([^"]+)"/g;
   let match;
   while ((match = adapterCase.exec(slice)) !== null) {
     entries.push({

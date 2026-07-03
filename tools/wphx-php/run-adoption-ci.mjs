@@ -106,6 +106,15 @@ const REQUIRED_MANIFEST_CHECKS = [
     outcome_note: "Owns a minimized real WordPress file without stock public shape fallback, helper bridge, or bootstrap bridge."
   },
   {
+    key: "fileSegmentCoreApi",
+    path: "manifests/wphx-php/file-segment-core-api.v1.json",
+    script: "wphx:php:file-segment-core-api:check",
+    applies_to_public_boundary: true,
+    continuous_outcomes: ["core_ir_promotion"],
+    outcome_note:
+      "Routes current direct-script, minimized whole-file, and template segment adapters through the reusable file-segment plan registry instead of named script switches."
+  },
+  {
     key: "bootstrapAutoload",
     path: "manifests/wphx-php/bootstrap-autoload.v1.json",
     script: "wphx:php:bootstrap-autoload:check",

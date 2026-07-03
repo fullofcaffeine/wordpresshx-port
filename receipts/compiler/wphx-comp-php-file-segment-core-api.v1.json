@@ -1,0 +1,57 @@
+{
+  "schema": "wphx.compiler-core-driver-receipt.v1",
+  "id": "receipt:wphx-comp-php-file-segment-core-api",
+  "issue": {
+    "id": "wordpresshx-jcyk",
+    "external_ref": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
+    "title": "Replace named script switches with generic file-segment IR"
+  },
+  "recorded_at": "2026-07-03T09:00:00Z",
+  "status": "passed",
+  "evidence_class": "compiler_core_lowering",
+  "artifact_scope": "file_segment_plan_registry_for_direct_scripts_templates_and_minimized_whole_file",
+  "commands": [
+    "npm run wphx:php:file-segment-core-api",
+    "npm run wphx:php:file-segment-core-api:check"
+  ],
+  "artifacts": [
+    {
+      "path": "tools/wphx-php/run-file-segment-core-api.mjs",
+      "role": "deterministic file-segment registry evidence runner"
+    },
+    {
+      "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "role": "WPHX PHP compiler file-segment plan registry implementation"
+    },
+    {
+      "path": "manifests/wphx-php/file-segment-core-api.v1.json",
+      "role": "file-segment core API manifest"
+    },
+    {
+      "path": "receipts/compiler/wphx-comp-php-file-segment-core-api.v1.json",
+      "role": "file-segment core API receipt"
+    }
+  ],
+  "manifest_sha256": "sha256:dac44aec0f2994645d8debbcc012d0ef0946b68c3447206cb8f392ccc2e5f630",
+  "validation_result": {
+    "status": "passed",
+    "registry_patterns_present": true,
+    "named_script_switches_absent": true,
+    "registry_adapter_count": 5,
+    "registry_adapters_match_metadata": true,
+    "segment_plan_adapter_count": 5,
+    "segment_plans_unsupported_empty": true,
+    "downstream_manifests_passed": true,
+    "registry_feature_recorded_in_downstream_manifests": true
+  },
+  "claims": [
+    "WPHX PHP script adapters are now selected through a reusable file-segment plan registry instead of an emitScript name switch.",
+    "The existing direct include-side-effects, deprecated class-http, admin-style template segment, nested parent segment, and nested partial segment fixtures still emit segment plans with unsupported=[].",
+    "Affected segment/whole-file emission manifests record the file-segment.plan-registry core feature."
+  ],
+  "non_claims": [
+    "This does not claim arbitrary mixed PHP/HTML template ownership.",
+    "This does not claim full file-scope arbitrary Haxe expression lowering, include graph ownership, or WordPress template directory ownership.",
+    "This does not claim WPHX PHP is a mature arbitrary-Haxe PHP backend or that stock Haxe PHP can be abandoned as private implementation emitter."
+  ]
+}

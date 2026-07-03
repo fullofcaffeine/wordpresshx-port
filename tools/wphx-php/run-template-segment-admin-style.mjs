@@ -33,6 +33,7 @@ const expectedPatterns = [
 ];
 
 const expectedCoreIrFeatures = [
+  "file-segment.plan-registry",
   "segment.caller-scope-local",
   "segment.control",
   "segment.declaration",

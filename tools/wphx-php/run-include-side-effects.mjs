@@ -266,10 +266,12 @@ if (emissionManifest.unsupported.length !== 0) {
   throw new Error(`Unexpected include side-effect unsupported constructs: ${JSON.stringify(emissionManifest.unsupported)}`);
 }
 const expectedCoreIrFeatures = [
+  "file-segment.plan-registry",
   "script.function-scope-include",
   "script.include-return",
   "script.output",
-  "script.top-level-side-effect"
+  "script.top-level-side-effect",
+  "segment.plan-printer"
 ];
 assertJsonEqual([...emissionManifest.core_ir_features].sort(), expectedCoreIrFeatures, "core IR features");
 const segmentPlans = (emissionManifest.segment_plans ?? []).map((plan) => ({
