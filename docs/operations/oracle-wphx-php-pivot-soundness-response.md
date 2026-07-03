@@ -33,7 +33,7 @@ The review used the ADRs, compiler docs, source snapshot, and the current WPHX P
 - `wp-oembed-providers.v1.json`: 5 WP_oEmbed provider queue/static-property cases passed and promoted static-property IR pressure into compiler core.
 - `adapter-raw-block-policy.v1.json`: the profile remains at zero inline raw PHP adapter bodies and zero active adapter templates.
 
-One evidence hygiene issue should be fixed: the prompt lists `receipts/compiler/wphx-comp-php-whole-file-class-http.v1.json`, but the snapshot contains `receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json`. Either rename/add an alias receipt or correct the prompt bundle.
+Resolution note: The evidence hygiene issue identified by the oracle was fixed by `WPHX-COMP-PHP-WHOLE-FILE-RECEIPT-PATH-FIX`. The prompt bundle now lists the real whole-file pilot receipt at `receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json`; no duplicate alias receipt was added.
 
 ## Direct answers to the oracle questions
 

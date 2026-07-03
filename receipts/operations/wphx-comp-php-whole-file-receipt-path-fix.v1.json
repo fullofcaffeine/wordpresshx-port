@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.operations-receipt.v1",
+  "id": "receipt:wphx-comp-php-whole-file-receipt-path-fix",
+  "issue": {
+    "id": "wordpresshx-u5os",
+    "external_ref": "WPHX-COMP-PHP-WHOLE-FILE-RECEIPT-PATH-FIX",
+    "title": "Correct whole-file pilot receipt reference"
+  },
+  "recorded_at": "2026-07-03T11:10:00Z",
+  "status": "passed",
+  "evidence_class": "operations_evidence_hygiene",
+  "artifact_scope": "oracle_prompt_receipt_reference_correction",
+  "corrected_reference": {
+    "old_nonexistent_path": "receipts/compiler/wphx-comp-php-whole-file-class-http.v1.json",
+    "actual_receipt_path": "receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json",
+    "manifest_path": "manifests/wphx-php/whole-file-class-http.v1.json",
+    "alias_receipt_added": false
+  },
+  "validation_result": {
+    "status": "passed",
+    "actual_receipt_exists": true,
+    "old_nonexistent_receipt_absent": true,
+    "oracle_prompt_uses_actual_receipt_path": true,
+    "evidence_links_use_actual_receipt_path": true,
+    "behavior_or_ownership_claim_changed": false
+  },
+  "artifacts": [
+    {
+      "path": "docs/operations/oracle-wphx-php-pivot-soundness-review.md",
+      "role": "oracle prompt bundle corrected to point at the real whole-file pilot receipt"
+    },
+    {
+      "path": "docs/operations/oracle-wphx-php-pivot-soundness-response.md",
+      "role": "human-readable oracle response annotated with the hygiene resolution"
+    },
+    {
+      "path": "receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json",
+      "role": "existing whole-file pilot receipt"
+    },
+    {
+      "path": "receipts/operations/wphx-comp-php-whole-file-receipt-path-fix.v1.json",
+      "role": "machine-readable receipt for this evidence-hygiene fix"
+    }
+  ],
+  "claims": [
+    "The pivot-soundness prompt bundle now references the existing whole-file pilot receipt path.",
+    "The nonexistent receipts/compiler/wphx-comp-php-whole-file-class-http.v1.json path is not introduced as an alias.",
+    "This fix keeps evidence links and oracle prompt context aligned with the actual whole-file pilot receipt."
+  ],
+  "non_claims": [
+    "This does not change WPHX PHP behavior, generated PHP output, or compiler ownership scope.",
+    "This does not broaden the whole-file pilot claim beyond the minimized wp-includes/class-http.php fixture.",
+    "This does not claim full class-wp-http.php, WP_Http, installed WordPress, live transport, backend maturity, or stock Haxe PHP deprecation."
+  ]
+}

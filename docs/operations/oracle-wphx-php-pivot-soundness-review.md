@@ -62,7 +62,7 @@ This review should test whether the current governance and evidence gates are st
 - `receipts/compiler/wphx-comp-php-public-shell-snapshots.v1.json`
 - `receipts/compiler/wphx-comp-php-runtime-stdlib-strategy.v1.json`
 - `receipts/compiler/wphx-comp-php-core-lowering-pilot.v1.json`
-- `receipts/compiler/wphx-comp-php-whole-file-class-http.v1.json`
+- `receipts/compiler/wphx-comp-php-whole-file-pilot.v1.json`
 - `receipts/compiler/wphx-comp-php-module-function-adapters.v1.json`
 - `receipts/compiler/wphx-comp-php-embed-module-functions.v1.json`
 - `receipts/compiler/wphx-comp-php-https-module-functions.v1.json`
