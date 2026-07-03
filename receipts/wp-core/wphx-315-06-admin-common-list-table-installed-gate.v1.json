@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-315-06-admin-common-list-table-installed-gate",
+  "issue": {
+    "id": "wordpresshx-l76.21.6",
+    "external_ref": "WPHX-315.06",
+    "title": "WPHX-315.06 - Add installed admin common list-table gate"
+  },
+  "recorded_at": "2026-07-03T00:00:00.000Z",
+  "command": "npm run wp:core:wphx-315-admin-common-list-table-installed-gate",
+  "evidence_class": "installed_style_http_parity",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": true,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-315-06-admin-common-list-table-installed-gate.v1.json",
+      "role": "admin common/list-table installed-style HTTP gate manifest",
+      "sha256": "sha256:5708b73af62cb28c1efb08c7aad2b175dd2b5ae0b9ea5ea31bbc865b1697fbe2"
+    },
+    {
+      "path": "manifests/ownership/wphx-315-06-admin-common-list-table-installed-gate.v1.json",
+      "role": "ownership manifest for admin common/list-table installed-style gate"
+    },
+    {
+      "path": "tools/wp-core/run-admin-common-list-table-installed-gate.mjs",
+      "role": "installed-style admin common/list-table gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-315-admin-common-list-table-installed-gate",
+    "npm run wp:core:wphx-315-admin-common-list-table-installed-gate:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cases": 7,
+    "source_file_count": 24,
+    "oracle_candidate_match": true,
+    "behavior_parity_claimed": true,
+    "public_php_replacement_claimed": false,
+    "full_installed_admin_parity_claimed": false
+  }
+}
