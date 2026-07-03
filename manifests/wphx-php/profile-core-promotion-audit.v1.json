@@ -14,8 +14,8 @@
     "source_inputs": [
       {
         "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-        "bytes": 69036,
-        "sha256": "sha256:7dc99da169c338b78876edeeff651826010782be4365800d8694940567c39e60"
+        "bytes": 73112,
+        "sha256": "sha256:638209b4eaa4e615ca9ffd26770c77b5bb697308608482cb0c7125690cc19255"
       },
       {
         "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
@@ -24,8 +24,8 @@
       },
       {
         "path": "docs/operations/oracle-wphx-php-pivot-soundness-response.md",
-        "bytes": 21117,
-        "sha256": "sha256:ca439a5d64848777104f1ee7cb7a96b927fef23e78ce3403f837649598fe8310"
+        "bytes": 21130,
+        "sha256": "sha256:e79c87436ef4fe85f0fe996bd04a318873c3f33cde83685cfbac99ca57dd1576"
       }
     ]
   },
@@ -41,9 +41,9 @@
   },
   "summary": {
     "method_adapter_count": 54,
-    "script_adapter_count": 5,
-    "classified_adapter_count": 59,
-    "core_ir_candidate_count": 31,
+    "script_adapter_count": 6,
+    "classified_adapter_count": 60,
+    "core_ir_candidate_count": 32,
     "profile_only_abi_constraint_count": 22,
     "temporary_bridge_count": 3,
     "backend_promotion_pressure_count": 3,
@@ -701,9 +701,21 @@
     },
     {
       "registry_kind": "script_adapter",
+      "adapter": "admin-hxx-markup-pilot",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 687,
+      "domain": "admin_hxx_template_unit",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-315.08",
+      "follow_up_issue_id": "wordpresshx-u87c",
+      "rationale": "The admin HXX pilot is a Haxe-owned typed markup unit, but it still enters WPHX PHP through a named file-segment adapter. The reusable compiler pressure is typed markup AST/input metadata lowering into a generic segment plan.",
+      "promotion_gate": "Before adding additional HXX-owned admin/template units, promote the typed AST helper path into a reusable HXX/file-segment lowering API with source-position diagnostics and invalid-template checks."
+    },
+    {
+      "registry_kind": "script_adapter",
       "adapter": "deprecated-class-http",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 604,
+      "source_line": 605,
       "domain": "deprecated_file_whole_file_pilot",
       "classification": "core_ir_candidate",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -715,7 +727,7 @@
       "registry_kind": "script_adapter",
       "adapter": "include-side-effects",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 560,
+      "source_line": 561,
       "domain": "direct_file_scope",
       "classification": "core_ir_candidate",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -727,7 +739,7 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-admin-style",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 686,
+      "source_line": 783,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -739,7 +751,7 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-nested-parent",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 768,
+      "source_line": 865,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -751,7 +763,7 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-nested-partial",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 841,
+      "source_line": 938,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -766,9 +778,9 @@
     "status": "passed",
     "failures": [],
     "method_adapter_count": 54,
-    "script_adapter_count": 5,
+    "script_adapter_count": 6,
     "classified_method_adapter_count": 54,
-    "classified_script_adapter_count": 5,
+    "classified_script_adapter_count": 6,
     "unclassified_count": 0,
     "stale_classification_count": 0,
     "duplicate_assignment_count": 0,
@@ -779,7 +791,7 @@
       },
       {
         "value": "core_ir_candidate",
-        "count": 31
+        "count": 32
       },
       {
         "value": "profile_only_abi_constraint",
@@ -791,6 +803,10 @@
       }
     ],
     "domain_counts": [
+      {
+        "value": "admin_hxx_template_unit",
+        "count": 1
+      },
       {
         "value": "deprecated_file_whole_file_pilot",
         "count": 1
@@ -837,6 +853,10 @@
       }
     ],
     "owner_counts": [
+      {
+        "value": "WPHX-315.08",
+        "count": 1
+      },
       {
         "value": "WPHX-COMP-PHP-CALLABLE-CLOSURE-CORE",
         "count": 10

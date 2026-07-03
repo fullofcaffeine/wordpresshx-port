@@ -1,0 +1,67 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-315-08-admin-hxx-markup-pilot",
+  "issue": {
+    "id": "wordpresshx-u87c",
+    "external_ref": "WPHX-315.08",
+    "title": "Pilot typed HXX admin PHP markup authoring"
+  },
+  "recorded_at": "2026-07-03T18:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+      "role": "typed HXX admin markup pilot manifest",
+      "sha256": "sha256:e89cf89dff803daec7d89245fcdb0206a9cfefcca95b2980181ea342560322cd"
+    },
+    {
+      "path": "manifests/ownership/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+      "role": "ownership manifest for typed HXX admin markup pilot"
+    },
+    {
+      "path": "src/wphx/wp/admin/AdminHxxMarkupPilot.hx",
+      "role": "typed Haxe HXX-style admin markup source"
+    },
+    {
+      "path": "fixtures/wphx-php/admin-hxx-markup-pilot.hxml",
+      "role": "WPHX PHP original-path segment shell driver"
+    },
+    {
+      "path": "tools/wp-core/run-admin-hxx-markup-pilot.mjs",
+      "role": "deterministic typed HXX/admin markup pilot runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-315-admin-hxx-markup-pilot",
+    "npm run wp:core:wphx-315-admin-hxx-markup-pilot:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate"
+  ],
+  "status": "passed",
+  "evidence_class": "typed_hxx_markup_authoring",
+  "artifact_scope": "representative_admin_notice_and_list_table_row_markup",
+  "validation_result": {
+    "status": "passed",
+    "typed_haxe_output_matches_expected": true,
+    "oracle_candidate_behavior_match": true,
+    "typed_haxe_candidate_output_match": true,
+    "guard_behavior_passed": true,
+    "php_lint_passed": true,
+    "source_escape_audit_passed": true,
+    "unsupported_empty": true,
+    "haxe_owned_template_unit_claimed": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_route_execution_claimed": false
+  },
+  "claims": [
+    "One representative admin notice/list-table row markup unit is authored as typed Haxe HXX-style AST helpers and renders deterministic WordPress-compatible HTML.",
+    "The same representative output is emitted through a WPHX PHP original-path file-segment shell with adoption_mode=haxe_owned_template_unit.",
+    "PHP oracle, typed Haxe renderer, and WPHX PHP candidate shell match for escaped notice markup, list-table row action markup, combined output, include return value, and ABSPATH guard behavior."
+  ],
+  "non_claims": [
+    "This does not claim broad behavior parity for wp-admin screens or list tables.",
+    "This does not claim installed WordPress route execution, database-backed state, user/session/capability/nonce behavior, hooks, filters, or browser/e2e parity.",
+    "This does not claim generated public PHP replacement for existing WordPress admin files.",
+    "This does not claim arbitrary existing mixed PHP/HTML templates can be migrated through HXX without segment plans and caller-scope evidence.",
+    "This does not claim full inline HXX parser support; the pilot uses typed AST helpers as the accepted first authoring path."
+  ]
+}

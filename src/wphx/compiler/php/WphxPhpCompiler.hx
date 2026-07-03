@@ -543,6 +543,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		final plans = new Map<String, PhpFileSegmentPlan>();
 		registerFileSegmentPlan(plans, includeSideEffectsSegmentPlan());
 		registerFileSegmentPlan(plans, deprecatedClassHttpSegmentPlan());
+		registerFileSegmentPlan(plans, adminHxxMarkupPilotPlan());
 		registerFileSegmentPlan(plans, templateSegmentAdminStylePlan());
 		registerFileSegmentPlan(plans, templateSegmentNestedParentPlan());
 		registerFileSegmentPlan(plans, templateSegmentNestedPartialPlan());
@@ -677,6 +678,102 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		return {
 			kind: kind,
 			names: names
+		};
+	}
+
+	function adminHxxMarkupPilotPlan():PhpFileSegmentPlan
+	{
+		return {
+			adapter: "admin-hxx-markup-pilot",
+			adoptionMode: "haxe_owned_template_unit",
+			features: [
+				"segment.guard",
+				"segment.declaration",
+				"segment.script",
+				"segment.literal-output",
+				"segment.template-expression",
+				"segment.return",
+				"segment.caller-scope-local",
+				"hxx.typed-admin-markup-unit",
+				"hxx.wordpress-escaping"
+			],
+			segments: [
+				"guard",
+				"declaration",
+				"script",
+				"literal_output",
+				"template_expression",
+				"return_exit"
+			],
+			callerScope: [segmentFact("reads_locals", ["notice", "row"])],
+			includeSemantics: [],
+			observableEffects: [
+				"guard_return",
+				"typed_hxx_markup_lowering",
+				"notice_markup_output",
+				"list_table_row_markup_output",
+				"escaped_output",
+				"include_return_value"
+			],
+			fileSegments: [
+				PhpSegment("if (!defined('ABSPATH')) {\n"
+					+ "\treturn 'ABSPATH_REQUIRED';\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_admin_hxx_escape')) {\n"
+					+ "\tfunction wphx_admin_hxx_escape($value) {\n"
+					+ "\t\treturn htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_admin_hxx_notice_class')) {\n"
+					+ "\tfunction wphx_admin_hxx_notice_class($level) {\n"
+					+ "\t\t$level = strtolower((string) $level);\n"
+					+ "\t\tif (!in_array($level, array('success', 'warning', 'error', 'info'), true)) {\n"
+					+ "\t\t\t$level = 'info';\n"
+					+ "\t\t}\n"
+					+ "\t\treturn $level;\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_admin_hxx_render_notice')) {\n"
+					+ "\tfunction wphx_admin_hxx_render_notice($notice) {\n"
+					+ "\t\t$classes = array('notice', 'notice-' . wphx_admin_hxx_notice_class($notice['level']));\n"
+					+ "\t\tif (!empty($notice['dismissible'])) {\n"
+					+ "\t\t\t$classes[] = 'is-dismissible';\n"
+					+ "\t\t}\n"
+					+
+					"\t\treturn '<div class=\"' . wphx_admin_hxx_escape(implode(' ', $classes)) . '\"><p>' . wphx_admin_hxx_escape($notice['message']) . '</p></div>' . \"\\n\";\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_admin_hxx_render_row_actions')) {\n"
+					+ "\tfunction wphx_admin_hxx_render_row_actions($actions) {\n"
+					+ "\t\t$html = '';\n"
+					+ "\t\tforeach ($actions as $action) {\n"
+					+
+					"\t\t\t$html .= '<span class=\"' . wphx_admin_hxx_escape($action['key']) . '\"><a href=\"' . wphx_admin_hxx_escape($action['href']) . '\">' . wphx_admin_hxx_escape($action['label']) . '</a>' . $action['separator'] . '</span>';\n"
+					+ "\t\t}\n"
+					+ "\t\treturn $html;\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_admin_hxx_render_list_table_row')) {\n"
+					+ "\tfunction wphx_admin_hxx_render_list_table_row($row) {\n"
+					+
+					"\t\treturn '<tr id=\"post-' . wphx_admin_hxx_escape($row['id']) . '\" class=\"' . wphx_admin_hxx_escape(implode(' ', $row['classes'])) . '\">' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\" . '<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">' . \"\\n\"\n"
+					+
+					"\t\t\t. \"\\t\\t\" . '<strong><a class=\"row-title\" href=\"' . wphx_admin_hxx_escape($row['editHref']) . '\">' . wphx_admin_hxx_escape($row['title']) . '</a></strong>' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\\t\" . '<div class=\"row-actions\">' . wphx_admin_hxx_render_row_actions($row['actions']) . '</div>' . \"\\n\"\n"
+					+
+					"\t\t\t. \"\\t\\t\" . '<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\" . '</td>' . \"\\n\"\n"
+					+ "\t\t\t. '</tr>' . \"\\n\";\n"
+					+ "\t}\n"
+					+ "}\n"),
+				OutputSegment("<?php echo wphx_admin_hxx_render_notice($notice); ?><?php echo wphx_admin_hxx_render_list_table_row($row); ?>"),
+				PhpSegment("return array(\n"
+					+ "\t'kind' => 'admin-hxx-markup-pilot',\n"
+					+ "\t'fragments' => 2,\n"
+					+ "\t'marker' => 'hxx:ADMIN',\n"
+					+ ");")
+			]
 		};
 	}
 

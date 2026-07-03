@@ -29,7 +29,8 @@ const FOLLOW_UP_ISSUES = {
   "WPHX-COMP-PHP-STATIC-DYNAMIC-MEMBER-CORE": "wordpresshx-sbot",
   "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API": "wordpresshx-jcyk",
   "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES": "wordpresshx-9esi",
-  "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT": "wordpresshx-4j86"
+  "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT": "wordpresshx-4j86",
+  "WPHX-315.08": "wordpresshx-u87c"
 };
 
 function sha256(value) {
@@ -96,6 +97,7 @@ function scriptAdapterRegistry() {
 
 function domainFor(adapter, registryKind) {
   if (registryKind === "script_adapter") {
+    if (adapter === "admin-hxx-markup-pilot") return "admin_hxx_template_unit";
     if (adapter.startsWith("template-segment-")) return "template_segment";
     if (adapter === "include-side-effects") return "direct_file_scope";
     if (adapter === "deprecated-class-http") return "deprecated_file_whole_file_pilot";
@@ -247,6 +249,16 @@ function classificationGroups() {
         "These named script switches represent generic file-scope statement emission, require/require_once, include timing, and return/direct-script behavior.",
       promotion_gate:
         "Move direct file-scope statements and include/require emission toward a reusable file-segment IR API before adding more named script switches."
+    },
+    {
+      registry_kind: "script_adapter",
+      classification: "core_ir_candidate",
+      follow_up_owner: "WPHX-315.08",
+      adapters: ["admin-hxx-markup-pilot"],
+      rationale:
+        "The admin HXX pilot is a Haxe-owned typed markup unit, but it still enters WPHX PHP through a named file-segment adapter. The reusable compiler pressure is typed markup AST/input metadata lowering into a generic segment plan.",
+      promotion_gate:
+        "Before adding additional HXX-owned admin/template units, promote the typed AST helper path into a reusable HXX/file-segment lowering API with source-position diagnostics and invalid-template checks."
     },
     {
       registry_kind: "script_adapter",

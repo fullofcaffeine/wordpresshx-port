@@ -12,13 +12,13 @@
   "inputs": [
     {
       "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "bytes": 69036,
-      "sha256": "sha256:7dc99da169c338b78876edeeff651826010782be4365800d8694940567c39e60"
+      "bytes": 73112,
+      "sha256": "sha256:638209b4eaa4e615ca9ffd26770c77b5bb697308608482cb0c7125690cc19255"
     },
     {
       "path": "tools/wphx-php/run-file-segment-core-api.mjs",
-      "bytes": 10347,
-      "sha256": "sha256:e41713d1270bcdc9073eac3038719c3f0b3bc1c3b6576785163d9b6ad04f81b6"
+      "bytes": 10606,
+      "sha256": "sha256:65a650ca19196664ab6c2eb415ed7b1aced3409cf4c0672eea6bf11b1a38602a"
     },
     {
       "path": "tools/wphx-php/run-compiler-gap-inventory.mjs",
@@ -27,8 +27,13 @@
     },
     {
       "path": "tools/wphx-php/run-profile-core-promotion-audit.mjs",
-      "bytes": 22489,
-      "sha256": "sha256:69fc2dedc18131e49664129e62c388aa0704af4498741f872948c54c2094f4af"
+      "bytes": 23268,
+      "sha256": "sha256:7c63c319af493df86cb6ea97223f797f38fa3795c06c5006ebef44f72864f2ee"
+    },
+    {
+      "path": "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+      "bytes": 12841,
+      "sha256": "sha256:e89cf89dff803daec7d89245fcdb0206a9cfefcca95b2980181ea342560322cd"
     },
     {
       "path": "manifests/wphx-php/include-side-effects.v1.json",
@@ -38,7 +43,7 @@
     {
       "path": "manifests/wphx-php/whole-file-class-http.v1.json",
       "bytes": 6391,
-      "sha256": "sha256:47d403d79081af1511ae84676971f2517c24befd63c63387ec168b1420d1127c"
+      "sha256": "sha256:d26e1f679ae7b045b44c8f688d28150e3d3ad4da8bf8a0037dfd241201b127ae"
     },
     {
       "path": "manifests/wphx-php/template-segment-admin-style.v1.json",
@@ -53,8 +58,9 @@
   ],
   "registry": {
     "compiler_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-    "adapter_count": 5,
+    "adapter_count": 6,
     "adapters": [
+      "admin-hxx-markup-pilot",
       "deprecated-class-http",
       "include-side-effects",
       "template-segment-admin-style",
@@ -73,6 +79,16 @@
   },
   "evidence_manifests": [
     {
+      "path": "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+      "bytes": 12841,
+      "sha256": "sha256:e89cf89dff803daec7d89245fcdb0206a9cfefcca95b2980181ea342560322cd",
+      "status": "passed",
+      "has_registry_feature": true,
+      "segment_plans": [
+        "admin-hxx-markup-pilot"
+      ]
+    },
+    {
       "path": "manifests/wphx-php/include-side-effects.v1.json",
       "bytes": 6325,
       "sha256": "sha256:b0f94d9af17bcba9f6f32f7190b89b2b7051b8676635284100129ad7b8a844f5",
@@ -85,7 +101,7 @@
     {
       "path": "manifests/wphx-php/whole-file-class-http.v1.json",
       "bytes": 6391,
-      "sha256": "sha256:47d403d79081af1511ae84676971f2517c24befd63c63387ec168b1420d1127c",
+      "sha256": "sha256:d26e1f679ae7b045b44c8f688d28150e3d3ad4da8bf8a0037dfd241201b127ae",
       "status": "passed",
       "has_registry_feature": true,
       "segment_plans": [
@@ -115,6 +131,28 @@
     }
   ],
   "segment_plan_coverage": [
+    {
+      "adapter": "admin-hxx-markup-pilot",
+      "path": "wp-admin/wphx-admin-hxx-markup-pilot.php",
+      "adoption_mode": "haxe_owned_template_unit",
+      "segments": [
+        "guard",
+        "declaration",
+        "script",
+        "literal_output",
+        "template_expression",
+        "return_exit"
+      ],
+      "include_semantics": [],
+      "observable_effects": [
+        "guard_return",
+        "typed_hxx_markup_lowering",
+        "notice_markup_output",
+        "list_table_row_markup_output",
+        "escaped_output",
+        "include_return_value"
+      ]
+    },
     {
       "adapter": "include-side-effects",
       "path": "wp-includes/wphx-include-side-effects.php",
@@ -238,9 +276,9 @@
     "status": "passed",
     "registry_patterns_present": true,
     "named_script_switches_absent": true,
-    "registry_adapter_count": 5,
+    "registry_adapter_count": 6,
     "registry_adapters_match_metadata": true,
-    "segment_plan_adapter_count": 5,
+    "segment_plan_adapter_count": 6,
     "segment_plans_unsupported_empty": true,
     "downstream_manifests_passed": true,
     "registry_feature_recorded_in_downstream_manifests": true

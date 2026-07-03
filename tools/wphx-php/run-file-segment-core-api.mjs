@@ -17,12 +17,14 @@ const PROFILE_AUDIT_RUNNER = "tools/wphx-php/run-profile-core-promotion-audit.mj
 const MANIFEST = "manifests/wphx-php/file-segment-core-api.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-file-segment-core-api.v1.json";
 const EVIDENCE_MANIFESTS = [
+  "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
   "manifests/wphx-php/include-side-effects.v1.json",
   "manifests/wphx-php/whole-file-class-http.v1.json",
   "manifests/wphx-php/template-segment-admin-style.v1.json",
   "manifests/wphx-php/template-segment-nested.v1.json"
 ];
 const EXPECTED_ADAPTERS = [
+  "admin-hxx-markup-pilot",
   "deprecated-class-http",
   "include-side-effects",
   "template-segment-admin-style",
@@ -92,11 +94,12 @@ function normalizeSegmentPlan(plan) {
 function emittedSegmentPlans(manifest) {
   const fromList = manifest.emission_manifest?.segment_plans ?? [];
   const fromSingle = manifest.emission_manifest?.segment_plan === undefined ? [] : [manifest.emission_manifest.segment_plan];
-  return fromList.concat(fromSingle).map(normalizeSegmentPlan);
+  const fromWpCoreWphx = manifest.wphx_php?.emission_manifest?.segment_plans ?? [];
+  return fromList.concat(fromSingle).concat(fromWpCoreWphx).map(normalizeSegmentPlan);
 }
 
 function manifestFeatures(manifest) {
-  const features = manifest.emission_manifest?.core_ir_features ?? [];
+  const features = manifest.emission_manifest?.core_ir_features ?? manifest.wphx_php?.emission_manifest?.core_ir_features ?? [];
   return [...features].sort();
 }
 

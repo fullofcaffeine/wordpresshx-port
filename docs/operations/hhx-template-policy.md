@@ -19,6 +19,8 @@ When Haxe does own the template or markup unit, prefer HXX-style typed authoring
 
 Inline markup should be the default direction for new Haxe-owned templates once feasibility fixtures prove it. String-based `hxx(...)` or raw template bodies are acceptable for migration fixtures and narrow escapes, but durable source should move toward typed inline markup or typed AST helpers with provenance and receipts.
 
+`WPHX-315.08` is the first WordPress admin pilot for this path. It uses typed AST helpers rather than full inline parser syntax: `AdminNoticeMarkup`, `AdminListTableRowMarkup`, `AdminRowAction`, and `AdminNoticeLevel` lower through WPHX PHP segment metadata to ordinary admin notice/list-table HTML and match a PHP oracle. This proves a representative Haxe-owned markup unit only; it does not make existing `wp-admin` mixed PHP/HTML files HHX-owned.
+
 ## Good Early HHX Candidates
 
 - New Haxe-authored test fixtures for template lowering.

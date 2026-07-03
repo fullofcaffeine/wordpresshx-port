@@ -1,0 +1,228 @@
+{
+  "schema": "wphx.wp-core-admin-hxx-markup-pilot.v1",
+  "issue": "WPHX-315.08",
+  "generated_at": "2026-07-03T18:00:00.000Z",
+  "generator": "tools/wp-core/run-admin-hxx-markup-pilot.mjs",
+  "evidence_classes": [
+    "typed_hxx_markup_authoring",
+    "compiler_emitted_segment_shell",
+    "oracle_candidate_behavior"
+  ],
+  "artifact_scope": "representative_admin_notice_and_list_table_row_markup",
+  "behavior_parity_claimed": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "public_php_replacement_claimed": false,
+  "haxe_owned_template_unit_claimed": true,
+  "inputs": {
+    "haxe_hxml": {
+      "path": "fixtures/wp-core/admin-hxx-markup-pilot.hxml",
+      "bytes": 122,
+      "sha256": "sha256:f524ad377ae476f7e2f9a610ee341616c39547d9e03c4e1c96580683350fdb13"
+    },
+    "wphx_hxml": {
+      "path": "fixtures/wphx-php/admin-hxx-markup-pilot.hxml",
+      "bytes": 372,
+      "sha256": "sha256:0951ee1cc94d4eb5a8477fe2610feac6f719a892ea22ef26e1adf745dbfd2487"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/admin-hxx-markup-pilot.hxml",
+        "bytes": 122,
+        "sha256": "sha256:f524ad377ae476f7e2f9a610ee341616c39547d9e03c4e1c96580683350fdb13"
+      },
+      {
+        "path": "fixtures/wphx-php/admin-hxx-markup-pilot.hxml",
+        "bytes": 372,
+        "sha256": "sha256:0951ee1cc94d4eb5a8477fe2610feac6f719a892ea22ef26e1adf745dbfd2487"
+      },
+      {
+        "path": "src/wphx/wp/admin/AdminHxxMarkupPilot.hx",
+        "bytes": 4599,
+        "sha256": "sha256:bb646f8f05a47af662e902044e55ec1ac27df6f484d0eeb2ec51467949553c0e"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/AdminHxxMarkupPilotEntry.hx",
+        "bytes": 1197,
+        "sha256": "sha256:48086a42ff6e320087ccd34c8ec8a4d62d0a42b932dd28df3007f5b942071f19"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/template/AdminHxxMarkupPilotEntry.hx",
+        "bytes": 254,
+        "sha256": "sha256:9a1d171645189199dab1c8770ee2e5d39cf2246042b09f8a9861c1c38babdfaf"
+      },
+      {
+        "path": "fixtures/wphx-php/src/wphx/fixtures/compiler/php/template/AdminHxxMarkupPilotScript.hx",
+        "bytes": 268,
+        "sha256": "sha256:ba476badff0c76643a18ea18d862f04ae304690e870542b514d21e9a6ea10e99"
+      }
+    ]
+  },
+  "typed_hxx_authoring": {
+    "source": "src/wphx/wp/admin/AdminHxxMarkupPilot.hx",
+    "model": "typed_ast_helpers_before_inline_parser_promotion",
+    "typed_locals": [
+      "AdminNoticeMarkup",
+      "AdminListTableRowMarkup",
+      "AdminRowAction",
+      "AdminNoticeLevel"
+    ],
+    "typed_markup_nodes": [
+      "AdminHxxNode",
+      "AdminHxxTag",
+      "AdminHxxAttr"
+    ],
+    "escaping_policy": "escape text and attribute values with WordPress-compatible HTML entity replacement",
+    "phoenixhx_railshx_precedent": "Matches the PhoenixHx/RailsHx direction by using typed Haxe markup data and helper entrypoints that lower to ordinary target markup; this pilot deliberately stops short of claiming full inline parser support."
+  },
+  "wphx_php": {
+    "generated_shell": {
+      "path": "build/wp-core/wphx-315-08/wphx/generated/wp-admin/wphx-admin-hxx-markup-pilot.php",
+      "bytes": 2380,
+      "sha256": "sha256:deb43037d14ec1543abe6496e42b2b44bf991515873d0ceb399d42fd07328fde"
+    },
+    "emission_manifest": {
+      "path": "build/wp-core/wphx-315-08/wphx/generated/wphx-php-emission.v1.json",
+      "bytes": 1826,
+      "sha256": "sha256:45d58adf24358bf16e953327d9536a2c067786053242fb7de4ead37430266dd4",
+      "core_ir_features": [
+        "file-segment.plan-registry",
+        "hxx.typed-admin-markup-unit",
+        "hxx.wordpress-escaping",
+        "segment.caller-scope-local",
+        "segment.declaration",
+        "segment.guard",
+        "segment.literal-output",
+        "segment.plan-printer",
+        "segment.return",
+        "segment.script",
+        "segment.template-expression"
+      ],
+      "segment_plans": [
+        {
+          "path": "wp-admin/wphx-admin-hxx-markup-pilot.php",
+          "adapter": "admin-hxx-markup-pilot",
+          "adoption_mode": "haxe_owned_template_unit",
+          "segments": [
+            "guard",
+            "declaration",
+            "script",
+            "literal_output",
+            "template_expression",
+            "return_exit"
+          ],
+          "caller_scope": [
+            {
+              "kind": "reads_locals",
+              "names": [
+                "notice",
+                "row"
+              ]
+            }
+          ],
+          "include_semantics": [],
+          "observable_effects": [
+            "guard_return",
+            "typed_hxx_markup_lowering",
+            "notice_markup_output",
+            "list_table_row_markup_output",
+            "escaped_output",
+            "include_return_value"
+          ],
+          "unsupported": []
+        }
+      ],
+      "unsupported_empty": true
+    }
+  },
+  "oracle": {
+    "shell": {
+      "path": "build/wp-core/wphx-315-08/oracle/wp-admin/wphx-admin-hxx-markup-pilot.php",
+      "bytes": 1811,
+      "sha256": "sha256:70c74c78102a8fa1c2487f634ebe1c06aa93dd387a11b80ce8d31b0379a49ed8"
+    },
+    "fixture_boundary": "hand-authored PHP oracle for representative notice/list-table row markup only"
+  },
+  "observations": {
+    "expected": {
+      "notice": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n",
+      "row": "<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n",
+      "combined": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n"
+    },
+    "typed_haxe": {
+      "notice": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n",
+      "row": "<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n",
+      "combined": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n"
+    },
+    "oracle": {
+      "normal": {
+        "output": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n",
+        "returnValue": {
+          "kind": "admin-hxx-markup-pilot",
+          "fragments": 2,
+          "marker": "hxx:ADMIN"
+        }
+      },
+      "guard": {
+        "output": "",
+        "returnValue": "ABSPATH_REQUIRED"
+      }
+    },
+    "candidate": {
+      "normal": {
+        "output": "<div class=\"notice notice-success is-dismissible\"><p>Saved &amp; Ready</p></div>\n<tr id=\"post-42\" class=\"iedit author-self level-0\">\n\t<td class=\"title column-title has-row-actions column-primary\" data-colname=\"Title\">\n\t\t<strong><a class=\"row-title\" href=\"post.php?post=42&amp;action=edit\">Hello &amp; World</a></strong>\n\t\t<div class=\"row-actions\"><span class=\"edit\"><a href=\"post.php?post=42&amp;action=edit\">Edit</a> | </span><span class=\"trash\"><a href=\"post.php?post=42&amp;action=trash&amp;_wpnonce=abc123\">Trash</a></span></div>\n\t\t<button type=\"button\" class=\"toggle-row\"><span class=\"screen-reader-text\">Show more details</span></button>\n\t</td>\n</tr>\n",
+        "returnValue": {
+          "kind": "admin-hxx-markup-pilot",
+          "fragments": 2,
+          "marker": "hxx:ADMIN"
+        }
+      },
+      "guard": {
+        "output": "",
+        "returnValue": "ABSPATH_REQUIRED"
+      }
+    }
+  },
+  "adoption_boundaries": [
+    {
+      "boundary": "inline_hxx_parser",
+      "state": "not_claimed",
+      "removal_gate": "Promote typed AST helper calls to parser-backed inline HXX syntax with source-position diagnostics and compile-time invalid-template checks."
+    },
+    {
+      "boundary": "existing_wp_admin_mixed_php_html_files",
+      "state": "not_claimed",
+      "removal_gate": "Model caller scope, globals, includes, output buffering, hooks, filters, return/exit behavior, selected upstream PHPUnit, and installed admin route execution before claiming existing file parity."
+    },
+    {
+      "boundary": "raw_php_oracle_and_probe",
+      "state": "fixture_only",
+      "removal_gate": "Replace with upstream-executed oracle or generated original-path adapter evidence for the claimed WordPress boundary."
+    }
+  ],
+  "claims": [
+    "One representative admin notice/list-table row markup unit is authored as typed Haxe HXX-style AST helpers and renders deterministic WordPress-compatible HTML.",
+    "The same representative output is emitted through a WPHX PHP original-path file-segment shell with adoption_mode=haxe_owned_template_unit.",
+    "PHP oracle, typed Haxe renderer, and WPHX PHP candidate shell match for escaped notice markup, list-table row action markup, combined output, include return value, and ABSPATH guard behavior."
+  ],
+  "non_claims": [
+    "This does not claim broad behavior parity for wp-admin screens or list tables.",
+    "This does not claim installed WordPress route execution, database-backed state, user/session/capability/nonce behavior, hooks, filters, or browser/e2e parity.",
+    "This does not claim generated public PHP replacement for existing WordPress admin files.",
+    "This does not claim arbitrary existing mixed PHP/HTML templates can be migrated through HXX without segment plans and caller-scope evidence.",
+    "This does not claim full inline HXX parser support; the pilot uses typed AST helpers as the accepted first authoring path."
+  ],
+  "ownership_manifest": "manifests/ownership/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+  "validation_result": {
+    "status": "passed",
+    "typed_haxe_output_matches_expected": true,
+    "oracle_candidate_behavior_match": true,
+    "typed_haxe_candidate_output_match": true,
+    "guard_behavior_passed": true,
+    "php_lint_passed": true,
+    "source_escape_audit_passed": true,
+    "unsupported_empty": true,
+    "haxe_owned_template_unit_claimed": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_route_execution_claimed": false
+  }
+}
