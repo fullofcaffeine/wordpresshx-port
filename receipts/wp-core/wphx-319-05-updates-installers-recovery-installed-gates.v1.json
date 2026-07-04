@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-319.05",
+  "beads_issue": "wordpresshx-l76.24.1",
+  "title": "WPHX-319.05 - Declare updates installers recovery installed browser gates",
+  "generated_at": "2026-07-04T15:15:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-updates-installers-recovery-installed-gates.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-319-05-updates-installers-recovery-installed-gates.v1.json",
+    "surface_manifest": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+    "adapter_contract_manifest": "manifests/wp-core/wphx-319-02-updates-installers-recovery-adapter-contract-candidate.v1.json",
+    "oracle_fixture_manifest": "manifests/wp-core/wphx-319-03-updates-installers-recovery-oracle-fixture.v1.json",
+    "upstream_ratchets_manifest": "manifests/wp-core/wphx-319-04-updates-installers-recovery-upstream-ratchets.v1.json",
+    "upstream_lock": "upstream.lock.json"
+  },
+  "summary": "Declares seven selected WPHX-319 installed/browser gates over install bootstrap, core update, plugin install/update/activation, theme install/update, automatic updater/Site Health, recovery-mode email/link/cookie, and network-admin update flows. Every selected gate remains blocked until real installed oracle/candidate roots, generated-overlay discipline, database/user/session/nonce state, package/filesystem/network/mail transports, and browser/HTTP diff evidence exist.",
+  "checks": [
+    "node tools/wp-core/run-updates-installers-recovery-installed-gates.mjs",
+    "node tools/wp-core/run-updates-installers-recovery-installed-gates.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "This artifact declares WPHX-319 installed/browser gate scope only; it does not execute installed WordPress routes, Playwright specs, cron, mail, package downloads, filesystem writes, or network calls.",
+    "No generated public PHP replacement for update, install, upgrader, recovery-mode, Site Health, maintenance, plugin/theme install, admin Ajax, or network update files is claimed.",
+    "No Haxe-owned update/installer/upgrader/recovery runtime logic, installed update/recovery behavior, live filesystem/network/database/mail side effects, browser/e2e parity, or complete upstream updates suite parity is claimed.",
+    "No generated overlay, generated original-path adapter ownership, durable public PHP ownership, broad installed admin/update parity, or ecosystem/plugin/theme compatibility is claimed.",
+    "The selected installed gates are future blockers and scope declarations; their source/test hashes are not pass/pass installed execution evidence."
+  ]
+}

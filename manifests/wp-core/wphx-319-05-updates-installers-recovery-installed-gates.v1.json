@@ -1,0 +1,771 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-319.05",
+  "beads_issue": "wordpresshx-l76.24.1",
+  "title": "WPHX-319.05 - Declare updates installers recovery installed browser gates",
+  "generated_at": "2026-07-04T15:15:00.000Z",
+  "generator": "tools/wp-core/run-updates-installers-recovery-installed-gates.mjs",
+  "evidence_class": "installed_update_recovery_gate_declaration",
+  "artifact_scope": "selected_installed_browser_http_admin_cron_mail_multisite_scope",
+  "behavior_parity_claimed": false,
+  "installed_update_recovery_execution_claimed": false,
+  "browser_e2e_execution_claimed": false,
+  "filesystem_network_mail_side_effects_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "haxe_owned_update_runtime_claimed": false,
+  "candidate_generated_overlay_claimed": false,
+  "selected_gate_scope_declared": true,
+  "selected_installed_gate_count": 7,
+  "selected_upstream_source_count": 25,
+  "selected_upstream_test_count": 11,
+  "upstream_source_authority": {
+    "path": "../wordpress-develop",
+    "role": "read-only WordPress 7.0 oracle checkout",
+    "source_roots": [
+      "src/wp-admin",
+      "src/wp-includes",
+      "src/js/_enqueues"
+    ],
+    "test_roots": [
+      "tests/phpunit/tests",
+      "tests/e2e/specs"
+    ]
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-updates-installers-recovery-installed-gates.mjs",
+      "bytes": 20189,
+      "sha256": "sha256:8dc3ed5672d9a9065ac3e19a763287c587e3f00a0586c1f97940dbc3c0b3c2a1"
+    },
+    "evidence_dependencies": [
+      {
+        "id": "wphx-319-01-surface",
+        "path": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+        "role": "updates/installers/upgrader/recovery source, artifact, ABI, test, and handoff surface inventory",
+        "bytes": 154356,
+        "sha256": "sha256:69a8b2cfb3c26b4c60e0da459e70fd84f57413d20253f576d312c98cb22fdbb2"
+      },
+      {
+        "id": "wphx-319-02-adapter-contract",
+        "path": "manifests/wp-core/wphx-319-02-updates-installers-recovery-adapter-contract-candidate.v1.json",
+        "role": "typed Haxe adapter-contract intent for selected update, upgrader, install, and recovery decisions",
+        "bytes": 22191,
+        "sha256": "sha256:56e901cf2b7d9935391dab77a4ea6bf33ab6d1e3ced6f7a4540f0e2b3c846d8a"
+      },
+      {
+        "id": "wphx-319-03-oracle-fixture",
+        "path": "manifests/wp-core/wphx-319-03-updates-installers-recovery-oracle-fixture.v1.json",
+        "role": "copied-oracle updater/upgrader/recovery service observations through deterministic stubs",
+        "bytes": 20069,
+        "sha256": "sha256:f14a7218473d59fcbcf8019846690437b98d7f261bea77cc05952bd40a94d0b0"
+      },
+      {
+        "id": "wphx-319-04-upstream-ratchets",
+        "path": "manifests/wp-core/wphx-319-04-updates-installers-recovery-upstream-ratchets.v1.json",
+        "role": "selected upstream PHPUnit ratchet scope for updater, update-Ajax, and recovery service tests",
+        "bytes": 7126,
+        "sha256": "sha256:4971f0e6ab888363eef8cc08c94f4984b6e0106874faa1a2555d590f6649e202"
+      },
+      {
+        "id": "wphx-316-08-e2e-precedent",
+        "path": "manifests/wp-core/wphx-316-08-admin-feature-ajax-installed-e2e-gates.v1.json",
+        "role": "precedent for declaring blocked installed/browser admin e2e flows without execution claims",
+        "bytes": 19352,
+        "sha256": "sha256:439e0161c0f384dc860f5f1d484536dfae521145cbc15a4a60fb9bdf445c7522"
+      },
+      {
+        "id": "upstream-lock",
+        "path": "upstream.lock.json",
+        "role": "WordPress 7.0 oracle checkout path and revision authority",
+        "bytes": 7266,
+        "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "../wordpress-develop/src/wp-admin/update-core.php",
+        "relative_path": "src/wp-admin/update-core.php",
+        "bytes": 46202,
+        "sha256": "sha256:eff7c82a67965a93452849328374ef40424d392a9882ae2c6b934c4ba513d940"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/update.php",
+        "relative_path": "src/wp-admin/update.php",
+        "bytes": 13062,
+        "sha256": "sha256:ce5629d14daa99214b1721f3510bb9ab943da4b47f80363b402e8feb6a0b628a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/plugin-install.php",
+        "relative_path": "src/wp-admin/plugin-install.php",
+        "bytes": 7124,
+        "sha256": "sha256:7c528488c45e2aab5dd46c9abae510a27e545b81168d471227072d19e79c29e5"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/theme-install.php",
+        "relative_path": "src/wp-admin/theme-install.php",
+        "bytes": 24117,
+        "sha256": "sha256:35abbd4f69a2933fab6f759de40f741e749d8e75a35ed3c641709aa90bfc592c"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/update.php",
+        "relative_path": "src/wp-admin/includes/update.php",
+        "bytes": 34844,
+        "sha256": "sha256:4b283793019da3561e3070a171715b3eb85b20ef1bae188faff5d544f74170cc"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/update-core.php",
+        "relative_path": "src/wp-admin/includes/update-core.php",
+        "bytes": 72771,
+        "sha256": "sha256:f2ca29198ccb461c9101cf28940c40c20d7b139a85ecefd433de37ddf9f75f3d"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-wp-upgrader.php",
+        "relative_path": "src/wp-admin/includes/class-wp-upgrader.php",
+        "bytes": 48366,
+        "sha256": "sha256:510128b556bec5f58a504360f654b2b260b7608f7a99f9b42243e983d3116477"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-wp-upgrader-skin.php",
+        "relative_path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+        "bytes": 7064,
+        "sha256": "sha256:a8219a3e0b89519f02206d0da9fa664fdd99837db8f46aa9baa90228bca4f86b"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-wp-upgrader-skins.php",
+        "relative_path": "src/wp-admin/includes/class-wp-upgrader-skins.php",
+        "bytes": 1477,
+        "sha256": "sha256:23bc58067b6e0ff1c6557ef1fd52618d4619593713bc0213a0388ece9d21b02a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-wp-automatic-updater.php",
+        "relative_path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+        "bytes": 61902,
+        "sha256": "sha256:aabd404cddf78561888b57a22c53ae0840104ece2c8dc5b7e7bf33079b28b255"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-core-upgrader.php",
+        "relative_path": "src/wp-admin/includes/class-core-upgrader.php",
+        "bytes": 15198,
+        "sha256": "sha256:17688da92237c5838e5b0f3a07c17c3bf80ee6c828cd5988faf205d90550fa24"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-plugin-upgrader.php",
+        "relative_path": "src/wp-admin/includes/class-plugin-upgrader.php",
+        "bytes": 23249,
+        "sha256": "sha256:fd6d813719a3533b1f61ef872dd4a793c86fdaf691aa4556b88ec1b5af953ed7"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-theme-upgrader.php",
+        "relative_path": "src/wp-admin/includes/class-theme-upgrader.php",
+        "bytes": 26783,
+        "sha256": "sha256:9457098f5de802d2af05f53539ce69145292a4b937c57dea7599a53c5a4bcca3"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/class-language-pack-upgrader.php",
+        "relative_path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+        "bytes": 15528,
+        "sha256": "sha256:64039e68db3ca1e4bea9cedb1f02fea9f6880a957812051ce0c05fca6029772c"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/plugin-install.php",
+        "relative_path": "src/wp-admin/includes/plugin-install.php",
+        "bytes": 39040,
+        "sha256": "sha256:55f38a88cf58d7daebe4aaf0b52f69fdc54661cf0636b50c8bf309920a1cf689"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/includes/theme-install.php",
+        "relative_path": "src/wp-admin/includes/theme-install.php",
+        "bytes": 6990,
+        "sha256": "sha256:277d525ca451a684831e1c99442dc91e46c31906c2f203ee8a211453720a2180"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/network/update-core.php",
+        "relative_path": "src/wp-admin/network/update-core.php",
+        "bytes": 253,
+        "sha256": "sha256:a4f2dc94deabb61bce2fd6bb9885f1e9a6cd64fadcdff6cbc88b12948a41ed3b"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-admin/network/update.php",
+        "relative_path": "src/wp-admin/network/update.php",
+        "bytes": 450,
+        "sha256": "sha256:0f60541cb4dd19dec07163d56c0c7073bcdbff72d22c327cb85e406996885a0b"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/update.php",
+        "relative_path": "src/wp-includes/update.php",
+        "bytes": 38276,
+        "sha256": "sha256:a0f944cef4856535db9b53a1eb21f3bdf4f19ebca21d7d3e77d649db017245ec"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode.php",
+        "relative_path": "src/wp-includes/class-wp-recovery-mode.php",
+        "bytes": 11453,
+        "sha256": "sha256:f23a6fb3bd2c32dbf9d324d8274598ee47e7f3293b307f5f02b16fda8c9c42fc"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+        "relative_path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+        "bytes": 6877,
+        "sha256": "sha256:0290d5e6b418968e1bc03b2618593a1822e148a6e19e4b7accd35aefd58f6b59"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-key-service.php",
+        "relative_path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+        "bytes": 4914,
+        "sha256": "sha256:61d85a8e341a64a2e064edb3493ceaf2acaf0ef72d03a566c163433b4eb4729c"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-link-service.php",
+        "relative_path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+        "bytes": 3523,
+        "sha256": "sha256:999f257e2e696474340758028f7dd8adf58e28fd36e7e0f8c84e7ea63eb2e740"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-email-service.php",
+        "relative_path": "src/wp-includes/class-wp-recovery-mode-email-service.php",
+        "bytes": 11166,
+        "sha256": "sha256:5571fbaf0f127adcd8418f3a5d6b7d7b7550d721095804af5216f9109cc0711b"
+      },
+      {
+        "path": "../wordpress-develop/src/js/_enqueues/wp/updates.js",
+        "relative_path": "src/js/_enqueues/wp/updates.js",
+        "bytes": 111999,
+        "sha256": "sha256:c908a8ea6f2bce6f8bd405aff9cdfcda4e60f0f689cbbd9c0a494aa931d8949c"
+      }
+    ],
+    "upstream_tests": [
+      {
+        "path": "../wordpress-develop/tests/e2e/specs/install.test.js",
+        "relative_path": "tests/e2e/specs/install.test.js",
+        "bytes": 2548,
+        "sha256": "sha256:53b8cf030f626b387c7f5f5fc43020dc70f91ca7373ec320c1382df817d57fd6"
+      },
+      {
+        "path": "../wordpress-develop/tests/e2e/specs/gutenberg-plugin.test.js",
+        "relative_path": "tests/e2e/specs/gutenberg-plugin.test.js",
+        "bytes": 1741,
+        "sha256": "sha256:243ae6cf1230d4a4f32b73a825ec9e4ce218a44775dd796ebff03f837ce29a26"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+        "relative_path": "tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+        "bytes": 24358,
+        "sha256": "sha256:cc2de0e9f5920bbacc96d1134b94454d7693cf6647940e5bee2fd15aa2299ee5"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/admin/wpUpgrader.php",
+        "relative_path": "tests/phpunit/tests/admin/wpUpgrader.php",
+        "bytes": 46796,
+        "sha256": "sha256:9f131025750704888434e767cd59bc1cbd516c35a727445136b0cacd48105688"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/admin/wpSiteHealth.php",
+        "relative_path": "tests/phpunit/tests/admin/wpSiteHealth.php",
+        "bytes": 20662,
+        "sha256": "sha256:51b5ebc612d5d8055adaa14a0c8fb73c725f25b0fa400969c4248a49107b1d69"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+        "relative_path": "tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+        "bytes": 4218,
+        "sha256": "sha256:760e3ba910ce701fa2ec77188db7f72150eca5cea86f2df537178887e278d3e8"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+        "relative_path": "tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+        "bytes": 4686,
+        "sha256": "sha256:e43786019c0c2a9ac635734123be9993a584b3f69b56f9c5c72357621f83876c"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+        "relative_path": "tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+        "bytes": 3457,
+        "sha256": "sha256:bf630149877d62a6d6e95262b0370cb7337f2441d1e9ed87557ca76cbb810a40"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php",
+        "relative_path": "tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php",
+        "bytes": 7111,
+        "sha256": "sha256:27dbe89cf43bef7d9541cfedd59b5ee107780e94f694c3a63a7d78343dd0195d"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/admin/wpPluginInstallListTable.php",
+        "relative_path": "tests/phpunit/tests/admin/wpPluginInstallListTable.php",
+        "bytes": 593,
+        "sha256": "sha256:03da79d1eea59cd53ae857490681bf8d7b39ef09795c579844b2ad6b9c68a54c"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+        "relative_path": "tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+        "bytes": 587,
+        "sha256": "sha256:06fac5b8265f1b74a6ed0a1af41ab563247a42e27292c738fc9f873f391547cc"
+      }
+    ]
+  },
+  "selected_installed_update_recovery_gates": [
+    {
+      "id": "install-bootstrap-browser-flow",
+      "kind": "browser_e2e",
+      "upstream_refs": [
+        "tests/e2e/specs/install.test.js"
+      ],
+      "scope": "initial install form, database bootstrap handoff, admin user creation, option seeding, redirect behavior, and installed site readiness",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-301",
+        "WPHX-304",
+        "WPHX-306",
+        "WPHX-315"
+      ],
+      "blockers": [
+        "No oracle/candidate installed roots are provisioned with isolated database state for install.php execution.",
+        "No generated candidate overlay manifest exists for install or update-related public PHP paths.",
+        "No Playwright/browser run compares the upstream install flow across oracle and candidate packages."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/tests/e2e/specs/install.test.js",
+          "relative_path": "tests/e2e/specs/install.test.js",
+          "bytes": 2548,
+          "sha256": "sha256:53b8cf030f626b387c7f5f5fc43020dc70f91ca7373ec320c1382df817d57fd6"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "core-update-screen-and-package-flow",
+      "kind": "installed_http_admin",
+      "upstream_refs": [
+        "src/wp-admin/update-core.php",
+        "src/wp-admin/includes/update-core.php",
+        "src/wp-admin/includes/class-core-upgrader.php",
+        "tests/phpunit/tests/admin/wpUpgrader.php"
+      ],
+      "scope": "update-core.php screen, core package download/unpack/copy/delete intent, maintenance-mode side effects, redirects, admin notices, and filesystem/database deltas",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02",
+        "WPHX-319.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-312",
+        "WPHX-313",
+        "WPHX-315"
+      ],
+      "blockers": [
+        "No controlled package download/unpack/copy/delete fixture exists for installed oracle/candidate comparison.",
+        "No generated original-path adapters or non-empty candidate overlay manifest exist for core update paths.",
+        "No filesystem/database/PHP-log diff gate records maintenance mode, partial failure cleanup, and update result state."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-admin/update-core.php",
+          "relative_path": "src/wp-admin/update-core.php",
+          "bytes": 46202,
+          "sha256": "sha256:eff7c82a67965a93452849328374ef40424d392a9882ae2c6b934c4ba513d940"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/update-core.php",
+          "relative_path": "src/wp-admin/includes/update-core.php",
+          "bytes": 72771,
+          "sha256": "sha256:f2ca29198ccb461c9101cf28940c40c20d7b139a85ecefd433de37ddf9f75f3d"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-core-upgrader.php",
+          "relative_path": "src/wp-admin/includes/class-core-upgrader.php",
+          "bytes": 15198,
+          "sha256": "sha256:17688da92237c5838e5b0f3a07c17c3bf80ee6c828cd5988faf205d90550fa24"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/admin/wpUpgrader.php",
+          "relative_path": "tests/phpunit/tests/admin/wpUpgrader.php",
+          "bytes": 46796,
+          "sha256": "sha256:9f131025750704888434e767cd59bc1cbd516c35a727445136b0cacd48105688"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "plugin-install-update-activation-flow",
+      "kind": "browser_e2e",
+      "upstream_refs": [
+        "tests/e2e/specs/gutenberg-plugin.test.js",
+        "src/wp-admin/plugin-install.php",
+        "src/wp-admin/update.php",
+        "src/wp-admin/includes/plugin-install.php",
+        "src/wp-admin/includes/class-plugin-upgrader.php",
+        "tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php"
+      ],
+      "scope": "plugin search/install/update/activate route family, admin update JavaScript handoff, filesystem writes, dependency checks, activation redirect/notices, and plugin state",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02",
+        "WPHX-319.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-306",
+        "WPHX-316",
+        "WPHX-318",
+        "WPHX-400"
+      ],
+      "blockers": [
+        "No installed package root exercises plugin install/update/activation with real plugin files and admin nonces.",
+        "No generated overlay exists for plugin install/update public PHP paths or admin update JavaScript ownership.",
+        "No browser/filesystem/database diff gate records plugin state, admin notices, and activation side effects."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/tests/e2e/specs/gutenberg-plugin.test.js",
+          "relative_path": "tests/e2e/specs/gutenberg-plugin.test.js",
+          "bytes": 1741,
+          "sha256": "sha256:243ae6cf1230d4a4f32b73a825ec9e4ce218a44775dd796ebff03f837ce29a26"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/plugin-install.php",
+          "relative_path": "src/wp-admin/plugin-install.php",
+          "bytes": 7124,
+          "sha256": "sha256:7c528488c45e2aab5dd46c9abae510a27e545b81168d471227072d19e79c29e5"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/update.php",
+          "relative_path": "src/wp-admin/update.php",
+          "bytes": 13062,
+          "sha256": "sha256:ce5629d14daa99214b1721f3510bb9ab943da4b47f80363b402e8feb6a0b628a"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/plugin-install.php",
+          "relative_path": "src/wp-admin/includes/plugin-install.php",
+          "bytes": 39040,
+          "sha256": "sha256:55f38a88cf58d7daebe4aaf0b52f69fdc54661cf0636b50c8bf309920a1cf689"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-plugin-upgrader.php",
+          "relative_path": "src/wp-admin/includes/class-plugin-upgrader.php",
+          "bytes": 23249,
+          "sha256": "sha256:fd6d813719a3533b1f61ef872dd4a793c86fdaf691aa4556b88ec1b5af953ed7"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+          "relative_path": "tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+          "bytes": 4218,
+          "sha256": "sha256:760e3ba910ce701fa2ec77188db7f72150eca5cea86f2df537178887e278d3e8"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "theme-install-update-flow",
+      "kind": "installed_http_admin",
+      "upstream_refs": [
+        "src/wp-admin/theme-install.php",
+        "src/wp-admin/includes/theme-install.php",
+        "src/wp-admin/includes/class-theme-upgrader.php",
+        "tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+        "tests/phpunit/tests/admin/wpThemeInstallListTable.php"
+      ],
+      "scope": "theme install/update screens and Ajax routes, theme package filesystem writes, admin notices, current theme state, and list-table/theme preview handoffs",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02",
+        "WPHX-319.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-310",
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-400"
+      ],
+      "blockers": [
+        "No installed oracle/candidate fixture provisions theme packages, writable theme directories, and browser/admin state.",
+        "No generated overlay exists for theme install/update public PHP paths.",
+        "No filesystem/database/browser diff gate records theme availability, update notices, and preview/admin behavior."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-admin/theme-install.php",
+          "relative_path": "src/wp-admin/theme-install.php",
+          "bytes": 24117,
+          "sha256": "sha256:35abbd4f69a2933fab6f759de40f741e749d8e75a35ed3c641709aa90bfc592c"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/theme-install.php",
+          "relative_path": "src/wp-admin/includes/theme-install.php",
+          "bytes": 6990,
+          "sha256": "sha256:277d525ca451a684831e1c99442dc91e46c31906c2f203ee8a211453720a2180"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-theme-upgrader.php",
+          "relative_path": "src/wp-admin/includes/class-theme-upgrader.php",
+          "bytes": 26783,
+          "sha256": "sha256:9457098f5de802d2af05f53539ce69145292a4b937c57dea7599a53c5a4bcca3"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+          "relative_path": "tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+          "bytes": 4686,
+          "sha256": "sha256:e43786019c0c2a9ac635734123be9993a584b3f69b56f9c5c72357621f83876c"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+          "relative_path": "tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+          "bytes": 587,
+          "sha256": "sha256:06fac5b8265f1b74a6ed0a1af41ab563247a42e27292c738fc9f873f391547cc"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "automatic-updates-site-health-flow",
+      "kind": "installed_http_cron_admin",
+      "upstream_refs": [
+        "src/wp-admin/includes/class-wp-automatic-updater.php",
+        "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+        "src/wp-includes/update.php",
+        "tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+        "tests/phpunit/tests/admin/wpSiteHealth.php"
+      ],
+      "scope": "automatic updater decision gates, Site Health update checks, cron/lock/options state, HTTP update transient behavior, email/reporting handoffs, and admin visibility",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02",
+        "WPHX-319.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-304",
+        "WPHX-312",
+        "WPHX-315"
+      ],
+      "blockers": [
+        "No installed candidate executes automatic-update cron paths with controlled update API responses and locks.",
+        "No generated overlay exists for automatic updater or Site Health update-check paths.",
+        "No cron/HTTP/mail/database diff gate records lock handling, transient updates, notification behavior, and Site Health output."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-wp-automatic-updater.php",
+          "relative_path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+          "bytes": 61902,
+          "sha256": "sha256:aabd404cddf78561888b57a22c53ae0840104ece2c8dc5b7e7bf33079b28b255"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+          "relative_path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+          "bytes": 14337,
+          "sha256": "sha256:21041d6b1e9c7fbb1fd2b251522317dbfacb6d023852619587437cab6ed94bbf"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/update.php",
+          "relative_path": "src/wp-includes/update.php",
+          "bytes": 38276,
+          "sha256": "sha256:a0f944cef4856535db9b53a1eb21f3bdf4f19ebca21d7d3e77d649db017245ec"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+          "relative_path": "tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+          "bytes": 24358,
+          "sha256": "sha256:cc2de0e9f5920bbacc96d1134b94454d7693cf6647940e5bee2fd15aa2299ee5"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/admin/wpSiteHealth.php",
+          "relative_path": "tests/phpunit/tests/admin/wpSiteHealth.php",
+          "bytes": 20662,
+          "sha256": "sha256:51b5ebc612d5d8055adaa14a0c8fb73c725f25b0fa400969c4248a49107b1d69"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "recovery-mode-email-link-cookie-flow",
+      "kind": "installed_http_mail_auth",
+      "upstream_refs": [
+        "src/wp-includes/class-wp-recovery-mode.php",
+        "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+        "src/wp-includes/class-wp-recovery-mode-key-service.php",
+        "src/wp-includes/class-wp-recovery-mode-link-service.php",
+        "src/wp-includes/class-wp-recovery-mode-email-service.php",
+        "tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+        "tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php"
+      ],
+      "scope": "fatal-error recovery email, token/key storage, login-link entry, cookie/session validation, exit behavior, admin notices, and cleanup",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02",
+        "WPHX-319.03",
+        "WPHX-319.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-301",
+        "WPHX-306",
+        "WPHX-312",
+        "WPHX-315"
+      ],
+      "blockers": [
+        "No installed fatal-error/recovery-mode fixture captures real recovery emails, login links, cookies, and session state.",
+        "No generated overlay exists for recovery-mode public PHP/class paths.",
+        "No mail/auth/database/browser diff gate records key lifecycle, cookie headers, admin notices, and recovery exit behavior."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode.php",
+          "relative_path": "src/wp-includes/class-wp-recovery-mode.php",
+          "bytes": 11453,
+          "sha256": "sha256:f23a6fb3bd2c32dbf9d324d8274598ee47e7f3293b307f5f02b16fda8c9c42fc"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+          "relative_path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+          "bytes": 6877,
+          "sha256": "sha256:0290d5e6b418968e1bc03b2618593a1822e148a6e19e4b7accd35aefd58f6b59"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-key-service.php",
+          "relative_path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+          "bytes": 4914,
+          "sha256": "sha256:61d85a8e341a64a2e064edb3493ceaf2acaf0ef72d03a566c163433b4eb4729c"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-link-service.php",
+          "relative_path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+          "bytes": 3523,
+          "sha256": "sha256:999f257e2e696474340758028f7dd8adf58e28fd36e7e0f8c84e7ea63eb2e740"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-recovery-mode-email-service.php",
+          "relative_path": "src/wp-includes/class-wp-recovery-mode-email-service.php",
+          "bytes": 11166,
+          "sha256": "sha256:5571fbaf0f127adcd8418f3a5d6b7d7b7550d721095804af5216f9109cc0711b"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+          "relative_path": "tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+          "bytes": 3457,
+          "sha256": "sha256:bf630149877d62a6d6e95262b0370cb7337f2441d1e9ed87557ca76cbb810a40"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php",
+          "relative_path": "tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php",
+          "bytes": 7111,
+          "sha256": "sha256:27dbe89cf43bef7d9541cfedd59b5ee107780e94f694c3a63a7d78343dd0195d"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "network-admin-update-flow",
+      "kind": "installed_multisite_admin",
+      "upstream_refs": [
+        "src/wp-admin/network/update-core.php",
+        "src/wp-admin/network/update.php",
+        "src/wp-admin/includes/class-language-pack-upgrader.php",
+        "src/wp-admin/includes/class-wp-upgrader-skins.php"
+      ],
+      "scope": "network admin wrappers for core/plugin/theme/language updates, multisite capability checks, network redirects/notices, and shared updater state",
+      "existing_evidence_refs": [
+        "WPHX-319.01",
+        "WPHX-319.02"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-306",
+        "WPHX-317",
+        "WPHX-315"
+      ],
+      "blockers": [
+        "No multisite installed oracle/candidate roots exist for network update route execution.",
+        "No generated overlay exists for network update public PHP paths.",
+        "No multisite database/capability/redirect/filesystem diff gate records network update behavior."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-admin/network/update-core.php",
+          "relative_path": "src/wp-admin/network/update-core.php",
+          "bytes": 253,
+          "sha256": "sha256:a4f2dc94deabb61bce2fd6bb9885f1e9a6cd64fadcdff6cbc88b12948a41ed3b"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/network/update.php",
+          "relative_path": "src/wp-admin/network/update.php",
+          "bytes": 450,
+          "sha256": "sha256:0f60541cb4dd19dec07163d56c0c7073bcdbff72d22c327cb85e406996885a0b"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-language-pack-upgrader.php",
+          "relative_path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+          "bytes": 15528,
+          "sha256": "sha256:64039e68db3ca1e4bea9cedb1f02fea9f6880a957812051ce0c05fca6029772c"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-admin/includes/class-wp-upgrader-skins.php",
+          "relative_path": "src/wp-admin/includes/class-wp-upgrader-skins.php",
+          "bytes": 1477,
+          "sha256": "sha256:23bc58067b6e0ff1c6557ef1fd52618d4619593713bc0213a0388ece9d21b02a"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_319_installed_update_recovery_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    }
+  ],
+  "future_runner_requirements": [
+    "Provision oracle and candidate installed WordPress roots with identical database seeds, users, salts, cookies, plugins, themes, uploads, filesystem permissions, cron state, mail capture, and network/multisite configuration where applicable.",
+    "Dispatch selected requests through real install.php, wp-admin/update-core.php, wp-admin/update.php, plugin-install.php, theme-install.php, admin-ajax.php, recovery-mode login/admin paths, and network admin wrappers, not deterministic bridge routers.",
+    "Require a non-empty generated candidate overlay manifest before any candidate package file differs from copied upstream PHP.",
+    "Run selected upstream WordPress e2e specs where they exist and manifest-linked HTTP/cron/mail/filesystem probes where upstream e2e coverage is absent.",
+    "Compare HTTP status, redirects, headers, DOM fragments, admin notices, PHP logs, hook traces, update transients/options, database deltas, filesystem package deltas, mail captures, and browser traces where applicable.",
+    "Keep package download/network behavior behind controlled local fixtures or recorded-provider gates before live-network claims."
+  ],
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-301/WPHX-304",
+      "reason": "Install bootstrap, recovery bootstrap, options, transients, locks, and update state remain bootstrap/options ownership when reached by installed flows."
+    },
+    {
+      "owner": "WPHX-306",
+      "reason": "Users, capabilities, nonces, cookies, login links, sessions, and recovery authentication remain users/auth ownership."
+    },
+    {
+      "owner": "WPHX-310/WPHX-315/WPHX-316",
+      "reason": "Theme behavior, admin chrome/list tables/screens, admin Ajax, plugin-management screens, and update JavaScript UI remain neighboring admin/theme/browser surfaces."
+    },
+    {
+      "owner": "WPHX-312/WPHX-313",
+      "reason": "HTTP update API calls, cron, mail, package download, uploads, filesystem transports, unzip/copy/delete, and media/filesystem state remain HTTP/filesystem ownership."
+    },
+    {
+      "owner": "WPHX-317/WPHX-318/WPHX-400",
+      "reason": "Network-admin multisite wrappers, preserved plugin/vendor boundaries, and browser/editor package behavior remain separate gates."
+    }
+  ],
+  "non_claims": [
+    "This artifact declares WPHX-319 installed/browser gate scope only; it does not execute installed WordPress routes, Playwright specs, cron, mail, package downloads, filesystem writes, or network calls.",
+    "No generated public PHP replacement for update, install, upgrader, recovery-mode, Site Health, maintenance, plugin/theme install, admin Ajax, or network update files is claimed.",
+    "No Haxe-owned update/installer/upgrader/recovery runtime logic, installed update/recovery behavior, live filesystem/network/database/mail side effects, browser/e2e parity, or complete upstream updates suite parity is claimed.",
+    "No generated overlay, generated original-path adapter ownership, durable public PHP ownership, broad installed admin/update parity, or ecosystem/plugin/theme compatibility is claimed.",
+    "The selected installed gates are future blockers and scope declarations; their source/test hashes are not pass/pass installed execution evidence."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "selected_installed_gate_count": 7,
+    "selected_upstream_source_count": 25,
+    "selected_upstream_test_count": 11,
+    "provisioning_status": "blocked",
+    "behavior_parity_claimed": false,
+    "installed_update_recovery_execution_claimed": false,
+    "browser_e2e_execution_claimed": false,
+    "future_runner_required": true
+  }
+}
