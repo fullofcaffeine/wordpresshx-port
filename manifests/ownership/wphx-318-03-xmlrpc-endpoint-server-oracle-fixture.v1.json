@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/xmlrpc-endpoint-server-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-lky1",
+    "external_ref": "WPHX-318.03"
+  },
+  "unit": {
+    "kind": "copied_oracle_fixture",
+    "name": "selected xmlrpc.php endpoint and wp_xmlrpc_server behavior",
+    "area": "xmlrpc.php wp-includes/class-wp-xmlrpc-server.php wp-includes/class-IXR.php wp-includes/IXR/*",
+    "public_contract": "This fixture executes mirrored WordPress 7.0 XML-RPC endpoint/server PHP under deterministic stubs. It proves selected copied-oracle/candidate behavior matches, not Haxe-owned runtime logic or generated public PHP replacement."
+  },
+  "ownership_state": "copied_oracle_evidence",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress",
+    "adapter_contract_owner": "haxe_typed_precedent",
+    "emission_strategy": "copied_upstream_public_php_with_deterministic_stubs",
+    "execution_provider": "php_cli",
+    "compatibility_evidence": "targeted_copied_oracle_fixture"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "copied-upstream-public-php-oracle-candidate-fixture",
+    "removal_gate": "Replace copied XML-RPC public PHP with generated original-path adapters or whole-file WPHX PHP evidence, then pass endpoint bootstrap, wp_xmlrpc_server method registry/auth/error/fault, IXR serialization, selected upstream PHPUnit, installed HTTP route, database-backed, and generated-overlay gates before claiming durable ownership."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-xmlrpc-endpoint-server-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json"
+  ],
+  "upstream_copied_paths": [
+    "src/xmlrpc.php",
+    "src/wp-includes/class-IXR.php",
+    "src/wp-includes/class-wp-xmlrpc-server.php",
+    "src/wp-includes/IXR"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "build/wp-core/wphx-318-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-318-xmlrpc-endpoint-server-oracle-fixture",
+      "npm run wp:core:wphx-318-xmlrpc-endpoint-server-oracle-fixture:check",
+      "npm run operations:bridge-claim-guardrails:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-318-03-xmlrpc-endpoint-server-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:06a62a52916e426be1d4f07de823cf564abd5e0298eb246c7be66bbd2c1eedc9"
+  },
+  "notes": "Oracle and candidate package roots are regenerated from ../wordpress-develop. Candidate divergence requires an explicit generated overlay manifest before any public PHP replacement claim."
+}
