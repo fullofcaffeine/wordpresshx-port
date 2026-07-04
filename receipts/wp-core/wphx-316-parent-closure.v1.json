@@ -1,0 +1,63 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-316-parent-closure",
+  "issue": {
+    "id": "wordpresshx-l76.22",
+    "external_ref": "WPHX-316",
+    "title": "WPHX-316 - Admin feature screens and AJAX"
+  },
+  "recorded_at": "2026-07-04T09:00:00.000Z",
+  "command": "parent closure after WPHX-316.10 bounded domain-closure receipt",
+  "evidence_class": "parent_domain_closure",
+  "artifact_scope": "wp_core_admin_feature_screens_ajax",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-316-domain-closure.v1.json",
+      "role": "bounded WPHX-316 domain-closure receipt",
+      "sha256": "sha256:91b0cc903c4f262e149cf5f3110e8fc0891f0ec1da66d2f7899e75492bd5f8b1"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program matrix marking WPHX-316 bounded closed"
+    },
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "tracked Beads export with WPHX-316 parent closure"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "domain_closure_receipt": "receipt:wphx-316-domain-closure",
+    "bounded_parent_closed": true,
+    "required_child_gates_closed": [
+      "WPHX-316.01",
+      "WPHX-316.02",
+      "WPHX-316.03",
+      "WPHX-316.04",
+      "WPHX-316.05",
+      "WPHX-316.06",
+      "WPHX-316.07",
+      "WPHX-316.08",
+      "WPHX-316.09",
+      "WPHX-316.10"
+    ],
+    "remaining_gaps_preserved": [
+      "Generated public PHP replacement for admin feature/AJAX original paths is not claimed; copied public PHP fixtures remain bridge evidence where noted.",
+      "Haxe-owned runtime implementations for admin-ajax.php, admin-post.php, settings/options screens, taxonomy feature screens, privacy export/erase screens, plugins.php, network-admin wrappers, media/profile/plugin flows, and feature-specific admin screens are not claimed.",
+      "Real WordPress bootstrap, installed wp-admin route execution, database-backed admin state, plugin filesystem/update/delete behavior, media upload state, privacy request persistence, and Settings API persistence remain later work.",
+      "Real user/session/capability/nonce/cookie behavior remains owned by WPHX-306 and is not proven by deterministic stubs in WPHX-316 fixtures.",
+      "Network-admin and multisite state remain WPHX-317 handoffs; WPHX-316 only inventories and declares route intent where relevant.",
+      "Selected WPHX-316 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream admin suite parity is not claimed.",
+      "Selected installed/browser e2e flows remain blocked until real installed oracle/candidate roots, generated-overlay discipline, database/user/session/nonce state, and Playwright/browser execution exist.",
+      "Typed HXX/HHX admin feature-template ownership remains limited to the WPHX-315 pilot; WPHX-316 does not add HXX-owned feature-screen templates.",
+      "Generated overlays, generated original-path adapters, durable public PHP ownership, and broad installed admin parity require future WPHX PHP adapter evidence or real installed admin/browser gates.",
+      "This closes the bounded WPHX-316 admin feature/AJAX evidence slice, not all WordPress admin behavior or complete ecosystem parity."
+    ],
+    "non_blocking_follow_up": "Future WPHX-316 movement should require generated original-path adapters, explicit generated overlay manifests, real installed admin/browser execution, or network-admin wrapper evidence that adds value beyond WPHX-317 handoff coverage."
+  }
+}

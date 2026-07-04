@@ -1,0 +1,131 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-316-domain-closure",
+  "issue": {
+    "id": "wordpresshx-l76.22.2",
+    "external_ref": "WPHX-316.10",
+    "title": "WPHX-316.10 - Close bounded admin feature AJAX evidence slice"
+  },
+  "recorded_at": "2026-07-04T09:00:00.000Z",
+  "command": "domain closure audit over WPHX-316.01 through WPHX-316.09 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, upstream_suite_parity, installed_e2e_gate_declaration",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+      "bytes": 1322,
+      "sha256": "sha256:321d830bfc46fcc4d0ec883cb4a83e354dc336306b055133ae1bec21e4ca935b",
+      "role": "admin feature/AJAX source, distribution, ABI, upstream test, handoff, and fixture surface inventory",
+      "ref": "WPHX-316.01"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+      "bytes": 1921,
+      "sha256": "sha256:68b1f289e87ca6141e6c86364aa4b9ba234b619cf35da2608c4cf4b3a323c421",
+      "role": "typed Haxe admin feature/AJAX adapter-contract evidence",
+      "ref": "WPHX-316.02"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+      "bytes": 1560,
+      "sha256": "sha256:6e3f288aad6f809730b94c73d205089fe53d57d003c78759ce8b1a2991d5c1c9",
+      "role": "copied-oracle admin-ajax/admin-post route and selected AJAX handler observations",
+      "ref": "WPHX-316.03"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+      "bytes": 1627,
+      "sha256": "sha256:0817bbf3a4262d4bf4e1134590def907c591f5bde1f94587b7702933870d305d",
+      "role": "copied-oracle settings/options route observations",
+      "ref": "WPHX-316.04"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+      "bytes": 1743,
+      "sha256": "sha256:211814f11d04df566d0fbad3b0e00d7c2241297c5200cbcd7372885e6666c66d",
+      "role": "copied-oracle taxonomy feature-screen route observations",
+      "ref": "WPHX-316.05"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-06-privacy-export-erase-oracle-fixture.v1.json",
+      "bytes": 2084,
+      "sha256": "sha256:01fc0c52738ef8d846c442dec67c1701de26b2a0218ca97c5e33e252d5e6013b",
+      "role": "copied-oracle privacy export/erase route and helper observations",
+      "ref": "WPHX-316.06"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-07-admin-feature-ajax-upstream-ratchets.v1.json",
+      "bytes": 2198,
+      "sha256": "sha256:33eff1cff2ea7422c8df32af7ae38ca41f570c8a0d0013175851f28f6a8f5140",
+      "role": "selected upstream PHPUnit ratchet scope and pass/pass classifications for admin AJAX, plugin-dependency, and privacy AJAX tests",
+      "ref": "WPHX-316.07"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-08-admin-feature-ajax-installed-e2e-gates.v1.json",
+      "bytes": 3048,
+      "sha256": "sha256:1e65fde4f688ee3eaa840db5b42d8267a013a5064a417546e399b1357d7fbbbd",
+      "role": "selected installed/browser e2e gate declarations with blockers and future runner requirements",
+      "ref": "WPHX-316.08"
+    },
+    {
+      "path": "receipts/wp-core/wphx-316-09-plugin-management-oracle-fixture.v1.json",
+      "bytes": 1770,
+      "sha256": "sha256:4923a1c1544613e442c43d56b25efaf0f20ff6edf404dae71546f5b61976c37e",
+      "role": "copied-oracle plugin-management route observations",
+      "ref": "WPHX-316.09"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-316 closure interpretation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-316-admin-feature-ajax-surface:check",
+    "npm run wp:core:wphx-316-admin-feature-ajax-adapter-contract-candidate:check",
+    "npm run wp:core:wphx-316-admin-ajax-post-oracle-fixture:check",
+    "npm run wp:core:wphx-316-settings-options-oracle-fixture:check",
+    "npm run wp:core:wphx-316-taxonomy-feature-screen-oracle-fixture:check",
+    "npm run wp:core:wphx-316-privacy-export-erase-oracle-fixture:check",
+    "npm run wp:core:wphx-316-admin-feature-ajax-upstream-ratchets:check",
+    "npm run wp:core:wphx-316-admin-feature-ajax-installed-e2e-gates:check",
+    "npm run wp:core:wphx-316-plugin-management-oracle-fixture:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "AdminFeatureAjaxAdapterContract"
+    ],
+    "fixtures_cover": [
+      "admin feature/AJAX source, distribution, ABI, related tests, route categories, and cross-domain handoffs",
+      "typed adapter-contract intent for admin-ajax/admin-post routing, feature guards, response families, settings/options, content/taxonomy/comment actions, privacy export/erase, and network-admin route intent",
+      "copied-oracle/candidate admin-ajax.php, admin-post.php, and selected ajax-actions.php route observations",
+      "copied-oracle/candidate options.php settings/options route observations",
+      "copied-oracle/candidate edit-tags.php taxonomy feature-screen route observations",
+      "copied-oracle/candidate export-personal-data.php, erase-personal-data.php, and includes/privacy-tools.php privacy route/helper observations",
+      "selected upstream admin feature/AJAX PHPUnit groups with vanilla pass / candidate pass classifications",
+      "selected installed/browser admin feature and AJAX e2e gates declared as blocked with future runner requirements",
+      "copied-oracle/candidate plugins.php plugin-management route observations"
+    ],
+    "remaining_gaps": [
+      "Generated public PHP replacement for admin feature/AJAX original paths is not claimed; copied public PHP fixtures remain bridge evidence where noted.",
+      "Haxe-owned runtime implementations for admin-ajax.php, admin-post.php, settings/options screens, taxonomy feature screens, privacy export/erase screens, plugins.php, network-admin wrappers, media/profile/plugin flows, and feature-specific admin screens are not claimed.",
+      "Real WordPress bootstrap, installed wp-admin route execution, database-backed admin state, plugin filesystem/update/delete behavior, media upload state, privacy request persistence, and Settings API persistence remain later work.",
+      "Real user/session/capability/nonce/cookie behavior remains owned by WPHX-306 and is not proven by deterministic stubs in WPHX-316 fixtures.",
+      "Network-admin and multisite state remain WPHX-317 handoffs; WPHX-316 only inventories and declares route intent where relevant.",
+      "Selected WPHX-316 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream admin suite parity is not claimed.",
+      "Selected installed/browser e2e flows remain blocked until real installed oracle/candidate roots, generated-overlay discipline, database/user/session/nonce state, and Playwright/browser execution exist.",
+      "Typed HXX/HHX admin feature-template ownership remains limited to the WPHX-315 pilot; WPHX-316 does not add HXX-owned feature-screen templates.",
+      "Generated overlays, generated original-path adapters, durable public PHP ownership, and broad installed admin parity require future WPHX PHP adapter evidence or real installed admin/browser gates.",
+      "This closes the bounded WPHX-316 admin feature/AJAX evidence slice, not all WordPress admin behavior or complete ecosystem parity."
+    ],
+    "follow_up_guidance": [
+      "Prefer generated original-path adapters or a real installed admin/browser runner before making stronger WPHX-316 feature-screen parity claims.",
+      "Any future candidate divergence in copied package/route fixtures requires a non-empty generated overlay manifest and zero unexpected candidate differences.",
+      "Network-admin wrapper execution can be added as a narrow follow-up only if it contributes evidence beyond the current WPHX-317 handoff and WPHX-316 plugin-management route fixture."
+    ]
+  }
+}
