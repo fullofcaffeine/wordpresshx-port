@@ -1,0 +1,492 @@
+{
+  "schema": "wphx.wp-core-admin-ajax-post-oracle-fixture.v1",
+  "issue": "WPHX-316.03",
+  "generated_at": "2026-07-04T02:30:00.000Z",
+  "generator": "tools/wp-core/run-admin-ajax-post-oracle-fixture.mjs",
+  "evidence_classes": [
+    "copied_oracle_fixture",
+    "targeted_behavior_observation"
+  ],
+  "artifact_scope": "bridge_fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+      "bytes": 39441,
+      "sha256": "sha256:7d36e6279677a9d479855f1191b70653c4ee248ad010e8556ed7d57d5890696d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+      "bytes": 19078,
+      "sha256": "sha256:9a2c25e41d5ce51044b8b2a79b2f190375e987bc1a3c92a267db490fd4926104"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-admin/admin-ajax.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/admin-ajax.php",
+        "bytes": 5146,
+        "sha256": "sha256:06f3a0e4fbeaed4f965f5fe22f3d767faaa0c775d1446975bf420f4b85ba7a01"
+      },
+      {
+        "path": "src/wp-admin/admin-post.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/admin-post.php",
+        "bytes": 2021,
+        "sha256": "sha256:7c0267056bc94e1260b9da6f9d1835010287b9630d474ee29ead14019098f5f0"
+      },
+      {
+        "path": "src/wp-admin/includes/ajax-actions.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/includes/ajax-actions.php",
+        "bytes": 152775,
+        "sha256": "sha256:7fd86b5b8a6e1a72ac0440dddc26be9b800fd1cb258f7fb9cf23f6af3999f69b"
+      }
+    ],
+    "support_stubs": [
+      "wp-load.php",
+      "wp-admin/includes/admin.php"
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-admin-ajax-post-oracle-fixture.mjs",
+      "bytes": 21892,
+      "sha256": "sha256:231cb51ef8898ded1c21bd5987ba178f224071dcf8f5e618c01f6c2c7f50b34a"
+    }
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/admin-ajax.php",
+      "src/wp-admin/admin-post.php",
+      "src/wp-admin/includes/ajax-actions.php"
+    ],
+    "support_stubs": [
+      "wp-load.php",
+      "wp-admin/includes/admin.php"
+    ],
+    "covered_symbols": [
+      "wp-admin/admin-ajax.php",
+      "wp-admin/admin-post.php",
+      "wp_ajax_logged_in",
+      "wp_ajax_nopriv_heartbeat",
+      "wp_ajax_closed_postboxes",
+      "wp_ajax_hidden_columns",
+      "wp_send_json",
+      "wp_send_json_success",
+      "wp_die",
+      "has_action",
+      "do_action",
+      "check_ajax_referer",
+      "update_user_meta",
+      "sanitize_text_field"
+    ],
+    "cases": [
+      {
+        "id": "ajax:missing-action",
+        "focus": "admin-ajax rejects missing action with wp_die 0/400 before handler loading branches can dispatch"
+      },
+      {
+        "id": "ajax:logged-in-registered",
+        "focus": "admin-ajax registers a core GET action and dispatches wp_ajax_logged_in for authenticated users"
+      },
+      {
+        "id": "ajax:nopriv-heartbeat",
+        "focus": "admin-ajax registers and dispatches wp_ajax_nopriv_heartbeat with JSON response observations"
+      },
+      {
+        "id": "ajax:closed-postboxes",
+        "focus": "admin-ajax dispatches a POST handler with nonce check and user-meta side effects"
+      },
+      {
+        "id": "ajax:hidden-columns-invalid-page",
+        "focus": "admin-ajax dispatches hidden-columns and records the sanitize_key page guard failure"
+      },
+      {
+        "id": "admin-post:logged-in-empty-action",
+        "focus": "admin-post runs the authenticated empty-action hook and returns normally"
+      },
+      {
+        "id": "admin-post:nopriv-missing-handler",
+        "focus": "admin-post rejects a logged-out action with no registered nopriv handler"
+      },
+      {
+        "id": "admin-post:logged-in-registered",
+        "focus": "admin-post dispatches a deterministic authenticated action registered by the admin bootstrap stub"
+      }
+    ],
+    "oracle": {
+      "ajax:missing-action": {
+        "case": "ajax:missing-action",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "0",
+          "response": 400
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:logged-in-registered": {
+        "case": "ajax:logged-in-registered",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "1",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_logged-in"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:nopriv-heartbeat": {
+        "case": "ajax:nopriv-heartbeat",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_send_json",
+          "status_code": null,
+          "response": {
+            "server_time": "<int>"
+          }
+        },
+        "json_response": {
+          "server_time": "<int>"
+        },
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_nopriv_heartbeat"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:closed-postboxes": {
+        "case": "ajax:closed-postboxes",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "1",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_closed-postboxes"
+        ],
+        "nonce_checks": [
+          {
+            "action": "closedpostboxes",
+            "query_arg": "closedpostboxesnonce",
+            "result": 1
+          }
+        ],
+        "user_meta": [
+          {
+            "user_id": 42,
+            "key": "closedpostboxes_dashboard",
+            "value": [
+              "box-one",
+              "box-two"
+            ]
+          },
+          {
+            "user_id": 42,
+            "key": "metaboxhidden_dashboard",
+            "value": {
+              "1": "box-three"
+            }
+          }
+        ],
+        "admin_post_callback": null
+      },
+      "ajax:hidden-columns-invalid-page": {
+        "case": "ajax:hidden-columns-invalid-page",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "0",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_hidden-columns"
+        ],
+        "nonce_checks": [
+          {
+            "action": "screen-options-nonce",
+            "query_arg": "screenoptionnonce",
+            "result": 1
+          }
+        ],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:logged-in-empty-action": {
+        "case": "admin-post:logged-in-empty-action",
+        "target": "wp-admin/admin-post.php",
+        "completed": true,
+        "exception": null,
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "admin_post"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:nopriv-missing-handler": {
+        "case": "admin-post:nopriv-missing-handler",
+        "target": "wp-admin/admin-post.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "",
+          "response": 400
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:logged-in-registered": {
+        "case": "admin-post:logged-in-registered",
+        "target": "wp-admin/admin-post.php",
+        "completed": true,
+        "exception": null,
+        "json_response": null,
+        "output": "admin-post-dispatched",
+        "actions": [
+          "admin_init",
+          "admin_post_wphx_save"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": {
+          "action": "wphx_save",
+          "method": "POST"
+        }
+      }
+    },
+    "candidate": {
+      "ajax:missing-action": {
+        "case": "ajax:missing-action",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "0",
+          "response": 400
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:logged-in-registered": {
+        "case": "ajax:logged-in-registered",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "1",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_logged-in"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:nopriv-heartbeat": {
+        "case": "ajax:nopriv-heartbeat",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_send_json",
+          "status_code": null,
+          "response": {
+            "server_time": "<int>"
+          }
+        },
+        "json_response": {
+          "server_time": "<int>"
+        },
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_nopriv_heartbeat"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "ajax:closed-postboxes": {
+        "case": "ajax:closed-postboxes",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "1",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_closed-postboxes"
+        ],
+        "nonce_checks": [
+          {
+            "action": "closedpostboxes",
+            "query_arg": "closedpostboxesnonce",
+            "result": 1
+          }
+        ],
+        "user_meta": [
+          {
+            "user_id": 42,
+            "key": "closedpostboxes_dashboard",
+            "value": [
+              "box-one",
+              "box-two"
+            ]
+          },
+          {
+            "user_id": 42,
+            "key": "metaboxhidden_dashboard",
+            "value": {
+              "1": "box-three"
+            }
+          }
+        ],
+        "admin_post_callback": null
+      },
+      "ajax:hidden-columns-invalid-page": {
+        "case": "ajax:hidden-columns-invalid-page",
+        "target": "wp-admin/admin-ajax.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "0",
+          "response": null
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "wp_ajax_hidden-columns"
+        ],
+        "nonce_checks": [
+          {
+            "action": "screen-options-nonce",
+            "query_arg": "screenoptionnonce",
+            "result": 1
+          }
+        ],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:logged-in-empty-action": {
+        "case": "admin-post:logged-in-empty-action",
+        "target": "wp-admin/admin-post.php",
+        "completed": true,
+        "exception": null,
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init",
+          "admin_post"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:nopriv-missing-handler": {
+        "case": "admin-post:nopriv-missing-handler",
+        "target": "wp-admin/admin-post.php",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "",
+          "response": 400
+        },
+        "json_response": null,
+        "output": "",
+        "actions": [
+          "admin_init"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": null
+      },
+      "admin-post:logged-in-registered": {
+        "case": "admin-post:logged-in-registered",
+        "target": "wp-admin/admin-post.php",
+        "completed": true,
+        "exception": null,
+        "json_response": null,
+        "output": "admin-post-dispatched",
+        "actions": [
+          "admin_init",
+          "admin_post_wphx_save"
+        ],
+        "nonce_checks": [],
+        "user_meta": [],
+        "admin_post_callback": {
+          "action": "wphx_save",
+          "method": "POST"
+        }
+      }
+    },
+    "observation_count": 8,
+    "matching_observations": true
+  },
+  "claims": {
+    "targeted_copied_oracle_behavior_claimed": true,
+    "broad_behavior_parity_claimed": false,
+    "public_php_replacement_claimed": false,
+    "haxe_runtime_ownership_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "database_backed_state_claimed": false,
+    "browser_editor_behavior_claimed": false,
+    "generated_original_path_adapter_claimed": false,
+    "generated_candidate_overlay_claimed": false
+  },
+  "non_claims": [
+    "Does not claim generated replacement for wp-admin/admin-ajax.php, wp-admin/admin-post.php, or wp-admin/includes/ajax-actions.php.",
+    "Does not execute WordPress bootstrap, a real database, real users/sessions, real nonces, real headers, browser/editor behavior, or installed admin routes.",
+    "Does not claim broad admin AJAX parity, upstream PHPUnit pass/pass parity, public PHP ABI ownership, or durable original-path adapter ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 8,
+    "source_file_count": 3,
+    "covered_symbol_count": 14,
+    "oracle_candidate_match": true
+  }
+}

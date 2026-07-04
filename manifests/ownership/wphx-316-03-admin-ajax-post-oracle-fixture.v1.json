@@ -1,0 +1,57 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/admin-ajax-post-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-6d22",
+    "external_ref": "WPHX-316.03"
+  },
+  "unit": {
+    "kind": "copied_oracle_fixture",
+    "name": "admin AJAX and admin-post route dispatch fixture",
+    "area": "wp-admin/admin-ajax.php wp-admin/admin-post.php wp-admin/includes/ajax-actions.php",
+    "public_contract": "This slice executes copied upstream WordPress route files under deterministic stubs for oracle/candidate behavior observations. It does not claim generated public PHP replacement, installed admin parity, or Haxe-owned route execution."
+  },
+  "ownership_state": "external_oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress_oracle",
+    "adapter_contract_owner": "haxe_typed_prior_slice",
+    "emission_strategy": "copied_upstream_public_php_with_deterministic_bootstrap_stubs",
+    "execution_provider": "php_oracle_candidate_probe",
+    "compatibility_evidence": "targeted_copied_oracle_behavior"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "copied-upstream-oracle-candidate-fixture",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass admin-ajax/admin-post route dispatch, selected AJAX handler, nonce/capability, JSON/wp_die response, upstream PHPUnit, browser/e2e, database-backed installed admin, and ecosystem plugin gates before claiming public PHP ownership or installed admin parity."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-admin-ajax-post-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json"
+  ],
+  "copied_upstream_inputs": [
+    "src/wp-admin/admin-ajax.php",
+    "src/wp-admin/admin-post.php",
+    "src/wp-admin/includes/ajax-actions.php"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+    "build/wp-core/wphx-316-03"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-316-admin-ajax-post-oracle-fixture",
+      "npm run wp:core:wphx-316-admin-ajax-post-oracle-fixture:check",
+      "npm run operations:bridge-claim-guardrails:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-316-03-admin-ajax-post-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:ca228573671762a50859ed4462d6c3abc9007e4bcd208c904c99c699f5f66648"
+  },
+  "notes": "Mirrored PHP is regenerated under build/ only. The candidate currently matches the upstream oracle by construction; future generated overlays require an explicit overlay manifest and additional gates."
+}
