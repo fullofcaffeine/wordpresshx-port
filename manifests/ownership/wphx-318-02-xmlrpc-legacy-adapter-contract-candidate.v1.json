@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/xmlrpc-legacy-adapter-contract-candidate",
+  "issue": {
+    "id": "wordpresshx-hoin",
+    "external_ref": "WPHX-318.02"
+  },
+  "unit": {
+    "kind": "haxe_adapter_contract",
+    "name": "XML-RPC, legacy, deprecated API endpoint, guard, IXR handoff, boundary, and cross-domain decisions",
+    "area": "xmlrpc.php wp-includes/class-wp-xmlrpc-server.php wp-includes/class-IXR.php wp-includes/deprecated.php wp-content/plugins/hello.php wp-content/plugins/akismet/* wp-includes/IXR/*",
+    "public_contract": "Haxe owns a typed WPHX-318 adapter-contract decision model. Public xmlrpc.php replacement, wp_xmlrpc_server behavior, IXR request/response serialization, deprecated API behavior parity, bundled plugin implementation ownership, database-backed installed behavior, and generated original-path adapter ownership are not claimed in this slice."
+  },
+  "ownership_state": "haxe_parity_candidate",
+  "ownership_axes": {
+    "semantic_owner": "haxe",
+    "adapter_contract_owner": "haxe_typed",
+    "emission_strategy": "stock_haxe_php_private_impl",
+    "execution_provider": "haxe_php",
+    "compatibility_evidence": "targeted_adapter_contract"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "adapter-contract-candidate-without-public-php-installation",
+    "removal_gate": "Install these decisions through typed Adapter IR/original-path generation and pass xmlrpc.php endpoint/bootstrap, wp_xmlrpc_server method registry/auth/fault, IXR request/response serialization, deprecated API behavior, bundled plugin provenance, selected upstream PHPUnit, installed HTTP route, database-backed, and generated-overlay gates before claiming public PHP ABI ownership or XML-RPC/deprecated API parity."
+  },
+  "owned_paths": [
+    "fixtures/wp-core/xmlrpc-legacy-adapter-contract-candidate.hxml",
+    "src/wphx/wp/xmlrpc/XmlRpcLegacyAdapterContract.hx",
+    "fixtures/wp-core/src/wphx/fixtures/wp/core/XmlRpcLegacyAdapterContractCandidateEntry.hx",
+    "tools/wp-core/run-xmlrpc-legacy-adapter-contract-candidate.mjs",
+    "manifests/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "manifests/ownership/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "receipts/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "build/wp-core/wphx-318-02"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-318-xmlrpc-legacy-adapter-contract-candidate",
+      "npm run wp:core:wphx-318-xmlrpc-legacy-adapter-contract-candidate:check",
+      "npm run haxe:escape-hatches:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-318-02-xmlrpc-legacy-adapter-contract-candidate"
+    ],
+    "manifest_digest": "sha256:4b3cfb474a69b632975150a9d67862970dbdcebdc87fffc195cd9f4b14d8fa05"
+  },
+  "notes": "This is a PHP-hosted Haxe candidate with module-level Haxe functions and typed enums. It adds no handwritten production PHP shell and no public WordPress file replacement."
+}
