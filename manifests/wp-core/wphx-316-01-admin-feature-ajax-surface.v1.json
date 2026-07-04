@@ -1,0 +1,964 @@
+{
+  "schema": "wphx.wp-core-admin-feature-ajax-surface.v1",
+  "issue": "WPHX-316.01",
+  "generated_at": "2026-07-04T00:30:00.000Z",
+  "generator": "tools/wp-core/run-admin-feature-ajax-surface.mjs",
+  "inputs": {
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    },
+    "admin_common_surface": {
+      "path": "manifests/wp-core/wphx-315-01-admin-common-list-table-surface.v1.json",
+      "bytes": 109821,
+      "sha256": "sha256:85887acd510bedc90b2d24644965961ea909f6bfe6a72eee6452dbe4665c7a22"
+    },
+    "upstream_checkout": {
+      "path": "../wordpress-develop",
+      "expected_source_prefix": "src/wp-admin",
+      "head": "26b68024931348d267b70e2a29910e1320d0094f",
+      "status_short": [
+        "?? repomix-output.wordpress.xml",
+        "?? repomix-output.wordpress.xml.zip"
+      ]
+    }
+  },
+  "scope": {
+    "owner": "WPHX-316",
+    "included": "C1 WordPress 7.0 PHP source and distribution artifacts classified to admin feature screens, AJAX entrypoints/actions, settings/options screens, selected network feature pages, privacy management screens, plugin management screens, taxonomy/content edit screens, tools pages, and the site-editor/admin shell by the WPHX-322 owner rules.",
+    "cross_domain_notes": [
+      {
+        "owner": "WPHX-315",
+        "reason": "WPHX-316 builds on admin common chrome, current screen, menu, notice, and list-table primitives rather than replacing them."
+      },
+      {
+        "owner": "WPHX-306",
+        "reason": "User/profile/application-password behavior, nonces, capabilities, and sessions remain auth-domain ownership."
+      },
+      {
+        "owner": "WPHX-307/WPHX-308",
+        "reason": "Admin post/comment/term screens are feature shells over post, taxonomy, and comment semantics owned by their source domains."
+      },
+      {
+        "owner": "WPHX-310/WPHX-314/WPHX-400",
+        "reason": "Site editor, customization, block-editor, and browser/editor package behavior require theme, block, and browser/Gutenberg evidence before installed claims."
+      },
+      {
+        "owner": "WPHX-313/WPHX-319",
+        "reason": "Media/upload and update/installer feature screens remain separate source-domain and distribution gates."
+      },
+      {
+        "owner": "WPHX-317",
+        "reason": "Network-admin state and multisite behavior remain WPHX-317 even when WPHX-316 inventories route shells."
+      }
+    ],
+    "semantic_handoff_candidates": [
+      {
+        "path": "src/wp-admin/admin-post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/async-upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/customize.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/edit-comments.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/edit-form-blocks.php",
+        "owner": "WPHX-314",
+        "reason": "This admin-adjacent path belongs to a neighboring source domain and is a handoff, not WPHX-316 ownership."
+      },
+      {
+        "path": "src/wp-admin/edit-form-comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/includes/class-bulk-theme-upgrader-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-file-upload-upgrader.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-installer-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-upgrader-skin.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-theme-upgrader.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-walker-nav-menu-edit.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-comments-list-table.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-media-list-table.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ms-themes-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-ms-users-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-plugin-install-list-table.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-post-comments-list-table.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-posts-list-table.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-data-export-requests-list-table.php",
+        "owner": "WPHX-312",
+        "reason": "This admin-adjacent path belongs to a neighboring source domain and is a handoff, not WPHX-316 ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-data-removal-requests-list-table.php",
+        "owner": "WPHX-312",
+        "reason": "This admin-adjacent path belongs to a neighboring source domain and is a handoff, not WPHX-316 ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-policy-content.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-privacy-requests-table.php",
+        "owner": "WPHX-312",
+        "reason": "This admin-adjacent path belongs to a neighboring source domain and is a handoff, not WPHX-316 ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-terms-list-table.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-theme-install-list-table.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-themes-list-table.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/class-wp-users-list-table.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/includes/comment.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/includes/image-edit.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/includes/media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/includes/options.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/includes/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/includes/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/theme.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/includes/translation-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/includes/user.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/install-helper.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/media-new.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/media-upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/ms-edit.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/ms-options.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/ms-themes.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/ms-users.php",
+        "owner": "WPHX-317",
+        "reason": "Multisite/network state and network list tables remain WPHX-317 even when reached through admin routes."
+      },
+      {
+        "path": "src/wp-admin/network/index.php",
+        "owner": "WPHX-309",
+        "reason": "This admin-adjacent path belongs to a neighboring source domain and is a handoff, not WPHX-316 ownership."
+      },
+      {
+        "path": "src/wp-admin/network/menu.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/network/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/profile.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/network/site-themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/site-users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/network/theme-editor.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/network/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/network/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/network/user-new.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/network/users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/options-media.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/options.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/plugin-install.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/post-new.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/post.php",
+        "owner": "WPHX-307",
+        "reason": "Admin post/revision/admin-post shells expose feature screens, but post storage, metadata, statuses, and WP_Query semantics remain WPHX-307."
+      },
+      {
+        "path": "src/wp-admin/privacy-policy-guide.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/privacy.php",
+        "owner": "WPHX-315",
+        "reason": "Common admin chrome, menu, screen, and list-table primitives are prerequisites owned by WPHX-315."
+      },
+      {
+        "path": "src/wp-admin/term.php",
+        "owner": "WPHX-308",
+        "reason": "Admin comment/term shells expose feature screens, but comment, taxonomy, and term semantics remain WPHX-308."
+      },
+      {
+        "path": "src/wp-admin/theme-editor.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/theme-install.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/themes.php",
+        "owner": "WPHX-310",
+        "reason": "Customizer, theme, widget, nav-menu, and site-editor-adjacent behavior remains theme/customizer ownership."
+      },
+      {
+        "path": "src/wp-admin/update-core.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/update.php",
+        "owner": "WPHX-319",
+        "reason": "Updater, installer, upgrader, maintenance, and recovery flows remain WPHX-319."
+      },
+      {
+        "path": "src/wp-admin/upload.php",
+        "owner": "WPHX-313",
+        "reason": "Media/upload/filesystem admin flows depend on image and filesystem behavior owned by WPHX-313."
+      },
+      {
+        "path": "src/wp-admin/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user-new.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/about.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/admin.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/contribute.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/credits.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/freedoms.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/index.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/menu.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/privacy.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/profile.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/user/user-edit.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      },
+      {
+        "path": "src/wp-admin/users.php",
+        "owner": "WPHX-306",
+        "reason": "Admin user/profile/application-password behavior depends on auth, capabilities, nonces, sessions, and user metadata owned by WPHX-306."
+      }
+    ]
+  },
+  "coverage": {
+    "source_count": 38,
+    "artifact_count": 38,
+    "abi_entry_count": 114,
+    "class_count": 0,
+    "named_class_count": 0,
+    "test_count": 32,
+    "source_by_group": {
+      "about_credits_network_pages": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/credits.php",
+          "src/wp-admin/includes/credits.php"
+        ]
+      },
+      "admin_feature_misc": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/edit-link-form.php"
+        ]
+      },
+      "ajax_entrypoints_and_actions": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/admin-ajax.php",
+          "src/wp-admin/includes/ajax-actions.php"
+        ]
+      },
+      "content_editing_screens": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/edit-form-advanced.php",
+          "src/wp-admin/edit.php"
+        ]
+      },
+      "network_admin_feature_screens": {
+        "count": 16,
+        "paths": [
+          "src/wp-admin/network/about.php",
+          "src/wp-admin/network/admin.php",
+          "src/wp-admin/network/contribute.php",
+          "src/wp-admin/network/credits.php",
+          "src/wp-admin/network/edit.php",
+          "src/wp-admin/network/freedoms.php",
+          "src/wp-admin/network/plugin-editor.php",
+          "src/wp-admin/network/plugins.php",
+          "src/wp-admin/network/privacy.php",
+          "src/wp-admin/network/settings.php",
+          "src/wp-admin/network/setup.php",
+          "src/wp-admin/network/site-info.php",
+          "src/wp-admin/network/site-new.php",
+          "src/wp-admin/network/site-settings.php",
+          "src/wp-admin/network/sites.php",
+          "src/wp-admin/network/upgrade.php"
+        ]
+      },
+      "plugin_management_screens": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/plugin-editor.php"
+        ]
+      },
+      "privacy_management_screens": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/includes/privacy-tools.php"
+        ]
+      },
+      "settings_options_screens": {
+        "count": 8,
+        "paths": [
+          "src/wp-admin/options-connectors.php",
+          "src/wp-admin/options-discussion.php",
+          "src/wp-admin/options-general.php",
+          "src/wp-admin/options-head.php",
+          "src/wp-admin/options-permalink.php",
+          "src/wp-admin/options-privacy.php",
+          "src/wp-admin/options-reading.php",
+          "src/wp-admin/options-writing.php"
+        ]
+      },
+      "site_editor_shell": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/site-editor.php"
+        ]
+      },
+      "taxonomy_feature_screens": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/edit-tag-form.php",
+          "src/wp-admin/edit-tags.php",
+          "src/wp-admin/includes/edit-tag-messages.php"
+        ]
+      },
+      "tools_feature_shell": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/tools.php"
+        ]
+      }
+    },
+    "artifact_by_group": {
+      "about_credits_network_pages": {
+        "count": 2,
+        "paths": [
+          "wp-admin/credits.php",
+          "wp-admin/includes/credits.php"
+        ]
+      },
+      "admin_feature_misc": {
+        "count": 1,
+        "paths": [
+          "wp-admin/edit-link-form.php"
+        ]
+      },
+      "ajax_entrypoints_and_actions": {
+        "count": 2,
+        "paths": [
+          "wp-admin/admin-ajax.php",
+          "wp-admin/includes/ajax-actions.php"
+        ]
+      },
+      "content_editing_screens": {
+        "count": 2,
+        "paths": [
+          "wp-admin/edit-form-advanced.php",
+          "wp-admin/edit.php"
+        ]
+      },
+      "network_admin_feature_screens": {
+        "count": 16,
+        "paths": [
+          "wp-admin/network/about.php",
+          "wp-admin/network/admin.php",
+          "wp-admin/network/contribute.php",
+          "wp-admin/network/credits.php",
+          "wp-admin/network/edit.php",
+          "wp-admin/network/freedoms.php",
+          "wp-admin/network/plugin-editor.php",
+          "wp-admin/network/plugins.php",
+          "wp-admin/network/privacy.php",
+          "wp-admin/network/settings.php",
+          "wp-admin/network/setup.php",
+          "wp-admin/network/site-info.php",
+          "wp-admin/network/site-new.php",
+          "wp-admin/network/site-settings.php",
+          "wp-admin/network/sites.php",
+          "wp-admin/network/upgrade.php"
+        ]
+      },
+      "plugin_management_screens": {
+        "count": 1,
+        "paths": [
+          "wp-admin/plugin-editor.php"
+        ]
+      },
+      "privacy_management_screens": {
+        "count": 1,
+        "paths": [
+          "wp-admin/includes/privacy-tools.php"
+        ]
+      },
+      "settings_options_screens": {
+        "count": 8,
+        "paths": [
+          "wp-admin/options-connectors.php",
+          "wp-admin/options-discussion.php",
+          "wp-admin/options-general.php",
+          "wp-admin/options-head.php",
+          "wp-admin/options-permalink.php",
+          "wp-admin/options-privacy.php",
+          "wp-admin/options-reading.php",
+          "wp-admin/options-writing.php"
+        ]
+      },
+      "site_editor_shell": {
+        "count": 1,
+        "paths": [
+          "wp-admin/site-editor.php"
+        ]
+      },
+      "taxonomy_feature_screens": {
+        "count": 3,
+        "paths": [
+          "wp-admin/edit-tag-form.php",
+          "wp-admin/edit-tags.php",
+          "wp-admin/includes/edit-tag-messages.php"
+        ]
+      },
+      "tools_feature_shell": {
+        "count": 1,
+        "paths": [
+          "wp-admin/tools.php"
+        ]
+      }
+    },
+    "abi_by_group": {
+      "about_credits_network_pages": {
+        "count": 5,
+        "functions": [
+          "_wp_credits_add_profile_link",
+          "_wp_credits_build_object_link",
+          "wp_credits",
+          "wp_credits_section_list",
+          "wp_credits_section_title"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "ajax_entrypoints_and_actions": {
+        "count": 98,
+        "functions": [
+          "_wp_ajax_add_hierarchical_term",
+          "_wp_ajax_delete_comment_response",
+          "wp_ajax_activate_plugin",
+          "wp_ajax_add_link_category",
+          "wp_ajax_add_menu_item",
+          "wp_ajax_add_meta",
+          "wp_ajax_add_tag",
+          "wp_ajax_add_user",
+          "wp_ajax_ajax_tag_search",
+          "wp_ajax_autocomplete_user",
+          "wp_ajax_closed_postboxes",
+          "wp_ajax_crop_image",
+          "wp_ajax_dashboard_widgets",
+          "wp_ajax_date_format",
+          "wp_ajax_delete_comment",
+          "wp_ajax_delete_inactive_widgets",
+          "wp_ajax_delete_link",
+          "wp_ajax_delete_meta",
+          "wp_ajax_delete_page",
+          "wp_ajax_delete_plugin",
+          "wp_ajax_delete_post",
+          "wp_ajax_delete_tag",
+          "wp_ajax_delete_theme",
+          "wp_ajax_destroy_sessions",
+          "wp_ajax_dim_comment",
+          "wp_ajax_dismiss_wp_pointer",
+          "wp_ajax_edit_comment",
+          "wp_ajax_edit_theme_plugin_file",
+          "wp_ajax_fetch_list",
+          "wp_ajax_find_posts",
+          "wp_ajax_generate_password",
+          "wp_ajax_get_attachment",
+          "wp_ajax_get_comments",
+          "wp_ajax_get_community_events",
+          "wp_ajax_get_permalink",
+          "wp_ajax_get_post_thumbnail_html",
+          "wp_ajax_get_revision_diffs",
+          "wp_ajax_get_tagcloud",
+          "wp_ajax_health_check_background_updates",
+          "wp_ajax_health_check_dotorg_communication",
+          "wp_ajax_health_check_get_sizes",
+          "wp_ajax_health_check_loopback_requests",
+          "wp_ajax_health_check_site_status_result",
+          "wp_ajax_heartbeat",
+          "wp_ajax_hidden_columns",
+          "wp_ajax_image_editor",
+          "wp_ajax_imgedit_preview",
+          "wp_ajax_inline_save",
+          "wp_ajax_inline_save_tax",
+          "wp_ajax_install_plugin",
+          "wp_ajax_install_theme",
+          "wp_ajax_logged_in",
+          "wp_ajax_media_create_image_subsizes",
+          "wp_ajax_menu_get_metabox",
+          "wp_ajax_menu_locations_save",
+          "wp_ajax_menu_quick_search",
+          "wp_ajax_meta_box_order",
+          "wp_ajax_nopriv_generate_password",
+          "wp_ajax_nopriv_heartbeat",
+          "wp_ajax_oembed_cache",
+          "wp_ajax_parse_embed",
+          "wp_ajax_parse_media_shortcode",
+          "wp_ajax_query_attachments",
+          "wp_ajax_query_themes",
+          "wp_ajax_replyto_comment",
+          "wp_ajax_rest_nonce",
+          "wp_ajax_sample_permalink",
+          "wp_ajax_save_attachment",
+          "wp_ajax_save_attachment_compat",
+          "wp_ajax_save_attachment_order",
+          "wp_ajax_save_user_color_scheme",
+          "wp_ajax_save_widget",
+          "wp_ajax_save_wporg_username",
+          "wp_ajax_search_install_plugins",
+          "wp_ajax_search_plugins",
+          "wp_ajax_send_attachment_to_editor",
+          "wp_ajax_send_link_to_editor",
+          "wp_ajax_send_password_reset",
+          "wp_ajax_set_attachment_thumbnail",
+          "wp_ajax_set_post_thumbnail",
+          "wp_ajax_time_format",
+          "wp_ajax_toggle_auto_updates",
+          "wp_ajax_trash_post",
+          "wp_ajax_untrash_post",
+          "wp_ajax_update_plugin",
+          "wp_ajax_update_theme",
+          "wp_ajax_update_welcome_panel",
+          "wp_ajax_update_widget",
+          "wp_ajax_upload_attachment",
+          "wp_ajax_widgets_order",
+          "wp_ajax_wp_compression_test",
+          "wp_ajax_wp_fullscreen_save_post",
+          "wp_ajax_wp_link_ajax",
+          "wp_ajax_wp_privacy_erase_personal_data",
+          "wp_ajax_wp_privacy_export_personal_data",
+          "wp_ajax_wp_remove_post_lock"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "network_admin_feature_screens": {
+        "count": 1,
+        "functions": [],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "privacy_management_screens": {
+        "count": 9,
+        "functions": [
+          "_wp_personal_data_cleanup_requests",
+          "_wp_personal_data_handle_actions",
+          "_wp_privacy_completed_request",
+          "_wp_privacy_resend_request",
+          "wp_privacy_generate_personal_data_export_file",
+          "wp_privacy_generate_personal_data_export_group_html",
+          "wp_privacy_process_personal_data_erasure_page",
+          "wp_privacy_process_personal_data_export_page",
+          "wp_privacy_send_personal_data_export_email"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      },
+      "site_editor_shell": {
+        "count": 1,
+        "functions": [
+          "_wp_get_site_editor_redirection_url"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": []
+      }
+    },
+    "classes": [],
+    "abi_risks": {
+      "functions_with_reference_parameters": [
+        "_wp_credits_add_profile_link",
+        "_wp_credits_build_object_link"
+      ],
+      "variadic_functions": [],
+      "conditional_functions": []
+    },
+    "test_paths": [
+      "tests/e2e/specs/edit-posts.test.js",
+      "tests/e2e/specs/empty-trash-restore-trashed-posts.test.js",
+      "tests/performance/specs/admin.test.js",
+      "tests/phpunit/includes/testcase-ajax.php",
+      "tests/phpunit/tests/admin/exportWp.php",
+      "tests/phpunit/tests/admin/includesPost.php",
+      "tests/phpunit/tests/ajax/wpAjaxAddMeta.php",
+      "tests/phpunit/tests/ajax/wpAjaxAddTag.php",
+      "tests/phpunit/tests/ajax/wpAjaxAjaxTagSearch.php",
+      "tests/phpunit/tests/ajax/wpAjaxCropImage.php",
+      "tests/phpunit/tests/ajax/wpAjaxDeleteComment.php",
+      "tests/phpunit/tests/ajax/wpAjaxDeletePlugin.php",
+      "tests/phpunit/tests/ajax/wpAjaxDimComment.php",
+      "tests/phpunit/tests/ajax/wpAjaxEditComment.php",
+      "tests/phpunit/tests/ajax/wpAjaxGetComments.php",
+      "tests/phpunit/tests/ajax/wpAjaxHeartbeat.php",
+      "tests/phpunit/tests/ajax/wpAjaxImageEditor.php",
+      "tests/phpunit/tests/ajax/wpAjaxInlineSave.php",
+      "tests/phpunit/tests/ajax/wpAjaxParseMediaShortcode.php",
+      "tests/phpunit/tests/ajax/wpAjaxReplytoComment.php",
+      "tests/phpunit/tests/ajax/wpAjaxResponse.php",
+      "tests/phpunit/tests/ajax/wpAjaxSendAttachmentToEditor.php",
+      "tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+      "tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+      "tests/phpunit/tests/ajax/wpAjaxWpCompressionTest.php",
+      "tests/phpunit/tests/ajax/wpAjaxWpPrivacyErasePersonalData.php",
+      "tests/phpunit/tests/ajax/wpAjaxWpPrivacyExportPersonalData.php",
+      "tests/phpunit/tests/ajax/wpCustomizeManager.php",
+      "tests/phpunit/tests/ajax/wpCustomizeNavMenus.php",
+      "tests/phpunit/tests/menu/wpAjaxMenuQuickSearch.php",
+      "tests/phpunit/tests/option/userSettings.php",
+      "tests/phpunit/tests/option/wpUserSettings.php"
+    ]
+  },
+  "evidence_plan": {
+    "first_haxe_candidate": "A typed admin feature/AJAX adapter-contract model for request action routing, nonce/capability guard intent, JSON/XML/HTML response shape, settings-screen routing, and feature-screen output phase boundaries.",
+    "required_next_fixtures": [
+      "admin-ajax action routing, wp_die/JSON response, and nonce/capability guard fixture",
+      "admin-post action routing and redirect/notice intent handoff fixture with WPHX-307 ownership noted",
+      "settings/options screen registration and form submission oracle fixture",
+      "post/comment/term feature-screen route and action-state fixture over copied oracle PHP",
+      "privacy management AJAX/export/erase feature-screen fixture coordinated with WPHX-312/WPHX-315",
+      "selected upstream PHPUnit ajax/admin feature ratchet groups",
+      "installed-style admin feature/AJAX package gate with database/browser blockers recorded"
+    ],
+    "claim": "This surface manifest bounds WPHX-316 and names fixture gates. It does not claim public PHP replacement, Haxe-owned runtime logic, AJAX behavior parity, installed admin parity, database-backed state, browser/editor behavior, or generated original-path adapters."
+  },
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "source_count": 38,
+    "artifact_count": 38,
+    "abi_entry_count": 114,
+    "class_count": 0,
+    "test_count": 32
+  }
+}

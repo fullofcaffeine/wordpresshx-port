@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/admin-feature-ajax-surface",
+  "issue": {
+    "id": "wordpresshx-jq9l",
+    "external_ref": "WPHX-316.01"
+  },
+  "unit": {
+    "kind": "surface_inventory",
+    "name": "admin feature screens, admin AJAX, settings screens, and feature-route shells",
+    "area": "wp-admin/admin-ajax.php wp-admin/includes/ajax-actions.php wp-admin/options-*.php wp-admin/edit*.php wp-admin/network/*",
+    "public_contract": "This slice inventories admin feature/AJAX runtime boundaries and fixture targets. It does not claim migrated runtime behavior, AJAX response parity, installed admin parity, or public PHP ABI replacement."
+  },
+  "ownership_state": "oracle_surface_inventory",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_described",
+    "adapter_contract_owner": "not_yet_started",
+    "emission_strategy": "none",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "surface_inventory"
+  },
+  "bridge": {
+    "exists": false,
+    "kind": "not_applicable",
+    "removal_gate": "Promote bounded admin feature/AJAX decisions to typed Haxe adapter contracts, then later to typed Adapter IR/original-path PHP with AJAX response, admin-post, settings screen, feature-screen, installed admin, and upstream PHPUnit/e2e evidence."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-admin-feature-ajax-surface.mjs",
+    "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+    "manifests/ownership/wphx-316-01-admin-feature-ajax-surface.v1.json",
+    "receipts/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+    "manifests/ownership/wphx-316-01-admin-feature-ajax-surface.v1.json",
+    "receipts/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-316-admin-feature-ajax-surface",
+      "npm run wp:core:wphx-316-admin-feature-ajax-surface:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-316-01-admin-feature-ajax-surface"
+    ],
+    "manifest_digest": "sha256:7d36e6279677a9d479855f1191b70653c4ee248ad010e8556ed7d57d5890696d"
+  }
+}
