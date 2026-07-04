@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-319-parent-closure",
+  "issue": {
+    "id": "wordpresshx-l76.24",
+    "external_ref": "WPHX-319",
+    "title": "WPHX-319 - Updates, installers, upgrader, recovery mode"
+  },
+  "recorded_at": "2026-07-04T15:45:00.000Z",
+  "command": "parent closure after WPHX-319.06 bounded domain-closure receipt",
+  "evidence_class": "parent_domain_closure",
+  "artifact_scope": "wp_core_updates_installers_upgrader_recovery_mode",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-319-domain-closure.v1.json",
+      "role": "bounded WPHX-319 domain-closure receipt",
+      "sha256": "sha256:3ac76c7528bc69c132f6cb497c2ff1a7c580ac32fae66d5ae22a56a3bb61ab92"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program matrix marking WPHX-319 bounded closed"
+    },
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "tracked Beads export with WPHX-319 parent closure"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "domain_closure_receipt": "receipt:wphx-319-domain-closure",
+    "bounded_parent_closed": true,
+    "required_child_gates_closed": [
+      "WPHX-319.01",
+      "WPHX-319.02",
+      "WPHX-319.03",
+      "WPHX-319.04",
+      "WPHX-319.05",
+      "WPHX-319.06"
+    ],
+    "remaining_gaps_preserved": [
+      "Generated public PHP replacement for update, install, upgrader, recovery-mode, Site Health, maintenance, plugin/theme install/update, admin Ajax, and network update files is not claimed.",
+      "Haxe-owned runtime implementations for update APIs, core/plugin/theme/language upgraders, upgrader skins, automatic updates, Site Health update checks, install bootstrap, network update wrappers, maintenance mode, recovery-mode orchestration, and recovery email/link/session behavior are not claimed.",
+      "Live package download, unzip/copy/delete, filesystem credentials/transports, plugin/theme activation, HTTP update API calls, cron locks, mail delivery, database-backed installed state, user/session/capability/nonce behavior, and multisite/network update state remain later gates.",
+      "Selected WPHX-319 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream updates/installers/recovery suite parity is not claimed.",
+      "The WPHX-319.03 copied-oracle fixture executes selected mirrored upstream PHP through deterministic stubs; it does not prove generated public PHP replacement or installed WordPress update/recovery parity.",
+      "The WPHX-319.05 installed/browser gates are declared as blocked until real installed oracle/candidate roots, generated-overlay discipline, package/filesystem/network/mail transports, database/user/session/nonce state, browser/HTTP execution, and diff gates exist.",
+      "Cross-domain ownership remains with WPHX-301 for bootstrap/recovery load order, WPHX-304 for options/transients/locks, WPHX-306 for users/auth/capabilities/nonces/cookies, WPHX-310 for theme semantics, WPHX-312 for HTTP/cron/mail/update API behavior, WPHX-313 for filesystem/upload/package I/O, WPHX-315/WPHX-316 for admin/list-table/Ajax/plugin-management UI, WPHX-317 for multisite state, WPHX-318/WPHX-323 for plugin/vendor boundaries, and WPHX-400 for browser package behavior.",
+      "Generated overlays, generated original-path adapters, durable public PHP ownership, broad installed update/admin parity, live ecosystem/plugin/theme compatibility, and browser/e2e parity require future WPHX PHP adapter evidence or real installed update/recovery gates.",
+      "This closes the bounded WPHX-319 updates/installers/upgrader/recovery evidence slice, not all WordPress update/recovery behavior or complete ecosystem parity."
+    ],
+    "non_blocking_follow_up": "Future WPHX-319 movement should require generated original-path adapters, explicit generated overlay manifests, real installed update/recovery/browser execution, package/filesystem/network/mail/database comparisons, or plugin/theme ecosystem evidence before stronger update/install/recovery parity claims."
+  }
+}
