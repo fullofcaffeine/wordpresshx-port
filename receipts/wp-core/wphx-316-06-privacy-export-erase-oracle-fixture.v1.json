@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-316.06",
+  "beads_issue": "wordpresshx-cqis",
+  "title": "WPHX-316.06 - Add privacy export erase route oracle fixture",
+  "generated_at": "2026-07-04T05:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-316-06-privacy-export-erase-oracle-fixture.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-316-06-privacy-export-erase-oracle-fixture.v1.json",
+    "surface_manifest": "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+    "adapter_contract_manifest": "manifests/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+    "privacy_state_fixture": "manifests/wp-core/wphx-312-11-privacy-request-admin-state-oracle-fixture.v1.json",
+    "privacy_mail_fixture": "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json"
+  },
+  "summary": "Regenerated oracle and candidate roots copy WordPress 7.0 privacy export/erase route files plus includes/privacy-tools.php, execute 8 deterministic route/action/render observations through privacy request/list-table/bootstrap stubs, and match oracle/candidate output.",
+  "checks": [
+    "node tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs",
+    "node tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for export-personal-data.php, erase-personal-data.php, or includes/privacy-tools.php.",
+    "No Haxe-owned privacy route runtime or privacy request storage/mail implementation.",
+    "No installed WordPress bootstrap, admin browser, database-backed request state, or upstream PHPUnit pass/pass parity.",
+    "No ownership of WP_Privacy_Requests_Table or specialized privacy list-table rendering; deterministic list-table stubs only stabilize route observations.",
+    "No generated original-path adapter or durable public PHP implementation artifact."
+  ]
+}

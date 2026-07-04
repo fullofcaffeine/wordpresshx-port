@@ -1,0 +1,1271 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-316.06",
+  "beads_issue": "wordpresshx-cqis",
+  "title": "WPHX-316.06 - Add privacy export erase route oracle fixture",
+  "generated_at": "2026-07-04T05:00:00.000Z",
+  "generator": "tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs",
+  "check_command": "node tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs --check",
+  "upstream": {
+    "checkout": "../wordpress-develop",
+    "authority": "WordPress 7.0 oracle checkout",
+    "read_only": true
+  },
+  "claims": {
+    "targeted_copied_oracle_behavior_claimed": true,
+    "copied_privacy_helper_executed": true,
+    "copied_route_files_executed": true,
+    "deterministic_list_table_stub_used": true,
+    "behavior_parity_claimed": false,
+    "public_php_replacement_claimed": false,
+    "haxe_owned_privacy_route_runtime_claimed": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "database_backed_state_claimed": false,
+    "browser_or_editor_behavior_claimed": false,
+    "upstream_phpunit_pass_claimed": false,
+    "generated_original_path_adapter_claimed": false
+  },
+  "source_files": [
+    {
+      "path": "src/wp-admin/export-personal-data.php",
+      "repo_path": "../wordpress-develop/src/wp-admin/export-personal-data.php",
+      "bytes": 7941,
+      "sha256": "sha256:86ef3c768278124b22cfc01441fc6066d0b69a668ecb386765b0a94566933d0e"
+    },
+    {
+      "path": "src/wp-admin/erase-personal-data.php",
+      "repo_path": "../wordpress-develop/src/wp-admin/erase-personal-data.php",
+      "bytes": 7505,
+      "sha256": "sha256:1f5cea858775cb85104b2e8e848a828126abedfc5f1da6794b645878af799787"
+    },
+    {
+      "path": "src/wp-admin/includes/privacy-tools.php",
+      "repo_path": "../wordpress-develop/src/wp-admin/includes/privacy-tools.php",
+      "bytes": 33441,
+      "sha256": "sha256:3a2ee04b7bf10a5a87c2af9db9052240ac6c9e8829e580cacab22728f2124ebb"
+    }
+  ],
+  "support_stubs": [
+    {
+      "path": "build/wp-core/wphx-316-06/oracle/wp-admin/admin.php",
+      "bytes": 9492,
+      "sha256": "sha256:46de650e7f0e03aa3ab8078d361d726d0b40510f25f9a74e574eed9aa7c6889b"
+    },
+    {
+      "path": "build/wp-core/wphx-316-06/oracle/wp-admin/admin-header.php",
+      "bytes": 63,
+      "sha256": "sha256:cf05eea4d943fa71f452de8dffd73e482c887a7d2b1cacf44c867fbf0e9d659e"
+    },
+    {
+      "path": "build/wp-core/wphx-316-06/oracle/wp-admin/admin-footer.php",
+      "bytes": 61,
+      "sha256": "sha256:82402d14520c9c886f85ca1f3c7e8bc0ab873fa5190a158b4e043115d9b78dbb"
+    }
+  ],
+  "covered_symbols": [
+    "wp-admin/export-personal-data.php",
+    "wp-admin/erase-personal-data.php",
+    "_wp_personal_data_handle_actions",
+    "_wp_personal_data_cleanup_requests",
+    "_wp_privacy_resend_request",
+    "_wp_privacy_completed_request",
+    "wp_create_user_request",
+    "wp_send_user_request",
+    "WP_Query",
+    "WP_Privacy_Data_Export_Requests_List_Table",
+    "WP_Privacy_Data_Removal_Requests_List_Table",
+    "current_user_can",
+    "check_admin_referer",
+    "add_settings_error",
+    "add_screen_option",
+    "wp_nonce_field"
+  ],
+  "fixture_cases": [
+    {
+      "id": "privacy-route:export-capability-denied",
+      "focus": "export screen rejects users without export_others_personal_data capability"
+    },
+    {
+      "id": "privacy-route:erase-capability-denied",
+      "focus": "erase screen rejects users without erase_others_personal_data plus delete_users capabilities"
+    },
+    {
+      "id": "privacy-route:add-export-request-mail",
+      "focus": "export screen add action creates a pending request, sends confirmation mail, and records success notice"
+    },
+    {
+      "id": "privacy-route:add-erase-request-confirmed",
+      "focus": "erase screen add action without confirmation mail creates a confirmed request and records success notice"
+    },
+    {
+      "id": "privacy-route:retry-confirmation-mail",
+      "focus": "export screen retry button resends confirmation mail through copied privacy helper"
+    },
+    {
+      "id": "privacy-route:cleanup-expired-pending",
+      "focus": "privacy cleanup marks expired pending requests failed before list-table render"
+    },
+    {
+      "id": "privacy-route:render-export-screen",
+      "focus": "export screen renders stable heading, form, nonce, search, and list-table fragments"
+    },
+    {
+      "id": "privacy-route:render-erase-screen",
+      "focus": "erase screen renders stable heading, form, nonce, search, and list-table fragments"
+    }
+  ],
+  "observations": {
+    "oracle": [
+      {
+        "case": "privacy-route:export-capability-denied",
+        "route": "export-personal-data.php",
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to export personal data on this site.",
+          "response": 403
+        },
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_flags": {
+          "has_admin_header": false,
+          "has_admin_footer": false,
+          "has_export_heading": false,
+          "has_erase_heading": false,
+          "has_add_export_form": false,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": false,
+          "has_privacy_nonce": false,
+          "has_search_box": false,
+          "has_list_table": false,
+          "has_privacy_embed_script": false
+        },
+        "nonce_checks": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [],
+        "updated_meta": [],
+        "queries": [],
+        "actions": [],
+        "filters": []
+      },
+      {
+        "case": "privacy-route:erase-capability-denied",
+        "route": "erase-personal-data.php",
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to erase personal data on this site.",
+          "response": 403
+        },
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_flags": {
+          "has_admin_header": false,
+          "has_admin_footer": false,
+          "has_export_heading": false,
+          "has_erase_heading": false,
+          "has_add_export_form": false,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": false,
+          "has_privacy_nonce": false,
+          "has_search_box": false,
+          "has_list_table": false,
+          "has_privacy_embed_script": false
+        },
+        "nonce_checks": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [],
+        "updated_meta": [],
+        "queries": [],
+        "actions": [],
+        "filters": []
+      },
+      {
+        "case": "privacy-route:add-export-request-mail",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:f8580326864204fd6f717e2bdc4fbbb08127147fca663473d853639c2f4f5b44",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "personal-data-request",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "username_or_email_for_privacy_request",
+            "code": "username_or_email_for_privacy_request",
+            "message": "Confirmation request initiated successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [
+          {
+            "id": 9000,
+            "email": "portable@example.test",
+            "action": "export_personal_data",
+            "status": "pending"
+          }
+        ],
+        "sent_requests": [
+          9000
+        ],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:add-erase-request-confirmed",
+        "route": "erase-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:249acde20b9b0dbabc188e105062f8a3ba0e64c25685cc317dfa500632d43ad8",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": false,
+          "has_erase_heading": true,
+          "has_add_export_form": false,
+          "has_add_erase_form": true,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "personal-data-request",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "remove_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "username_or_email_for_privacy_request",
+            "code": "username_or_email_for_privacy_request",
+            "message": "Request added successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [
+          {
+            "id": 9000,
+            "email": "fixture-user@example.test",
+            "action": "remove_personal_data",
+            "status": "confirmed"
+          }
+        ],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:retry-confirmation-mail",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:ca301dc63dd534304164d1c0bdb6dacb57f6bf7ea6d5d003ba326da42e0d0428",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "bulk-privacy_requests",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "privacy_action_email_retry",
+            "code": "privacy_action_email_retry",
+            "message": "Confirmation request sent again successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [],
+        "sent_requests": [
+          7101
+        ],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:cleanup-expired-pending",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:27dbe6b6904a94ced281901d4f16506041309ad3a2791fde7917532255624290",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:render-export-screen",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:a2163e85f0dd1c3fc5aae0421f70348acd2cc8b973cdfdbb4dec4f2aa7af9a5a",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:render-erase-screen",
+        "route": "erase-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:b676c8c9aa74c050ffb74dce2713c2fa74284ecd4ecc3233a209cd21b267321e",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": false,
+          "has_erase_heading": true,
+          "has_add_export_form": false,
+          "has_add_erase_form": true,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "remove_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      }
+    ],
+    "candidate": [
+      {
+        "case": "privacy-route:export-capability-denied",
+        "route": "export-personal-data.php",
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to export personal data on this site.",
+          "response": 403
+        },
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_flags": {
+          "has_admin_header": false,
+          "has_admin_footer": false,
+          "has_export_heading": false,
+          "has_erase_heading": false,
+          "has_add_export_form": false,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": false,
+          "has_privacy_nonce": false,
+          "has_search_box": false,
+          "has_list_table": false,
+          "has_privacy_embed_script": false
+        },
+        "nonce_checks": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [],
+        "updated_meta": [],
+        "queries": [],
+        "actions": [],
+        "filters": []
+      },
+      {
+        "case": "privacy-route:erase-capability-denied",
+        "route": "erase-personal-data.php",
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to erase personal data on this site.",
+          "response": 403
+        },
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_flags": {
+          "has_admin_header": false,
+          "has_admin_footer": false,
+          "has_export_heading": false,
+          "has_erase_heading": false,
+          "has_add_export_form": false,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": false,
+          "has_privacy_nonce": false,
+          "has_search_box": false,
+          "has_list_table": false,
+          "has_privacy_embed_script": false
+        },
+        "nonce_checks": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [],
+        "updated_meta": [],
+        "queries": [],
+        "actions": [],
+        "filters": []
+      },
+      {
+        "case": "privacy-route:add-export-request-mail",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:f8580326864204fd6f717e2bdc4fbbb08127147fca663473d853639c2f4f5b44",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "personal-data-request",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "username_or_email_for_privacy_request",
+            "code": "username_or_email_for_privacy_request",
+            "message": "Confirmation request initiated successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [
+          {
+            "id": 9000,
+            "email": "portable@example.test",
+            "action": "export_personal_data",
+            "status": "pending"
+          }
+        ],
+        "sent_requests": [
+          9000
+        ],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:add-erase-request-confirmed",
+        "route": "erase-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:249acde20b9b0dbabc188e105062f8a3ba0e64c25685cc317dfa500632d43ad8",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": false,
+          "has_erase_heading": true,
+          "has_add_export_form": false,
+          "has_add_erase_form": true,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "personal-data-request",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "remove_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "username_or_email_for_privacy_request",
+            "code": "username_or_email_for_privacy_request",
+            "message": "Request added successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [
+          {
+            "id": 9000,
+            "email": "fixture-user@example.test",
+            "action": "remove_personal_data",
+            "status": "confirmed"
+          }
+        ],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:retry-confirmation-mail",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:ca301dc63dd534304164d1c0bdb6dacb57f6bf7ea6d5d003ba326da42e0d0428",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [
+          {
+            "action": "bulk-privacy_requests",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [
+          {
+            "setting": "privacy_action_email_retry",
+            "code": "privacy_action_email_retry",
+            "message": "Confirmation request sent again successfully.",
+            "type": "success"
+          }
+        ],
+        "created_requests": [],
+        "sent_requests": [
+          7101
+        ],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:cleanup-expired-pending",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:27dbe6b6904a94ced281901d4f16506041309ad3a2791fde7917532255624290",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:render-export-screen",
+        "route": "export-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:a2163e85f0dd1c3fc5aae0421f70348acd2cc8b973cdfdbb4dec4f2aa7af9a5a",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": true,
+          "has_erase_heading": false,
+          "has_add_export_form": true,
+          "has_add_erase_form": false,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "export_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Export_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      },
+      {
+        "case": "privacy-route:render-erase-screen",
+        "route": "erase-personal-data.php",
+        "exception": null,
+        "output_sha256": "sha256:b676c8c9aa74c050ffb74dce2713c2fa74284ecd4ecc3233a209cd21b267321e",
+        "output_flags": {
+          "has_admin_header": true,
+          "has_admin_footer": true,
+          "has_export_heading": false,
+          "has_erase_heading": true,
+          "has_add_export_form": false,
+          "has_add_erase_form": true,
+          "has_confirmation_checkbox": true,
+          "has_privacy_nonce": true,
+          "has_search_box": true,
+          "has_list_table": true,
+          "has_privacy_embed_script": true
+        },
+        "nonce_checks": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "remove_personal_data_requests_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "privacy-tools"
+        ],
+        "settings_errors": [],
+        "created_requests": [],
+        "sent_requests": [],
+        "updated_posts": [
+          {
+            "ID": 7102,
+            "post_status": "request-failed",
+            "post_password": ""
+          }
+        ],
+        "updated_meta": [],
+        "queries": [
+          {
+            "post_type": "user_request",
+            "posts_per_page": -1,
+            "post_status": "request-pending",
+            "fields": "ids",
+            "date_query": [
+              {
+                "column": "post_modified_gmt",
+                "before": "86400 seconds ago"
+              }
+            ]
+          }
+        ],
+        "actions": [
+          {
+            "hook": "privacy_table_process_bulk_action",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          },
+          {
+            "hook": "privacy_table_prepare_items",
+            "class": "WP_Privacy_Data_Removal_Requests_List_Table"
+          }
+        ],
+        "filters": [
+          {
+            "hook": "user_request_key_expiration",
+            "arg_count": 1
+          }
+        ]
+      }
+    ],
+    "oracle_sha256": "sha256:c7cf003aa20229bbf341b8e248d0fdd2d40b971227f0c50786caef8be9167e6f",
+    "candidate_sha256": "sha256:c7cf003aa20229bbf341b8e248d0fdd2d40b971227f0c50786caef8be9167e6f",
+    "oracle_candidate_match": true
+  },
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-312",
+      "evidence": [
+        "manifests/wp-core/wphx-312-11-privacy-request-admin-state-oracle-fixture.v1.json",
+        "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json"
+      ],
+      "reason": "Privacy request object state, mail sending, export/erase internals, and durable privacy helper ownership remain WPHX-312 boundaries."
+    },
+    {
+      "owner": "WPHX-315",
+      "reason": "Admin chrome, current screen, notices, screen options, nonce fields, and list-table primitives are deterministic stubs here and remain WPHX-315 boundaries."
+    },
+    {
+      "owner": "WPHX-306",
+      "reason": "Real capability, session, nonce, and current-user behavior remain WPHX-306 boundaries."
+    }
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for export-personal-data.php, erase-personal-data.php, or includes/privacy-tools.php.",
+    "No Haxe-owned privacy route runtime or privacy request storage/mail implementation.",
+    "No installed WordPress bootstrap, admin browser, database-backed request state, or upstream PHPUnit pass/pass parity.",
+    "No ownership of WP_Privacy_Requests_Table or specialized privacy list-table rendering; deterministic list-table stubs only stabilize route observations.",
+    "No generated original-path adapter or durable public PHP implementation artifact."
+  ]
+}

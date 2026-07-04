@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-316.06",
+  "beads_issue": "wordpresshx-cqis",
+  "generated_at": "2026-07-04T05:00:00.000Z",
+  "generator": "tools/wp-core/run-privacy-export-erase-oracle-fixture.mjs",
+  "emission_strategy": "copied_upstream_public_php_with_deterministic_privacy_route_stubs",
+  "owned_runtime_logic": false,
+  "copied_upstream_public_php": true,
+  "public_php_replacement_claimed": false,
+  "durable_original_path_adapter_claimed": false,
+  "whole_file_owned": false,
+  "generated_overlay_manifest": null,
+  "generated_overlay_paths": [],
+  "unexpected_candidate_package_differences": [],
+  "files": [
+    {
+      "path": "wp-admin/export-personal-data.php",
+      "source": "copied_upstream_php",
+      "upstream_sha256": "sha256:86ef3c768278124b22cfc01441fc6066d0b69a668ecb386765b0a94566933d0e",
+      "candidate_sha256": "sha256:86ef3c768278124b22cfc01441fc6066d0b69a668ecb386765b0a94566933d0e",
+      "oracle_sha256": "sha256:86ef3c768278124b22cfc01441fc6066d0b69a668ecb386765b0a94566933d0e",
+      "ownership_state": "copied_oracle_fixture_input",
+      "non_claim": "not Haxe-owned source, not generated public PHP, not installed route parity"
+    },
+    {
+      "path": "wp-admin/erase-personal-data.php",
+      "source": "copied_upstream_php",
+      "upstream_sha256": "sha256:1f5cea858775cb85104b2e8e848a828126abedfc5f1da6794b645878af799787",
+      "candidate_sha256": "sha256:1f5cea858775cb85104b2e8e848a828126abedfc5f1da6794b645878af799787",
+      "oracle_sha256": "sha256:1f5cea858775cb85104b2e8e848a828126abedfc5f1da6794b645878af799787",
+      "ownership_state": "copied_oracle_fixture_input",
+      "non_claim": "not Haxe-owned source, not generated public PHP, not installed route parity"
+    },
+    {
+      "path": "wp-admin/includes/privacy-tools.php",
+      "source": "copied_upstream_php",
+      "upstream_sha256": "sha256:3a2ee04b7bf10a5a87c2af9db9052240ac6c9e8829e580cacab22728f2124ebb",
+      "candidate_sha256": "sha256:3a2ee04b7bf10a5a87c2af9db9052240ac6c9e8829e580cacab22728f2124ebb",
+      "oracle_sha256": "sha256:3a2ee04b7bf10a5a87c2af9db9052240ac6c9e8829e580cacab22728f2124ebb",
+      "ownership_state": "copied_oracle_fixture_input",
+      "non_claim": "not Haxe-owned source, not generated public PHP, not installed route parity"
+    }
+  ],
+  "stub_files": [
+    {
+      "path": "wp-admin/admin.php",
+      "sha256": "sha256:46de650e7f0e03aa3ab8078d361d726d0b40510f25f9a74e574eed9aa7c6889b",
+      "ownership_state": "deterministic_test_harness_stub",
+      "non_claim": "not production runtime code"
+    },
+    {
+      "path": "wp-admin/admin-header.php",
+      "sha256": "sha256:cf05eea4d943fa71f452de8dffd73e482c887a7d2b1cacf44c867fbf0e9d659e",
+      "ownership_state": "deterministic_test_harness_stub",
+      "non_claim": "not production runtime code"
+    },
+    {
+      "path": "wp-admin/admin-footer.php",
+      "sha256": "sha256:82402d14520c9c886f85ca1f3c7e8bc0ab873fa5190a158b4e043115d9b78dbb",
+      "ownership_state": "deterministic_test_harness_stub",
+      "non_claim": "not production runtime code"
+    }
+  ],
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-312",
+      "evidence": [
+        "manifests/wp-core/wphx-312-11-privacy-request-admin-state-oracle-fixture.v1.json",
+        "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json"
+      ],
+      "reason": "Privacy request object state, mail sending, export/erase internals, and durable privacy helper ownership remain WPHX-312 boundaries."
+    },
+    {
+      "owner": "WPHX-315",
+      "reason": "Admin chrome, current screen, notices, screen options, nonce fields, and list-table primitives are deterministic stubs here and remain WPHX-315 boundaries."
+    },
+    {
+      "owner": "WPHX-306",
+      "reason": "Real capability, session, nonce, and current-user behavior remain WPHX-306 boundaries."
+    }
+  ],
+  "removal_gate": "Replace copied privacy route/helper evidence with generated original-path adapters, typed route/list-table/request contracts, installed admin route execution, database-backed privacy request state, selected upstream PHPUnit pass/pass, and browser/e2e gates before making public PHP or installed parity claims."
+}
