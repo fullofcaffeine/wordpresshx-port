@@ -1,0 +1,1200 @@
+{
+  "schema": "wphx.wp-core-xmlrpc-legacy-deprecated-surface.v1",
+  "issue": "WPHX-318.01",
+  "generated_at": "2026-07-04T11:00:00.000Z",
+  "generator": "tools/wp-core/run-xmlrpc-legacy-deprecated-surface.mjs",
+  "inputs": {
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    },
+    "vendor_closure": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "upstream_checkout": {
+      "path": "../wordpress-develop",
+      "head": "26b68024931348d267b70e2a29910e1320d0094f",
+      "status_short": [
+        "?? repomix-output.wordpress.xml",
+        "?? repomix-output.wordpress.xml.zip"
+      ]
+    }
+  },
+  "scope": {
+    "owner": "WPHX-318",
+    "included": "C1 WordPress 7.0 PHP source and distribution artifacts classified to XML-RPC, legacy/deprecated APIs, bundled plugin compatibility files, and compatibility loaders by the WPHX-322 owner rules.",
+    "boundary_notes": [
+      "The six runtime source files are the executable first-party surface that WPHX-318 inventories in this slice.",
+      "The 45 distribution artifacts include bundled Akismet PHP files and IXR library files; this inventory records their provenance and future boundary pressure without claiming Haxe-owned Akismet or IXR runtime implementation.",
+      "IXR source files under src/wp-includes/IXR are vendor_source entries preserved by WPHX-323, even though matching distribution artifacts are visible to WPHX-318 XML-RPC compatibility."
+    ],
+    "cross_domain_handoffs": [
+      {
+        "owner": "WPHX-303",
+        "reason": "Native deprecation signaling helpers, wp_die handlers, wp_trigger_error, and formatting/escaping primitives remain WPHX-303 boundaries consumed by deprecated APIs."
+      },
+      {
+        "owner": "WPHX-306",
+        "reason": "XML-RPC authentication, user/profile methods, pluggable auth, cookies, application passwords, and capabilities remain users/auth ownership."
+      },
+      {
+        "owner": "WPHX-307/WPHX-308",
+        "reason": "XML-RPC post, page, revision, comment, taxonomy, and term methods are RPC shells over post/comment/term semantics owned by those domains."
+      },
+      {
+        "owner": "WPHX-312",
+        "reason": "HTTP-backed XML-RPC clients, legacy feed wrappers, pingback transport, Snoopy, and deprecated HTTP helpers remain HTTP/feed/embed ownership or preserved-vendor boundaries."
+      },
+      {
+        "owner": "WPHX-313",
+        "reason": "XML-RPC media upload and attachment responses depend on media/upload/filesystem behavior."
+      },
+      {
+        "owner": "WPHX-317",
+        "reason": "Multisite XML-RPC blog enumeration and ms-deprecated.php remain multisite/network state handoffs."
+      },
+      {
+        "owner": "WPHX-323",
+        "reason": "IXR, Services_JSON, Snoopy, and other bundled legacy libraries remain preserved vendor/library boundaries until a separate replacement strategy exists."
+      }
+    ]
+  },
+  "coverage": {
+    "source_count": 6,
+    "artifact_count": 45,
+    "abi_entry_count": 359,
+    "class_count": 1,
+    "function_count": 246,
+    "method_count": 106,
+    "property_count": 5,
+    "test_count": 46,
+    "source_units": [
+      {
+        "path": "src/wp-content/plugins/hello.php",
+        "group": "bundled_hello_plugin",
+        "kind": "runtime_source",
+        "area": "plugins",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 2671,
+        "sha256": "sha256:baa99cd5d48da5df35390aa8fbfb0b49b2242fcfb98832573b564a8f744b9eaa",
+        "role": "bundled Hello Dolly plugin source shipped with WordPress"
+      },
+      {
+        "path": "src/wp-content/plugins/index.php",
+        "group": "plugin_directory_guard",
+        "kind": "runtime_source",
+        "area": "plugins",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 28,
+        "sha256": "sha256:bd48c24ce4500e60d2524571756787283f0d3fbfa50b116331309c09773f0cd1",
+        "role": "empty plugin directory index guard"
+      },
+      {
+        "path": "src/wp-includes/class-IXR.php",
+        "group": "ixr_compat_loader",
+        "kind": "runtime_source",
+        "area": "core",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 2616,
+        "sha256": "sha256:df0440a9e8656a4059e7d656d81cacfac142eb6960cea430f6a5a185b6a8ca54",
+        "role": "IXR compatibility loader for XML-RPC library classes preserved as a vendor boundary"
+      },
+      {
+        "path": "src/wp-includes/class-wp-xmlrpc-server.php",
+        "group": "xmlrpc_server",
+        "kind": "runtime_source",
+        "area": "core",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 215020,
+        "sha256": "sha256:d65a9667e32d9deb7d17eaf71c66091f4f7b990374bae8bf787e1e7026e53703",
+        "role": "WordPress XML-RPC method registry, auth, CRUD, media, taxonomy, option, pingback, and legacy Blogger/MetaWeblog APIs"
+      },
+      {
+        "path": "src/wp-includes/deprecated.php",
+        "group": "core_deprecated_api",
+        "kind": "runtime_source",
+        "area": "core",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 193977,
+        "sha256": "sha256:a0096570cb00b2f04b362b6a9af46851bd48a80f332392dfcf004de077205159",
+        "role": "large deprecated function surface spanning legacy posts, users, themes, links, widgets, block shims, and compatibility helpers"
+      },
+      {
+        "path": "src/xmlrpc.php",
+        "group": "xmlrpc_entrypoint",
+        "kind": "runtime_source",
+        "area": "src",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "inventory_status": "upstream_oracle_unported",
+        "bytes": 3205,
+        "sha256": "sha256:b638886d692a78bb61055d90d6684d6f19d789fc779fb25489604c2be6e8b484",
+        "role": "public XML-RPC endpoint bootstrap, headers, logging helper, and wp_xmlrpc_server dispatch"
+      }
+    ],
+    "artifact_by_group": {
+      "bundled_akismet_distribution": {
+        "count": 29,
+        "paths": [
+          "wp-content/plugins/akismet/abilities/class-akismet-ability-comment-check.php",
+          "wp-content/plugins/akismet/abilities/class-akismet-ability-get-stats.php",
+          "wp-content/plugins/akismet/abilities/class-akismet-ability.php",
+          "wp-content/plugins/akismet/abilities/interface-akismet-ability.php",
+          "wp-content/plugins/akismet/akismet.php",
+          "wp-content/plugins/akismet/class-akismet-abilities.php",
+          "wp-content/plugins/akismet/class-akismet-compatible-plugins.php",
+          "wp-content/plugins/akismet/class-akismet-connector.php",
+          "wp-content/plugins/akismet/class.akismet-admin.php",
+          "wp-content/plugins/akismet/class.akismet-cli.php",
+          "wp-content/plugins/akismet/class.akismet-rest-api.php",
+          "wp-content/plugins/akismet/class.akismet-widget.php",
+          "wp-content/plugins/akismet/class.akismet.php",
+          "wp-content/plugins/akismet/index.php",
+          "wp-content/plugins/akismet/views/activate.php",
+          "wp-content/plugins/akismet/views/compatible-plugins.php",
+          "wp-content/plugins/akismet/views/config.php",
+          "wp-content/plugins/akismet/views/connect-jp.php",
+          "wp-content/plugins/akismet/views/enter.php",
+          "wp-content/plugins/akismet/views/footer.php",
+          "wp-content/plugins/akismet/views/get.php",
+          "wp-content/plugins/akismet/views/logo.php",
+          "wp-content/plugins/akismet/views/notice.php",
+          "wp-content/plugins/akismet/views/predefined.php",
+          "wp-content/plugins/akismet/views/setup-jetpack.php",
+          "wp-content/plugins/akismet/views/setup.php",
+          "wp-content/plugins/akismet/views/start.php",
+          "wp-content/plugins/akismet/views/stats.php",
+          "wp-content/plugins/akismet/wrapper.php"
+        ]
+      },
+      "bundled_hello_plugin": {
+        "count": 1,
+        "paths": [
+          "wp-content/plugins/hello.php"
+        ]
+      },
+      "core_deprecated_api": {
+        "count": 1,
+        "paths": [
+          "wp-includes/deprecated.php"
+        ]
+      },
+      "ixr_compat_loader": {
+        "count": 1,
+        "paths": [
+          "wp-includes/class-IXR.php"
+        ]
+      },
+      "plugin_directory_guard": {
+        "count": 1,
+        "paths": [
+          "wp-content/plugins/index.php"
+        ]
+      },
+      "preserved_ixr_library": {
+        "count": 10,
+        "paths": [
+          "wp-includes/IXR/class-IXR-base64.php",
+          "wp-includes/IXR/class-IXR-client.php",
+          "wp-includes/IXR/class-IXR-clientmulticall.php",
+          "wp-includes/IXR/class-IXR-date.php",
+          "wp-includes/IXR/class-IXR-error.php",
+          "wp-includes/IXR/class-IXR-introspectionserver.php",
+          "wp-includes/IXR/class-IXR-message.php",
+          "wp-includes/IXR/class-IXR-request.php",
+          "wp-includes/IXR/class-IXR-server.php",
+          "wp-includes/IXR/class-IXR-value.php"
+        ]
+      },
+      "xmlrpc_entrypoint": {
+        "count": 1,
+        "paths": [
+          "xmlrpc.php"
+        ]
+      },
+      "xmlrpc_server": {
+        "count": 1,
+        "paths": [
+          "wp-includes/class-wp-xmlrpc-server.php"
+        ]
+      }
+    },
+    "source_by_group": {
+      "bundled_hello_plugin": {
+        "count": 1,
+        "paths": [
+          "src/wp-content/plugins/hello.php"
+        ]
+      },
+      "core_deprecated_api": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/deprecated.php"
+        ]
+      },
+      "ixr_compat_loader": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/class-IXR.php"
+        ]
+      },
+      "plugin_directory_guard": {
+        "count": 1,
+        "paths": [
+          "src/wp-content/plugins/index.php"
+        ]
+      },
+      "xmlrpc_entrypoint": {
+        "count": 1,
+        "paths": [
+          "src/xmlrpc.php"
+        ]
+      },
+      "xmlrpc_server": {
+        "count": 1,
+        "paths": [
+          "src/wp-includes/class-wp-xmlrpc-server.php"
+        ]
+      }
+    },
+    "abi_by_group": {
+      "bundled_hello_plugin": {
+        "count": 3,
+        "functions": [
+          "dolly_css",
+          "hello_dolly",
+          "hello_dolly_get_lyric"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": []
+      },
+      "core_deprecated_api": {
+        "count": 242,
+        "functions": [
+          "__ngettext",
+          "__ngettext_noop",
+          "_admin_bar_bump_cb",
+          "_c",
+          "_excerpt_render_inner_columns_blocks",
+          "_filter_query_attachment_filenames",
+          "_get_path_to_translation",
+          "_get_path_to_translation_from_lang_dir",
+          "_get_post_ancestors",
+          "_inject_theme_attribute_in_block_template_content",
+          "_nc",
+          "_preview_theme_stylesheet_filter",
+          "_preview_theme_template_filter",
+          "_remove_theme_attribute_in_block_template_content",
+          "_resolve_home_block_template",
+          "_save_post_hook",
+          "_search_terms_tidy",
+          "_sort_nav_menu_items",
+          "_usort_terms_by_ID",
+          "_usort_terms_by_name",
+          "_wp_multiple_block_styles",
+          "_wp_register_meta_args_whitelist",
+          "_wp_theme_json_webfonts_handler",
+          "_wp_tinycolor_bound_alpha",
+          "add_custom_background",
+          "add_custom_image_header",
+          "add_option_whitelist",
+          "addslashes_gpc",
+          "addslashes_strings_only",
+          "attribute_escape",
+          "automatic_feed_links",
+          "block_core_file_ensure_interactivity_dependency",
+          "block_core_image_ensure_interactivity_dependency",
+          "block_core_navigation_submenu_build_css_colors",
+          "block_core_query_ensure_interactivity_dependency",
+          "clean_page_cache",
+          "clean_pre",
+          "clean_url",
+          "comments_popup_script",
+          "comments_rss",
+          "comments_rss_link",
+          "create_user",
+          "current_user_can_for_blog",
+          "debug_fclose",
+          "debug_fopen",
+          "debug_fwrite",
+          "default_topic_count_text",
+          "delete_usermeta",
+          "dropdown_cats",
+          "force_ssl_login",
+          "format_to_post",
+          "funky_javascript_callback",
+          "funky_javascript_fix",
+          "gd_edit_image_support",
+          "get_all_category_ids",
+          "get_alloptions",
+          "get_archives",
+          "get_attachment_icon",
+          "get_attachment_icon_src",
+          "get_attachment_innerHTML",
+          "get_author_link",
+          "get_author_name",
+          "get_author_rss_link",
+          "get_autotoggle",
+          "get_boundary_post_rel_link",
+          "get_category_children",
+          "get_category_rss_link",
+          "get_catname",
+          "get_commentdata",
+          "get_comments_popup_template",
+          "get_current_theme",
+          "get_index_rel_link",
+          "get_link",
+          "get_linkcatname",
+          "get_linkobjects",
+          "get_linkobjectsbyname",
+          "get_linkrating",
+          "get_links",
+          "get_links_list",
+          "get_links_withrating",
+          "get_linksbyname",
+          "get_linksbyname_withrating",
+          "get_page_by_title",
+          "get_paged_template",
+          "get_parent_post_rel_link",
+          "get_postdata",
+          "get_profile",
+          "get_settings",
+          "get_shortcut_link",
+          "get_the_attachment_link",
+          "get_the_author_ID",
+          "get_the_author_aim",
+          "get_the_author_description",
+          "get_the_author_email",
+          "get_the_author_firstname",
+          "get_the_author_icq",
+          "get_the_author_lastname",
+          "get_the_author_login",
+          "get_the_author_msn",
+          "get_the_author_nickname",
+          "get_the_author_url",
+          "get_the_author_yim",
+          "get_theme",
+          "get_theme_data",
+          "get_themes",
+          "get_user_metavalues",
+          "get_usermeta",
+          "get_usernumposts",
+          "get_users_of_blog",
+          "global_terms_enabled",
+          "gzip_compression",
+          "image_resize",
+          "index_rel_link",
+          "is_blog_user",
+          "is_comments_popup",
+          "is_plugin_page",
+          "is_taxonomy",
+          "is_term",
+          "js_escape",
+          "like_escape",
+          "link_pages",
+          "links_popup_script",
+          "list_authors",
+          "list_cats",
+          "make_url_footnote",
+          "next_post",
+          "noindex",
+          "parent_post_rel_link",
+          "permalink_link",
+          "permalink_single_rss",
+          "popuplinks",
+          "post_permalink",
+          "preview_theme",
+          "preview_theme_ob_filter",
+          "preview_theme_ob_filter_callback",
+          "previous_post",
+          "print_embed_styles",
+          "print_emoji_styles",
+          "register_sidebar_widget",
+          "register_widget_control",
+          "remove_custom_background",
+          "remove_custom_image_header",
+          "remove_option_whitelist",
+          "rich_edit_exists",
+          "sanitize_user_object",
+          "start_post_rel_link",
+          "start_wp",
+          "sticky_class",
+          "the_author_ID",
+          "the_author_aim",
+          "the_author_description",
+          "the_author_email",
+          "the_author_firstname",
+          "the_author_icq",
+          "the_author_lastname",
+          "the_author_login",
+          "the_author_msn",
+          "the_author_nickname",
+          "the_author_url",
+          "the_author_yim",
+          "the_block_template_skip_link",
+          "the_category_ID",
+          "the_category_head",
+          "the_content_rss",
+          "the_editor",
+          "translate_with_context",
+          "unregister_sidebar_widget",
+          "unregister_widget_control",
+          "update_category_cache",
+          "update_page_cache",
+          "update_usermeta",
+          "url_is_accessable_via_ssl",
+          "user_can_create_draft",
+          "user_can_create_post",
+          "user_can_delete_post",
+          "user_can_delete_post_comments",
+          "user_can_edit_post",
+          "user_can_edit_post_comments",
+          "user_can_edit_post_date",
+          "user_can_edit_user",
+          "user_can_set_post_date",
+          "user_pass_ok",
+          "wlwmanifest_link",
+          "wp_add_editor_classic_theme_styles",
+          "wp_add_iframed_editor_assets_html",
+          "wp_admin_bar_dashboard_view_site_menu",
+          "wp_admin_bar_header",
+          "wp_ajax_press_this_add_category",
+          "wp_ajax_press_this_save_post",
+          "wp_blacklist_check",
+          "wp_convert_bytes_to_hr",
+          "wp_create_block_style_variation_instance_name",
+          "wp_embed_handler_googlevideo",
+          "wp_enqueue_global_styles_custom_css",
+          "wp_explain_nonce",
+          "wp_get_attachment_thumb_file",
+          "wp_get_duotone_filter_id",
+          "wp_get_duotone_filter_property",
+          "wp_get_duotone_filter_svg",
+          "wp_get_global_styles_custom_css",
+          "wp_get_global_styles_svg_filters",
+          "wp_get_http",
+          "wp_get_links",
+          "wp_get_linksbyname",
+          "wp_get_loading_attr_default",
+          "wp_get_post_cats",
+          "wp_get_single_post",
+          "wp_get_user_request_data",
+          "wp_global_styles_render_svg_filters",
+          "wp_htmledit_pre",
+          "wp_img_tag_add_decoding_attr",
+          "wp_img_tag_add_loading_attr",
+          "wp_interactivity_process_directives_of_interactive_blocks",
+          "wp_kses_js_entities",
+          "wp_list_cats",
+          "wp_load_image",
+          "wp_make_content_images_responsive",
+          "wp_no_robots",
+          "wp_print_auto_sizes_contain_css_fix",
+          "wp_queue_comments_for_comment_meta_lazyload",
+          "wp_register_duotone_support",
+          "wp_render_duotone_filter_preset",
+          "wp_render_duotone_support",
+          "wp_render_elements_support",
+          "wp_richedit_pre",
+          "wp_sanitize_script_attributes",
+          "wp_sensitive_page_meta",
+          "wp_set_post_cats",
+          "wp_skip_border_serialization",
+          "wp_skip_dimensions_serialization",
+          "wp_skip_spacing_serialization",
+          "wp_slash_strings_only",
+          "wp_specialchars",
+          "wp_timezone_supported",
+          "wp_tinycolor_bound01",
+          "wp_tinycolor_hsl_to_rgb",
+          "wp_tinycolor_hue_to_rgb",
+          "wp_tinycolor_rgb_to_rgb",
+          "wp_tinycolor_string_to_rgb",
+          "wp_typography_get_css_variable_inline_style",
+          "wp_unregister_GLOBALS",
+          "wp_update_https_detection_errors"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": []
+      },
+      "xmlrpc_entrypoint": {
+        "count": 2,
+        "functions": [
+          "logIO"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": [
+          "XMLRPC_REQUEST"
+        ]
+      },
+      "xmlrpc_server": {
+        "count": 112,
+        "functions": [],
+        "classes": [
+          "wp_xmlrpc_server"
+        ],
+        "methods": [
+          "wp_xmlrpc_server::__call",
+          "wp_xmlrpc_server::__construct",
+          "wp_xmlrpc_server::_convert_date",
+          "wp_xmlrpc_server::_convert_date_gmt",
+          "wp_xmlrpc_server::_getOptions",
+          "wp_xmlrpc_server::_insert_post",
+          "wp_xmlrpc_server::_is_greater_than_one",
+          "wp_xmlrpc_server::_multisite_getUsersBlogs",
+          "wp_xmlrpc_server::_prepare_comment",
+          "wp_xmlrpc_server::_prepare_media_item",
+          "wp_xmlrpc_server::_prepare_page",
+          "wp_xmlrpc_server::_prepare_post",
+          "wp_xmlrpc_server::_prepare_post_type",
+          "wp_xmlrpc_server::_prepare_taxonomy",
+          "wp_xmlrpc_server::_prepare_term",
+          "wp_xmlrpc_server::_prepare_user",
+          "wp_xmlrpc_server::_toggle_sticky",
+          "wp_xmlrpc_server::addTwoNumbers",
+          "wp_xmlrpc_server::add_enclosure_if_new",
+          "wp_xmlrpc_server::attach_uploads",
+          "wp_xmlrpc_server::blogger_deletePost",
+          "wp_xmlrpc_server::blogger_editPost",
+          "wp_xmlrpc_server::blogger_getPost",
+          "wp_xmlrpc_server::blogger_getRecentPosts",
+          "wp_xmlrpc_server::blogger_getTemplate",
+          "wp_xmlrpc_server::blogger_getUserInfo",
+          "wp_xmlrpc_server::blogger_getUsersBlogs",
+          "wp_xmlrpc_server::blogger_newPost",
+          "wp_xmlrpc_server::blogger_setTemplate",
+          "wp_xmlrpc_server::error",
+          "wp_xmlrpc_server::escape",
+          "wp_xmlrpc_server::get_custom_fields",
+          "wp_xmlrpc_server::get_term_custom_fields",
+          "wp_xmlrpc_server::initialise_blog_option_info",
+          "wp_xmlrpc_server::login",
+          "wp_xmlrpc_server::login_pass_ok",
+          "wp_xmlrpc_server::minimum_args",
+          "wp_xmlrpc_server::mt_getCategoryList",
+          "wp_xmlrpc_server::mt_getPostCategories",
+          "wp_xmlrpc_server::mt_getRecentPostTitles",
+          "wp_xmlrpc_server::mt_getTrackbackPings",
+          "wp_xmlrpc_server::mt_publishPost",
+          "wp_xmlrpc_server::mt_setPostCategories",
+          "wp_xmlrpc_server::mt_supportedMethods",
+          "wp_xmlrpc_server::mt_supportedTextFilters",
+          "wp_xmlrpc_server::mw_editPost",
+          "wp_xmlrpc_server::mw_getCategories",
+          "wp_xmlrpc_server::mw_getPost",
+          "wp_xmlrpc_server::mw_getRecentPosts",
+          "wp_xmlrpc_server::mw_newMediaObject",
+          "wp_xmlrpc_server::mw_newPost",
+          "wp_xmlrpc_server::pingback_error",
+          "wp_xmlrpc_server::pingback_extensions_getPingbacks",
+          "wp_xmlrpc_server::pingback_ping",
+          "wp_xmlrpc_server::sayHello",
+          "wp_xmlrpc_server::serve_request",
+          "wp_xmlrpc_server::set_custom_fields",
+          "wp_xmlrpc_server::set_is_enabled",
+          "wp_xmlrpc_server::set_term_custom_fields",
+          "wp_xmlrpc_server::wp_deleteCategory",
+          "wp_xmlrpc_server::wp_deleteComment",
+          "wp_xmlrpc_server::wp_deletePage",
+          "wp_xmlrpc_server::wp_deletePost",
+          "wp_xmlrpc_server::wp_deleteTerm",
+          "wp_xmlrpc_server::wp_editComment",
+          "wp_xmlrpc_server::wp_editPage",
+          "wp_xmlrpc_server::wp_editPost",
+          "wp_xmlrpc_server::wp_editProfile",
+          "wp_xmlrpc_server::wp_editTerm",
+          "wp_xmlrpc_server::wp_getAuthors",
+          "wp_xmlrpc_server::wp_getComment",
+          "wp_xmlrpc_server::wp_getCommentCount",
+          "wp_xmlrpc_server::wp_getCommentStatusList",
+          "wp_xmlrpc_server::wp_getComments",
+          "wp_xmlrpc_server::wp_getMediaItem",
+          "wp_xmlrpc_server::wp_getMediaLibrary",
+          "wp_xmlrpc_server::wp_getOptions",
+          "wp_xmlrpc_server::wp_getPage",
+          "wp_xmlrpc_server::wp_getPageList",
+          "wp_xmlrpc_server::wp_getPageStatusList",
+          "wp_xmlrpc_server::wp_getPageTemplates",
+          "wp_xmlrpc_server::wp_getPages",
+          "wp_xmlrpc_server::wp_getPost",
+          "wp_xmlrpc_server::wp_getPostFormats",
+          "wp_xmlrpc_server::wp_getPostStatusList",
+          "wp_xmlrpc_server::wp_getPostType",
+          "wp_xmlrpc_server::wp_getPostTypes",
+          "wp_xmlrpc_server::wp_getPosts",
+          "wp_xmlrpc_server::wp_getProfile",
+          "wp_xmlrpc_server::wp_getRevisions",
+          "wp_xmlrpc_server::wp_getTags",
+          "wp_xmlrpc_server::wp_getTaxonomies",
+          "wp_xmlrpc_server::wp_getTaxonomy",
+          "wp_xmlrpc_server::wp_getTerm",
+          "wp_xmlrpc_server::wp_getTerms",
+          "wp_xmlrpc_server::wp_getUser",
+          "wp_xmlrpc_server::wp_getUsers",
+          "wp_xmlrpc_server::wp_getUsersBlogs",
+          "wp_xmlrpc_server::wp_newCategory",
+          "wp_xmlrpc_server::wp_newComment",
+          "wp_xmlrpc_server::wp_newPage",
+          "wp_xmlrpc_server::wp_newPost",
+          "wp_xmlrpc_server::wp_newTerm",
+          "wp_xmlrpc_server::wp_restoreRevision",
+          "wp_xmlrpc_server::wp_setOptions",
+          "wp_xmlrpc_server::wp_suggestCategories"
+        ],
+        "properties": [
+          "wp_xmlrpc_server::$auth_failed",
+          "wp_xmlrpc_server::$blog_options",
+          "wp_xmlrpc_server::$error",
+          "wp_xmlrpc_server::$is_enabled",
+          "wp_xmlrpc_server::$methods"
+        ],
+        "constants": []
+      }
+    },
+    "related_test_paths": [
+      "tests/e2e/specs/hello.test.js",
+      "tests/phpunit/data/plugins/hello.php",
+      "tests/phpunit/includes/testcase-xmlrpc.php",
+      "tests/phpunit/tests/date/xmlrpc.php",
+      "tests/phpunit/tests/formatting/deprecatedUtfEncodeDecode.php",
+      "tests/phpunit/tests/functions/xmlrpc.php",
+      "tests/phpunit/tests/xmlrpc/basic.php",
+      "tests/phpunit/tests/xmlrpc/client.php",
+      "tests/phpunit/tests/xmlrpc/demo/addTwoNumbers.php",
+      "tests/phpunit/tests/xmlrpc/message.php",
+      "tests/phpunit/tests/xmlrpc/mt/getRecentPostTitles.php",
+      "tests/phpunit/tests/xmlrpc/mw/editPost.php",
+      "tests/phpunit/tests/xmlrpc/mw/getPost.php",
+      "tests/phpunit/tests/xmlrpc/mw/getRecentPosts.php",
+      "tests/phpunit/tests/xmlrpc/mw/newPost.php",
+      "tests/phpunit/tests/xmlrpc/wp/deletePost.php",
+      "tests/phpunit/tests/xmlrpc/wp/deleteTerm.php",
+      "tests/phpunit/tests/xmlrpc/wp/editComment.php",
+      "tests/phpunit/tests/xmlrpc/wp/editPost.php",
+      "tests/phpunit/tests/xmlrpc/wp/editProfile.php",
+      "tests/phpunit/tests/xmlrpc/wp/editTerm.php",
+      "tests/phpunit/tests/xmlrpc/wp/getComment.php",
+      "tests/phpunit/tests/xmlrpc/wp/getComments.php",
+      "tests/phpunit/tests/xmlrpc/wp/getMediaItem.php",
+      "tests/phpunit/tests/xmlrpc/wp/getOptions.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPage.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPageList.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPages.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPost.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPostType.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPostTypes.php",
+      "tests/phpunit/tests/xmlrpc/wp/getPosts.php",
+      "tests/phpunit/tests/xmlrpc/wp/getProfile.php",
+      "tests/phpunit/tests/xmlrpc/wp/getRevisions.php",
+      "tests/phpunit/tests/xmlrpc/wp/getTaxonomies.php",
+      "tests/phpunit/tests/xmlrpc/wp/getTaxonomy.php",
+      "tests/phpunit/tests/xmlrpc/wp/getTerm.php",
+      "tests/phpunit/tests/xmlrpc/wp/getTerms.php",
+      "tests/phpunit/tests/xmlrpc/wp/getUser.php",
+      "tests/phpunit/tests/xmlrpc/wp/getUsers.php",
+      "tests/phpunit/tests/xmlrpc/wp/newComment.php",
+      "tests/phpunit/tests/xmlrpc/wp/newPost.php",
+      "tests/phpunit/tests/xmlrpc/wp/newTerm.php",
+      "tests/phpunit/tests/xmlrpc/wp/restoreRevision.php",
+      "tests/phpunit/tests/xmlrpc/wp/setOptions.php",
+      "tests/phpunit/tests/xmlrpc/wp/uploadFile.php"
+    ],
+    "preserved_vendor_boundaries": {
+      "ixr_source_count": 10,
+      "ixr_distribution_artifact_count": 10,
+      "source_paths": [
+        "src/wp-includes/IXR/class-IXR-base64.php",
+        "src/wp-includes/IXR/class-IXR-client.php",
+        "src/wp-includes/IXR/class-IXR-clientmulticall.php",
+        "src/wp-includes/IXR/class-IXR-date.php",
+        "src/wp-includes/IXR/class-IXR-error.php",
+        "src/wp-includes/IXR/class-IXR-introspectionserver.php",
+        "src/wp-includes/IXR/class-IXR-message.php",
+        "src/wp-includes/IXR/class-IXR-request.php",
+        "src/wp-includes/IXR/class-IXR-server.php",
+        "src/wp-includes/IXR/class-IXR-value.php"
+      ],
+      "distribution_paths": [
+        "wp-includes/IXR/class-IXR-base64.php",
+        "wp-includes/IXR/class-IXR-client.php",
+        "wp-includes/IXR/class-IXR-clientmulticall.php",
+        "wp-includes/IXR/class-IXR-date.php",
+        "wp-includes/IXR/class-IXR-error.php",
+        "wp-includes/IXR/class-IXR-introspectionserver.php",
+        "wp-includes/IXR/class-IXR-message.php",
+        "wp-includes/IXR/class-IXR-request.php",
+        "wp-includes/IXR/class-IXR-server.php",
+        "wp-includes/IXR/class-IXR-value.php"
+      ],
+      "closure_ref": "wphx-323-php-vendor-manifest-closure"
+    },
+    "distribution_artifacts": [
+      {
+        "path": "wp-content/plugins/akismet/abilities/class-akismet-ability-comment-check.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/abilities/class-akismet-ability-get-stats.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/abilities/class-akismet-ability.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/abilities/interface-akismet-ability.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/akismet.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class-akismet-abilities.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class-akismet-compatible-plugins.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class-akismet-connector.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class.akismet-admin.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class.akismet-cli.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class.akismet-rest-api.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class.akismet-widget.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/class.akismet.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/index.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/activate.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/compatible-plugins.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/config.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/connect-jp.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/enter.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/footer.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/get.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/logo.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/notice.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/predefined.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/setup-jetpack.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/setup.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/start.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/views/stats.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/akismet/wrapper.php",
+        "group": "bundled_akismet_distribution",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/hello.php",
+        "group": "bundled_hello_plugin",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-content/plugins/index.php",
+        "group": "plugin_directory_guard",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/class-IXR.php",
+        "group": "ixr_compat_loader",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/class-wp-xmlrpc-server.php",
+        "group": "xmlrpc_server",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/deprecated.php",
+        "group": "core_deprecated_api",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-base64.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-client.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-clientmulticall.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-date.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-error.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-introspectionserver.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-message.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-request.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-server.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "wp-includes/IXR/class-IXR-value.php",
+        "group": "preserved_ixr_library",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      },
+      {
+        "path": "xmlrpc.php",
+        "group": "xmlrpc_entrypoint",
+        "kind": "shipped_executable_artifact",
+        "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception"
+      }
+    ]
+  },
+  "evidence_plan": {
+    "first_haxe_candidate": "A typed XML-RPC/legacy adapter-contract model for endpoint enablement, method-family routing, auth/capability guard intent, IXR request/response handoff, deprecation metadata, and bundled plugin boundary classification.",
+    "required_next_fixtures": [
+      "xmlrpc.php endpoint bootstrap and disabled/enabled method routing oracle fixture",
+      "wp_xmlrpc_server method registry, minimum-args, auth failure, and error-shape fixture",
+      "IXR request/message/value serialization fixture with WPHX-323 preserved-vendor non-claims",
+      "deprecated.php representative compatibility helper fixture over deprecation signaling and delegation",
+      "Hello Dolly/bundled plugin provenance and activation-surface fixture or explicit WPHX-323-style preserved bundled-plugin exception",
+      "selected upstream XML-RPC/deprecated PHPUnit ratchet groups",
+      "installed XML-RPC HTTP route gate with database/user/auth/media/post/comment/taxonomy blockers recorded"
+    ],
+    "claim": "This surface manifest bounds WPHX-318 and names fixture gates. It does not claim generated public PHP replacement, Haxe-owned XML-RPC runtime behavior, XML-RPC request/response parity, deprecated API behavior parity, installed route execution, database-backed behavior, upstream PHPUnit pass/pass, Akismet/IXR implementation ownership, or generated original-path adapters."
+  },
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "source_count": 6,
+    "artifact_count": 45,
+    "abi_entry_count": 359,
+    "test_count": 46,
+    "ixr_vendor_source_count": 10
+  }
+}

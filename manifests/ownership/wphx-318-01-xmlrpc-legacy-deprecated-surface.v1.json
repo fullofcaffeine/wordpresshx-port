@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/xmlrpc-legacy-deprecated-surface",
+  "issue": {
+    "id": "wordpresshx-t848",
+    "external_ref": "WPHX-318.01"
+  },
+  "unit": {
+    "kind": "surface_inventory",
+    "name": "XML-RPC, legacy APIs, deprecated APIs, and bundled compatibility surfaces",
+    "area": "xmlrpc.php wp-includes/class-wp-xmlrpc-server.php wp-includes/deprecated.php wp-includes/class-IXR.php wp-content/plugins/*",
+    "public_contract": "This slice inventories XML-RPC/legacy/deprecated runtime boundaries, bundled plugin distribution artifacts, preserved IXR compatibility libraries, fixture targets, and handoffs. It does not claim migrated runtime behavior, XML-RPC request/response parity, deprecated API parity, installed route execution, or public PHP ABI replacement."
+  },
+  "ownership_state": "oracle_surface_inventory",
+  "ownership_axes": {
+    "semantic_owner": "upstream_oracle_described",
+    "adapter_contract_owner": "not_yet_started",
+    "emission_strategy": "none",
+    "execution_provider": "upstream_php_oracle",
+    "compatibility_evidence": "surface_inventory"
+  },
+  "bridge": {
+    "exists": false,
+    "kind": "not_applicable",
+    "removal_gate": "Promote bounded XML-RPC/deprecated decisions to typed Haxe adapter contracts, then later to typed Adapter IR/original-path PHP with XML-RPC request/response, deprecation signaling, installed route, selected upstream PHPUnit, and database-backed behavior evidence."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-xmlrpc-legacy-deprecated-surface.mjs",
+    "manifests/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+    "manifests/ownership/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+    "receipts/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+    "manifests/ownership/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+    "receipts/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-318-xmlrpc-legacy-deprecated-surface",
+      "npm run wp:core:wphx-318-xmlrpc-legacy-deprecated-surface:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-318-01-xmlrpc-legacy-deprecated-surface"
+    ],
+    "manifest_digest": "sha256:19474a36fee30c17fda0a05f09172f826a9e423a3faec45d1709af159a912029"
+  }
+}
