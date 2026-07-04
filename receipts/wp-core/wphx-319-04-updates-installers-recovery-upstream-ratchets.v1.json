@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-319.04",
+  "beads_issue": "wordpresshx-8kbk",
+  "title": "WPHX-319.04 - Add updates installers recovery upstream PHPUnit ratchets",
+  "generated_at": "2026-07-04T20:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-updates-installers-recovery-upstream-ratchets.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-319-04-updates-installers-recovery-upstream-ratchets.v1.json",
+    "phpunit_groups": "tests/upstream/phpunit/groups.json",
+    "global_ratchet_manifest": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_manifest": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "global_ratchet_receipt": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_receipt": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "ratchet_documentation": "docs/operations/upstream-phpunit-ratchet.md"
+  },
+  "summary": "Declares and provisions three selected WPHX-319 upstream PHPUnit ratchet groups covering 7 updater, update-Ajax, and recovery-mode service test files. All selected WPHX-319 groups classify vanilla pass / candidate pass, while global behavior parity remains false because unrelated WPHX-314 baseline failures persist.",
+  "checks": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "node tools/wp-core/run-updates-installers-recovery-upstream-ratchets.mjs",
+    "node tools/wp-core/run-updates-installers-recovery-upstream-ratchets.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for update, upgrader, installer, Site Health, admin Ajax, or recovery-mode files.",
+    "No Haxe-owned update/installer/upgrader/recovery runtime implementation or installed update behavior.",
+    "No live package download, unzip/copy/delete, filesystem transport, remote HTTP, cron, mail, database-backed installed state, browser/e2e behavior, generated overlay, or generated original-path adapter ownership.",
+    "No complete upstream updates/installers/recovery suite parity; this records three selected WPHX-319 groups only.",
+    "The candidate assembly remains the pinned WordPress 7.0 worktree without generated/Haxe overlays, so pass/pass is upstream ratchet evidence rather than WPHX runtime ownership."
+  ]
+}
