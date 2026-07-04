@@ -14,8 +14,8 @@
     },
     "groups": {
       "path": "tests/upstream/phpunit/groups.json",
-      "bytes": 27479,
-      "sha256": "sha256:e965dd24f4e9f584309b98107fec4699b1e2097a81c651adfdc2714aa1b33d82"
+      "bytes": 29863,
+      "sha256": "sha256:ecb6c0b376408339a9cc36d1bc0343eefa250a406c0732682e9a87f9cf8e7af3"
     },
     "known_deltas": {
       "path": "tests/upstream/phpunit/known-deltas.json",
@@ -613,6 +613,50 @@
         "tests/phpunit/tests/admin/wpMediaListTable.php",
         "tests/phpunit/tests/admin/wpThemeInstallListTable.php"
       ]
+    },
+    {
+      "id": "admin-ajax-feature-core",
+      "owner": "WPHX-316",
+      "filter": "Tests_Ajax_Response|Tests_Ajax_wpAjaxAddTag|Tests_Ajax_wpAjaxInlineSave|Tests_Ajax_WpAjaxReplytoComment|Tests_Ajax_wpAjaxGetComments|Tests_Ajax_wpAjaxDeleteComment|Tests_Ajax_wpAjaxDimComment|Tests_Ajax_wpAjaxEditComment|Tests_Ajax_WpAjaxHeartbeat",
+      "files": [
+        "tests/phpunit/tests/ajax/wpAjaxResponse.php",
+        "tests/phpunit/tests/ajax/wpAjaxAddTag.php",
+        "tests/phpunit/tests/ajax/wpAjaxInlineSave.php",
+        "tests/phpunit/tests/ajax/wpAjaxReplytoComment.php",
+        "tests/phpunit/tests/ajax/wpAjaxGetComments.php",
+        "tests/phpunit/tests/ajax/wpAjaxDeleteComment.php",
+        "tests/phpunit/tests/ajax/wpAjaxDimComment.php",
+        "tests/phpunit/tests/ajax/wpAjaxEditComment.php",
+        "tests/phpunit/tests/ajax/wpAjaxHeartbeat.php"
+      ]
+    },
+    {
+      "id": "admin-feature-plugin-dependencies",
+      "owner": "WPHX-316",
+      "files": [
+        "tests/phpunit/tests/admin/plugin-dependencies/initialize.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependencies.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependencyData.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependencyNames.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependencyFilepath.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependents.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependentNames.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/getDependentFilepath.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/hasDependencies.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/hasDependents.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/hasActiveDependents.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/hasUnmetDependencies.php",
+        "tests/phpunit/tests/admin/plugin-dependencies/hasCircularDependency.php"
+      ]
+    },
+    {
+      "id": "admin-privacy-ajax-feature",
+      "owner": "WPHX-316",
+      "filter": "Tests_Ajax_wpAjaxWpPrivacyExportPersonalData|Tests_Ajax_wpAjaxWpPrivacyErasePersonalData",
+      "files": [
+        "tests/phpunit/tests/ajax/wpAjaxWpPrivacyExportPersonalData.php",
+        "tests/phpunit/tests/ajax/wpAjaxWpPrivacyErasePersonalData.php"
+      ]
     }
   ],
   "known_deltas": {
@@ -623,7 +667,7 @@
   },
   "report": {
     "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
-    "sha256": "sha256:dd525e4636c670b1ef8852608889f53f8ca2aedd590fd5708b2518c17345763d"
+    "sha256": "sha256:39c7f66a943355e4e6e7c029e4ddd9ea70b4a8f92f7038c141577dfc4821ad30"
   },
   "execution_summary": {
     "status": "passed",
@@ -872,6 +916,27 @@
         "vanilla_status": "pass",
         "candidate_status": "pass",
         "classification": "parity_pass"
+      },
+      {
+        "group": "admin-ajax-feature-core",
+        "owner": "WPHX-316",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "admin-feature-plugin-dependencies",
+        "owner": "WPHX-316",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      {
+        "group": "admin-privacy-ajax-feature",
+        "owner": "WPHX-316",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
       }
     ]
   },
@@ -880,8 +945,8 @@
     "environment_ready": true,
     "selected_upstream_groups_declared": true,
     "known_deltas_ledger_present": true,
-    "runs_executed": 70,
-    "classifications_recorded": 35,
+    "runs_executed": 76,
+    "classifications_recorded": 38,
     "rejects_new_vanilla_pass_candidate_fail": true,
     "blocked_inputs": []
   }

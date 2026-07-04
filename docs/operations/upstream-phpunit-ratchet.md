@@ -18,7 +18,7 @@ npm run upstream:phpunit-ratchet:provision:check
 
 The provisioner creates vanilla and candidate worktrees under `build/upstream-phpunit/wphx-700-09/`, installs Composer dependencies in those disposable roots, starts the locked MySQL runtime, writes local `wp-tests-config.php` files with isolated databases, and runs the ratchet in report-only mode.
 
-The runner compares pinned vanilla WordPress against a packaged candidate distribution for the selected database, options/cache, REST, posts/query/meta/revisions, taxonomy/term, comment, rewrite/routing, canonical, link, template, theme/theme JSON, block-template, widget, nav-menu, Customizer, HTTP/cron/mail, feed/SimplePie, oEmbed/embed, HTTPS, privacy request, media, image, upload, MIME, filesystem, blocks, style engine, HTML API, interactivity, and admin common/list-table PHPUnit files in `tests/upstream/phpunit/groups.json`.
+The runner compares pinned vanilla WordPress against a packaged candidate distribution for the selected database, options/cache, REST, posts/query/meta/revisions, taxonomy/term, comment, rewrite/routing, canonical, link, template, theme/theme JSON, block-template, widget, nav-menu, Customizer, HTTP/cron/mail, feed/SimplePie, oEmbed/embed, HTTPS, privacy request, media, image, upload, MIME, filesystem, blocks, style engine, HTML API, interactivity, admin common/list-table, and admin feature/AJAX PHPUnit files in `tests/upstream/phpunit/groups.json`.
 
 Group entries may include a `filter` field. The `files` list remains the provenance and prerequisite surface, while the runner passes `--filter` instead of direct file operands. Use this for upstream test files whose filenames do not map to PHPUnit class names, such as REST API files named `rest-server.php` with classes like `Tests_REST_Server`, or hyphenated theme files such as `block-template.php` and `menu/nav-menu.php`.
 
@@ -51,6 +51,12 @@ The WPHX-315 PHPUnit scope is split into four selected groups:
 - `admin-menu-plugin-common`: menu page URL behavior, top-level/submenu insertion ordering, helper wrappers, duplicate parent slug behavior, and invalid menu-position diagnostics.
 - `admin-list-table-base-specializations`: `WP_List_Table` base behavior plus users, legacy user search, plugins, plugin install, and privacy request list-table specializations.
 - `admin-cross-domain-list-tables`: post, comment, term, media, and theme-install list tables as admin chrome/list-table ratchets with storage, taxonomy/comment, media, and theme semantics still owned by their source domains.
+
+The WPHX-316 PHPUnit scope is split into three selected groups:
+
+- `admin-ajax-feature-core`: admin AJAX response, tag, inline-save, comment, and heartbeat handler tests.
+- `admin-feature-plugin-dependencies`: plugin dependency admin helper tests, excluding the support base file.
+- `admin-privacy-ajax-feature`: privacy export/erase AJAX handler tests, with privacy request and mail internals still owned by WPHX-312.
 
 The WPHX-315 e2e ratchet scope is declared separately in `manifests/wp-core/wphx-315-05-admin-common-list-table-upstream-ratchets.v1.json` because the shared runner currently executes PHPUnit only. Selected upstream e2e flows are dashboard quick-draft admin chrome, edit-posts list-table empty/single/quick-edit/delete behavior, trash/restore list-table notices, and fatal-error admin notices. Until an installed admin e2e runner is wired for this domain, those flows are blocked declarations and do not claim browser/admin parity.
 

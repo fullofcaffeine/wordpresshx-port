@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-316.07",
+  "beads_issue": "wordpresshx-wixe",
+  "title": "WPHX-316.07 - Add admin feature AJAX upstream PHPUnit ratchets",
+  "generated_at": "2026-07-04T06:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-admin-feature-ajax-upstream-ratchets.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-316-07-admin-feature-ajax-upstream-ratchets.v1.json",
+    "phpunit_groups": "tests/upstream/phpunit/groups.json",
+    "global_ratchet_manifest": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_manifest": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "global_ratchet_receipt": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_receipt": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "ratchet_documentation": "docs/operations/upstream-phpunit-ratchet.md"
+  },
+  "summary": "Declares and provisions three selected WPHX-316 upstream PHPUnit ratchet groups covering 24 admin feature/AJAX test files. All selected WPHX-316 groups classify vanilla pass / candidate pass, while global behavior parity remains false because unrelated WPHX-314 baseline failures persist.",
+  "checks": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "node tools/wp-core/run-admin-feature-ajax-upstream-ratchets.mjs",
+    "node tools/wp-core/run-admin-feature-ajax-upstream-ratchets.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for admin route, AJAX, plugin, or privacy files.",
+    "No Haxe-owned admin feature/AJAX route implementation or installed admin behavior.",
+    "No complete upstream admin suite parity; this records three selected WPHX-316 groups only.",
+    "No browser/e2e behavior, database-backed installed admin state, generated overlay, or generated original-path adapter ownership.",
+    "The candidate assembly remains the pinned WordPress 7.0 worktree without generated/Haxe overlays, so pass/pass is ratchet evidence, not Haxe runtime ownership."
+  ]
+}
