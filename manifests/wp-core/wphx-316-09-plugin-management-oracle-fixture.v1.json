@@ -1,0 +1,860 @@
+{
+  "schema": "wphx.wp-core-plugin-management-oracle-fixture.v1",
+  "issue": "WPHX-316.09",
+  "generated_at": "2026-07-04T08:00:00.000Z",
+  "generator": "tools/wp-core/run-plugin-management-oracle-fixture.mjs",
+  "evidence_classes": [
+    "copied_oracle_fixture",
+    "targeted_behavior_observation"
+  ],
+  "artifact_scope": "bridge_fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+      "bytes": 39441,
+      "sha256": "sha256:7d36e6279677a9d479855f1191b70653c4ee248ad010e8556ed7d57d5890696d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+      "bytes": 19078,
+      "sha256": "sha256:9a2c25e41d5ce51044b8b2a79b2f190375e987bc1a3c92a267db490fd4926104"
+    },
+    "ajax_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+      "bytes": 14512,
+      "sha256": "sha256:ca228573671762a50859ed4462d6c3abc9007e4bcd208c904c99c699f5f66648"
+    },
+    "upstream_ratchets_manifest": {
+      "path": "manifests/wp-core/wphx-316-07-admin-feature-ajax-upstream-ratchets.v1.json",
+      "bytes": 8025,
+      "sha256": "sha256:a51018ab03782d8c20feb743966193a01866af0fdff0985838df15a466338fdb"
+    },
+    "installed_e2e_gates_manifest": {
+      "path": "manifests/wp-core/wphx-316-08-admin-feature-ajax-installed-e2e-gates.v1.json",
+      "bytes": 19352,
+      "sha256": "sha256:439e0161c0f384dc860f5f1d484536dfae521145cbc15a4a60fb9bdf445c7522"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-admin/plugins.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/plugins.php",
+        "bytes": 30724,
+        "sha256": "sha256:39f237dda3e826ee702fe361f9713eeacad360c97c3f1bf2d40450e91bd2e714"
+      }
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php",
+      "wp-admin/update.php"
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-plugin-management-oracle-fixture.mjs",
+      "bytes": 30510,
+      "sha256": "sha256:5f5ebde6abc2a73b7133509fa96e811f5eb208416b65d319f14482dc7d8c0c86"
+    }
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/plugins.php"
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php",
+      "wp-admin/update.php"
+    ],
+    "covered_symbols": [
+      "wp-admin/plugins.php",
+      "WP_Plugins_List_Table::current_action",
+      "WP_Plugins_List_Table::prepare_items",
+      "WP_Plugins_List_Table::display",
+      "activate_plugin",
+      "activate_plugins",
+      "deactivate_plugins",
+      "delete_plugins",
+      "WP_Plugin_Dependencies::initialize",
+      "WP_Plugin_Dependencies::display_admin_notice_for_unmet_dependencies",
+      "check_admin_referer",
+      "current_user_can",
+      "wp_admin_notice",
+      "wp_enqueue_script",
+      "add_screen_option",
+      "handle_bulk_actions-{$screen}"
+    ],
+    "cases": [
+      {
+        "id": "plugins:capability-denied",
+        "focus": "plugins.php rejects users without activate_plugins before list-table preparation"
+      },
+      {
+        "id": "plugins:activate-single",
+        "focus": "single plugin activation checks nonce, calls activate_plugin, clears recently_activated, and redirects"
+      },
+      {
+        "id": "plugins:activate-selected",
+        "focus": "bulk activation filters already-active entries, activates eligible plugins, and redirects"
+      },
+      {
+        "id": "plugins:deactivate-single",
+        "focus": "single plugin deactivation checks nonce, records recently_activated, and redirects"
+      },
+      {
+        "id": "plugins:delete-confirm",
+        "focus": "delete-selected without verify-delete renders confirmation markup through copied plugins.php"
+      },
+      {
+        "id": "plugins:delete-verified",
+        "focus": "verified delete-selected calls delete_plugins, stores result, and redirects"
+      },
+      {
+        "id": "plugins:render-list",
+        "focus": "default route prepares plugin list-table, help tabs, notices, and screen fragments"
+      }
+    ],
+    "oracle": {
+      "plugins:capability-denied": {
+        "case": "plugins:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to manage plugins for this site.",
+          "response": null
+        },
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:activate-single": {
+        "case": "plugins:activate-single",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?activate=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "activate-plugin_inactive/inactive.php",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [
+          {
+            "plugin": "inactive/inactive.php",
+            "redirect": "https://example.test/wp-admin/plugins.php?error=true&plugin=inactive%2Finactive.php",
+            "network_wide": false
+          }
+        ],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:activate-selected": {
+        "case": "plugins:activate-selected",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?activate-multi=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [
+          {
+            "plugins": [
+              "inactive/inactive.php"
+            ],
+            "redirect": "https://example.test/wp-admin/plugins.php?error=true",
+            "network_wide": false
+          }
+        ],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:deactivate-single": {
+        "case": "plugins:deactivate-single",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?deactivate=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "deactivate-plugin_sample/sample.php",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [
+          {
+            "plugins": [
+              "sample/sample.php"
+            ],
+            "silent": false,
+            "network_wide": false
+          }
+        ],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:delete-confirm": {
+        "case": "plugins:delete-confirm",
+        "completed": false,
+        "exception": null,
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates",
+          "jquery"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": true,
+          "delete_data_warning": true,
+          "yes_delete_button": true,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 1185
+      },
+      "plugins:delete-verified": {
+        "case": "plugins:delete-verified",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?deleted=1&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [
+          [
+            "inactive/inactive.php"
+          ]
+        ],
+        "updated_options": {
+          "plugins_delete_result_42": true
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 43
+      },
+      "plugins:render-list": {
+        "case": "plugins:render-list",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates",
+          "plugin-install"
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 999
+            }
+          }
+        ],
+        "help_tabs": [
+          "overview",
+          "compatibility-problems",
+          "plugins-themes-auto-updates",
+          "plugins-dependencies"
+        ],
+        "actions": [
+          "plugin_dependencies_initialize",
+          "plugins_table_prepare_items",
+          "add_thickbox",
+          "pre_current_active_plugins"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": true,
+          "add_plugin_action": true,
+          "plugin_activated_notice": true,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": true,
+          "search_box": true,
+          "filesystem_modal": true,
+          "update_row_template": true
+        },
+        "output_length": 1232
+      }
+    },
+    "candidate": {
+      "plugins:capability-denied": {
+        "case": "plugins:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Sorry, you are not allowed to manage plugins for this site.",
+          "response": null
+        },
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:activate-single": {
+        "case": "plugins:activate-single",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?activate=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "activate-plugin_inactive/inactive.php",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [
+          {
+            "plugin": "inactive/inactive.php",
+            "redirect": "https://example.test/wp-admin/plugins.php?error=true&plugin=inactive%2Finactive.php",
+            "network_wide": false
+          }
+        ],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:activate-selected": {
+        "case": "plugins:activate-selected",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?activate-multi=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [
+          {
+            "plugins": [
+              "inactive/inactive.php"
+            ],
+            "redirect": "https://example.test/wp-admin/plugins.php?error=true",
+            "network_wide": false
+          }
+        ],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:deactivate-single": {
+        "case": "plugins:deactivate-single",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?deactivate=true&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "deactivate-plugin_sample/sample.php",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [
+          {
+            "plugins": [
+              "sample/sample.php"
+            ],
+            "silent": false,
+            "network_wide": false
+          }
+        ],
+        "deleted_plugins": [],
+        "updated_options": {
+          "recently_activated": [
+            "sample/sample.php",
+            "old/old.php"
+          ]
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 0
+      },
+      "plugins:delete-confirm": {
+        "case": "plugins:delete-confirm",
+        "completed": false,
+        "exception": null,
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates",
+          "jquery"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": true,
+          "delete_data_warning": true,
+          "yes_delete_button": true,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 1185
+      },
+      "plugins:delete-verified": {
+        "case": "plugins:delete-verified",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/plugins.php?deleted=1&plugin_status=all&paged=1&s=",
+            "status": 302
+          }
+        ],
+        "safe_redirects": [],
+        "nonce_checks": [
+          {
+            "action": "bulk-plugins",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [
+          [
+            "inactive/inactive.php"
+          ]
+        ],
+        "updated_options": {
+          "plugins_delete_result_42": true
+        },
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates"
+        ],
+        "screen_options": [],
+        "help_tabs": [],
+        "actions": [
+          "plugin_dependencies_initialize"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": false,
+          "add_plugin_action": false,
+          "plugin_activated_notice": false,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": false,
+          "search_box": false,
+          "filesystem_modal": false,
+          "update_row_template": false
+        },
+        "output_length": 43
+      },
+      "plugins:render-list": {
+        "case": "plugins:render-list",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "safe_redirects": [],
+        "nonce_checks": [],
+        "activated_plugins": [],
+        "activated_plugin_batches": [],
+        "deactivated_plugins": [],
+        "deleted_plugins": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "enqueued_scripts": [
+          "updates",
+          "plugin-install"
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 999
+            }
+          }
+        ],
+        "help_tabs": [
+          "overview",
+          "compatibility-problems",
+          "plugins-themes-auto-updates",
+          "plugins-dependencies"
+        ],
+        "actions": [
+          "plugin_dependencies_initialize",
+          "plugins_table_prepare_items",
+          "add_thickbox",
+          "pre_current_active_plugins"
+        ],
+        "filters": [],
+        "output_contains": {
+          "plugins_heading": true,
+          "add_plugin_action": true,
+          "plugin_activated_notice": true,
+          "delete_confirmation": false,
+          "delete_data_warning": false,
+          "yes_delete_button": false,
+          "list_table": true,
+          "search_box": true,
+          "filesystem_modal": true,
+          "update_row_template": true
+        },
+        "output_length": 1232
+      }
+    },
+    "observation_count": 7,
+    "matching_observations": true
+  },
+  "claims": {
+    "targeted_copied_oracle_behavior_claimed": true,
+    "broad_behavior_parity_claimed": false,
+    "public_php_replacement_claimed": false,
+    "haxe_runtime_ownership_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "plugin_filesystem_behavior_claimed": false,
+    "database_backed_state_claimed": false,
+    "browser_editor_behavior_claimed": false,
+    "generated_original_path_adapter_claimed": false,
+    "generated_candidate_overlay_claimed": false
+  },
+  "non_claims": [
+    "Does not claim generated replacement for wp-admin/plugins.php or plugin-management route files.",
+    "Does not execute WordPress bootstrap, real plugin files, plugin update/delete filesystem behavior, a real database, real users/sessions, real nonces, real headers, browser/editor behavior, or installed admin routes.",
+    "Does not claim broad plugin-management parity, upstream PHPUnit pass/pass parity beyond WPHX-316.07, public PHP ABI ownership, or durable original-path adapter ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 7,
+    "source_file_count": 1,
+    "covered_symbol_count": 16,
+    "oracle_candidate_match": true
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-316-09-plugin-management-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-l76.22.1",
+    "external_ref": "WPHX-316.09",
+    "title": "WPHX-316.09 - Add plugin management route oracle fixture"
+  },
+  "recorded_at": "2026-07-04T08:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-316-09-plugin-management-oracle-fixture.v1.json",
+      "role": "plugin-management copied-oracle fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-316-09-plugin-management-oracle-fixture.v1.json",
+      "role": "plugin-management copied-oracle fixture ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-plugin-management-oracle-fixture.mjs",
+      "role": "deterministic copied-oracle generator/check runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-316-plugin-management-oracle-fixture",
+    "npm run wp:core:wphx-316-plugin-management-oracle-fixture:check",
+    "npm run operations:bridge-claim-guardrails:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 7,
+    "source_file_count": 1,
+    "covered_symbol_count": 16,
+    "oracle_candidate_match": true
+  },
+  "manifest_sha256": "sha256:d9f2b79b2d112c8bd07427c2f4b9122cf1b7f1fecbd2f5b46d4e7d2d8da87d89",
+  "ownership_sha256": "sha256:b5024bab35c03cb1fecd5a270c71ed8759491794a0766fc7292f84b4e24a4a76",
+  "related_receipts": [
+    "receipt:wphx-316-01-admin-feature-ajax-surface",
+    "receipt:wphx-316-02-admin-feature-ajax-adapter-contract-candidate",
+    "receipt:wphx-316-03-admin-ajax-post-oracle-fixture",
+    "receipt:wphx-316-07-admin-feature-ajax-upstream-ratchets",
+    "receipt:wphx-316-08-admin-feature-ajax-installed-e2e-gates"
+  ]
+}
