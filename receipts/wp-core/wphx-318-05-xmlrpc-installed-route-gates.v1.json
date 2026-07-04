@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-318.05",
+  "beads_issue": "wordpresshx-jsqa",
+  "title": "WPHX-318.05 - Declare XML-RPC installed route gates",
+  "generated_at": "2026-07-04T13:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-xmlrpc-installed-route-gates.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-318-05-xmlrpc-installed-route-gates.v1.json",
+    "surface_manifest": "manifests/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+    "adapter_contract_manifest": "manifests/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+    "endpoint_server_fixture_manifest": "manifests/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+    "upstream_ratchets_manifest": "manifests/wp-core/wphx-318-04-xmlrpc-legacy-upstream-ratchets.v1.json",
+    "upstream_lock": "upstream.lock.json"
+  },
+  "summary": "Declares nine selected WPHX-318 installed XML-RPC HTTP route gates over RSD discovery, non-POST rejection, malformed IXR envelopes, public system/demo methods, auth failure/enabled filters, authenticated read methods, content writes, media upload, and pingback methods. Every selected gate remains blocked until real installed oracle/candidate roots, generated-overlay discipline, database/user/capability state, HTTP XML-RPC execution, and wire/database/filesystem comparison exist.",
+  "checks": [
+    "node tools/wp-core/run-xmlrpc-installed-route-gates.mjs",
+    "node tools/wp-core/run-xmlrpc-installed-route-gates.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "This artifact declares WPHX-318 installed XML-RPC HTTP route gate scope only; it does not execute HTTP requests through installed WordPress.",
+    "No generated public PHP replacement for xmlrpc.php, wp-includes/class-wp-xmlrpc-server.php, wp-includes/class-IXR.php, wp-includes/deprecated.php, bundled plugin files, or preserved IXR library files is claimed.",
+    "No Haxe-owned XML-RPC runtime logic, IXR parser/serializer implementation, deprecated API runtime implementation, or installed XML-RPC request/response parity is claimed.",
+    "No database-backed candidate behavior, real users/capabilities/passwords, post/comment/term/media writes, pingback transport, browser/e2e behavior, generated overlay, or generated original-path adapter ownership is claimed.",
+    "The selected route gates are future blockers and scope declarations; their source hashes are not pass/pass installed execution evidence."
+  ]
+}
