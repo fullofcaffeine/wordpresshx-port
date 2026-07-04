@@ -1,0 +1,94 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-318-domain-closure",
+  "issue": {
+    "id": "wordpresshx-1whp",
+    "external_ref": "WPHX-318.06",
+    "title": "WPHX-318.06 - Close XML-RPC legacy deprecated bounded evidence slice"
+  },
+  "recorded_at": "2026-07-04T14:00:00.000Z",
+  "command": "domain closure audit over WPHX-318.01 through WPHX-318.05 receipts",
+  "evidence_class": "domain_closure",
+  "artifact_scope": "mixed: source_inventory, adapter_contract, oracle_source_mirror, upstream_suite_parity, installed_route_gate_declaration",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+      "bytes": 1397,
+      "sha256": "sha256:7a826bf7a80115c4199f3628d18706d529bf88553abb5bbfce56beb19eab20c9",
+      "role": "XML-RPC, legacy, deprecated, bundled plugin, IXR, source/distribution/ABI/test surface inventory",
+      "ref": "WPHX-318.01"
+    },
+    {
+      "path": "receipts/wp-core/wphx-318-02-xmlrpc-legacy-adapter-contract-candidate.v1.json",
+      "bytes": 1892,
+      "sha256": "sha256:5655031f2d617bf772504442138b464c3e69be352fd88ebc0698f1c750bc8fb8",
+      "role": "typed Haxe XML-RPC/legacy/deprecated adapter-contract evidence",
+      "ref": "WPHX-318.02"
+    },
+    {
+      "path": "receipts/wp-core/wphx-318-03-xmlrpc-endpoint-server-oracle-fixture.v1.json",
+      "bytes": 1660,
+      "sha256": "sha256:f06e3f34278797d97990786338205525ec5d3fd8e8218621fee81be44e5a116c",
+      "role": "copied-oracle xmlrpc.php, wp_xmlrpc_server, class-IXR, and IXR support observations",
+      "ref": "WPHX-318.03"
+    },
+    {
+      "path": "receipts/wp-core/wphx-318-04-xmlrpc-legacy-upstream-ratchets.v1.json",
+      "bytes": 2408,
+      "sha256": "sha256:9ed0fd1332845fe0f678643d17ee1b3af74f541998702c809ac0a4b505d5c62e",
+      "role": "selected upstream PHPUnit pass/pass ratchets for XML-RPC endpoint/demo/message, method-family, and legacy/deprecated helper tests",
+      "ref": "WPHX-318.04"
+    },
+    {
+      "path": "receipts/wp-core/wphx-318-05-xmlrpc-installed-route-gates.v1.json",
+      "bytes": 2537,
+      "sha256": "sha256:d51c09aef26472272ad600efa9cb287b2e23e3e1c2b4125ebe7bd96bd7d7d563",
+      "role": "selected installed XML-RPC HTTP route gate declarations with blockers and future runner requirements",
+      "ref": "WPHX-318.05"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-318 closure interpretation"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-318-xmlrpc-legacy-deprecated-surface:check",
+    "npm run wp:core:wphx-318-xmlrpc-legacy-adapter-contract-candidate:check",
+    "npm run wp:core:wphx-318-xmlrpc-endpoint-server-oracle-fixture:check",
+    "npm run wp:core:wphx-318-xmlrpc-legacy-upstream-ratchets:check",
+    "npm run wp:core:wphx-318-xmlrpc-installed-route-gates:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "surface_inventory": true,
+    "haxe_adapter_contracts": [
+      "XmlRpcLegacyAdapterContract"
+    ],
+    "fixtures_cover": [
+      "XML-RPC/legacy/deprecated source, distribution, ABI, related tests, bundled plugin, IXR, and cross-domain handoff surface inventory",
+      "typed adapter-contract intent for XML-RPC endpoint states, method-family classification, guard intent, IXR envelope handoff, deprecated symbol classification, source/artifact boundary classification, and cross-domain handoffs",
+      "copied-oracle/candidate xmlrpc.php and wp_xmlrpc_server endpoint/server observations for RSD output, server class filtering, method registry/filtering, demo/error helpers, auth failure behavior, and Blogger users-blogs output under deterministic stubs",
+      "selected upstream XML-RPC/deprecated PHPUnit groups with vanilla pass / candidate pass classifications",
+      "selected installed XML-RPC HTTP route gates declared as blocked with future runner requirements"
+    ],
+    "remaining_gaps": [
+      "Generated public PHP replacement for xmlrpc.php, wp-includes/class-wp-xmlrpc-server.php, wp-includes/class-IXR.php, wp-includes/deprecated.php, bundled plugin files, and preserved IXR library files is not claimed.",
+      "Haxe-owned runtime implementations for XML-RPC endpoint dispatch, wp_xmlrpc_server method handlers, IXR parsing/serialization, deprecated API behavior, bundled plugin behavior, Akismet distribution artifacts, and preserved vendor/library files are not claimed.",
+      "Full XML-RPC request/response parity, installed HTTP route execution, database-backed candidate state, real users/passwords/capabilities/options/uploads, and real post/comment/term/media writes remain later gates.",
+      "Selected WPHX-318 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream XML-RPC/deprecated suite parity is not claimed.",
+      "The WPHX-318.03 copied-oracle fixture executes selected mirrored upstream PHP through deterministic stubs; it does not prove generated public PHP replacement or installed WordPress route parity.",
+      "The WPHX-318.05 installed route gates are declared as blocked until real installed oracle/candidate roots, generated-overlay discipline, real xmlrpc.php HTTP dispatch, XML wire comparison, database/user/capability/upload state, controlled pingback/media transport, and filesystem/database diff gates exist.",
+      "Cross-domain ownership remains with WPHX-303 for deprecation/error signaling, WPHX-306 for auth/users/capabilities, WPHX-307/WPHX-308 for post/comment/term behavior, WPHX-312 for HTTP/feed/pingback/legacy library behavior, WPHX-313 for media uploads, WPHX-317 for multisite state, and WPHX-323 for preserved vendor/library policy.",
+      "Generated overlays, generated original-path adapters, durable public PHP ownership, broad XML-RPC installed parity, and ecosystem/plugin compatibility require future WPHX PHP adapter evidence or real installed XML-RPC route gates.",
+      "This closes the bounded WPHX-318 XML-RPC/legacy/deprecated evidence slice, not all WordPress legacy/deprecated behavior or complete ecosystem parity."
+    ],
+    "follow_up_guidance": [
+      "Prefer generated original-path adapters or a real installed XML-RPC HTTP runner before making stronger WPHX-318 parity claims.",
+      "Any future candidate divergence in copied package/route fixtures requires a non-empty generated overlay manifest and zero unexpected candidate differences.",
+      "A future installed XML-RPC runner should compare raw XML request/response bodies, HTTP status/headers, IXR faults/success values, hook traces, PHP logs, and database/filesystem deltas under controlled fixtures."
+    ]
+  }
+}

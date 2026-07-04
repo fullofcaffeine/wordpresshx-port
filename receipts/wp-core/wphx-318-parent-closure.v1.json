@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-318-parent-closure",
+  "issue": {
+    "id": "wordpresshx-l76.23",
+    "external_ref": "WPHX-318",
+    "title": "WPHX-318 - XML-RPC, legacy, deprecated APIs"
+  },
+  "recorded_at": "2026-07-04T14:00:00.000Z",
+  "command": "parent closure after WPHX-318.06 bounded domain-closure receipt",
+  "evidence_class": "parent_domain_closure",
+  "artifact_scope": "wp_core_xmlrpc_legacy_deprecated_apis",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "receipts/wp-core/wphx-318-domain-closure.v1.json",
+      "role": "bounded WPHX-318 domain-closure receipt",
+      "sha256": "sha256:c08f61e377fed6476561094d574b59681f89cc17f59005658ea88ef2633713ff"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program matrix marking WPHX-318 bounded closed"
+    },
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "tracked Beads export with WPHX-318 parent closure"
+    }
+  ],
+  "verification_commands": [
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "domain_closure_receipt": "receipt:wphx-318-domain-closure",
+    "bounded_parent_closed": true,
+    "required_child_gates_closed": [
+      "WPHX-318.01",
+      "WPHX-318.02",
+      "WPHX-318.03",
+      "WPHX-318.04",
+      "WPHX-318.05",
+      "WPHX-318.06"
+    ],
+    "remaining_gaps_preserved": [
+      "Generated public PHP replacement for xmlrpc.php, wp-includes/class-wp-xmlrpc-server.php, wp-includes/class-IXR.php, wp-includes/deprecated.php, bundled plugin files, and preserved IXR library files is not claimed.",
+      "Haxe-owned runtime implementations for XML-RPC endpoint dispatch, wp_xmlrpc_server method handlers, IXR parsing/serialization, deprecated API behavior, bundled plugin behavior, Akismet distribution artifacts, and preserved vendor/library files are not claimed.",
+      "Full XML-RPC request/response parity, installed HTTP route execution, database-backed candidate state, real users/passwords/capabilities/options/uploads, and real post/comment/term/media writes remain later gates.",
+      "Selected WPHX-318 upstream PHPUnit groups classify vanilla pass / candidate pass, but complete upstream XML-RPC/deprecated suite parity is not claimed.",
+      "The WPHX-318.03 copied-oracle fixture executes selected mirrored upstream PHP through deterministic stubs; it does not prove generated public PHP replacement or installed WordPress route parity.",
+      "The WPHX-318.05 installed route gates are declared as blocked until real installed oracle/candidate roots, generated-overlay discipline, real xmlrpc.php HTTP dispatch, XML wire comparison, database/user/capability/upload state, controlled pingback/media transport, and filesystem/database diff gates exist.",
+      "Cross-domain ownership remains with WPHX-303 for deprecation/error signaling, WPHX-306 for auth/users/capabilities, WPHX-307/WPHX-308 for post/comment/term behavior, WPHX-312 for HTTP/feed/pingback/legacy library behavior, WPHX-313 for media uploads, WPHX-317 for multisite state, and WPHX-323 for preserved vendor/library policy.",
+      "Generated overlays, generated original-path adapters, durable public PHP ownership, broad XML-RPC installed parity, and ecosystem/plugin compatibility require future WPHX PHP adapter evidence or real installed XML-RPC route gates.",
+      "This closes the bounded WPHX-318 XML-RPC/legacy/deprecated evidence slice, not all WordPress legacy/deprecated behavior or complete ecosystem parity."
+    ],
+    "non_blocking_follow_up": "Future WPHX-318 movement should require generated original-path adapters, explicit generated overlay manifests, real installed XML-RPC HTTP execution, wire/database/filesystem comparisons, or preserved-vendor/IXR policy evidence before stronger XML-RPC or deprecated API parity claims."
+  }
+}
