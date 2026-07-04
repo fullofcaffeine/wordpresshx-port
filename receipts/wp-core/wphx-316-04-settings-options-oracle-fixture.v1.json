@@ -1,0 +1,43 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-316-04-settings-options-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-0rwd",
+    "external_ref": "WPHX-316.04",
+    "title": "WPHX-316.04 - Add settings options route oracle fixture"
+  },
+  "recorded_at": "2026-07-04T03:15:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+      "role": "settings/options copied-oracle fixture manifest"
+    },
+    {
+      "path": "manifests/ownership/wphx-316-04-settings-options-oracle-fixture.v1.json",
+      "role": "settings/options copied-oracle fixture ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-settings-options-oracle-fixture.mjs",
+      "role": "deterministic copied-oracle generator/check runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-316-settings-options-oracle-fixture",
+    "npm run wp:core:wphx-316-settings-options-oracle-fixture:check",
+    "npm run operations:bridge-claim-guardrails:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 6,
+    "source_file_count": 1,
+    "covered_symbol_count": 13,
+    "oracle_candidate_match": true
+  },
+  "manifest_sha256": "sha256:d76915171971bf56206d2e11224c2b83ba573189acded220257d8c2b868107b8",
+  "ownership_sha256": "sha256:a6701c9135132c8ac2b947a301c5484467e7648fc4fabbea7f3c55aa28f995de",
+  "related_receipts": [
+    "receipt:wphx-316-01-admin-feature-ajax-surface",
+    "receipt:wphx-316-02-admin-feature-ajax-adapter-contract-candidate",
+    "receipt:wphx-316-03-admin-ajax-post-oracle-fixture"
+  ]
+}

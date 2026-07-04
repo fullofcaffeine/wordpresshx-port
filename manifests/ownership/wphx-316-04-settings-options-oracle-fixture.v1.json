@@ -1,0 +1,55 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/settings-options-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-0rwd",
+    "external_ref": "WPHX-316.04"
+  },
+  "unit": {
+    "kind": "copied_oracle_fixture",
+    "name": "settings/options route fixture",
+    "area": "wp-admin/options.php settings API option update and all-options render branches",
+    "public_contract": "This slice executes copied upstream WordPress options.php under deterministic stubs for oracle/candidate behavior observations. It does not claim generated public PHP replacement, installed admin parity, database-backed settings persistence, or Haxe-owned route execution."
+  },
+  "ownership_state": "external_oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress_oracle",
+    "adapter_contract_owner": "haxe_typed_prior_slice",
+    "emission_strategy": "copied_upstream_public_php_with_deterministic_bootstrap_stubs",
+    "execution_provider": "php_oracle_candidate_probe",
+    "compatibility_evidence": "targeted_copied_oracle_behavior"
+  },
+  "bridge": {
+    "exists": true,
+    "kind": "copied-upstream-oracle-candidate-fixture",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass settings/options route dispatch, Settings API update, nonce/capability, database-backed persistence, admin screen rendering, selected upstream PHPUnit/e2e, and installed admin fixtures before claiming public PHP ownership or installed admin parity."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-settings-options-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-04-settings-options-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json"
+  ],
+  "copied_upstream_inputs": [
+    "src/wp-admin/options.php"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-04-settings-options-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+    "build/wp-core/wphx-316-04"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-316-settings-options-oracle-fixture",
+      "npm run wp:core:wphx-316-settings-options-oracle-fixture:check",
+      "npm run operations:bridge-claim-guardrails:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-316-04-settings-options-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:d76915171971bf56206d2e11224c2b83ba573189acded220257d8c2b868107b8"
+  },
+  "notes": "Mirrored PHP is regenerated under build/ only. The candidate currently matches the upstream oracle by construction; future generated overlays require an explicit overlay manifest and additional gates."
+}

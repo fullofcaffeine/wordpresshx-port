@@ -1,0 +1,568 @@
+{
+  "schema": "wphx.wp-core-settings-options-oracle-fixture.v1",
+  "issue": "WPHX-316.04",
+  "generated_at": "2026-07-04T03:15:00.000Z",
+  "generator": "tools/wp-core/run-settings-options-oracle-fixture.mjs",
+  "evidence_classes": [
+    "copied_oracle_fixture",
+    "targeted_behavior_observation"
+  ],
+  "artifact_scope": "bridge_fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+      "bytes": 39441,
+      "sha256": "sha256:7d36e6279677a9d479855f1191b70653c4ee248ad010e8556ed7d57d5890696d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+      "bytes": 19078,
+      "sha256": "sha256:9a2c25e41d5ce51044b8b2a79b2f190375e987bc1a3c92a267db490fd4926104"
+    },
+    "ajax_post_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-316-03-admin-ajax-post-oracle-fixture.v1.json",
+      "bytes": 14512,
+      "sha256": "sha256:ca228573671762a50859ed4462d6c3abc9007e4bcd208c904c99c699f5f66648"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-admin/options.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/options.php",
+        "bytes": 14266,
+        "sha256": "sha256:be1c998d13f04a61cb3b27a9d2614ca2e22d0a65da06b893e977f7fe6e92ab8f"
+      }
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php"
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-settings-options-oracle-fixture.mjs",
+      "bytes": 21708,
+      "sha256": "sha256:6f0699ce9650770b92bfb62a617601923baea9c1d7243146a234acf4ca98e9e3"
+    }
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/options.php"
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php"
+    ],
+    "covered_symbols": [
+      "wp-admin/options.php",
+      "option_page_capability_{$option_page}",
+      "allowed_options",
+      "check_admin_referer",
+      "update_option",
+      "delete_option",
+      "add_settings_error",
+      "get_settings_errors",
+      "set_transient",
+      "wp_redirect",
+      "wp_admin_notice",
+      "wp_nonce_field",
+      "submit_button"
+    ],
+    "cases": [
+      {
+        "id": "options:capability-denied",
+        "focus": "settings route capability gate emits wp_die 403 before option mutation"
+      },
+      {
+        "id": "options:adminhash-match",
+        "focus": "admin email hash confirmation updates options and redirects to updated=true"
+      },
+      {
+        "id": "options:dismiss-new-admin-email",
+        "focus": "new admin email dismissal checks nonce, deletes options, and redirects"
+      },
+      {
+        "id": "options:update-general",
+        "focus": "general settings update normalizes custom date/time and UTC timezone before redirect"
+      },
+      {
+        "id": "options:update-unknown-page",
+        "focus": "unknown option_page fails allowed-options validation with wp_die"
+      },
+      {
+        "id": "options:render-all-options",
+        "focus": "direct all-options render emits warning, option rows, disabled serialized/API-key fields, nonce, and submit button"
+      }
+    ],
+    "oracle": {
+      "options:capability-denied": {
+        "case": "options:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "You need a higher level of permission.Sorry, you are not allowed to manage options for this site.",
+          "response": 403
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:adminhash-match": {
+        "case": "options:adminhash-match",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [],
+        "updated_options": {
+          "admin_email": "new-admin@example.test"
+        },
+        "deleted_options": [
+          "adminhash",
+          "new_admin_email"
+        ],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:dismiss-new-admin-email": {
+        "case": "options:dismiss-new-admin-email",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "dismiss-1-new_admin_email",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": [],
+        "deleted_options": [
+          "adminhash",
+          "new_admin_email"
+        ],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:update-general": {
+        "case": "options:update-general",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?page=general&settings-updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "general-options",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": {
+          "blogname": "Updated Site",
+          "blogdescription": null,
+          "site_icon": null,
+          "gmt_offset": "2",
+          "date_format": "custom",
+          "time_format": "custom",
+          "start_of_week": null,
+          "timezone_string": "",
+          "WPLANG": "",
+          "new_admin_email": null,
+          "siteurl": null,
+          "home": null,
+          "users_can_register": null,
+          "default_role": null
+        },
+        "deleted_options": [],
+        "settings_errors": [
+          {
+            "setting": "general",
+            "code": "settings_updated",
+            "message": "Settings saved.",
+            "type": "success"
+          }
+        ],
+        "transients": [
+          {
+            "transient": "settings_errors",
+            "value_count": 1,
+            "expiration": 30
+          }
+        ],
+        "filters": [
+          "option_page_capability_general",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:update-unknown-page": {
+        "case": "options:update-unknown-page",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Error: The wphx_unknown options page is not in the allowed options list.",
+          "response": null
+        },
+        "redirects": [],
+        "nonce_checks": [
+          {
+            "action": "wphx_unknown-options",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_wphx_unknown",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:render-all-options": {
+        "case": "options:render-all-options",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "nonce_checks": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": true,
+          "warning_notice": true,
+          "serialized_disabled": true,
+          "api_key_masked": true,
+          "textarea": true,
+          "submit_button": true
+        },
+        "output_length": 1955
+      }
+    },
+    "candidate": {
+      "options:capability-denied": {
+        "case": "options:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "You need a higher level of permission.Sorry, you are not allowed to manage options for this site.",
+          "response": 403
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:adminhash-match": {
+        "case": "options:adminhash-match",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [],
+        "updated_options": {
+          "admin_email": "new-admin@example.test"
+        },
+        "deleted_options": [
+          "adminhash",
+          "new_admin_email"
+        ],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:dismiss-new-admin-email": {
+        "case": "options:dismiss-new-admin-email",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "dismiss-1-new_admin_email",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": [],
+        "deleted_options": [
+          "adminhash",
+          "new_admin_email"
+        ],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:update-general": {
+        "case": "options:update-general",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/options-general.php?page=general&settings-updated=true",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "general-options",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": {
+          "blogname": "Updated Site",
+          "blogdescription": null,
+          "site_icon": null,
+          "gmt_offset": "2",
+          "date_format": "custom",
+          "time_format": "custom",
+          "start_of_week": null,
+          "timezone_string": "",
+          "WPLANG": "",
+          "new_admin_email": null,
+          "siteurl": null,
+          "home": null,
+          "users_can_register": null,
+          "default_role": null
+        },
+        "deleted_options": [],
+        "settings_errors": [
+          {
+            "setting": "general",
+            "code": "settings_updated",
+            "message": "Settings saved.",
+            "type": "success"
+          }
+        ],
+        "transients": [
+          {
+            "transient": "settings_errors",
+            "value_count": 1,
+            "expiration": 30
+          }
+        ],
+        "filters": [
+          "option_page_capability_general",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:update-unknown-page": {
+        "case": "options:update-unknown-page",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Error: The wphx_unknown options page is not in the allowed options list.",
+          "response": null
+        },
+        "redirects": [],
+        "nonce_checks": [
+          {
+            "action": "wphx_unknown-options",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_wphx_unknown",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": false,
+          "warning_notice": false,
+          "serialized_disabled": false,
+          "api_key_masked": false,
+          "textarea": false,
+          "submit_button": false
+        },
+        "output_length": 0
+      },
+      "options:render-all-options": {
+        "case": "options:render-all-options",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "nonce_checks": [],
+        "updated_options": [],
+        "deleted_options": [],
+        "settings_errors": [],
+        "transients": [],
+        "filters": [
+          "option_page_capability_options",
+          "enable_post_by_email_configuration",
+          "deprecated:whitelist_options",
+          "allowed_options"
+        ],
+        "output_contains": {
+          "all_settings_heading": true,
+          "warning_notice": true,
+          "serialized_disabled": true,
+          "api_key_masked": true,
+          "textarea": true,
+          "submit_button": true
+        },
+        "output_length": 1955
+      }
+    },
+    "observation_count": 6,
+    "matching_observations": true
+  },
+  "claims": {
+    "targeted_copied_oracle_behavior_claimed": true,
+    "broad_behavior_parity_claimed": false,
+    "public_php_replacement_claimed": false,
+    "haxe_runtime_ownership_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "database_backed_state_claimed": false,
+    "browser_editor_behavior_claimed": false,
+    "generated_original_path_adapter_claimed": false,
+    "generated_candidate_overlay_claimed": false
+  },
+  "non_claims": [
+    "Does not claim generated replacement for wp-admin/options.php or Settings API route files.",
+    "Does not execute WordPress bootstrap, a real database, real users/sessions, real nonces, real headers, browser/editor behavior, or installed admin routes.",
+    "Does not claim broad settings/options parity, upstream PHPUnit pass/pass parity, public PHP ABI ownership, or durable original-path adapter ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 6,
+    "source_file_count": 1,
+    "covered_symbol_count": 13,
+    "oracle_candidate_match": true
+  }
+}
