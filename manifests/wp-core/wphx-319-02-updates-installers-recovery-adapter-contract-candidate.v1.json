@@ -1,0 +1,434 @@
+{
+  "schema": "wphx.wp-core-updates-installers-recovery-adapter-contract-candidate.v1",
+  "issue": "WPHX-319.02",
+  "generated_at": "2026-07-04T17:00:00.000Z",
+  "generator": "tools/wp-core/run-updates-installers-recovery-adapter-contract-candidate.mjs",
+  "evidence_classes": [
+    "targeted_semantic_parity",
+    "generated_shape"
+  ],
+  "artifact_scope": "helper",
+  "inputs": {
+    "prior_manifest": {
+      "path": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+      "bytes": 154356,
+      "sha256": "sha256:69a8b2cfb3c26b4c60e0da459e70fd84f57413d20253f576d312c98cb22fdbb2"
+    },
+    "toolchain_lock": {
+      "path": "toolchain.lock.json",
+      "bytes": 7785,
+      "sha256": "sha256:bd3b78a748f224f7d4bc654098ee29a22f2c186ff392b352abd64f349f9eef9c"
+    },
+    "hxml": {
+      "path": "fixtures/wp-core/updates-installers-recovery-adapter-contract-candidate.hxml",
+      "bytes": 152,
+      "sha256": "sha256:14c0438fc0daa31bee15f586d23698ff0bacf1149a67f7b2edc790ef61ff0e07"
+    },
+    "haxe_sources": [
+      {
+        "path": "fixtures/wp-core/updates-installers-recovery-adapter-contract-candidate.hxml",
+        "bytes": 152,
+        "sha256": "sha256:14c0438fc0daa31bee15f586d23698ff0bacf1149a67f7b2edc790ef61ff0e07"
+      },
+      {
+        "path": "src/wphx/wp/updates/UpdatesInstallersRecoveryAdapterContract.hx",
+        "bytes": 12617,
+        "sha256": "sha256:c2e004e9ce12a13a62f530bfababd5ac7baacfe2dc6d487878d630719014928c"
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.hx",
+        "bytes": 6066,
+        "sha256": "sha256:6ea6430d3fd7fa8e313599a9bf37bf2f61235f507d9d407a3b8cac5fafa438c5"
+      }
+    ]
+  },
+  "fixture": {
+    "candidate_kind": "haxe_updates_installers_recovery_adapter_contract_candidate",
+    "promoted_contracts": [
+      "update API check intent for disabled checks, transient hits, blocked remote checks, forced checks, and remote-allowed checks",
+      "core update intent for no update, minor update, major update, reinstall, and rollback routing",
+      "plugin install/update/delete intent for slug, capability, nonce, filesystem credential, install, update, and delete branches",
+      "language pack update intent for missing locale, already-current locale, download, and activate-after-install branches",
+      "upgrader skin output phase intent for header, feedback, error, bulk footer, and Ajax response families",
+      "automatic update and Site Health intent for disabled updates, locks, filesystem denial, core minor updates, extension updates, and warning/OK status",
+      "install bootstrap and network update wrapper intent before config, database, admin-user, multisite, capability, and route side effects execute",
+      "recovery mode cookie, key, and link guard intent before cookie serialization, option storage, session binding, mail transport, and URL generation execute",
+      "cross-domain handoff intent for auth/capability/nonce, HTTP/cron/mail, filesystem/media, admin UI, multisite, theme, vendor/library, and unknown side effects"
+    ],
+    "observations": {
+      "update-check:disabled": "update_check_disabled",
+      "update-check:transient": "update_check_transient_hit",
+      "update-check:remote-blocked": "update_check_remote_blocked",
+      "update-check:force": "update_check_force_remote",
+      "update-check:remote": "update_check_remote_allowed",
+      "core:none": "core_update_none",
+      "core:minor": "core_update_minor",
+      "core:major": "core_update_major",
+      "core:reinstall": "core_update_reinstall",
+      "core:rollback": "core_update_rollback",
+      "plugin:missing-slug": "plugin_action_missing_slug",
+      "plugin:capability": "plugin_action_capability_denied",
+      "plugin:nonce": "plugin_action_nonce_failed",
+      "plugin:filesystem": "plugin_action_filesystem_credentials",
+      "plugin:install": "plugin_action_install",
+      "plugin:update": "plugin_action_update",
+      "plugin:delete": "plugin_action_delete",
+      "language:no-locale": "language_update_no_locale",
+      "language:current": "language_update_already_current",
+      "language:download": "language_update_download",
+      "language:activate": "language_update_activate",
+      "skin:header": "upgrader_skin_header",
+      "skin:feedback": "upgrader_skin_feedback",
+      "skin:error": "upgrader_skin_error",
+      "skin:bulk-footer": "upgrader_skin_bulk_footer",
+      "skin:ajax": "upgrader_skin_ajax_response",
+      "automatic:disabled": "automatic_update_disabled",
+      "automatic:lock": "automatic_update_lock_held",
+      "automatic:filesystem": "automatic_update_filesystem_denied",
+      "automatic:core-minor": "automatic_update_core_minor",
+      "automatic:extension": "automatic_update_extension",
+      "automatic:ok": "site_health_automatic_updates_ok",
+      "site-health:ok": "site_health_automatic_updates_ok",
+      "site-health:warning": "site_health_automatic_updates_warning",
+      "install:config": "install_bootstrap_config_missing",
+      "install:db": "install_bootstrap_db_unavailable",
+      "install:admin": "install_bootstrap_admin_required",
+      "install:ready": "install_bootstrap_ready",
+      "network:not-network": "network_update_not_network_admin",
+      "network:capability": "network_update_capability_denied",
+      "network:core": "network_update_core",
+      "network:plugin": "network_update_plugin",
+      "network:dashboard": "network_update_dashboard",
+      "recovery-cookie:missing": "recovery_cookie_missing",
+      "recovery-cookie:invalid": "recovery_cookie_invalid",
+      "recovery-cookie:expired": "recovery_cookie_expired",
+      "recovery-cookie:valid": "recovery_cookie_valid",
+      "recovery-key:missing": "recovery_key_missing",
+      "recovery-key:rate": "recovery_key_rate_limited",
+      "recovery-key:mismatch": "recovery_key_mismatch",
+      "recovery-key:expired": "recovery_key_expired",
+      "recovery-key:valid": "recovery_key_valid",
+      "recovery-link:email": "recovery_link_email_unavailable",
+      "recovery-link:storage": "recovery_link_token_storage_failed",
+      "recovery-link:ready": "recovery_link_ready",
+      "handoff:auth": "wphx_319_handoff_auth_caps_nonces",
+      "handoff:http": "wphx_319_handoff_http_cron_mail",
+      "handoff:filesystem": "wphx_319_handoff_filesystem_media",
+      "handoff:admin": "wphx_319_handoff_admin_ui",
+      "handoff:multisite": "wphx_319_handoff_multisite",
+      "handoff:theme": "wphx_319_handoff_theme_domain",
+      "handoff:vendor": "wphx_319_handoff_vendor_boundary",
+      "handoff:unknown": "wphx_319_handoff_unknown"
+    },
+    "expected": {
+      "update-check:disabled": "update_check_disabled",
+      "update-check:transient": "update_check_transient_hit",
+      "update-check:remote-blocked": "update_check_remote_blocked",
+      "update-check:force": "update_check_force_remote",
+      "update-check:remote": "update_check_remote_allowed",
+      "core:none": "core_update_none",
+      "core:minor": "core_update_minor",
+      "core:major": "core_update_major",
+      "core:reinstall": "core_update_reinstall",
+      "core:rollback": "core_update_rollback",
+      "plugin:missing-slug": "plugin_action_missing_slug",
+      "plugin:capability": "plugin_action_capability_denied",
+      "plugin:nonce": "plugin_action_nonce_failed",
+      "plugin:filesystem": "plugin_action_filesystem_credentials",
+      "plugin:install": "plugin_action_install",
+      "plugin:update": "plugin_action_update",
+      "plugin:delete": "plugin_action_delete",
+      "language:no-locale": "language_update_no_locale",
+      "language:current": "language_update_already_current",
+      "language:download": "language_update_download",
+      "language:activate": "language_update_activate",
+      "skin:header": "upgrader_skin_header",
+      "skin:feedback": "upgrader_skin_feedback",
+      "skin:error": "upgrader_skin_error",
+      "skin:bulk-footer": "upgrader_skin_bulk_footer",
+      "skin:ajax": "upgrader_skin_ajax_response",
+      "automatic:disabled": "automatic_update_disabled",
+      "automatic:lock": "automatic_update_lock_held",
+      "automatic:filesystem": "automatic_update_filesystem_denied",
+      "automatic:core-minor": "automatic_update_core_minor",
+      "automatic:extension": "automatic_update_extension",
+      "automatic:ok": "site_health_automatic_updates_ok",
+      "site-health:ok": "site_health_automatic_updates_ok",
+      "site-health:warning": "site_health_automatic_updates_warning",
+      "install:config": "install_bootstrap_config_missing",
+      "install:db": "install_bootstrap_db_unavailable",
+      "install:admin": "install_bootstrap_admin_required",
+      "install:ready": "install_bootstrap_ready",
+      "network:not-network": "network_update_not_network_admin",
+      "network:capability": "network_update_capability_denied",
+      "network:core": "network_update_core",
+      "network:plugin": "network_update_plugin",
+      "network:dashboard": "network_update_dashboard",
+      "recovery-cookie:missing": "recovery_cookie_missing",
+      "recovery-cookie:invalid": "recovery_cookie_invalid",
+      "recovery-cookie:expired": "recovery_cookie_expired",
+      "recovery-cookie:valid": "recovery_cookie_valid",
+      "recovery-key:missing": "recovery_key_missing",
+      "recovery-key:rate": "recovery_key_rate_limited",
+      "recovery-key:mismatch": "recovery_key_mismatch",
+      "recovery-key:expired": "recovery_key_expired",
+      "recovery-key:valid": "recovery_key_valid",
+      "recovery-link:email": "recovery_link_email_unavailable",
+      "recovery-link:storage": "recovery_link_token_storage_failed",
+      "recovery-link:ready": "recovery_link_ready",
+      "handoff:auth": "wphx_319_handoff_auth_caps_nonces",
+      "handoff:http": "wphx_319_handoff_http_cron_mail",
+      "handoff:filesystem": "wphx_319_handoff_filesystem_media",
+      "handoff:admin": "wphx_319_handoff_admin_ui",
+      "handoff:multisite": "wphx_319_handoff_multisite",
+      "handoff:theme": "wphx_319_handoff_theme_domain",
+      "handoff:vendor": "wphx_319_handoff_vendor_boundary",
+      "handoff:unknown": "wphx_319_handoff_unknown"
+    },
+    "observation_count": 63,
+    "generated_files": [
+      {
+        "path": "index.php",
+        "bytes": 416,
+        "sha256": "7f9d084d3216b4cd82f2060f2b6eed631e47a639804a9ebc16ad4973c23894e3"
+      },
+      {
+        "path": "lib/Array_hx.php",
+        "bytes": 22828,
+        "sha256": "32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39"
+      },
+      {
+        "path": "lib/haxe/Exception.php",
+        "bytes": 3562,
+        "sha256": "316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayIterator.php",
+        "bytes": 1140,
+        "sha256": "6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c"
+      },
+      {
+        "path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "bytes": 481,
+        "sha256": "03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012"
+      },
+      {
+        "path": "lib/haxe/ValueException.php",
+        "bytes": 1008,
+        "sha256": "38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858"
+      },
+      {
+        "path": "lib/php/_Boot/HxAnon.php",
+        "bytes": 1182,
+        "sha256": "ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706"
+      },
+      {
+        "path": "lib/php/_Boot/HxClass.php",
+        "bytes": 2861,
+        "sha256": "74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a"
+      },
+      {
+        "path": "lib/php/_Boot/HxClosure.php",
+        "bytes": 2757,
+        "sha256": "4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb"
+      },
+      {
+        "path": "lib/php/_Boot/HxDynamicStr.php",
+        "bytes": 3952,
+        "sha256": "721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00"
+      },
+      {
+        "path": "lib/php/_Boot/HxEnum.php",
+        "bytes": 1181,
+        "sha256": "f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a"
+      },
+      {
+        "path": "lib/php/_Boot/HxString.php",
+        "bytes": 8211,
+        "sha256": "d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b"
+      },
+      {
+        "path": "lib/php/_polyfills.php",
+        "bytes": 2272,
+        "sha256": "80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237"
+      },
+      {
+        "path": "lib/php/Boot.php",
+        "bytes": 36175,
+        "sha256": "d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9"
+      },
+      {
+        "path": "lib/Std.php",
+        "bytes": 1104,
+        "sha256": "fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea"
+      },
+      {
+        "path": "lib/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.php",
+        "bytes": 20065,
+        "sha256": "995bcd2f794b68d3bb4989770c6afda5e45591044205068cb8863c61c7afc955"
+      },
+      {
+        "path": "lib/wphx/wp/updates/_UpdatesInstallersRecoveryAdapterContract/UpdatesInstallersRecoveryAdapterContract_Fields_.php",
+        "bytes": 30470,
+        "sha256": "85d0463dd5d3e09a3637fab2719aa3840be69610b3e39b6c181f5f07774cb5a3"
+      }
+    ],
+    "generated_php_lint": [
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/index.php",
+        "relative_path": "index.php",
+        "sha256": "sha256:7f9d084d3216b4cd82f2060f2b6eed631e47a639804a9ebc16ad4973c23894e3",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/index.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/Array_hx.php",
+        "relative_path": "lib/Array_hx.php",
+        "sha256": "sha256:32c90a3a4abe627e47449eb18915fdefb8183d786653e6e07bd3d4b4388f0d39",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/Array_hx.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/haxe/Exception.php",
+        "relative_path": "lib/haxe/Exception.php",
+        "sha256": "sha256:316e56175b8f42282044b6c41c8dabc43ed717529be60aa7b6197545b700c63f",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/haxe/Exception.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/haxe/iterators/ArrayIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayIterator.php",
+        "sha256": "sha256:6b5f7004e25a72bdfb6651c9e792c2e5ab3f1532a5ca070b45daec3f9fa5273c",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/haxe/iterators/ArrayIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "relative_path": "lib/haxe/iterators/ArrayKeyValueIterator.php",
+        "sha256": "sha256:03388d4a73896cff3ebf578ae5cb8e65288f6bc7f211d4fb5c90068a31819012",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/haxe/iterators/ArrayKeyValueIterator.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/haxe/ValueException.php",
+        "relative_path": "lib/haxe/ValueException.php",
+        "sha256": "sha256:38feb416f5ef92c9e3869b45b2339751be4bce751d8354230c5b558a310e3858",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/haxe/ValueException.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxAnon.php",
+        "relative_path": "lib/php/_Boot/HxAnon.php",
+        "sha256": "sha256:ba3e39829863ad05fe6deea1c94410d53456c0286580044eb2c7f9b272961706",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxAnon.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxClass.php",
+        "relative_path": "lib/php/_Boot/HxClass.php",
+        "sha256": "sha256:74af3a5ecc7de5d684262d23601f5421418a377aec56bb67accb6ede288ccf5a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxClass.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxClosure.php",
+        "relative_path": "lib/php/_Boot/HxClosure.php",
+        "sha256": "sha256:4b0b18483c8b6844ac785a4a8771d2891a2786ba7b5135010f4c5adfca0b05fb",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxClosure.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxDynamicStr.php",
+        "relative_path": "lib/php/_Boot/HxDynamicStr.php",
+        "sha256": "sha256:721523ea64f02298bc95c91eff8785e48e28fd85280d0bcde1850a887d13aa00",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxDynamicStr.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxEnum.php",
+        "relative_path": "lib/php/_Boot/HxEnum.php",
+        "sha256": "sha256:f52cbeca2116dc45c9bdb9502dc5e64575c4f8014145b85bafcc827bd98d2e0a",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxEnum.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxString.php",
+        "relative_path": "lib/php/_Boot/HxString.php",
+        "sha256": "sha256:d729c50f86111a4ea769ea7102aadda87ab914abd07f7539b7e847ef194cc82b",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_Boot/HxString.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/_polyfills.php",
+        "relative_path": "lib/php/_polyfills.php",
+        "sha256": "sha256:80f6c2172d93b501328e2c4fa131b81a186ff850e6a437e9068f9e842a6b3237",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/_polyfills.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/php/Boot.php",
+        "relative_path": "lib/php/Boot.php",
+        "sha256": "sha256:d06ed1e404e568d996bbb5a4af6b58d200be9ee8c66cc4538d04e414042081a9",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/php/Boot.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/Std.php",
+        "relative_path": "lib/Std.php",
+        "sha256": "sha256:fff3bd412e47aae2dc7c32d9d9ee1db47348ab0b6601aa26ccaee25ba12b71ea",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/Std.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.php",
+        "relative_path": "lib/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.php",
+        "sha256": "sha256:995bcd2f794b68d3bb4989770c6afda5e45591044205068cb8863c61c7afc955",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.php"
+      },
+      {
+        "path": "build/wp-core/wphx-319-02/haxe/lib/wphx/wp/updates/_UpdatesInstallersRecoveryAdapterContract/UpdatesInstallersRecoveryAdapterContract_Fields_.php",
+        "relative_path": "lib/wphx/wp/updates/_UpdatesInstallersRecoveryAdapterContract/UpdatesInstallersRecoveryAdapterContract_Fields_.php",
+        "sha256": "sha256:85d0463dd5d3e09a3637fab2719aa3840be69610b3e39b6c181f5f07774cb5a3",
+        "php_lint": "No syntax errors detected in build/wp-core/wphx-319-02/haxe/lib/wphx/wp/updates/_UpdatesInstallersRecoveryAdapterContract/UpdatesInstallersRecoveryAdapterContract_Fields_.php"
+      }
+    ],
+    "haxe_source_escape_audit": [
+      {
+        "path": "src/wphx/wp/updates/UpdatesInstallersRecoveryAdapterContract.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      },
+      {
+        "path": "fixtures/wp-core/src/wphx/fixtures/wp/core/UpdatesInstallersRecoveryAdapterContractCandidateEntry.hx",
+        "contains_dynamic": false,
+        "contains_untyped": false,
+        "contains_cast": false,
+        "contains_php_syntax_code": false,
+        "contains_raw_javascript": false
+      }
+    ],
+    "source_escape_audit_passed": true,
+    "toolchain": {
+      "haxe": "4.3.7",
+      "php": "8.4.7",
+      "toolchain_lock_sha256": "sha256:bd3b78a748f224f7d4bc654098ee29a22f2c186ff392b352abd64f349f9eef9c",
+      "haxe_version_pinned": null
+    }
+  },
+  "claims": {
+    "semantic_parity_claimed": false,
+    "targeted_adapter_contract_claimed": true,
+    "public_php_replacement_claimed": false,
+    "update_installer_runtime_behavior_claimed": false,
+    "filesystem_side_effects_claimed": false,
+    "network_side_effects_claimed": false,
+    "database_backed_state_claimed": false,
+    "recovery_email_session_parity_claimed": false,
+    "installed_route_execution_claimed": false,
+    "browser_e2e_parity_claimed": false,
+    "upstream_phpunit_pass_pass_claimed": false,
+    "generated_original_path_adapter_claimed": false,
+    "generated_overlay_claimed": false
+  },
+  "non_claims": [
+    "Does not replace wp-admin/update.php, wp-admin/update-core.php, wp-admin/includes/update*.php, wp-admin/includes/class-wp-upgrader*.php, wp-admin/includes/class-wp-automatic-updater.php, wp-includes/update.php, or wp-includes/class-wp-recovery-mode*.php.",
+    "Does not execute WordPress update HTTP requests, package download/unpack/copy/delete, filesystem credential prompts, plugin/theme activation, cron locks, Site Health checks, database writes, cookies, recovery email, redirects, admin screens, Ajax routes, or installed update/recovery routes.",
+    "Does not claim update/installer/upgrader/recovery runtime parity, selected upstream PHPUnit pass/pass, browser/e2e parity, generated overlays, public PHP ABI replacement, or durable original-path adapter ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "matches_expected": true,
+    "observation_count": 63,
+    "generated_file_count": 17,
+    "generated_php_lint_count": 17,
+    "source_escape_audit_passed": true
+  }
+}
