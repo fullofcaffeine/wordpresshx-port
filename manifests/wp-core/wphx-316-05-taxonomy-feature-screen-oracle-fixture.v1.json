@@ -1,0 +1,703 @@
+{
+  "schema": "wphx.wp-core-taxonomy-feature-screen-oracle-fixture.v1",
+  "issue": "WPHX-316.05",
+  "generated_at": "2026-07-04T04:00:00.000Z",
+  "generator": "tools/wp-core/run-taxonomy-feature-screen-oracle-fixture.mjs",
+  "evidence_classes": [
+    "copied_oracle_fixture",
+    "targeted_behavior_observation"
+  ],
+  "artifact_scope": "bridge_fixture",
+  "inputs": {
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-316-01-admin-feature-ajax-surface.v1.json",
+      "bytes": 39441,
+      "sha256": "sha256:7d36e6279677a9d479855f1191b70653c4ee248ad010e8556ed7d57d5890696d"
+    },
+    "adapter_contract_manifest": {
+      "path": "manifests/wp-core/wphx-316-02-admin-feature-ajax-adapter-contract-candidate.v1.json",
+      "bytes": 19078,
+      "sha256": "sha256:9a2c25e41d5ce51044b8b2a79b2f190375e987bc1a3c92a267db490fd4926104"
+    },
+    "settings_options_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-316-04-settings-options-oracle-fixture.v1.json",
+      "bytes": 17455,
+      "sha256": "sha256:d76915171971bf56206d2e11224c2b83ba573189acded220257d8c2b868107b8"
+    },
+    "upstream_sources": [
+      {
+        "path": "src/wp-admin/edit-tags.php",
+        "repo_path": "../wordpress-develop/src/wp-admin/edit-tags.php",
+        "bytes": 22510,
+        "sha256": "sha256:3695a5c6430d6b61982f90e4fb0298a915ed88f93f11fd4f9f1a1cc075da96f8"
+      }
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php",
+      "wp-admin/includes/edit-tag-messages.php"
+    ],
+    "runner": {
+      "path": "tools/wp-core/run-taxonomy-feature-screen-oracle-fixture.mjs",
+      "bytes": 25024,
+      "sha256": "sha256:94993da92081e1d2a7f740bd225a5a39ce65873d71b179a769880bacf302522f"
+    }
+  },
+  "fixture": {
+    "source_files": [
+      "src/wp-admin/edit-tags.php"
+    ],
+    "support_stubs": [
+      "wp-admin/admin.php",
+      "wp-admin/admin-header.php",
+      "wp-admin/admin-footer.php",
+      "wp-admin/includes/edit-tag-messages.php"
+    ],
+    "covered_symbols": [
+      "wp-admin/edit-tags.php",
+      "get_taxonomy",
+      "get_taxonomies",
+      "WP_Terms_List_Table::current_action",
+      "WP_Terms_List_Table::prepare_items",
+      "WP_Terms_List_Table::display",
+      "check_admin_referer",
+      "wp_insert_term",
+      "wp_delete_term",
+      "get_edit_term_link",
+      "handle_bulk_actions-{$screen}",
+      "redirect_term_location",
+      "add_screen_option",
+      "wp_admin_notice"
+    ],
+    "cases": [
+      {
+        "id": "taxonomy:invalid-taxnow",
+        "focus": "missing taxonomy request is rejected before list-table setup"
+      },
+      {
+        "id": "taxonomy:capability-denied",
+        "focus": "taxonomy manage_terms capability gate emits wp_die 403"
+      },
+      {
+        "id": "taxonomy:add-tag-success",
+        "focus": "add-tag action checks nonce, inserts a term, and redirects with success message"
+      },
+      {
+        "id": "taxonomy:delete-term",
+        "focus": "delete action checks term nonce, deletes term, removes action args, and redirects"
+      },
+      {
+        "id": "taxonomy:edit-redirect",
+        "focus": "edit action validates term and redirects to edit term link"
+      },
+      {
+        "id": "taxonomy:custom-bulk-filter",
+        "focus": "custom bulk action delegates redirect location to handle_bulk_actions screen filter"
+      },
+      {
+        "id": "taxonomy:render-list",
+        "focus": "default route prepares items, enqueues scripts, adds help, and renders stable screen fragments"
+      }
+    ],
+    "oracle": {
+      "taxonomy:invalid-taxnow": {
+        "case": "taxonomy:invalid-taxnow",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Invalid taxonomy.",
+          "response": null
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:capability-denied": {
+        "case": "taxonomy:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "You need a higher level of permission.Sorry, you are not allowed to manage terms in this taxonomy.",
+          "response": 403
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:add-tag-success": {
+        "case": "taxonomy:add-tag-success",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/edit-tags.php?taxonomy=category&&message=1",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "add-tag",
+            "query_arg": "_wpnonce_add-tag"
+          }
+        ],
+        "inserted_terms": [
+          {
+            "name": "New Category",
+            "taxonomy": "category",
+            "args_keys": [
+              "action",
+              "taxonomy",
+              "tag-name",
+              "_wpnonce_add-tag"
+            ]
+          }
+        ],
+        "deleted_terms": [],
+        "filters": [
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:delete-term": {
+        "case": "taxonomy:delete-term",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/edit-tags.php?taxonomy=category&&message=2&paged=2",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "delete-tag_12",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "inserted_terms": [],
+        "deleted_terms": [
+          {
+            "term_id": 12,
+            "taxonomy": "category"
+          }
+        ],
+        "filters": [
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:edit-redirect": {
+        "case": "taxonomy:edit-redirect",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "edit-tags.php?action=edit&taxonomy=category&tag_ID=12&post_type=post",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:custom-bulk-filter": {
+        "case": "taxonomy:custom-bulk-filter",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "edit-tags.php?taxonomy=category&bulk=custom&ids=4,5",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "bulk-tags",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [
+          "handle_bulk_actions-edit-category",
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:render-list": {
+        "case": "taxonomy:render-list",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [
+          "taxonomy_parent_dropdown_args",
+          "the_category"
+        ],
+        "actions": [
+          "terms_table_prepare_items",
+          "deprecated:add_category_form_pre",
+          "category_pre_add_form",
+          "category_term_new_form_tag",
+          "category_add_form_fields",
+          "deprecated:edit_category_form",
+          "category_add_form",
+          "after-category-table"
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "admin-tags",
+          "inline-edit-tax"
+        ],
+        "help_tabs": [
+          "overview",
+          "adding-terms"
+        ],
+        "output_contains": {
+          "heading": true,
+          "search_subtitle": true,
+          "message_notice": true,
+          "add_form": true,
+          "list_table": true,
+          "nonce_field": true
+        },
+        "output_length": 3460
+      }
+    },
+    "candidate": {
+      "taxonomy:invalid-taxnow": {
+        "case": "taxonomy:invalid-taxnow",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "Invalid taxonomy.",
+          "response": null
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:capability-denied": {
+        "case": "taxonomy:capability-denied",
+        "completed": false,
+        "exception": {
+          "kind": "wp_die",
+          "message": "You need a higher level of permission.Sorry, you are not allowed to manage terms in this taxonomy.",
+          "response": 403
+        },
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:add-tag-success": {
+        "case": "taxonomy:add-tag-success",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/edit-tags.php?taxonomy=category&&message=1",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "add-tag",
+            "query_arg": "_wpnonce_add-tag"
+          }
+        ],
+        "inserted_terms": [
+          {
+            "name": "New Category",
+            "taxonomy": "category",
+            "args_keys": [
+              "action",
+              "taxonomy",
+              "tag-name",
+              "_wpnonce_add-tag"
+            ]
+          }
+        ],
+        "deleted_terms": [],
+        "filters": [
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:delete-term": {
+        "case": "taxonomy:delete-term",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "https://example.test/wp-admin/edit-tags.php?taxonomy=category&&message=2&paged=2",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "delete-tag_12",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "inserted_terms": [],
+        "deleted_terms": [
+          {
+            "term_id": 12,
+            "taxonomy": "category"
+          }
+        ],
+        "filters": [
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:edit-redirect": {
+        "case": "taxonomy:edit-redirect",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "edit-tags.php?action=edit&taxonomy=category&tag_ID=12&post_type=post",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:custom-bulk-filter": {
+        "case": "taxonomy:custom-bulk-filter",
+        "completed": false,
+        "exception": null,
+        "redirects": [
+          {
+            "location": "edit-tags.php?taxonomy=category&bulk=custom&ids=4,5",
+            "status": 302
+          }
+        ],
+        "nonce_checks": [
+          {
+            "action": "bulk-tags",
+            "query_arg": "_wpnonce"
+          }
+        ],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [
+          "handle_bulk_actions-edit-category",
+          "redirect_term_location"
+        ],
+        "actions": [],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [],
+        "help_tabs": [],
+        "output_contains": {
+          "heading": false,
+          "search_subtitle": false,
+          "message_notice": false,
+          "add_form": false,
+          "list_table": false,
+          "nonce_field": false
+        },
+        "output_length": 0
+      },
+      "taxonomy:render-list": {
+        "case": "taxonomy:render-list",
+        "completed": true,
+        "exception": null,
+        "redirects": [],
+        "nonce_checks": [],
+        "inserted_terms": [],
+        "deleted_terms": [],
+        "filters": [
+          "taxonomy_parent_dropdown_args",
+          "the_category"
+        ],
+        "actions": [
+          "terms_table_prepare_items",
+          "deprecated:add_category_form_pre",
+          "category_pre_add_form",
+          "category_term_new_form_tag",
+          "category_add_form_fields",
+          "deprecated:edit_category_form",
+          "category_add_form",
+          "after-category-table"
+        ],
+        "screen_options": [
+          {
+            "option": "per_page",
+            "args": {
+              "default": 20,
+              "option": "edit_category_per_page"
+            }
+          }
+        ],
+        "enqueued_scripts": [
+          "admin-tags",
+          "inline-edit-tax"
+        ],
+        "help_tabs": [
+          "overview",
+          "adding-terms"
+        ],
+        "output_contains": {
+          "heading": true,
+          "search_subtitle": true,
+          "message_notice": true,
+          "add_form": true,
+          "list_table": true,
+          "nonce_field": true
+        },
+        "output_length": 3460
+      }
+    },
+    "observation_count": 7,
+    "matching_observations": true
+  },
+  "claims": {
+    "targeted_copied_oracle_behavior_claimed": true,
+    "broad_behavior_parity_claimed": false,
+    "public_php_replacement_claimed": false,
+    "haxe_runtime_ownership_claimed": false,
+    "installed_admin_parity_claimed": false,
+    "database_backed_state_claimed": false,
+    "browser_editor_behavior_claimed": false,
+    "generated_original_path_adapter_claimed": false,
+    "generated_candidate_overlay_claimed": false
+  },
+  "non_claims": [
+    "Does not claim generated replacement for wp-admin/edit-tags.php or taxonomy feature-screen route files.",
+    "Does not execute WordPress bootstrap, a real database, real users/sessions, real nonces, real headers, browser/editor behavior, or installed admin routes.",
+    "Does not claim term CRUD/query ownership, broad taxonomy screen parity, upstream PHPUnit pass/pass parity, public PHP ABI ownership, or durable original-path adapter ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "observation_count": 7,
+    "source_file_count": 1,
+    "covered_symbol_count": 14,
+    "oracle_candidate_match": true
+  }
+}

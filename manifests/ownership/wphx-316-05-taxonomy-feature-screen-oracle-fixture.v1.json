@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/taxonomy-feature-screen-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-zbb4",
+    "external_ref": "WPHX-316.05"
+  },
+  "unit": {
+    "kind": "copied_oracle_fixture",
+    "name": "taxonomy feature-screen route fixture",
+    "area": "wp-admin/edit-tags.php taxonomy management screen actions and output phases",
+    "public_contract": "This slice executes copied upstream WordPress edit-tags.php under deterministic stubs for oracle/candidate behavior observations. Term storage/query semantics remain WPHX-308; this does not claim generated public PHP replacement, installed admin parity, database-backed term persistence, or Haxe-owned route execution."
+  },
+  "ownership_state": "external_oracle_fixture",
+  "ownership_axes": {
+    "semantic_owner": "upstream_wordpress_oracle",
+    "adapter_contract_owner": "haxe_typed_prior_slice",
+    "emission_strategy": "copied_upstream_public_php_with_deterministic_bootstrap_stubs",
+    "execution_provider": "php_oracle_candidate_probe",
+    "compatibility_evidence": "targeted_copied_oracle_behavior"
+  },
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-308",
+      "reason": "Term CRUD/storage/query semantics are stubbed observations here and remain taxonomy/comment domain work."
+    },
+    {
+      "owner": "WPHX-315",
+      "reason": "List-table primitive behavior is stubbed; WPHX-315 owns common list-table machinery."
+    }
+  ],
+  "bridge": {
+    "exists": true,
+    "kind": "copied-upstream-oracle-candidate-fixture",
+    "removal_gate": "Replace copied public PHP with generated original-path adapters and pass taxonomy feature-screen route actions, term CRUD/query integration, list-table behavior, nonce/capability checks, database-backed persistence, selected upstream PHPUnit/e2e, and installed admin fixtures before claiming public PHP ownership or installed admin parity."
+  },
+  "owned_paths": [
+    "tools/wp-core/run-taxonomy-feature-screen-oracle-fixture.mjs",
+    "manifests/wp-core/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json"
+  ],
+  "copied_upstream_inputs": [
+    "src/wp-admin/edit-tags.php"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+    "manifests/ownership/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+    "receipts/wp-core/wphx-316-05-taxonomy-feature-screen-oracle-fixture.v1.json",
+    "build/wp-core/wphx-316-05"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-316-taxonomy-feature-screen-oracle-fixture",
+      "npm run wp:core:wphx-316-taxonomy-feature-screen-oracle-fixture:check",
+      "npm run operations:bridge-claim-guardrails:check",
+      "npm run receipts:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-316-05-taxonomy-feature-screen-oracle-fixture"
+    ],
+    "manifest_digest": "sha256:e439c5cbc5e99ea212a9414bcdf158ec3111498397454f0a7326f5d80f0eeaec"
+  },
+  "notes": "Mirrored PHP is regenerated under build/ only. The candidate currently matches the upstream oracle by construction; future generated overlays require an explicit overlay manifest and additional gates."
+}
