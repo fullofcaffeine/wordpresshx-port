@@ -1,0 +1,4426 @@
+{
+  "schema": "wphx.wp-core-updates-installers-recovery-surface.v1",
+  "issue": "WPHX-319.01",
+  "beads_issue": "wordpresshx-580c",
+  "generated_at": "2026-07-04T15:00:00.000Z",
+  "generator": "tools/wp-core/run-updates-installers-recovery-surface.mjs",
+  "baseline": {
+    "wordpress_ref": "26b68024931348d267b70e2a29910e1320d0094f",
+    "upstream_checkout": {
+      "path": "../wordpress-develop",
+      "head": "26b68024931348d267b70e2a29910e1320d0094f",
+      "status_short": [
+        "?? repomix-output.wordpress.xml",
+        "?? repomix-output.wordpress.xml.zip"
+      ]
+    },
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "test_inventory": {
+      "path": "manifests/test-inventory.jsonl",
+      "bytes": 1921833,
+      "sha256": "sha256:fdfb65de3dcfb9cc649a1802bae9ffa5714aa6cc627ad608d94d7cd78e0af9ff"
+    },
+    "php_abi": {
+      "path": "manifests/php-abi/wordpress-7.0-core-abi.v1.json",
+      "bytes": 35108922,
+      "sha256": "sha256:e77b6138e9781b04fe3ce8a0982743475179c74d4d790562ab43cb59b82ffc6b"
+    },
+    "first_party_closure": {
+      "path": "manifests/wp-core/wphx-322-php-first-party-manifest-closure.v1.json",
+      "bytes": 38022,
+      "sha256": "sha256:2ebc43942267fd9d42d19a4bda00d8e7a02e38a80fc6b866e97018a8833e1080"
+    }
+  },
+  "scope": {
+    "owner": "WPHX-319",
+    "domain": "Updates, installers, upgrader, recovery mode",
+    "source_count": 32,
+    "artifact_count": 32,
+    "abi_entry_count": 300,
+    "related_test_count": 13,
+    "source_groups": {
+      "automatic_updates_site_health": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+          "src/wp-admin/includes/class-wp-automatic-updater.php",
+          "src/wp-admin/includes/class-wp-site-health-auto-updates.php"
+        ]
+      },
+      "core_update": {
+        "count": 4,
+        "paths": [
+          "src/wp-admin/includes/class-core-upgrader.php",
+          "src/wp-admin/includes/update-core.php",
+          "src/wp-admin/network/update-core.php",
+          "src/wp-admin/update-core.php"
+        ]
+      },
+      "install_bootstrap": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/install-helper.php",
+          "src/wp-admin/install.php"
+        ]
+      },
+      "language_pack_update": {
+        "count": 3,
+        "paths": [
+          "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+          "src/wp-admin/includes/class-language-pack-upgrader.php",
+          "src/wp-admin/includes/translation-install.php"
+        ]
+      },
+      "network_update_routes": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/network/update.php"
+        ]
+      },
+      "plugin_install_update": {
+        "count": 7,
+        "paths": [
+          "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+          "src/wp-admin/includes/class-plugin-installer-skin.php",
+          "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+          "src/wp-admin/includes/class-plugin-upgrader.php",
+          "src/wp-admin/includes/plugin-install.php",
+          "src/wp-admin/network/plugin-install.php",
+          "src/wp-admin/plugin-install.php"
+        ]
+      },
+      "recovery_mode": {
+        "count": 4,
+        "paths": [
+          "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+          "src/wp-includes/class-wp-recovery-mode-key-service.php",
+          "src/wp-includes/class-wp-recovery-mode-link-service.php",
+          "src/wp-includes/class-wp-recovery-mode.php"
+        ]
+      },
+      "update_api": {
+        "count": 2,
+        "paths": [
+          "src/wp-admin/includes/update.php",
+          "src/wp-includes/update.php"
+        ]
+      },
+      "updates_installers_misc": {
+        "count": 1,
+        "paths": [
+          "src/wp-admin/update.php"
+        ]
+      },
+      "upgrader_base_skins": {
+        "count": 5,
+        "paths": [
+          "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+          "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+          "src/wp-admin/includes/class-wp-upgrader-skin.php",
+          "src/wp-admin/includes/class-wp-upgrader-skins.php",
+          "src/wp-admin/includes/class-wp-upgrader.php"
+        ]
+      }
+    },
+    "artifact_groups": {
+      "automatic_updates_site_health": {
+        "count": 3,
+        "paths": [
+          "wp-admin/includes/class-automatic-upgrader-skin.php",
+          "wp-admin/includes/class-wp-automatic-updater.php",
+          "wp-admin/includes/class-wp-site-health-auto-updates.php"
+        ]
+      },
+      "core_update": {
+        "count": 4,
+        "paths": [
+          "wp-admin/includes/class-core-upgrader.php",
+          "wp-admin/includes/update-core.php",
+          "wp-admin/network/update-core.php",
+          "wp-admin/update-core.php"
+        ]
+      },
+      "install_bootstrap": {
+        "count": 2,
+        "paths": [
+          "wp-admin/install-helper.php",
+          "wp-admin/install.php"
+        ]
+      },
+      "language_pack_update": {
+        "count": 3,
+        "paths": [
+          "wp-admin/includes/class-language-pack-upgrader-skin.php",
+          "wp-admin/includes/class-language-pack-upgrader.php",
+          "wp-admin/includes/translation-install.php"
+        ]
+      },
+      "network_update_routes": {
+        "count": 1,
+        "paths": [
+          "wp-admin/network/update.php"
+        ]
+      },
+      "plugin_install_update": {
+        "count": 7,
+        "paths": [
+          "wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+          "wp-admin/includes/class-plugin-installer-skin.php",
+          "wp-admin/includes/class-plugin-upgrader-skin.php",
+          "wp-admin/includes/class-plugin-upgrader.php",
+          "wp-admin/includes/plugin-install.php",
+          "wp-admin/network/plugin-install.php",
+          "wp-admin/plugin-install.php"
+        ]
+      },
+      "recovery_mode": {
+        "count": 4,
+        "paths": [
+          "wp-includes/class-wp-recovery-mode-cookie-service.php",
+          "wp-includes/class-wp-recovery-mode-key-service.php",
+          "wp-includes/class-wp-recovery-mode-link-service.php",
+          "wp-includes/class-wp-recovery-mode.php"
+        ]
+      },
+      "update_api": {
+        "count": 2,
+        "paths": [
+          "wp-admin/includes/update.php",
+          "wp-includes/update.php"
+        ]
+      },
+      "updates_installers_misc": {
+        "count": 1,
+        "paths": [
+          "wp-admin/update.php"
+        ]
+      },
+      "upgrader_base_skins": {
+        "count": 5,
+        "paths": [
+          "wp-admin/includes/class-bulk-upgrader-skin.php",
+          "wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+          "wp-admin/includes/class-wp-upgrader-skin.php",
+          "wp-admin/includes/class-wp-upgrader-skins.php",
+          "wp-admin/includes/class-wp-upgrader.php"
+        ]
+      }
+    },
+    "symbol_groups": {
+      "automatic_updates_site_health": {
+        "count": 35,
+        "functions": [],
+        "classes": [
+          "Automatic_Upgrader_Skin",
+          "WP_Automatic_Updater",
+          "WP_Site_Health_Auto_Updates"
+        ],
+        "methods": [
+          "Automatic_Upgrader_Skin::feedback",
+          "Automatic_Upgrader_Skin::footer",
+          "Automatic_Upgrader_Skin::get_upgrade_messages",
+          "Automatic_Upgrader_Skin::header",
+          "Automatic_Upgrader_Skin::request_filesystem_credentials",
+          "WP_Automatic_Updater::after_core_update",
+          "WP_Automatic_Updater::after_plugin_theme_update",
+          "WP_Automatic_Updater::has_fatal_error",
+          "WP_Automatic_Updater::is_allowed_dir",
+          "WP_Automatic_Updater::is_disabled",
+          "WP_Automatic_Updater::is_vcs_checkout",
+          "WP_Automatic_Updater::run",
+          "WP_Automatic_Updater::send_core_update_notification_email",
+          "WP_Automatic_Updater::send_debug_email",
+          "WP_Automatic_Updater::send_email",
+          "WP_Automatic_Updater::send_plugin_theme_email",
+          "WP_Automatic_Updater::should_update",
+          "WP_Automatic_Updater::update",
+          "WP_Site_Health_Auto_Updates::__construct",
+          "WP_Site_Health_Auto_Updates::run_tests",
+          "WP_Site_Health_Auto_Updates::test_accepts_dev_updates",
+          "WP_Site_Health_Auto_Updates::test_accepts_minor_updates",
+          "WP_Site_Health_Auto_Updates::test_all_files_writable",
+          "WP_Site_Health_Auto_Updates::test_check_wp_filesystem_method",
+          "WP_Site_Health_Auto_Updates::test_constants",
+          "WP_Site_Health_Auto_Updates::test_filters_automatic_updater_disabled",
+          "WP_Site_Health_Auto_Updates::test_if_failed_update",
+          "WP_Site_Health_Auto_Updates::test_vcs_abspath",
+          "WP_Site_Health_Auto_Updates::test_wp_automatic_updates_disabled",
+          "WP_Site_Health_Auto_Updates::test_wp_version_check_attached"
+        ],
+        "properties": [
+          "Automatic_Upgrader_Skin::$messages",
+          "WP_Automatic_Updater::$update_results"
+        ],
+        "constants": []
+      },
+      "core_update": {
+        "count": 23,
+        "functions": [
+          "_preload_old_requests_classes_and_interfaces",
+          "_redirect_to_about_wordpress",
+          "_upgrade_422_find_genericons_files_in_folder",
+          "_upgrade_422_remove_genericons",
+          "_upgrade_440_force_deactivate_incompatible_plugins",
+          "_upgrade_core_deactivate_incompatible_plugins",
+          "core_auto_updates_settings",
+          "core_upgrade_preamble",
+          "dismissed_updates",
+          "do_core_upgrade",
+          "do_dismiss_core_update",
+          "do_undismiss_core_update",
+          "list_core_update",
+          "list_plugin_updates",
+          "list_theme_updates",
+          "list_translation_updates",
+          "update_core"
+        ],
+        "classes": [
+          "Core_Upgrader"
+        ],
+        "methods": [
+          "Core_Upgrader::check_files",
+          "Core_Upgrader::should_update_to_version",
+          "Core_Upgrader::upgrade",
+          "Core_Upgrader::upgrade_strings"
+        ],
+        "properties": [],
+        "constants": [
+          "REQUESTS_SILENCE_PSR0_DEPRECATIONS"
+        ]
+      },
+      "install_bootstrap": {
+        "count": 7,
+        "functions": [
+          "check_column",
+          "display_header",
+          "display_setup_form",
+          "maybe_add_column",
+          "maybe_create_table",
+          "maybe_drop_column"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": [
+          "WP_INSTALLING"
+        ]
+      },
+      "language_pack_update": {
+        "count": 25,
+        "functions": [
+          "translations_api",
+          "wp_can_install_language_pack",
+          "wp_download_language_pack",
+          "wp_get_available_translations",
+          "wp_install_language_form"
+        ],
+        "classes": [
+          "Language_Pack_Upgrader",
+          "Language_Pack_Upgrader_Skin"
+        ],
+        "methods": [
+          "Language_Pack_Upgrader::async_upgrade",
+          "Language_Pack_Upgrader::bulk_upgrade",
+          "Language_Pack_Upgrader::check_package",
+          "Language_Pack_Upgrader::clear_destination",
+          "Language_Pack_Upgrader::get_name_for_update",
+          "Language_Pack_Upgrader::upgrade",
+          "Language_Pack_Upgrader::upgrade_strings",
+          "Language_Pack_Upgrader_Skin::__construct",
+          "Language_Pack_Upgrader_Skin::after",
+          "Language_Pack_Upgrader_Skin::before",
+          "Language_Pack_Upgrader_Skin::bulk_footer",
+          "Language_Pack_Upgrader_Skin::error"
+        ],
+        "properties": [
+          "Language_Pack_Upgrader::$bulk",
+          "Language_Pack_Upgrader::$result",
+          "Language_Pack_Upgrader_Skin::$display_footer_actions",
+          "Language_Pack_Upgrader_Skin::$done_footer",
+          "Language_Pack_Upgrader_Skin::$done_header",
+          "Language_Pack_Upgrader_Skin::$language_update"
+        ],
+        "constants": []
+      },
+      "network_update_routes": {
+        "count": 1,
+        "functions": [],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": [
+          "IFRAME_REQUEST"
+        ]
+      },
+      "plugin_install_update": {
+        "count": 50,
+        "functions": [
+          "display_plugins_table",
+          "install_dashboard",
+          "install_plugin_information",
+          "install_plugin_install_status",
+          "install_plugins_favorites_form",
+          "install_plugins_upload",
+          "install_popular_tags",
+          "install_search_form",
+          "plugins_api",
+          "wp_get_plugin_action_button"
+        ],
+        "classes": [
+          "Bulk_Plugin_Upgrader_Skin",
+          "Plugin_Installer_Skin",
+          "Plugin_Upgrader",
+          "Plugin_Upgrader_Skin"
+        ],
+        "methods": [
+          "Bulk_Plugin_Upgrader_Skin::add_strings",
+          "Bulk_Plugin_Upgrader_Skin::after",
+          "Bulk_Plugin_Upgrader_Skin::before",
+          "Bulk_Plugin_Upgrader_Skin::bulk_footer",
+          "Plugin_Installer_Skin::__construct",
+          "Plugin_Installer_Skin::after",
+          "Plugin_Installer_Skin::before",
+          "Plugin_Installer_Skin::do_overwrite",
+          "Plugin_Installer_Skin::hide_process_failed",
+          "Plugin_Upgrader::active_after",
+          "Plugin_Upgrader::active_before",
+          "Plugin_Upgrader::bulk_upgrade",
+          "Plugin_Upgrader::check_package",
+          "Plugin_Upgrader::deactivate_plugin_before_upgrade",
+          "Plugin_Upgrader::delete_old_plugin",
+          "Plugin_Upgrader::install",
+          "Plugin_Upgrader::install_strings",
+          "Plugin_Upgrader::plugin_info",
+          "Plugin_Upgrader::upgrade",
+          "Plugin_Upgrader::upgrade_strings",
+          "Plugin_Upgrader_Skin::__construct",
+          "Plugin_Upgrader_Skin::after"
+        ],
+        "properties": [
+          "Bulk_Plugin_Upgrader_Skin::$plugin_info",
+          "Plugin_Installer_Skin::$api",
+          "Plugin_Installer_Skin::$is_downgrading",
+          "Plugin_Installer_Skin::$overwrite",
+          "Plugin_Installer_Skin::$type",
+          "Plugin_Installer_Skin::$url",
+          "Plugin_Upgrader::$bulk",
+          "Plugin_Upgrader::$new_plugin_data",
+          "Plugin_Upgrader::$result",
+          "Plugin_Upgrader_Skin::$plugin",
+          "Plugin_Upgrader_Skin::$plugin_active",
+          "Plugin_Upgrader_Skin::$plugin_network_active"
+        ],
+        "constants": [
+          "IFRAME_REQUEST",
+          "IFRAME_REQUEST"
+        ]
+      },
+      "recovery_mode": {
+        "count": 52,
+        "functions": [],
+        "classes": [
+          "WP_Recovery_Mode",
+          "WP_Recovery_Mode_Cookie_Service",
+          "WP_Recovery_Mode_Key_Service",
+          "WP_Recovery_Mode_Link_Service"
+        ],
+        "methods": [
+          "WP_Recovery_Mode::__construct",
+          "WP_Recovery_Mode::clean_expired_keys",
+          "WP_Recovery_Mode::exit_recovery_mode",
+          "WP_Recovery_Mode::get_email_rate_limit",
+          "WP_Recovery_Mode::get_extension_for_error",
+          "WP_Recovery_Mode::get_link_ttl",
+          "WP_Recovery_Mode::get_session_id",
+          "WP_Recovery_Mode::handle_cookie",
+          "WP_Recovery_Mode::handle_error",
+          "WP_Recovery_Mode::handle_exit_recovery_mode",
+          "WP_Recovery_Mode::initialize",
+          "WP_Recovery_Mode::is_active",
+          "WP_Recovery_Mode::is_initialized",
+          "WP_Recovery_Mode::is_network_plugin",
+          "WP_Recovery_Mode::redirect_protected",
+          "WP_Recovery_Mode::store_error",
+          "WP_Recovery_Mode_Cookie_Service::clear_cookie",
+          "WP_Recovery_Mode_Cookie_Service::generate_cookie",
+          "WP_Recovery_Mode_Cookie_Service::get_session_id_from_cookie",
+          "WP_Recovery_Mode_Cookie_Service::is_cookie_set",
+          "WP_Recovery_Mode_Cookie_Service::parse_cookie",
+          "WP_Recovery_Mode_Cookie_Service::recovery_mode_hash",
+          "WP_Recovery_Mode_Cookie_Service::set_cookie",
+          "WP_Recovery_Mode_Cookie_Service::validate_cookie",
+          "WP_Recovery_Mode_Key_Service::clean_expired_keys",
+          "WP_Recovery_Mode_Key_Service::generate_and_store_recovery_mode_key",
+          "WP_Recovery_Mode_Key_Service::generate_recovery_mode_token",
+          "WP_Recovery_Mode_Key_Service::get_keys",
+          "WP_Recovery_Mode_Key_Service::remove_key",
+          "WP_Recovery_Mode_Key_Service::update_keys",
+          "WP_Recovery_Mode_Key_Service::validate_recovery_mode_key",
+          "WP_Recovery_Mode_Link_Service::__construct",
+          "WP_Recovery_Mode_Link_Service::generate_url",
+          "WP_Recovery_Mode_Link_Service::get_recovery_mode_begin_url",
+          "WP_Recovery_Mode_Link_Service::handle_begin_link"
+        ],
+        "properties": [
+          "WP_Recovery_Mode::$cookie_service",
+          "WP_Recovery_Mode::$email_service",
+          "WP_Recovery_Mode::$is_active",
+          "WP_Recovery_Mode::$is_initialized",
+          "WP_Recovery_Mode::$key_service",
+          "WP_Recovery_Mode::$link_service",
+          "WP_Recovery_Mode::$session_id",
+          "WP_Recovery_Mode_Key_Service::$option_name",
+          "WP_Recovery_Mode_Link_Service::$cookie_service",
+          "WP_Recovery_Mode_Link_Service::$key_service"
+        ],
+        "constants": []
+      },
+      "update_api": {
+        "count": 36,
+        "functions": [
+          "_maybe_update_core",
+          "_maybe_update_plugins",
+          "_maybe_update_themes",
+          "_wp_delete_all_temp_backups",
+          "core_update_footer",
+          "dismiss_core_update",
+          "find_core_auto_update",
+          "find_core_update",
+          "get_core_checksums",
+          "get_core_updates",
+          "get_plugin_updates",
+          "get_preferred_from_update_core",
+          "get_theme_updates",
+          "maintenance_nag",
+          "undismiss_core_update",
+          "update_nag",
+          "update_right_now_message",
+          "wp_clean_update_cache",
+          "wp_delete_all_temp_backups",
+          "wp_get_auto_update_message",
+          "wp_get_translation_updates",
+          "wp_get_update_data",
+          "wp_is_auto_update_enabled_for_type",
+          "wp_is_auto_update_forced_for_item",
+          "wp_maybe_auto_update",
+          "wp_plugin_update_row",
+          "wp_plugin_update_rows",
+          "wp_print_admin_notice_templates",
+          "wp_print_update_row_templates",
+          "wp_recovery_mode_nag",
+          "wp_schedule_update_checks",
+          "wp_theme_update_row",
+          "wp_theme_update_rows",
+          "wp_update_plugins",
+          "wp_update_themes",
+          "wp_version_check"
+        ],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": []
+      },
+      "updates_installers_misc": {
+        "count": 1,
+        "functions": [],
+        "classes": [],
+        "methods": [],
+        "properties": [],
+        "constants": [
+          "IFRAME_REQUEST"
+        ]
+      },
+      "upgrader_base_skins": {
+        "count": 70,
+        "functions": [],
+        "classes": [
+          "Bulk_Upgrader_Skin",
+          "WP_Ajax_Upgrader_Skin",
+          "WP_Upgrader",
+          "WP_Upgrader_Skin"
+        ],
+        "methods": [
+          "Bulk_Upgrader_Skin::__construct",
+          "Bulk_Upgrader_Skin::add_strings",
+          "Bulk_Upgrader_Skin::after",
+          "Bulk_Upgrader_Skin::before",
+          "Bulk_Upgrader_Skin::bulk_footer",
+          "Bulk_Upgrader_Skin::bulk_header",
+          "Bulk_Upgrader_Skin::error",
+          "Bulk_Upgrader_Skin::feedback",
+          "Bulk_Upgrader_Skin::flush_output",
+          "Bulk_Upgrader_Skin::footer",
+          "Bulk_Upgrader_Skin::header",
+          "Bulk_Upgrader_Skin::reset",
+          "WP_Ajax_Upgrader_Skin::__construct",
+          "WP_Ajax_Upgrader_Skin::error",
+          "WP_Ajax_Upgrader_Skin::feedback",
+          "WP_Ajax_Upgrader_Skin::get_error_messages",
+          "WP_Ajax_Upgrader_Skin::get_errors",
+          "WP_Upgrader::__construct",
+          "WP_Upgrader::clear_destination",
+          "WP_Upgrader::create_lock",
+          "WP_Upgrader::delete_temp_backup",
+          "WP_Upgrader::download_package",
+          "WP_Upgrader::flatten_dirlist",
+          "WP_Upgrader::fs_connect",
+          "WP_Upgrader::generic_strings",
+          "WP_Upgrader::init",
+          "WP_Upgrader::install_package",
+          "WP_Upgrader::maintenance_mode",
+          "WP_Upgrader::move_to_temp_backup_dir",
+          "WP_Upgrader::release_lock",
+          "WP_Upgrader::restore_temp_backup",
+          "WP_Upgrader::run",
+          "WP_Upgrader::schedule_temp_backup_cleanup",
+          "WP_Upgrader::unpack_package",
+          "WP_Upgrader_Skin::__construct",
+          "WP_Upgrader_Skin::add_strings",
+          "WP_Upgrader_Skin::after",
+          "WP_Upgrader_Skin::before",
+          "WP_Upgrader_Skin::bulk_footer",
+          "WP_Upgrader_Skin::bulk_header",
+          "WP_Upgrader_Skin::decrement_update_count",
+          "WP_Upgrader_Skin::error",
+          "WP_Upgrader_Skin::feedback",
+          "WP_Upgrader_Skin::footer",
+          "WP_Upgrader_Skin::header",
+          "WP_Upgrader_Skin::hide_process_failed",
+          "WP_Upgrader_Skin::request_filesystem_credentials",
+          "WP_Upgrader_Skin::set_result",
+          "WP_Upgrader_Skin::set_upgrader"
+        ],
+        "properties": [
+          "Bulk_Upgrader_Skin::$error",
+          "Bulk_Upgrader_Skin::$in_loop",
+          "WP_Ajax_Upgrader_Skin::$errors",
+          "WP_Ajax_Upgrader_Skin::$plugin_info",
+          "WP_Ajax_Upgrader_Skin::$theme_info",
+          "WP_Upgrader::$result",
+          "WP_Upgrader::$skin",
+          "WP_Upgrader::$strings",
+          "WP_Upgrader::$temp_backups",
+          "WP_Upgrader::$temp_restores",
+          "WP_Upgrader::$update_count",
+          "WP_Upgrader::$update_current",
+          "WP_Upgrader_Skin::$done_footer",
+          "WP_Upgrader_Skin::$done_header",
+          "WP_Upgrader_Skin::$options",
+          "WP_Upgrader_Skin::$result",
+          "WP_Upgrader_Skin::$upgrader"
+        ],
+        "constants": []
+      }
+    }
+  },
+  "source_units": [
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 3663,
+      "sha256": "sha256:b25a7bc5140770327c572c98b7d08c913733011ec8bf33209ef4c42ebde75ec2",
+      "role": "Automatic updater orchestration and Site Health auto-update test surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 2590,
+      "sha256": "sha256:bbc5e11ed01c12421ef923c0f38381a6033f89b08357fefaff57e81e982e9961",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 6661,
+      "sha256": "sha256:c5036a7133de0d0b3c096e46a383466fe507642dea423122857e0f426bcdc82b",
+      "role": "Base upgrader and upgrader skin output/error/feedback surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 15198,
+      "sha256": "sha256:17688da92237c5838e5b0f3a07c17c3bf80ee6c828cd5988faf205d90550fa24",
+      "role": "Core update route/helper/upgrader surface, package unpack/copy semantics, and update-core screen behavior"
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 2870,
+      "sha256": "sha256:7d78463fb9947096703f0c0ea78e72b5578f2be664b9c4c4c420776fb648e037",
+      "role": "Language pack and translation install/update helper surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 15528,
+      "sha256": "sha256:64039e68db3ca1e4bea9cedb1f02fea9f6880a957812051ce0c05fca6029772c",
+      "role": "Language pack and translation install/update helper surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 11947,
+      "sha256": "sha256:d9070f5ff52876045ddc8606565073e3737f47ba0235f80f7c8ce17aba67e685",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 3278,
+      "sha256": "sha256:9395981b15edb1bbc67059d218eb5febcfc5b26d78a17ae5499ac476ceaa5318",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 23249,
+      "sha256": "sha256:fd6d813719a3533b1f61ef872dd4a793c86fdaf691aa4556b88ec1b5af953ed7",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 4193,
+      "sha256": "sha256:f9c0ac547d59a8b53f8137216009708264db0e9ef7eedf9b01590283becefebd",
+      "role": "Base upgrader and upgrader skin output/error/feedback surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 61902,
+      "sha256": "sha256:aabd404cddf78561888b57a22c53ae0840104ece2c8dc5b7e7bf33079b28b255",
+      "role": "Automatic updater orchestration and Site Health auto-update test surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 14337,
+      "sha256": "sha256:21041d6b1e9c7fbb1fd2b251522317dbfacb6d023852619587437cab6ed94bbf",
+      "role": "Automatic updater orchestration and Site Health auto-update test surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 7064,
+      "sha256": "sha256:a8219a3e0b89519f02206d0da9fa664fdd99837db8f46aa9baa90228bca4f86b",
+      "role": "Base upgrader and upgrader skin output/error/feedback surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skins.php",
+      "group": "upgrader_base_skins",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 1477,
+      "sha256": "sha256:23bc58067b6e0ff1c6557ef1fd52618d4619593713bc0213a0388ece9d21b02a",
+      "role": "Base upgrader and upgrader skin output/error/feedback surface"
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 48366,
+      "sha256": "sha256:510128b556bec5f58a504360f654b2b260b7608f7a99f9b42243e983d3116477",
+      "role": "Base upgrader and upgrader skin output/error/feedback surface"
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 39040,
+      "sha256": "sha256:55f38a88cf58d7daebe4aaf0b52f69fdc54661cf0636b50c8bf309920a1cf689",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 11075,
+      "sha256": "sha256:5f43979a5039188566646f71198245d57b98d501e8f2bf39bbc73b43dd285678",
+      "role": "Language pack and translation install/update helper surface"
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 72771,
+      "sha256": "sha256:f2ca29198ccb461c9101cf28940c40c20d7b139a85ecefd433de37ddf9f75f3d",
+      "role": "Core update route/helper/upgrader surface, package unpack/copy semantics, and update-core screen behavior"
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 34844,
+      "sha256": "sha256:4b283793019da3561e3070a171715b3eb85b20ef1bae188faff5d544f74170cc",
+      "role": "Core/plugin/theme/translation update transient API, update checks, and update UI helper surface"
+    },
+    {
+      "path": "src/wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 6961,
+      "sha256": "sha256:2667d0f4ed343d8f5f12d7bdf158bc0c33795530201db703407b1435c98c0320",
+      "role": "Install bootstrap and install helper behavior"
+    },
+    {
+      "path": "src/wp-admin/install.php",
+      "group": "install_bootstrap",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 18337,
+      "sha256": "sha256:0870081ba09fdd86122ddb5afbcca4364c954614ee8d9d07058eabe4e1d8eda3",
+      "role": "Install bootstrap and install helper behavior"
+    },
+    {
+      "path": "src/wp-admin/network/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 377,
+      "sha256": "sha256:8c5442eeefff8dcb3baed97c9ba40a8fe1a2346c50fbbe0bcab38274ce0ed500",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/network/update-core.php",
+      "group": "core_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 253,
+      "sha256": "sha256:a4f2dc94deabb61bce2fd6bb9885f1e9a6cd64fadcdff6cbc88b12948a41ed3b",
+      "role": "Core update route/helper/upgrader surface, package unpack/copy semantics, and update-core screen behavior"
+    },
+    {
+      "path": "src/wp-admin/network/update.php",
+      "group": "network_update_routes",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 450,
+      "sha256": "sha256:0f60541cb4dd19dec07163d56c0c7073bcdbff72d22c327cb85e406996885a0b",
+      "role": "Network admin update/install route wrappers"
+    },
+    {
+      "path": "src/wp-admin/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 7124,
+      "sha256": "sha256:7c528488c45e2aab5dd46c9abae510a27e545b81168d471227072d19e79c29e5",
+      "role": "Plugin install/update route, installer helper, plugin upgrader, and plugin upgrader skin surface"
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 46202,
+      "sha256": "sha256:eff7c82a67965a93452849328374ef40424d392a9882ae2c6b934c4ba513d940",
+      "role": "Core update route/helper/upgrader surface, package unpack/copy semantics, and update-core screen behavior"
+    },
+    {
+      "path": "src/wp-admin/update.php",
+      "group": "updates_installers_misc",
+      "kind": "runtime_source",
+      "area": "admin",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 13062,
+      "sha256": "sha256:ce5629d14daa99214b1721f3510bb9ab943da4b47f80363b402e8feb6a0b628a",
+      "role": "Updates/installers/recovery runtime source"
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "runtime_source",
+      "area": "core",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 6877,
+      "sha256": "sha256:0290d5e6b418968e1bc03b2618593a1822e148a6e19e4b7accd35aefd58f6b59",
+      "role": "Recovery mode cookie/key/link orchestration and shutdown/error-protection surface"
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "runtime_source",
+      "area": "core",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 4914,
+      "sha256": "sha256:61d85a8e341a64a2e064edb3493ceaf2acaf0ef72d03a566c163433b4eb4729c",
+      "role": "Recovery mode cookie/key/link orchestration and shutdown/error-protection surface"
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "runtime_source",
+      "area": "core",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 3523,
+      "sha256": "sha256:999f257e2e696474340758028f7dd8adf58e28fd36e7e0f8c84e7ea63eb2e740",
+      "role": "Recovery mode cookie/key/link orchestration and shutdown/error-protection surface"
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "runtime_source",
+      "area": "core",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 11453,
+      "sha256": "sha256:f23a6fb3bd2c32dbf9d324d8274598ee47e7f3293b307f5f02b16fda8c9c42fc",
+      "role": "Recovery mode cookie/key/link orchestration and shutdown/error-protection surface"
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "runtime_source",
+      "area": "core",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "inventory_status": "upstream_oracle_unported",
+      "bytes": 38276,
+      "sha256": "sha256:a0f944cef4856535db9b53a1eb21f3bdf4f19ebca21d7d3e77d649db017245ec",
+      "role": "Core/plugin/theme/translation update transient API, update checks, and update UI helper surface"
+    }
+  ],
+  "distribution_artifacts": [
+    {
+      "path": "wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-upgrader-skins.php",
+      "group": "upgrader_base_skins",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/install.php",
+      "group": "install_bootstrap",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/network/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/network/update-core.php",
+      "group": "core_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/network/update.php",
+      "group": "network_update_routes",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-admin/update.php",
+      "group": "updates_installers_misc",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    },
+    {
+      "path": "wp-includes/update.php",
+      "group": "update_api",
+      "kind": "shipped_executable_artifact",
+      "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception"
+    }
+  ],
+  "abi_entries": [
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "class",
+      "name": "Automatic_Upgrader_Skin",
+      "qualified_name": "Automatic_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "class",
+      "name": "Bulk_Plugin_Upgrader_Skin",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "class",
+      "name": "Bulk_Upgrader_Skin",
+      "qualified_name": "Bulk_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "class",
+      "name": "Core_Upgrader",
+      "qualified_name": "Core_Upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "class",
+      "name": "Language_Pack_Upgrader",
+      "qualified_name": "Language_Pack_Upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "class",
+      "name": "Language_Pack_Upgrader_Skin",
+      "qualified_name": "Language_Pack_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "class",
+      "name": "Plugin_Installer_Skin",
+      "qualified_name": "Plugin_Installer_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "class",
+      "name": "Plugin_Upgrader",
+      "qualified_name": "Plugin_Upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "class",
+      "name": "Plugin_Upgrader_Skin",
+      "qualified_name": "Plugin_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "class",
+      "name": "WP_Ajax_Upgrader_Skin",
+      "qualified_name": "WP_Ajax_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "class",
+      "name": "WP_Automatic_Updater",
+      "qualified_name": "WP_Automatic_Updater",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "class",
+      "name": "WP_Recovery_Mode",
+      "qualified_name": "WP_Recovery_Mode",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "class",
+      "name": "WP_Recovery_Mode_Cookie_Service",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "class",
+      "name": "WP_Recovery_Mode_Key_Service",
+      "qualified_name": "WP_Recovery_Mode_Key_Service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "class",
+      "name": "WP_Recovery_Mode_Link_Service",
+      "qualified_name": "WP_Recovery_Mode_Link_Service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "class",
+      "name": "WP_Site_Health_Auto_Updates",
+      "qualified_name": "WP_Site_Health_Auto_Updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "class",
+      "name": "WP_Upgrader",
+      "qualified_name": "WP_Upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "class",
+      "name": "WP_Upgrader_Skin",
+      "qualified_name": "WP_Upgrader_Skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "class_constant",
+      "name": "WP_Recovery_Mode::EXIT_ACTION",
+      "qualified_name": "WP_Recovery_Mode::EXIT_ACTION",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "class_constant",
+      "name": "WP_Recovery_Mode_Link_Service::LOGIN_ACTION_ENTER",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::LOGIN_ACTION_ENTER",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "class_constant",
+      "name": "WP_Recovery_Mode_Link_Service::LOGIN_ACTION_ENTERED",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::LOGIN_ACTION_ENTERED",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/network/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "constant",
+      "name": "IFRAME_REQUEST",
+      "qualified_name": "IFRAME_REQUEST",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/network/update.php",
+      "group": "network_update_routes",
+      "kind": "constant",
+      "name": "IFRAME_REQUEST",
+      "qualified_name": "IFRAME_REQUEST",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "constant",
+      "name": "IFRAME_REQUEST",
+      "qualified_name": "IFRAME_REQUEST",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update.php",
+      "group": "updates_installers_misc",
+      "kind": "constant",
+      "name": "IFRAME_REQUEST",
+      "qualified_name": "IFRAME_REQUEST",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "constant",
+      "name": "REQUESTS_SILENCE_PSR0_DEPRECATIONS",
+      "qualified_name": "REQUESTS_SILENCE_PSR0_DEPRECATIONS",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install.php",
+      "group": "install_bootstrap",
+      "kind": "constant",
+      "name": "WP_INSTALLING",
+      "qualified_name": "WP_INSTALLING",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "_maybe_update_core",
+      "qualified_name": "_maybe_update_core",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "_maybe_update_plugins",
+      "qualified_name": "_maybe_update_plugins",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "_maybe_update_themes",
+      "qualified_name": "_maybe_update_themes",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_preload_old_requests_classes_and_interfaces",
+      "qualified_name": "_preload_old_requests_classes_and_interfaces",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_redirect_to_about_wordpress",
+      "qualified_name": "_redirect_to_about_wordpress",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_upgrade_422_find_genericons_files_in_folder",
+      "qualified_name": "_upgrade_422_find_genericons_files_in_folder",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_upgrade_422_remove_genericons",
+      "qualified_name": "_upgrade_422_remove_genericons",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_upgrade_440_force_deactivate_incompatible_plugins",
+      "qualified_name": "_upgrade_440_force_deactivate_incompatible_plugins",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "_upgrade_core_deactivate_incompatible_plugins",
+      "qualified_name": "_upgrade_core_deactivate_incompatible_plugins",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "_wp_delete_all_temp_backups",
+      "qualified_name": "_wp_delete_all_temp_backups",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "check_column",
+      "qualified_name": "check_column",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "core_auto_updates_settings",
+      "qualified_name": "core_auto_updates_settings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "core_update_footer",
+      "qualified_name": "core_update_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "core_upgrade_preamble",
+      "qualified_name": "core_upgrade_preamble",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "dismiss_core_update",
+      "qualified_name": "dismiss_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "dismissed_updates",
+      "qualified_name": "dismissed_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "display_header",
+      "qualified_name": "display_header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "display_plugins_table",
+      "qualified_name": "display_plugins_table",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "display_setup_form",
+      "qualified_name": "display_setup_form",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "do_core_upgrade",
+      "qualified_name": "do_core_upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "do_dismiss_core_update",
+      "qualified_name": "do_dismiss_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "do_undismiss_core_update",
+      "qualified_name": "do_undismiss_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "find_core_auto_update",
+      "qualified_name": "find_core_auto_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "find_core_update",
+      "qualified_name": "find_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "get_core_checksums",
+      "qualified_name": "get_core_checksums",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "get_core_updates",
+      "qualified_name": "get_core_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "get_plugin_updates",
+      "qualified_name": "get_plugin_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "get_preferred_from_update_core",
+      "qualified_name": "get_preferred_from_update_core",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "get_theme_updates",
+      "qualified_name": "get_theme_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_dashboard",
+      "qualified_name": "install_dashboard",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_plugin_information",
+      "qualified_name": "install_plugin_information",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_plugin_install_status",
+      "qualified_name": "install_plugin_install_status",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_plugins_favorites_form",
+      "qualified_name": "install_plugins_favorites_form",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_plugins_upload",
+      "qualified_name": "install_plugins_upload",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_popular_tags",
+      "qualified_name": "install_popular_tags",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "install_search_form",
+      "qualified_name": "install_search_form",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "list_core_update",
+      "qualified_name": "list_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "list_plugin_updates",
+      "qualified_name": "list_plugin_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "list_theme_updates",
+      "qualified_name": "list_theme_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "list_translation_updates",
+      "qualified_name": "list_translation_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "maintenance_nag",
+      "qualified_name": "maintenance_nag",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "maybe_add_column",
+      "qualified_name": "maybe_add_column",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "maybe_create_table",
+      "qualified_name": "maybe_create_table",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/install-helper.php",
+      "group": "install_bootstrap",
+      "kind": "function",
+      "name": "maybe_drop_column",
+      "qualified_name": "maybe_drop_column",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "plugins_api",
+      "qualified_name": "plugins_api",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "function",
+      "name": "translations_api",
+      "qualified_name": "translations_api",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "undismiss_core_update",
+      "qualified_name": "undismiss_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update-core.php",
+      "group": "core_update",
+      "kind": "function",
+      "name": "update_core",
+      "qualified_name": "update_core",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "update_nag",
+      "qualified_name": "update_nag",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "update_right_now_message",
+      "qualified_name": "update_right_now_message",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "function",
+      "name": "wp_can_install_language_pack",
+      "qualified_name": "wp_can_install_language_pack",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_clean_update_cache",
+      "qualified_name": "wp_clean_update_cache",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_delete_all_temp_backups",
+      "qualified_name": "wp_delete_all_temp_backups",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "function",
+      "name": "wp_download_language_pack",
+      "qualified_name": "wp_download_language_pack",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_get_auto_update_message",
+      "qualified_name": "wp_get_auto_update_message",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "function",
+      "name": "wp_get_available_translations",
+      "qualified_name": "wp_get_available_translations",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/plugin-install.php",
+      "group": "plugin_install_update",
+      "kind": "function",
+      "name": "wp_get_plugin_action_button",
+      "qualified_name": "wp_get_plugin_action_button",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_get_translation_updates",
+      "qualified_name": "wp_get_translation_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_get_update_data",
+      "qualified_name": "wp_get_update_data",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/translation-install.php",
+      "group": "language_pack_update",
+      "kind": "function",
+      "name": "wp_install_language_form",
+      "qualified_name": "wp_install_language_form",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_is_auto_update_enabled_for_type",
+      "qualified_name": "wp_is_auto_update_enabled_for_type",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_is_auto_update_forced_for_item",
+      "qualified_name": "wp_is_auto_update_forced_for_item",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_maybe_auto_update",
+      "qualified_name": "wp_maybe_auto_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_plugin_update_row",
+      "qualified_name": "wp_plugin_update_row",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_plugin_update_rows",
+      "qualified_name": "wp_plugin_update_rows",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_print_admin_notice_templates",
+      "qualified_name": "wp_print_admin_notice_templates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_print_update_row_templates",
+      "qualified_name": "wp_print_update_row_templates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_recovery_mode_nag",
+      "qualified_name": "wp_recovery_mode_nag",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_schedule_update_checks",
+      "qualified_name": "wp_schedule_update_checks",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_theme_update_row",
+      "qualified_name": "wp_theme_update_row",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_theme_update_rows",
+      "qualified_name": "wp_theme_update_rows",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_update_plugins",
+      "qualified_name": "wp_update_plugins",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_update_themes",
+      "qualified_name": "wp_update_themes",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/update.php",
+      "group": "update_api",
+      "kind": "function",
+      "name": "wp_version_check",
+      "qualified_name": "wp_version_check",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "Automatic_Upgrader_Skin::feedback",
+      "qualified_name": "Automatic_Upgrader_Skin::feedback",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "Automatic_Upgrader_Skin::footer",
+      "qualified_name": "Automatic_Upgrader_Skin::footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "Automatic_Upgrader_Skin::get_upgrade_messages",
+      "qualified_name": "Automatic_Upgrader_Skin::get_upgrade_messages",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "Automatic_Upgrader_Skin::header",
+      "qualified_name": "Automatic_Upgrader_Skin::header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "Automatic_Upgrader_Skin::request_filesystem_credentials",
+      "qualified_name": "Automatic_Upgrader_Skin::request_filesystem_credentials",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Bulk_Plugin_Upgrader_Skin::add_strings",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin::add_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Bulk_Plugin_Upgrader_Skin::after",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Bulk_Plugin_Upgrader_Skin::before",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin::before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Bulk_Plugin_Upgrader_Skin::bulk_footer",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin::bulk_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::__construct",
+      "qualified_name": "Bulk_Upgrader_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::add_strings",
+      "qualified_name": "Bulk_Upgrader_Skin::add_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::after",
+      "qualified_name": "Bulk_Upgrader_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::before",
+      "qualified_name": "Bulk_Upgrader_Skin::before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::bulk_footer",
+      "qualified_name": "Bulk_Upgrader_Skin::bulk_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::bulk_header",
+      "qualified_name": "Bulk_Upgrader_Skin::bulk_header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::error",
+      "qualified_name": "Bulk_Upgrader_Skin::error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::feedback",
+      "qualified_name": "Bulk_Upgrader_Skin::feedback",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::flush_output",
+      "qualified_name": "Bulk_Upgrader_Skin::flush_output",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::footer",
+      "qualified_name": "Bulk_Upgrader_Skin::footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::header",
+      "qualified_name": "Bulk_Upgrader_Skin::header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "Bulk_Upgrader_Skin::reset",
+      "qualified_name": "Bulk_Upgrader_Skin::reset",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "method",
+      "name": "Core_Upgrader::check_files",
+      "qualified_name": "Core_Upgrader::check_files",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "method",
+      "name": "Core_Upgrader::should_update_to_version",
+      "qualified_name": "Core_Upgrader::should_update_to_version",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "method",
+      "name": "Core_Upgrader::upgrade",
+      "qualified_name": "Core_Upgrader::upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-core-upgrader.php",
+      "group": "core_update",
+      "kind": "method",
+      "name": "Core_Upgrader::upgrade_strings",
+      "qualified_name": "Core_Upgrader::upgrade_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::async_upgrade",
+      "qualified_name": "Language_Pack_Upgrader::async_upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::bulk_upgrade",
+      "qualified_name": "Language_Pack_Upgrader::bulk_upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::check_package",
+      "qualified_name": "Language_Pack_Upgrader::check_package",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::clear_destination",
+      "qualified_name": "Language_Pack_Upgrader::clear_destination",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::get_name_for_update",
+      "qualified_name": "Language_Pack_Upgrader::get_name_for_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::upgrade",
+      "qualified_name": "Language_Pack_Upgrader::upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader::upgrade_strings",
+      "qualified_name": "Language_Pack_Upgrader::upgrade_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader_Skin::__construct",
+      "qualified_name": "Language_Pack_Upgrader_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader_Skin::after",
+      "qualified_name": "Language_Pack_Upgrader_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader_Skin::before",
+      "qualified_name": "Language_Pack_Upgrader_Skin::before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader_Skin::bulk_footer",
+      "qualified_name": "Language_Pack_Upgrader_Skin::bulk_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "method",
+      "name": "Language_Pack_Upgrader_Skin::error",
+      "qualified_name": "Language_Pack_Upgrader_Skin::error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Installer_Skin::__construct",
+      "qualified_name": "Plugin_Installer_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Installer_Skin::after",
+      "qualified_name": "Plugin_Installer_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Installer_Skin::before",
+      "qualified_name": "Plugin_Installer_Skin::before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Installer_Skin::do_overwrite",
+      "qualified_name": "Plugin_Installer_Skin::do_overwrite",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Installer_Skin::hide_process_failed",
+      "qualified_name": "Plugin_Installer_Skin::hide_process_failed",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::active_after",
+      "qualified_name": "Plugin_Upgrader::active_after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::active_before",
+      "qualified_name": "Plugin_Upgrader::active_before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::bulk_upgrade",
+      "qualified_name": "Plugin_Upgrader::bulk_upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::check_package",
+      "qualified_name": "Plugin_Upgrader::check_package",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::deactivate_plugin_before_upgrade",
+      "qualified_name": "Plugin_Upgrader::deactivate_plugin_before_upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::delete_old_plugin",
+      "qualified_name": "Plugin_Upgrader::delete_old_plugin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::install",
+      "qualified_name": "Plugin_Upgrader::install",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::install_strings",
+      "qualified_name": "Plugin_Upgrader::install_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::plugin_info",
+      "qualified_name": "Plugin_Upgrader::plugin_info",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::upgrade",
+      "qualified_name": "Plugin_Upgrader::upgrade",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader::upgrade_strings",
+      "qualified_name": "Plugin_Upgrader::upgrade_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader_Skin::__construct",
+      "qualified_name": "Plugin_Upgrader_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "method",
+      "name": "Plugin_Upgrader_Skin::after",
+      "qualified_name": "Plugin_Upgrader_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Ajax_Upgrader_Skin::__construct",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Ajax_Upgrader_Skin::error",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Ajax_Upgrader_Skin::feedback",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::feedback",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Ajax_Upgrader_Skin::get_error_messages",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::get_error_messages",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Ajax_Upgrader_Skin::get_errors",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::get_errors",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::after_core_update",
+      "qualified_name": "WP_Automatic_Updater::after_core_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::after_plugin_theme_update",
+      "qualified_name": "WP_Automatic_Updater::after_plugin_theme_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::has_fatal_error",
+      "qualified_name": "WP_Automatic_Updater::has_fatal_error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::is_allowed_dir",
+      "qualified_name": "WP_Automatic_Updater::is_allowed_dir",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::is_disabled",
+      "qualified_name": "WP_Automatic_Updater::is_disabled",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::is_vcs_checkout",
+      "qualified_name": "WP_Automatic_Updater::is_vcs_checkout",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::run",
+      "qualified_name": "WP_Automatic_Updater::run",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::send_core_update_notification_email",
+      "qualified_name": "WP_Automatic_Updater::send_core_update_notification_email",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::send_debug_email",
+      "qualified_name": "WP_Automatic_Updater::send_debug_email",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::send_email",
+      "qualified_name": "WP_Automatic_Updater::send_email",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::send_plugin_theme_email",
+      "qualified_name": "WP_Automatic_Updater::send_plugin_theme_email",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::should_update",
+      "qualified_name": "WP_Automatic_Updater::should_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Automatic_Updater::update",
+      "qualified_name": "WP_Automatic_Updater::update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::__construct",
+      "qualified_name": "WP_Recovery_Mode::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::clean_expired_keys",
+      "qualified_name": "WP_Recovery_Mode::clean_expired_keys",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::exit_recovery_mode",
+      "qualified_name": "WP_Recovery_Mode::exit_recovery_mode",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::get_email_rate_limit",
+      "qualified_name": "WP_Recovery_Mode::get_email_rate_limit",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::get_extension_for_error",
+      "qualified_name": "WP_Recovery_Mode::get_extension_for_error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::get_link_ttl",
+      "qualified_name": "WP_Recovery_Mode::get_link_ttl",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::get_session_id",
+      "qualified_name": "WP_Recovery_Mode::get_session_id",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::handle_cookie",
+      "qualified_name": "WP_Recovery_Mode::handle_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::handle_error",
+      "qualified_name": "WP_Recovery_Mode::handle_error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::handle_exit_recovery_mode",
+      "qualified_name": "WP_Recovery_Mode::handle_exit_recovery_mode",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::initialize",
+      "qualified_name": "WP_Recovery_Mode::initialize",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::is_active",
+      "qualified_name": "WP_Recovery_Mode::is_active",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::is_initialized",
+      "qualified_name": "WP_Recovery_Mode::is_initialized",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::is_network_plugin",
+      "qualified_name": "WP_Recovery_Mode::is_network_plugin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::redirect_protected",
+      "qualified_name": "WP_Recovery_Mode::redirect_protected",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode::store_error",
+      "qualified_name": "WP_Recovery_Mode::store_error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::clear_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::clear_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::generate_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::generate_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::get_session_id_from_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::get_session_id_from_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::is_cookie_set",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::is_cookie_set",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::parse_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::parse_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::recovery_mode_hash",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::recovery_mode_hash",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::set_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::set_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-cookie-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Cookie_Service::validate_cookie",
+      "qualified_name": "WP_Recovery_Mode_Cookie_Service::validate_cookie",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::clean_expired_keys",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::clean_expired_keys",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::generate_and_store_recovery_mode_key",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::generate_and_store_recovery_mode_key",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::generate_recovery_mode_token",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::generate_recovery_mode_token",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::get_keys",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::get_keys",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::remove_key",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::remove_key",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::update_keys",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::update_keys",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Key_Service::validate_recovery_mode_key",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::validate_recovery_mode_key",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Link_Service::__construct",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Link_Service::generate_url",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::generate_url",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Link_Service::get_recovery_mode_begin_url",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::get_recovery_mode_begin_url",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "method",
+      "name": "WP_Recovery_Mode_Link_Service::handle_begin_link",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::handle_begin_link",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::__construct",
+      "qualified_name": "WP_Site_Health_Auto_Updates::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::run_tests",
+      "qualified_name": "WP_Site_Health_Auto_Updates::run_tests",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_accepts_dev_updates",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_accepts_dev_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_accepts_minor_updates",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_accepts_minor_updates",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_all_files_writable",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_all_files_writable",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_check_wp_filesystem_method",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_check_wp_filesystem_method",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_constants",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_constants",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_filters_automatic_updater_disabled",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_filters_automatic_updater_disabled",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_if_failed_update",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_if_failed_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_vcs_abspath",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_vcs_abspath",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_wp_automatic_updates_disabled",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_wp_automatic_updates_disabled",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-site-health-auto-updates.php",
+      "group": "automatic_updates_site_health",
+      "kind": "method",
+      "name": "WP_Site_Health_Auto_Updates::test_wp_version_check_attached",
+      "qualified_name": "WP_Site_Health_Auto_Updates::test_wp_version_check_attached",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::__construct",
+      "qualified_name": "WP_Upgrader::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::clear_destination",
+      "qualified_name": "WP_Upgrader::clear_destination",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::create_lock",
+      "qualified_name": "WP_Upgrader::create_lock",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::delete_temp_backup",
+      "qualified_name": "WP_Upgrader::delete_temp_backup",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::download_package",
+      "qualified_name": "WP_Upgrader::download_package",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::flatten_dirlist",
+      "qualified_name": "WP_Upgrader::flatten_dirlist",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::fs_connect",
+      "qualified_name": "WP_Upgrader::fs_connect",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::generic_strings",
+      "qualified_name": "WP_Upgrader::generic_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::init",
+      "qualified_name": "WP_Upgrader::init",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::install_package",
+      "qualified_name": "WP_Upgrader::install_package",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::maintenance_mode",
+      "qualified_name": "WP_Upgrader::maintenance_mode",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::move_to_temp_backup_dir",
+      "qualified_name": "WP_Upgrader::move_to_temp_backup_dir",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::release_lock",
+      "qualified_name": "WP_Upgrader::release_lock",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::restore_temp_backup",
+      "qualified_name": "WP_Upgrader::restore_temp_backup",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::run",
+      "qualified_name": "WP_Upgrader::run",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::schedule_temp_backup_cleanup",
+      "qualified_name": "WP_Upgrader::schedule_temp_backup_cleanup",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader::unpack_package",
+      "qualified_name": "WP_Upgrader::unpack_package",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::__construct",
+      "qualified_name": "WP_Upgrader_Skin::__construct",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::add_strings",
+      "qualified_name": "WP_Upgrader_Skin::add_strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::after",
+      "qualified_name": "WP_Upgrader_Skin::after",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::before",
+      "qualified_name": "WP_Upgrader_Skin::before",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::bulk_footer",
+      "qualified_name": "WP_Upgrader_Skin::bulk_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::bulk_header",
+      "qualified_name": "WP_Upgrader_Skin::bulk_header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::decrement_update_count",
+      "qualified_name": "WP_Upgrader_Skin::decrement_update_count",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::error",
+      "qualified_name": "WP_Upgrader_Skin::error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::feedback",
+      "qualified_name": "WP_Upgrader_Skin::feedback",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::footer",
+      "qualified_name": "WP_Upgrader_Skin::footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::header",
+      "qualified_name": "WP_Upgrader_Skin::header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::hide_process_failed",
+      "qualified_name": "WP_Upgrader_Skin::hide_process_failed",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::request_filesystem_credentials",
+      "qualified_name": "WP_Upgrader_Skin::request_filesystem_credentials",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::set_result",
+      "qualified_name": "WP_Upgrader_Skin::set_result",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "method",
+      "name": "WP_Upgrader_Skin::set_upgrader",
+      "qualified_name": "WP_Upgrader_Skin::set_upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-automatic-upgrader-skin.php",
+      "group": "automatic_updates_site_health",
+      "kind": "property",
+      "name": "Automatic_Upgrader_Skin::$messages",
+      "qualified_name": "Automatic_Upgrader_Skin::$messages",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Bulk_Plugin_Upgrader_Skin::$plugin_info",
+      "qualified_name": "Bulk_Plugin_Upgrader_Skin::$plugin_info",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "Bulk_Upgrader_Skin::$error",
+      "qualified_name": "Bulk_Upgrader_Skin::$error",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-bulk-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "Bulk_Upgrader_Skin::$in_loop",
+      "qualified_name": "Bulk_Upgrader_Skin::$in_loop",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader::$bulk",
+      "qualified_name": "Language_Pack_Upgrader::$bulk",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader::$result",
+      "qualified_name": "Language_Pack_Upgrader::$result",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader_Skin::$display_footer_actions",
+      "qualified_name": "Language_Pack_Upgrader_Skin::$display_footer_actions",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader_Skin::$done_footer",
+      "qualified_name": "Language_Pack_Upgrader_Skin::$done_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader_Skin::$done_header",
+      "qualified_name": "Language_Pack_Upgrader_Skin::$done_header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-language-pack-upgrader-skin.php",
+      "group": "language_pack_update",
+      "kind": "property",
+      "name": "Language_Pack_Upgrader_Skin::$language_update",
+      "qualified_name": "Language_Pack_Upgrader_Skin::$language_update",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Installer_Skin::$api",
+      "qualified_name": "Plugin_Installer_Skin::$api",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Installer_Skin::$is_downgrading",
+      "qualified_name": "Plugin_Installer_Skin::$is_downgrading",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Installer_Skin::$overwrite",
+      "qualified_name": "Plugin_Installer_Skin::$overwrite",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Installer_Skin::$type",
+      "qualified_name": "Plugin_Installer_Skin::$type",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-installer-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Installer_Skin::$url",
+      "qualified_name": "Plugin_Installer_Skin::$url",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader::$bulk",
+      "qualified_name": "Plugin_Upgrader::$bulk",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader::$new_plugin_data",
+      "qualified_name": "Plugin_Upgrader::$new_plugin_data",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader::$result",
+      "qualified_name": "Plugin_Upgrader::$result",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader_Skin::$plugin",
+      "qualified_name": "Plugin_Upgrader_Skin::$plugin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader_Skin::$plugin_active",
+      "qualified_name": "Plugin_Upgrader_Skin::$plugin_active",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-plugin-upgrader-skin.php",
+      "group": "plugin_install_update",
+      "kind": "property",
+      "name": "Plugin_Upgrader_Skin::$plugin_network_active",
+      "qualified_name": "Plugin_Upgrader_Skin::$plugin_network_active",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Ajax_Upgrader_Skin::$errors",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::$errors",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Ajax_Upgrader_Skin::$plugin_info",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::$plugin_info",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-ajax-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Ajax_Upgrader_Skin::$theme_info",
+      "qualified_name": "WP_Ajax_Upgrader_Skin::$theme_info",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-automatic-updater.php",
+      "group": "automatic_updates_site_health",
+      "kind": "property",
+      "name": "WP_Automatic_Updater::$update_results",
+      "qualified_name": "WP_Automatic_Updater::$update_results",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$cookie_service",
+      "qualified_name": "WP_Recovery_Mode::$cookie_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$email_service",
+      "qualified_name": "WP_Recovery_Mode::$email_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$is_active",
+      "qualified_name": "WP_Recovery_Mode::$is_active",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$is_initialized",
+      "qualified_name": "WP_Recovery_Mode::$is_initialized",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$key_service",
+      "qualified_name": "WP_Recovery_Mode::$key_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$link_service",
+      "qualified_name": "WP_Recovery_Mode::$link_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode::$session_id",
+      "qualified_name": "WP_Recovery_Mode::$session_id",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-key-service.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode_Key_Service::$option_name",
+      "qualified_name": "WP_Recovery_Mode_Key_Service::$option_name",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode_Link_Service::$cookie_service",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::$cookie_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-includes/class-wp-recovery-mode-link-service.php",
+      "group": "recovery_mode",
+      "kind": "property",
+      "name": "WP_Recovery_Mode_Link_Service::$key_service",
+      "qualified_name": "WP_Recovery_Mode_Link_Service::$key_service",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$result",
+      "qualified_name": "WP_Upgrader::$result",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$skin",
+      "qualified_name": "WP_Upgrader::$skin",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$strings",
+      "qualified_name": "WP_Upgrader::$strings",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$temp_backups",
+      "qualified_name": "WP_Upgrader::$temp_backups",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$temp_restores",
+      "qualified_name": "WP_Upgrader::$temp_restores",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$update_count",
+      "qualified_name": "WP_Upgrader::$update_count",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader::$update_current",
+      "qualified_name": "WP_Upgrader::$update_current",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader_Skin::$done_footer",
+      "qualified_name": "WP_Upgrader_Skin::$done_footer",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader_Skin::$done_header",
+      "qualified_name": "WP_Upgrader_Skin::$done_header",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader_Skin::$options",
+      "qualified_name": "WP_Upgrader_Skin::$options",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader_Skin::$result",
+      "qualified_name": "WP_Upgrader_Skin::$result",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    },
+    {
+      "path": "src/wp-admin/includes/class-wp-upgrader-skin.php",
+      "group": "upgrader_base_skins",
+      "kind": "property",
+      "name": "WP_Upgrader_Skin::$upgrader",
+      "qualified_name": "WP_Upgrader_Skin::$upgrader",
+      "visibility": null,
+      "static": null,
+      "signature": null
+    }
+  ],
+  "related_tests": [
+    {
+      "path": "tests/e2e/specs/install.test.js",
+      "language": "javascript",
+      "framework": "playwright",
+      "source_unit": "source:wordpress-7.0.0:tests/e2e/specs/install.test.js"
+    },
+    {
+      "path": "tests/e2e/specs/maintenance-mode.test.js",
+      "language": "javascript",
+      "framework": "playwright",
+      "source_unit": "source:wordpress-7.0.0:tests/e2e/specs/maintenance-mode.test.js"
+    },
+    {
+      "path": "tests/phpunit/data/themedir1/update-uri-theme/index.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/data/themedir1/update-uri-theme/index.php"
+    },
+    {
+      "path": "tests/phpunit/includes/install.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/includes/install.php"
+    },
+    {
+      "path": "tests/phpunit/tests/admin/wpAutomaticUpdater.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/admin/wpAutomaticUpdater.php"
+    },
+    {
+      "path": "tests/phpunit/tests/admin/wpPluginInstallListTable.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/admin/wpPluginInstallListTable.php"
+    },
+    {
+      "path": "tests/phpunit/tests/admin/wpThemeInstallListTable.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/admin/wpThemeInstallListTable.php"
+    },
+    {
+      "path": "tests/phpunit/tests/admin/wpUpgrader.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/admin/wpUpgrader.php"
+    },
+    {
+      "path": "tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/ajax/wpAjaxUpdatePlugin.php"
+    },
+    {
+      "path": "tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/ajax/wpAjaxUpdateTheme.php"
+    },
+    {
+      "path": "tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/error-protection/wpRecoveryModeCookieService.php"
+    },
+    {
+      "path": "tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php",
+      "language": "php",
+      "framework": "phpunit",
+      "source_unit": "source:wordpress-7.0.0:tests/phpunit/tests/error-protection/wpRecoveryModeKeyService.php"
+    },
+    {
+      "path": "tests/qunit/fixtures/updates.js",
+      "language": "javascript",
+      "framework": "qunit",
+      "source_unit": "source:wordpress-7.0.0:tests/qunit/fixtures/updates.js"
+    }
+  ],
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-304",
+      "reason": "Update transients, options, object cache, and site transient semantics remain options/cache ownership."
+    },
+    {
+      "owner": "WPHX-306",
+      "reason": "Capabilities, current-user state, install credentials, recovery cookies, keys, login flows, and nonces remain users/auth ownership."
+    },
+    {
+      "owner": "WPHX-310/WPHX-315/WPHX-316",
+      "reason": "Theme upgrader classes, install list tables, admin screens, AJAX update actions, notices, menus, and screen chrome remain neighboring admin/theme domains where WPHX-322 assigned them."
+    },
+    {
+      "owner": "WPHX-312/WPHX-313",
+      "reason": "HTTP package downloads, cron scheduling, mail notifications, filesystem credentials, unzip/copy/delete, uploads, and file validation remain HTTP/cron/mail and media/filesystem ownership."
+    },
+    {
+      "owner": "WPHX-317/WPHX-320/WPHX-323",
+      "reason": "Network admin wrappers, default theme files, bundled plugin/vendor package boundaries, and preserved external libraries remain separate gates."
+    }
+  ],
+  "next_gates": [
+    "Typed Haxe adapter-contract candidate for updater/upgrader decision states, skins, filesystem/download handoffs, maintenance mode, install bootstrap, and recovery-mode orchestration.",
+    "Copied-oracle fixtures for selected upgrader skin feedback/output, maintenance mode toggling, recovery cookie/key/link behavior, update transient shaping, and install helper behavior.",
+    "Selected upstream PHPUnit ratchet groups for automatic updater/upgrader/recovery tests, plus explicit handoffs for admin AJAX/list-table/theme tests.",
+    "Installed/browser gate declarations for install flow, maintenance mode, plugin/theme/core update screens, package download/unpack/copy/delete, and recovery-mode email/link flows.",
+    "Generated original-path adapter or overlay manifest evidence before any candidate package diverges from copied upstream PHP."
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for update, install, upgrader, recovery-mode, Site Health, or maintenance files.",
+    "No Haxe-owned update/installer/upgrader/recovery runtime implementation or installed update behavior.",
+    "No filesystem, package download, unzip/copy/delete, cron, mail, HTTP, database, nonce/session/capability, plugin/theme activation, or recovery email/link parity.",
+    "No browser/e2e execution, selected upstream PHPUnit pass/pass evidence, generated overlay, or generated original-path adapter ownership.",
+    "Theme upgrader/list-table/admin AJAX surfaces assigned to neighboring domains are recorded as handoffs, not claimed WPHX-319 ownership."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "source_count_matches_wphx_322": true,
+    "artifact_count_matches_wphx_322": true,
+    "upstream_ref_matches_lock": true
+  }
+}

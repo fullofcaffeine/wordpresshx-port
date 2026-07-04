@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-319-01-updates-installers-recovery-surface",
+  "issue": {
+    "id": "wordpresshx-580c",
+    "external_ref": "WPHX-319.01",
+    "title": "WPHX-319.01 - Inventory updates installers recovery surface"
+  },
+  "recorded_at": "2026-07-04T15:00:00.000Z",
+  "command": "node tools/wp-core/run-updates-installers-recovery-surface.mjs",
+  "evidence_class": "surface_inventory",
+  "artifact_scope": "wp_core_updates_installers_recovery",
+  "behavior_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+      "role": "updates/installers/recovery surface manifest",
+      "sha256": "sha256:69a8b2cfb3c26b4c60e0da459e70fd84f57413d20253f576d312c98cb22fdbb2"
+    },
+    {
+      "path": "manifests/ownership/wphx-319-01-updates-installers-recovery-surface.v1.json",
+      "role": "ownership/non-claim manifest",
+      "sha256": "sha256:6f86a6296d8290e72b00e0dabbdac46aa69576680e50745494a72acb4039d5ff"
+    },
+    {
+      "path": "tools/wp-core/run-updates-installers-recovery-surface.mjs",
+      "bytes": 21870,
+      "sha256": "sha256:c909efcfb04b129913dbc95d8e0a1d1b8c744f6d6c941fbdd69ab3be90c85a86"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-319-updates-installers-recovery-surface",
+    "npm run wp:core:wphx-319-updates-installers-recovery-surface:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "failures": [],
+    "source_count_matches_wphx_322": true,
+    "artifact_count_matches_wphx_322": true,
+    "upstream_ref_matches_lock": true
+  },
+  "summary": "Inventories the bounded WPHX-319 updates/installers/upgrader/recovery surface: 32 runtime source files, 32 distribution artifacts, ABI entries, related tests, WPHX-322 reconciliation, cross-domain handoffs, next gates, and explicit non-claims.",
+  "non_claims": [
+    "No generated public PHP replacement for update, install, upgrader, recovery-mode, Site Health, or maintenance files.",
+    "No Haxe-owned update/installer/upgrader/recovery runtime implementation or installed update behavior.",
+    "No filesystem, package download, unzip/copy/delete, cron, mail, HTTP, database, nonce/session/capability, plugin/theme activation, or recovery email/link parity.",
+    "No browser/e2e execution, selected upstream PHPUnit pass/pass evidence, generated overlay, or generated original-path adapter ownership.",
+    "Theme upgrader/list-table/admin AJAX surfaces assigned to neighboring domains are recorded as handoffs, not claimed WPHX-319 ownership."
+  ]
+}
