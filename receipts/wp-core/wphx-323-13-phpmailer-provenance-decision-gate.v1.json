@@ -1,0 +1,59 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-13-phpmailer-provenance-decision-gate",
+  "issue": {
+    "id": "wordpresshx-twwp",
+    "external_ref": "WPHX-323.13",
+    "title": "Add PHPMailer provenance and replacement decision gate"
+  },
+  "recorded_at": "2026-07-07T23:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_phpmailer_provenance_and_replacement_decision",
+  "artifact_scope": "wordpress-7.0-phpmailer-provenance-dependency-ecosystem-decision",
+  "commands": [
+    "npm run wp:core:wphx-323-phpmailer-provenance-decision",
+    "npm run wp:core:wphx-323-phpmailer-provenance-decision:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-13-phpmailer-provenance-decision-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-13-phpmailer-provenance-decision-gate.v1.json",
+    "parent_mail_vendor_gate_manifest": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+    "api_reflection_floor_manifest": "manifests/wp-core/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+    "controlled_transport_gate_manifest": "manifests/wp-core/wphx-323-12-phpmailer-transport-gate.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json"
+  },
+  "manifest_sha256": "sha256:1d91ab1a9659a7aa7b7ef15b3dafabee3e69bea3d9445bb4e0337c4943705058",
+  "validation_result": {
+    "status": "passed",
+    "source_file_count": 11,
+    "phpmailer_source_file_count": 7,
+    "support_file_count": 4,
+    "artifact_provenance_record_count": 11,
+    "header_evidence_record_count": 11,
+    "phpmailer_lgpl_header_count": 7,
+    "support_gpl_header_count": 1,
+    "support_wordpress_marker_count": 3,
+    "optional_oauth_dependency_file_count": 1,
+    "prior_gate_count": 2,
+    "prior_gates_passing": true,
+    "required_replacement_evidence_count": 9,
+    "fallback_condition_count": 5,
+    "generated_overlay_manifest_present": false,
+    "generated_wrapper_path_admitted_now": false,
+    "preserved_upstream_exception_renewed": true
+  },
+  "decision": "renew_preserved_upstream_phpmailer_exception",
+  "claims": [
+    "PHPMailer provenance, bundled-file artifact records, header license markers, optional dependency assumptions, ecosystem-visible surfaces, fallback matrix, and replacement decision criteria are recorded for WPHX-323.13.",
+    "The current distribution decision renews the preserved upstream PHPMailer exception and keeps copied WordPress 7.0 PHPMailer/support-shim artifacts as fallback evidence.",
+    "A generated-wrapper path remains conditionally possible only after explicit overlay, API/reflection, controlled transport, dependency/provenance, ecosystem, and installed/operational gates pass."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned PHPMailer runtime logic.",
+    "This gate does not generate, validate, distribute, or admit current generated PHPMailer wrapper files.",
+    "This gate does not retire copied PHPMailer or support-shim artifacts.",
+    "This gate does not broaden official WordPress distribution dependency assumptions.",
+    "This gate does not prove installed WordPress mail parity, authenticated SMTP, TLS/STARTTLS, DNS/MX, proxy behavior, host mail() delivery, bounce/retry behavior, or operational delivery."
+  ]
+}

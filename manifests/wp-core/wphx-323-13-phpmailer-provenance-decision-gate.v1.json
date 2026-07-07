@@ -1,0 +1,596 @@
+{
+  "schema": "wphx.wp-core.phpmailer-provenance-decision-gate.v1",
+  "issue": {
+    "id": "wordpresshx-twwp",
+    "external_ref": "WPHX-323.13",
+    "title": "Add PHPMailer provenance and replacement decision gate"
+  },
+  "generated_at": "2026-07-07T23:30:00.000Z",
+  "generator": "tools/wp-core/run-phpmailer-provenance-decision-gate.mjs",
+  "evidence_class": "preserved_phpmailer_provenance_and_replacement_decision",
+  "boundary_id": "phpmailer",
+  "behavior_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "copied_phpmailer_artifact_retirement_claimed": false,
+  "haxe_owned_runtime_claimed": false,
+  "installed_wordpress_mail_parity_claimed": false,
+  "operational_mail_delivery_claimed": false,
+  "generated_wrapper_path_admitted_now": false,
+  "preserved_upstream_exception_renewed": true,
+  "inputs": {
+    "strategy": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "mail_gates": {
+      "path": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+      "bytes": 17578,
+      "sha256": "sha256:22876ce604df350faf1bad95a754fe2bd2769a61df97edfaf518b6d5231e08df"
+    },
+    "api_reflection": {
+      "path": "manifests/wp-core/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+      "bytes": 1062096,
+      "sha256": "sha256:44a611b8a3fb7f5e80c6f3d70a68dc27b1d4f06a74cf9886432ab569a166c9d0"
+    },
+    "transport_gate": {
+      "path": "manifests/wp-core/wphx-323-12-phpmailer-transport-gate.v1.json",
+      "bytes": 35287,
+      "sha256": "sha256:6fea9e1adc73993c8893c2893e1a6ebc98ab465bf1afbd047dd5cb57a89c6e71"
+    },
+    "vendor_closure": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "license_provenance": {
+      "path": "manifests/license-provenance.v1.json",
+      "bytes": 8559,
+      "sha256": "sha256:00d55db5838b902b6b04770999dd49b3461378d70f20c92f49a13e994035edfa"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "planned_provenance_gate": {
+      "id": "phpmailer-license-provenance-and-dependency-review",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-twwp",
+        "external_ref": "WPHX-323.13",
+        "title": "Add PHPMailer provenance and replacement decision gate"
+      },
+      "gate_kind": "license_provenance_dependency_review",
+      "required_before": [
+        "distribution_divergence",
+        "external_dependency_wrapper_claim",
+        "copied_phpmailer_retirement"
+      ],
+      "required_observations": [
+        "PHPMailer file headers, package notices, WordPress bundled provenance, and license treatment remain recorded while copied",
+        "Any external dependency or upstream-equivalent package wrapper records source, version, license, notice, update policy, and exact distribution paths",
+        "Official WordPress distribution dependency assumptions are not broadened without an ADR and receipt evidence",
+        "OAuth/dependency-adjacent classes are either preserved, wrapped, or explicitly excluded with fallback"
+      ],
+      "acceptance": "License/provenance and dependency assumptions are accepted before generated wrapper distribution or preserved-package exception renewal becomes durable policy.",
+      "fallback_policy": "Keep the preserved upstream PHPMailer package if provenance, notices, versioning, or dependency assumptions are unsettled.",
+      "removal_gate": "Do not distribute divergent PHPMailer package files without WPHX-323.13 provenance and dependency-decision evidence."
+    },
+    "planned_decision_gate": {
+      "id": "phpmailer-ecosystem-fallback-and-replacement-decision",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-twwp",
+        "external_ref": "WPHX-323.13",
+        "title": "Add PHPMailer provenance and replacement decision gate"
+      },
+      "gate_kind": "ecosystem_fallback_and_decision",
+      "required_before": [
+        "copied_phpmailer_retirement",
+        "haxe_owned_vendor_runtime_claim",
+        "generated_wrapper_claim"
+      ],
+      "required_observations": [
+        "Plugin-visible class_exists/interface_exists behavior and public PHPMailer API expectations remain preserved",
+        "Stack traces, reflection names, include paths, legacy shims, and WP_PHPMailer subclass behavior remain compatible",
+        "Fallback matrix records when preserved upstream PHPMailer remains active",
+        "Replacement decision chooses generated wrapper, direct Haxe port, host-primitive implementation with fallback, or renewed preserved exception using recorded evidence"
+      ],
+      "acceptance": "A future receipt chooses wrapper or renewed exception based on concrete ecosystem and parity evidence, not aspiration.",
+      "fallback_policy": "Default to preserved upstream PHPMailer until WPHX-323.11, WPHX-323.12, and WPHX-323.13 together prove a safer replacement path.",
+      "removal_gate": "Do not claim Haxe-owned PHPMailer runtime logic or copied artifact retirement without an explicit WPHX-323.13 replacement decision receipt."
+    },
+    "vendor_boundary": {
+      "source_inventory_count": 7,
+      "distribution_artifact_count": 7,
+      "header_notice_markers": {
+        "copyright": true,
+        "license": true,
+        "public_domain": false
+      },
+      "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+    },
+    "wordpress_license_record": {
+      "package_license": "GPL-2.0-or-later",
+      "composer_license": "GPL-2.0-or-later",
+      "project_license_file": {
+        "path": "src/license.txt",
+        "sha256": "dec703cdb49042ca367f71c3982dee4552ffef395225f1fe9f14d29a4a0cb0ff"
+      },
+      "bundled_notice_file_count": 4
+    },
+    "strategy_record": {
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    }
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/PHPMailer/DSNConfigurator.php",
+      "distribution_path": "wp-includes/PHPMailer/DSNConfigurator.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/DSNConfigurator.php",
+      "bytes": 6883,
+      "sha256": "sha256:429f5f0a962864ec7b67efd572c0f85cc0f33fd4585413d8dc80d41c8562399e"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/Exception.php",
+      "distribution_path": "wp-includes/PHPMailer/Exception.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/Exception.php",
+      "bytes": 1256,
+      "sha256": "sha256:22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/OAuth.php",
+      "distribution_path": "wp-includes/PHPMailer/OAuth.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/OAuth.php",
+      "bytes": 3791,
+      "sha256": "sha256:44b2c9a3b6e538a65b90261251f197d700e2eb90d51d4944fb80577263210fb4"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "distribution_path": "wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "bytes": 1538,
+      "sha256": "sha256:f2318ea1b2841b2481b636e205c281a733f9de944a71ae403e0b59fa71219572"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/PHPMailer.php",
+      "distribution_path": "wp-includes/PHPMailer/PHPMailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/PHPMailer.php",
+      "bytes": 194030,
+      "sha256": "sha256:01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/POP3.php",
+      "distribution_path": "wp-includes/PHPMailer/POP3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/POP3.php",
+      "bytes": 12452,
+      "sha256": "sha256:a3123fffbe5fe132f6d02fba7ad46e520ce4059e46aaccb923fd5b8d63bc1708"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/SMTP.php",
+      "distribution_path": "wp-includes/PHPMailer/SMTP.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/SMTP.php",
+      "bytes": 53628,
+      "sha256": "sha256:f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+    },
+    {
+      "path": "src/wp-includes/class-phpmailer.php",
+      "distribution_path": "wp-includes/class-phpmailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-phpmailer.php",
+      "bytes": 664,
+      "sha256": "sha256:0dfbc6a7b33c833e61559bb196dcbbccf2389f5813ca7ba0bb2fc8048745ec9f"
+    },
+    {
+      "path": "src/wp-includes/class-pop3.php",
+      "distribution_path": "wp-includes/class-pop3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-pop3.php",
+      "bytes": 21121,
+      "sha256": "sha256:1872ab2151b091b419d3e354852e7c179c3879cb5046c5dd1b6ca35b1df29220"
+    },
+    {
+      "path": "src/wp-includes/class-smtp.php",
+      "distribution_path": "wp-includes/class-smtp.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-smtp.php",
+      "bytes": 457,
+      "sha256": "sha256:521e45083d2d43eb70fd7985643fd3847047a2060a743cf9d0635e96eb369563"
+    },
+    {
+      "path": "src/wp-includes/class-wp-phpmailer.php",
+      "distribution_path": "wp-includes/class-wp-phpmailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-phpmailer.php",
+      "bytes": 4348,
+      "sha256": "sha256:4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+    }
+  ],
+  "artifact_provenance_records": [
+    {
+      "path": "wp-includes/class-phpmailer.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-pop3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-smtp.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-wp-phpmailer.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/DSNConfigurator.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/Exception.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/OAuth.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/PHPMailer.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/POP3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/PHPMailer/SMTP.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "provenance_review": {
+    "wordpress_project_license": "GPL-2.0-or-later",
+    "phpmailer_package_license": "LGPL-2.1 marker in bundled PHPMailer headers",
+    "legacy_pop3_support_license": "GPL marker in legacy class-pop3.php header",
+    "package_notice_files_recorded_in_wordpress_license_manifest": [],
+    "required_notice_treatment": [
+      "Preserve WordPress project notice for distributions derived from WordPress 7.0.",
+      "Preserve PHPMailer upstream file headers while the bundled package remains copied/preserved.",
+      "Preserve legacy class-pop3.php GPL/SquirrelMail header while the legacy support shim remains copied/preserved.",
+      "Any future external dependency wrapper must record package notice files, license, version, source URL, and update policy."
+    ],
+    "header_evidence": [
+      {
+        "path": "src/wp-includes/PHPMailer/DSNConfigurator.php",
+        "distribution_path": "wp-includes/PHPMailer/DSNConfigurator.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/Exception.php",
+        "distribution_path": "wp-includes/PHPMailer/Exception.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/OAuth.php",
+        "distribution_path": "wp-includes/PHPMailer/OAuth.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": true,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+        "distribution_path": "wp-includes/PHPMailer/OAuthTokenProvider.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/PHPMailer.php",
+        "distribution_path": "wp-includes/PHPMailer/PHPMailer.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": [
+          "7.0.2"
+        ]
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/POP3.php",
+        "distribution_path": "wp-includes/PHPMailer/POP3.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": [
+          "7.0.2"
+        ]
+      },
+      {
+        "path": "src/wp-includes/PHPMailer/SMTP.php",
+        "distribution_path": "wp-includes/PHPMailer/SMTP.php",
+        "package_family": "phpmailer",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": true,
+        "gpl_marker": false,
+        "phpmailer_project_marker": true,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": [
+          "7.0.2"
+        ]
+      },
+      {
+        "path": "src/wp-includes/class-phpmailer.php",
+        "distribution_path": "wp-includes/class-phpmailer.php",
+        "package_family": "wordpress_support_shim",
+        "copyright_marker": false,
+        "lgpl_2_1_marker": false,
+        "gpl_marker": false,
+        "phpmailer_project_marker": false,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": true,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-pop3.php",
+        "distribution_path": "wp-includes/class-pop3.php",
+        "package_family": "wordpress_support_shim",
+        "copyright_marker": true,
+        "lgpl_2_1_marker": false,
+        "gpl_marker": true,
+        "phpmailer_project_marker": false,
+        "squirrelmail_marker": true,
+        "wordpress_class_marker": false,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-smtp.php",
+        "distribution_path": "wp-includes/class-smtp.php",
+        "package_family": "wordpress_support_shim",
+        "copyright_marker": false,
+        "lgpl_2_1_marker": false,
+        "gpl_marker": false,
+        "phpmailer_project_marker": false,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": true,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-wp-phpmailer.php",
+        "distribution_path": "wp-includes/class-wp-phpmailer.php",
+        "package_family": "wordpress_support_shim",
+        "copyright_marker": false,
+        "lgpl_2_1_marker": false,
+        "gpl_marker": false,
+        "phpmailer_project_marker": false,
+        "squirrelmail_marker": false,
+        "wordpress_class_marker": true,
+        "oauth_dependency_marker": false,
+        "version_markers": []
+      }
+    ],
+    "phpmailer_lgpl_header_count": 7,
+    "support_gpl_header_count": 1,
+    "support_wordpress_marker_count": 3
+  },
+  "dependency_review": {
+    "official_wordpress_distribution_dependency_broadening_allowed": false,
+    "optional_oauth_dependency_files": [
+      "wp-includes/PHPMailer/OAuth.php"
+    ],
+    "optional_oauth_dependency_status": "PHPMailer/OAuth.php references League OAuth2 client classes, but WordPress 7.0 does not bundle those League classes under wp-includes. Generated wrapper work must not silently add that external dependency to the distribution.",
+    "generated_wrapper_dependency_requirements": [
+      "Record whether the wrapper targets bundled upstream PHPMailer source, an upstream-equivalent external package, or a Haxe implementation.",
+      "If using an external package, lock exact version/source/license/notices and prove the official distribution dependency assumption is accepted.",
+      "Keep preserved upstream PHPMailer fallback active for OAuth/dependency-adjacent behavior until dedicated evidence exists."
+    ]
+  },
+  "ecosystem_review": {
+    "plugin_visible_surfaces": [
+      "PHPMailer\\PHPMailer\\PHPMailer",
+      "PHPMailer\\PHPMailer\\SMTP",
+      "PHPMailer\\PHPMailer\\POP3",
+      "PHPMailer\\PHPMailer\\Exception",
+      "PHPMailer\\PHPMailer\\DSNConfigurator",
+      "PHPMailer\\PHPMailer\\OAuth",
+      "PHPMailer\\PHPMailer\\OAuthTokenProvider",
+      "WP_PHPMailer",
+      "PHPMailer legacy class alias",
+      "phpmailerException legacy class alias",
+      "SMTP legacy class alias",
+      "POP3 legacy class"
+    ],
+    "required_future_evidence": [
+      "class_exists/interface_exists and include-order compatibility over modern and legacy symbols",
+      "reflection-visible file names, class names, methods, constants, properties, inheritance, exceptions, and aliases",
+      "stack traces and error messages with acceptable original-path behavior",
+      "wp_mail, phpmailer_init, wp_mail_succeeded, wp_mail_failed, WP_PHPMailer::setLanguage, and locale-switch behavior",
+      "plugin/caller ecosystem scan before replacing legacy support shims"
+    ],
+    "current_evidence": [
+      "WPHX-323.11 records preserved API/reflection and wrapper-shape floor.",
+      "WPHX-323.12 records controlled local SMTP/phpmail transport floor.",
+      "No generated wrapper or ecosystem plugin scan is present yet."
+    ]
+  },
+  "replacement_decision": {
+    "current_distribution_decision": "renew_preserved_upstream_phpmailer_exception",
+    "generated_wrapper_path_status": "conditionally_admitted_but_blocked",
+    "decision_rationale": "PHPMailer remains a public ecosystem API plus transport implementation. WPHX-323.11 and WPHX-323.12 record preserved-package API and controlled transport floors, but no generated overlay, no generated wrapper, no dependency/version policy, and no installed or operational mail parity exist yet.",
+    "allowed_now": [
+      "Keep the upstream WordPress 7.0 PHPMailer package and WordPress support shims as preserved fallback artifacts.",
+      "Use WPHX-323.11 and WPHX-323.12 as golden floors for future generated wrapper work.",
+      "Require explicit overlay and dependency receipts before any distribution divergence."
+    ],
+    "forbidden_now": [
+      "Do not claim Haxe-owned PHPMailer implementation.",
+      "Do not claim generated public PHP wrapper ownership.",
+      "Do not retire copied PHPMailer or support-shim artifacts.",
+      "Do not add external OAuth/composer dependency assumptions to the WordPress distribution without ADR and provenance evidence.",
+      "Do not claim installed WordPress mail parity or operational delivery parity."
+    ]
+  },
+  "required_replacement_evidence": [
+    "non-empty generated candidate overlay manifest for every diverged PHPMailer/support-shim path",
+    "generated original-path wrapper or upstream-equivalent dependency mapping with exact package version, source, license, notices, and update policy",
+    "PHP lint plus generated-shape/AST contracts for wrapper files and support shims",
+    "WPHX-323.11 API/reflection fixture remains passing after divergence",
+    "WPHX-323.12 controlled SMTP/phpmail transport fixture remains passing after divergence",
+    "dedicated authenticated SMTP, TLS/STARTTLS, proxy, DNS/MX, host mail(), bounce/retry, and operational-delivery gates for any broadened transport claim",
+    "plugin-visible class_exists/interface_exists, reflection, stack trace, include-path, and legacy-shim ecosystem compatibility evidence",
+    "license/provenance receipt preserving WordPress project notice, PHPMailer file headers, legacy POP3 notice, and any external dependency notices",
+    "explicit fallback matrix that keeps preserved upstream PHPMailer active for uncovered behavior"
+  ],
+  "fallback_matrix": [
+    {
+      "condition": "generated wrapper cannot preserve PHPMailer namespace classes, legacy shims, WP_PHPMailer inheritance, reflection names, public constants/properties/methods, or include paths",
+      "decision": "renew_preserved_upstream_exception"
+    },
+    {
+      "condition": "wrapper would require a new external Composer/runtime dependency not assumed by the official WordPress distribution",
+      "decision": "preserve_upstream_package_until_ADR_and_dependency_receipt"
+    },
+    {
+      "condition": "transport behavior reaches authenticated SMTP, TLS/STARTTLS, proxy, DNS/MX, host mail(), remote server policy, bounces, retries, or operational delivery",
+      "decision": "use_preserved_upstream_phpmailer_until_dedicated_transport_gates_pass"
+    },
+    {
+      "condition": "license/provenance notices, version policy, or package-header preservation are unsettled",
+      "decision": "do_not_diverge_distribution_files"
+    },
+    {
+      "condition": "ecosystem pressure shows plugins depend on internals, stack traces, exact file paths, or global legacy aliases beyond wrapper evidence",
+      "decision": "renew_preserved_upstream_exception_or_narrow_wrapper_scope"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_file_count": 11,
+    "phpmailer_source_file_count": 7,
+    "support_file_count": 4,
+    "artifact_provenance_record_count": 11,
+    "header_evidence_record_count": 11,
+    "phpmailer_lgpl_header_count": 7,
+    "support_gpl_header_count": 1,
+    "support_wordpress_marker_count": 3,
+    "optional_oauth_dependency_file_count": 1,
+    "prior_gate_count": 2,
+    "prior_gates_passing": true,
+    "required_replacement_evidence_count": 9,
+    "fallback_condition_count": 5,
+    "generated_overlay_manifest_present": false,
+    "generated_wrapper_path_admitted_now": false,
+    "preserved_upstream_exception_renewed": true
+  },
+  "claims": [
+    "PHPMailer provenance, bundled-file artifact records, header license markers, optional dependency assumptions, ecosystem-visible surfaces, fallback matrix, and replacement decision criteria are recorded for WPHX-323.13.",
+    "The current distribution decision renews the preserved upstream PHPMailer exception and keeps copied WordPress 7.0 PHPMailer/support-shim artifacts as fallback evidence.",
+    "A generated-wrapper path remains conditionally possible only after explicit overlay, API/reflection, controlled transport, dependency/provenance, ecosystem, and installed/operational gates pass."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned PHPMailer runtime logic.",
+    "This gate does not generate, validate, distribute, or admit current generated PHPMailer wrapper files.",
+    "This gate does not retire copied PHPMailer or support-shim artifacts.",
+    "This gate does not broaden official WordPress distribution dependency assumptions.",
+    "This gate does not prove installed WordPress mail parity, authenticated SMTP, TLS/STARTTLS, DNS/MX, proxy behavior, host mail() delivery, bounce/retry behavior, or operational delivery."
+  ]
+}
