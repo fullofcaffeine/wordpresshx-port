@@ -1,0 +1,49 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-11-phpmailer-api-reflection-fixture",
+  "issue": {
+    "id": "wordpresshx-jfwa",
+    "external_ref": "WPHX-323.11",
+    "title": "Add PHPMailer API/reflection and wrapper-shape fixture"
+  },
+  "recorded_at": "2026-07-07T19:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_phpmailer_api_reflection_fixture",
+  "artifact_scope": "wordpress-7.0-preserved-phpmailer-package-and-support-shims",
+  "commands": [
+    "npm run wp:core:wphx-323-phpmailer-api-reflection",
+    "npm run wp:core:wphx-323-phpmailer-api-reflection:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+    "parent_mail_vendor_gate_manifest": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json"
+  },
+  "manifest_sha256": "sha256:44a611b8a3fb7f5e80c6f3d70a68dc27b1d4f06a74cf9886432ab569a166c9d0",
+  "validation_result": {
+    "phpmailer_source_inventory_count": 7,
+    "phpmailer_distribution_artifact_count": 7,
+    "upstream_phpmailer_php_file_count": 7,
+    "support_file_count": 4,
+    "modern_symbol_count": 8,
+    "legacy_symbol_count": 4,
+    "fixture_case_count": 5,
+    "linted_file_count": 11,
+    "observations_equal": true,
+    "captured_error_count": 0,
+    "generated_overlay_manifest_present": false,
+    "candidate_package_difference_count": 0
+  },
+  "claims": [
+    "The preserved WordPress 7.0 PHPMailer package and WordPress support shims load in regenerated oracle and candidate roots.",
+    "Modern PHPMailer namespace symbols, WP_PHPMailer inheritance, legacy global shims, representative object surfaces, and ReflectionClass signatures match between preserved oracle and candidate package snapshots.",
+    "This fixture records the golden API/reflection and wrapper-shape floor that future generated PHPMailer wrappers must preserve."
+  ],
+  "non_claims": [
+    "This fixture does not implement Haxe-owned PHPMailer runtime logic.",
+    "This fixture does not execute SMTP, PHP mail(), DNS, TLS, authentication, remote server, bounce, retry, or operational delivery behavior.",
+    "This fixture does not generate or validate replacement public PHP wrappers.",
+    "The mirrored candidate root is copied upstream PHPMailer evidence only and must not be cited as copied artifact retirement."
+  ]
+}
