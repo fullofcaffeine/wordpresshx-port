@@ -1,0 +1,83 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-314-14-blocks-installed-expanded-gate",
+  "issue": {
+    "id": "wordpresshx-l76.20.7",
+    "external_ref": "WPHX-314.14",
+    "title": "WPHX-314.14 - Expand installed block rendering coverage"
+  },
+  "recorded_at": "2026-07-07T23:30:00.000Z",
+  "command": "npm run wp:core:wphx-314-blocks-installed-expanded-gate",
+  "evidence_class": "bridge_router_package_topology",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "router_observation_parity_claimed": true,
+  "package_topology_claimed": true,
+  "mirrored_upstream_source_executed_by_router": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "candidate_generated_overlay_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-314-14-blocks-installed-expanded-gate.v1.json",
+      "role": "expanded blocks/interactivity installed-style HTTP gate manifest",
+      "sha256": "sha256:fc8532a52d9dca2d39be36c3d83675101cdf19ff4305a53f8c4bcb798e43e0b1"
+    },
+    {
+      "path": "manifests/ownership/wphx-314-14-blocks-installed-expanded-gate.v1.json",
+      "role": "ownership manifest for expanded blocks/interactivity installed-style gate"
+    },
+    {
+      "path": "tools/wp-core/run-blocks-installed-expanded-gate.mjs",
+      "role": "expanded installed-style blocks/interactivity gate generator and check-mode validator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-314-blocks-installed-expanded-gate",
+    "npm run wp:core:wphx-314-blocks-installed-expanded-gate:check",
+    "npm run operations:bridge-claim-guardrails:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cases": 10,
+    "source_file_count": 53,
+    "oracle_candidate_match": true,
+    "behavior_parity_claimed": false,
+    "router_observation_parity_claimed": true,
+    "package_topology_claimed": true,
+    "mirrored_upstream_source_executed_by_router": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "candidate_generated_overlay_claimed": false,
+    "public_php_replacement_claimed": false
+  },
+  "scope_summary": "This receipt expands WPHX-314 installed-style bridge-router coverage to ten deterministic front, REST, admin-post, bindings, supports, style-engine, HTML API, interactivity, template, and global-styles observations over regenerated oracle/candidate package roots with selected upstream source files at locked hashes. It remains package-topology and router-observation evidence only.",
+  "explicit_deferrals": [
+    {
+      "owner": "WPHX-307/WPHX-308",
+      "reason": "database-backed posts, terms, comments, and query-loop state"
+    },
+    {
+      "owner": "WPHX-310/WPHX-320",
+      "reason": "real theme template, template part, global-styles, and default-theme rendering integration"
+    },
+    {
+      "owner": "WPHX-311/WPHX-316",
+      "reason": "real REST controller dispatch and admin route execution"
+    },
+    {
+      "owner": "WPHX-400/WPHX-500",
+      "reason": "browser/editor/Gutenberg package behavior, client interactivity runtime, and asset bundling"
+    },
+    {
+      "owner": "WPHX-314.15/WPHX-314.16",
+      "reason": "Haxe-owned candidate promotion and generated original-path public PHP shell retirement"
+    }
+  ],
+  "non_claims": [
+    "The deterministic router is test harness code and not a WPHX implementation artifact.",
+    "Router-emitted PHP/HTML strings are fixture observations, not generated original-path adapters, not WPHX-owned templates, and not distributable runtime code.",
+    "Mirrored upstream PHP files under build/wp-core/**/{oracle,candidate}-package are regenerated test inputs and are not WPHX implementation source.",
+    "This gate does not claim real installed WordPress bootstrap, database-backed block rendering, REST controller dispatch, admin route execution, browser/editor execution, Gutenberg package ownership, generated overlays, or durable generated public PHP ownership."
+  ]
+}
