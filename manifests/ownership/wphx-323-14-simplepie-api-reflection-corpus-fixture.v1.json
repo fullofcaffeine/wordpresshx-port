@@ -1,0 +1,33 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "issue": {
+    "id": "wordpresshx-l76.34",
+    "external_ref": "WPHX-323.14",
+    "title": "Add SimplePie API/reflection and feed corpus fixture"
+  },
+  "generated_at": "2026-07-08T01:30:00.000Z",
+  "evidence": "manifests/wp-core/wphx-323-14-simplepie-api-reflection-corpus-fixture.v1.json",
+  "boundary": {
+    "id": "simplepie",
+    "paths": [
+      "wp-includes/SimplePie",
+      "wp-includes/class-simplepie.php"
+    ],
+    "ownership_state": "preserved_upstream_vendor_boundary_with_api_corpus_fixture",
+    "emission_strategy": "copied_upstream_package_fixture_with_deterministic_php_probe",
+    "behavior_parity_claimed": true,
+    "behavior_parity_scope": "preserved_upstream_simplepie_api_reflection_and_local_feed_corpus_only",
+    "haxe_runtime_ownership_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "generated_overlay_manifest_present": false
+  },
+  "removal_gate": "Before retiring copied SimplePie artifacts or claiming generated wrapper ownership, provide non-empty generated overlay manifests, generated original-path wrapper evidence, PHP lint and shape/AST contracts, this API/reflection/corpus fixture passing after divergence, WPHX-323.15 wrapper/cache/transport evidence, WPHX-323.17 provenance/replacement decision evidence, selected upstream feed PHPUnit, installed route/database/browser gates, and ecosystem compatibility evidence appropriate to the claimed boundary.",
+  "non_claims": [
+    "This fixture does not implement or claim Haxe-owned SimplePie runtime logic.",
+    "This fixture does not emit generated SimplePie wrappers or original-path public PHP replacements.",
+    "This fixture does not retire copied SimplePie package files or class-simplepie.php.",
+    "This fixture does not claim live external feed, TLS, proxy, DNS, persistent cache, database-backed installed feed state, widget/block browser behavior, or installed WordPress feed parity.",
+    "The mirrored upstream files and probe-local PSR stubs are deterministic test inputs, not distributable WPHX runtime code."
+  ]
+}
