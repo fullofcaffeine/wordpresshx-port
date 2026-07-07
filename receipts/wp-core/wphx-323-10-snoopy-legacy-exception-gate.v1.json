@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-10-snoopy-legacy-exception-gate",
+  "issue": {
+    "id": "wordpresshx-jh34",
+    "external_ref": "WPHX-323.10",
+    "title": "Add Snoopy legacy compatibility and exception gate"
+  },
+  "recorded_at": "2026-07-07T17:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_snoopy_legacy_exception_gate",
+  "artifact_scope": "wordpress-7.0-preserved-class-snoopy",
+  "commands": [
+    "npm run wp:core:wphx-323-snoopy-legacy-exception",
+    "npm run wp:core:wphx-323-snoopy-legacy-exception:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-10-snoopy-legacy-exception-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-10-snoopy-legacy-exception-gate.v1.json",
+    "parent_http_vendor_gate_manifest": "manifests/wp-core/wphx-323-02-http-vendor-replacement-gates.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:c42a7d0c8b11a9421ccc40807cd414ce3295c14be333ec9753a2a50a39b6b42b",
+  "validation_result": {
+    "snoopy_source_inventory_count": 1,
+    "snoopy_distribution_artifact_count": 1,
+    "required_method_count": 14,
+    "observed_method_count": 14,
+    "fixture_case_count": 12,
+    "observation_case_count": 12,
+    "caller_review_source_count": 3,
+    "caller_review_match_count": 8,
+    "header_marker_count": 5,
+    "observations_equal": true,
+    "captured_error_count": 2,
+    "expected_connect_warning_count": 2,
+    "unexpected_captured_error_count": 0,
+    "remaining_gap_count": 3
+  },
+  "claims": [
+    "The preserved upstream WordPress 7.0 class-snoopy.php file is mirrored into deterministic oracle and candidate fallback roots and PHP-linted.",
+    "Oracle and candidate fallback roots produce matching legacy Snoopy observations for reflection/defaults, fetch, submit, fetchlinks, fetchform, fetchtext, submitlinks, submittext, redirect cookies, post body helpers, fake-curl HTTPS path, invalid protocol, and connect failure behavior.",
+    "The caller/provenance review renews Snoopy as a preserved artifact exception unless future ecosystem pressure justifies a generated wrapper or Haxe-owned replacement."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned Snoopy runtime logic.",
+    "This gate does not generate or validate a public PHP replacement for class-snoopy.php.",
+    "This gate does not retire the copied upstream Snoopy artifact.",
+    "The candidate root is the preserved upstream fallback and must not be cited as installed WordPress behavior parity or distribution divergence evidence.",
+    "Real timeout, real HTTPS curl/TLS/proxy behavior, and broad plugin ecosystem usage remain future evidence."
+  ]
+}

@@ -1,0 +1,1523 @@
+{
+  "schema": "wphx.wp-core-snoopy-legacy-exception-gate.v1",
+  "issue": {
+    "id": "wordpresshx-jh34",
+    "external_ref": "WPHX-323.10",
+    "title": "Add Snoopy legacy compatibility and exception gate"
+  },
+  "generated_at": "2026-07-07T17:00:00.000Z",
+  "generator": {
+    "runner": "tools/wp-core/run-snoopy-legacy-exception-gate.mjs",
+    "mode": "deterministic"
+  },
+  "scope": {
+    "boundary_id": "snoopy",
+    "source_path": "wp-includes/class-snoopy.php",
+    "distribution_path": "wp-includes/class-snoopy.php",
+    "evidence_lane": "preserved_snoopy_legacy_api_and_exception_renewal",
+    "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+    "candidate_strategy": "copied_preserved_upstream_snoopy_fallback_only",
+    "renewed_preserved_artifact_exception_claimed": true,
+    "haxe_owned_snoopy_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_snoopy_retirement_claimed": false,
+    "installed_wordpress_behavior_claimed": false
+  },
+  "inputs": {
+    "replacement_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "http_vendor_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-02-http-vendor-replacement-gates.v1.json",
+      "bytes": 22454,
+      "sha256": "sha256:82848568dedeaee6e7a4985521c9fd58185ef7c6c2e2de1e092571339d7d158a"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "source_file": {
+      "path": "src/wp-includes/class-snoopy.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-snoopy.php",
+      "bytes": 37715,
+      "sha256": "sha256:84fe34f1549d11b015d919350ad4599e2af16ca7e630fe4eab3b79f87e1f0299"
+    },
+    "magpie_fetch_cache_manifest": {
+      "path": "manifests/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+      "bytes": 18410,
+      "sha256": "sha256:d47234172d1955dee3a10f09681449f0cd6a6d49e86c9aaeef6b72a9ddec5ab4"
+    },
+    "xmlrpc_legacy_surface_manifest": {
+      "path": "manifests/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+      "bytes": 52127,
+      "sha256": "sha256:19474a36fee30c17fda0a05f09172f826a9e423a3faec45d1709af159a912029"
+    }
+  },
+  "fixture_cases": [
+    {
+      "id": "snoopy:reflection-defaults",
+      "focus": "plugin-visible class, default public fields, methods, and upstream deprecation include behavior"
+    },
+    {
+      "id": "snoopy:fetch-http",
+      "focus": "fetch GET request headers, cookies sent by caller, status/header/body fields, and _httprequest path"
+    },
+    {
+      "id": "snoopy:submit-form",
+      "focus": "submit POST form body, content type, request method, and response fields"
+    },
+    {
+      "id": "snoopy:fetchlinks",
+      "focus": "fetchlinks strips and expands relative, root-relative, absolute, and mailto links"
+    },
+    {
+      "id": "snoopy:fetchform",
+      "focus": "fetchform strips form/input/select/textarea markup from fetched HTML"
+    },
+    {
+      "id": "snoopy:fetchtext",
+      "focus": "fetchtext strips script/tags and decodes legacy entities"
+    },
+    {
+      "id": "snoopy:submitlinks-submittext",
+      "focus": "submitlinks and submittext preserve post-submission extraction behavior"
+    },
+    {
+      "id": "snoopy:redirect-cookie",
+      "focus": "redirect following, setcookies, lastredirectaddr, and cookie pass-through"
+    },
+    {
+      "id": "snoopy:post-body-helpers",
+      "focus": "set_submit_normal, set_submit_multipart, and _prepare_post_body body shapes"
+    },
+    {
+      "id": "snoopy:https-fake-curl",
+      "focus": "_httpsrequest command path through a deterministic fake curl executable"
+    },
+    {
+      "id": "snoopy:invalid-protocol",
+      "focus": "invalid protocol error/status/result shape"
+    },
+    {
+      "id": "snoopy:connect-failure",
+      "focus": "_connect failure status/error shape with normalized host errno"
+    }
+  ],
+  "local_loopback_server": {
+    "generated_server": "build/wp-core/wphx-323-10/snoopy-loopback-server.mjs",
+    "host": "127.0.0.1",
+    "protocol": "http",
+    "endpoints": [
+      "/inspect",
+      "/submit",
+      "/html",
+      "/html-post",
+      "/form",
+      "/redirect",
+      "/final"
+    ],
+    "network_scope": "local loopback only"
+  },
+  "mirror_roots": {
+    "oracle": "build/wp-core/wphx-323-10/oracle",
+    "candidate": "build/wp-core/wphx-323-10/candidate",
+    "note": "Both roots are regenerated from preserved upstream WordPress 7.0 class-snoopy.php. The candidate root is the preserved exception artifact, not a replacement."
+  },
+  "linted_file": {
+    "oracle_lint": "No syntax errors detected in build/wp-core/wphx-323-10/oracle/wp-includes/class-snoopy.php",
+    "candidate_lint": "No syntax errors detected in build/wp-core/wphx-323-10/candidate/wp-includes/class-snoopy.php"
+  },
+  "required_methods": [
+    "fetch",
+    "submit",
+    "fetchlinks",
+    "fetchform",
+    "fetchtext",
+    "submitlinks",
+    "submittext",
+    "set_submit_multipart",
+    "set_submit_normal",
+    "_httprequest",
+    "_httpsrequest",
+    "setcookies",
+    "_connect",
+    "_prepare_post_body"
+  ],
+  "observations": {
+    "oracle": {
+      "root": "build/wp-core/wphx-323-10/oracle",
+      "class_exists": true,
+      "deprecated_files": [
+        {
+          "file": "class-snoopy.php",
+          "version": "3.0.0",
+          "replacement": "wp-includes/http.php"
+        }
+      ],
+      "default_public_fields": {
+        "_fp_timeout": 30,
+        "_framedepth": 0,
+        "_frameurls": [],
+        "_httpmethod": "GET",
+        "_httpversion": "HTTP/1.0",
+        "_isproxy": false,
+        "_maxlinelen": 4096,
+        "_mime_boundary": "",
+        "_redirectaddr": false,
+        "_redirectdepth": 0,
+        "_submit_method": "POST",
+        "_submit_type": "application/x-www-form-urlencoded",
+        "accept": "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*",
+        "agent": "Snoopy v1.2.4",
+        "cookies": [],
+        "curl_path": "/usr/local/bin/curl",
+        "error": "",
+        "expandlinks": true,
+        "headers": [],
+        "host": "www.php.net",
+        "lastredirectaddr": "",
+        "maxframes": 0,
+        "maxlength": 500000,
+        "maxredirs": 5,
+        "offsiteok": true,
+        "pass": "",
+        "passcookies": true,
+        "port": 80,
+        "proxy_host": "",
+        "proxy_pass": "",
+        "proxy_port": "",
+        "proxy_user": "",
+        "rawheaders": [],
+        "read_timeout": 0,
+        "referer": "",
+        "response_code": "",
+        "results": "",
+        "status": 0,
+        "temp_dir": "/tmp",
+        "timed_out": false,
+        "user": ""
+      },
+      "method_names": [
+        "_check_timeout",
+        "_connect",
+        "_disconnect",
+        "_expandlinks",
+        "_httprequest",
+        "_httpsrequest",
+        "_prepare_post_body",
+        "_stripform",
+        "_striplinks",
+        "_striptext",
+        "fetch",
+        "fetchform",
+        "fetchlinks",
+        "fetchtext",
+        "set_submit_multipart",
+        "set_submit_normal",
+        "setcookies",
+        "submit",
+        "submitlinks",
+        "submittext"
+      ],
+      "cases": {
+        "fetch_http": {
+          "id": "fetch_http",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": {
+              "fixture": "cookie space"
+            },
+            "rawheaders": {
+              "X-Snoopy-Fixture": "fetch"
+            },
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:dcdd71603fca581270f4d018d775dfaca5e70f1650ba78d8681a3d6c71c54ca6",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 296",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "Set-Cookie: simple=server-cookie; Path=/",
+              "X-Snoopy-Case: fetch"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "GET",
+            "path": "/inspect",
+            "query": {
+              "case": "fetch",
+              "item": "one"
+            },
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "cookie": "fixture=cookie+space",
+              "x-snoopy-fixture": "fetch"
+            },
+            "body": ""
+          },
+          "raw_result": "{\"method\":\"GET\",\"path\":\"/inspect\",\"query\":{\"case\":\"fetch\",\"item\":\"one\"},\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"cookie\":\"fixture=cookie+space\",\"x-snoopy-fixture\":\"fetch\"},\"body\":\"\"}"
+        },
+        "submit_form": {
+          "id": "submit_form",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": {
+              "X-Snoopy-Fixture": "submit"
+            },
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:2c6c216257beebf8246539adec3a9f43aa16c1c19ffa14a42c02702677b7694e",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 362",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "Set-Cookie: simple=server-cookie; Path=/",
+              "X-Snoopy-Case: submit"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "POST",
+            "path": "/submit",
+            "query": {
+              "case": "submit"
+            },
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "x-snoopy-fixture": "submit",
+              "content-type": "application/x-www-form-urlencoded",
+              "content-length": "36"
+            },
+            "body": "alpha=one&multi[]=two&multi[]=three&"
+          },
+          "raw_result": "{\"method\":\"POST\",\"path\":\"/submit\",\"query\":{\"case\":\"submit\"},\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"x-snoopy-fixture\":\"submit\",\"content-type\":\"application/x-www-form-urlencoded\",\"content-length\":\"36\"},\"body\":\"alpha=one&multi[]=two&multi[]=three&\"}"
+        },
+        "fetchlinks": {
+          "id": "fetchlinks",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "array",
+            "results_sha256": null,
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ],
+          "raw_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ]
+        },
+        "fetchform": {
+          "id": "fetchform",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:81d2ec048ac5ee601e34276d14d975e1662c6c570f0ffc74c991a9153ff70c87",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 215",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: form"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "<form action=\"/submit\" method=\"post\">\r\n<input type=\"text\" name=\"alpha\" value=\"one\">\r\n<select name=\"choice\">\r\n<option value=\"a\">A\r\n</option>\r\n</select>\r\n<textarea name=\"body\">\r\n</textarea>\r\n</form>"
+        },
+        "fetchtext": {
+          "id": "fetchtext",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:1e451a49203ae07eedc8913012f9b4cf392fa6176d6c9aef22e5ba0f59764695",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "\nSnoopy fixture\nAlpha\nBeta\nGamma\nMail\nFish & Chips � fixture\n"
+        },
+        "submitlinks": {
+          "id": "submitlinks",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "array",
+            "results_sha256": null,
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html-post"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html-post/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ],
+          "raw_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html-post/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ]
+        },
+        "submittext": {
+          "id": "submittext",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:cd632d182f341a9f02c9dabf2385ae2e7124989e01a19aec1adb13d6a2729050",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html-post"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "http://127.0.0.1:PORT/html-post/\nSnoopy fixture\nAlpha\nBeta\nGamma\nMail\nFish & Chips � fixture\n"
+        },
+        "redirect_cookie": {
+          "id": "redirect_cookie",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": {
+              "legacy": "jar"
+            },
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "http://127.0.0.1:PORT/final",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:f443d45d0395842b8e9d18d5d304c80b8b612108fbc91cf448d22b1d9de9572e",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 219",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "X-Snoopy-Case: final"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "GET",
+            "path": "/final",
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "cookie": "legacy=jar"
+            },
+            "body": ""
+          },
+          "raw_result": "{\"method\":\"GET\",\"path\":\"/final\",\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"cookie\":\"legacy=jar\"},\"body\":\"\"}"
+        },
+        "post_body_helpers": {
+          "normal_body": "alpha=one&multi[]=two&multi[]=three&",
+          "multipart_body": "--SnoopyBOUNDARY\r\nContent-Disposition: form-data; name=\"alpha\"\r\n\r\none\r\n--SnoopyBOUNDARY\r\nContent-Disposition: form-data; name=\"upload\"; filename=\"upload-fixture.txt\"\r\n\r\nupload-body\n\r\n--SnoopyBOUNDARY--\r\n",
+          "snapshot": {
+            "host": "www.php.net",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "multipart/form-data",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          }
+        },
+        "https_fake_curl": {
+          "id": "https_fake_curl",
+          "ok": true,
+          "snapshot": {
+            "host": "example.test",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:731ba8e855bc0c53c972ad28739a9e7248db9718ae7f5419f0781312cd7404e2",
+            "error": "",
+            "response_code": "HTTP/1.0 200 OK",
+            "headers": [
+              "HTTP/1.0 200 OK",
+              "X-Fake-Curl: yes",
+              ""
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "<html>Secure &amp; body</html>"
+        },
+        "invalid_protocol": {
+          "id": "invalid_protocol",
+          "ok": false,
+          "snapshot": {
+            "host": "www.php.net",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "Invalid protocol \"ftp\"\\n",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": ""
+        },
+        "connect_failure": {
+          "id": "connect_failure",
+          "ok": false,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": 1,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "connection failed (ERRNO)",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "nonzero",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 1
+          },
+          "decoded_result": null,
+          "raw_result": ""
+        }
+      },
+      "captured_errors": [
+        {
+          "errno": 2,
+          "message": "fsockopen(): Unable to connect to 127.0.0.1:PORT (Connection refused)",
+          "file": "class-snoopy.php",
+          "line": 1145
+        }
+      ]
+    },
+    "candidate": {
+      "root": "build/wp-core/wphx-323-10/candidate",
+      "class_exists": true,
+      "deprecated_files": [
+        {
+          "file": "class-snoopy.php",
+          "version": "3.0.0",
+          "replacement": "wp-includes/http.php"
+        }
+      ],
+      "default_public_fields": {
+        "_fp_timeout": 30,
+        "_framedepth": 0,
+        "_frameurls": [],
+        "_httpmethod": "GET",
+        "_httpversion": "HTTP/1.0",
+        "_isproxy": false,
+        "_maxlinelen": 4096,
+        "_mime_boundary": "",
+        "_redirectaddr": false,
+        "_redirectdepth": 0,
+        "_submit_method": "POST",
+        "_submit_type": "application/x-www-form-urlencoded",
+        "accept": "image/gif, image/x-xbitmap, image/jpeg, image/pjpeg, */*",
+        "agent": "Snoopy v1.2.4",
+        "cookies": [],
+        "curl_path": "/usr/local/bin/curl",
+        "error": "",
+        "expandlinks": true,
+        "headers": [],
+        "host": "www.php.net",
+        "lastredirectaddr": "",
+        "maxframes": 0,
+        "maxlength": 500000,
+        "maxredirs": 5,
+        "offsiteok": true,
+        "pass": "",
+        "passcookies": true,
+        "port": 80,
+        "proxy_host": "",
+        "proxy_pass": "",
+        "proxy_port": "",
+        "proxy_user": "",
+        "rawheaders": [],
+        "read_timeout": 0,
+        "referer": "",
+        "response_code": "",
+        "results": "",
+        "status": 0,
+        "temp_dir": "/tmp",
+        "timed_out": false,
+        "user": ""
+      },
+      "method_names": [
+        "_check_timeout",
+        "_connect",
+        "_disconnect",
+        "_expandlinks",
+        "_httprequest",
+        "_httpsrequest",
+        "_prepare_post_body",
+        "_stripform",
+        "_striplinks",
+        "_striptext",
+        "fetch",
+        "fetchform",
+        "fetchlinks",
+        "fetchtext",
+        "set_submit_multipart",
+        "set_submit_normal",
+        "setcookies",
+        "submit",
+        "submitlinks",
+        "submittext"
+      ],
+      "cases": {
+        "fetch_http": {
+          "id": "fetch_http",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": {
+              "fixture": "cookie space"
+            },
+            "rawheaders": {
+              "X-Snoopy-Fixture": "fetch"
+            },
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:dcdd71603fca581270f4d018d775dfaca5e70f1650ba78d8681a3d6c71c54ca6",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 296",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "Set-Cookie: simple=server-cookie; Path=/",
+              "X-Snoopy-Case: fetch"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "GET",
+            "path": "/inspect",
+            "query": {
+              "case": "fetch",
+              "item": "one"
+            },
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "cookie": "fixture=cookie+space",
+              "x-snoopy-fixture": "fetch"
+            },
+            "body": ""
+          },
+          "raw_result": "{\"method\":\"GET\",\"path\":\"/inspect\",\"query\":{\"case\":\"fetch\",\"item\":\"one\"},\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"cookie\":\"fixture=cookie+space\",\"x-snoopy-fixture\":\"fetch\"},\"body\":\"\"}"
+        },
+        "submit_form": {
+          "id": "submit_form",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": {
+              "X-Snoopy-Fixture": "submit"
+            },
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:2c6c216257beebf8246539adec3a9f43aa16c1c19ffa14a42c02702677b7694e",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 362",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "Set-Cookie: simple=server-cookie; Path=/",
+              "X-Snoopy-Case: submit"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "POST",
+            "path": "/submit",
+            "query": {
+              "case": "submit"
+            },
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "x-snoopy-fixture": "submit",
+              "content-type": "application/x-www-form-urlencoded",
+              "content-length": "36"
+            },
+            "body": "alpha=one&multi[]=two&multi[]=three&"
+          },
+          "raw_result": "{\"method\":\"POST\",\"path\":\"/submit\",\"query\":{\"case\":\"submit\"},\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"x-snoopy-fixture\":\"submit\",\"content-type\":\"application/x-www-form-urlencoded\",\"content-length\":\"36\"},\"body\":\"alpha=one&multi[]=two&multi[]=three&\"}"
+        },
+        "fetchlinks": {
+          "id": "fetchlinks",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "array",
+            "results_sha256": null,
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ],
+          "raw_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ]
+        },
+        "fetchform": {
+          "id": "fetchform",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:81d2ec048ac5ee601e34276d14d975e1662c6c570f0ffc74c991a9153ff70c87",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 215",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: form"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "<form action=\"/submit\" method=\"post\">\r\n<input type=\"text\" name=\"alpha\" value=\"one\">\r\n<select name=\"choice\">\r\n<option value=\"a\">A\r\n</option>\r\n</select>\r\n<textarea name=\"body\">\r\n</textarea>\r\n</form>"
+        },
+        "fetchtext": {
+          "id": "fetchtext",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:1e451a49203ae07eedc8913012f9b4cf392fa6176d6c9aef22e5ba0f59764695",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "\nSnoopy fixture\nAlpha\nBeta\nGamma\nMail\nFish & Chips � fixture\n"
+        },
+        "submitlinks": {
+          "id": "submitlinks",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "array",
+            "results_sha256": null,
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html-post"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html-post/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ],
+          "raw_result": [
+            "http://127.0.0.1/alpha",
+            "http://127.0.0.1:PORT/html-post/relative/beta",
+            "http://example.test/gamma",
+            "mailto:fixture@example.test"
+          ]
+        },
+        "submittext": {
+          "id": "submittext",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:cd632d182f341a9f02c9dabf2385ae2e7124989e01a19aec1adb13d6a2729050",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 342",
+              "Content-Type: text/html",
+              "X-Snoopy-Case: html-post"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "http://127.0.0.1:PORT/html-post/\nSnoopy fixture\nAlpha\nBeta\nGamma\nMail\nFish & Chips � fixture\n"
+        },
+        "redirect_cookie": {
+          "id": "redirect_cookie",
+          "ok": true,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": "PORT",
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": {
+              "legacy": "jar"
+            },
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "http://127.0.0.1:PORT/final",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:f443d45d0395842b8e9d18d5d304c80b8b612108fbc91cf448d22b1d9de9572e",
+            "error": "",
+            "response_code": "HTTP/1.1 200 OK",
+            "headers": [
+              "HTTP/1.1 200 OK",
+              "Connection: close",
+              "Content-Length: 219",
+              "Content-Type: application/json",
+              "X-Snoopy-Gate: loopback",
+              "X-Snoopy-Case: final"
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "200",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": {
+            "method": "GET",
+            "path": "/final",
+            "headers": {
+              "user-agent": "Snoopy fixture agent",
+              "host": "127.0.0.1:PORT",
+              "accept": "text/html, application/json",
+              "referer": "http://127.0.0.1:PORT/referer",
+              "cookie": "legacy=jar"
+            },
+            "body": ""
+          },
+          "raw_result": "{\"method\":\"GET\",\"path\":\"/final\",\"headers\":{\"user-agent\":\"Snoopy fixture agent\",\"host\":\"127.0.0.1:PORT\",\"accept\":\"text/html, application/json\",\"referer\":\"http://127.0.0.1:PORT/referer\",\"cookie\":\"legacy=jar\"},\"body\":\"\"}"
+        },
+        "post_body_helpers": {
+          "normal_body": "alpha=one&multi[]=two&multi[]=three&",
+          "multipart_body": "--SnoopyBOUNDARY\r\nContent-Disposition: form-data; name=\"alpha\"\r\n\r\none\r\n--SnoopyBOUNDARY\r\nContent-Disposition: form-data; name=\"upload\"; filename=\"upload-fixture.txt\"\r\n\r\nupload-body\n\r\n--SnoopyBOUNDARY--\r\n",
+          "snapshot": {
+            "host": "www.php.net",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "multipart/form-data",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          }
+        },
+        "https_fake_curl": {
+          "id": "https_fake_curl",
+          "ok": true,
+          "snapshot": {
+            "host": "example.test",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:731ba8e855bc0c53c972ad28739a9e7248db9718ae7f5419f0781312cd7404e2",
+            "error": "",
+            "response_code": "HTTP/1.0 200 OK",
+            "headers": [
+              "HTTP/1.0 200 OK",
+              "X-Fake-Curl: yes",
+              ""
+            ],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": "<html>Secure &amp; body</html>"
+        },
+        "invalid_protocol": {
+          "id": "invalid_protocol",
+          "ok": false,
+          "snapshot": {
+            "host": "www.php.net",
+            "port": 80,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "Invalid protocol \"ftp\"\\n",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": 0,
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 30
+          },
+          "decoded_result": null,
+          "raw_result": ""
+        },
+        "connect_failure": {
+          "id": "connect_failure",
+          "ok": false,
+          "snapshot": {
+            "host": "127.0.0.1",
+            "port": 1,
+            "proxy_host": "",
+            "proxy_port": "",
+            "agent": "Snoopy fixture agent",
+            "referer": "http://127.0.0.1:PORT/referer",
+            "cookies": [],
+            "rawheaders": [],
+            "maxredirs": 5,
+            "lastredirectaddr": "",
+            "passcookies": true,
+            "results_type": "string",
+            "results_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "error": "connection failed (ERRNO)",
+            "response_code": "",
+            "headers": [],
+            "maxlength": 500000,
+            "read_timeout": 0,
+            "timed_out": false,
+            "status": "nonzero",
+            "_httpmethod": "GET",
+            "_httpversion": "HTTP/1.0",
+            "_submit_method": "POST",
+            "_submit_type": "application/x-www-form-urlencoded",
+            "_isproxy": false,
+            "_fp_timeout": 1
+          },
+          "decoded_result": null,
+          "raw_result": ""
+        }
+      },
+      "captured_errors": [
+        {
+          "errno": 2,
+          "message": "fsockopen(): Unable to connect to 127.0.0.1:PORT (Connection refused)",
+          "file": "class-snoopy.php",
+          "line": 1145
+        }
+      ]
+    },
+    "comparable_sha256": {
+      "oracle": "sha256:869fe51b504268ccc3f6df89975a6e2797f0a4a57a4027dcb6ca81b86a90acaf",
+      "candidate": "sha256:869fe51b504268ccc3f6df89975a6e2797f0a4a57a4027dcb6ca81b86a90acaf"
+    }
+  },
+  "caller_ecosystem_review": {
+    "magpie_fetch_cache_manifest": {
+      "path": "manifests/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+      "bytes": 18410,
+      "sha256": "sha256:d47234172d1955dee3a10f09681449f0cd6a6d49e86c9aaeef6b72a9ddec5ab4"
+    },
+    "xmlrpc_legacy_surface_manifest": {
+      "path": "manifests/wp-core/wphx-318-01-xmlrpc-legacy-deprecated-surface.v1.json",
+      "bytes": 52127,
+      "sha256": "sha256:19474a36fee30c17fda0a05f09172f826a9e423a3faec45d1709af159a912029"
+    },
+    "source_scans": [
+      {
+        "path": "src/wp-includes/rss.php",
+        "role": "MagpieRSS keeps Snoopy-compatible response shapes around _fetch_remote_file.",
+        "matches": [
+          {
+            "line": 424,
+            "text": "$resp = _fetch_remote_file( $url );"
+          },
+          {
+            "line": 480,
+            "text": "$resp = _fetch_remote_file( $url, $request_headers );"
+          },
+          {
+            "line": 506,
+            "text": "# compensate for Snoopy's annoying habit to tacking"
+          },
+          {
+            "line": 548,
+            "text": "* @return Snoopy style response"
+          },
+          {
+            "line": 550,
+            "text": "function _fetch_remote_file($url, $headers = \"\" ) {"
+          },
+          {
+            "line": 558,
+            "text": "$resp->error = $error[0] . \"\\n\"; //\\n = Snoopy compatibility"
+          },
+          {
+            "line": 562,
+            "text": "// Snoopy returns headers unprocessed."
+          },
+          {
+            "line": 563,
+            "text": "// Also note, WP_HTTP lowercases all keys, Snoopy did not."
+          }
+        ]
+      },
+      {
+        "path": "src/wp-includes/class-wp-xmlrpc-server.php",
+        "role": "XML-RPC server source has no direct Snoopy class dependency in WordPress 7.0.",
+        "matches": []
+      },
+      {
+        "path": "src/wp-includes/deprecated.php",
+        "role": "Deprecated API source has no direct Snoopy class dependency in WordPress 7.0.",
+        "matches": []
+      }
+    ],
+    "decision": "renew_preserved_artifact_exception",
+    "replacement_trigger": "Require concrete plugin/ecosystem pressure plus a generated wrapper or Haxe-owned replacement that preserves public fields, methods, request/response quirks, fake-curl/https path shape, cookie redirect behavior, and MagpieRSS Snoopy-compatible response expectations."
+  },
+  "license_provenance_review": {
+    "source_header_sha256": "sha256:a124af84a55b3a41c9623fb76fc217a20da115dd974ed061e66d1cb2e5eef5b3",
+    "header_markers": {
+      "deprecated_wp_http_notice": true,
+      "author": true,
+      "version": true,
+      "lgpl": true,
+      "sourceforge_url": true
+    },
+    "preserved_exception_renewed": true,
+    "distribution_divergence_claimed": false,
+    "replacement_safety_decision": "Preservation is safer for this deprecated compatibility file until ecosystem pressure justifies a generated wrapper or replacement with matching legacy property and method behavior."
+  },
+  "renewed_exception_policy": {
+    "decision": "renew_preserved_artifact_exception",
+    "reason": "Snoopy is deprecated WordPress compatibility code with a narrow upstream file, visible public properties/method quirks, and MagpieRSS Snoopy-compatible response expectations; the repo records no replacement pressure strong enough to make a generated wrapper safer yet.",
+    "fallback_policy": "Keep upstream class-snoopy.php preserved unless plugin/ecosystem evidence plus generated wrapper or Haxe-owned implementation evidence proves a safer replacement path.",
+    "removal_gate": "Do not retire class-snoopy.php or cite Snoopy implementation ownership until replacement pressure, generated public PHP evidence, legacy API parity, MagpieRSS compatibility, provenance review, and ecosystem gates pass."
+  },
+  "remaining_gaps": [
+    {
+      "id": "real-timeout",
+      "status": "blocked",
+      "reason": "The gate records read_timeout defaults and connect failure behavior, but does not sleep a socket long enough to make timing-sensitive timeout evidence stable."
+    },
+    {
+      "id": "real-https-curl-binary",
+      "status": "blocked",
+      "reason": "The _httpsrequest path is exercised with a deterministic fake curl executable. Real external curl, TLS verification, proxy, and certificate behavior remain outside this renewed Snoopy exception gate."
+    },
+    {
+      "id": "ecosystem-plugin-scan",
+      "status": "blocked",
+      "reason": "The caller review scans WordPress 7.0 source-domain evidence only. Broad plugin-directory Snoopy usage pressure requires a later ecosystem scan before choosing replacement over preservation."
+    }
+  ],
+  "validation_result": {
+    "snoopy_source_inventory_count": 1,
+    "snoopy_distribution_artifact_count": 1,
+    "required_method_count": 14,
+    "observed_method_count": 14,
+    "fixture_case_count": 12,
+    "observation_case_count": 12,
+    "caller_review_source_count": 3,
+    "caller_review_match_count": 8,
+    "header_marker_count": 5,
+    "observations_equal": true,
+    "captured_error_count": 2,
+    "expected_connect_warning_count": 2,
+    "unexpected_captured_error_count": 0,
+    "remaining_gap_count": 3
+  },
+  "claims": [
+    "The preserved upstream WordPress 7.0 class-snoopy.php file is mirrored into deterministic oracle and candidate fallback roots and PHP-linted.",
+    "Oracle and candidate fallback roots produce matching legacy Snoopy observations for reflection/defaults, fetch, submit, fetchlinks, fetchform, fetchtext, submitlinks, submittext, redirect cookies, post body helpers, fake-curl HTTPS path, invalid protocol, and connect failure behavior.",
+    "The caller/provenance review renews Snoopy as a preserved artifact exception unless future ecosystem pressure justifies a generated wrapper or Haxe-owned replacement."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned Snoopy runtime logic.",
+    "This gate does not generate or validate a public PHP replacement for class-snoopy.php.",
+    "This gate does not retire the copied upstream Snoopy artifact.",
+    "The candidate root is the preserved upstream fallback and must not be cited as installed WordPress behavior parity or distribution divergence evidence.",
+    "Real timeout, real HTTPS curl/TLS/proxy behavior, and broad plugin ecosystem usage remain future evidence."
+  ]
+}
