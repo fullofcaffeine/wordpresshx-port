@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-320.03",
+  "beads_issue": "wordpresshx-53pe",
+  "title": "WPHX-320.03 - Declare default theme upstream/browser ratchets",
+  "generated_at": "2026-07-07T17:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-default-theme-upstream-browser-ratchets.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-320-03-default-theme-upstream-browser-ratchets.v1.json",
+    "phpunit_groups": "tests/upstream/phpunit/groups.json",
+    "global_ratchet_manifest": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_manifest": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "global_ratchet_receipt": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+    "global_provision_receipt": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+    "ratchet_documentation": "docs/operations/upstream-phpunit-ratchet.md",
+    "upstream_browser_sources": [
+      {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/performance/specs/home.test.js",
+        "upstream_path": "tests/performance/specs/home.test.js",
+        "bytes": 2115,
+        "sha256": "sha256:eae99c6221b30c62d77c5f30b25b39c5c696b41b28ed67322144af2d9abaf447"
+      },
+      {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/performance/specs/single-post.test.js",
+        "upstream_path": "tests/performance/specs/single-post.test.js",
+        "bytes": 2141,
+        "sha256": "sha256:6caccebc3014910baeab29070322a26e46822d99fd9b978566974e5270f107f3"
+      },
+      {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/visual-regression/specs/visual-snapshots.test.js",
+        "upstream_path": "tests/visual-regression/specs/visual-snapshots.test.js",
+        "bytes": 5830,
+        "sha256": "sha256:47833c02d31a362f34d4f87f1ab2bc3a6f506faf1909f175e9069e48e14c987e"
+      }
+    ]
+  },
+  "summary": "Declares four selected default-theme-related upstream PHPUnit ratchet dependency groups covering 47 theme/template/canonical/block-template test files, all classified vanilla pass / candidate pass. It also locks three future browser/performance/visual ratchet references as blocked scope only, with no installed theme rendering, browser execution, generated public PHP replacement, generated overlay, or Haxe-owned existing-theme-file claim.",
+  "checks": [
+    "npm run upstream:phpunit-ratchet:provision",
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run wp:core:wphx-320-default-theme-upstream-browser-ratchets",
+    "npm run wp:core:wphx-320-default-theme-upstream-browser-ratchets:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for any bundled default-theme file.",
+    "No Haxe-owned existing mixed PHP/HTML template runtime or broad HXX migration of bundled theme files.",
+    "No installed template-loader, front-end theme rendering, browser, visual-regression, or performance parity execution.",
+    "No database-backed post/query/menu/widget/customizer/global-styles state, locale switching, cache behavior, media asset behavior, generated overlay, or generated original-path adapter ownership.",
+    "The selected upstream PHPUnit groups are dependency ratchets over the pinned WordPress 7.0 oracle/candidate worktree; pass/pass evidence is not WPHX runtime ownership.",
+    "The blocked browser/performance/visual ratchets lock future evidence scope only; they are not executed by this runner."
+  ]
+}

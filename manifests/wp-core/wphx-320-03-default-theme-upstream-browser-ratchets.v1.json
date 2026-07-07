@@ -1,0 +1,357 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-320.03",
+  "beads_issue": "wordpresshx-53pe",
+  "title": "WPHX-320.03 - Declare default theme upstream/browser ratchets",
+  "generated_at": "2026-07-07T17:00:00.000Z",
+  "generator": "tools/wp-core/run-default-theme-upstream-browser-ratchets.mjs",
+  "evidence_class": "selected_upstream_phpunit_and_blocked_browser_ratchet_scope",
+  "artifact_scope": "default_theme_php_rendering_dependencies",
+  "behavior_parity_claimed": false,
+  "selected_upstream_phpunit_parity_claimed": true,
+  "browser_e2e_execution_claimed": false,
+  "browser_or_visual_parity_claimed": false,
+  "installed_theme_rendering_parity_claimed": false,
+  "public_php_replacement_claimed": false,
+  "candidate_generated_overlay_claimed": false,
+  "generated_original_path_adapter_claimed": false,
+  "haxe_owned_existing_theme_file_claimed": false,
+  "selected_group_count": 4,
+  "selected_test_file_count": 47,
+  "selected_groups": [
+    {
+      "id": "canonical-link-template-core",
+      "owner": "WPHX-309",
+      "filter": null,
+      "files": [
+        "tests/phpunit/tests/canonical.php",
+        "tests/phpunit/tests/canonical/category.php",
+        "tests/phpunit/tests/canonical/customRules.php",
+        "tests/phpunit/tests/canonical/https.php",
+        "tests/phpunit/tests/canonical/noRewrite.php",
+        "tests/phpunit/tests/canonical/pageOnFront.php",
+        "tests/phpunit/tests/canonical/paged.php",
+        "tests/phpunit/tests/canonical/postStatus.php",
+        "tests/phpunit/tests/canonical/robots.php",
+        "tests/phpunit/tests/canonical/sitemaps.php",
+        "tests/phpunit/tests/canonical/stripFragmentFromUrl.php",
+        "tests/phpunit/tests/link.php",
+        "tests/phpunit/tests/link/getPagenumLink.php",
+        "tests/phpunit/tests/link/getPostPermalink.php",
+        "tests/phpunit/tests/link/getPostTypeArchiveLink.php",
+        "tests/phpunit/tests/link/wpGetCanonicalUrl.php",
+        "tests/phpunit/tests/link/themeFile.php",
+        "tests/phpunit/tests/template.php",
+        "tests/phpunit/tests/general/template.php"
+      ],
+      "file_count": 19,
+      "classification": {
+        "group": "canonical-link-template-core",
+        "owner": "WPHX-309",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      "wphx_320_relevance": "Locks permalink, canonical, theme-file URL, and general template references reached by default-theme rendering."
+    },
+    {
+      "id": "theme-template-core",
+      "owner": "WPHX-310",
+      "filter": null,
+      "files": [
+        "tests/phpunit/tests/theme.php",
+        "tests/phpunit/tests/theme/autoloadThemeMods.php",
+        "tests/phpunit/tests/theme/base.php",
+        "tests/phpunit/tests/theme/customHeader.php",
+        "tests/phpunit/tests/theme/getThemeStarterContent.php",
+        "tests/phpunit/tests/theme/support.php",
+        "tests/phpunit/tests/theme/themeDir.php",
+        "tests/phpunit/tests/theme/wpTheme.php",
+        "tests/phpunit/tests/option/themeMods.php",
+        "tests/phpunit/tests/admin/themeBodyClass.php",
+        "tests/phpunit/tests/template.php",
+        "tests/phpunit/tests/general/template.php"
+      ],
+      "file_count": 12,
+      "classification": {
+        "group": "theme-template-core",
+        "owner": "WPHX-310",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      "wphx_320_relevance": "Locks theme support, theme mods, WP_Theme, custom header, body class, and general template behavior that default themes depend on."
+    },
+    {
+      "id": "theme-json-global-styles",
+      "owner": "WPHX-310",
+      "filter": null,
+      "files": [
+        "tests/phpunit/tests/theme/wpThemeJson.php",
+        "tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+        "tests/phpunit/tests/theme/wpThemeJsonSchema.php",
+        "tests/phpunit/tests/theme/wpThemeHasThemeJson.php",
+        "tests/phpunit/tests/theme/wpGetGlobalStylesheet.php",
+        "tests/phpunit/tests/theme/wpAddGlobalStylesForBlocks.php",
+        "tests/phpunit/tests/theme/wpEnqueueStoredStyles.php",
+        "tests/phpunit/tests/theme/wpGetBlockCssSelector.php"
+      ],
+      "file_count": 8,
+      "classification": {
+        "group": "theme-json-global-styles",
+        "owner": "WPHX-310",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      "wphx_320_relevance": "Locks theme.json resolver/global-styles behavior used by block default themes and style output."
+    },
+    {
+      "id": "block-template-core",
+      "owner": "WPHX-310",
+      "filter": "Tests_Block_Template|Tests_Block_Template_Utils|Tests_Block_Templates_wpBlockTemplatesRegistry|Tests_Block_Templates_BuildBlockTemplateResultFromFile|Tests_Block_Templates_BuildBlockTemplateResultFromPost|Tests_Block_Templates_GetTemplate_Hierarchy|Tests_Block_Templates_InjectIgnoredHookedBlocksMetadataAttributes",
+      "files": [
+        "tests/phpunit/tests/block-template.php",
+        "tests/phpunit/tests/block-template-utils.php",
+        "tests/phpunit/tests/block-templates/WpBlockTemplatesRegistry.php",
+        "tests/phpunit/tests/block-templates/base.php",
+        "tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php",
+        "tests/phpunit/tests/block-templates/buildBlockTemplateResultFromPost.php",
+        "tests/phpunit/tests/block-templates/getTemplateHierarchy.php",
+        "tests/phpunit/tests/block-templates/injectIgnoredHookedBlocksMetadataAttributes.php"
+      ],
+      "file_count": 8,
+      "classification": {
+        "group": "block-template-core",
+        "owner": "WPHX-310",
+        "vanilla_status": "pass",
+        "candidate_status": "pass",
+        "classification": "parity_pass"
+      },
+      "wphx_320_relevance": "Locks block template and block-template hierarchy behavior used by block default themes."
+    }
+  ],
+  "selected_classification_summary": {
+    "all_selected_parity_pass": true,
+    "parity_pass_groups": [
+      "canonical-link-template-core",
+      "theme-template-core",
+      "theme-json-global-styles",
+      "block-template-core"
+    ],
+    "baseline_failure_groups": []
+  },
+  "blocked_browser_ratchet_count": 3,
+  "blocked_browser_ratchets": [
+    {
+      "id": "default-theme-home-performance",
+      "upstream_path": "tests/performance/specs/home.test.js",
+      "runner_family": "performance",
+      "routes": [
+        "/"
+      ],
+      "default_theme_scope": [
+        "twentytwentyone",
+        "twentytwentythree",
+        "twentytwentyfour",
+        "twentytwentyfive"
+      ],
+      "blocked_until": [
+        "real installed oracle/candidate WordPress roots exist",
+        "generated-overlay discipline is enforced for theme files",
+        "database-backed seeded content, site options, locales, and cache state are reproducible",
+        "browser/performance measurements can compare rendered theme output instead of upstream-only runs"
+      ],
+      "upstream_source": {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/performance/specs/home.test.js",
+        "upstream_path": "tests/performance/specs/home.test.js",
+        "bytes": 2115,
+        "sha256": "sha256:eae99c6221b30c62d77c5f30b25b39c5c696b41b28ed67322144af2d9abaf447"
+      },
+      "execution_status": "blocked_not_run",
+      "browser_or_visual_parity_claimed": false
+    },
+    {
+      "id": "default-theme-single-post-performance",
+      "upstream_path": "tests/performance/specs/single-post.test.js",
+      "runner_family": "performance",
+      "routes": [
+        "/2018/11/03/block-image/"
+      ],
+      "default_theme_scope": [
+        "twentytwentyone",
+        "twentytwentythree",
+        "twentytwentyfour",
+        "twentytwentyfive"
+      ],
+      "blocked_until": [
+        "real installed oracle/candidate WordPress roots exist",
+        "post/query/comment/media fixtures are owned or explicitly seeded",
+        "template-loader execution and default-theme PHP output can be diffed through HTTP/browser probes",
+        "browser/performance measurements can compare rendered theme output instead of upstream-only runs"
+      ],
+      "upstream_source": {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/performance/specs/single-post.test.js",
+        "upstream_path": "tests/performance/specs/single-post.test.js",
+        "bytes": 2141,
+        "sha256": "sha256:6caccebc3014910baeab29070322a26e46822d99fd9b978566974e5270f107f3"
+      },
+      "execution_status": "blocked_not_run",
+      "browser_or_visual_parity_claimed": false
+    },
+    {
+      "id": "visual-admin-theme-adjacent-snapshots",
+      "upstream_path": "tests/visual-regression/specs/visual-snapshots.test.js",
+      "runner_family": "visual_regression",
+      "routes": [
+        "/wp-admin/widgets.php",
+        "/wp-admin/nav-menus.php"
+      ],
+      "default_theme_scope": [
+        "widgets",
+        "menus",
+        "theme-adjacent admin surfaces"
+      ],
+      "blocked_until": [
+        "real installed admin roots exist",
+        "admin/theme/customizer/widget/menu ownership boundaries are narrowed",
+        "Playwright screenshot baselines are reproducible against oracle and generated candidate packages"
+      ],
+      "upstream_source": {
+        "authority": "wordpress-develop",
+        "path": "../wordpress-develop/tests/visual-regression/specs/visual-snapshots.test.js",
+        "upstream_path": "tests/visual-regression/specs/visual-snapshots.test.js",
+        "bytes": 5830,
+        "sha256": "sha256:47833c02d31a362f34d4f87f1ab2bc3a6f506faf1909f175e9069e48e14c987e"
+      },
+      "execution_status": "blocked_not_run",
+      "browser_or_visual_parity_claimed": false
+    }
+  ],
+  "upstream_support_files": [
+    {
+      "authority": "wordpress-develop",
+      "path": "../wordpress-develop/tests/performance/utils.js",
+      "upstream_path": "tests/performance/utils.js",
+      "bytes": 4172,
+      "sha256": "sha256:2bb7d674e6ca5b3ed1008a9a4f54c20d7985d6d78ed6fe20202407f8d4d5a743"
+    },
+    {
+      "authority": "wordpress-develop",
+      "path": "../wordpress-develop/tests/performance/log-results.js",
+      "upstream_path": "tests/performance/log-results.js",
+      "bytes": 3031,
+      "sha256": "sha256:d332b1b6efd6c037fe8e9507bc574493b60b822b890b4e34ffcb27a40fea79e8"
+    },
+    {
+      "authority": "wordpress-develop",
+      "path": "../wordpress-develop/tests/performance/wp-content/mu-plugins/server-timing.php",
+      "upstream_path": "tests/performance/wp-content/mu-plugins/server-timing.php",
+      "bytes": 2578,
+      "sha256": "sha256:0f71142498eb087d6717f717ec32dfd02e533ca1d1edd9bc5921bf7161a51288"
+    }
+  ],
+  "global_ratchet_summary": {
+    "status": "passed",
+    "runs_executed": 88,
+    "classifications_recorded": 44,
+    "behavior_parity_claimed": false,
+    "provision_status": "passed",
+    "baseline_failure_count": 3,
+    "baseline_failure_groups": [
+      "blocks-supports-bindings-core",
+      "style-engine-core",
+      "interactivity-api-core"
+    ],
+    "unowned_candidate_regression_count": 0
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-default-theme-upstream-browser-ratchets.mjs",
+      "bytes": 14212,
+      "sha256": "sha256:6d19bf3d2796c174c8a3207fcc958089ab4d74f41873a6f357bbf0708a4cee33"
+    },
+    "phpunit_groups": {
+      "path": "tests/upstream/phpunit/groups.json",
+      "bytes": 33398,
+      "sha256": "sha256:f2ee9e917783a7bb2a1da7e47f970a69560f8c0465fd107e2dba72f4c36e105c"
+    },
+    "global_ratchet_manifest": {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "bytes": 43867,
+      "sha256": "sha256:dc6d5f63e0519eca6f40986906f76e544053597b300c52dd08f92fe223444211"
+    },
+    "global_provision_manifest": {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "bytes": 13975,
+      "sha256": "sha256:71d84d9807d5b4f6eec9cce067a144b3bf4853d630d80ee39106b7a0305cef74"
+    },
+    "global_ratchet_receipt": {
+      "path": "receipts/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "bytes": 1422,
+      "sha256": "sha256:90178ae19a565f00c6e4c480a6e37a1688e611607f5aca027f1ab0da805e3be6"
+    },
+    "global_provision_receipt": {
+      "path": "receipts/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "bytes": 2242,
+      "sha256": "sha256:987b678b11cb57c3c0fe436e59b04051fe87c6edccf76ddd5592c0c5728c7165"
+    },
+    "ratchet_documentation": {
+      "path": "docs/operations/upstream-phpunit-ratchet.md",
+      "bytes": 7184,
+      "sha256": "sha256:fc7b7b77bd377215e20c11311a7d80332c16b37b45b48253828bcc4e1b5cb785"
+    },
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-320-01-default-theme-php-surface.v1.json",
+      "bytes": 196639,
+      "sha256": "sha256:458b6bd573301d8f58fc8a051677e393d32f0dec53edd855d839c56f99ebd3fe"
+    },
+    "hxx_pilot_manifest": {
+      "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 13407,
+      "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb"
+    },
+    "hxx_pilot_ownership_manifest": {
+      "path": "manifests/ownership/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 3209,
+      "sha256": "sha256:9bb398b0fcadbf2d73479915f15954154479af07db748fd6d4c07a3687b13025"
+    },
+    "hxx_pilot_receipt": {
+      "path": "receipts/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 3357,
+      "sha256": "sha256:49c8aec5803c561593de065051b6a4210f46d2c944e36c7ff52c1c6aaa43e63a"
+    }
+  },
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-307/WPHX-308",
+      "reason": "Default-theme home and single-post rendering depends on post/query/comment/term state, loop globals, pagination, and seeded content that remain posts/query/taxonomy/comment ownership."
+    },
+    {
+      "owner": "WPHX-309/WPHX-310",
+      "reason": "Template resolution, theme support, theme mods, theme.json/global styles, block templates, widgets, and navigation remain routing/template and theme-system ownership when WPHX-320 theme files execute."
+    },
+    {
+      "owner": "WPHX-312/WPHX-313",
+      "reason": "Feed/embed/media/file URLs, attachments, filesystem paths, image assets, and theme asset loading remain HTTP/feed/embed and media/filesystem ownership."
+    },
+    {
+      "owner": "WPHX-314/WPHX-400/WPHX-500",
+      "reason": "Block markup, block templates, patterns, global styles, front-end scripts, editor packages, and browser rendering remain block/browser/Gutenberg ownership beyond this default-theme PHP ratchet declaration."
+    },
+    {
+      "owner": "WPHX-315/WPHX-316/WPHX-319",
+      "reason": "Widgets, menus, customizer/admin screens, theme install/update flows, capabilities, nonces, and admin browser routes remain admin and updates ownership."
+    }
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for any bundled default-theme file.",
+    "No Haxe-owned existing mixed PHP/HTML template runtime or broad HXX migration of bundled theme files.",
+    "No installed template-loader, front-end theme rendering, browser, visual-regression, or performance parity execution.",
+    "No database-backed post/query/menu/widget/customizer/global-styles state, locale switching, cache behavior, media asset behavior, generated overlay, or generated original-path adapter ownership.",
+    "The selected upstream PHPUnit groups are dependency ratchets over the pinned WordPress 7.0 oracle/candidate worktree; pass/pass evidence is not WPHX runtime ownership.",
+    "The blocked browser/performance/visual ratchets lock future evidence scope only; they are not executed by this runner."
+  ]
+}
