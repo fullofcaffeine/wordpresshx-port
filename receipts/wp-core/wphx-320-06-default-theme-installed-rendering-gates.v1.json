@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-320.06",
+  "beads_issue": "wordpresshx-c6te",
+  "title": "WPHX-320.06 - Declare default theme installed rendering gates",
+  "generated_at": "2026-07-07T21:00:00.000Z",
+  "status": "passed",
+  "generator": "tools/wp-core/run-default-theme-installed-rendering-gates.mjs",
+  "evidence": {
+    "manifest": "manifests/wp-core/wphx-320-06-default-theme-installed-rendering-gates.v1.json",
+    "surface_manifest": "manifests/wp-core/wphx-320-01-default-theme-php-surface.v1.json",
+    "hxx_pilot_manifest": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+    "upstream_browser_ratchets_manifest": "manifests/wp-core/wphx-320-03-default-theme-upstream-browser-ratchets.v1.json",
+    "pattern_fixture_manifest": "manifests/wp-core/wphx-320-04-default-theme-pattern-oracle-fixture.v1.json",
+    "functions_fixture_manifest": "manifests/wp-core/wphx-320-05-default-theme-functions-oracle-fixture.v1.json",
+    "upstream_lock": "upstream.lock.json"
+  },
+  "summary": "Declares seven selected WPHX-320 installed/browser default-theme rendering gates over home, single-post, page/search/archive/404 hierarchy, pattern registry/template parts, functions.php/theme supports/assets/block bindings, global styles/style variations, and visual/performance/admin-adjacent browser surfaces. Every selected gate remains blocked until real installed oracle/candidate roots, generated-overlay discipline, database/content/media/theme state, template-loader/block-rendering execution, and browser/HTTP/DOM/visual/performance diff evidence exist.",
+  "checks": [
+    "npm run wp:core:wphx-320-default-theme-installed-rendering-gates",
+    "npm run wp:core:wphx-320-default-theme-installed-rendering-gates:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "non_claims": [
+    "This artifact declares WPHX-320 installed/browser default-theme rendering gate scope only; it does not execute installed WordPress routes, Playwright specs, visual regression, performance runs, template-loader, block rendering, or browser requests.",
+    "No generated public PHP replacement for bundled default-theme files, template-loader files, block-template files, pattern files, functions.php files, theme.json/style files, browser packages, or admin/theme-adjacent files is claimed.",
+    "No Haxe-owned existing default-theme runtime logic, HXX ownership of existing bundled mixed PHP/HTML theme files, installed theme rendering parity, browser/visual/performance parity, database-backed theme state, generated overlay, or generated original-path adapter ownership is claimed.",
+    "The WPHX-320.04 and WPHX-320.05 copied fixtures remain bridge evidence only. They do not prove installed pattern registry, functions.php bootstrap, template-loader, or browser rendering parity.",
+    "The selected installed gates are future blockers and scope declarations; their source/test hashes are not pass/pass installed execution evidence."
+  ]
+}

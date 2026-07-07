@@ -1,0 +1,1331 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-320.06",
+  "beads_issue": "wordpresshx-c6te",
+  "title": "WPHX-320.06 - Declare default theme installed rendering gates",
+  "generated_at": "2026-07-07T21:00:00.000Z",
+  "generator": "tools/wp-core/run-default-theme-installed-rendering-gates.mjs",
+  "evidence_class": "installed_default_theme_rendering_gate_declaration",
+  "artifact_scope": "selected_installed_http_browser_visual_performance_default_theme_scope",
+  "behavior_parity_claimed": false,
+  "installed_theme_rendering_execution_claimed": false,
+  "installed_wordpress_bootstrap_claimed": false,
+  "browser_e2e_execution_claimed": false,
+  "browser_or_visual_parity_claimed": false,
+  "performance_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "haxe_owned_existing_theme_file_claimed": false,
+  "hxx_template_ownership_claimed_for_existing_theme_files": false,
+  "candidate_generated_overlay_claimed": false,
+  "generated_original_path_adapter_claimed": false,
+  "selected_gate_scope_declared": true,
+  "selected_installed_gate_count": 7,
+  "selected_upstream_source_count": 66,
+  "selected_upstream_test_count": 22,
+  "upstream_source_authority": {
+    "path": "../wordpress-develop",
+    "role": "read-only WordPress 7.0 oracle checkout",
+    "source_roots": [
+      "src/wp-includes",
+      "src/wp-content/themes",
+      "src/wp-admin"
+    ],
+    "test_roots": [
+      "tests/phpunit/tests",
+      "tests/performance",
+      "tests/visual-regression"
+    ]
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-default-theme-installed-rendering-gates.mjs",
+      "bytes": 28771,
+      "sha256": "sha256:4e1a140fe01466b3f6b7c9db15b95b1a7a4370c7327ef625309ed11695fb84a5"
+    },
+    "evidence_dependencies": [
+      {
+        "id": "wphx-320-01-surface",
+        "path": "manifests/wp-core/wphx-320-01-default-theme-php-surface.v1.json",
+        "role": "default-theme PHP source, distribution, ABI, test, HXX-candidate, and handoff surface inventory",
+        "bytes": 196639,
+        "sha256": "sha256:458b6bd573301d8f58fc8a051677e393d32f0dec53edd855d839c56f99ebd3fe"
+      },
+      {
+        "id": "wphx-320-02-hxx-pilot",
+        "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+        "role": "bounded typed HXX-style hero/navigation markup-unit pilot with WPHX PHP segment-shell evidence",
+        "bytes": 13407,
+        "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb"
+      },
+      {
+        "id": "wphx-320-03-upstream-browser-ratchets",
+        "path": "manifests/wp-core/wphx-320-03-default-theme-upstream-browser-ratchets.v1.json",
+        "role": "selected upstream theme/template PHPUnit ratchets and blocked browser/performance/visual references",
+        "bytes": 15782,
+        "sha256": "sha256:05590a39625665f40a75debca9b36ff42e97069023cde6fd55ef97ef1a6f9b28"
+      },
+      {
+        "id": "wphx-320-04-pattern-fixture",
+        "path": "manifests/wp-core/wphx-320-04-default-theme-pattern-oracle-fixture.v1.json",
+        "role": "selected copied-oracle bundled default-theme pattern PHP output observations",
+        "bytes": 20584,
+        "sha256": "sha256:1416d530469878e8f556b78ef24c73b3a2d13acbd5e294e64902101bafe1581b"
+      },
+      {
+        "id": "wphx-320-05-functions-fixture",
+        "path": "manifests/wp-core/wphx-320-05-default-theme-functions-oracle-fixture.v1.json",
+        "role": "selected copied-oracle bundled default-theme functions.php hook/callback observations",
+        "bytes": 32348,
+        "sha256": "sha256:1088aae044b2ef12e7e64c81b43402051edfdcdceff2534c8da00e35befaae90"
+      },
+      {
+        "id": "wphx-310-10-installed-theme-precedent",
+        "path": "manifests/wp-core/wphx-310-10-theme-installed-distribution.v1.json",
+        "role": "theme-system installed-style package/root precedent; not WPHX-320 default-theme rendering parity",
+        "bytes": 59369,
+        "sha256": "sha256:a6ac591027414b2ed0e4d674519b4459178fac8b077ea82ba0deebb3f0c4a638"
+      },
+      {
+        "id": "upstream-lock",
+        "path": "upstream.lock.json",
+        "role": "WordPress 7.0 oracle checkout path and revision authority",
+        "bytes": 7266,
+        "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+      }
+    ],
+    "upstream_sources": [
+      {
+        "path": "../wordpress-develop/src/index.php",
+        "relative_path": "src/index.php",
+        "bytes": 2428,
+        "sha256": "sha256:0196910836692dc71b6d11b4a3ba057b4dc4069df56b76469e51d2ed241e29b5"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-blog-header.php",
+        "relative_path": "src/wp-blog-header.php",
+        "bytes": 351,
+        "sha256": "sha256:eb6491db4178b3858d44402ec337623a5ee12de66128dbc92742dd8735f6ed07"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-load.php",
+        "relative_path": "src/wp-load.php",
+        "bytes": 3937,
+        "sha256": "sha256:bfdc84087782be7aa13f64deb6fe6762f4c80058d9fa3d27705859716dc5dd11"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/template-loader.php",
+        "relative_path": "src/wp-includes/template-loader.php",
+        "bytes": 4267,
+        "sha256": "sha256:29419e3e5fc3c20842395822b230d851c41e5ced70121431ffee7bf0dd917372"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/template-canvas.php",
+        "relative_path": "src/wp-includes/template-canvas.php",
+        "bytes": 544,
+        "sha256": "sha256:a1a8a7ed542c25d96c78d51438d84b3a7e053ded953f3452ae38f6b84f71038a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/template.php",
+        "relative_path": "src/wp-includes/template.php",
+        "bytes": 36824,
+        "sha256": "sha256:578e56453cdf93c67c8f968b7fa53bf9a6f138ad8792e4e36d3bf567ca427be5"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/theme.php",
+        "relative_path": "src/wp-includes/theme.php",
+        "bytes": 134631,
+        "sha256": "sha256:74cd43c0b1695eb27baec7fc4b36079f20af77862eedc64776828e87da8a209a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-theme.php",
+        "relative_path": "src/wp-includes/class-wp-theme.php",
+        "bytes": 65761,
+        "sha256": "sha256:ef90d3824a80485a7163e2582ff2c44cc1b8269980e87570f060fe6a82d3f623"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/block-template.php",
+        "relative_path": "src/wp-includes/block-template.php",
+        "bytes": 18261,
+        "sha256": "sha256:de31eda1f6ee3dab26b60a29414cf07c89525767b7a166d52f9d5a807ec905f5"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/block-template-utils.php",
+        "relative_path": "src/wp-includes/block-template-utils.php",
+        "bytes": 62804,
+        "sha256": "sha256:64f6ff0bd2290d326ec8e4abe7ae4469698d190db654a0f778c8d905c9eaee8a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/block-patterns.php",
+        "relative_path": "src/wp-includes/block-patterns.php",
+        "bytes": 15606,
+        "sha256": "sha256:50d76e2bb2f0a917a0fc15e95c10b44ad435a9e83399bfd7abe937cfbcf9d2c9"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-block-template.php",
+        "relative_path": "src/wp-includes/class-wp-block-template.php",
+        "bytes": 2033,
+        "sha256": "sha256:530239e214d2504816c297b2ccf901359919045457cf2cd0a1627876b2872097"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-block-patterns-registry.php",
+        "relative_path": "src/wp-includes/class-wp-block-patterns-registry.php",
+        "bytes": 10312,
+        "sha256": "sha256:1a3e95b9148d4711f66c5777d2712f01e326e4b6e6e2cfbc2cbc81cde39ec03a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-block-pattern-categories-registry.php",
+        "relative_path": "src/wp-includes/class-wp-block-pattern-categories-registry.php",
+        "bytes": 4383,
+        "sha256": "sha256:cc7fbd48ee9d71cd0371de09a570968234be4333af95977fe94ebc8eaccababc"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-block-bindings-registry.php",
+        "relative_path": "src/wp-includes/class-wp-block-bindings-registry.php",
+        "bytes": 8263,
+        "sha256": "sha256:bfa589aa1711c3c92eb5f6adf4340a6a8d353ccec52f4d8252cb844929e63183"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-block-bindings-source.php",
+        "relative_path": "src/wp-includes/class-wp-block-bindings-source.php",
+        "bytes": 2992,
+        "sha256": "sha256:ed059bb0c3d6e30ceb556eeb913555880d54f43e8cede7f1bc2804ba2faab370"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-theme-json.php",
+        "relative_path": "src/wp-includes/class-wp-theme-json.php",
+        "bytes": 173639,
+        "sha256": "sha256:549d50cd230c2308e9828ea8a4c4ae91e5511184ad96e1365ccd5ad02cb51cb8"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/class-wp-theme-json-resolver.php",
+        "relative_path": "src/wp-includes/class-wp-theme-json-resolver.php",
+        "bytes": 35692,
+        "sha256": "sha256:8c1eae3025d000dfe828e76f2630caa54084c619b1bf7d1e627108531b433bbe"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/global-styles-and-settings.php",
+        "relative_path": "src/wp-includes/global-styles-and-settings.php",
+        "bytes": 20780,
+        "sha256": "sha256:45b501595e73a72b29719b141ff27b8c8b926409052f3e6ec6c5e957bdbaddfb"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-includes/style-engine.php",
+        "relative_path": "src/wp-includes/style-engine.php",
+        "bytes": 7563,
+        "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/functions.php",
+        "bytes": 4119,
+        "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/theme.json",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/theme.json",
+        "bytes": 14856,
+        "sha256": "sha256:4ecb78d5040a3af40740d4c00663b604b70710bc53c0bafa15cdfd6b7a3a7b75"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/home.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/home.html",
+        "bytes": 471,
+        "sha256": "sha256:6fc6acd188fd1b93cdb4fd0fed6fd49edd48c8610400d313b5304fbf5dd5ec92"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/single.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/single.html",
+        "bytes": 1502,
+        "sha256": "sha256:5f66ec63899ce500050a931d99fccc58cee0b6d9058e769e0c70438a757da2fb"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/page.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/page.html",
+        "bytes": 879,
+        "sha256": "sha256:a09bc716cd7036c8f8553fe1edd9d4f9cd36dc110b36975c49d7cea3a3ba7c4d"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/search.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/search.html",
+        "bytes": 570,
+        "sha256": "sha256:d9478197855d9d584380e8f4659e36ed589adff77f6d54db01f4282385740d1c"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/archive.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/archive.html",
+        "bytes": 478,
+        "sha256": "sha256:4fbf558c27a84c265a2c54213584e675ad714643322e53b4f19018bd13ed0fe0"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/404.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/templates/404.html",
+        "bytes": 621,
+        "sha256": "sha256:426beaa3762f195102bf4baac83acb7bbfd0f90eb019132631900af1fda0f2ea"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/parts/header.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/parts/header.html",
+        "bytes": 56,
+        "sha256": "sha256:a517b91628cc33c6f584d6e42403ad19149af1fd6f44678f41a9ad56ed56a724"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/parts/footer.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/parts/footer.html",
+        "bytes": 56,
+        "sha256": "sha256:7d08f40a56e7b2fd9f7004ff2b3f52b6f8d3fd209b41f89201436a679a69ceb6"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/hero-full-width-image.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/hero-full-width-image.php",
+        "bytes": 2679,
+        "sha256": "sha256:ca767958f4fab96cf2f829414613452f9dcfaf0f6cb857ee4ff5506132c3d61d"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/footer.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/footer.php",
+        "bytes": 3945,
+        "sha256": "sha256:9dbd6b8467075fb28afa2d485716a009dfbe9bcb8d8383e60a467ad15ae65da6"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/template-home-text-blog.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/template-home-text-blog.php",
+        "bytes": 1059,
+        "sha256": "sha256:5a33d2feb7595c7cf45127aaabf271eee77240bec6695c4ef01305bbbb0052ef"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/template-single-text-blog.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/template-single-text-blog.php",
+        "bytes": 3111,
+        "sha256": "sha256:97775963624c15ee0f37030bb020f641ffd11c44152f6cc2fb23db158dd45fbf"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/template-404-vertical-header-blog.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/template-404-vertical-header-blog.php",
+        "bytes": 1822,
+        "sha256": "sha256:95b56e4fab19688ce812697ac055315a027ddc365fc020c795341fb16be8ea74"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/functions.php",
+        "bytes": 5434,
+        "sha256": "sha256:219b63131905c8599ab7627a8eaa20de85d68a3aba19ffe0fa7391b698c844c9"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/theme.json",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/theme.json",
+        "bytes": 22273,
+        "sha256": "sha256:3d7be217a7624ff6705d4886232ae7762e6a06496f550dd2624ea48c99da918a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/home.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/home.html",
+        "bytes": 432,
+        "sha256": "sha256:347845003e01c1fc2cecb9e1c3ede7616a0e58e7eaab1f6f9745e25294129c9b"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/single.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/single.html",
+        "bytes": 2468,
+        "sha256": "sha256:080efd72dacd507a3f353c5b275d413ad91c48f6240d89e00f132a8dd1a964ca"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/page.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/page.html",
+        "bytes": 1080,
+        "sha256": "sha256:d3ec6167d57d4160ae9457cc0a2d071bb98570647e6048c2e61a1749b3f8d22a"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/search.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/search.html",
+        "bytes": 812,
+        "sha256": "sha256:b93aab4926b0fe6e6b46900a6b3c69a41ad049273a3acd2b21b2a726706abaa4"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/archive.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/archive.html",
+        "bytes": 534,
+        "sha256": "sha256:c0a735474b70cf7c3d3cb3e51e0400849655c40170f3d9eff2be6daa332e2dad"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/404.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/templates/404.html",
+        "bytes": 575,
+        "sha256": "sha256:19cd83c05f5487ebc8815420ec63cbb69d910d80b65154d601a36f80368b2a0d"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/parts/header.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/parts/header.html",
+        "bytes": 1287,
+        "sha256": "sha256:1e1d7cc5a27849bc88adccc977d1782ba0975ea1ec5c0b72891f0803887f6e6d"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/parts/footer.html",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/parts/footer.html",
+        "bytes": 56,
+        "sha256": "sha256:9ee48a673b5350b65f9bbda55541419fc5e09e433a1d3324dc3d7b79ce9250e9"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/patterns/footer.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/patterns/footer.php",
+        "bytes": 6619,
+        "sha256": "sha256:6c4029a0b9d78a2d46fbfbea1431788234648e8f4f5b1610fadb2001e0010931"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/patterns/hidden-search.php",
+        "relative_path": "src/wp-content/themes/twentytwentyfour/patterns/hidden-search.php",
+        "bytes": 335,
+        "sha256": "sha256:3f5cc24736022d0ff0dd786852fb1f348263fb4821e00e4f4d17fff882d026ad"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/theme.json",
+        "relative_path": "src/wp-content/themes/twentytwentythree/theme.json",
+        "bytes": 15058,
+        "sha256": "sha256:541f7c63588bf4701357a725075c1b23556fbc29142e19ac6303c8e57168e580"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/home.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/home.html",
+        "bytes": 1828,
+        "sha256": "sha256:3527ee11a4a50d500d91259716499ccd9b4b37f36ee5d1aa43c1f7169f5b0acc"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/single.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/single.html",
+        "bytes": 939,
+        "sha256": "sha256:1e3975f67a2368121ceb06b0e5ec748db581278da3f5b5325271da0462bd6e0e"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/page.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/page.html",
+        "bytes": 890,
+        "sha256": "sha256:9e68746c73cc488d9881e60da7b6181baaa9b45dd1ede0b07cd8672aefee8ec4"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/search.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/search.html",
+        "bytes": 1767,
+        "sha256": "sha256:55cc9da8eef1e4560f38707fe25195b918a70182a593561e83d2f6d3e0efcec3"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/archive.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/archive.html",
+        "bytes": 1625,
+        "sha256": "sha256:9444e37f43b3bd5820902e6f3cdd746a4b1adcd5040f91732bb8bf45144eba75"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/404.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/templates/404.html",
+        "bytes": 318,
+        "sha256": "sha256:b648b2f51ff02e8a93545d120ab9f7089f9b03a93fd40f07207b597e50fa2b3f"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/parts/header.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/parts/header.html",
+        "bytes": 687,
+        "sha256": "sha256:3232b989d2e19ea402e4479bdf893523c6046067b3677af91905bd034a5f29c2"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/parts/footer.html",
+        "relative_path": "src/wp-content/themes/twentytwentythree/parts/footer.html",
+        "bytes": 65,
+        "sha256": "sha256:349c109ebcfee80614d03c23e5e9b193ba69b6f74ffd62277a195cc59ea82eda"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/patterns/call-to-action.php",
+        "relative_path": "src/wp-content/themes/twentytwentythree/patterns/call-to-action.php",
+        "bytes": 1361,
+        "sha256": "sha256:1dcb28b464d27ba7b3fa5a6167f368fd777ad22c800fd99ce75726c3841979d2"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/functions.php",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/functions.php",
+        "bytes": 1497,
+        "sha256": "sha256:fd18142b05a5dddf041ac7aabf1cb8b1cf1041b3ffc82f9f6f52bdd16d1fadec"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/inc/block-patterns.php",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/inc/block-patterns.php",
+        "bytes": 4008,
+        "sha256": "sha256:9a02d73fe26f15d323bf5a7a0df7b99d4301e66a8d758ca6f5f5accd16b814d2"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/theme.json",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/theme.json",
+        "bytes": 9760,
+        "sha256": "sha256:dba6b090905cf9f8077f0d860307e9e85770e33a17ca1919338a31afd7f4fe00"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/home.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/home.html",
+        "bytes": 1834,
+        "sha256": "sha256:d5e2e0c74e4914720bd3f7ab31ab4127d9ad8304560b18449f129adec396bceb"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/single.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/single.html",
+        "bytes": 1853,
+        "sha256": "sha256:0da5e60caf318effb41afb0a68f8a876b109fbdee21dead584d02168bc826bf6"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/page.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/page.html",
+        "bytes": 1138,
+        "sha256": "sha256:84034275fab01ed77b44cd3cbcb97742f0da24ca4e7408ced4093c861e850a16"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/search.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/search.html",
+        "bytes": 2199,
+        "sha256": "sha256:4133922a1ea584de80da32549fb909ac3d62e697bcd8f4a728730d3788c304e1"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/archive.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/archive.html",
+        "bytes": 2080,
+        "sha256": "sha256:30b22ce9fb3106379f2fa4be652071e965bc15a24ba60a4add3f1b6ce4ed1219"
+      },
+      {
+        "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/404.html",
+        "relative_path": "src/wp-content/themes/twentytwentytwo/templates/404.html",
+        "bytes": 382,
+        "sha256": "sha256:4e5b0053b1ea4fcbc33fcd94f38bf8c894b4ae5473978076c1752904aa33a7c7"
+      }
+    ],
+    "upstream_tests": [
+      {
+        "path": "../wordpress-develop/tests/performance/specs/home.test.js",
+        "relative_path": "tests/performance/specs/home.test.js",
+        "bytes": 2115,
+        "sha256": "sha256:eae99c6221b30c62d77c5f30b25b39c5c696b41b28ed67322144af2d9abaf447"
+      },
+      {
+        "path": "../wordpress-develop/tests/performance/specs/single-post.test.js",
+        "relative_path": "tests/performance/specs/single-post.test.js",
+        "bytes": 2141,
+        "sha256": "sha256:6caccebc3014910baeab29070322a26e46822d99fd9b978566974e5270f107f3"
+      },
+      {
+        "path": "../wordpress-develop/tests/performance/specs/admin.test.js",
+        "relative_path": "tests/performance/specs/admin.test.js",
+        "bytes": 1883,
+        "sha256": "sha256:00a18bf19481bd559c3324089befc7a58fbc6cff077f53400a955d36469a4ad4"
+      },
+      {
+        "path": "../wordpress-develop/tests/performance/utils.js",
+        "relative_path": "tests/performance/utils.js",
+        "bytes": 4172,
+        "sha256": "sha256:2bb7d674e6ca5b3ed1008a9a4f54c20d7985d6d78ed6fe20202407f8d4d5a743"
+      },
+      {
+        "path": "../wordpress-develop/tests/performance/log-results.js",
+        "relative_path": "tests/performance/log-results.js",
+        "bytes": 3031,
+        "sha256": "sha256:d332b1b6efd6c037fe8e9507bc574493b60b822b890b4e34ffcb27a40fea79e8"
+      },
+      {
+        "path": "../wordpress-develop/tests/performance/wp-content/mu-plugins/server-timing.php",
+        "relative_path": "tests/performance/wp-content/mu-plugins/server-timing.php",
+        "bytes": 2578,
+        "sha256": "sha256:0f71142498eb087d6717f717ec32dfd02e533ca1d1edd9bc5921bf7161a51288"
+      },
+      {
+        "path": "../wordpress-develop/tests/visual-regression/specs/visual-snapshots.test.js",
+        "relative_path": "tests/visual-regression/specs/visual-snapshots.test.js",
+        "bytes": 5830,
+        "sha256": "sha256:47833c02d31a362f34d4f87f1ab2bc3a6f506faf1909f175e9069e48e14c987e"
+      },
+      {
+        "path": "../wordpress-develop/tests/visual-regression/playwright.config.js",
+        "relative_path": "tests/visual-regression/playwright.config.js",
+        "bytes": 589,
+        "sha256": "sha256:2ccda11a8fadd69d2506f01735fc6b65fa7b7e70bb838f10e5a7ef0500a2a128"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/template.php",
+        "relative_path": "tests/phpunit/tests/template.php",
+        "bytes": 83662,
+        "sha256": "sha256:d181562b3e46782350d9f82ab17e60cf63aacdeb050be3bbfc23ffc80284c22f"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme.php",
+        "relative_path": "tests/phpunit/tests/theme.php",
+        "bytes": 48183,
+        "sha256": "sha256:700cef6bc2c27144de0ca2fc2947c6d42cfe3c595db1f11701168980a8dbf029"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/support.php",
+        "relative_path": "tests/phpunit/tests/theme/support.php",
+        "bytes": 8304,
+        "sha256": "sha256:70883e02a853164d7ce25fbbe988b5cf69a6bf41cc748ad0e1fc95d25a2eeaac"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/wpTheme.php",
+        "relative_path": "tests/phpunit/tests/theme/wpTheme.php",
+        "bytes": 19600,
+        "sha256": "sha256:35826dc5d007cfd11a5f8ea6dd6c0e94023a8a11da7867aeba0bd1d907c3301c"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeJson.php",
+        "relative_path": "tests/phpunit/tests/theme/wpThemeJson.php",
+        "bytes": 209324,
+        "sha256": "sha256:e0a5d91197d5708414b469a1bd67794c693fef45ec8fac32d6cb3eb79850f9dd"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+        "relative_path": "tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+        "bytes": 46115,
+        "sha256": "sha256:06e34eb90afc52a4acaf11a7779f1b75644aaa8d46c5cb24b3294cd13d440281"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeGetBlockPatterns.php",
+        "relative_path": "tests/phpunit/tests/theme/wpThemeGetBlockPatterns.php",
+        "bytes": 8400,
+        "sha256": "sha256:a615a4b026304eb2cc10390c015eb2b4f4c7fa7f770552011d69ad69b6558b20"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/theme/wpGetGlobalStylesheet.php",
+        "relative_path": "tests/phpunit/tests/theme/wpGetGlobalStylesheet.php",
+        "bytes": 12945,
+        "sha256": "sha256:89d4ae064d87472a3cb84d4ee98d979ff3712dcd92fbeea3950840a1c099160b"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/block-template.php",
+        "relative_path": "tests/phpunit/tests/block-template.php",
+        "bytes": 21347,
+        "sha256": "sha256:f12ca25f6d758ef808802461cc40096693d9812ab66dfeae999ba7d8109a8fc7"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/block-template-utils.php",
+        "relative_path": "tests/phpunit/tests/block-template-utils.php",
+        "bytes": 17506,
+        "sha256": "sha256:013f9e8be9948b0bd7b3034859a11ec0a6ac318a85d88ea6eb0cba08c859e5f5"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php",
+        "relative_path": "tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php",
+        "bytes": 7812,
+        "sha256": "sha256:e511cbf7e9a9868a79a880533ea96e977eff76c3fec7a9d5d6d708589283c594"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/block-templates/getTemplateHierarchy.php",
+        "relative_path": "tests/phpunit/tests/block-templates/getTemplateHierarchy.php",
+        "bytes": 7545,
+        "sha256": "sha256:d307e4608b3b1abc0aa54084a47d5d0fe3eea847aa3b7b3e002a5c0f01047430"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/link/themeFile.php",
+        "relative_path": "tests/phpunit/tests/link/themeFile.php",
+        "bytes": 4932,
+        "sha256": "sha256:a1226846718427f6768175e4a65cb4752243f9d3484859721cb2c5ba09b4a105"
+      },
+      {
+        "path": "../wordpress-develop/tests/phpunit/tests/option/themeMods.php",
+        "relative_path": "tests/phpunit/tests/option/themeMods.php",
+        "bytes": 2735,
+        "sha256": "sha256:77b71d126878ea1f9bcb63efa8481201f15d458d68f83dbe8abb2ce68b8523e2"
+      }
+    ]
+  },
+  "selected_installed_default_theme_rendering_gates": [
+    {
+      "id": "default-theme-home-route-rendering",
+      "kind": "installed_http_browser_performance",
+      "route_family": "front_home",
+      "representative_routes": [
+        "/"
+      ],
+      "default_theme_scope": [
+        "twentytwentyfive",
+        "twentytwentyfour",
+        "twentytwentythree",
+        "twentytwentytwo"
+      ],
+      "upstream_refs": [
+        "src/index.php",
+        "src/wp-blog-header.php",
+        "src/wp-includes/template-loader.php",
+        "src/wp-includes/template-canvas.php",
+        "src/wp-includes/block-template.php",
+        "tests/performance/specs/home.test.js"
+      ],
+      "scope": "home/front-page HTTP rendering through real WordPress bootstrap, template-loader, block template resolution, query loop, global styles, theme assets, and browser/performance observation",
+      "existing_evidence_refs": [
+        "WPHX-320.01",
+        "WPHX-320.02",
+        "WPHX-320.03",
+        "WPHX-320.04",
+        "WPHX-320.05"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-307",
+        "WPHX-309",
+        "WPHX-310",
+        "WPHX-314",
+        "WPHX-400"
+      ],
+      "blockers": [
+        "No real installed oracle/candidate roots with identical database, posts, options, rewrite, theme, and cache state are provisioned for default-theme rendering.",
+        "No generated candidate overlay manifest exists for bundled default-theme files, template-loader paths, or block-template rendering paths.",
+        "No browser/performance runner compares rendered DOM, HTTP headers, asset requests, PHP logs, and timings across oracle and candidate packages."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/index.php",
+          "relative_path": "src/index.php",
+          "bytes": 2428,
+          "sha256": "sha256:0196910836692dc71b6d11b4a3ba057b4dc4069df56b76469e51d2ed241e29b5"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-blog-header.php",
+          "relative_path": "src/wp-blog-header.php",
+          "bytes": 351,
+          "sha256": "sha256:eb6491db4178b3858d44402ec337623a5ee12de66128dbc92742dd8735f6ed07"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/template-loader.php",
+          "relative_path": "src/wp-includes/template-loader.php",
+          "bytes": 4267,
+          "sha256": "sha256:29419e3e5fc3c20842395822b230d851c41e5ced70121431ffee7bf0dd917372"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/template-canvas.php",
+          "relative_path": "src/wp-includes/template-canvas.php",
+          "bytes": 544,
+          "sha256": "sha256:a1a8a7ed542c25d96c78d51438d84b3a7e053ded953f3452ae38f6b84f71038a"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/block-template.php",
+          "relative_path": "src/wp-includes/block-template.php",
+          "bytes": 18261,
+          "sha256": "sha256:de31eda1f6ee3dab26b60a29414cf07c89525767b7a166d52f9d5a807ec905f5"
+        },
+        {
+          "path": "../wordpress-develop/tests/performance/specs/home.test.js",
+          "relative_path": "tests/performance/specs/home.test.js",
+          "bytes": 2115,
+          "sha256": "sha256:eae99c6221b30c62d77c5f30b25b39c5c696b41b28ed67322144af2d9abaf447"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-single-post-route-rendering",
+      "kind": "installed_http_browser_performance",
+      "route_family": "front_single_post",
+      "representative_routes": [
+        "/2018/11/03/block-image/",
+        "/fixture-post/"
+      ],
+      "default_theme_scope": [
+        "twentytwentyfive",
+        "twentytwentyfour",
+        "twentytwentythree",
+        "twentytwentytwo"
+      ],
+      "upstream_refs": [
+        "src/wp-includes/template-loader.php",
+        "src/wp-includes/block-template.php",
+        "src/wp-content/themes/twentytwentyfive/templates/single.html",
+        "src/wp-content/themes/twentytwentyfour/templates/single.html",
+        "src/wp-content/themes/twentytwentythree/templates/single.html",
+        "src/wp-content/themes/twentytwentytwo/templates/single.html",
+        "tests/performance/specs/single-post.test.js"
+      ],
+      "scope": "single-post HTTP/browser rendering through loop globals, post content, featured/media assets, comments/template parts, post format binding, canonical links, and block rendering",
+      "existing_evidence_refs": [
+        "WPHX-320.01",
+        "WPHX-320.03",
+        "WPHX-320.05"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-307",
+        "WPHX-308",
+        "WPHX-312",
+        "WPHX-313",
+        "WPHX-314"
+      ],
+      "blockers": [
+        "No seeded post/query/comment/media database corpus exists for oracle/candidate default-theme single-post comparison.",
+        "No generated candidate overlay manifest exists for default-theme single templates, parts, functions.php, or block-binding paths.",
+        "No installed HTTP/browser diff records canonical URL, DOM fragments, comments, media requests, PHP logs, database reads, and browser timing parity."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-includes/template-loader.php",
+          "relative_path": "src/wp-includes/template-loader.php",
+          "bytes": 4267,
+          "sha256": "sha256:29419e3e5fc3c20842395822b230d851c41e5ced70121431ffee7bf0dd917372"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/block-template.php",
+          "relative_path": "src/wp-includes/block-template.php",
+          "bytes": 18261,
+          "sha256": "sha256:de31eda1f6ee3dab26b60a29414cf07c89525767b7a166d52f9d5a807ec905f5"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/single.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/templates/single.html",
+          "bytes": 1502,
+          "sha256": "sha256:5f66ec63899ce500050a931d99fccc58cee0b6d9058e769e0c70438a757da2fb"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/templates/single.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfour/templates/single.html",
+          "bytes": 2468,
+          "sha256": "sha256:080efd72dacd507a3f353c5b275d413ad91c48f6240d89e00f132a8dd1a964ca"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/templates/single.html",
+          "relative_path": "src/wp-content/themes/twentytwentythree/templates/single.html",
+          "bytes": 939,
+          "sha256": "sha256:1e3975f67a2368121ceb06b0e5ec748db581278da3f5b5325271da0462bd6e0e"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentytwo/templates/single.html",
+          "relative_path": "src/wp-content/themes/twentytwentytwo/templates/single.html",
+          "bytes": 1853,
+          "sha256": "sha256:0da5e60caf318effb41afb0a68f8a876b109fbdee21dead584d02168bc826bf6"
+        },
+        {
+          "path": "../wordpress-develop/tests/performance/specs/single-post.test.js",
+          "relative_path": "tests/performance/specs/single-post.test.js",
+          "bytes": 2141,
+          "sha256": "sha256:6caccebc3014910baeab29070322a26e46822d99fd9b978566974e5270f107f3"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-page-search-archive-404-hierarchy",
+      "kind": "installed_http_template_hierarchy",
+      "route_family": "front_template_hierarchy",
+      "representative_routes": [
+        "/sample-page/",
+        "/?s=search",
+        "/category/news/",
+        "/does-not-exist/"
+      ],
+      "default_theme_scope": [
+        "twentytwentyfive",
+        "twentytwentyfour",
+        "twentytwentythree",
+        "twentytwentytwo"
+      ],
+      "upstream_refs": [
+        "src/wp-includes/template-loader.php",
+        "src/wp-includes/block-template-utils.php",
+        "src/wp-content/themes/twentytwentyfive/templates/page.html",
+        "src/wp-content/themes/twentytwentyfive/templates/search.html",
+        "src/wp-content/themes/twentytwentyfive/templates/archive.html",
+        "src/wp-content/themes/twentytwentyfive/templates/404.html",
+        "tests/phpunit/tests/template.php",
+        "tests/phpunit/tests/block-templates/getTemplateHierarchy.php"
+      ],
+      "scope": "page/search/archive/404 template hierarchy, block-template fallback, include timing, query context, title/body classes, and no-results/error output",
+      "existing_evidence_refs": [
+        "WPHX-320.01",
+        "WPHX-320.03",
+        "WPHX-320.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-307",
+        "WPHX-308",
+        "WPHX-309",
+        "WPHX-310",
+        "WPHX-314"
+      ],
+      "blockers": [
+        "No installed route matrix executes representative default-theme page/search/archive/404 requests through real template-loader.",
+        "No generated candidate overlay exists for block-template hierarchy or bundled default-theme template files.",
+        "No DOM/HTTP/query-state diff records template selection, fallback order, body classes, and rendered empty/error states."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-includes/template-loader.php",
+          "relative_path": "src/wp-includes/template-loader.php",
+          "bytes": 4267,
+          "sha256": "sha256:29419e3e5fc3c20842395822b230d851c41e5ced70121431ffee7bf0dd917372"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/block-template-utils.php",
+          "relative_path": "src/wp-includes/block-template-utils.php",
+          "bytes": 62804,
+          "sha256": "sha256:64f6ff0bd2290d326ec8e4abe7ae4469698d190db654a0f778c8d905c9eaee8a"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/page.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/templates/page.html",
+          "bytes": 879,
+          "sha256": "sha256:a09bc716cd7036c8f8553fe1edd9d4f9cd36dc110b36975c49d7cea3a3ba7c4d"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/search.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/templates/search.html",
+          "bytes": 570,
+          "sha256": "sha256:d9478197855d9d584380e8f4659e36ed589adff77f6d54db01f4282385740d1c"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/archive.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/templates/archive.html",
+          "bytes": 478,
+          "sha256": "sha256:4fbf558c27a84c265a2c54213584e675ad714643322e53b4f19018bd13ed0fe0"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/templates/404.html",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/templates/404.html",
+          "bytes": 621,
+          "sha256": "sha256:426beaa3762f195102bf4baac83acb7bbfd0f90eb019132631900af1fda0f2ea"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/template.php",
+          "relative_path": "tests/phpunit/tests/template.php",
+          "bytes": 83662,
+          "sha256": "sha256:d181562b3e46782350d9f82ab17e60cf63aacdeb050be3bbfc23ffc80284c22f"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/block-templates/getTemplateHierarchy.php",
+          "relative_path": "tests/phpunit/tests/block-templates/getTemplateHierarchy.php",
+          "bytes": 7545,
+          "sha256": "sha256:d307e4608b3b1abc0aa54084a47d5d0fe3eea847aa3b7b3e002a5c0f01047430"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-pattern-registration-and-template-parts",
+      "kind": "installed_http_pattern_registry",
+      "route_family": "pattern_registry_and_parts",
+      "representative_routes": [
+        "/",
+        "/wp-admin/site-editor.php"
+      ],
+      "default_theme_scope": [
+        "patterns",
+        "parts",
+        "block templates",
+        "site editor handoff"
+      ],
+      "upstream_refs": [
+        "src/wp-includes/block-patterns.php",
+        "src/wp-includes/class-wp-block-patterns-registry.php",
+        "src/wp-includes/class-wp-block-pattern-categories-registry.php",
+        "src/wp-content/themes/twentytwentyfive/patterns/hero-full-width-image.php",
+        "src/wp-content/themes/twentytwentyfive/patterns/footer.php",
+        "src/wp-content/themes/twentytwentyfour/patterns/footer.php",
+        "src/wp-content/themes/twentytwentythree/patterns/call-to-action.php",
+        "tests/phpunit/tests/theme/wpThemeGetBlockPatterns.php",
+        "tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php"
+      ],
+      "scope": "theme pattern directory scanning, pattern headers/categories, template part inclusion, block pattern rendering, site-editor registry handoff, and installed HTML output",
+      "existing_evidence_refs": [
+        "WPHX-320.01",
+        "WPHX-320.04"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-310",
+        "WPHX-314",
+        "WPHX-316",
+        "WPHX-400",
+        "WPHX-500"
+      ],
+      "blockers": [
+        "The current WPHX-320.04 fixture executes selected pattern PHP files directly; no installed pattern registry or template-loader path consumes them yet.",
+        "No generated overlay exists for bundled pattern PHP files or block-pattern registry/template-part paths.",
+        "No installed/browser diff records pattern registration, template-part inclusion, site-editor availability, or rendered block output parity."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-includes/block-patterns.php",
+          "relative_path": "src/wp-includes/block-patterns.php",
+          "bytes": 15606,
+          "sha256": "sha256:50d76e2bb2f0a917a0fc15e95c10b44ad435a9e83399bfd7abe937cfbcf9d2c9"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-block-patterns-registry.php",
+          "relative_path": "src/wp-includes/class-wp-block-patterns-registry.php",
+          "bytes": 10312,
+          "sha256": "sha256:1a3e95b9148d4711f66c5777d2712f01e326e4b6e6e2cfbc2cbc81cde39ec03a"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-block-pattern-categories-registry.php",
+          "relative_path": "src/wp-includes/class-wp-block-pattern-categories-registry.php",
+          "bytes": 4383,
+          "sha256": "sha256:cc7fbd48ee9d71cd0371de09a570968234be4333af95977fe94ebc8eaccababc"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/hero-full-width-image.php",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/hero-full-width-image.php",
+          "bytes": 2679,
+          "sha256": "sha256:ca767958f4fab96cf2f829414613452f9dcfaf0f6cb857ee4ff5506132c3d61d"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/patterns/footer.php",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/patterns/footer.php",
+          "bytes": 3945,
+          "sha256": "sha256:9dbd6b8467075fb28afa2d485716a009dfbe9bcb8d8383e60a467ad15ae65da6"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/patterns/footer.php",
+          "relative_path": "src/wp-content/themes/twentytwentyfour/patterns/footer.php",
+          "bytes": 6619,
+          "sha256": "sha256:6c4029a0b9d78a2d46fbfbea1431788234648e8f4f5b1610fadb2001e0010931"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentythree/patterns/call-to-action.php",
+          "relative_path": "src/wp-content/themes/twentytwentythree/patterns/call-to-action.php",
+          "bytes": 1361,
+          "sha256": "sha256:1dcb28b464d27ba7b3fa5a6167f368fd777ad22c800fd99ce75726c3841979d2"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeGetBlockPatterns.php",
+          "relative_path": "tests/phpunit/tests/theme/wpThemeGetBlockPatterns.php",
+          "bytes": 8400,
+          "sha256": "sha256:a615a4b026304eb2cc10390c015eb2b4f4c7fa7f770552011d69ad69b6558b20"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php",
+          "relative_path": "tests/phpunit/tests/block-templates/buildBlockTemplateResultFromFile.php",
+          "bytes": 7812,
+          "sha256": "sha256:e511cbf7e9a9868a79a880533ea96e977eff76c3fec7a9d5d6d708589283c594"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-functions-support-assets-and-bindings",
+      "kind": "installed_http_theme_setup_assets",
+      "route_family": "theme_setup_assets",
+      "representative_routes": [
+        "/",
+        "/fixture-gallery-post/",
+        "/wp-admin/post.php?post=1&action=edit"
+      ],
+      "default_theme_scope": [
+        "twentytwentyfive",
+        "twentytwentyfour",
+        "theme supports",
+        "assets",
+        "block styles",
+        "block bindings"
+      ],
+      "upstream_refs": [
+        "src/wp-content/themes/twentytwentyfive/functions.php",
+        "src/wp-content/themes/twentytwentyfour/functions.php",
+        "src/wp-includes/class-wp-block-bindings-registry.php",
+        "src/wp-includes/class-wp-block-bindings-source.php",
+        "src/wp-includes/style-engine.php",
+        "tests/phpunit/tests/theme/support.php",
+        "tests/phpunit/tests/link/themeFile.php"
+      ],
+      "scope": "after_setup_theme/init/wp_enqueue_scripts execution under installed bootstrap, post-format support, editor styles, stylesheet paths, block styles, pattern categories, block bindings, and asset requests",
+      "existing_evidence_refs": [
+        "WPHX-320.01",
+        "WPHX-320.03",
+        "WPHX-320.05"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-306",
+        "WPHX-310",
+        "WPHX-313",
+        "WPHX-314",
+        "WPHX-316"
+      ],
+      "blockers": [
+        "The current WPHX-320.05 fixture executes functions.php callbacks under deterministic stubs; no installed WordPress hook/bootstrap route has consumed them yet.",
+        "No generated overlay exists for default-theme functions.php, asset paths, block-style, or block-binding paths.",
+        "No browser/admin diff records enqueued asset URLs, editor/front-end styles, post-format binding output, block style CSS, or PHP hook order parity."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/functions.php",
+          "bytes": 4119,
+          "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php",
+          "relative_path": "src/wp-content/themes/twentytwentyfour/functions.php",
+          "bytes": 5434,
+          "sha256": "sha256:219b63131905c8599ab7627a8eaa20de85d68a3aba19ffe0fa7391b698c844c9"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-block-bindings-registry.php",
+          "relative_path": "src/wp-includes/class-wp-block-bindings-registry.php",
+          "bytes": 8263,
+          "sha256": "sha256:bfa589aa1711c3c92eb5f6adf4340a6a8d353ccec52f4d8252cb844929e63183"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-block-bindings-source.php",
+          "relative_path": "src/wp-includes/class-wp-block-bindings-source.php",
+          "bytes": 2992,
+          "sha256": "sha256:ed059bb0c3d6e30ceb556eeb913555880d54f43e8cede7f1bc2804ba2faab370"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/style-engine.php",
+          "relative_path": "src/wp-includes/style-engine.php",
+          "bytes": 7563,
+          "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/theme/support.php",
+          "relative_path": "tests/phpunit/tests/theme/support.php",
+          "bytes": 8304,
+          "sha256": "sha256:70883e02a853164d7ce25fbbe988b5cf69a6bf41cc748ad0e1fc95d25a2eeaac"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/link/themeFile.php",
+          "relative_path": "tests/phpunit/tests/link/themeFile.php",
+          "bytes": 4932,
+          "sha256": "sha256:a1226846718427f6768175e4a65cb4752243f9d3484859721cb2c5ba09b4a105"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-style-variation-global-styles-rendering",
+      "kind": "installed_http_stylesheet_dom",
+      "route_family": "global_styles",
+      "representative_routes": [
+        "/?style_variation=default",
+        "/wp-admin/site-editor.php?canvas=edit"
+      ],
+      "default_theme_scope": [
+        "theme.json",
+        "style variations",
+        "global styles",
+        "style engine"
+      ],
+      "upstream_refs": [
+        "src/wp-includes/theme.json",
+        "src/wp-includes/class-wp-theme-json.php",
+        "src/wp-includes/class-wp-theme-json-resolver.php",
+        "src/wp-includes/global-styles-and-settings.php",
+        "src/wp-includes/style-engine.php",
+        "src/wp-content/themes/twentytwentyfive/theme.json",
+        "src/wp-content/themes/twentytwentyfour/theme.json",
+        "tests/phpunit/tests/theme/wpThemeJson.php",
+        "tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+        "tests/phpunit/tests/theme/wpGetGlobalStylesheet.php"
+      ],
+      "scope": "global styles resolution, theme.json merges, style variation files, style-engine CSS, block supports, user/global-styles database state, and browser-observed stylesheet output",
+      "existing_evidence_refs": [
+        "WPHX-310.10",
+        "WPHX-320.01",
+        "WPHX-320.03"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-304",
+        "WPHX-310",
+        "WPHX-314",
+        "WPHX-316",
+        "WPHX-400"
+      ],
+      "blockers": [
+        "No installed default-theme runner compares global stylesheet output through front-end and site-editor routes.",
+        "No seeded database state exists for user global styles, style variation selection, and cache invalidation.",
+        "No generated overlay exists for theme.json/global styles/style-engine paths or bundled default-theme JSON/style files."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/src/wp-includes/theme.json",
+          "relative_path": "src/wp-includes/theme.json",
+          "bytes": 9037,
+          "sha256": "sha256:f07d209c3f119d9ab1eed11052d19cdce7395f07e7f7c6f9490f802363826770"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-theme-json.php",
+          "relative_path": "src/wp-includes/class-wp-theme-json.php",
+          "bytes": 173639,
+          "sha256": "sha256:549d50cd230c2308e9828ea8a4c4ae91e5511184ad96e1365ccd5ad02cb51cb8"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/class-wp-theme-json-resolver.php",
+          "relative_path": "src/wp-includes/class-wp-theme-json-resolver.php",
+          "bytes": 35692,
+          "sha256": "sha256:8c1eae3025d000dfe828e76f2630caa54084c619b1bf7d1e627108531b433bbe"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/global-styles-and-settings.php",
+          "relative_path": "src/wp-includes/global-styles-and-settings.php",
+          "bytes": 20780,
+          "sha256": "sha256:45b501595e73a72b29719b141ff27b8c8b926409052f3e6ec6c5e957bdbaddfb"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/style-engine.php",
+          "relative_path": "src/wp-includes/style-engine.php",
+          "bytes": 7563,
+          "sha256": "sha256:54ae0fd3410aec5e03b74ff9a183e3369b174792adb2e20ea728015f3f8b494c"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/theme.json",
+          "relative_path": "src/wp-content/themes/twentytwentyfive/theme.json",
+          "bytes": 14856,
+          "sha256": "sha256:4ecb78d5040a3af40740d4c00663b604b70710bc53c0bafa15cdfd6b7a3a7b75"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/theme.json",
+          "relative_path": "src/wp-content/themes/twentytwentyfour/theme.json",
+          "bytes": 22273,
+          "sha256": "sha256:3d7be217a7624ff6705d4886232ae7762e6a06496f550dd2624ea48c99da918a"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeJson.php",
+          "relative_path": "tests/phpunit/tests/theme/wpThemeJson.php",
+          "bytes": 209324,
+          "sha256": "sha256:e0a5d91197d5708414b469a1bd67794c693fef45ec8fac32d6cb3eb79850f9dd"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+          "relative_path": "tests/phpunit/tests/theme/wpThemeJsonResolver.php",
+          "bytes": 46115,
+          "sha256": "sha256:06e34eb90afc52a4acaf11a7779f1b75644aaa8d46c5cb24b3294cd13d440281"
+        },
+        {
+          "path": "../wordpress-develop/tests/phpunit/tests/theme/wpGetGlobalStylesheet.php",
+          "relative_path": "tests/phpunit/tests/theme/wpGetGlobalStylesheet.php",
+          "bytes": 12945,
+          "sha256": "sha256:89d4ae064d87472a3cb84d4ee98d979ff3712dcd92fbeea3950840a1c099160b"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    },
+    {
+      "id": "default-theme-visual-regression-and-admin-adjacent-surfaces",
+      "kind": "browser_visual_regression",
+      "route_family": "visual_and_admin_theme_adjacent",
+      "representative_routes": [
+        "/",
+        "/2018/11/03/block-image/",
+        "/wp-admin/widgets.php",
+        "/wp-admin/nav-menus.php"
+      ],
+      "default_theme_scope": [
+        "front-end screenshots",
+        "widgets",
+        "menus",
+        "Customizer/site-editor/admin-adjacent theme surfaces"
+      ],
+      "upstream_refs": [
+        "tests/visual-regression/specs/visual-snapshots.test.js",
+        "tests/visual-regression/playwright.config.js",
+        "tests/performance/specs/admin.test.js",
+        "src/wp-includes/theme-previews.php",
+        "src/wp-includes/theme-templates.php"
+      ],
+      "scope": "browser screenshots, layout/asset/CSS parity, default-theme visual baselines, admin theme-adjacent widgets/nav-menus/customizer/site-editor handoffs, and reproducible performance/visual metrics",
+      "existing_evidence_refs": [
+        "WPHX-320.03",
+        "WPHX-310.10",
+        "WPHX-315.09",
+        "WPHX-316.08"
+      ],
+      "cross_domain_handoffs": [
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-400",
+        "WPHX-500",
+        "WPHX-700"
+      ],
+      "blockers": [
+        "No Playwright visual-regression runner compares installed oracle and generated candidate packages for default-theme front-end and theme-adjacent admin routes.",
+        "No browser asset, screenshot, accessibility, viewport, or performance baseline is reproducible against candidate overlays.",
+        "No generated overlay exists for default-theme public files, theme-adjacent admin routes, browser packages, or editor/site-editor packages."
+      ],
+      "upstream_references": [
+        {
+          "path": "../wordpress-develop/tests/visual-regression/specs/visual-snapshots.test.js",
+          "relative_path": "tests/visual-regression/specs/visual-snapshots.test.js",
+          "bytes": 5830,
+          "sha256": "sha256:47833c02d31a362f34d4f87f1ab2bc3a6f506faf1909f175e9069e48e14c987e"
+        },
+        {
+          "path": "../wordpress-develop/tests/visual-regression/playwright.config.js",
+          "relative_path": "tests/visual-regression/playwright.config.js",
+          "bytes": 589,
+          "sha256": "sha256:2ccda11a8fadd69d2506f01735fc6b65fa7b7e70bb838f10e5a7ef0500a2a128"
+        },
+        {
+          "path": "../wordpress-develop/tests/performance/specs/admin.test.js",
+          "relative_path": "tests/performance/specs/admin.test.js",
+          "bytes": 1883,
+          "sha256": "sha256:00a18bf19481bd559c3324089befc7a58fbc6cff077f53400a955d36469a4ad4"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/theme-previews.php",
+          "relative_path": "src/wp-includes/theme-previews.php",
+          "bytes": 2887,
+          "sha256": "sha256:0e92a447b468ae7ca4d05a0b344c1b762f2512182f6fd2f9cfd91df5e658ab7f"
+        },
+        {
+          "path": "../wordpress-develop/src/wp-includes/theme-templates.php",
+          "relative_path": "src/wp-includes/theme-templates.php",
+          "bytes": 4060,
+          "sha256": "sha256:4ba5da78bd0a837eeb4e818f44df52d56915658508ee44cd86b371ea5d12df7b"
+        }
+      ],
+      "provisioning_status": "blocked",
+      "classification": "blocked_no_wphx_320_installed_default_theme_rendering_runner",
+      "generated_overlay_required_before_candidate_divergence": true
+    }
+  ],
+  "future_runner_requirements": [
+    "Provision oracle and candidate installed WordPress roots with identical database seeds, users, options, rewrite rules, active theme, salts, uploads/media, post/comment/term fixtures, global-styles state, cache state, locales, plugins, and browser assets.",
+    "Dispatch selected front-end and admin/theme-adjacent HTTP requests through real WordPress bootstrap, template-loader, block-template resolution, functions.php hooks, block rendering, style engine, and asset enqueue paths, not deterministic bridge routers.",
+    "Require a non-empty generated candidate overlay manifest before any candidate package file differs from copied upstream default-theme, template-loader, block-template, theme, global-style, or browser/admin source files.",
+    "Compare HTTP status, redirects, headers, canonical/meta/body-class output, rendered DOM fragments, block comments, stylesheets, asset URLs, PHP logs, hook traces, selected database reads/writes, filesystem/media reads, browser console/network traces, screenshot baselines, and performance metrics where applicable.",
+    "Run selected upstream performance and visual-regression specs when real installed oracle/candidate roots and reproducible browser baselines exist.",
+    "Keep HXX/segment-plan adoption explicit: existing bundled mixed PHP/HTML files require caller-scope, include-order, global, output-buffer, hook, template-loader, and browser evidence before ownership claims."
+  ],
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-307/WPHX-308",
+      "reason": "Posts, pages, search/archive queries, comments, terms, loop globals, and database-backed content state remain posts/query and taxonomy/comment ownership."
+    },
+    {
+      "owner": "WPHX-309/WPHX-310",
+      "reason": "Rewrite/canonical/template-loader, theme discovery, theme.json/global styles, template hierarchy, widgets, nav menus, Customizer, and site-editor handoffs remain routing/theme ownership."
+    },
+    {
+      "owner": "WPHX-312/WPHX-313",
+      "reason": "Feeds/embeds, asset URLs, uploads/media paths, image files, filesystem reads, and HTTP transport remain HTTP/media/filesystem ownership."
+    },
+    {
+      "owner": "WPHX-314/WPHX-400/WPHX-500",
+      "reason": "Block rendering, block supports, block bindings, global styles, interactivity, browser/editor packages, and Gutenberg site-editor behavior remain block/browser/Gutenberg ownership."
+    },
+    {
+      "owner": "WPHX-315/WPHX-316/WPHX-319/WPHX-700",
+      "reason": "Theme-adjacent admin screens, capabilities, nonces, update/theme install flows, browser/e2e, visual, performance, security, and release-grade gates remain admin/update/distribution ownership."
+    }
+  ],
+  "non_claims": [
+    "This artifact declares WPHX-320 installed/browser default-theme rendering gate scope only; it does not execute installed WordPress routes, Playwright specs, visual regression, performance runs, template-loader, block rendering, or browser requests.",
+    "No generated public PHP replacement for bundled default-theme files, template-loader files, block-template files, pattern files, functions.php files, theme.json/style files, browser packages, or admin/theme-adjacent files is claimed.",
+    "No Haxe-owned existing default-theme runtime logic, HXX ownership of existing bundled mixed PHP/HTML theme files, installed theme rendering parity, browser/visual/performance parity, database-backed theme state, generated overlay, or generated original-path adapter ownership is claimed.",
+    "The WPHX-320.04 and WPHX-320.05 copied fixtures remain bridge evidence only. They do not prove installed pattern registry, functions.php bootstrap, template-loader, or browser rendering parity.",
+    "The selected installed gates are future blockers and scope declarations; their source/test hashes are not pass/pass installed execution evidence."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "selected_installed_gate_count": 7,
+    "selected_upstream_source_count": 66,
+    "selected_upstream_test_count": 22,
+    "provisioning_status": "blocked",
+    "behavior_parity_claimed": false,
+    "installed_theme_rendering_execution_claimed": false,
+    "browser_e2e_execution_claimed": false,
+    "future_runner_required": true
+  }
+}
