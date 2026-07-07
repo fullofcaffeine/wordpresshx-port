@@ -1,0 +1,677 @@
+{
+  "schema": "wphx.wp-core-php-vendor-replacement-strategy.v1",
+  "issue": {
+    "id": "wordpresshx-l76.27",
+    "external_ref": "WPHX-323.01",
+    "title": "Plan Haxe-owned PHP vendor replacement strategy"
+  },
+  "generated_at": "2026-07-07T13:00:00.000Z",
+  "generator": {
+    "runner": "tools/wp-core/run-php-vendor-replacement-strategy.mjs",
+    "mode": "deterministic"
+  },
+  "scope": {
+    "parent_issue": {
+      "issue_id": "wordpresshx-l76.26",
+      "external_ref": "WPHX-323",
+      "title": "PHP vendor manifest closure"
+    },
+    "strategy_owner_issue": {
+      "id": "wordpresshx-l76.27",
+      "external_ref": "WPHX-323.01",
+      "title": "Plan Haxe-owned PHP vendor replacement strategy"
+    },
+    "description": "Plans removal paths for every PHP vendor or bundled-library boundary preserved by WPHX-323 and routes the six WPHX-312 copied preserved-vendor surfaces to replacement follow-up work."
+  },
+  "inputs": {
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "vendor_closure_receipt": {
+      "path": "receipts/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 2962,
+      "sha256": "sha256:61acf497ac2284739183c396fcadd00394d8ed04da901e5901de50d75c59bc52"
+    },
+    "vendor_closure_manifest_sha256_recorded_in_receipt": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+  },
+  "policy": {
+    "replacement_claim_requires_followup_receipt": true,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_vendor_runtime_claimed": false,
+    "copied_vendor_exception_retired": false,
+    "allowed_replacement_strategies": [
+      "direct_haxe_port_preserving_vendor_api",
+      "generated_wrapper_around_upstream_equivalent_dependency",
+      "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "renewed_preserved_artifact_exception_with_tests_provenance"
+    ]
+  },
+  "boundary_replacement_plan": [
+    {
+      "id": "requests",
+      "name": "Requests",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/Requests",
+      "distribution_path": "wp-includes/Requests",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 65,
+      "distribution_artifact_count": 65,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 100,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.30",
+        "external_ref": "WPHX-323.02",
+        "title": "Plan HTTP vendor replacement gates"
+      },
+      "rationale": "Requests is the highest-blast-radius vendor boundary because WP_Http and remote fetch behavior depend on it; replacement needs host transport parity before any copied artifact can retire.",
+      "required_gates": [
+        "Requests class/function API and reflection fixture against the preserved upstream package",
+        "WP_Http differential gate across curl, streams, redirects, cookies, proxies, SSL, timeouts, nonblocking requests, and WordPress error shapes",
+        "Live transport and package-root gates with the preserved upstream package retained as fallback until the Haxe-owned path is proven",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "phpmailer",
+      "name": "PHPMailer",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/PHPMailer",
+      "distribution_path": "wp-includes/PHPMailer",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 7,
+      "distribution_artifact_count": 7,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+      "priority": 94,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.29",
+        "external_ref": "WPHX-323.03",
+        "title": "Plan mail vendor replacement gates"
+      },
+      "rationale": "PHPMailer has a public ecosystem API and transport side effects, so the first durable path should preserve the official package API or renew the exception rather than silently reimplement mail behavior.",
+      "required_gates": [
+        "wp_mail and PHPMailer setup fixture for headers, attachments, embeds, init hooks, and failure behavior",
+        "SMTP and phpmail transport differential gate with WordPress error and hook observations",
+        "Generated wrapper or explicit preserved-package exception that preserves PHPMailer public API and reflection-visible classes",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "simplepie",
+      "name": "SimplePie",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/SimplePie",
+      "distribution_path": "wp-includes/SimplePie",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 82,
+      "distribution_artifact_count": 82,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+      "priority": 90,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "rationale": "SimplePie owns feed parsing complexity and a broad public API; wrappers and corpus-backed gates are safer than a from-scratch parser until feed parity is proven.",
+      "required_gates": [
+        "RSS and Atom corpus for malformed feeds, charsets, dates, enclosures, namespaces, and feed errors",
+        "WordPress feed cache, widget, and RSS block wrapper gates",
+        "Network/local corpus differential evidence with preserved upstream fallback",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "sodium_compat",
+      "name": "sodium_compat",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/sodium_compat",
+      "distribution_path": "wp-includes/sodium_compat",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 104,
+      "distribution_artifact_count": 104,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 88,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.31",
+        "external_ref": "WPHX-323.05",
+        "title": "Plan media security archive vendor replacement gates"
+      },
+      "rationale": "sodium_compat is security-sensitive; replacement should be backed by native sodium where available and keep the upstream polyfill until constant-time and error-shape evidence exists.",
+      "required_gates": [
+        "Security review for sodium API coverage, constant-time expectations, and unsupported-host fallback behavior",
+        "Native sodium extension on/off differential gate",
+        "Error-shape, encoding, key-size, and edge-case corpus against upstream sodium_compat",
+        "Preserved upstream fallback until security review and parity gates pass"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "getid3",
+      "name": "getID3",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/ID3",
+      "distribution_path": "wp-includes/ID3",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 16,
+      "distribution_artifact_count": 16,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "priority": 78,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.31",
+        "external_ref": "WPHX-323.05",
+        "title": "Plan media security archive vendor replacement gates"
+      },
+      "rationale": "getID3 covers many media formats; renewing the preserved-vendor exception is safer until a small Haxe-owned parser subset or official dependency wrapper has corpus evidence.",
+      "required_gates": [
+        "Media metadata corpus for common audio/video/image files and malformed inputs",
+        "Attachment metadata wrapper gate through the WPHX-313 media domain",
+        "License, notice-file, and file-format risk review",
+        "Renewed preserved exception unless a bounded Haxe parser subset is explicitly admitted"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "pclzip",
+      "name": "PclZip",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-admin/includes/class-pclzip.php",
+      "distribution_path": "wp-admin/includes/class-pclzip.php",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 76,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.31",
+        "external_ref": "WPHX-323.05",
+        "title": "Plan media security archive vendor replacement gates"
+      },
+      "rationale": "PclZip sits on installer/upgrader paths and should move toward a ZipArchive-backed implementation only after archive-security and legacy API behavior are covered.",
+      "required_gates": [
+        "PclZip public API fixture for archive creation, extraction, listing, callbacks, and errors",
+        "ZipArchive-backed differential gate with upstream PclZip fallback",
+        "Path traversal, symlink, overwrite, permissions, and malformed archive security gate",
+        "WPHX-319 installer/upgrader integration gate"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "phpass",
+      "name": "phpass",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-phpass.php",
+      "distribution_path": "wp-includes/class-phpass.php",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 74,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.31",
+        "external_ref": "WPHX-323.05",
+        "title": "Plan media security archive vendor replacement gates"
+      },
+      "rationale": "phpass is authentication-adjacent; host password primitives can help, but legacy portable hash behavior and timing/error surfaces need direct evidence.",
+      "required_gates": [
+        "Password hash verify/generate corpus for portable, phpass, bcrypt, invalid, and edge-case inputs",
+        "password_hash/password_verify host handoff fixture where WordPress behavior allows it",
+        "Portable fallback timing and error-shape review",
+        "WPHX-306 authentication integration gate"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "pomo",
+      "name": "POMO",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/pomo",
+      "distribution_path": "wp-includes/pomo",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 6,
+      "distribution_artifact_count": 6,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "direct_haxe_port_preserving_vendor_api",
+      "priority": 72,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "rationale": "POMO is comparatively bounded and central to localization; a typed Haxe port can own parsing while preserving WordPress-visible classes and errors.",
+      "required_gates": [
+        "PO/MO corpus for plurals, contexts, encodings, malformed files, and headers",
+        "Translation cache, bootstrap, and admin localization gates",
+        "Public class/function API and reflection fixture",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "ixr",
+      "name": "IXR",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/IXR",
+      "distribution_path": "wp-includes/IXR",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 10,
+      "distribution_artifact_count": 10,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "direct_haxe_port_preserving_vendor_api",
+      "priority": 68,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "rationale": "IXR is legacy but bounded; a Haxe-owned implementation is plausible once XML-RPC request, value, and error behavior are protected.",
+      "required_gates": [
+        "IXR request, message, value, error, and client corpus against upstream classes",
+        "XML-RPC route integration through WPHX-318",
+        "Public class API and reflection fixture",
+        "Preserved fallback until installed XML-RPC behavior passes"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "php_ai_client",
+      "name": "WordPress PHP AI Client",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/php-ai-client",
+      "distribution_path": "wp-includes/php-ai-client",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 146,
+      "distribution_artifact_count": 146,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "direct_haxe_port_preserving_vendor_api",
+      "priority": 64,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "rationale": "The WordPress PHP AI Client is a newer bundled library with DTO/provider/transporter surfaces that can be typed well once the WPHX-312 HTTP wrapper gates are in place.",
+      "required_gates": [
+        "DTO, provider, transporter, exception, and utility API corpus",
+        "WordPress AI HTTP wrapper gate through WPHX-312",
+        "Generated API and reflection-visible class shape fixture",
+        "Preserved exception until provider/network behavior is covered"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "text_diff",
+      "name": "Text_Diff",
+      "kind": "c3_php_vendor_root",
+      "source_path": "wp-includes/Text",
+      "distribution_path": "wp-includes/Text",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 8,
+      "distribution_artifact_count": 8,
+      "current_strategy": "preserved_upstream_vendor_boundary",
+      "replacement_strategy": "direct_haxe_port_preserving_vendor_api",
+      "priority": 58,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "rationale": "Text_Diff is algorithmic and bounded enough for a typed Haxe port, but WordPress renderer behavior must stay identical for revisions and admin diffs.",
+      "required_gates": [
+        "Diff algorithm and renderer corpus against upstream Text_Diff",
+        "Admin revision, plugin, theme, and post diff integration gates",
+        "Public API and reflection fixture",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "services_json",
+      "name": "Services_JSON",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-json.php",
+      "distribution_path": "wp-includes/class-json.php",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 54,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "rationale": "Services_JSON is deprecated compatibility code; host JSON primitives may replace most behavior, but legacy edge cases and warnings need explicit protection.",
+      "required_gates": [
+        "Legacy encode/decode corpus for invalid UTF-8, objects, arrays, numbers, comments, and malformed payloads",
+        "json_encode/json_decode differential gate for allowed host-primitive handoff",
+        "Deprecated warning and error-shape fixture",
+        "Preserved fallback for ecosystem-visible edge behavior"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "magpie_rss",
+      "name": "MagpieRSS",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/rss.php",
+      "distribution_path": "wp-includes/rss.php",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "priority": 52,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "rationale": "MagpieRSS is deprecated legacy feed code; renewing the exception is acceptable unless ecosystem evidence justifies a direct port.",
+      "required_gates": [
+        "Legacy RSS parser, cache, and display helper fixtures from WPHX-312",
+        "Deprecated feed wrapper integration gate",
+        "License and provenance review before distribution divergence",
+        "Renewed preserved exception unless ecosystem pressure justifies replacement"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "snoopy",
+      "name": "Snoopy",
+      "kind": "legacy_php_library_file",
+      "source_path": "wp-includes/class-snoopy.php",
+      "distribution_path": "wp-includes/class-snoopy.php",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "priority": 46,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.30",
+        "external_ref": "WPHX-323.02",
+        "title": "Plan HTTP vendor replacement gates"
+      },
+      "rationale": "Snoopy is deprecated HTTP compatibility code; preserve it unless real plugin pressure requires a replacement path.",
+      "required_gates": [
+        "Legacy Snoopy API fixture",
+        "WPHX-312 and WPHX-318 integration review for deprecated HTTP/XML-RPC callers",
+        "License and provenance review before distribution divergence",
+        "Renewed preserved exception unless ecosystem pressure justifies replacement"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "php_compat",
+      "name": "php-compat",
+      "kind": "bundled_php_library_root",
+      "source_path": "wp-includes/php-compat",
+      "distribution_path": "wp-includes/php-compat",
+      "c3_php_vendor_inventory": false,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+      "replacement_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "priority": 44,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "rationale": "php-compat is host-version-sensitive; replacement needs narrow host primitive checks rather than a broad port.",
+      "required_gates": [
+        "Host-version compatibility fixture for each shimmed behavior",
+        "Bootstrap and deprecation checks through WPHX-301 and WPHX-303",
+        "Preserved fallback for hosts that still need upstream shim behavior",
+        "License and provenance review before distribution divergence"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    },
+    {
+      "id": "tinymce_php_loader",
+      "name": "TinyMCE PHP loader",
+      "kind": "c3_php_vendor_php_loader",
+      "source_path": "js/_enqueues/vendor/tinymce/wp-tinymce.php",
+      "distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+      "c3_php_vendor_inventory": true,
+      "source_inventory_count": 1,
+      "distribution_artifact_count": 1,
+      "current_strategy": "preserved_upstream_vendor_boundary_with_browser_vendor_followup",
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "priority": 38,
+      "followup_issue": {
+        "issue_id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "rationale": "The TinyMCE PHP loader belongs to the browser vendor asset boundary; keep it preserved until browser package emission and loader output are jointly tested.",
+      "required_gates": [
+        "TinyMCE loader output, cache, and header fixture",
+        "Browser vendor and asset-bundling gate through WPHX-609",
+        "License and provenance review before distribution divergence",
+        "Renewed preserved exception until generated browser/package emission owns the boundary"
+      ],
+      "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+    }
+  ],
+  "wphx_312_copied_surface_replacement_plan": [
+    {
+      "external_ref": "WPHX-312.05",
+      "issue_id": "wordpresshx-l76.18.5",
+      "unit_name": "bundled PHP AI Client HTTP DTO, utility, transporter, and WordPress HTTP adapter behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-05-ai-http-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "php_ai_client",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "replacement_strategy": "direct_haxe_port_preserving_vendor_api",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    },
+    {
+      "external_ref": "WPHX-312.13",
+      "issue_id": "wordpresshx-l76.18.13",
+      "unit_name": "wp_mail PHPMailer setup, header, attachment, embed, init-hook, and failure behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "phpmailer",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.29",
+        "external_ref": "WPHX-323.03",
+        "title": "Plan mail vendor replacement gates"
+      },
+      "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    },
+    {
+      "external_ref": "WPHX-312.22",
+      "issue_id": "wordpresshx-l76.18.22",
+      "unit_name": "MagpieRSS parser and pure helper behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "magpie_rss",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    },
+    {
+      "external_ref": "WPHX-312.23",
+      "issue_id": "wordpresshx-ri4",
+      "unit_name": "MagpieRSS fetch and transient cache behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "magpie_rss",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    },
+    {
+      "external_ref": "WPHX-312.24",
+      "issue_id": "wordpresshx-d7p",
+      "unit_name": "MagpieRSS display helper behavior",
+      "ownership_manifest": "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "magpie_rss",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    },
+    {
+      "external_ref": "WPHX-312.37",
+      "issue_id": "wordpresshx-l76.18.24",
+      "unit_name": "SimplePie feed wrapper load-order compatibility",
+      "ownership_manifest": "manifests/ownership/wphx-312-37-simplepie-feed-wrapper-oracle-fixture.v1.json",
+      "preserved_vendor_boundary_id": "simplepie",
+      "replacement_followup_issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+      "closure_state": "routed_to_wphx_323_01_replacement_strategy_followup"
+    }
+  ],
+  "followup_groups": [
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.30",
+        "external_ref": "WPHX-323.02",
+        "title": "Plan HTTP vendor replacement gates"
+      },
+      "boundary_ids": [
+        "requests",
+        "snoopy"
+      ],
+      "source_inventory_count": 66,
+      "distribution_artifact_count": 66
+    },
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.29",
+        "external_ref": "WPHX-323.03",
+        "title": "Plan mail vendor replacement gates"
+      },
+      "boundary_ids": [
+        "phpmailer"
+      ],
+      "source_inventory_count": 7,
+      "distribution_artifact_count": 7
+    },
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.28",
+        "external_ref": "WPHX-323.04",
+        "title": "Plan feed vendor replacement gates"
+      },
+      "boundary_ids": [
+        "simplepie",
+        "magpie_rss"
+      ],
+      "source_inventory_count": 83,
+      "distribution_artifact_count": 83
+    },
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.31",
+        "external_ref": "WPHX-323.05",
+        "title": "Plan media security archive vendor replacement gates"
+      },
+      "boundary_ids": [
+        "sodium_compat",
+        "getid3",
+        "pclzip",
+        "phpass"
+      ],
+      "source_inventory_count": 122,
+      "distribution_artifact_count": 122
+    },
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.32",
+        "external_ref": "WPHX-323.06",
+        "title": "Plan localization and legacy data vendor gates"
+      },
+      "boundary_ids": [
+        "pomo",
+        "ixr",
+        "text_diff",
+        "services_json",
+        "php_compat"
+      ],
+      "source_inventory_count": 26,
+      "distribution_artifact_count": 26
+    },
+    {
+      "issue": {
+        "issue_id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "boundary_ids": [
+        "php_ai_client",
+        "tinymce_php_loader"
+      ],
+      "source_inventory_count": 147,
+      "distribution_artifact_count": 147
+    }
+  ],
+  "validation_result": {
+    "vendor_boundary_count": 16,
+    "replacement_plan_count": 16,
+    "wphx_312_preserved_vendor_surface_count": 6,
+    "copied_surface_replacement_plan_count": 6,
+    "planned_source_inventory_count": 451,
+    "planned_distribution_artifact_count": 451,
+    "planned_c3_source_inventory_count": 293,
+    "planned_c3_distribution_artifact_count": 293,
+    "planned_bundled_library_source_inventory_count": 158,
+    "planned_bundled_library_distribution_artifact_count": 158,
+    "followup_issue_count": 6,
+    "highest_priority_boundaries": [
+      "requests",
+      "phpmailer",
+      "simplepie",
+      "sodium_compat",
+      "getid3",
+      "pclzip"
+    ],
+    "allowed_replacement_strategies": [
+      "direct_haxe_port_preserving_vendor_api",
+      "generated_wrapper_around_upstream_equivalent_dependency",
+      "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "renewed_preserved_artifact_exception_with_tests_provenance"
+    ]
+  },
+  "claims": [
+    "Every WPHX-323 preserved PHP vendor or bundled-library boundary has a machine-readable replacement strategy and follow-up owner.",
+    "Every WPHX-312 copied preserved-vendor surface is linked to a WPHX-323.01 boundary replacement plan.",
+    "The plan prioritizes HTTP, mail, feed, security, archive, localization, legacy, AI-client, and browser-loader boundaries by runtime blast radius and replacement risk."
+  ],
+  "non_claims": [
+    "This plan does not implement Haxe-owned vendor runtime logic.",
+    "This plan does not generate replacement public PHP or retire copied/vendor artifacts.",
+    "This plan does not complete legal, security, C3 runtime, live-network, browser, installed WordPress, or ecosystem parity review.",
+    "This plan does not authorize using copied vendor PHP as durable WPHX implementation source."
+  ]
+}

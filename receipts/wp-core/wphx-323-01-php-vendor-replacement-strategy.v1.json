@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-01-php-vendor-replacement-strategy",
+  "issue": {
+    "id": "wordpresshx-l76.27",
+    "external_ref": "WPHX-323.01",
+    "title": "Plan Haxe-owned PHP vendor replacement strategy"
+  },
+  "recorded_at": "2026-07-07T13:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "vendor_replacement_strategy_plan",
+  "artifact_scope": "wordpress-7.0-php-vendor-preserved-boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-vendor-replacement-strategy",
+    "npm run wp:core:wphx-323-vendor-replacement-strategy:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "vendor_closure_receipt": "receipts/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f",
+  "validation_result": {
+    "vendor_boundary_count": 16,
+    "replacement_plan_count": 16,
+    "wphx_312_preserved_vendor_surface_count": 6,
+    "copied_surface_replacement_plan_count": 6,
+    "planned_source_inventory_count": 451,
+    "planned_distribution_artifact_count": 451,
+    "planned_c3_source_inventory_count": 293,
+    "planned_c3_distribution_artifact_count": 293,
+    "planned_bundled_library_source_inventory_count": 158,
+    "planned_bundled_library_distribution_artifact_count": 158,
+    "followup_issue_count": 6,
+    "highest_priority_boundaries": [
+      "requests",
+      "phpmailer",
+      "simplepie",
+      "sodium_compat",
+      "getid3",
+      "pclzip"
+    ],
+    "allowed_replacement_strategies": [
+      "direct_haxe_port_preserving_vendor_api",
+      "generated_wrapper_around_upstream_equivalent_dependency",
+      "host_primitive_backed_reimplementation_with_preserved_fallback",
+      "renewed_preserved_artifact_exception_with_tests_provenance"
+    ]
+  },
+  "claims": [
+    "Every WPHX-323 preserved PHP vendor or bundled-library boundary has a machine-readable replacement strategy and follow-up owner.",
+    "Every WPHX-312 copied preserved-vendor surface is linked to a WPHX-323.01 boundary replacement plan.",
+    "The plan prioritizes HTTP, mail, feed, security, archive, localization, legacy, AI-client, and browser-loader boundaries by runtime blast radius and replacement risk."
+  ],
+  "non_claims": [
+    "This plan does not implement Haxe-owned vendor runtime logic.",
+    "This plan does not generate replacement public PHP or retire copied/vendor artifacts.",
+    "This plan does not complete legal, security, C3 runtime, live-network, browser, installed WordPress, or ecosystem parity review.",
+    "This plan does not authorize using copied vendor PHP as durable WPHX implementation source."
+  ]
+}
