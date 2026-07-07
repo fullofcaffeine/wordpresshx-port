@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-320-05-default-theme-functions-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-m2hn",
+    "external_ref": "WPHX-320.05",
+    "title": "WPHX-320.05 - Add default theme functions copied-oracle fixture"
+  },
+  "recorded_at": "2026-07-07T20:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-320-05-default-theme-functions-oracle-fixture.v1.json",
+      "role": "default theme functions copied-oracle fixture manifest",
+      "sha256": "sha256:1088aae044b2ef12e7e64c81b43402051edfdcdceff2534c8da00e35befaae90"
+    },
+    {
+      "path": "manifests/ownership/wphx-320-05-default-theme-functions-oracle-fixture.v1.json",
+      "role": "ownership manifest for copied-oracle default theme functions fixture"
+    },
+    {
+      "path": "tools/wp-core/run-default-theme-functions-oracle-fixture.mjs",
+      "role": "deterministic copied-oracle default theme functions runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-320-default-theme-functions-oracle-fixture",
+    "npm run wp:core:wphx-320-default-theme-functions-oracle-fixture:check",
+    "npm run operations:bridge-claim-guardrails:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "status": "passed",
+  "evidence_class": "copied_oracle_default_theme_functions_fixture",
+  "artifact_scope": "selected_default_theme_functions_php",
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "oracle_candidate_observation_match": true,
+    "php_lint_passed": true,
+    "observed_hook_registration_cases": 2,
+    "observed_callback_execution_cases": 3,
+    "observed_error_count": 0,
+    "observed_output_bytes": 0,
+    "public_php_replacement_claimed": false,
+    "installed_theme_rendering_parity_claimed": false,
+    "haxe_owned_existing_theme_file_claimed": false
+  },
+  "claims": [
+    "Two selected bundled default-theme functions.php files execute under deterministic WordPress hook, theme, enqueue, block-style, pattern-category, block-binding, and post-format stubs.",
+    "Regenerated copied oracle and copied candidate roots produce matching observations for five hook-registration and callback-execution cases.",
+    "The selected observations cover Twenty Twenty-Five post-format setup, editor styles, stylesheet enqueue data, block style/category/binding registration, and Twenty Twenty-Four block style, block stylesheet, and pattern-category registration with no PHP warnings or unexpected output."
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for any bundled default-theme functions.php file.",
+    "No Haxe-owned existing theme functions.php runtime, broad HXX migration, or durable template/function ownership for these copied files.",
+    "No installed WordPress bootstrap, theme discovery, template-loader, pattern registry, front-end block rendering, browser, visual-regression, or performance parity execution.",
+    "No database-backed post/query/menu/widget/customizer/global-styles state, media asset existence, generated overlay, or generated original-path adapter ownership.",
+    "The oracle and candidate roots both contain regenerated copies of selected upstream WordPress default-theme functions.php files. This is copied-oracle bridge evidence only.",
+    "The deterministic hook, theme, enqueue, block-style, pattern-category, block-binding, and post-format stubs are fixture scaffolding, not WordPress runtime ownership."
+  ]
+}

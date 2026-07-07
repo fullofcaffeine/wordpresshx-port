@@ -1,0 +1,920 @@
+{
+  "schema_version": 1,
+  "issue": "WPHX-320.05",
+  "beads_issue": "wordpresshx-m2hn",
+  "title": "WPHX-320.05 - Add default theme functions copied-oracle fixture",
+  "generated_at": "2026-07-07T20:00:00.000Z",
+  "generator": "tools/wp-core/run-default-theme-functions-oracle-fixture.mjs",
+  "evidence_class": "copied_oracle_default_theme_functions_fixture",
+  "artifact_scope": "selected_default_theme_functions_php",
+  "behavior_parity_claimed": false,
+  "selected_copied_oracle_behavior_match_claimed": true,
+  "installed_theme_rendering_parity_claimed": false,
+  "installed_wordpress_bootstrap_claimed": false,
+  "browser_or_visual_parity_claimed": false,
+  "public_php_replacement_claimed": false,
+  "candidate_generated_overlay_claimed": false,
+  "generated_original_path_adapter_claimed": false,
+  "haxe_owned_existing_theme_file_claimed": false,
+  "functions_php_runtime_ownership_claimed": false,
+  "hxx_template_ownership_claimed": false,
+  "source_file_count": 2,
+  "case_count": 5,
+  "covered_symbol_count": 30,
+  "covered_symbols": [
+    "wp-content/themes/twentytwentyfive/functions.php",
+    "twentytwentyfive_post_format_setup",
+    "twentytwentyfive_editor_style",
+    "twentytwentyfive_enqueue_styles",
+    "twentytwentyfive_block_styles",
+    "twentytwentyfive_pattern_categories",
+    "twentytwentyfive_register_block_bindings",
+    "twentytwentyfive_format_binding",
+    "wp-content/themes/twentytwentyfour/functions.php",
+    "twentytwentyfour_block_styles",
+    "twentytwentyfour_block_stylesheets",
+    "twentytwentyfour_pattern_categories",
+    "add_action",
+    "do_action",
+    "add_theme_support",
+    "add_editor_style",
+    "wp_enqueue_style",
+    "wp_style_add_data",
+    "register_block_style",
+    "register_block_pattern_category",
+    "register_block_bindings_source",
+    "wp_enqueue_block_style",
+    "get_parent_theme_file_uri",
+    "get_parent_theme_file_path",
+    "wp_get_theme",
+    "get_template",
+    "get_post_format",
+    "get_post_format_string",
+    "__",
+    "_x"
+  ],
+  "source_files": [
+    {
+      "path": "src/wp-content/themes/twentytwentyfive/functions.php",
+      "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+      "bytes": 4119,
+      "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84",
+      "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php"
+    },
+    {
+      "path": "src/wp-content/themes/twentytwentyfour/functions.php",
+      "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php",
+      "bytes": 5434,
+      "sha256": "sha256:219b63131905c8599ab7627a8eaa20de85d68a3aba19ffe0fa7391b698c844c9",
+      "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php"
+    }
+  ],
+  "cases": [
+    {
+      "id": "tt5:hook-registration",
+      "theme": "twentytwentyfive",
+      "path": "wp-content/themes/twentytwentyfive/functions.php",
+      "focus": "Twenty Twenty-Five functions.php registers after_setup_theme, wp_enqueue_scripts, and init callbacks without executing installed bootstrap.",
+      "source": {
+        "path": "src/wp-content/themes/twentytwentyfive/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+        "bytes": 4119,
+        "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84",
+        "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php"
+      },
+      "actions": [],
+      "oracle_observation": {
+        "id": "tt5:hook-registration",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "candidate_observation": {
+        "id": "tt5:hook-registration",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "observation_match": true
+    },
+    {
+      "id": "tt5:setup-and-assets",
+      "theme": "twentytwentyfive",
+      "path": "wp-content/themes/twentytwentyfive/functions.php",
+      "focus": "Twenty Twenty-Five setup and asset callbacks register post formats, editor styles, style enqueue data, and minified stylesheet path under deterministic theme stubs.",
+      "source": {
+        "path": "src/wp-content/themes/twentytwentyfive/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+        "bytes": 4119,
+        "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84",
+        "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php"
+      },
+      "actions": [
+        "after_setup_theme",
+        "wp_enqueue_scripts"
+      ],
+      "oracle_observation": {
+        "id": "tt5:setup-and-assets",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "after_setup_theme",
+          "wp_enqueue_scripts"
+        ],
+        "theme_supports": {
+          "post-formats": [
+            [
+              "aside",
+              "audio",
+              "chat",
+              "gallery",
+              "image",
+              "link",
+              "quote",
+              "status",
+              "video"
+            ]
+          ]
+        },
+        "editor_styles": [
+          "assets/css/editor-style.css"
+        ],
+        "enqueued_styles": [
+          {
+            "handle": "twentytwentyfive-style",
+            "src": "https://example.test/wp-content/themes/twentytwentyfive/style.min.css",
+            "deps": [],
+            "ver": "25.0",
+            "media": "all"
+          }
+        ],
+        "style_data": [
+          {
+            "handle": "twentytwentyfive-style",
+            "key": "path",
+            "value": "/fixture/themes/twentytwentyfive/style.min.css"
+          }
+        ],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "candidate_observation": {
+        "id": "tt5:setup-and-assets",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "after_setup_theme",
+          "wp_enqueue_scripts"
+        ],
+        "theme_supports": {
+          "post-formats": [
+            [
+              "aside",
+              "audio",
+              "chat",
+              "gallery",
+              "image",
+              "link",
+              "quote",
+              "status",
+              "video"
+            ]
+          ]
+        },
+        "editor_styles": [
+          "assets/css/editor-style.css"
+        ],
+        "enqueued_styles": [
+          {
+            "handle": "twentytwentyfive-style",
+            "src": "https://example.test/wp-content/themes/twentytwentyfive/style.min.css",
+            "deps": [],
+            "ver": "25.0",
+            "media": "all"
+          }
+        ],
+        "style_data": [
+          {
+            "handle": "twentytwentyfive-style",
+            "key": "path",
+            "value": "/fixture/themes/twentytwentyfive/style.min.css"
+          }
+        ],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "observation_match": true
+    },
+    {
+      "id": "tt5:init-registries-and-binding",
+      "theme": "twentytwentyfive",
+      "path": "wp-content/themes/twentytwentyfive/functions.php",
+      "focus": "Twenty Twenty-Five init callbacks register block styles, pattern categories, block binding source, and post-format binding results under deterministic stubs.",
+      "source": {
+        "path": "src/wp-content/themes/twentytwentyfive/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php",
+        "bytes": 4119,
+        "sha256": "sha256:51681ddc22490e05066da69a44e74bd8ee78249f6322d8c6efcd777d19641f84",
+        "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfive/functions.php"
+      },
+      "actions": [
+        "init"
+      ],
+      "oracle_observation": {
+        "id": "tt5:init-registries-and-binding",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "init"
+        ],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [
+          {
+            "block_name": "core/list",
+            "name": "checkmark-list",
+            "label": "Checkmark",
+            "inline_style_sha256": "sha256:97296764bf69e0e9882151be5b478a50f9a24e844b0c242754af3810ae140bb6"
+          }
+        ],
+        "pattern_categories": [
+          {
+            "name": "twentytwentyfive_page",
+            "label": "Pages"
+          },
+          {
+            "name": "twentytwentyfive_post-format",
+            "label": "Post formats"
+          }
+        ],
+        "binding_sources": [
+          {
+            "name": "twentytwentyfive/format",
+            "label": "Post format name",
+            "get_value_callback": "twentytwentyfive_format_binding"
+          }
+        ],
+        "binding_results": {
+          "gallery": "Gallery",
+          "standard": null,
+          "empty": null
+        },
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "candidate_observation": {
+        "id": "tt5:init-registries-and-binding",
+        "theme": "twentytwentyfive",
+        "path": "wp-content/themes/twentytwentyfive/functions.php",
+        "hooks": {
+          "after_setup_theme": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_post_format_setup",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_editor_style",
+              "accepted_args": 1
+            }
+          ],
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_pattern_categories",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_register_block_bindings",
+              "accepted_args": 1
+            }
+          ],
+          "wp_enqueue_scripts": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfive_enqueue_styles",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "init"
+        ],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [
+          {
+            "block_name": "core/list",
+            "name": "checkmark-list",
+            "label": "Checkmark",
+            "inline_style_sha256": "sha256:97296764bf69e0e9882151be5b478a50f9a24e844b0c242754af3810ae140bb6"
+          }
+        ],
+        "pattern_categories": [
+          {
+            "name": "twentytwentyfive_page",
+            "label": "Pages"
+          },
+          {
+            "name": "twentytwentyfive_post-format",
+            "label": "Post formats"
+          }
+        ],
+        "binding_sources": [
+          {
+            "name": "twentytwentyfive/format",
+            "label": "Post format name",
+            "get_value_callback": "twentytwentyfive_format_binding"
+          }
+        ],
+        "binding_results": {
+          "gallery": "Gallery",
+          "standard": null,
+          "empty": null
+        },
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "observation_match": true
+    },
+    {
+      "id": "tt4:hook-registration",
+      "theme": "twentytwentyfour",
+      "path": "wp-content/themes/twentytwentyfour/functions.php",
+      "focus": "Twenty Twenty-Four functions.php registers init callbacks for block styles, block stylesheets, and pattern categories.",
+      "source": {
+        "path": "src/wp-content/themes/twentytwentyfour/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php",
+        "bytes": 5434,
+        "sha256": "sha256:219b63131905c8599ab7627a8eaa20de85d68a3aba19ffe0fa7391b698c844c9",
+        "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php"
+      },
+      "actions": [],
+      "oracle_observation": {
+        "id": "tt4:hook-registration",
+        "theme": "twentytwentyfour",
+        "path": "wp-content/themes/twentytwentyfour/functions.php",
+        "hooks": {
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_stylesheets",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_pattern_categories",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "candidate_observation": {
+        "id": "tt4:hook-registration",
+        "theme": "twentytwentyfour",
+        "path": "wp-content/themes/twentytwentyfour/functions.php",
+        "hooks": {
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_stylesheets",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_pattern_categories",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [],
+        "pattern_categories": [],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "observation_match": true
+    },
+    {
+      "id": "tt4:init-registries-and-stylesheet",
+      "theme": "twentytwentyfour",
+      "path": "wp-content/themes/twentytwentyfour/functions.php",
+      "focus": "Twenty Twenty-Four init callbacks register block style variants, a button block stylesheet, and the page pattern category under deterministic theme stubs.",
+      "source": {
+        "path": "src/wp-content/themes/twentytwentyfour/functions.php",
+        "repo_path": "../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php",
+        "bytes": 5434,
+        "sha256": "sha256:219b63131905c8599ab7627a8eaa20de85d68a3aba19ffe0fa7391b698c844c9",
+        "php_lint": "No syntax errors detected in ../wordpress-develop/src/wp-content/themes/twentytwentyfour/functions.php"
+      },
+      "actions": [
+        "init"
+      ],
+      "oracle_observation": {
+        "id": "tt4:init-registries-and-stylesheet",
+        "theme": "twentytwentyfour",
+        "path": "wp-content/themes/twentytwentyfour/functions.php",
+        "hooks": {
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_stylesheets",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_pattern_categories",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "init"
+        ],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [
+          {
+            "block_name": "core/details",
+            "name": "arrow-icon-details",
+            "label": "Arrow icon",
+            "inline_style_sha256": "sha256:cf6af27f966f766bb5ece3b7c80ceaf7e00c1a4e8119afbf13f9d6a7794ad4b5"
+          },
+          {
+            "block_name": "core/post-terms",
+            "name": "pill",
+            "label": "Pill",
+            "inline_style_sha256": "sha256:dcd30ad2ae8f82713aa4d4ad6726c4525f2d6faef4e253aebb33fcaa938d71a5"
+          },
+          {
+            "block_name": "core/list",
+            "name": "checkmark-list",
+            "label": "Checkmark",
+            "inline_style_sha256": "sha256:97296764bf69e0e9882151be5b478a50f9a24e844b0c242754af3810ae140bb6"
+          },
+          {
+            "block_name": "core/navigation-link",
+            "name": "arrow-link",
+            "label": "With arrow",
+            "inline_style_sha256": "sha256:3c013836ac7b8e39f370fb9571ca7ec406574ef4b92ec99b17f9599b8bffb8d8"
+          },
+          {
+            "block_name": "core/heading",
+            "name": "asterisk",
+            "label": "With asterisk",
+            "inline_style_sha256": "sha256:5c498f5be4f5b4bc36a1d13f7368a350def18958997393256cd4d0750725c2cb"
+          }
+        ],
+        "pattern_categories": [
+          {
+            "name": "twentytwentyfour_page",
+            "label": "Pages"
+          }
+        ],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [
+          {
+            "block_name": "core/button",
+            "handle": "twentytwentyfour-button-style-outline",
+            "src": "https://example.test/wp-content/themes/twentytwentyfour/assets/css/button-outline.css",
+            "ver": "24.0",
+            "path": "/fixture/themes/twentytwentyfour/assets/css/button-outline.css"
+          }
+        ],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "candidate_observation": {
+        "id": "tt4:init-registries-and-stylesheet",
+        "theme": "twentytwentyfour",
+        "path": "wp-content/themes/twentytwentyfour/functions.php",
+        "hooks": {
+          "init": [
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_styles",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_block_stylesheets",
+              "accepted_args": 1
+            },
+            {
+              "priority": 10,
+              "callback": "twentytwentyfour_pattern_categories",
+              "accepted_args": 1
+            }
+          ]
+        },
+        "actions_run": [
+          "init"
+        ],
+        "theme_supports": [],
+        "editor_styles": [],
+        "enqueued_styles": [],
+        "style_data": [],
+        "block_styles": [
+          {
+            "block_name": "core/details",
+            "name": "arrow-icon-details",
+            "label": "Arrow icon",
+            "inline_style_sha256": "sha256:cf6af27f966f766bb5ece3b7c80ceaf7e00c1a4e8119afbf13f9d6a7794ad4b5"
+          },
+          {
+            "block_name": "core/post-terms",
+            "name": "pill",
+            "label": "Pill",
+            "inline_style_sha256": "sha256:dcd30ad2ae8f82713aa4d4ad6726c4525f2d6faef4e253aebb33fcaa938d71a5"
+          },
+          {
+            "block_name": "core/list",
+            "name": "checkmark-list",
+            "label": "Checkmark",
+            "inline_style_sha256": "sha256:97296764bf69e0e9882151be5b478a50f9a24e844b0c242754af3810ae140bb6"
+          },
+          {
+            "block_name": "core/navigation-link",
+            "name": "arrow-link",
+            "label": "With arrow",
+            "inline_style_sha256": "sha256:3c013836ac7b8e39f370fb9571ca7ec406574ef4b92ec99b17f9599b8bffb8d8"
+          },
+          {
+            "block_name": "core/heading",
+            "name": "asterisk",
+            "label": "With asterisk",
+            "inline_style_sha256": "sha256:5c498f5be4f5b4bc36a1d13f7368a350def18958997393256cd4d0750725c2cb"
+          }
+        ],
+        "pattern_categories": [
+          {
+            "name": "twentytwentyfour_page",
+            "label": "Pages"
+          }
+        ],
+        "binding_sources": [],
+        "binding_results": [],
+        "block_style_sheets": [
+          {
+            "block_name": "core/button",
+            "handle": "twentytwentyfour-button-style-outline",
+            "src": "https://example.test/wp-content/themes/twentytwentyfour/assets/css/button-outline.css",
+            "ver": "24.0",
+            "path": "/fixture/themes/twentytwentyfour/assets/css/button-outline.css"
+          }
+        ],
+        "output_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "output_bytes": 0,
+        "error_count": 0
+      },
+      "observation_match": true
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "oracle_candidate_observation_match": true,
+    "php_lint_passed": true,
+    "observed_hook_registration_cases": 2,
+    "observed_callback_execution_cases": 3,
+    "observed_error_count": 0,
+    "observed_output_bytes": 0,
+    "public_php_replacement_claimed": false,
+    "installed_theme_rendering_parity_claimed": false,
+    "haxe_owned_existing_theme_file_claimed": false
+  },
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-default-theme-functions-oracle-fixture.mjs",
+      "bytes": 29363,
+      "sha256": "sha256:a89655acd3a1d8cc9925b453659fdc2f67dd4dfbe7dbcb06920167a79a8a60e4"
+    },
+    "surface_manifest": {
+      "path": "manifests/wp-core/wphx-320-01-default-theme-php-surface.v1.json",
+      "bytes": 196639,
+      "sha256": "sha256:458b6bd573301d8f58fc8a051677e393d32f0dec53edd855d839c56f99ebd3fe"
+    },
+    "hxx_pilot_manifest": {
+      "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 13407,
+      "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb"
+    },
+    "upstream_browser_ratchets_manifest": {
+      "path": "manifests/wp-core/wphx-320-03-default-theme-upstream-browser-ratchets.v1.json",
+      "bytes": 15782,
+      "sha256": "sha256:05590a39625665f40a75debca9b36ff42e97069023cde6fd55ef97ef1a6f9b28"
+    },
+    "pattern_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-320-04-default-theme-pattern-oracle-fixture.v1.json",
+      "bytes": 20584,
+      "sha256": "sha256:1416d530469878e8f556b78ef24c73b3a2d13acbd5e294e64902101bafe1581b"
+    }
+  },
+  "cross_domain_handoffs": [
+    {
+      "owner": "WPHX-301/WPHX-302/WPHX-306",
+      "reason": "Real WordPress hook dispatch, conditional loading, theme setup integration, capabilities, and user/session state are outside this deterministic hook-stub fixture."
+    },
+    {
+      "owner": "WPHX-309/WPHX-310",
+      "reason": "Theme discovery, theme.json/global styles, template hierarchy, template-loader behavior, stylesheet registration semantics, and installed theme bootstrap remain routing/theme-system ownership."
+    },
+    {
+      "owner": "WPHX-314/WPHX-400/WPHX-500",
+      "reason": "Block style registration, block binding consumption, front-end block rendering, browser behavior, and Gutenberg/editor integration remain block/browser ownership."
+    },
+    {
+      "owner": "WPHX-307/WPHX-308/WPHX-313",
+      "reason": "Real post formats, post/query state, content/media files, and database-backed theme rendering are not exercised by these deterministic stubs."
+    }
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for any bundled default-theme functions.php file.",
+    "No Haxe-owned existing theme functions.php runtime, broad HXX migration, or durable template/function ownership for these copied files.",
+    "No installed WordPress bootstrap, theme discovery, template-loader, pattern registry, front-end block rendering, browser, visual-regression, or performance parity execution.",
+    "No database-backed post/query/menu/widget/customizer/global-styles state, media asset existence, generated overlay, or generated original-path adapter ownership.",
+    "The oracle and candidate roots both contain regenerated copies of selected upstream WordPress default-theme functions.php files. This is copied-oracle bridge evidence only.",
+    "The deterministic hook, theme, enqueue, block-style, pattern-category, block-binding, and post-format stubs are fixture scaffolding, not WordPress runtime ownership."
+  ]
+}
