@@ -1,0 +1,34 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "issue": {
+    "id": "wordpresshx-l76.36",
+    "external_ref": "WPHX-323.16",
+    "title": "Add MagpieRSS legacy exception gate"
+  },
+  "generated_at": "2026-07-08T02:30:00.000Z",
+  "evidence": "manifests/wp-core/wphx-323-16-magpie-rss-legacy-exception-gate.v1.json",
+  "boundary": {
+    "id": "magpie_rss",
+    "paths": [
+      "wp-includes/rss.php",
+      "wp-includes/rss-functions.php"
+    ],
+    "ownership_state": "renewed_preserved_upstream_artifact_exception",
+    "emission_strategy": "preserved_upstream_public_php_exception_with_behavior_floor_receipts",
+    "behavior_parity_claimed": true,
+    "behavior_parity_scope": "WPHX-312 parser_fetch_cache_display_and_deprecated_wrapper_behavior_floors_only",
+    "haxe_runtime_ownership_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "generated_overlay_manifest_present": false,
+    "durable_original_path_adapter_claimed": false
+  },
+  "removal_gate": "Do not retire preserved rss.php/rss-functions.php or claim Haxe-owned MagpieRSS runtime until generated original-path adapter or direct Haxe implementation evidence exists, behavior floors remain passing after divergence, ecosystem/direct-caller pressure is reviewed, provenance/license evidence is accepted, installed feed/widget/dashboard gates pass where claimed, and fallback policy is updated.",
+  "non_claims": [
+    "This gate does not implement or claim Haxe-owned MagpieRSS runtime logic.",
+    "This gate does not emit generated rss.php or rss-functions.php public PHP replacements.",
+    "This gate does not retire copied/preserved rss.php or rss-functions.php artifacts.",
+    "This gate does not claim live external feed behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, RSS widget/dashboard installed parity, or broad plugin ecosystem compatibility.",
+    "The renewed exception is bounded preserved-artifact evidence, not a precedent that copied PHP is a durable implementation path."
+  ]
+}

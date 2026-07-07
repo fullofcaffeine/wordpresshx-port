@@ -1,0 +1,617 @@
+{
+  "schema": "wphx.wp-core-magpie-rss-legacy-exception-gate.v1",
+  "issue": {
+    "id": "wordpresshx-l76.36",
+    "external_ref": "WPHX-323.16",
+    "title": "Add MagpieRSS legacy exception gate"
+  },
+  "generated_at": "2026-07-08T02:30:00.000Z",
+  "generator": {
+    "runner": "tools/wp-core/run-magpie-rss-legacy-exception-gate.mjs",
+    "mode": "deterministic_exception_decision_gate"
+  },
+  "scope": {
+    "boundary_id": "magpie_rss",
+    "source_path": "wp-includes/rss.php",
+    "support_wrapper_path": "wp-includes/rss-functions.php",
+    "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+    "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+    "gate_plan": {
+      "id": "magpie-rss-legacy-parser-cache-display-exception",
+      "boundary_id": "magpie_rss",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-l76.36",
+        "external_ref": "WPHX-323.16",
+        "title": "Add MagpieRSS legacy exception gate"
+      },
+      "gate_kind": "legacy_exception_with_parser_cache_display_floor",
+      "required_before": [
+        "magpie_distribution_divergence",
+        "copied_magpie_retirement",
+        "haxe_owned_magpie_runtime_claim"
+      ],
+      "existing_evidence_ids": [
+        "wphx-312-21-deprecated-embed-rss-wrapper",
+        "wphx-312-22-magpie-rss-parser",
+        "wphx-312-23-magpie-rss-fetch-cache",
+        "wphx-312-24-magpie-rss-display-helper"
+      ],
+      "required_observations": [
+        "MagpieRSS parser fields, namespace handling, RSS/RDF/Atom normalization, and error behavior",
+        "fetch_rss remote-response conversion, RSSCache transient behavior, and stale/cache quirks",
+        "wp_rss/get_rss output, escaping quirks, slicing, failure return, and deprecated wrapper handoff",
+        "load_feed_engine hook and deprecation surfaces remain ecosystem-visible",
+        "caller review confirms deprecated MagpieRSS pressure does not justify direct Haxe port yet"
+      ],
+      "acceptance": "MagpieRSS gets a renewed preserved-artifact exception with parser/cache/display evidence and explicit caller pressure review unless ecosystem evidence requires replacement.",
+      "fallback_policy": "Default to renewed preserved upstream rss.php because the file is deprecated compatibility code and SimplePie is the preferred feed path.",
+      "removal_gate": "Do not claim Haxe-owned MagpieRSS runtime logic or retire rss.php until WPHX-323.16 proves either a direct replacement path or a renewed exception with tests and provenance."
+    }
+  },
+  "inputs": {
+    "replacement_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "feed_vendor_gates_manifest": {
+      "path": "manifests/wp-core/wphx-323-04-feed-vendor-replacement-gates.v1.json",
+      "bytes": 96793,
+      "sha256": "sha256:173c005823acd5b3eaf28037c003c8b7309068c47c2edfb5f09bdbdddf030f86"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "source_records": [
+      {
+        "path": "src/wp-includes/rss.php",
+        "distribution_path": "wp-includes/rss.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/rss.php",
+        "bytes": 23203,
+        "sha256": "sha256:fcb3b96531a3688acf02a57c226c4245401a9943e6981c14ff76f976c951c0b2"
+      },
+      {
+        "path": "src/wp-includes/rss-functions.php",
+        "distribution_path": "wp-includes/rss-functions.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/rss-functions.php",
+        "bytes": 255,
+        "sha256": "sha256:831880b7e8d307ce67f19f7477f4de3c2ad19320d94246bba31c6b708ac3742f"
+      }
+    ],
+    "artifact_evidence": [
+      {
+        "path": "wp-includes/rss-functions.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true
+      }
+    ],
+    "header_evidence": [
+      {
+        "path": "src/wp-includes/rss.php",
+        "distribution_path": "wp-includes/rss.php",
+        "magpie_marker": true,
+        "wordpress_package_marker": false,
+        "external_package_marker": true,
+        "deprecated_marker": true,
+        "gpl_marker": true,
+        "load_feed_engine_marker": true,
+        "simplepie_replacement_marker": true,
+        "version_markers": [
+          "0.51"
+        ]
+      },
+      {
+        "path": "src/wp-includes/rss-functions.php",
+        "distribution_path": "wp-includes/rss-functions.php",
+        "magpie_marker": false,
+        "wordpress_package_marker": true,
+        "external_package_marker": false,
+        "deprecated_marker": true,
+        "gpl_marker": false,
+        "load_feed_engine_marker": false,
+        "simplepie_replacement_marker": false,
+        "version_markers": []
+      }
+    ],
+    "behavior_floors": [
+      {
+        "id": "wphx-312-21-deprecated-embed-rss-wrapper",
+        "external_ref": "WPHX-312.21",
+        "manifest": "manifests/wp-core/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+        "ownership_manifest": "manifests/ownership/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+        "behavior_floor": "rss-functions.php deprecated wrapper handoff into rss.php/class-simplepie.php under deterministic required-file stubs",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+          "bytes": 11854,
+          "sha256": "sha256:0e7faa73050194eb331b5ec8cd69297a77fe0953ddff7509d34c4de537a07855"
+        },
+        "ownership_record": {
+          "path": "manifests/ownership/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+          "bytes": 2398,
+          "sha256": "sha256:9c0b412acdbef75897987a525d8c9e7f5792c51fb35ae53fe49a5a9d5c50fef5"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-21-deprecated-embed-rss-wrapper-oracle-fixture.v1.json",
+          "bytes": 1674,
+          "sha256": "sha256:fbe808fa0c8aa25cfddb359ac39771808f3117d436c9b46ad654f8beb058a3d9"
+        },
+        "validation_result": {
+          "status": "passed",
+          "fixture_cases": 4,
+          "covered_symbols": 10,
+          "observations_match": true,
+          "public_php_replacement_claimed": false,
+          "installed_wordpress_behavior_claimed": false,
+          "real_required_files_claimed": false
+        },
+        "ownership_state": "oracle_mirror_behavior_fixture"
+      },
+      {
+        "id": "wphx-312-22-magpie-rss-parser",
+        "external_ref": "WPHX-312.22",
+        "manifest": "manifests/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+        "ownership_manifest": "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+        "behavior_floor": "MagpieRSS parser fields, namespace handling, RSS2/RDF/Atom normalization, response headers, status helpers, and pure RSSCache helpers",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+          "bytes": 10444,
+          "sha256": "sha256:b36b31626503361676872a352f6a903151cb5e25862f5bafbd8a9ebd3c4d1b8a"
+        },
+        "ownership_record": {
+          "path": "manifests/ownership/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+          "bytes": 2232,
+          "sha256": "sha256:9f1696d991c7b6a7c0b2b89235b21ce4f82c773d4a06739f5d93d5893fff18f7"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-22-magpie-rss-parser-oracle-fixture.v1.json",
+          "bytes": 1595,
+          "sha256": "sha256:415cf4ed225cf604b9ce337ea80155d4c1bf897db26152bdfeaf7a4b6acc8d5b"
+        },
+        "validation_result": {
+          "status": "passed",
+          "fixture_cases": 5,
+          "covered_symbols": 19,
+          "observations_match": true,
+          "public_php_replacement_claimed": false,
+          "installed_wordpress_behavior_claimed": false,
+          "remote_fetch_cache_display_claimed": false
+        },
+        "ownership_state": "oracle_mirror_behavior_fixture"
+      },
+      {
+        "id": "wphx-312-23-magpie-rss-fetch-cache",
+        "external_ref": "WPHX-312.23",
+        "manifest": "manifests/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+        "ownership_manifest": "manifests/ownership/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+        "behavior_floor": "fetch_rss, _fetch_remote_file, WP HTTP response/error conversion, cache hit/miss, RSSCache transient keys, and stale/cache quirks",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+          "bytes": 18410,
+          "sha256": "sha256:d47234172d1955dee3a10f09681449f0cd6a6d49e86c9aaeef6b72a9ddec5ab4"
+        },
+        "ownership_record": {
+          "path": "manifests/ownership/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+          "bytes": 2244,
+          "sha256": "sha256:531d5afca90eb951ada2840f3aca3613f2804e63bcf34c0a824fde617c3eb141"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-23-magpie-rss-fetch-cache-oracle-fixture.v1.json",
+          "bytes": 1670,
+          "sha256": "sha256:2f68e5d885a1dabc8496ee3630b500d39db703c832d13dbf0167633d3e6270fb"
+        },
+        "validation_result": {
+          "status": "passed",
+          "fixture_cases": 6,
+          "covered_symbols": 20,
+          "observations_match": true,
+          "public_php_replacement_claimed": false,
+          "installed_wordpress_behavior_claimed": false,
+          "live_network_behavior_claimed": false,
+          "display_widget_route_behavior_claimed": false
+        },
+        "ownership_state": "oracle_mirror_behavior_fixture"
+      },
+      {
+        "id": "wphx-312-24-magpie-rss-display-helper",
+        "external_ref": "WPHX-312.24",
+        "manifest": "manifests/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+        "ownership_manifest": "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+        "behavior_floor": "wp_rss/get_rss output, escaping quirks, slicing, failure output/return behavior, and cached feed display helpers",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+          "bytes": 19163,
+          "sha256": "sha256:016d6dbf802a3c4232fcdcd8db8abab553f8a811ec1f369fedd23ae158d5e75b"
+        },
+        "ownership_record": {
+          "path": "manifests/ownership/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+          "bytes": 2257,
+          "sha256": "sha256:5fbfed6798ee7cbd15f6fe73844743468d463aa1930f4f3212a6e4becc72d49f"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-24-magpie-rss-display-helper-oracle-fixture.v1.json",
+          "bytes": 1694,
+          "sha256": "sha256:62656bc92dac9912aa5555e43fa6b632e837e4d00929af1102caff98aebca77b"
+        },
+        "validation_result": {
+          "status": "passed",
+          "fixture_cases": 5,
+          "covered_symbols": 16,
+          "observations_match": true,
+          "public_php_replacement_claimed": false,
+          "installed_wordpress_behavior_claimed": false,
+          "live_network_behavior_claimed": false,
+          "widget_route_behavior_claimed": false
+        },
+        "ownership_state": "oracle_mirror_behavior_fixture"
+      }
+    ]
+  },
+  "caller_review": {
+    "scanned_php_file_count": 1855,
+    "match_count": 31,
+    "matches": [
+      {
+        "path": "wp-includes/rss-functions.php",
+        "line": 13,
+        "matched": [
+          "rss_php_include"
+        ],
+        "text": "_deprecated_file( basename( __FILE__ ), '2.1.0', WPINC . '/rss.php' );"
+      },
+      {
+        "path": "wp-includes/rss-functions.php",
+        "line": 14,
+        "matched": [
+          "rss_php_include"
+        ],
+        "text": "require_once ABSPATH . WPINC . '/rss.php';"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 3,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* MagpieRSS: a simple RSS integration tool"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 12,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 22,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* Fires before MagpieRSS is loaded, to optionally replace it."
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 27,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "do_action( 'load_feed_engine' );"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 34,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "class MagpieRSS {"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 108,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "public function MagpieRSS( $source ) {"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 192,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "array_map(array('MagpieRSS', 'map_attrs'),"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 401,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "if ( !function_exists('fetch_rss') ) :"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 407,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 410,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @return MagpieRSS|false MagpieRSS object on success, false on failure."
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 412,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "function fetch_rss ($url) {"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 417,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "// error(\"fetch_rss called without a url\");"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 463,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "debug(\"MagpieRSS: Cache HIT\", E_USER_NOTICE);"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 536,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "} // end fetch_rss()"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 544,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 588,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 591,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @return MagpieRSS|bool"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 594,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "$rss = new MagpieRSS( $resp->results );"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 641,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 837,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "$this->error(\"MagpieRSS [debug] $debugmsg\", $lvl);"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 886,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "if ( !function_exists('wp_rss') ) :"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 892,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 897,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "function wp_rss( $url, $num_items = -1 ) {"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 898,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "if ( $rss = fetch_rss( $url ) ) {"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 921,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "if ( !function_exists('get_rss') ) :"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 927,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* to display. You can't display all of them like you can with wp_rss()"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 932,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "* @subpackage MagpieRSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 938,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "function get_rss ($url, $num_items = 5) { // Like get posts, but for RSS"
+      },
+      {
+        "path": "wp-includes/rss.php",
+        "line": 939,
+        "matched": [
+          "magpie_symbol_or_function"
+        ],
+        "text": "$rss = fetch_rss($url);"
+      }
+    ],
+    "runtime_magpie_symbol_references_outside_rss_files": [],
+    "deprecated_wrapper_references": [
+      {
+        "path": "wp-includes/rss-functions.php",
+        "line": 13,
+        "matched": [
+          "rss_php_include"
+        ],
+        "text": "_deprecated_file( basename( __FILE__ ), '2.1.0', WPINC . '/rss.php' );"
+      },
+      {
+        "path": "wp-includes/rss-functions.php",
+        "line": 14,
+        "matched": [
+          "rss_php_include"
+        ],
+        "text": "require_once ABSPATH . WPINC . '/rss.php';"
+      }
+    ],
+    "conclusion": "WordPress 7.0 core PHP references MagpieRSS runtime symbols only inside rss.php plus the deprecated rss-functions.php wrapper; broader plugin ecosystem pressure remains unscanned."
+  },
+  "decision": {
+    "boundary_id": "magpie_rss",
+    "current_decision": "renew_preserved_upstream_rss_php_exception",
+    "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+    "rationale": "MagpieRSS is deprecated compatibility code, SimplePie is the preferred feed path, WordPress 7.0 core PHP has no runtime MagpieRSS symbol pressure outside rss.php/rss-functions.php, and WPHX-312 behavior floors already cover parser, fetch/cache, display, and deprecated wrapper behavior. A direct Haxe port is not admitted before ecosystem pressure or generated original-path adapter evidence exists.",
+    "generated_replacement_blocked_until": [
+      "generated original-path adapter or explicit Haxe-owned implementation evidence for rss.php and rss-functions.php",
+      "PHP lint plus generated-shape/AST contracts for every diverged MagpieRSS public path",
+      "WPHX-312 parser, fetch/cache, display, and deprecated-wrapper fixtures remain passing after divergence",
+      "selected upstream feed/widget/dashboard PHPUnit and installed route evidence appropriate to any broadened claim",
+      "ecosystem/plugin scan proving direct MagpieRSS/fetch_rss/wp_rss/get_rss usage is either unsupported, preserved, or intentionally replaced",
+      "license/provenance receipt preserving WordPress GPL project treatment and MagpieRSS file headers",
+      "fallback matrix keeping preserved upstream rss.php active for malformed legacy feeds, transient cache quirks, and display helper edge cases not yet modeled"
+    ],
+    "fallback_matrix": [
+      {
+        "condition": "direct Haxe port cannot preserve MagpieRSS parser fields, namespace normalization, RSS/RDF/Atom quirks, malformed XML behavior, or PHP XML-extension error shape",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "replacement cannot preserve fetch_rss remote response conversion, RSSCache transient key behavior, cache hit/miss flags, or stale/cache quirks",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "replacement cannot preserve wp_rss/get_rss escaping/output quirks and failure return/output shape",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "core or plugin caller pressure depends on deprecated MagpieRSS globals, hooks, functions, class fields, or exact include timing beyond current fixtures",
+        "decision": "preserve_upstream_until_ecosystem_fixture_or_adapter_evidence_exists"
+      },
+      {
+        "condition": "license/provenance, generated wrapper shape, or candidate overlay records are incomplete",
+        "decision": "do_not_diverge_rss_php_or_rss_functions_php"
+      }
+    ]
+  },
+  "validation_result": {
+    "status": "passed",
+    "renewed_preserved_exception": true,
+    "planned_boundary_ids": [
+      "magpie_rss"
+    ],
+    "behavior_floor_count": 4,
+    "artifact_provenance_record_count": 2,
+    "source_record_count": 2,
+    "caller_scan_php_file_count": 1855,
+    "caller_match_count": 31,
+    "runtime_magpie_symbol_references_outside_rss_files": 0,
+    "rss_php_gpl_marker": true,
+    "rss_php_deprecated_marker": true,
+    "rss_php_load_feed_engine_marker": true,
+    "rss_functions_deprecated_marker": true,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "haxe_runtime_ownership_claimed": false
+  },
+  "claims": [
+    "MagpieRSS has a renewed preserved-artifact exception decision backed by WPHX-312 parser, fetch/cache, display, and deprecated wrapper behavior floors.",
+    "rss.php and rss-functions.php provenance, header markers, artifact provenance, and core PHP caller pressure are recorded before any distribution divergence.",
+    "Generated replacement or direct Haxe port claims remain blocked on explicit original-path adapter, ecosystem, installed, provenance, and behavior evidence."
+  ],
+  "non_claims": [
+    "This gate does not implement or claim Haxe-owned MagpieRSS runtime logic.",
+    "This gate does not emit generated rss.php or rss-functions.php public PHP replacements.",
+    "This gate does not retire copied/preserved rss.php or rss-functions.php artifacts.",
+    "This gate does not claim live external feed behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, RSS widget/dashboard installed parity, or broad plugin ecosystem compatibility.",
+    "The renewed exception is bounded preserved-artifact evidence, not a precedent that copied PHP is a durable implementation path."
+  ]
+}

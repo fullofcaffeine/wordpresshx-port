@@ -1,0 +1,94 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-16-magpie-rss-legacy-exception-gate",
+  "issue": {
+    "id": "wordpresshx-l76.36",
+    "external_ref": "WPHX-323.16",
+    "title": "Add MagpieRSS legacy exception gate"
+  },
+  "recorded_at": "2026-07-08T02:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "magpie_rss_renewed_preserved_artifact_exception_gate",
+  "artifact_scope": "wp-includes/rss.php and wp-includes/rss-functions.php",
+  "commands": [
+    "npm run wp:core:wphx-323-magpie-rss-legacy-exception",
+    "npm run wp:core:wphx-323-magpie-rss-legacy-exception:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-16-magpie-rss-legacy-exception-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-16-magpie-rss-legacy-exception-gate.v1.json",
+    "feed_vendor_gates_manifest": "manifests/wp-core/wphx-323-04-feed-vendor-replacement-gates.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:c60877e5f4eddc9d9c21b119b048704639131d19cccb653d279ff2bd03e0c563",
+  "validation_result": {
+    "status": "passed",
+    "renewed_preserved_exception": true,
+    "planned_boundary_ids": [
+      "magpie_rss"
+    ],
+    "behavior_floor_count": 4,
+    "artifact_provenance_record_count": 2,
+    "source_record_count": 2,
+    "caller_scan_php_file_count": 1855,
+    "caller_match_count": 31,
+    "runtime_magpie_symbol_references_outside_rss_files": 0,
+    "rss_php_gpl_marker": true,
+    "rss_php_deprecated_marker": true,
+    "rss_php_load_feed_engine_marker": true,
+    "rss_functions_deprecated_marker": true,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "haxe_runtime_ownership_claimed": false
+  },
+  "decision": {
+    "boundary_id": "magpie_rss",
+    "current_decision": "renew_preserved_upstream_rss_php_exception",
+    "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+    "rationale": "MagpieRSS is deprecated compatibility code, SimplePie is the preferred feed path, WordPress 7.0 core PHP has no runtime MagpieRSS symbol pressure outside rss.php/rss-functions.php, and WPHX-312 behavior floors already cover parser, fetch/cache, display, and deprecated wrapper behavior. A direct Haxe port is not admitted before ecosystem pressure or generated original-path adapter evidence exists.",
+    "generated_replacement_blocked_until": [
+      "generated original-path adapter or explicit Haxe-owned implementation evidence for rss.php and rss-functions.php",
+      "PHP lint plus generated-shape/AST contracts for every diverged MagpieRSS public path",
+      "WPHX-312 parser, fetch/cache, display, and deprecated-wrapper fixtures remain passing after divergence",
+      "selected upstream feed/widget/dashboard PHPUnit and installed route evidence appropriate to any broadened claim",
+      "ecosystem/plugin scan proving direct MagpieRSS/fetch_rss/wp_rss/get_rss usage is either unsupported, preserved, or intentionally replaced",
+      "license/provenance receipt preserving WordPress GPL project treatment and MagpieRSS file headers",
+      "fallback matrix keeping preserved upstream rss.php active for malformed legacy feeds, transient cache quirks, and display helper edge cases not yet modeled"
+    ],
+    "fallback_matrix": [
+      {
+        "condition": "direct Haxe port cannot preserve MagpieRSS parser fields, namespace normalization, RSS/RDF/Atom quirks, malformed XML behavior, or PHP XML-extension error shape",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "replacement cannot preserve fetch_rss remote response conversion, RSSCache transient key behavior, cache hit/miss flags, or stale/cache quirks",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "replacement cannot preserve wp_rss/get_rss escaping/output quirks and failure return/output shape",
+        "decision": "renew_preserved_upstream_rss_php_exception"
+      },
+      {
+        "condition": "core or plugin caller pressure depends on deprecated MagpieRSS globals, hooks, functions, class fields, or exact include timing beyond current fixtures",
+        "decision": "preserve_upstream_until_ecosystem_fixture_or_adapter_evidence_exists"
+      },
+      {
+        "condition": "license/provenance, generated wrapper shape, or candidate overlay records are incomplete",
+        "decision": "do_not_diverge_rss_php_or_rss_functions_php"
+      }
+    ]
+  },
+  "claims": [
+    "MagpieRSS has a renewed preserved-artifact exception decision backed by WPHX-312 parser, fetch/cache, display, and deprecated wrapper behavior floors.",
+    "rss.php and rss-functions.php provenance, header markers, artifact provenance, and core PHP caller pressure are recorded before any distribution divergence.",
+    "Generated replacement or direct Haxe port claims remain blocked on explicit original-path adapter, ecosystem, installed, provenance, and behavior evidence."
+  ],
+  "non_claims": [
+    "This gate does not implement or claim Haxe-owned MagpieRSS runtime logic.",
+    "This gate does not emit generated rss.php or rss-functions.php public PHP replacements.",
+    "This gate does not retire copied/preserved rss.php or rss-functions.php artifacts.",
+    "This gate does not claim live external feed behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, RSS widget/dashboard installed parity, or broad plugin ecosystem compatibility.",
+    "The renewed exception is bounded preserved-artifact evidence, not a precedent that copied PHP is a durable implementation path."
+  ]
+}
