@@ -12,13 +12,13 @@
   "inputs": [
     {
       "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "bytes": 73112,
-      "sha256": "sha256:638209b4eaa4e615ca9ffd26770c77b5bb697308608482cb0c7125690cc19255"
+      "bytes": 77407,
+      "sha256": "sha256:871c5c339c33849b29c248d83da0c735f3ec50ca40f6e54f4d66bad7e5a486ca"
     },
     {
       "path": "tools/wphx-php/run-file-segment-core-api.mjs",
-      "bytes": 10606,
-      "sha256": "sha256:65a650ca19196664ab6c2eb415ed7b1aced3409cf4c0672eea6bf11b1a38602a"
+      "bytes": 10730,
+      "sha256": "sha256:967cf4560736428e7c544bd14234e12da6adaa8547316d9c558f445cea9c55f5"
     },
     {
       "path": "tools/wphx-php/run-compiler-gap-inventory.mjs",
@@ -27,13 +27,18 @@
     },
     {
       "path": "tools/wphx-php/run-profile-core-promotion-audit.mjs",
-      "bytes": 23268,
-      "sha256": "sha256:7c63c319af493df86cb6ea97223f797f38fa3795c06c5006ebef44f72864f2ee"
+      "bytes": 24133,
+      "sha256": "sha256:0dbc4d5ae59b53cd216274260026a9f3b632118a58fb5d23bc0bea6b794c1039"
     },
     {
       "path": "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
       "bytes": 12841,
       "sha256": "sha256:e89cf89dff803daec7d89245fcdb0206a9cfefcca95b2980181ea342560322cd"
+    },
+    {
+      "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 13407,
+      "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb"
     },
     {
       "path": "manifests/wphx-php/include-side-effects.v1.json",
@@ -43,7 +48,7 @@
     {
       "path": "manifests/wphx-php/whole-file-class-http.v1.json",
       "bytes": 6391,
-      "sha256": "sha256:d26e1f679ae7b045b44c8f688d28150e3d3ad4da8bf8a0037dfd241201b127ae"
+      "sha256": "sha256:4cca62ffc666f68f408bfbde0337a4951fc7361b45f1117e2ed6ab444365a7f1"
     },
     {
       "path": "manifests/wphx-php/template-segment-admin-style.v1.json",
@@ -58,14 +63,15 @@
   ],
   "registry": {
     "compiler_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-    "adapter_count": 6,
+    "adapter_count": 7,
     "adapters": [
       "admin-hxx-markup-pilot",
       "deprecated-class-http",
       "include-side-effects",
       "template-segment-admin-style",
       "template-segment-nested-parent",
-      "template-segment-nested-partial"
+      "template-segment-nested-partial",
+      "theme-hxx-markup-pilot"
     ],
     "required_patterns": [
       "private typedef PhpFileSegmentPlan",
@@ -89,6 +95,16 @@
       ]
     },
     {
+      "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "bytes": 13407,
+      "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb",
+      "status": "passed",
+      "has_registry_feature": true,
+      "segment_plans": [
+        "theme-hxx-markup-pilot"
+      ]
+    },
+    {
       "path": "manifests/wphx-php/include-side-effects.v1.json",
       "bytes": 6325,
       "sha256": "sha256:b0f94d9af17bcba9f6f32f7190b89b2b7051b8676635284100129ad7b8a844f5",
@@ -101,7 +117,7 @@
     {
       "path": "manifests/wphx-php/whole-file-class-http.v1.json",
       "bytes": 6391,
-      "sha256": "sha256:d26e1f679ae7b045b44c8f688d28150e3d3ad4da8bf8a0037dfd241201b127ae",
+      "sha256": "sha256:4cca62ffc666f68f408bfbde0337a4951fc7361b45f1117e2ed6ab444365a7f1",
       "status": "passed",
       "has_registry_feature": true,
       "segment_plans": [
@@ -149,6 +165,28 @@
         "typed_hxx_markup_lowering",
         "notice_markup_output",
         "list_table_row_markup_output",
+        "escaped_output",
+        "include_return_value"
+      ]
+    },
+    {
+      "adapter": "theme-hxx-markup-pilot",
+      "path": "wp-content/themes/twentytwentysix/patterns/wphx-theme-hxx-markup-pilot.php",
+      "adoption_mode": "haxe_owned_template_unit",
+      "segments": [
+        "guard",
+        "declaration",
+        "script",
+        "literal_output",
+        "template_expression",
+        "return_exit"
+      ],
+      "include_semantics": [],
+      "observable_effects": [
+        "guard_return",
+        "typed_hxx_markup_lowering",
+        "theme_pattern_markup_output",
+        "theme_navigation_markup_output",
         "escaped_output",
         "include_return_value"
       ]
@@ -276,16 +314,16 @@
     "status": "passed",
     "registry_patterns_present": true,
     "named_script_switches_absent": true,
-    "registry_adapter_count": 6,
+    "registry_adapter_count": 7,
     "registry_adapters_match_metadata": true,
-    "segment_plan_adapter_count": 6,
+    "segment_plan_adapter_count": 7,
     "segment_plans_unsupported_empty": true,
     "downstream_manifests_passed": true,
     "registry_feature_recorded_in_downstream_manifests": true
   },
   "claims": [
     "WPHX PHP script adapters are now selected through a reusable file-segment plan registry instead of an emitScript name switch.",
-    "The existing direct include-side-effects, deprecated class-http, admin-style template segment, nested parent segment, and nested partial segment fixtures still emit segment plans with unsupported=[].",
+    "The existing direct include-side-effects, deprecated class-http, typed admin/theme HXX markup, admin-style template segment, nested parent segment, and nested partial segment fixtures still emit segment plans with unsupported=[].",
     "Affected segment/whole-file emission manifests record the file-segment.plan-registry core feature."
   ],
   "non_claims": [

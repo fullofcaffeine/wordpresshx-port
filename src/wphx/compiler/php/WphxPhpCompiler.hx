@@ -544,6 +544,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 		registerFileSegmentPlan(plans, includeSideEffectsSegmentPlan());
 		registerFileSegmentPlan(plans, deprecatedClassHttpSegmentPlan());
 		registerFileSegmentPlan(plans, adminHxxMarkupPilotPlan());
+		registerFileSegmentPlan(plans, themeHxxMarkupPilotPlan());
 		registerFileSegmentPlan(plans, templateSegmentAdminStylePlan());
 		registerFileSegmentPlan(plans, templateSegmentNestedParentPlan());
 		registerFileSegmentPlan(plans, templateSegmentNestedPartialPlan());
@@ -772,6 +773,108 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 					+ "\t'kind' => 'admin-hxx-markup-pilot',\n"
 					+ "\t'fragments' => 2,\n"
 					+ "\t'marker' => 'hxx:ADMIN',\n"
+					+ ");")
+			]
+		};
+	}
+
+	function themeHxxMarkupPilotPlan():PhpFileSegmentPlan
+	{
+		return {
+			adapter: "theme-hxx-markup-pilot",
+			adoptionMode: "haxe_owned_template_unit",
+			features: [
+				"segment.guard",
+				"segment.declaration",
+				"segment.script",
+				"segment.literal-output",
+				"segment.template-expression",
+				"segment.return",
+				"segment.caller-scope-local",
+				"hxx.typed-theme-markup-unit",
+				"hxx.wordpress-escaping"
+			],
+			segments: [
+				"guard",
+				"declaration",
+				"script",
+				"literal_output",
+				"template_expression",
+				"return_exit"
+			],
+			callerScope: [segmentFact("reads_locals", ["hero", "navigation"])],
+			includeSemantics: [],
+			observableEffects: [
+				"guard_return",
+				"typed_hxx_markup_lowering",
+				"theme_pattern_markup_output",
+				"theme_navigation_markup_output",
+				"escaped_output",
+				"include_return_value"
+			],
+			fileSegments: [
+				PhpSegment("if (!defined('ABSPATH')) {\n"
+					+ "\treturn 'ABSPATH_REQUIRED';\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_escape')) {\n"
+					+ "\tfunction wphx_theme_hxx_escape($value) {\n"
+					+ "\t\treturn htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_hero_class')) {\n"
+					+ "\tfunction wphx_theme_hxx_hero_class($hero) {\n"
+					+ "\t\t$classes = array('wp-block-group', 'wphx-theme-hero');\n"
+					+ "\t\tif (!empty($hero['alignWide'])) {\n"
+					+ "\t\t\tarray_splice($classes, 1, 0, array('alignwide'));\n"
+					+ "\t\t}\n"
+					+ "\t\treturn implode(' ', $classes);\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_nav_item_class')) {\n"
+					+ "\tfunction wphx_theme_hxx_nav_item_class($item) {\n"
+					+ "\t\t$classes = array('wp-block-navigation-item');\n"
+					+ "\t\tif (!empty($item['current'])) {\n"
+					+ "\t\t\t$classes[] = 'current-menu-item';\n"
+					+ "\t\t}\n"
+					+ "\t\treturn implode(' ', $classes);\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_render_hero')) {\n"
+					+ "\tfunction wphx_theme_hxx_render_hero($hero) {\n"
+					+ "\t\treturn '<section class=\"' . wphx_theme_hxx_escape(wphx_theme_hxx_hero_class($hero)) . '\">' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\" . '<div class=\"wp-block-group__inner-container\">' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\\t\" . '<h2>' . wphx_theme_hxx_escape($hero['title']) . '</h2>' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\\t\" . '<p>' . wphx_theme_hxx_escape($hero['summary']) . '</p>' . \"\\n\"\n"
+					+
+					"\t\t\t. \"\\t\\t\" . '<a class=\"wp-block-button__link\" href=\"' . wphx_theme_hxx_escape($hero['ctaHref']) . '\">' . wphx_theme_hxx_escape($hero['ctaLabel']) . '</a>' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\" . '</div>' . \"\\n\"\n"
+					+ "\t\t\t. '</section>' . \"\\n\";\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_render_navigation_items')) {\n"
+					+ "\tfunction wphx_theme_hxx_render_navigation_items($items) {\n"
+					+ "\t\t$html = '';\n"
+					+ "\t\tforeach ($items as $item) {\n"
+					+
+					"\t\t\t$html .= \"\\n\\t\\t\" . '<li class=\"' . wphx_theme_hxx_escape(wphx_theme_hxx_nav_item_class($item)) . '\"><a href=\"' . wphx_theme_hxx_escape($item['href']) . '\">' . wphx_theme_hxx_escape($item['label']) . '</a></li>';\n"
+					+ "\t\t}\n"
+					+ "\t\treturn $html . \"\\n\\t\";\n"
+					+ "\t}\n"
+					+ "}\n\n"
+					+ "if (!function_exists('wphx_theme_hxx_render_navigation')) {\n"
+					+ "\tfunction wphx_theme_hxx_render_navigation($navigation) {\n"
+					+ "\t\treturn '<nav class=\"wp-block-navigation\" aria-label=\"' . wphx_theme_hxx_escape($navigation['ariaLabel']) . '\">' . \"\\n\"\n"
+					+ "\t\t\t. \"\\t\" . '<ul class=\"wp-block-navigation__container\">'\n"
+					+ "\t\t\t. wphx_theme_hxx_render_navigation_items($navigation['items'])\n"
+					+ "\t\t\t. '</ul>' . \"\\n\"\n"
+					+ "\t\t\t. '</nav>' . \"\\n\";\n"
+					+ "\t}\n"
+					+ "}\n"),
+				OutputSegment("<?php echo wphx_theme_hxx_render_hero($hero); ?><?php echo wphx_theme_hxx_render_navigation($navigation); ?>"),
+				PhpSegment("return array(\n"
+					+ "\t'kind' => 'theme-hxx-markup-pilot',\n"
+					+ "\t'fragments' => 2,\n"
+					+ "\t'marker' => 'hxx:THEME',\n"
 					+ ");")
 			]
 		};

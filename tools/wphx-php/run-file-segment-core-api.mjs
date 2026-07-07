@@ -18,6 +18,7 @@ const MANIFEST = "manifests/wphx-php/file-segment-core-api.v1.json";
 const RECEIPT = "receipts/compiler/wphx-comp-php-file-segment-core-api.v1.json";
 const EVIDENCE_MANIFESTS = [
   "manifests/wp-core/wphx-315-08-admin-hxx-markup-pilot.v1.json",
+  "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
   "manifests/wphx-php/include-side-effects.v1.json",
   "manifests/wphx-php/whole-file-class-http.v1.json",
   "manifests/wphx-php/template-segment-admin-style.v1.json",
@@ -29,7 +30,8 @@ const EXPECTED_ADAPTERS = [
   "include-side-effects",
   "template-segment-admin-style",
   "template-segment-nested-parent",
-  "template-segment-nested-partial"
+  "template-segment-nested-partial",
+  "theme-hxx-markup-pilot"
 ];
 const EXPECTED_REGISTRY_FEATURE = "file-segment.plan-registry";
 const REQUIRED_COMPILER_PATTERNS = [
@@ -205,7 +207,7 @@ function main() {
     },
     claims: [
       "WPHX PHP script adapters are now selected through a reusable file-segment plan registry instead of an emitScript name switch.",
-      "The existing direct include-side-effects, deprecated class-http, admin-style template segment, nested parent segment, and nested partial segment fixtures still emit segment plans with unsupported=[].",
+      "The existing direct include-side-effects, deprecated class-http, typed admin/theme HXX markup, admin-style template segment, nested parent segment, and nested partial segment fixtures still emit segment plans with unsupported=[].",
       "Affected segment/whole-file emission manifests record the file-segment.plan-registry core feature."
     ],
     non_claims: [

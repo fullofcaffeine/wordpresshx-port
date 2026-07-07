@@ -1,0 +1,70 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-320-02-theme-hxx-markup-pilot",
+  "issue": {
+    "id": "wordpresshx-rwsf",
+    "external_ref": "WPHX-320.02",
+    "title": "WPHX-320.02 - Pilot typed HXX default theme markup authoring"
+  },
+  "recorded_at": "2026-07-07T18:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "role": "typed HXX theme markup pilot manifest",
+      "sha256": "sha256:62a0f7f63ecf3118e85b3e4e1707da96aecdd6705f5c469508075a3fa01185eb"
+    },
+    {
+      "path": "manifests/ownership/wphx-320-02-theme-hxx-markup-pilot.v1.json",
+      "role": "ownership manifest for typed HXX theme markup pilot"
+    },
+    {
+      "path": "src/wphx/wp/themes/ThemeHxxMarkupPilot.hx",
+      "role": "typed Haxe HXX-style default theme markup source"
+    },
+    {
+      "path": "fixtures/wphx-php/theme-hxx-markup-pilot.hxml",
+      "role": "WPHX PHP original-path segment shell driver"
+    },
+    {
+      "path": "tools/wp-core/run-theme-hxx-markup-pilot.mjs",
+      "role": "deterministic typed HXX/theme markup pilot runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-320-theme-hxx-markup-pilot",
+    "npm run wp:core:wphx-320-theme-hxx-markup-pilot:check",
+    "npm run wphx:php:file-segment-core-api:check",
+    "npm run wphx:php:profile-core-promotion-audit:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate"
+  ],
+  "status": "passed",
+  "evidence_class": "typed_hxx_markup_authoring",
+  "artifact_scope": "representative_default_theme_hero_pattern_and_navigation_markup",
+  "validation_result": {
+    "status": "passed",
+    "typed_haxe_output_matches_expected": true,
+    "oracle_candidate_behavior_match": true,
+    "typed_haxe_candidate_output_match": true,
+    "guard_behavior_passed": true,
+    "php_lint_passed": true,
+    "source_escape_audit_passed": true,
+    "unsupported_empty": true,
+    "haxe_owned_template_unit_claimed": true,
+    "public_php_replacement_claimed": false,
+    "installed_wordpress_route_execution_claimed": false,
+    "installed_theme_rendering_parity_claimed": false
+  },
+  "claims": [
+    "Two representative default-theme hero/navigation markup units are authored as typed Haxe HXX-style AST helpers and render deterministic WordPress-compatible HTML.",
+    "The same representative output is emitted through a WPHX PHP original-path file-segment shell with adoption_mode=haxe_owned_template_unit.",
+    "PHP oracle, typed Haxe renderer, and WPHX PHP candidate shell match for escaped hero markup, navigation markup, combined output, include return value, and ABSPATH guard behavior."
+  ],
+  "non_claims": [
+    "This does not claim broad behavior parity for bundled WordPress default themes.",
+    "This does not claim installed WordPress theme rendering, template-loader execution, database-backed content, loop/query state, hooks, filters, browser/e2e parity, or visual parity.",
+    "This does not claim generated public PHP replacement for existing default theme files.",
+    "This does not claim arbitrary existing mixed PHP/HTML theme templates can be migrated through HXX without segment plans and caller-scope evidence.",
+    "This does not claim full inline HXX parser support; the pilot uses typed AST helpers as the accepted first authoring path."
+  ]
+}

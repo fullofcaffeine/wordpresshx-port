@@ -14,8 +14,8 @@
     "source_inputs": [
       {
         "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-        "bytes": 73112,
-        "sha256": "sha256:638209b4eaa4e615ca9ffd26770c77b5bb697308608482cb0c7125690cc19255"
+        "bytes": 77407,
+        "sha256": "sha256:871c5c339c33849b29c248d83da0c735f3ec50ca40f6e54f4d66bad7e5a486ca"
       },
       {
         "path": "src/wphx/compiler/php/WphxPhpWordPressAdapters.hx",
@@ -41,9 +41,9 @@
   },
   "summary": {
     "method_adapter_count": 54,
-    "script_adapter_count": 6,
-    "classified_adapter_count": 60,
-    "core_ir_candidate_count": 32,
+    "script_adapter_count": 7,
+    "classified_adapter_count": 61,
+    "core_ir_candidate_count": 33,
     "profile_only_abi_constraint_count": 22,
     "temporary_bridge_count": 3,
     "backend_promotion_pressure_count": 3,
@@ -703,7 +703,7 @@
       "registry_kind": "script_adapter",
       "adapter": "admin-hxx-markup-pilot",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 687,
+      "source_line": 688,
       "domain": "admin_hxx_template_unit",
       "classification": "core_ir_candidate",
       "follow_up_owner": "WPHX-315.08",
@@ -715,7 +715,7 @@
       "registry_kind": "script_adapter",
       "adapter": "deprecated-class-http",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 605,
+      "source_line": 606,
       "domain": "deprecated_file_whole_file_pilot",
       "classification": "core_ir_candidate",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -727,7 +727,7 @@
       "registry_kind": "script_adapter",
       "adapter": "include-side-effects",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 561,
+      "source_line": 562,
       "domain": "direct_file_scope",
       "classification": "core_ir_candidate",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -739,7 +739,7 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-admin-style",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 783,
+      "source_line": 886,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -751,7 +751,7 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-nested-parent",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 865,
+      "source_line": 968,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
@@ -763,13 +763,25 @@
       "registry_kind": "script_adapter",
       "adapter": "template-segment-nested-partial",
       "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
-      "source_line": 938,
+      "source_line": 1041,
       "domain": "template_segment",
       "classification": "temporary_bridge",
       "follow_up_owner": "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API",
       "follow_up_issue_id": "wordpresshx-jcyk",
       "rationale": "The template-segment switches are minimized mixed-template probes; keeping them named is acceptable only while the segment model is still fixture-bounded.",
       "promotion_gate": "Replace named template script switches with generic segment registration and caller-scope metadata before claiming mixed-template ownership."
+    },
+    {
+      "registry_kind": "script_adapter",
+      "adapter": "theme-hxx-markup-pilot",
+      "source_path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+      "source_line": 784,
+      "domain": "theme_hxx_template_unit",
+      "classification": "core_ir_candidate",
+      "follow_up_owner": "WPHX-320.02",
+      "follow_up_issue_id": "wordpresshx-rwsf",
+      "rationale": "The default theme HXX pilot is a Haxe-owned typed markup unit, but it still enters WPHX PHP through a named file-segment adapter. The reusable compiler pressure is typed theme markup AST/input metadata lowering into a generic segment plan.",
+      "promotion_gate": "Before adding additional HXX-owned theme/template units, promote the typed AST helper path into a reusable HXX/file-segment lowering API with source-position diagnostics, invalid-template checks, theme template-loader context metadata, and browser/visual evidence gates."
     }
   ],
   "unclassified_adapters": [],
@@ -778,9 +790,9 @@
     "status": "passed",
     "failures": [],
     "method_adapter_count": 54,
-    "script_adapter_count": 6,
+    "script_adapter_count": 7,
     "classified_method_adapter_count": 54,
-    "classified_script_adapter_count": 6,
+    "classified_script_adapter_count": 7,
     "unclassified_count": 0,
     "stale_classification_count": 0,
     "duplicate_assignment_count": 0,
@@ -791,7 +803,7 @@
       },
       {
         "value": "core_ir_candidate",
-        "count": 32
+        "count": 33
       },
       {
         "value": "profile_only_abi_constraint",
@@ -850,11 +862,19 @@
       {
         "value": "template_segment",
         "count": 3
+      },
+      {
+        "value": "theme_hxx_template_unit",
+        "count": 1
       }
     ],
     "owner_counts": [
       {
         "value": "WPHX-315.08",
+        "count": 1
+      },
+      {
+        "value": "WPHX-320.02",
         "count": 1
       },
       {

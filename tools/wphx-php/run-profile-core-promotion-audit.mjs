@@ -30,7 +30,8 @@ const FOLLOW_UP_ISSUES = {
   "WPHX-COMP-PHP-FILE-SEGMENT-CORE-API": "wordpresshx-jcyk",
   "WPHX-COMP-PHP-FILE-OWNERSHIP-INVENTORIES": "wordpresshx-9esi",
   "WPHX-COMP-PHP-PRIVATE-EMITTER-PILOT": "wordpresshx-4j86",
-  "WPHX-315.08": "wordpresshx-u87c"
+  "WPHX-315.08": "wordpresshx-u87c",
+  "WPHX-320.02": "wordpresshx-rwsf"
 };
 
 function sha256(value) {
@@ -98,6 +99,7 @@ function scriptAdapterRegistry() {
 function domainFor(adapter, registryKind) {
   if (registryKind === "script_adapter") {
     if (adapter === "admin-hxx-markup-pilot") return "admin_hxx_template_unit";
+    if (adapter === "theme-hxx-markup-pilot") return "theme_hxx_template_unit";
     if (adapter.startsWith("template-segment-")) return "template_segment";
     if (adapter === "include-side-effects") return "direct_file_scope";
     if (adapter === "deprecated-class-http") return "deprecated_file_whole_file_pilot";
@@ -259,6 +261,16 @@ function classificationGroups() {
         "The admin HXX pilot is a Haxe-owned typed markup unit, but it still enters WPHX PHP through a named file-segment adapter. The reusable compiler pressure is typed markup AST/input metadata lowering into a generic segment plan.",
       promotion_gate:
         "Before adding additional HXX-owned admin/template units, promote the typed AST helper path into a reusable HXX/file-segment lowering API with source-position diagnostics and invalid-template checks."
+    },
+    {
+      registry_kind: "script_adapter",
+      classification: "core_ir_candidate",
+      follow_up_owner: "WPHX-320.02",
+      adapters: ["theme-hxx-markup-pilot"],
+      rationale:
+        "The default theme HXX pilot is a Haxe-owned typed markup unit, but it still enters WPHX PHP through a named file-segment adapter. The reusable compiler pressure is typed theme markup AST/input metadata lowering into a generic segment plan.",
+      promotion_gate:
+        "Before adding additional HXX-owned theme/template units, promote the typed AST helper path into a reusable HXX/file-segment lowering API with source-position diagnostics, invalid-template checks, theme template-loader context metadata, and browser/visual evidence gates."
     },
     {
       registry_kind: "script_adapter",
