@@ -1,0 +1,50 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-02-http-vendor-replacement-gates",
+  "issue": {
+    "id": "wordpresshx-l76.30",
+    "external_ref": "WPHX-323.02",
+    "title": "Plan HTTP vendor replacement gates"
+  },
+  "recorded_at": "2026-07-07T14:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "http_vendor_replacement_gate_plan",
+  "artifact_scope": "requests-and-snoopy-preserved-http-vendor-boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-http-vendor-replacement-gates",
+    "npm run wp:core:wphx-323-http-vendor-replacement-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-02-http-vendor-replacement-gates.v1.json",
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:3c2c07ac024302e1612ece126477f4d67fe4c673ae2be575ba6b86fb7b791fdb",
+  "validation_result": {
+    "planned_boundary_ids": [
+      "requests",
+      "snoopy"
+    ],
+    "planned_boundary_count": 2,
+    "requests_source_inventory_count": 65,
+    "requests_distribution_artifact_count": 65,
+    "snoopy_source_inventory_count": 1,
+    "snoopy_distribution_artifact_count": 1,
+    "gate_count": 7,
+    "downstream_issue_count": 3,
+    "existing_evidence_count": 8,
+    "requests_required_area_count": 16,
+    "snoopy_required_area_count": 15
+  },
+  "claims": [
+    "Requests and Snoopy now have explicit HTTP vendor replacement gate plans linked to WPHX-323.01.",
+    "Requests replacement is blocked on API/reflection, generated wrapper shape, live/local transport parity, fallback, and license/provenance gates.",
+    "Snoopy replacement is blocked on legacy API, caller/ecosystem, renewed-exception, fallback, and license/provenance gates."
+  ],
+  "non_claims": [
+    "This plan does not implement a Haxe-owned Requests or Snoopy runtime.",
+    "This plan does not replace copied Requests or class-snoopy.php distribution artifacts.",
+    "This plan does not claim live HTTP, TLS, proxy, DNS, curl, streams/fsockopen, or installed WordPress parity.",
+    "This plan does not claim generated public PHP wrapper ownership or ecosystem compatibility by itself."
+  ]
+}
