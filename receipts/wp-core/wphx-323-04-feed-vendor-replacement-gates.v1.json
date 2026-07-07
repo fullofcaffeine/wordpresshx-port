@@ -1,0 +1,61 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-04-feed-vendor-replacement-gates",
+  "issue": {
+    "id": "wordpresshx-l76.28",
+    "external_ref": "WPHX-323.04",
+    "title": "Plan feed vendor replacement gates"
+  },
+  "recorded_at": "2026-07-08T00:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "feed_vendor_replacement_gate_plan",
+  "artifact_scope": "simplepie-and-magpie-rss-preserved-vendor-boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-feed-vendor-replacement-gates",
+    "npm run wp:core:wphx-323-feed-vendor-replacement-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-04-feed-vendor-replacement-gates.v1.json",
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:173c005823acd5b3eaf28037c003c8b7309068c47c2edfb5f09bdbdddf030f86",
+  "validation_result": {
+    "planned_boundary_ids": [
+      "simplepie",
+      "magpie_rss"
+    ],
+    "planned_boundary_count": 2,
+    "simplepie_source_inventory_count": 82,
+    "simplepie_distribution_artifact_count": 82,
+    "magpie_source_inventory_count": 1,
+    "magpie_distribution_artifact_count": 1,
+    "feed_support_artifact_count": 1,
+    "source_record_count": 83,
+    "support_source_record_count": 1,
+    "artifact_provenance_record_count": 84,
+    "gate_count": 5,
+    "downstream_issue_count": 4,
+    "existing_evidence_count": 11,
+    "simplepie_bsd_3_clause_marker_count": 81,
+    "simplepie_psr_dependency_file_count": 17,
+    "simplepie_version_markers": [
+      "1.9.0"
+    ],
+    "magpie_gpl_marker": true,
+    "magpie_deprecated_marker": true
+  },
+  "claims": [
+    "SimplePie and MagpieRSS now have a machine-readable replacement gate plan linked to WPHX-323.01 and WPHX-323 preserved-vendor closure.",
+    "The selected SimplePie path is generated wrapper around an upstream-equivalent dependency with preserved upstream fallback until API/reflection, corpus, wrapper/cache/transport, and provenance/replacement decision gates pass.",
+    "The selected MagpieRSS path is a renewed preserved-artifact exception with parser/cache/display fixtures, caller review, provenance, and replacement-decision evidence.",
+    "Existing WPHX-312 feed, cache, widget, block, and installed-style evidence is recorded as prerequisite behavior floor, not copied artifact retirement."
+  ],
+  "non_claims": [
+    "This plan does not implement a Haxe-owned SimplePie or MagpieRSS runtime.",
+    "This plan does not generate, validate, or distribute public SimplePie wrapper files.",
+    "This plan does not replace copied SimplePie, rss.php, rss-functions.php, or WordPress feed wrapper public PHP artifacts.",
+    "This plan does not claim live external feed provider behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, browser/widget/block parity, or installed WordPress feed parity.",
+    "Existing WPHX-312 evidence remains preserved/copy-oracle, deterministic wrapper, and installed-style bridge evidence, not durable public PHP ownership."
+  ]
+}
