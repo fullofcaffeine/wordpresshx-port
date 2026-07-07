@@ -1,0 +1,54 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-320-01-default-theme-php-surface",
+  "issue": {
+    "id": "wordpresshx-l76.25.1",
+    "external_ref": "WPHX-320.01",
+    "title": "WPHX-320.01 - Inventory default theme PHP surface"
+  },
+  "recorded_at": "2026-07-06T12:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-320-01-default-theme-php-surface.v1.json",
+      "role": "default theme PHP surface manifest",
+      "sha256": "sha256:458b6bd573301d8f58fc8a051677e393d32f0dec53edd855d839c56f99ebd3fe"
+    },
+    {
+      "path": "manifests/ownership/wphx-320-01-default-theme-php-surface.v1.json",
+      "role": "default theme PHP surface ownership manifest"
+    },
+    {
+      "path": "tools/wp-core/run-default-theme-php-surface.mjs",
+      "role": "deterministic default theme PHP surface inventory generator"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-320-default-theme-php-surface",
+    "npm run wp:core:wphx-320-default-theme-php-surface:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "related_receipts": [
+    "receipt:wphx-322-php-first-party-manifest-closure",
+    "receipt:wphx-310-domain-closure",
+    "receipt:wphx-315-08-admin-hxx-markup-pilot"
+  ],
+  "summary": "Inventories the bounded WPHX-320 bundled default theme PHP surface, reconciles WPHX-322 source/artifact coverage, records theme/template role groupings, related tests, future HXX candidates, cross-domain handoffs, next gates, and explicit non-claims.",
+  "manifest_sha256": "sha256:458b6bd573301d8f58fc8a051677e393d32f0dec53edd855d839c56f99ebd3fe",
+  "validation_result": {
+    "status": "passed",
+    "validation_failures": [],
+    "source_files": 582,
+    "distribution_artifacts": 165,
+    "abi_entries": 583,
+    "upstream_tests": 168,
+    "behavior_parity_claimed": false
+  },
+  "non_claims": [
+    "No generated public PHP replacement for bundled default theme PHP files.",
+    "No Haxe-owned default theme runtime logic or theme template execution.",
+    "No installed theme rendering parity, visual parity, browser/e2e parity, or database-backed front-end behavior.",
+    "No broad HXX/HHX migration of existing mixed PHP/HTML theme files.",
+    "No generated overlays or generated original-path adapter ownership."
+  ]
+}
