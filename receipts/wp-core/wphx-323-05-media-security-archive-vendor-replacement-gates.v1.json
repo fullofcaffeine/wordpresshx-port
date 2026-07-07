@@ -1,0 +1,69 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-05-media-security-archive-vendor-replacement-gates",
+  "issue": {
+    "id": "wordpresshx-l76.31",
+    "external_ref": "WPHX-323.05",
+    "title": "Plan media security archive vendor replacement gates"
+  },
+  "recorded_at": "2026-07-08T05:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "media_security_archive_vendor_replacement_gate_plan",
+  "artifact_scope": "getid3-sodium-compat-pclzip-phpass-preserved-vendor-boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-media-security-archive-vendor-replacement-gates",
+    "npm run wp:core:wphx-323-media-security-archive-vendor-replacement-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json"
+  },
+  "manifest_sha256": "sha256:5ef686d53564ee79efa724fba0647b9191868e039b73e5d2d2203d6ca958aee5",
+  "validation_result": {
+    "status": "passed",
+    "planned_boundary_ids": [
+      "getid3",
+      "sodium_compat",
+      "pclzip",
+      "phpass"
+    ],
+    "planned_boundary_count": 4,
+    "source_record_count": 122,
+    "artifact_provenance_record_count": 122,
+    "gate_count": 5,
+    "downstream_issue_count": 5,
+    "existing_evidence_count": 8,
+    "getid3_php_file_count": 16,
+    "sodium_compat_php_file_count": 104,
+    "pclzip_php_file_count": 1,
+    "phpass_php_file_count": 1,
+    "host_primitive_backed_boundary_count": 3,
+    "renewed_exception_boundary_count": 1,
+    "haxe_owned_vendor_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "security_review_completed_claimed": false
+  },
+  "downstream_issue_refs": [
+    "WPHX-323.18",
+    "WPHX-323.19",
+    "WPHX-323.20",
+    "WPHX-323.21",
+    "WPHX-323.22"
+  ],
+  "claims": [
+    "getID3, sodium_compat, PclZip, and phpass now have a machine-readable replacement gate plan linked to WPHX-323.01 and WPHX-323 preserved-vendor closure.",
+    "The selected getID3 path is a renewed preserved-artifact exception until media metadata corpus, WPHX-313 wrapper, provenance, and file-format risk evidence admit a narrower path.",
+    "The selected sodium_compat, PclZip, and phpass paths are host-primitive-backed replacement candidates with preserved upstream fallback until security/differential/provenance gates pass.",
+    "Concrete downstream gates WPHX-323.18 through WPHX-323.22 are recorded for security, media, archive, password, and final decision evidence."
+  ],
+  "non_claims": [
+    "This plan does not implement Haxe-owned getID3, sodium_compat, PclZip, or phpass runtime logic.",
+    "This plan does not generate, validate, or distribute public replacement PHP for media/security/archive/auth vendor boundaries.",
+    "This plan does not retire copied getID3, sodium_compat, PclZip, or phpass artifacts.",
+    "This plan does not claim cryptographic security parity, archive extraction security, media parser coverage, authentication installed parity, installer/upgrader installed parity, or ecosystem compatibility.",
+    "Existing WPHX-306, WPHX-313, WPHX-315, and WPHX-319 evidence remains prerequisite floor/context, not durable vendor replacement ownership."
+  ]
+}
