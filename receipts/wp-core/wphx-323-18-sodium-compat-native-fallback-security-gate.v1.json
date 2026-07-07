@@ -1,0 +1,59 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-18-sodium-compat-native-fallback-security-gate",
+  "issue": {
+    "id": "wordpresshx-gufh",
+    "external_ref": "WPHX-323.18",
+    "title": "Add sodium_compat native fallback security gate"
+  },
+  "recorded_at": "2026-07-08T06:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_sodium_compat_native_direct_fallback_security_gate",
+  "artifact_scope": "wordpress-7.0-sodium-compat-preserved-package-native-direct-fallback",
+  "commands": [
+    "npm run wp:core:wphx-323-sodium-compat-native-fallback-security",
+    "npm run wp:core:wphx-323-sodium-compat-native-fallback-security:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-18-sodium-compat-native-fallback-security-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-18-sodium-compat-native-fallback-security-gate.v1.json",
+    "parent_media_security_archive_gate_manifest": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "parent_vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:4b7f725be3581bba3908ae26689ca1244eb87185b673e364abc2bd234a2305fb",
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 104,
+    "notice_file_count": 4,
+    "artifact_provenance_record_count": 104,
+    "covered_symbol_count": 33,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_file_count": 104,
+    "candidate_lint_file_count": 104,
+    "native_sodium_extension_loaded": true,
+    "direct_pure_php_fallback_forced": true,
+    "php_no_ini_sodium_extension_off_available": false,
+    "php_no_ini_sodium_extension_loaded": true,
+    "php_polyfill_guard_count": 114,
+    "fallback_marker_file_count": 6
+  },
+  "claims": {
+    "copied_sodium_compat_package_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "native_sodium_on_direct_fallback_differential_recorded": true,
+    "real_extension_off_installed_runtime_claimed": false,
+    "haxe_owned_crypto_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_sodium_compat_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned sodium_compat or cryptographic runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/sodium_compat.",
+    "This gate does not claim copied sodium_compat artifact retirement.",
+    "This gate does not prove constant-time behavior or replace security audit requirements for timing-sensitive crypto code.",
+    "This gate does not prove installed WordPress behavior on a host where ext/sodium is genuinely unavailable; the local PHP binary keeps ext/sodium loaded even under php -n.",
+    "The direct fallback observations are preserved-package evidence using ParagonIE_Sodium_Compat::$disableFallbackForUnitTests, not a WPHX host-primitive implementation."
+  ]
+}

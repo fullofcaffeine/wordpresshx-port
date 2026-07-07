@@ -1,0 +1,4111 @@
+{
+  "schema": "wphx.wp-core.sodium-compat-native-fallback-security-gate.v1",
+  "issue": {
+    "id": "wordpresshx-gufh",
+    "external_ref": "WPHX-323.18",
+    "title": "Add sodium_compat native fallback security gate"
+  },
+  "generated_at": "2026-07-08T06:00:00.000Z",
+  "generator": "tools/wp-core/run-sodium-compat-native-fallback-security-gate.mjs",
+  "evidence_class": "preserved_sodium_compat_native_direct_fallback_security_gate",
+  "boundary_id": "sodium_compat",
+  "source_path": "src/wp-includes/sodium_compat",
+  "distribution_path": "wp-includes/sodium_compat",
+  "inputs": {
+    "vendor_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "media_security_archive_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+      "bytes": 180582,
+      "sha256": "sha256:5ef686d53564ee79efa724fba0647b9191868e039b73e5d2d2203d6ca958aee5"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "wphx_306_password_application_fixture": {
+      "path": "manifests/wp-core/wphx-306-05-password-application-fixture.v1.json",
+      "bytes": 10478,
+      "sha256": "sha256:6e29638146bb3d94bb31d4a9f8517364dca5e344eca4c90cf2e3d90b622a3755"
+    },
+    "wphx_306_auth_installed_distribution_gate": {
+      "path": "manifests/wp-core/wphx-306-07-auth-installed-distribution-gate.v1.json",
+      "bytes": 33944,
+      "sha256": "sha256:fd9fe3961c85be883c9cd753967345d27e29678683fcc2e096828e558bdfde57"
+    }
+  },
+  "replacement_strategy": {
+    "current_strategy": "preserved_upstream_vendor_boundary",
+    "planned_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+    "parent_gate_id": "sodium-compat-api-security-native-fallback",
+    "fallback_policy": "Preserve upstream sodium_compat whenever native sodium is unavailable, error shapes diverge, timing-sensitive behavior is unreviewed, or coverage is incomplete.",
+    "removal_gate": "Do not retire copied sodium_compat artifacts until WPHX-323.18 records API/security/native differential evidence and WPHX-323.22 accepts the decision."
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/sodium_compat/autoload-php7.php",
+      "distribution_path": "wp-includes/sodium_compat/autoload-php7.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/autoload-php7.php",
+      "bytes": 890,
+      "sha256": "sha256:1578b1c6f97fe3bd1417e6b493c4f55b1666659b1e6dafa3b22d7730f90f1144"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/autoload.php",
+      "distribution_path": "wp-includes/sodium_compat/autoload.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/autoload.php",
+      "bytes": 3117,
+      "sha256": "sha256:6d07afe8f71a5cd49d55261a1d18467d1b5fbb9aff1ddfe71dae92a1a04f6731"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/constants.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/constants.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/constants.php",
+      "bytes": 4161,
+      "sha256": "sha256:e211d55b064f9f8c6994e16efc6d3308ef943ebf1845c8d224e694f2660c10c3"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/namespaced.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/namespaced.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/namespaced.php",
+      "bytes": 1345,
+      "sha256": "sha256:476eb188ce7b66400c21748efb5accfc282ea02474a793042594452ee582392a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/php72compat.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/php72compat.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/php72compat.php",
+      "bytes": 47347,
+      "sha256": "sha256:45369eb57707c4b2b43333e57a018a3f2bc8372c35524189c70aa44e36592b74"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/php72compat_const.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/php72compat_const.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/php72compat_const.php",
+      "bytes": 4597,
+      "sha256": "sha256:040aaf18aa07506264d40a64e83e8dc8e60a0c704bc5685f9301ec00fc527f07"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/php84compat.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/php84compat.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/php84compat.php",
+      "bytes": 3656,
+      "sha256": "sha256:153ca2d911ca75988264abc5be241fd0331bbd5d2580fe502ec6e6f89361d388"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/php84compat_const.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/php84compat_const.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/php84compat_const.php",
+      "bytes": 401,
+      "sha256": "sha256:5164dd202126ef19dfdb7303347bb3c6977f9ef45c6b117c02fde01d3ab499d6"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/ristretto255.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/ristretto255.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/ristretto255.php",
+      "bytes": 7977,
+      "sha256": "sha256:02ec4fdd5a82cc16b00f186a34e0595d41e93d154b09847f1bf4a021068d81df"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/sodium_compat.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/sodium_compat.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/sodium_compat.php",
+      "bytes": 27446,
+      "sha256": "sha256:f5674de460faa89c032b8c62e885a16b6e60e04a71e953b8a0d8b82f389aae50"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/lib/stream-xchacha20.php",
+      "distribution_path": "wp-includes/sodium_compat/lib/stream-xchacha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/lib/stream-xchacha20.php",
+      "bytes": 2075,
+      "sha256": "sha256:2e1269a2d5bb91448bea51525d76c6eb33a70acf69eb412d8425ba04b8aaa28b"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Compat.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Compat.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Compat.php",
+      "bytes": 86,
+      "sha256": "sha256:ae59dfb04b30ad6a6999d29826c86250393010df28c2f0e11b824280a6a579d4"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+      "bytes": 98,
+      "sha256": "sha256:ffd683c48ec5fdd38911303ae4f151d423c12bed750730514f698719f35bce18"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+      "bytes": 100,
+      "sha256": "sha256:2482e70fd87c7bd235a340d2df60d88e806eb936b639044eb8732f2ccb3718f2"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+      "bytes": 108,
+      "sha256": "sha256:61609cbbd05134d59342ff9ae3e77cf627be9dac73bde356f36ec1059afb4d3a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+      "bytes": 116,
+      "sha256": "sha256:0574987a882e6b4e6b39ff0082f4e7a93f2db6b8fe0d39f2374c31f8a4dee867"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+      "bytes": 104,
+      "sha256": "sha256:81e544f88b402e6d040741acae42e7846c24c971bf2420479e0e5be16c907bf8"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+      "bytes": 110,
+      "sha256": "sha256:0c1bdcd6743d95c7ee0d1a16fb3956d30f974e95ab366144ecad2713d0dc668a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+      "bytes": 124,
+      "sha256": "sha256:cc8aa08af8ef7e8589f8cd845cdaf34f476dffce15e9aedfa9442a07014a8e66"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+      "bytes": 120,
+      "sha256": "sha256:28080eba6fa5689e36b6e2729e516487c5a796d22697b5bddab7a1832dd9671f"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+      "bytes": 116,
+      "sha256": "sha256:bc5f9ffb87c43a7f260c90165ec7b1b4d4ef0a76aab1c033d635804577f37930"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+      "bytes": 116,
+      "sha256": "sha256:bd61dcbf8084251ec6ced2b96e81a36782882d960fd853fffd701c075b020d01"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+      "bytes": 126,
+      "sha256": "sha256:229c34972af661a6c2fffb9f46b048c4f2f871bd147433495d07afe15bc43a14"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+      "bytes": 108,
+      "sha256": "sha256:9f945f6b32f34b23282cb15654dbe5fd6c9b088d1c11aae62a932b45d01e2404"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+      "bytes": 98,
+      "sha256": "sha256:2b40b5cc980b2c61cf11b3805b2e504ef285bcece051f31b5383ea3056a7569c"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+      "bytes": 102,
+      "sha256": "sha256:ff0f44d534ca1a085ca503a5bc02f0fd5c8cce9ad0cdbd5ab69530497fc92f1d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+      "bytes": 100,
+      "sha256": "sha256:202dbf136f07f5fd1fb490d09cd310e621d016a75118494ca9bd35abd63a8190"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+      "bytes": 100,
+      "sha256": "sha256:db9e59e0d0ffff7e21f9d7a416de664bac98d0818653dc380af2422421198582"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+      "bytes": 112,
+      "sha256": "sha256:cf3e7db368bd91f2b13823d393b2019c83eaddc8934cfcb83e85761740ab1699"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+      "bytes": 98,
+      "sha256": "sha256:645f40cd76a9e39d9baa209314f15d9c05828b5c6170450c3e568a811f68c73d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+      "bytes": 98,
+      "sha256": "sha256:8ea1b29d750e901b8a774b716b354a8a6b8ae7b023c1ca5a009a0b67737cdaa3"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Util.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Util.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Util.php",
+      "bytes": 92,
+      "sha256": "sha256:d17abbe67dbb87e9114f15365f5830de52f5eeea8f44f1265b32cd8c9ca78611"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/X25519.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/X25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/X25519.php",
+      "bytes": 96,
+      "sha256": "sha256:7df850a3b047b4d5a691df65e7398db6f8e5c029c0fe7195014cf6103d733c9f"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+      "bytes": 102,
+      "sha256": "sha256:e98d67678cbd7c21d3a0b3a25b08da1ecdc83a67e607d00a9efb21fa462f48d6"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+      "bytes": 100,
+      "sha256": "sha256:87423b4f144440ef7b73bdac40bb7c844e2266df1b1aabcc3fec165b2780c5f6"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/Crypto.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/Crypto.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/Crypto.php",
+      "bytes": 86,
+      "sha256": "sha256:fd56b4cab6806a9c819332813af5b50f7be14143424d5f2243fadfa65fb66f47"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/namespaced/File.php",
+      "distribution_path": "wp-includes/sodium_compat/namespaced/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/namespaced/File.php",
+      "bytes": 82,
+      "sha256": "sha256:7890c0a02a8667f6b1532da1a38623faf2af4c6cd5a00a1d54471b43934a3f81"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Compat.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Compat.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Compat.php",
+      "bytes": 164693,
+      "sha256": "sha256:139362e4612380a35df023885794cf1b9de903fa661f059ff7b6389bea198bc8"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+      "bytes": 8234,
+      "sha256": "sha256:ab39d7ce243e6c202efd5d03b57da7b2f50c53cc6e9d9c9332aa40b95e13166e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+      "bytes": 6525,
+      "sha256": "sha256:d65eaf34883200b1346ffcd64f8086cdb995d3c0947922fb731938d5621cf481"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+      "bytes": 3668,
+      "sha256": "sha256:2b71db2fc9301d656887c97dd48504a12010b6af7824acfd0665da5e4496935e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AEGIS256.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AEGIS256.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AEGIS256.php",
+      "bytes": 3598,
+      "sha256": "sha256:300d456b41ba37cc0cc784f163a45234cd103e01437747c0a076bb429e55b0cf"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AES.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AES.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AES.php",
+      "bytes": 15885,
+      "sha256": "sha256:723c60d5fb6d3404f60791e579373e1a369f0ffb49fa8243825a2473cf5affc1"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AES/Block.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AES/Block.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AES/Block.php",
+      "bytes": 10466,
+      "sha256": "sha256:4d8d69d658c6d4f306314501b7b07f268ee799b5e1c601a510559b2e8dae4913"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+      "bytes": 304,
+      "sha256": "sha256:d981af4c4ac849d885583e577cab12205a8a2b4ef0026a2cf51823f23112daf7"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+      "bytes": 1881,
+      "sha256": "sha256:c1942e7923f1bc9d3e8d4dfcf213d59a8f74d95283600a3f968e7d187ca3e10d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+      "bytes": 24192,
+      "sha256": "sha256:0b4411492b6e615e48cd280636d7bff795d5dcece452384b5529ac77c79e7f28"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Base64/Original.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Base64/Original.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Base64/Original.php",
+      "bytes": 8476,
+      "sha256": "sha256:226cf150cb230310d0b77ae4e462f706d0ddc950ea6547e032dd891fc57ddb0d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+      "bytes": 8483,
+      "sha256": "sha256:34e40a8e88d16043f40bafd56d9de1501cfe72345845f5bff1982e56c24b37fa"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/ChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/ChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/ChaCha20.php",
+      "bytes": 12889,
+      "sha256": "sha256:e16993d79b66dac7e8341fd20b0ef9173dcf8b73b22ee48920af4a5690ff6c7b"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+      "bytes": 4415,
+      "sha256": "sha256:f0e0638eeb041771d9e28cbe743b69e078af272066ed61ff5aa06fccbf895d13"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+      "bytes": 1324,
+      "sha256": "sha256:a141ca567f91dae9bc2d9aa0a3054fafd6bd1235492d6d5d38c9e9a8364c2023"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519.php",
+      "bytes": 143641,
+      "sha256": "sha256:02f855c266aa4376c19fc9f551f4b923260791a6fceed38d9c39732279eaff23"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+      "bytes": 6352,
+      "sha256": "sha256:16d1e163378754a173dcaaa97ee42799bc7e9965650d2c40e3d83b52d5a3cdc6"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+      "bytes": 2370,
+      "sha256": "sha256:bbfeb1c884d3e64e223a6da86503154cd7cb478c812921dd31b50e71e252eae4"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+      "bytes": 2257,
+      "sha256": "sha256:a8860db08a54f9b598c2041cadf00589da180e2229eb175d782ae8da04845704"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+      "bytes": 1789,
+      "sha256": "sha256:7c57be8e8ea812c754ec0116fec5a85b62719ff18a6950b5923a04538e989f94"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+      "bytes": 2250,
+      "sha256": "sha256:9694bd0948d20cb45ca3f787e85013884d7df7b543a344838f1111713e9e576a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+      "bytes": 1906,
+      "sha256": "sha256:cef6a5f25e9bb7863ee00dc0ed6a7a3b3f153c9daad3936d666da55f7e07327e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+      "bytes": 110457,
+      "sha256": "sha256:5bdca3663d50486dd4d1101cf90b10f5ef9fbb7ccbf6fca8c29487941ba348ae"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Ed25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Ed25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Ed25519.php",
+      "bytes": 18482,
+      "sha256": "sha256:08a28c75a29a4705096c0c62ef8c40b35244ac04d45d82a9ea79f68941196e15"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/HChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/HChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/HChaCha20.php",
+      "bytes": 4140,
+      "sha256": "sha256:e18efdf82e55dde96447a791eed1b6012af2951c7efe64b2a25b8d2dafa007ac"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/HSalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/HSalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/HSalsa20.php",
+      "bytes": 3673,
+      "sha256": "sha256:15f474f45cea3fece4eac6177580835539cf63849316b37e1e99e4edd14bbca9"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Poly1305.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Poly1305.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Poly1305.php",
+      "bytes": 1576,
+      "sha256": "sha256:6f78dc8121fed9cb4a02c1f7c2a915b2bd0f3b31e970175b5ed70013f899023e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+      "bytes": 12912,
+      "sha256": "sha256:fc192e221f937aafc3cdc4b2ac1dd516f96553a75387762625f7fe56344bb144"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Ristretto255.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Ristretto255.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Ristretto255.php",
+      "bytes": 21884,
+      "sha256": "sha256:22ec93547310b8c3b3dc63eb5caad9c29bd6e4539b5bb18138e387909016912e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Salsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Salsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Salsa20.php",
+      "bytes": 8233,
+      "sha256": "sha256:ecff9a937af88fe087ff432b3dee096213890cf5377a2734edeec880547f360d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+      "bytes": 3624,
+      "sha256": "sha256:7f5cdc92ae4330588efaff8a28d3251eac9b48aeab70e448604d180471f195b8"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/SipHash.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/SipHash.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/SipHash.php",
+      "bytes": 8233,
+      "sha256": "sha256:e1297c4ff528824e08d6082a91ccb356261153005f4d18e68c71b54a30c4e65a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Util.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Util.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Util.php",
+      "bytes": 28904,
+      "sha256": "sha256:1d508481ef6bbb5ca9e453cf044777128c78a9a37d0a7ac211e713340b2525af"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/X25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/X25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/X25519.php",
+      "bytes": 8413,
+      "sha256": "sha256:1b0cd07db0ebd48be4ddf91dded5056d9b5a33f1802fd5db461e7b9cd062f6e3"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/XChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/XChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/XChaCha20.php",
+      "bytes": 3320,
+      "sha256": "sha256:0aac8cebdfa935bbd6fbbe145268934d656a2481de89bb049c9ce20fe5d8004b"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/XSalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/XSalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/XSalsa20.php",
+      "bytes": 1371,
+      "sha256": "sha256:80151b03429b8d17ea792b4da7de33d1ee60b97b0a82bdaaa2fb98699a368322"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+      "bytes": 22324,
+      "sha256": "sha256:520be088a2028f7633804179ad1843d4386a969acc754ee01b09c3e8b9b85b41"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+      "bytes": 14511,
+      "sha256": "sha256:d7e29584cc431eb49919fd01cfc8264f90bebef7076e4bb2b4b133c630111c72"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+      "bytes": 4904,
+      "sha256": "sha256:9ebee6da219dcd57458002b18b403db77ee105ba1c1f05ab11e69009ed655741"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+      "bytes": 1503,
+      "sha256": "sha256:3d9cc2c6e0af0415b5d19c825eb7d62caa1299ee31ab68715982976b53c9d853"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519.php",
+      "bytes": 132974,
+      "sha256": "sha256:6f09b3a87b06c92e82dd276fb10ea1062edcd3c4c9eb5de8b156539b6510bcc3"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+      "bytes": 5498,
+      "sha256": "sha256:f4e6c38e08d6ece5ee49dfe197bf03be0dbc2e357f4d26413d14c85fcb479a4e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+      "bytes": 1805,
+      "sha256": "sha256:1f35e8d649cb0527d40fd3c0e05623f4535a62e60c0dbb7b23b35fd4c223f80d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+      "bytes": 1764,
+      "sha256": "sha256:a73351127182d1548afa20c027288c8b23f4387b16b608efd6cf5b48b16ad800"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+      "bytes": 1377,
+      "sha256": "sha256:c20e998d89be90f328b1931916fd676d2191b7a2a414367863a32a4d25d95afc"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+      "bytes": 1698,
+      "sha256": "sha256:3435380807c5c1fdfd3e0a03f054119853fe9e82a18662c48fcfbae696b7125a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+      "bytes": 1533,
+      "sha256": "sha256:c8c09e1e6af63f3548a6e6ba5e792c466c4f85ac6a1e5338ee4ceae4f2c94e6a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+      "bytes": 108797,
+      "sha256": "sha256:7809943ce7c07996f2da77548d9fcafaaf41cc1c32d7f448bdb0786577a4374e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Ed25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Ed25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Ed25519.php",
+      "bytes": 15735,
+      "sha256": "sha256:66089cf07de8b1e16a80288e3e673260f864dc0766216a483155661d36caf3ae"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+      "bytes": 5297,
+      "sha256": "sha256:4f670346620429b2aedb16f3018598d0c6772b48719fb01231af654fdf7cd2a4"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+      "bytes": 6941,
+      "sha256": "sha256:ee0884706a0b59fd1e346420b734c40f7f528e24cfd1c45dc491b1f64ab07582"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Int32.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Int32.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Int32.php",
+      "bytes": 24580,
+      "sha256": "sha256:dff42d5e03045a57bdbdae417bc277c9d8ac96117e39ab01b205587f1c19cc9e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Int64.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Int64.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Int64.php",
+      "bytes": 31172,
+      "sha256": "sha256:25363bea0769f796bcaacf77b014c014c8128c5c1a1232e7c6ad4bcf661a3f20"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Poly1305.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Poly1305.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Poly1305.php",
+      "bytes": 1586,
+      "sha256": "sha256:97babb05e989a164fadde055c4efd1f3fd306cd9f3e41fb8d8be910d4e74b86a"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+      "bytes": 15965,
+      "sha256": "sha256:0ac2f7789512ead254d7b4093853ca23a8415f191d626a3635ebeda7dd2036a0"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Salsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Salsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Salsa20.php",
+      "bytes": 11506,
+      "sha256": "sha256:7500ed3a49401dd69341293627d33f5c300c3d89d5a67a40931d6daf9d734b97"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+      "bytes": 3656,
+      "sha256": "sha256:22f159f0c32748439170f03ff3735bb06e1e7a6bc5f30cf907c388ede721b97e"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/SipHash.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/SipHash.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/SipHash.php",
+      "bytes": 6613,
+      "sha256": "sha256:80228e14f6feeec9483e340e1e33a2330a91de70dce9049e2a25f4e19ea1f0b0"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Util.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Util.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Util.php",
+      "bytes": 209,
+      "sha256": "sha256:78f690cb63b6292d3759a9ef588df55f497af822fa895d59cdbcbc23d00b0298"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/X25519.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/X25519.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/X25519.php",
+      "bytes": 11042,
+      "sha256": "sha256:640fd6b6bbae8659e2ece488eb57ec886b7d5adb9dafc88c6c1db66ef82cbba8"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+      "bytes": 2454,
+      "sha256": "sha256:80ff1e308e00d96688b44ba5c89fdb3aae68618662ef4206162de7f8db03c689"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+      "bytes": 1379,
+      "sha256": "sha256:e23aec8e591ea6ebe9260e67f32b335692c5e847b383beb705065ee6c676b630"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Crypto.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Crypto.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Crypto.php",
+      "bytes": 54964,
+      "sha256": "sha256:d93de40d8523a69ee42e825341f9b4c35099b307c8a8c2713c80cc74d0e651a2"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Crypto32.php",
+      "distribution_path": "wp-includes/sodium_compat/src/Crypto32.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Crypto32.php",
+      "bytes": 55119,
+      "sha256": "sha256:ed89b3eccb14c5c47240a6bae06f2eed1cc8fd04a714d3581ed36e01b0601cd7"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/File.php",
+      "distribution_path": "wp-includes/sodium_compat/src/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/File.php",
+      "bytes": 54811,
+      "sha256": "sha256:72d4b56e77ad9914ee48bc706e5c2c2d3f7b8c254c23bde7504c6e84f8dcbd25"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+      "distribution_path": "wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+      "bytes": 4910,
+      "sha256": "sha256:466be1d4bfe69cf86963b8bb69917c4398900122c4885a5a89d9c891ffdf353d"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/SodiumException.php",
+      "distribution_path": "wp-includes/sodium_compat/src/SodiumException.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/SodiumException.php",
+      "bytes": 158,
+      "sha256": "sha256:4dc4b39dfd4ec7932aa9680ee915ec5c407e3bf6699f3f694102b292543e8b04"
+    }
+  ],
+  "notice_files": [
+    {
+      "path": "src/wp-includes/sodium_compat/LICENSE",
+      "distribution_path": "wp-includes/sodium_compat/LICENSE",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/LICENSE",
+      "bytes": 860,
+      "sha256": "sha256:1f74dfe6e7621f71daf7928dcd522a86dedd1118307fe48256e726d38effc8f7"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/composer.json",
+      "distribution_path": "wp-includes/sodium_compat/composer.json",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/composer.json",
+      "bytes": 1608,
+      "sha256": "sha256:625889e17b2de0a4813d1d57ab177183bf069d6fb9600ac0f25ca7602e74e3f0"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core/Curve25519/README.md",
+      "distribution_path": "wp-includes/sodium_compat/src/Core/Curve25519/README.md",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core/Curve25519/README.md",
+      "bytes": 218,
+      "sha256": "sha256:2d8c95220c42f648c8bf10146f77997f4a23cf619ab4e5e0e76713f8cc79f7f6"
+    },
+    {
+      "path": "src/wp-includes/sodium_compat/src/Core32/Curve25519/README.md",
+      "distribution_path": "wp-includes/sodium_compat/src/Core32/Curve25519/README.md",
+      "repo_path": "../wordpress-develop/src/wp-includes/sodium_compat/src/Core32/Curve25519/README.md",
+      "bytes": 218,
+      "sha256": "sha256:2d8c95220c42f648c8bf10146f77997f4a23cf619ab4e5e0e76713f8cc79f7f6"
+    }
+  ],
+  "artifact_provenance": [
+    {
+      "path": "wp-includes/sodium_compat/autoload-php7.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/autoload.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/constants.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/namespaced.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/php72compat_const.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/php72compat.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/php84compat_const.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/php84compat.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/ristretto255.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/sodium_compat.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/lib/stream-xchacha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Compat.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Util.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/X25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/Crypto.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/namespaced/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Compat.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AEGIS256.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AES.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AES/Block.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Base64/Original.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/ChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Ed25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/HChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/HSalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Poly1305.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Ristretto255.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Salsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/SipHash.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/Util.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/X25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/XChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core/XSalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Ed25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Int32.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Int64.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Poly1305.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Salsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/SipHash.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/Util.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/X25519.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Crypto.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/Crypto32.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/sodium_compat/src/SodiumException.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "package_markers": {
+    "source_tree_file_count": 108,
+    "php_source_count": 104,
+    "distribution_artifact_count": 104,
+    "license_provenance": {
+      "package_notice_files": [
+        "wp-includes/sodium_compat/LICENSE",
+        "wp-includes/sodium_compat/composer.json",
+        "wp-includes/sodium_compat/src/Core/Curve25519/README.md",
+        "wp-includes/sodium_compat/src/Core32/Curve25519/README.md"
+      ],
+      "notice_files_recorded_in_license_manifest": [
+        "wp-includes/sodium_compat/LICENSE"
+      ],
+      "header_notice_markers": {
+        "copyright": false,
+        "license": false,
+        "public_domain": false
+      },
+      "treatment": "Preserve recorded package notice files plus WordPress project notice while this remains a preserved upstream artifact."
+    },
+    "php_polyfill_guard_count": 114,
+    "fallback_marker_file_count": 6
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "sodium:api-reflection-constants",
+        "focus": "native sodium, global polyfills, constants, and ParagonIE_Sodium_Compat reflection surface"
+      },
+      {
+        "id": "sodium:base64-encoding-errors",
+        "focus": "base64 variant round trips plus invalid encoding error shapes"
+      },
+      {
+        "id": "sodium:generichash-key-size",
+        "focus": "generic hash native/direct fallback output and invalid key-size behavior"
+      },
+      {
+        "id": "sodium:secretbox-nonce-key",
+        "focus": "secretbox encryption/decryption, wrong-key false result, and invalid nonce behavior"
+      },
+      {
+        "id": "sodium:auth-verify",
+        "focus": "crypto_auth MAC equality and verification failure behavior"
+      },
+      {
+        "id": "sodium:sign-detached",
+        "focus": "deterministic seed keypair, detached signature, and bad signature verification"
+      },
+      {
+        "id": "sodium:password-hash-boundary",
+        "focus": "password hash API availability, native verify shape, and pure-PHP fallback unsupported behavior"
+      },
+      {
+        "id": "sodium:randombytes-policy",
+        "focus": "randombytes API availability is recorded without deterministic output claims"
+      }
+    ],
+    "covered_symbols": [
+      "ParagonIE_Sodium_Compat",
+      "ParagonIE_Sodium_Compat::$disableFallbackForUnitTests",
+      "ParagonIE_Sodium_Compat::base642bin",
+      "ParagonIE_Sodium_Compat::bin2base64",
+      "ParagonIE_Sodium_Compat::crypto_auth",
+      "ParagonIE_Sodium_Compat::crypto_auth_verify",
+      "ParagonIE_Sodium_Compat::crypto_generichash",
+      "ParagonIE_Sodium_Compat::crypto_pwhash_str",
+      "ParagonIE_Sodium_Compat::crypto_pwhash_str_verify",
+      "ParagonIE_Sodium_Compat::crypto_secretbox",
+      "ParagonIE_Sodium_Compat::crypto_secretbox_open",
+      "ParagonIE_Sodium_Compat::crypto_sign_detached",
+      "ParagonIE_Sodium_Compat::crypto_sign_publickey",
+      "ParagonIE_Sodium_Compat::crypto_sign_secretkey",
+      "ParagonIE_Sodium_Compat::crypto_sign_seed_keypair",
+      "ParagonIE_Sodium_Compat::crypto_sign_verify_detached",
+      "SodiumException",
+      "sodium_base642bin",
+      "sodium_bin2base64",
+      "sodium_crypto_auth",
+      "sodium_crypto_auth_verify",
+      "sodium_crypto_generichash",
+      "sodium_crypto_pwhash_str",
+      "sodium_crypto_pwhash_str_needs_rehash",
+      "sodium_crypto_pwhash_str_verify",
+      "sodium_crypto_secretbox",
+      "sodium_crypto_secretbox_open",
+      "sodium_crypto_sign_detached",
+      "sodium_crypto_sign_publickey",
+      "sodium_crypto_sign_secretkey",
+      "sodium_crypto_sign_seed_keypair",
+      "sodium_crypto_sign_verify_detached",
+      "sodium_randombytes_buf"
+    ],
+    "native_mode": "Native mode calls PHP sodium_* functions and ParagonIE_Sodium_Compat with normal fallback behavior on the local PHP host where ext/sodium is loaded.",
+    "direct_fallback_mode": "Direct fallback mode calls ParagonIE_Sodium_Compat methods with disableFallbackForUnitTests=true to force the bundled PHP implementation where sodium_compat supports it.",
+    "normalization": [
+      "Binary crypto outputs are recorded by length and SHA-256 digest only.",
+      "Random bytes are not emitted or compared as deterministic fixture output.",
+      "Native password hashes are summarized by length, prefix, verify result, and rehash result; salt-bearing hashes are not committed.",
+      "Throwable messages are summarized by class, code, and message digest."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "command": "php build/wp-core/wphx-323-18/sodium-compat-native-fallback-probe.php build/wp-core/wphx-323-18/oracle",
+      "raw_output_sha256": "sha256:351e3351c7cbf578eceeb8c3a097e5f8cd7bf8420b5fb663ee72a59f6488ddbe",
+      "result": {
+        "observations": {
+          "sodium:api-reflection-constants": {
+            "php_version": "8.4.7",
+            "extension_loaded_sodium": true,
+            "extension_loaded_libsodium": false,
+            "class_exists_paragonie_compat": true,
+            "class_exists_sodium_exception": true,
+            "disable_fallback_property": true,
+            "functions": {
+              "sodium_bin2base64": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_base642bin": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 2
+              },
+              "sodium_crypto_generichash": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              "sodium_crypto_secretbox": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_secretbox_open": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_auth": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_auth_verify": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_sign_seed_keypair": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_secretkey": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_publickey": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_detached": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_sign_verify_detached": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_pwhash_str": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_pwhash_str_verify": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_pwhash_str_needs_rehash": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_randombytes_buf": {
+                "exists": false
+              }
+            },
+            "methods": {
+              "bin2base64": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "base642bin": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 2
+              },
+              "crypto_generichash": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              "crypto_secretbox": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_secretbox_open": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_auth": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "crypto_auth_verify": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_sign_seed_keypair": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_secretkey": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_publickey": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_detached": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "crypto_sign_verify_detached": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_pwhash_str": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_pwhash_str_verify": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "randombytes_buf": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              }
+            },
+            "constants": {
+              "SODIUM_BASE64_VARIANT_ORIGINAL": 1,
+              "SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING": 7,
+              "SODIUM_CRYPTO_AUTH_BYTES": 32,
+              "SODIUM_CRYPTO_AUTH_KEYBYTES": 32,
+              "SODIUM_CRYPTO_GENERICHASH_BYTES": 32,
+              "SODIUM_CRYPTO_GENERICHASH_KEYBYTES": 32,
+              "SODIUM_CRYPTO_SECRETBOX_KEYBYTES": 32,
+              "SODIUM_CRYPTO_SECRETBOX_NONCEBYTES": 24,
+              "SODIUM_CRYPTO_SIGN_BYTES": 64,
+              "SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES": 32,
+              "SODIUM_CRYPTO_SIGN_SECRETKEYBYTES": 64,
+              "SODIUM_CRYPTO_SIGN_SEEDBYTES": 32,
+              "SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE": 2,
+              "SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE": 67108864
+            }
+          },
+          "sodium:base64-encoding-errors": {
+            "urlsafe_no_padding": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 46,
+                  "sha256": "sha256:6b0a9cd8b56b0622672cc520d7c4d68f733b3119b9f49a2bdb1825c23fdf689b"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 46,
+                  "sha256": "sha256:6b0a9cd8b56b0622672cc520d7c4d68f733b3119b9f49a2bdb1825c23fdf689b"
+                }
+              },
+              "matching_summary": true
+            },
+            "original": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 48,
+                  "sha256": "sha256:2b6ce3c51f033670f3b4690aab971ec79356249bb241556d002fe3b71e409f22"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 48,
+                  "sha256": "sha256:2b6ce3c51f033670f3b4690aab971ec79356249bb241556d002fe3b71e409f22"
+                }
+              },
+              "matching_summary": true
+            },
+            "urlsafe_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "original_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "invalid_input": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:f84b411cecc6ca477eb01f03e26c578418d1d31458d84a7595fb6274ad22711c"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:7f92340fe7ed41bd7553629938cdd821921f8ec0745d3b5a16136e2bdcc19a80"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:generichash-key-size": {
+            "valid": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 32,
+                  "sha256": "sha256:9dfd5f47869ca9071d895d6caa1145cb3f073c9bf726e68476b3f01c261b0705"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 32,
+                  "sha256": "sha256:9dfd5f47869ca9071d895d6caa1145cb3f073c9bf726e68476b3f01c261b0705"
+                }
+              },
+              "matching_summary": true
+            },
+            "invalid_short_key": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:d0411913f0fac858f56edbeb198d7bace43ca880b2f2d48c850163072f611f53"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:d991bcb3d7dbe85d50af93907ab96e54c804f87f74b70fa965855b54439a63fa"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:secretbox-nonce-key": {
+            "ciphertext": {
+              "native": {
+                "type": "string",
+                "length": 50,
+                "sha256": "sha256:d68915d0021b527c2c62dc4af66b1197e34ef9db778602e53d492f4606fbc253"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 50,
+                "sha256": "sha256:d68915d0021b527c2c62dc4af66b1197e34ef9db778602e53d492f4606fbc253"
+              },
+              "matching_summary": true
+            },
+            "open_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "wrong_key_false": {
+              "native": true,
+              "fallback": true
+            },
+            "invalid_nonce": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:40d5083203f52f1b0b7c6920155cf3eef3d1b8ad3231775b2fddc28de704bad2"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:6369b470dc2821f663b8c1f37fbaeba3c499b95461df36d92f60d2b6f9c8854d"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:auth-verify": {
+            "mac": {
+              "native": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:2f2f1086c8863438984ed74a08ee3ada68254ce0dce9cba0a8872dc42d264dd7"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:2f2f1086c8863438984ed74a08ee3ada68254ce0dce9cba0a8872dc42d264dd7"
+              },
+              "matching_summary": true
+            },
+            "verify_ok": {
+              "native": true,
+              "fallback": true
+            },
+            "verify_bad_message": {
+              "native": false,
+              "fallback": false
+            }
+          },
+          "sodium:sign-detached": {
+            "keypair": {
+              "native": {
+                "type": "string",
+                "length": 96,
+                "sha256": "sha256:b7caa7edfd90b91f565aaa9d2ec848eab16f9fe8b0084294f90fe2a1b1926bce"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 96,
+                "sha256": "sha256:b7caa7edfd90b91f565aaa9d2ec848eab16f9fe8b0084294f90fe2a1b1926bce"
+              },
+              "matching_summary": true
+            },
+            "public_key": {
+              "native": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:7599776c3085e3f9da0d13071eb0b4ab50fd2bf64c06dd92c2365af3a328eca3"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:7599776c3085e3f9da0d13071eb0b4ab50fd2bf64c06dd92c2365af3a328eca3"
+              },
+              "matching_summary": true
+            },
+            "signature": {
+              "native": {
+                "type": "string",
+                "length": 64,
+                "sha256": "sha256:4993aa655eb114ebe4fa51996f8e374e47ea54d9589a054a65d41389779e50fe"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 64,
+                "sha256": "sha256:4993aa655eb114ebe4fa51996f8e374e47ea54d9589a054a65d41389779e50fe"
+              },
+              "matching_summary": true
+            },
+            "verify_ok": {
+              "native": true,
+              "fallback": true
+            },
+            "verify_bad": {
+              "native": false,
+              "fallback": false
+            }
+          },
+          "sodium:password-hash-boundary": {
+            "native_hash_shape": {
+              "length": 97,
+              "prefix": "$argon2",
+              "verify_ok": true,
+              "verify_bad": false,
+              "needs_rehash": false
+            },
+            "pure_php_fallback_hash_shape": {
+              "ok": false,
+              "error": {
+                "class": "SodiumException",
+                "code": 0,
+                "message_sha256": "sha256:2880d192081f1bec81c2a4400fa19d8011e20cf7e1a4d74b444f47df4763d2ee"
+              }
+            },
+            "fallback_policy": "Preserve upstream sodium_compat and native sodium handoff for password hashing; pure-PHP Argon2i password hash generation is expected to be unsupported by sodium_compat."
+          },
+          "sodium:randombytes-policy": {
+            "native_function_exists": false,
+            "compat_method_exists": true,
+            "deterministic_output_claimed": false,
+            "policy": "Random output is not committed to the manifest. Replacement requires entropy-source review and host fallback evidence."
+          }
+        }
+      }
+    },
+    "candidate": {
+      "command": "php build/wp-core/wphx-323-18/sodium-compat-native-fallback-probe.php build/wp-core/wphx-323-18/candidate",
+      "raw_output_sha256": "sha256:351e3351c7cbf578eceeb8c3a097e5f8cd7bf8420b5fb663ee72a59f6488ddbe",
+      "result": {
+        "observations": {
+          "sodium:api-reflection-constants": {
+            "php_version": "8.4.7",
+            "extension_loaded_sodium": true,
+            "extension_loaded_libsodium": false,
+            "class_exists_paragonie_compat": true,
+            "class_exists_sodium_exception": true,
+            "disable_fallback_property": true,
+            "functions": {
+              "sodium_bin2base64": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_base642bin": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 2
+              },
+              "sodium_crypto_generichash": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              "sodium_crypto_secretbox": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_secretbox_open": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_auth": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_auth_verify": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_sign_seed_keypair": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_secretkey": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_publickey": {
+                "exists": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "sodium_crypto_sign_detached": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_sign_verify_detached": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_pwhash_str": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_crypto_pwhash_str_verify": {
+                "exists": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "sodium_crypto_pwhash_str_needs_rehash": {
+                "exists": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "sodium_randombytes_buf": {
+                "exists": false
+              }
+            },
+            "methods": {
+              "bin2base64": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "base642bin": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 2
+              },
+              "crypto_generichash": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              "crypto_secretbox": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_secretbox_open": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_auth": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "crypto_auth_verify": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_sign_seed_keypair": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_secretkey": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_publickey": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              "crypto_sign_detached": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "crypto_sign_verify_detached": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_pwhash_str": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 3,
+                "required_parameters": 3
+              },
+              "crypto_pwhash_str_verify": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 2,
+                "required_parameters": 2
+              },
+              "randombytes_buf": {
+                "exists": true,
+                "public": true,
+                "static": true,
+                "parameters": 1,
+                "required_parameters": 1
+              }
+            },
+            "constants": {
+              "SODIUM_BASE64_VARIANT_ORIGINAL": 1,
+              "SODIUM_BASE64_VARIANT_URLSAFE_NO_PADDING": 7,
+              "SODIUM_CRYPTO_AUTH_BYTES": 32,
+              "SODIUM_CRYPTO_AUTH_KEYBYTES": 32,
+              "SODIUM_CRYPTO_GENERICHASH_BYTES": 32,
+              "SODIUM_CRYPTO_GENERICHASH_KEYBYTES": 32,
+              "SODIUM_CRYPTO_SECRETBOX_KEYBYTES": 32,
+              "SODIUM_CRYPTO_SECRETBOX_NONCEBYTES": 24,
+              "SODIUM_CRYPTO_SIGN_BYTES": 64,
+              "SODIUM_CRYPTO_SIGN_PUBLICKEYBYTES": 32,
+              "SODIUM_CRYPTO_SIGN_SECRETKEYBYTES": 64,
+              "SODIUM_CRYPTO_SIGN_SEEDBYTES": 32,
+              "SODIUM_CRYPTO_PWHASH_OPSLIMIT_INTERACTIVE": 2,
+              "SODIUM_CRYPTO_PWHASH_MEMLIMIT_INTERACTIVE": 67108864
+            }
+          },
+          "sodium:base64-encoding-errors": {
+            "urlsafe_no_padding": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 46,
+                  "sha256": "sha256:6b0a9cd8b56b0622672cc520d7c4d68f733b3119b9f49a2bdb1825c23fdf689b"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 46,
+                  "sha256": "sha256:6b0a9cd8b56b0622672cc520d7c4d68f733b3119b9f49a2bdb1825c23fdf689b"
+                }
+              },
+              "matching_summary": true
+            },
+            "original": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 48,
+                  "sha256": "sha256:2b6ce3c51f033670f3b4690aab971ec79356249bb241556d002fe3b71e409f22"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 48,
+                  "sha256": "sha256:2b6ce3c51f033670f3b4690aab971ec79356249bb241556d002fe3b71e409f22"
+                }
+              },
+              "matching_summary": true
+            },
+            "urlsafe_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "original_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "invalid_input": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:f84b411cecc6ca477eb01f03e26c578418d1d31458d84a7595fb6274ad22711c"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:7f92340fe7ed41bd7553629938cdd821921f8ec0745d3b5a16136e2bdcc19a80"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:generichash-key-size": {
+            "valid": {
+              "native": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 32,
+                  "sha256": "sha256:9dfd5f47869ca9071d895d6caa1145cb3f073c9bf726e68476b3f01c261b0705"
+                }
+              },
+              "fallback": {
+                "ok": true,
+                "value": {
+                  "type": "string",
+                  "length": 32,
+                  "sha256": "sha256:9dfd5f47869ca9071d895d6caa1145cb3f073c9bf726e68476b3f01c261b0705"
+                }
+              },
+              "matching_summary": true
+            },
+            "invalid_short_key": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:d0411913f0fac858f56edbeb198d7bace43ca880b2f2d48c850163072f611f53"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:d991bcb3d7dbe85d50af93907ab96e54c804f87f74b70fa965855b54439a63fa"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:secretbox-nonce-key": {
+            "ciphertext": {
+              "native": {
+                "type": "string",
+                "length": 50,
+                "sha256": "sha256:d68915d0021b527c2c62dc4af66b1197e34ef9db778602e53d492f4606fbc253"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 50,
+                "sha256": "sha256:d68915d0021b527c2c62dc4af66b1197e34ef9db778602e53d492f4606fbc253"
+              },
+              "matching_summary": true
+            },
+            "open_roundtrip": {
+              "native": true,
+              "fallback": true
+            },
+            "wrong_key_false": {
+              "native": true,
+              "fallback": true
+            },
+            "invalid_nonce": {
+              "native": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:40d5083203f52f1b0b7c6920155cf3eef3d1b8ad3231775b2fddc28de704bad2"
+                }
+              },
+              "fallback": {
+                "ok": false,
+                "error": {
+                  "class": "SodiumException",
+                  "code": 0,
+                  "message_sha256": "sha256:6369b470dc2821f663b8c1f37fbaeba3c499b95461df36d92f60d2b6f9c8854d"
+                }
+              },
+              "matching_summary": false
+            }
+          },
+          "sodium:auth-verify": {
+            "mac": {
+              "native": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:2f2f1086c8863438984ed74a08ee3ada68254ce0dce9cba0a8872dc42d264dd7"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:2f2f1086c8863438984ed74a08ee3ada68254ce0dce9cba0a8872dc42d264dd7"
+              },
+              "matching_summary": true
+            },
+            "verify_ok": {
+              "native": true,
+              "fallback": true
+            },
+            "verify_bad_message": {
+              "native": false,
+              "fallback": false
+            }
+          },
+          "sodium:sign-detached": {
+            "keypair": {
+              "native": {
+                "type": "string",
+                "length": 96,
+                "sha256": "sha256:b7caa7edfd90b91f565aaa9d2ec848eab16f9fe8b0084294f90fe2a1b1926bce"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 96,
+                "sha256": "sha256:b7caa7edfd90b91f565aaa9d2ec848eab16f9fe8b0084294f90fe2a1b1926bce"
+              },
+              "matching_summary": true
+            },
+            "public_key": {
+              "native": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:7599776c3085e3f9da0d13071eb0b4ab50fd2bf64c06dd92c2365af3a328eca3"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 32,
+                "sha256": "sha256:7599776c3085e3f9da0d13071eb0b4ab50fd2bf64c06dd92c2365af3a328eca3"
+              },
+              "matching_summary": true
+            },
+            "signature": {
+              "native": {
+                "type": "string",
+                "length": 64,
+                "sha256": "sha256:4993aa655eb114ebe4fa51996f8e374e47ea54d9589a054a65d41389779e50fe"
+              },
+              "fallback": {
+                "type": "string",
+                "length": 64,
+                "sha256": "sha256:4993aa655eb114ebe4fa51996f8e374e47ea54d9589a054a65d41389779e50fe"
+              },
+              "matching_summary": true
+            },
+            "verify_ok": {
+              "native": true,
+              "fallback": true
+            },
+            "verify_bad": {
+              "native": false,
+              "fallback": false
+            }
+          },
+          "sodium:password-hash-boundary": {
+            "native_hash_shape": {
+              "length": 97,
+              "prefix": "$argon2",
+              "verify_ok": true,
+              "verify_bad": false,
+              "needs_rehash": false
+            },
+            "pure_php_fallback_hash_shape": {
+              "ok": false,
+              "error": {
+                "class": "SodiumException",
+                "code": 0,
+                "message_sha256": "sha256:2880d192081f1bec81c2a4400fa19d8011e20cf7e1a4d74b444f47df4763d2ee"
+              }
+            },
+            "fallback_policy": "Preserve upstream sodium_compat and native sodium handoff for password hashing; pure-PHP Argon2i password hash generation is expected to be unsupported by sodium_compat."
+          },
+          "sodium:randombytes-policy": {
+            "native_function_exists": false,
+            "compat_method_exists": true,
+            "deterministic_output_claimed": false,
+            "policy": "Random output is not committed to the manifest. Replacement requires entropy-source review and host fallback evidence."
+          }
+        }
+      }
+    },
+    "host_no_ini_probe": {
+      "command": "php -n -r <sodium host probe>",
+      "result": {
+        "php_version": "8.4.7",
+        "extension_loaded_sodium": true,
+        "function_exists_sodium_crypto_generichash": true
+      },
+      "raw_output_sha256": "sha256:cfd58e8e7e6a562fc4ceeb12c9a12c5e217e86f476d770f440ca16075453ebdc",
+      "extension_off_available": false
+    },
+    "lint": {
+      "oracle": [
+        {
+          "path": "wp-includes/sodium_compat/autoload-php7.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/autoload-php7.php",
+          "output_sha256": "sha256:e85cd2a9775687cde9388dbcc424f666f2effe6c8111befc53252189e8333a01",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/autoload.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/autoload.php",
+          "output_sha256": "sha256:cee788dc796dfb25cf304bc05dc8795f6f9b16d648ac0d4ad7cb5379b293cc18",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/constants.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/constants.php",
+          "output_sha256": "sha256:6d5b871e80bb4f41b129e750ecfdb01a8ee175b8ddc019b2f57b9b77f04e3536",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/namespaced.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/namespaced.php",
+          "output_sha256": "sha256:c3ead137bcd11561c2b3c572fbce67f879ecab969e62e8be53f6555b98ebbd13",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php72compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/php72compat.php",
+          "output_sha256": "sha256:27d458865b97f9ed74db697b9e5a93d48e21f36f329a5720c5314d65ca92d62a",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php72compat_const.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/php72compat_const.php",
+          "output_sha256": "sha256:d5f85badd0fda91dd2011fc9f98a03a0d4fe2f5ea9ee26033220466d0a3f7ba4",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php84compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/php84compat.php",
+          "output_sha256": "sha256:751372e0a550eae16cd7fe94ef529cc7559fc1110cd289afcb77eac8fcc83bea",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php84compat_const.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/php84compat_const.php",
+          "output_sha256": "sha256:32ca1a934787375d1c55ee1de1814a2de103d991599a7b58773c7d3e33328553",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/ristretto255.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/ristretto255.php",
+          "output_sha256": "sha256:d84e3be9203d8de026d1ce2c6211484e9090a7d7c7a719e8c26a9cfe7b589634",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/sodium_compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/sodium_compat.php",
+          "output_sha256": "sha256:58660095ff09502a076c93cc0c88bcd5fafdb611e1f592139fd888d72f8c2803",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/stream-xchacha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/lib/stream-xchacha20.php",
+          "output_sha256": "sha256:227a121d2266d460a258826b9acb6926157526066de6b4386084768c9456763e",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Compat.php",
+          "output_sha256": "sha256:8e32b30683ca673289189e3007a51578756ec5c27d2fbe4e3c0c5068c887fd21",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+          "output_sha256": "sha256:741b56bac14dbe95b29bb8a05cd65b8aa42457b6031ee08c50bbc5c420b82e64",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+          "output_sha256": "sha256:7bffa055e1fb414b25f7cd413fc553743841b0e27809284a57433edafc7d6033",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:5c5289ea504f8e2dd972dc557f0845fffe07c017ad50f1f0cdd3d8372d331aa9",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:db7e8b1c9b4b4e688b7cea5169259f8016a0e6dd83b82fa38be13d0182367630",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+          "output_sha256": "sha256:81a394d9dd7c123d922f3f1c918d91818421d55c1d78ec57b8d6074c9bceb88f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+          "output_sha256": "sha256:ec674bedf6fc9c9f51599b80a8da83829eab2add030c389b72fb5520d78056ba",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:7015d22b69be7e994ff2bad3530420d9fead0791e4823fbc14503af87d2874c1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:c3d1559ffec987be765aa80f1af9631d647d91ce06339e95ec4ce54e8c5b6992",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:168f6be98fb8ace66798e4233a7551088019d4b47a7dba8b31ed118a8f7f5a1b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:87ab14348e79d262bf36c3a16c68395727e5c66866965abf65ac7b8df81c529b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:0883946dbcd8d047c6a1c270c160cdd0d3fae7143a9f08f1bd5d4dddfbbd0153",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+          "output_sha256": "sha256:d549c8fdf5a0e09d7ded220c641de40c93d8679de8f44cff339e667eed34b85b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+          "output_sha256": "sha256:4d748691cd6273303e2327dc816fa03be43c078820ecb0c39c6ca3f01b4437db",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+          "output_sha256": "sha256:3a4ade10729d9246e5e2374fb9bca0071dbf8bf8943674b997202beb7767982c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+          "output_sha256": "sha256:be809105ea8fe7417ff2e66fd4a1885464ffc2bee58c01e90276953720db4ce7",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+          "output_sha256": "sha256:f444dc8f5cd393a7574e096ed002eb60cc01627bf4a1c14f974e4ccd8f6f77a9",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+          "output_sha256": "sha256:0614b4a363c980085cb6119078cff324736bc19bff21e2f9cfe9a8f35ac52218",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+          "output_sha256": "sha256:4137d3b81d56d852fabbe82977078417dfafc16ed788a42cd156c8c0d29836d6",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+          "output_sha256": "sha256:43762aa259d7a85cf42a9afc2ca3d9b4550ee25f368f1b68ac9c557ea1c3ceb3",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Util.php",
+          "output_sha256": "sha256:fe063216d6c7cc3b070e81b2fcd045838676756755261d16f3845113547989b4",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/X25519.php",
+          "output_sha256": "sha256:2ea9506849094ca6fd416683872e3a4b8912bbfc9199c752989fd5e96dc970fc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+          "output_sha256": "sha256:4186007ebe9c8836fbd1bd9b4ecebe907cc7d68a65e8e593038b3b591e761800",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+          "output_sha256": "sha256:3ea8e35e53bb53d6520c4e25117b067336f4910bea900fdf2535d47baa1f80be",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Crypto.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/Crypto.php",
+          "output_sha256": "sha256:15cd6d46d19838592f4a8cba9b2f3159853dbcf3f8cc13e76b067869a6085231",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/File.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/namespaced/File.php",
+          "output_sha256": "sha256:697543f1e5117c46c1d47567f5d6b702b9357519fdfc062de6986860b42a18dc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Compat.php",
+          "output_sha256": "sha256:44eefd4d9f9de036fa5ce83669795a08230868e406d5b1b4d2e0697ae1ef5fff",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+          "output_sha256": "sha256:d11df943d2c0ae3e2f380f2ce3922016b46bdca502f3a2eadcca91f449353eae",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+          "output_sha256": "sha256:b83afba89260f14df7fabc7988dedf7f825ffcc9549daf244580eac8809c76c4",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+          "output_sha256": "sha256:8227c54be0ae712816cae9b9152981fec939a180e222f46aff7ad29c449de79d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS256.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AEGIS256.php",
+          "output_sha256": "sha256:652298d9c0ff012d7aabc22eb54fb091f3f4831ca5ed2a1646fa3ea4066fbffc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AES.php",
+          "output_sha256": "sha256:47ec6a8f741d02612df93754bf27f7e244dcd83a1a1b8b17f36b6771397b698f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/Block.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AES/Block.php",
+          "output_sha256": "sha256:4130d443f72be137c182e021dee115fe9b4c590c820966a2a1828c458ae2bbdd",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+          "output_sha256": "sha256:2d37928904375724c341df56d309e101f2a11a3edbed3899466ebedb77390e70",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+          "output_sha256": "sha256:3e5aec4bebb14398b77dc1c9e6733b8a177d96ed4fbddffa2cb25db2cb127cd3",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+          "output_sha256": "sha256:772e15ca34b4d41f570c8b8b949bed5e9209707499184fb1e908ebd276b9ec87",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Base64/Original.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Base64/Original.php",
+          "output_sha256": "sha256:5fd9daa56495601b86fc34207ca13e92636da23251b7739bfd7a2ff6bf62e8db",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+          "output_sha256": "sha256:cda7355319eac597668ca9b4b45ce67ccde8b2ac1516744d7b415f984f9f228d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/ChaCha20.php",
+          "output_sha256": "sha256:e652fcc90944af41720a5c87e77f5a229a4d4921d8b212d32455c8d26407f64e",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:4b5d2ddebcea46a688fc269a4998be7b1cb5f56b0e7ddf55a5021977225abc7b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:c7586852cc4379af03267c54e457935a1fad131d0e53906017555ddb448c68b1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519.php",
+          "output_sha256": "sha256:5c98c8ca3d37d044b09fbba69359643cd1ae7bb240e4a8a3004a341f35d9d40b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+          "output_sha256": "sha256:d79570160271dd096ec65210c9a8eca50f96e971d368eabcc41691f9f0ebbf1b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:4d32d021f3b948fd24c3bc7f200f822555279c8045705565af7cbe29beeec522",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:ba311ce7d8e3d426deb655ea304f71b8ba61bd2cb5c8954225a6189b2a6e9712",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:fcdf657ab23b4435e84306ee2f762cb7bdafd345b2bb4a04ed664a4fa2731d70",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:ef285ce89c418e1dead7d643a709961642b4b1a05e8141cfa72ed9dedc67c0e0",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:b17eacca33ca26dd1270184bd61f5bc4026509752b9766e32c32d12793fc8378",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+          "output_sha256": "sha256:a3daf93d639675de9bbcaf753861737b2315b93a98ee32657fafce12f8c48baa",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Ed25519.php",
+          "output_sha256": "sha256:a46657b87c8c676e9ff4f9ccf08fb8e50c5c710760db3a03cd4765ae9dc467da",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/HChaCha20.php",
+          "output_sha256": "sha256:1c85afbcd5c4e90476c354af1e0fae54a5fd5f4c7180058157e65dec881706de",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/HSalsa20.php",
+          "output_sha256": "sha256:3a91dbea6b7293cca792a013bf3f0841ff1c2b1d2c9e195479d6e16be71229a1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Poly1305.php",
+          "output_sha256": "sha256:91a7422ca7b77b758653346f072f9606269ce2378d65db2594519b40a770b74b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+          "output_sha256": "sha256:a11fbc0558092c52f25c6a8ab9bd1327e7e8897b27b21e5ed7955446f4b85842",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Ristretto255.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Ristretto255.php",
+          "output_sha256": "sha256:74cc3f0b5982866b988dc9fe2f877a70b5e2e32ca0c604afcd66261728cd15ff",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Salsa20.php",
+          "output_sha256": "sha256:50d1826100f8f6478c45510caaadfef3707abda2e92c436ce8e371dcdd832496",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+          "output_sha256": "sha256:2db887021c5e59110f93d3865a7914543966639addb32831c3fba342fe4491e5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/SipHash.php",
+          "output_sha256": "sha256:87449b2653b4bb044b53c03f6f633adf119387a1624f65e81b16de7278173a0c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/Util.php",
+          "output_sha256": "sha256:da4434688e5474c3a833aa451f8f6e017e63d2dd322e99c5318086a7db230255",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/X25519.php",
+          "output_sha256": "sha256:475e399362afdcad0d98c07ebc6e3715832dd525056c45cc1c6a758b381734cc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/XChaCha20.php",
+          "output_sha256": "sha256:49218fe8da1ae1e9cb3c77f67063667af781f5b9a61db9f871841cd61669c2d7",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/XSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core/XSalsa20.php",
+          "output_sha256": "sha256:4718b7cdc92916a01723982fb63c4885ba57b51eee2af0e632be48ca7cf51748",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+          "output_sha256": "sha256:2a79a1e5bcd4f329e6ba41c84ae26ec65d2ca794fdbaea4346cfefa39210e70b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+          "output_sha256": "sha256:c834a436ffbf136fc76ac5a28011251c4abab46ca71c86a11769d34c902a71cb",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:29feb1341a68860a6d4baca7d69032292c529d36ea83d16f0795735ce1c9257e",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:5b69cf4a028e61dae500e0f8c899377e2aae76aaed12adc636d622302d906792",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519.php",
+          "output_sha256": "sha256:ba1018f36bd3d3c65b49112d10a18993409fe78d8c9054d72ed2f6afce464e76",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+          "output_sha256": "sha256:36f3959ea0317b17018b2dda8f2c1320b9c8aa1ab97218336d853aef802ea9be",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:9566b180f1ca56b2257e75d67a02aac8282e798831586690fef31351fbd48a16",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:af7a2f7028f86b90638996d27c12d453123392c736476f5f7faccfc0e117f242",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:dd0d8e7822fa1c003fc87172fa90784bf49efa692cb5c73a0a1d6b75b00f346d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:207d9ce6fea1ced2fe88247d0158b91096aa46b9685891afa8eb837e9ed88edc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:c14818b8c1ffd13d57dd93ea48438b7ad941bd1f2845ec5081918f477b658620",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+          "output_sha256": "sha256:36903e8ed1beb9dd81585975b96b4d6b2e33704d5e426ae348fc97fdaf806d1c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Ed25519.php",
+          "output_sha256": "sha256:1c8575291e4f48c7deae9355240a5aa3b5c66a49136e125f9b05d16aa64115bc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+          "output_sha256": "sha256:8ac79dc179bf664c950a7da71259df1f95226fcebf8aac5e7f72b30c462cea70",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+          "output_sha256": "sha256:bded703fd12a2ce2ac82a5145d3adf0ccc44ea1ea3629b62accf09fb234c5a4b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Int32.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Int32.php",
+          "output_sha256": "sha256:860b9d91c8a9f0afce13a54a3d1143d384bd97dc0c6bea2a9059fc8ef7513ef0",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Int64.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Int64.php",
+          "output_sha256": "sha256:4038a629a3b1caa2b01d6dcc976edfec3c7052ddd47fcb20341b0c327ffc497d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Poly1305.php",
+          "output_sha256": "sha256:718e53abfffb3ce9c2be8857abf81e15469f88dfc3dbeee2690554e85ca0e167",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+          "output_sha256": "sha256:e5d79e9055b3db49ec63524da15d14ffff5d4f0f8ddf7c5d8f2c52848f68203f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Salsa20.php",
+          "output_sha256": "sha256:5bb4d586acb4918addc9cae8a5bb7390b0c7e24691903c61835bbb8787fe92a2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+          "output_sha256": "sha256:dac59912143fcebdaa037b6f5c5577343cc185f9f30f85599d9f0604cf79b1ee",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/SipHash.php",
+          "output_sha256": "sha256:61f850802f356ce234fb8a873a82b80db1d214891375da993124f809dae782a5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/Util.php",
+          "output_sha256": "sha256:55102b114f818a0e7e10263f2f4ec0b902817e0b937ab3ff5aec6a7f46f9a3b3",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/X25519.php",
+          "output_sha256": "sha256:6a09a9c8471747c41fdaca72294839a07a4cc8214a06b63bab9e5b4483115c63",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+          "output_sha256": "sha256:dc69e586e4e023ed407739f8d275854fc74a33be4690030735bb639818c4537b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+          "output_sha256": "sha256:0ef878aa5193edaa0c39536bda406a3cce32248eb9b32e58e1383713bc9d3736",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Crypto.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Crypto.php",
+          "output_sha256": "sha256:53b41142d14c30844bf36155496304c98c1f73de520072868a967d44df84eb7f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Crypto32.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/Crypto32.php",
+          "output_sha256": "sha256:c8c74cee9ad3a10045f7846a88254b51be731980c066b6e657da5399e85bcb44",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/File.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/File.php",
+          "output_sha256": "sha256:c1654bb5ca584130a7535dd1b62a3ba68175578de85b7fe7bab33966ac59448c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+          "output_sha256": "sha256:f6e5e115f33a164977ca6394f3e582644625348da717c05027130a316c9d1344",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/SodiumException.php",
+          "command": "php -l build/wp-core/wphx-323-18/oracle/wp-includes/sodium_compat/src/SodiumException.php",
+          "output_sha256": "sha256:f6ee89fc6e4dbc8878d81923729501cf570a029d55d7772595a2f699c7ffe6c6",
+          "ok": true
+        }
+      ],
+      "candidate": [
+        {
+          "path": "wp-includes/sodium_compat/autoload-php7.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/autoload-php7.php",
+          "output_sha256": "sha256:e0b8d88dbc22d5a1f40752400a60d56f80c7f19b4fdef6d83bd10668c29c755d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/autoload.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/autoload.php",
+          "output_sha256": "sha256:a73f4c7649f62ea51c820559c8f919562d94f9e8ef4241ac5ede4632df4c258f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/constants.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/constants.php",
+          "output_sha256": "sha256:f36a51b7848697c50743262374b6ce60ecf08842740071ab082fd351d5ab3bec",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/namespaced.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/namespaced.php",
+          "output_sha256": "sha256:3ed287e37cd32270e975d5f11d878c6b8f09571c6069c0ab7f8259adb717e5f5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php72compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/php72compat.php",
+          "output_sha256": "sha256:530405740f0e7d9f615e3ec051ba6e3b9946d404980d5215a8bc04a72a426dae",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php72compat_const.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/php72compat_const.php",
+          "output_sha256": "sha256:a189d83b29a9fbb99532e6a69dbd737af5e816bfdcb1375146cb5700085c8013",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php84compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/php84compat.php",
+          "output_sha256": "sha256:1d37e6fe73f1c0a4e7344b37bf0c20a8f913e2da6e6d08822ac6dad3e53093d1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/php84compat_const.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/php84compat_const.php",
+          "output_sha256": "sha256:26db095705c4ebadcb856419da44e249b29e60bce1d5b0e03e16acff8af897d4",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/ristretto255.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/ristretto255.php",
+          "output_sha256": "sha256:06085c8ed09d4e584493013a2726e553769815e089dc1a5c26a740d6690f2c1f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/sodium_compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/sodium_compat.php",
+          "output_sha256": "sha256:dfa1d8b6527e811881a9793ea6b8373c10164e00d0610c4586ad47efbccffa72",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/lib/stream-xchacha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/lib/stream-xchacha20.php",
+          "output_sha256": "sha256:bcc3bf92e21db0ac1d71b4b5ce3822d121202953836b7458e9340d1fa9e70124",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Compat.php",
+          "output_sha256": "sha256:f6fd874d53ecba0540a0e4ce598724345678d40afa4a700d01e6ea8dc572b163",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/BLAKE2b.php",
+          "output_sha256": "sha256:b73d0c9bc69222c1444a86405ff49f3e535f964b512893ad238a2d75208e8488",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/ChaCha20.php",
+          "output_sha256": "sha256:cd1e9162ef11ca2ce07551fa231190411b58e710d0afab057d5be61ed823fa99",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:9a1e21b969d7d300f7e0a192ef67a68f0943ce18c36e732d7d2db50242afdf80",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:608b02b037d8d6fe853f162853104d62a4a7ffbfdbc206cccb2a595c5836d408",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519.php",
+          "output_sha256": "sha256:0f34232d940a33834d1cf371354571f33c691d3a537039a8b423fc5f4410a616",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Fe.php",
+          "output_sha256": "sha256:6989e508bcd5af1d15fcdee2c4aeeb34fe460065adb0f197010d9994d93a59dc",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:789b920a7748aa9b251db1ad9dd0d5fa62aac5f38eb837a909202b9695f3abd1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:c0af9541d739b7c02339ac77a09f87860fd02e6307ac419d4daccb981eb7be26",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:920a5b5025fb9958e2c7180306ffa7095812f88351f464b589a3d67bee36aeb2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:7fb7e1df7ca24c14d5bd050ce640f7ddae364e76b13d317b318924b0da14e2a5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:8a0cddcaba4b0f4721fcb0b0d964f23d9ab03f5598ec6f43984aae7a1acec58b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Curve25519/H.php",
+          "output_sha256": "sha256:2a304c61da3f4f9c2c9a98f611de10869db3a842d7508a74d7d54eb1001a4f05",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Ed25519.php",
+          "output_sha256": "sha256:8f195c5a36d77977a540522db1b4dd85f64e3ddc2cf90e1f7a0354d8bf1fb259",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/HChaCha20.php",
+          "output_sha256": "sha256:05b57a82b17eba98d8ee8d9a52c324bda06a5584fb9e71b372f7436853ad380f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/HSalsa20.php",
+          "output_sha256": "sha256:df6ad0ae22033c2db425a4527720f883c83ebf26070ac7e7689c12bb5ea2c85c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Poly1305.php",
+          "output_sha256": "sha256:ebd1809967503065ed3c889dac7d31c8a62d611bc07666690dc233d5d3327c3c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Poly1305/State.php",
+          "output_sha256": "sha256:b62f6338a5333c632c057f0dd0a3cfc1e40251bdde5907660270950ea568b6e7",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Salsa20.php",
+          "output_sha256": "sha256:7f398d811cbf0da3d8f60b9d8569ae05ffcfb8d4298aed9729809cea6de97dc0",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/SipHash.php",
+          "output_sha256": "sha256:10e785a9456504e6e3792619bc5e61d7b398bfe86335979ae995714af2a3479b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Util.php",
+          "output_sha256": "sha256:706fc8f46b6b82ba7de22889e00be1c1cb5d1cf8a46f9e8035e329abecccb172",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/X25519.php",
+          "output_sha256": "sha256:c6214bcf05b4760d0abb7f3afba5c245fb9713c6e8648a826d8c661d3ab03960",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/XChaCha20.php",
+          "output_sha256": "sha256:6787a7f54bf7aec9c2788bb5317aee4f5877fe01d946ea35333105d422db3591",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Core/Xsalsa20.php",
+          "output_sha256": "sha256:fb0c6120c4268b535fe652a39f853fa00862ab76001d1b14e78b347c59c9598d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/Crypto.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/Crypto.php",
+          "output_sha256": "sha256:a0c787c97fcf3d77fbfea5f1daa6a0550b64427537566637f9ed18f45c8ee499",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/namespaced/File.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/namespaced/File.php",
+          "output_sha256": "sha256:f4c706827849b435b2e5fa9c63e16941d86a9de53d78c2aab046aacceeff4fee",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Compat.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Compat.php",
+          "output_sha256": "sha256:9790990b509aaa39123aefbcd6ef91a63646aa46c56f8b12d7d49ec077ebc1d2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AEGIS/State128L.php",
+          "output_sha256": "sha256:f17a8b47b79c9bfa86fe69793fad7d828841fad33694f6b37b869e08a3f4590b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AEGIS/State256.php",
+          "output_sha256": "sha256:f7da2ff12b7f4151de4f05f0a0b1b02b4ee8ea633371dd89362524552fb1a038",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AEGIS128L.php",
+          "output_sha256": "sha256:7231e05c9e8d9797818d79affefa5112f0aa24d74e83adbaf18311ca1ec3f0c8",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AEGIS256.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AEGIS256.php",
+          "output_sha256": "sha256:a6d1d6922cf429f2b1bad43c0f3c8a2275fa356f4417d9b85b945de9c8b93aa5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AES.php",
+          "output_sha256": "sha256:05dee5a90b5574942cdcb51bae21cd077fa301baa21dcd03a9fd227c1f87b2db",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/Block.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AES/Block.php",
+          "output_sha256": "sha256:9c2a8c3d35ad3916b804006f2f2076519d23c788bbaa8b40982c5566dda83153",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AES/Expanded.php",
+          "output_sha256": "sha256:2ee60358be49196635083434730e20ea6db8b569b6f5085a0566780ad6a37f2e",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/AES/KeySchedule.php",
+          "output_sha256": "sha256:1d0377ce816780fa6fa4eb5a85c348560adc0b80e7da841403e8e91b3efc740e",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/BLAKE2b.php",
+          "output_sha256": "sha256:6aa3b0d5cf1917442a48a6223323b328a5119d6f257bcf84bdba673f462e8dae",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Base64/Original.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Base64/Original.php",
+          "output_sha256": "sha256:01eca71b8079f94ce98e38a06376732fd65928f72efaa07ca101262853eaba73",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Base64/UrlSafe.php",
+          "output_sha256": "sha256:4686ccc6d11d10159782b7d925cf27a7a48a03ef4762b92c9a42c6d7e35b22a5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/ChaCha20.php",
+          "output_sha256": "sha256:2ec1a8d9eda9c127eadc1bfc2686311b915696e123222c8e4ceaa49b176b5027",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:b46c79078f0974efc32d2afd9cfe288fdead4009af732973b37587c278300786",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:6826a32d74c35b80f0742d0b6f2d0e7d9d3df480d3dc9fcb66ccefdf5f4a869a",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519.php",
+          "output_sha256": "sha256:3a0fef4e76b0d79978b2d52029b53957e3e5036fd1830c70135d9b2464bf190c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Fe.php",
+          "output_sha256": "sha256:467b155a0127daea5625571285a1f4549ceafa626b9f32aac11494d9499fd952",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:d000e1f7a79528bad8f9058ad11f74710a282d31b92e9d6c3a4a8cc3906f9011",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:b640828a4d7672bbcd97b1194e57f98ae4c87fa2450f6eb1f2e8fe39b695aec2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:6bd6fd48ac407118ccb9e0c88eaebd62fd280da312d3d3151e076127e6080092",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:8030730a0efc6a4120074039b405ea2383452f63dd39b407e831906dc1c77ef2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:ecb5e15723051b6c6e35680eb56ebf2c3159a7a5791971647d8378593ee87c2f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Curve25519/H.php",
+          "output_sha256": "sha256:ba5e5da4952a196e98c279624f2effe5e80dd986c2bc80fcf65e350f329e8da2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Ed25519.php",
+          "output_sha256": "sha256:323f2ce8c717d18fa322c7962a3c7c68b55f3190eb01550f856c20600cd57418",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/HChaCha20.php",
+          "output_sha256": "sha256:b8dbb88a41cf3d50304202853d2aca5026f06c50def95319ac6e5ab0dc20cfcb",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/HSalsa20.php",
+          "output_sha256": "sha256:4c16db5996b61a590c2a503ea04ecb890ecaa788cc1411bd033d4f696b228098",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Poly1305.php",
+          "output_sha256": "sha256:7cbd11d829f1a8244a45ac5c73720ebdc279d5147069830411e457927990f90b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Poly1305/State.php",
+          "output_sha256": "sha256:01458f6b99cc5fde03b1336fbf2194083fa35f20413dbfce69cdca31f12f2aee",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Ristretto255.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Ristretto255.php",
+          "output_sha256": "sha256:6869de44f60eebc527f835f019d2e4f0ad8d1137b0760e61741adda96281622c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Salsa20.php",
+          "output_sha256": "sha256:071623998bee4b0153b58c8e826305e506d9ac30b11d7f1e9515f9216e2c850d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/SecretStream/State.php",
+          "output_sha256": "sha256:8d641ef5872b16ca8a28c411a87f58d6682c69fdc07a5ab62f404dd3990edb9c",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/SipHash.php",
+          "output_sha256": "sha256:b6bc1b4b5b9928ae1c2e23bef49b6276b11bf308d8a16efcd2fdcafe7ea7e51d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/Util.php",
+          "output_sha256": "sha256:89fa410694dbd87159897106ddb03070992ab63243d0bc52c78baa08a55297ca",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/X25519.php",
+          "output_sha256": "sha256:2ebc08834fd282adc4fc9780289dd7fea5d6e2622e614dad843e64b9823f8fbe",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/XChaCha20.php",
+          "output_sha256": "sha256:8560eece932d59dc2c65f42b87eb61d8ead6bb84fd06986a1749eb4ff4653da7",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core/XSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core/XSalsa20.php",
+          "output_sha256": "sha256:a24604b2ad62fa4460c9f738481d920ebb6a9d403c6ac79871f32c91d1346328",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/BLAKE2b.php",
+          "output_sha256": "sha256:065791c65b545970fe3baadc1bf6c164ca6131fa89bf5ec4bf680c76c94202cb",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/ChaCha20.php",
+          "output_sha256": "sha256:0009948e96229379257c3df17b6c6dc5b4df4e522ef33d19a2150be3f99dded7",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/ChaCha20/Ctx.php",
+          "output_sha256": "sha256:7e9ae8eda2430bfd291bd84459507b7368198fdda84648c77eef87216b23b496",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/ChaCha20/IetfCtx.php",
+          "output_sha256": "sha256:855ba7882740819bb5a5862a845de32cb623963ceed22993058eecfc6918c69d",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519.php",
+          "output_sha256": "sha256:8b71e33cb70fb61d4f7a47cbc285099930dbf59c69119df14fefc469ab0f1a24",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Fe.php",
+          "output_sha256": "sha256:649d5e0ed631d51821a512ae7670c484f74524f21153518b1b9c32cdb3917485",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Cached.php",
+          "output_sha256": "sha256:deaeb51f946f2f87f815bb4443636f5f3c204609787082e255441d3a36bf5954",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P1p1.php",
+          "output_sha256": "sha256:94dce566542a940546ca28f7a9f5df738ba9f4d69d699941007290c7ee32ceaa",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P2.php",
+          "output_sha256": "sha256:91631c76eb195ba7a535fa0ba561d66a77acc35da4d1f2d23320ee77a07d69e5",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/P3.php",
+          "output_sha256": "sha256:9a76c20d1273c23d637efeaebcfb794c97fac67642bc38729654c5e19d530f7b",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/Ge/Precomp.php",
+          "output_sha256": "sha256:99f23a1cab20391da10e5bd79526549a03beb40963e1b2b489b64bb3785b1408",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Curve25519/H.php",
+          "output_sha256": "sha256:06e187d28038cc7da2b85d327a6b26745d2b3e873ee7ce9a8f3b7d122349c5c9",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Ed25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Ed25519.php",
+          "output_sha256": "sha256:181583613f71f7f78458458ac60cab612e2ae8009f3920370ac378fb1c0666c1",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/HChaCha20.php",
+          "output_sha256": "sha256:9075db0cca523467e601eca36c18ec86fc38d1069a38bb8edaf07842d934d5cd",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/HSalsa20.php",
+          "output_sha256": "sha256:48ebfb05e7ae56c9d7baf70178466422c5e4be651d67bdfe2b82e8b06c2bff76",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Int32.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Int32.php",
+          "output_sha256": "sha256:323741a269a973dca9589e1754bafbaddaa6afdde48f0f247952051cd5236b02",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Int64.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Int64.php",
+          "output_sha256": "sha256:54fe0dc8980c6ecca2070640493564c7a159d50c27a47b537764d2773a934494",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Poly1305.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Poly1305.php",
+          "output_sha256": "sha256:5ffdd83ab2d91270cf40dc8625af42cbf381f005f2480fcb05adc27c08b1ac02",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Poly1305/State.php",
+          "output_sha256": "sha256:10724facff59a3270c18f2b8275a05bafc458144bd5d54410514bbe2e6225768",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Salsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Salsa20.php",
+          "output_sha256": "sha256:5cebe477fb1aa551afe76e51a83fb9217e2372264809e2617bfed00226719dd8",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/SecretStream/State.php",
+          "output_sha256": "sha256:0b9cdbfbed33ae966b9d4513272b1f9cbe665de782c64883eeb3ceb02970fe21",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/SipHash.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/SipHash.php",
+          "output_sha256": "sha256:de0f7f4ffa07830a8311fd3e1fe8b04616c2342efc48c79f3d21651f80db80d9",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/Util.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/Util.php",
+          "output_sha256": "sha256:53507309ba22c8b68b13aef972594bc15e9e3bfa50293d8a690dfef768e4f1d2",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/X25519.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/X25519.php",
+          "output_sha256": "sha256:a40dd000bd6d7b8aa399aef16ceb3c45302d254c2e6128771df72268b1a181de",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/XChaCha20.php",
+          "output_sha256": "sha256:aab219b8a253989c10c713892600eb1151aecb9880213794cfac12d13b302c1f",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Core32/XSalsa20.php",
+          "output_sha256": "sha256:0518f7964fc72ec0b62c9d17ef6f1dcc14b720e19e278495346d8890e421ffd8",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Crypto.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Crypto.php",
+          "output_sha256": "sha256:ce157f0662b77a98a377c077c54866d8dd120c46e8dca0d0bc358969284eecf3",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/Crypto32.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/Crypto32.php",
+          "output_sha256": "sha256:afc76e7e06a2ad327f8bbf837ba2e402fb1c5f7e9ebc1aa175b9e36cc3922993",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/File.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/File.php",
+          "output_sha256": "sha256:fbc631c1eb1da4f027960035516b47c636860b2c0e9be9f65f02afb991bed1c3",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/PHP52/SplFixedArray.php",
+          "output_sha256": "sha256:37ca05b647c369639c404de5c677f4aaf02b1a1cfd1699fb55563cf41b8d2aeb",
+          "ok": true
+        },
+        {
+          "path": "wp-includes/sodium_compat/src/SodiumException.php",
+          "command": "php -l build/wp-core/wphx-323-18/candidate/wp-includes/sodium_compat/src/SodiumException.php",
+          "output_sha256": "sha256:fd067824de3f1d3d10eee20b961f61285b2e6f3a5410f491c34b666dc0313739",
+          "ok": true
+        }
+      ]
+    }
+  },
+  "behavior_floors": [
+    {
+      "id": "wphx-306-05-password-application-fixture",
+      "manifest": "manifests/wp-core/wphx-306-05-password-application-fixture.v1.json",
+      "role": "WordPress password/application fixture floor for sodium-backed fast hashes and password-family summaries"
+    },
+    {
+      "id": "wphx-306-07-auth-installed-distribution-gate",
+      "manifest": "manifests/wp-core/wphx-306-07-auth-installed-distribution-gate.v1.json",
+      "role": "installed auth distribution blocker/evidence floor for password/application behavior"
+    }
+  ],
+  "blocked_conditions": [
+    {
+      "id": "true-extension-off-installed-host",
+      "status": "blocked",
+      "reason": "The local PHP binary reports ext/sodium loaded even under php -n, so this gate records native-on behavior plus direct ParagonIE_Sodium_Compat pure-PHP fallback behavior. A host where ext/sodium is genuinely unavailable remains a separate installed/runtime gate."
+    },
+    {
+      "id": "constant-time-proof",
+      "status": "blocked",
+      "reason": "The gate records equality and verification surfaces and preserved fallback policy, but it does not prove constant-time behavior or replace a security audit for timing-sensitive implementations."
+    },
+    {
+      "id": "haxe-owned-crypto-implementation",
+      "status": "blocked",
+      "reason": "Oracle and candidate roots both execute copied upstream sodium_compat artifacts. No Haxe-owned cryptographic implementation, generated WPHX PHP adapter, or host-primitive replacement is introduced."
+    },
+    {
+      "id": "copied-sodium-retirement",
+      "status": "blocked",
+      "reason": "Copied sodium_compat artifacts stay preserved until WPHX-323.22 accepts a replacement/provenance decision with security, ecosystem, installed, and generated-overlay evidence."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 104,
+    "notice_file_count": 4,
+    "artifact_provenance_record_count": 104,
+    "covered_symbol_count": 33,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_file_count": 104,
+    "candidate_lint_file_count": 104,
+    "native_sodium_extension_loaded": true,
+    "direct_pure_php_fallback_forced": true,
+    "php_no_ini_sodium_extension_off_available": false,
+    "php_no_ini_sodium_extension_loaded": true,
+    "php_polyfill_guard_count": 114,
+    "fallback_marker_file_count": 6
+  },
+  "claims": {
+    "copied_sodium_compat_package_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "native_sodium_on_direct_fallback_differential_recorded": true,
+    "real_extension_off_installed_runtime_claimed": false,
+    "haxe_owned_crypto_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_sodium_compat_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned sodium_compat or cryptographic runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/sodium_compat.",
+    "This gate does not claim copied sodium_compat artifact retirement.",
+    "This gate does not prove constant-time behavior or replace security audit requirements for timing-sensitive crypto code.",
+    "This gate does not prove installed WordPress behavior on a host where ext/sodium is genuinely unavailable; the local PHP binary keeps ext/sodium loaded even under php -n.",
+    "The direct fallback observations are preserved-package evidence using ParagonIE_Sodium_Compat::$disableFallbackForUnitTests, not a WPHX host-primitive implementation."
+  ]
+}
