@@ -1,0 +1,47 @@
+{
+  "id": "wphx-323-15-simplepie-wrapper-cache-transport-gate",
+  "issue": {
+    "id": "wordpresshx-l76.35",
+    "external_ref": "WPHX-323.15",
+    "title": "Add SimplePie feed wrapper cache and transport gate"
+  },
+  "generated_at": "2026-07-08T03:00:00.000Z",
+  "evidence_class": "preserved_simplepie_wrapper_cache_transport_gate",
+  "artifact_scope": "wp-includes/SimplePie plus WordPress feed wrapper/cache/file/sanitize public PHP fallback roots",
+  "commands": [
+    "npm run wp:core:wphx-323-simplepie-wrapper-cache-transport",
+    "npm run wp:core:wphx-323-simplepie-wrapper-cache-transport:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+    "receipt": "receipts/wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+    "feed_vendor_gates_manifest": "manifests/wp-core/wphx-323-04-feed-vendor-replacement-gates.v1.json",
+    "api_reflection_corpus_manifest": "manifests/wp-core/wphx-323-14-simplepie-api-reflection-corpus-fixture.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "evidence_summary": {
+    "status": "passed",
+    "fixture_cases": 8,
+    "covered_symbols": 25,
+    "source_file_count": 89,
+    "behavior_floor_count": 7,
+    "loopback_server_request_count": 12,
+    "observations_match": true,
+    "observations_assert": true,
+    "blocked_condition_count": 5
+  },
+  "non_claims": [
+    "This gate does not implement or claim Haxe-owned SimplePie runtime logic.",
+    "This gate does not emit generated SimplePie wrappers or original-path public PHP replacements.",
+    "This gate does not retire copied SimplePie package files, class-simplepie.php, class-feed.php, feed.php, or WordPress feed adapter files.",
+    "This gate does not claim live external feed provider behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, browser/editor widget or block parity, or installed WordPress feed parity.",
+    "The deterministic loopback server, PHP probe stubs, and copied roots are replacement-readiness evidence only, not distributable WPHX runtime code."
+  ],
+  "next_required_gates": [
+    "WPHX-323.17 feed vendor provenance and replacement decision gate",
+    "generated WPHX PHP wrapper/overlay evidence before copied SimplePie artifact retirement",
+    "installed database-backed feed/widget/block parity and live/TLS/proxy/DNS fallback gates"
+  ],
+  "result": "passed"
+}

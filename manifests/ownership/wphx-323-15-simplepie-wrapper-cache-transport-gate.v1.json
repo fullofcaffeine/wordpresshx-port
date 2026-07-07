@@ -1,0 +1,39 @@
+{
+  "schema": "wphx.ownership_manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate",
+  "issue": {
+    "id": "wordpresshx-l76.35",
+    "external_ref": "WPHX-323.15",
+    "title": "Add SimplePie feed wrapper cache and transport gate"
+  },
+  "generated_at": "2026-07-08T03:00:00.000Z",
+  "evidence": "manifests/wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+  "boundary": {
+    "id": "simplepie",
+    "owned_paths": [
+      "wp-includes/class-simplepie.php",
+      "wp-includes/class-feed.php",
+      "wp-includes/class-wp-feed-cache.php",
+      "wp-includes/class-wp-feed-cache-transient.php",
+      "wp-includes/class-wp-simplepie-file.php",
+      "wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "wp-includes/feed.php",
+      "wp-includes/SimplePie/**"
+    ],
+    "emission_strategy": "copied_upstream_simplepie_package_with_deterministic_loopback_wrapper_cache_transport_probe",
+    "behavior_parity_scope": "deterministic_loopback_wrapper_cache_transport_observation_match_only",
+    "haxe_runtime_ownership_claimed": false,
+    "generated_wrapper_claimed": false,
+    "public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "installed_wordpress_parity_claimed": false
+  },
+  "non_claims": [
+    "This gate does not implement or claim Haxe-owned SimplePie runtime logic.",
+    "This gate does not emit generated SimplePie wrappers or original-path public PHP replacements.",
+    "This gate does not retire copied SimplePie package files, class-simplepie.php, class-feed.php, feed.php, or WordPress feed adapter files.",
+    "This gate does not claim live external feed provider behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, browser/editor widget or block parity, or installed WordPress feed parity.",
+    "The deterministic loopback server, PHP probe stubs, and copied roots are replacement-readiness evidence only, not distributable WPHX runtime code."
+  ],
+  "removal_gate": "Replace this preserved-package gate with generated WPHX PHP wrapper overlays only after API/reflection, wrapper/cache/transport, provenance, ecosystem, upstream PHPUnit, installed route, and live/fallback gates pass with a non-empty candidate overlay manifest."
+}
