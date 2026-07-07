@@ -1,0 +1,968 @@
+{
+  "schema": "wphx.wp-core.phpmailer-transport-gate.v1",
+  "issue": {
+    "id": "wordpresshx-m1u1",
+    "external_ref": "WPHX-323.12",
+    "title": "Add PHPMailer SMTP and phpmail transport gate"
+  },
+  "generated_at": "2026-07-07T22:30:00.000Z",
+  "generator": "tools/wp-core/run-phpmailer-transport-gate.mjs",
+  "evidence_class": "preserved_phpmailer_controlled_transport_gate",
+  "boundary_id": "phpmailer",
+  "behavior_parity_claimed": false,
+  "controlled_transport_observation_claimed": true,
+  "operational_mail_delivery_claimed": false,
+  "installed_wordpress_mail_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "haxe_owned_runtime_claimed": false,
+  "copied_phpmailer_artifact_retirement_claimed": false,
+  "inputs": {
+    "strategy": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "mail_gates": {
+      "path": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+      "bytes": 17578,
+      "sha256": "sha256:22876ce604df350faf1bad95a754fe2bd2769a61df97edfaf518b6d5231e08df"
+    },
+    "api_reflection": {
+      "path": "manifests/wp-core/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+      "bytes": 1062096,
+      "sha256": "sha256:44a611b8a3fb7f5e80c6f3d70a68dc27b1d4f06a74cf9886432ab569a166c9d0"
+    },
+    "setup_fixture": {
+      "path": "manifests/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+      "bytes": 34458,
+      "sha256": "sha256:fcbb4d21f23eefbb1e75e7eb97bb958cbb7d0396a2f574df3f0499c6215a8f09"
+    },
+    "transport_floor": {
+      "path": "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+      "bytes": 35588,
+      "sha256": "sha256:31b7c35fe3f147ada2e23c2f29aa2e0be7354db1ea2d70d3a2858bdaf6615916"
+    },
+    "vendor_closure": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "planned_gate": {
+      "id": "phpmailer-controlled-smtp-and-phpmail-transport",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-m1u1",
+        "external_ref": "WPHX-323.12",
+        "title": "Add PHPMailer SMTP and phpmail transport gate"
+      },
+      "gate_kind": "controlled_transport_matrix",
+      "required_before": [
+        "transport_replacement_claim",
+        "copied_phpmailer_retirement",
+        "installed_mail_parity_claim"
+      ],
+      "existing_evidence_ids": [
+        "wphx-312-93-cron-mail-transport-installed-gate"
+      ],
+      "required_observations": [
+        "wp_mail header parsing, From/CC/BCC/Reply-To/custom headers, content type, and charset filters",
+        "attachment and embedded-image setup",
+        "phpmailer_init mutations before send",
+        "wp_mail_succeeded and wp_mail_failed hook payloads",
+        "controlled local SMTP success capture",
+        "controlled local SMTP connection failure",
+        "phpmail/mail() boundary shape without external delivery where host permits",
+        "exceptions and PHPMailer ErrorInfo propagation",
+        "authenticated SMTP, TLS, DNS/MX, remote server policy, bounces, retries, and operational delivery recorded as blocked until dedicated gates exist"
+      ],
+      "acceptance": "Controlled local SMTP and phpmail/mail() boundary evidence records preserved PHPMailer/wp_mail behavior, unsupported host conditions, and WordPress hook/error observations before replacement claims.",
+      "fallback_policy": "Use preserved upstream PHPMailer for all operational delivery paths until deterministic SMTP/phpmail gates and blocked authenticated/TLS/DNS conditions are resolved.",
+      "removal_gate": "Do not retire PHPMailer transport code or claim installed mail parity until WPHX-323.12 passes with explicit blocked-condition records."
+    },
+    "existing_floor_ids": [
+      "wphx-312-13-phpmailer-setup-oracle-fixture",
+      "wphx-312-93-cron-mail-transport-installed-gate",
+      "wphx-323-01-php-vendor-replacement-strategy"
+    ],
+    "source_inventory_count": 7
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/PHPMailer/DSNConfigurator.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/DSNConfigurator.php",
+      "bytes": 6883,
+      "sha256": "sha256:429f5f0a962864ec7b67efd572c0f85cc0f33fd4585413d8dc80d41c8562399e"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/Exception.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/Exception.php",
+      "bytes": 1256,
+      "sha256": "sha256:22ab858ae438d98f58f41f38ad2191d1b0d59570aebea0463a7948cfae1021b7"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/OAuth.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/OAuth.php",
+      "bytes": 3791,
+      "sha256": "sha256:44b2c9a3b6e538a65b90261251f197d700e2eb90d51d4944fb80577263210fb4"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+      "bytes": 1538,
+      "sha256": "sha256:f2318ea1b2841b2481b636e205c281a733f9de944a71ae403e0b59fa71219572"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/PHPMailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/PHPMailer.php",
+      "bytes": 194030,
+      "sha256": "sha256:01038c4104554fe7fdb958eb4653883c5cf93af76a3c8797794001c35c1bf553"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/POP3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/POP3.php",
+      "bytes": 12452,
+      "sha256": "sha256:a3123fffbe5fe132f6d02fba7ad46e520ce4059e46aaccb923fd5b8d63bc1708"
+    },
+    {
+      "path": "src/wp-includes/PHPMailer/SMTP.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/PHPMailer/SMTP.php",
+      "bytes": 53628,
+      "sha256": "sha256:f7c8210e4047871f9f0b0639d7387d5574738fb9984f744d58d85378da77c68e"
+    },
+    {
+      "path": "src/wp-includes/class-phpmailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-phpmailer.php",
+      "bytes": 664,
+      "sha256": "sha256:0dfbc6a7b33c833e61559bb196dcbbccf2389f5813ca7ba0bb2fc8048745ec9f"
+    },
+    {
+      "path": "src/wp-includes/class-pop3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-pop3.php",
+      "bytes": 21121,
+      "sha256": "sha256:1872ab2151b091b419d3e354852e7c179c3879cb5046c5dd1b6ca35b1df29220"
+    },
+    {
+      "path": "src/wp-includes/class-smtp.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-smtp.php",
+      "bytes": 457,
+      "sha256": "sha256:521e45083d2d43eb70fd7985643fd3847047a2060a743cf9d0635e96eb369563"
+    },
+    {
+      "path": "src/wp-includes/class-wp-phpmailer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-phpmailer.php",
+      "bytes": 4348,
+      "sha256": "sha256:4033b95890bc5f228381f55c89cb538ac02ad624f2db35758a98cc9b56b8d33d"
+    },
+    {
+      "path": "src/wp-includes/pluggable.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pluggable.php",
+      "bytes": 127558,
+      "sha256": "sha256:c50d95cc208711745a7a8931584155169b50c8d91473a5e731ac22efb3fa30db"
+    }
+  ],
+  "linted_files": [
+    "src/wp-includes/PHPMailer/DSNConfigurator.php",
+    "src/wp-includes/PHPMailer/Exception.php",
+    "src/wp-includes/PHPMailer/OAuth.php",
+    "src/wp-includes/PHPMailer/OAuthTokenProvider.php",
+    "src/wp-includes/PHPMailer/PHPMailer.php",
+    "src/wp-includes/PHPMailer/POP3.php",
+    "src/wp-includes/PHPMailer/SMTP.php",
+    "src/wp-includes/class-phpmailer.php",
+    "src/wp-includes/class-pop3.php",
+    "src/wp-includes/class-smtp.php",
+    "src/wp-includes/class-wp-phpmailer.php",
+    "src/wp-includes/pluggable.php"
+  ],
+  "covered_symbols": [
+    "wp_mail",
+    "PHPMailer\\PHPMailer\\PHPMailer::send",
+    "PHPMailer\\PHPMailer\\PHPMailer::preSend",
+    "PHPMailer\\PHPMailer\\PHPMailer::postSend",
+    "PHPMailer\\PHPMailer\\PHPMailer::smtpSend",
+    "PHPMailer\\PHPMailer\\PHPMailer::isSMTP",
+    "PHPMailer\\PHPMailer\\PHPMailer::isMail",
+    "PHPMailer\\PHPMailer\\PHPMailer::addAddress",
+    "PHPMailer\\PHPMailer\\PHPMailer::addCC",
+    "PHPMailer\\PHPMailer\\PHPMailer::addBCC",
+    "PHPMailer\\PHPMailer\\PHPMailer::addReplyTo",
+    "PHPMailer\\PHPMailer\\PHPMailer::addAttachment",
+    "PHPMailer\\PHPMailer\\PHPMailer::addEmbeddedImage",
+    "PHPMailer\\PHPMailer\\PHPMailer::addCustomHeader",
+    "PHPMailer\\PHPMailer\\SMTP",
+    "WP_PHPMailer",
+    "phpmailer_init",
+    "wp_mail_succeeded",
+    "wp_mail_failed",
+    "wp_mail_charset",
+    "wp_mail_content_type",
+    "wp_mail_embed_args"
+  ],
+  "cases": [
+    {
+      "id": "phpmailer-transport:smtp-success",
+      "focus": "wp_mail sends through PHPMailer SMTP to deterministic local capture with headers, charset filter, attachment, embedded image, and success hooks"
+    },
+    {
+      "id": "phpmailer-transport:smtp-failure",
+      "focus": "wp_mail surfaces controlled local SMTP connection failure through ErrorInfo and wp_mail_failed"
+    },
+    {
+      "id": "phpmailer-transport:phpmail-boundary",
+      "focus": "wp_mail/PHPMailer builds PHP mail() boundary MIME shape without invoking host mail delivery"
+    },
+    {
+      "id": "phpmailer-transport:blocked-host-conditions",
+      "focus": "authenticated SMTP, TLS, proxy, DNS/MX, bounce, retry, and operational delivery stay blocked before replacement claims"
+    }
+  ],
+  "observations": [
+    {
+      "id": "phpmailer-transport:smtp-success",
+      "focus": "wp_mail sends through PHPMailer SMTP to deterministic local capture with headers, charset filter, attachment, embedded image, and success hooks",
+      "oracle": {
+        "php": {
+          "case": "phpmailer-transport:smtp-success",
+          "result": true,
+          "error_info": "",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_succeeded",
+              "arg_count": 1,
+              "mail_data": {
+                "to": [
+                  "Capture User <capture@example.test>"
+                ],
+                "subject": "SMTP Capture Success",
+                "message_sha256": "76b4067e5d5a9ebc5f872aa8a3b6a5f31838e8385b4068a0236cd7da7dc232b5",
+                "headers": [
+                  "smtp-success"
+                ],
+                "attachments": [
+                  "report.txt"
+                ],
+                "embeds": [
+                  "logo.png"
+                ],
+                "phpmailer_exception_code": null
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_embed_args",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:smtp-success",
+              "class": "WP_PHPMailer",
+              "mailer": "smtp",
+              "host": "127.0.0.1",
+              "port": "<smtp-port>",
+              "smtp_auth": false,
+              "smtp_auto_tls": false,
+              "timeout": 5,
+              "custom_header_count": 2
+            }
+          ],
+          "php_errors": []
+        },
+        "smtp_captures": [
+          {
+            "mail_from": "<sender@example.test>",
+            "rcpt_to": [
+              "<capture@example.test>",
+              "<copy@example.test>",
+              "<blind@example.test>"
+            ],
+            "headers": {
+              "subject": "SMTP Capture Success",
+              "from": "Sender <sender@example.test>",
+              "to": "Capture User <capture@example.test>",
+              "cc": "Copy <copy@example.test>",
+              "content_type": "multipart/mixed;",
+              "x_wphx_case": "smtp-success",
+              "x_wphx_transport": "smtp-capture"
+            },
+            "features": {
+              "contains_html_body": true,
+              "contains_attachment_filename": true,
+              "contains_embed_cid": true,
+              "normalized_data_sha256": "sha256:bc53224385c2fe91435faea390af5c200418b6b1e5bb769fa2929701d4197452"
+            }
+          }
+        ]
+      },
+      "candidate": {
+        "php": {
+          "case": "phpmailer-transport:smtp-success",
+          "result": true,
+          "error_info": "",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_succeeded",
+              "arg_count": 1,
+              "mail_data": {
+                "to": [
+                  "Capture User <capture@example.test>"
+                ],
+                "subject": "SMTP Capture Success",
+                "message_sha256": "76b4067e5d5a9ebc5f872aa8a3b6a5f31838e8385b4068a0236cd7da7dc232b5",
+                "headers": [
+                  "smtp-success"
+                ],
+                "attachments": [
+                  "report.txt"
+                ],
+                "embeds": [
+                  "logo.png"
+                ],
+                "phpmailer_exception_code": null
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_embed_args",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:smtp-success",
+              "class": "WP_PHPMailer",
+              "mailer": "smtp",
+              "host": "127.0.0.1",
+              "port": "<smtp-port>",
+              "smtp_auth": false,
+              "smtp_auto_tls": false,
+              "timeout": 5,
+              "custom_header_count": 2
+            }
+          ],
+          "php_errors": []
+        },
+        "smtp_captures": [
+          {
+            "mail_from": "<sender@example.test>",
+            "rcpt_to": [
+              "<capture@example.test>",
+              "<copy@example.test>",
+              "<blind@example.test>"
+            ],
+            "headers": {
+              "subject": "SMTP Capture Success",
+              "from": "Sender <sender@example.test>",
+              "to": "Capture User <capture@example.test>",
+              "cc": "Copy <copy@example.test>",
+              "content_type": "multipart/mixed;",
+              "x_wphx_case": "smtp-success",
+              "x_wphx_transport": "smtp-capture"
+            },
+            "features": {
+              "contains_html_body": true,
+              "contains_attachment_filename": true,
+              "contains_embed_cid": true,
+              "normalized_data_sha256": "sha256:bc53224385c2fe91435faea390af5c200418b6b1e5bb769fa2929701d4197452"
+            }
+          }
+        ]
+      },
+      "observations_equal": true
+    },
+    {
+      "id": "phpmailer-transport:smtp-failure",
+      "focus": "wp_mail surfaces controlled local SMTP connection failure through ErrorInfo and wp_mail_failed",
+      "oracle": {
+        "php": {
+          "case": "phpmailer-transport:smtp-failure",
+          "result": false,
+          "error_info": "SMTP Error: Could not connect to SMTP host. Failed to connect to server SMTP server error: Failed to connect to server SMTP code: 61 Additional SMTP info: Connection refused",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_failed",
+              "arg_count": 1,
+              "error_code": "wp_mail_failed",
+              "error_message": "SMTP Error: Could not connect to SMTP host. Failed to connect to server",
+              "mail_data": {
+                "to": [
+                  "Failure User <failure@example.test>"
+                ],
+                "subject": "SMTP Capture Failure",
+                "message_sha256": "2e37b08af7076598e2b0fbfab50318e5abb873e3ad2e8fd425719d7978283a23",
+                "headers": [
+                  "smtp-failure"
+                ],
+                "attachments": [],
+                "embeds": [],
+                "phpmailer_exception_code": 0
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:smtp-failure",
+              "class": "WP_PHPMailer",
+              "mailer": "smtp",
+              "host": "127.0.0.1",
+              "port": 1,
+              "smtp_auth": false,
+              "smtp_auto_tls": false,
+              "timeout": 1,
+              "custom_header_count": 1
+            }
+          ],
+          "php_errors": []
+        },
+        "smtp_captures": []
+      },
+      "candidate": {
+        "php": {
+          "case": "phpmailer-transport:smtp-failure",
+          "result": false,
+          "error_info": "SMTP Error: Could not connect to SMTP host. Failed to connect to server SMTP server error: Failed to connect to server SMTP code: 61 Additional SMTP info: Connection refused",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_failed",
+              "arg_count": 1,
+              "error_code": "wp_mail_failed",
+              "error_message": "SMTP Error: Could not connect to SMTP host. Failed to connect to server",
+              "mail_data": {
+                "to": [
+                  "Failure User <failure@example.test>"
+                ],
+                "subject": "SMTP Capture Failure",
+                "message_sha256": "2e37b08af7076598e2b0fbfab50318e5abb873e3ad2e8fd425719d7978283a23",
+                "headers": [
+                  "smtp-failure"
+                ],
+                "attachments": [],
+                "embeds": [],
+                "phpmailer_exception_code": 0
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:smtp-failure",
+              "class": "WP_PHPMailer",
+              "mailer": "smtp",
+              "host": "127.0.0.1",
+              "port": 1,
+              "smtp_auth": false,
+              "smtp_auto_tls": false,
+              "timeout": 1,
+              "custom_header_count": 1
+            }
+          ],
+          "php_errors": []
+        },
+        "smtp_captures": []
+      },
+      "observations_equal": true
+    },
+    {
+      "id": "phpmailer-transport:phpmail-boundary",
+      "focus": "wp_mail/PHPMailer builds PHP mail() boundary MIME shape without invoking host mail delivery",
+      "oracle": {
+        "php": {
+          "case": "phpmailer-transport:phpmail-boundary",
+          "result": true,
+          "error_info": "",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_succeeded",
+              "arg_count": 1,
+              "mail_data": {
+                "to": [
+                  "Boundary User <boundary@example.test>"
+                ],
+                "subject": "PHP Mail Boundary",
+                "message_sha256": "d66451768bb7fd9eaad5e00c8a21d9e26909323acc0bd5c1e7574960218fad1f",
+                "headers": [
+                  "phpmail-boundary"
+                ],
+                "attachments": [
+                  "report.txt"
+                ],
+                "embeds": [
+                  "logo.png"
+                ],
+                "phpmailer_exception_code": null
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_embed_args",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:phpmail-boundary",
+              "class": "WPHX_323_12_Boundary_PHPMailer",
+              "mailer": "mail",
+              "host": "localhost",
+              "port": 25,
+              "smtp_auth": false,
+              "smtp_auto_tls": true,
+              "timeout": 300,
+              "custom_header_count": 2
+            }
+          ],
+          "php_errors": [],
+          "boundary_snapshots": [
+            {
+              "mailer": "mail",
+              "from": "sender@example.test",
+              "from_name": "Sender",
+              "subject": "PHP Mail Boundary",
+              "content_type": "text/html",
+              "charset": "ISO-8859-1",
+              "encoding": "8bit",
+              "to": [
+                {
+                  "email": "boundary@example.test",
+                  "name": "Boundary User"
+                }
+              ],
+              "cc": [
+                {
+                  "email": "copy@example.test",
+                  "name": "Copy"
+                }
+              ],
+              "bcc": [],
+              "reply_to": [
+                {
+                  "email": "reply@example.test",
+                  "name": "Reply"
+                }
+              ],
+              "custom_headers": [
+                [
+                  "X-WPHX-Case",
+                  "phpmail-boundary"
+                ],
+                [
+                  "X-WPHX-Transport",
+                  "phpmail-boundary"
+                ]
+              ],
+              "attachments": [
+                {
+                  "basename": "report.txt",
+                  "name": "report.txt",
+                  "encoding": "base64",
+                  "type": "text/plain",
+                  "disposition": "attachment",
+                  "cid": "report.txt"
+                },
+                {
+                  "basename": "logo.png",
+                  "name": "logo.png",
+                  "encoding": "base64",
+                  "type": "image/png",
+                  "disposition": "inline",
+                  "cid": "boundary-logo"
+                }
+              ],
+              "mime_header_sha256": "a48b6e42a3e2bbd29845ce47d88a765f06e20fd60ca5d341fe2189f86293003d",
+              "mime_body_sha256": "62a1c4e6525b25d8c503c09f632496d80191536e7dcb2212ab6419ff2241a0bc",
+              "contains_body": true,
+              "contains_attachment_filename": true,
+              "contains_embed_cid": true
+            }
+          ]
+        },
+        "smtp_captures": []
+      },
+      "candidate": {
+        "php": {
+          "case": "phpmailer-transport:phpmail-boundary",
+          "result": true,
+          "error_info": "",
+          "actions": [
+            {
+              "hook": "phpmailer_init",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_succeeded",
+              "arg_count": 1,
+              "mail_data": {
+                "to": [
+                  "Boundary User <boundary@example.test>"
+                ],
+                "subject": "PHP Mail Boundary",
+                "message_sha256": "d66451768bb7fd9eaad5e00c8a21d9e26909323acc0bd5c1e7574960218fad1f",
+                "headers": [
+                  "phpmail-boundary"
+                ],
+                "attachments": [
+                  "report.txt"
+                ],
+                "embeds": [
+                  "logo.png"
+                ],
+                "phpmailer_exception_code": null
+              }
+            }
+          ],
+          "filters": [
+            {
+              "hook": "wp_mail",
+              "arg_count": 1
+            },
+            {
+              "hook": "pre_wp_mail",
+              "arg_count": 2
+            },
+            {
+              "hook": "wp_mail_from",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_from_name",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_content_type",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_charset",
+              "arg_count": 1
+            },
+            {
+              "hook": "wp_mail_embed_args",
+              "arg_count": 1
+            }
+          ],
+          "phpmailer_init": [
+            {
+              "case": "phpmailer-transport:phpmail-boundary",
+              "class": "WPHX_323_12_Boundary_PHPMailer",
+              "mailer": "mail",
+              "host": "localhost",
+              "port": 25,
+              "smtp_auth": false,
+              "smtp_auto_tls": true,
+              "timeout": 300,
+              "custom_header_count": 2
+            }
+          ],
+          "php_errors": [],
+          "boundary_snapshots": [
+            {
+              "mailer": "mail",
+              "from": "sender@example.test",
+              "from_name": "Sender",
+              "subject": "PHP Mail Boundary",
+              "content_type": "text/html",
+              "charset": "ISO-8859-1",
+              "encoding": "8bit",
+              "to": [
+                {
+                  "email": "boundary@example.test",
+                  "name": "Boundary User"
+                }
+              ],
+              "cc": [
+                {
+                  "email": "copy@example.test",
+                  "name": "Copy"
+                }
+              ],
+              "bcc": [],
+              "reply_to": [
+                {
+                  "email": "reply@example.test",
+                  "name": "Reply"
+                }
+              ],
+              "custom_headers": [
+                [
+                  "X-WPHX-Case",
+                  "phpmail-boundary"
+                ],
+                [
+                  "X-WPHX-Transport",
+                  "phpmail-boundary"
+                ]
+              ],
+              "attachments": [
+                {
+                  "basename": "report.txt",
+                  "name": "report.txt",
+                  "encoding": "base64",
+                  "type": "text/plain",
+                  "disposition": "attachment",
+                  "cid": "report.txt"
+                },
+                {
+                  "basename": "logo.png",
+                  "name": "logo.png",
+                  "encoding": "base64",
+                  "type": "image/png",
+                  "disposition": "inline",
+                  "cid": "boundary-logo"
+                }
+              ],
+              "mime_header_sha256": "a48b6e42a3e2bbd29845ce47d88a765f06e20fd60ca5d341fe2189f86293003d",
+              "mime_body_sha256": "62a1c4e6525b25d8c503c09f632496d80191536e7dcb2212ab6419ff2241a0bc",
+              "contains_body": true,
+              "contains_attachment_filename": true,
+              "contains_embed_cid": true
+            }
+          ]
+        },
+        "smtp_captures": []
+      },
+      "observations_equal": true
+    },
+    {
+      "id": "phpmailer-transport:blocked-host-conditions",
+      "focus": "authenticated SMTP, TLS, proxy, DNS/MX, bounce, retry, and operational delivery stay blocked before replacement claims",
+      "blocked_conditions": [
+        {
+          "id": "authenticated-smtp",
+          "status": "blocked",
+          "reason": "This fixture uses unauthenticated loopback SMTP. AUTH mechanisms, credential handling, SASL failures, and auth retry behavior require a dedicated local SMTP AUTH server gate."
+        },
+        {
+          "id": "tls-and-starttls",
+          "status": "blocked",
+          "reason": "The local capture server intentionally omits TLS and STARTTLS. Certificate validation, crypto policy, auto-TLS upgrades, and TLS failures remain preserved-upstream fallback territory."
+        },
+        {
+          "id": "proxy-and-dns-mx",
+          "status": "blocked",
+          "reason": "No proxy, DNS, MX, or external hostname lookup is performed. Replacement work must add sandboxed DNS/proxy evidence before broadening transport claims."
+        },
+        {
+          "id": "remote-server-policy",
+          "status": "blocked",
+          "reason": "SPF, DKIM, DMARC, relay policy, greylisting, throttling, bounces, retries, and recipient delivery are operational mail-system behavior and are not claimed by this deterministic fixture."
+        },
+        {
+          "id": "host-php-mail-delivery",
+          "status": "blocked",
+          "reason": "The phpmail case overrides PHPMailer::postSend() after preSend() so the host mail() function is not invoked. It records boundary MIME shape only, not host delivery."
+        },
+        {
+          "id": "generated-wrapper-runtime",
+          "status": "blocked",
+          "reason": "The candidate root remains copied upstream PHPMailer fallback code. No generated wrapper, Haxe-owned vendor runtime, or copied artifact retirement is executed by this gate."
+        }
+      ],
+      "fallback_policy": "Use preserved upstream PHPMailer for authenticated SMTP, TLS/STARTTLS, proxy, DNS/MX, host mail(), remote server policy, bounce/retry, and operational delivery until dedicated deterministic or installed gates pass.",
+      "observations_equal": true
+    }
+  ],
+  "blocked_conditions": [
+    {
+      "id": "authenticated-smtp",
+      "status": "blocked",
+      "reason": "This fixture uses unauthenticated loopback SMTP. AUTH mechanisms, credential handling, SASL failures, and auth retry behavior require a dedicated local SMTP AUTH server gate."
+    },
+    {
+      "id": "tls-and-starttls",
+      "status": "blocked",
+      "reason": "The local capture server intentionally omits TLS and STARTTLS. Certificate validation, crypto policy, auto-TLS upgrades, and TLS failures remain preserved-upstream fallback territory."
+    },
+    {
+      "id": "proxy-and-dns-mx",
+      "status": "blocked",
+      "reason": "No proxy, DNS, MX, or external hostname lookup is performed. Replacement work must add sandboxed DNS/proxy evidence before broadening transport claims."
+    },
+    {
+      "id": "remote-server-policy",
+      "status": "blocked",
+      "reason": "SPF, DKIM, DMARC, relay policy, greylisting, throttling, bounces, retries, and recipient delivery are operational mail-system behavior and are not claimed by this deterministic fixture."
+    },
+    {
+      "id": "host-php-mail-delivery",
+      "status": "blocked",
+      "reason": "The phpmail case overrides PHPMailer::postSend() after preSend() so the host mail() function is not invoked. It records boundary MIME shape only, not host delivery."
+    },
+    {
+      "id": "generated-wrapper-runtime",
+      "status": "blocked",
+      "reason": "The candidate root remains copied upstream PHPMailer fallback code. No generated wrapper, Haxe-owned vendor runtime, or copied artifact retirement is executed by this gate."
+    }
+  ],
+  "validation_result": {
+    "phpmailer_source_inventory_count": 7,
+    "mirrored_support_file_count": 5,
+    "linted_file_count": 25,
+    "fixture_case_count": 4,
+    "executable_transport_case_count": 3,
+    "blocked_condition_count": 6,
+    "controlled_smtp_capture_count": 1,
+    "smtp_failure_observed": true,
+    "phpmail_boundary_snapshot_count": 1,
+    "observations_equal": true,
+    "generated_overlay_manifest_present": false,
+    "candidate_package_difference_count": 0
+  },
+  "claims": [
+    "Regenerated oracle and candidate roots contain the preserved WordPress 7.0 PHPMailer package, WordPress PHPMailer shims, and pluggable wp_mail source at locked hashes.",
+    "Controlled loopback SMTP success records wp_mail/PHPMailer header parsing, charset filter, attachment and embedded-image setup, phpmailer_init mutation, SMTP envelope/data capture, and wp_mail_succeeded hook payloads.",
+    "Controlled loopback SMTP failure records PHPMailer failure propagation, ErrorInfo normalization, and wp_mail_failed hook payloads without external delivery.",
+    "The PHP mail() boundary case records MIME/header/body shape through a test subclass that avoids invoking host mail delivery."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned PHPMailer runtime logic or generated PHPMailer wrappers.",
+    "This gate does not retire copied PHPMailer artifacts or claim generated public PHP replacement.",
+    "This gate does not prove installed WordPress mail parity, external SMTP delivery, DNS/MX behavior, authenticated SMTP, TLS/STARTTLS, proxy behavior, bounce/retry semantics, or host mail() delivery.",
+    "The candidate root is copied upstream PHPMailer fallback evidence only and must not be distributed or cited as replacement implementation source."
+  ]
+}

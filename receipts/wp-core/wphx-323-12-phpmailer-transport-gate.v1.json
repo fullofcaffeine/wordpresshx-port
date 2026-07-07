@@ -1,0 +1,51 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-12-phpmailer-transport-gate",
+  "issue": {
+    "id": "wordpresshx-m1u1",
+    "external_ref": "WPHX-323.12",
+    "title": "Add PHPMailer SMTP and phpmail transport gate"
+  },
+  "recorded_at": "2026-07-07T22:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_phpmailer_controlled_transport_gate",
+  "artifact_scope": "wordpress-7.0-preserved-phpmailer-wp-mail-controlled-transport",
+  "commands": [
+    "npm run wp:core:wphx-323-phpmailer-transport",
+    "npm run wp:core:wphx-323-phpmailer-transport:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-12-phpmailer-transport-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-12-phpmailer-transport-gate.v1.json",
+    "parent_mail_vendor_gate_manifest": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+    "api_reflection_floor_manifest": "manifests/wp-core/wphx-323-11-phpmailer-api-reflection-fixture.v1.json",
+    "existing_transport_floor_manifest": "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json"
+  },
+  "manifest_sha256": "sha256:6fea9e1adc73993c8893c2893e1a6ebc98ab465bf1afbd047dd5cb57a89c6e71",
+  "validation_result": {
+    "phpmailer_source_inventory_count": 7,
+    "mirrored_support_file_count": 5,
+    "linted_file_count": 25,
+    "fixture_case_count": 4,
+    "executable_transport_case_count": 3,
+    "blocked_condition_count": 6,
+    "controlled_smtp_capture_count": 1,
+    "smtp_failure_observed": true,
+    "phpmail_boundary_snapshot_count": 1,
+    "observations_equal": true,
+    "generated_overlay_manifest_present": false,
+    "candidate_package_difference_count": 0
+  },
+  "claims": [
+    "Regenerated oracle and candidate roots contain the preserved WordPress 7.0 PHPMailer package, WordPress PHPMailer shims, and pluggable wp_mail source at locked hashes.",
+    "Controlled loopback SMTP success records wp_mail/PHPMailer header parsing, charset filter, attachment and embedded-image setup, phpmailer_init mutation, SMTP envelope/data capture, and wp_mail_succeeded hook payloads.",
+    "Controlled loopback SMTP failure records PHPMailer failure propagation, ErrorInfo normalization, and wp_mail_failed hook payloads without external delivery.",
+    "The PHP mail() boundary case records MIME/header/body shape through a test subclass that avoids invoking host mail delivery."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned PHPMailer runtime logic or generated PHPMailer wrappers.",
+    "This gate does not retire copied PHPMailer artifacts or claim generated public PHP replacement.",
+    "This gate does not prove installed WordPress mail parity, external SMTP delivery, DNS/MX behavior, authenticated SMTP, TLS/STARTTLS, proxy behavior, bounce/retry semantics, or host mail() delivery.",
+    "The candidate root is copied upstream PHPMailer fallback evidence only and must not be distributed or cited as replacement implementation source."
+  ]
+}
