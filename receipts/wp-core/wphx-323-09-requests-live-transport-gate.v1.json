@@ -1,0 +1,52 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-09-requests-live-transport-gate",
+  "issue": {
+    "id": "wordpresshx-l5yn",
+    "external_ref": "WPHX-323.09",
+    "title": "Add Requests live transport replacement parity gate"
+  },
+  "recorded_at": "2026-07-07T16:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_requests_loopback_transport_gate",
+  "artifact_scope": "wordpress-7.0-preserved-requests-package",
+  "commands": [
+    "npm run wp:core:wphx-323-requests-live-transport",
+    "npm run wp:core:wphx-323-requests-live-transport:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-09-requests-live-transport-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-09-requests-live-transport-gate.v1.json",
+    "parent_http_vendor_gate_manifest": "manifests/wp-core/wphx-323-02-http-vendor-replacement-gates.v1.json",
+    "requests_api_reflection_manifest": "manifests/wp-core/wphx-323-08-requests-api-reflection-fixture.v1.json"
+  },
+  "manifest_sha256": "sha256:4ce93f5830d4a3c0a8dd74fd816ad2a8aba1a4c752399dd62cd1dda5acc45ba2",
+  "validation_result": {
+    "requests_source_inventory_count": 65,
+    "requests_distribution_artifact_count": 65,
+    "upstream_requests_php_file_count": 65,
+    "available_transport_ids": [
+      "curl",
+      "fsockopen"
+    ],
+    "available_transport_count": 2,
+    "transport_case_count": 16,
+    "invalid_url_case_count": 2,
+    "fixture_case_count": 9,
+    "linted_file_count": 66,
+    "observations_equal": true,
+    "captured_error_count": 0,
+    "remaining_transport_gap_count": 5
+  },
+  "claims": [
+    "The preserved upstream WordPress 7.0 Requests package executes deterministic local loopback HTTP transport cases in regenerated oracle and candidate fallback roots.",
+    "Available local Requests transports produce matching oracle/candidate observations for direct Requests GET, HEAD, POST, PUT, redirect/cookie, max_bytes, HTTP status exception, nonblocking, and invalid URL cases.",
+    "This gate records the fallback matrix and remaining transport gaps required before a host-primitive-backed Requests replacement can retire copied artifacts."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned or host-primitive-backed Requests runtime logic.",
+    "This gate does not execute TLS certificate verification, proxy negotiation, DNS failure, external network, or installed WordPress WP_Http wrapper behavior.",
+    "This gate does not generate or validate public PHP wrappers.",
+    "The candidate root is the preserved upstream Requests fallback package and must not be cited as copied artifact retirement."
+  ]
+}
