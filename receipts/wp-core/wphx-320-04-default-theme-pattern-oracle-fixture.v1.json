@@ -1,0 +1,59 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-320-04-default-theme-pattern-oracle-fixture",
+  "issue": {
+    "id": "wordpresshx-wf89",
+    "external_ref": "WPHX-320.04",
+    "title": "WPHX-320.04 - Add default theme copied-oracle pattern fixture"
+  },
+  "recorded_at": "2026-07-07T19:00:00.000Z",
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-320-04-default-theme-pattern-oracle-fixture.v1.json",
+      "role": "default theme pattern copied-oracle fixture manifest",
+      "sha256": "sha256:1416d530469878e8f556b78ef24c73b3a2d13acbd5e294e64902101bafe1581b"
+    },
+    {
+      "path": "manifests/ownership/wphx-320-04-default-theme-pattern-oracle-fixture.v1.json",
+      "role": "ownership manifest for copied-oracle default theme pattern fixture"
+    },
+    {
+      "path": "tools/wp-core/run-default-theme-pattern-oracle-fixture.mjs",
+      "role": "deterministic copied-oracle default theme pattern runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-320-default-theme-pattern-oracle-fixture",
+    "npm run wp:core:wphx-320-default-theme-pattern-oracle-fixture:check",
+    "npm run operations:bridge-claim-guardrails:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "status": "passed",
+  "evidence_class": "copied_oracle_default_theme_pattern_fixture",
+  "artifact_scope": "selected_default_theme_block_pattern_php",
+  "validation_result": {
+    "status": "passed",
+    "case_count": 5,
+    "oracle_candidate_output_match": true,
+    "all_expected_fragments_present": true,
+    "php_lint_passed": true,
+    "error_count": 0,
+    "public_php_replacement_claimed": false,
+    "installed_theme_rendering_parity_claimed": false,
+    "haxe_owned_existing_theme_file_claimed": false
+  },
+  "claims": [
+    "Five selected bundled default-theme pattern PHP files execute under deterministic translation, escaping, and theme-URI stubs.",
+    "Regenerated copied oracle and copied candidate roots produce byte-identical output for the selected pattern cases.",
+    "The selected outputs include expected hero, footer, CTA, and search block fragments with no PHP warnings or syntax errors."
+  ],
+  "non_claims": [
+    "No generated public PHP replacement for any bundled default-theme file.",
+    "No Haxe-owned existing mixed PHP/HTML template runtime, broad HXX migration, or HXX template ownership for these copied files.",
+    "No installed template-loader, pattern registry, front-end block rendering, browser, visual-regression, or performance parity execution.",
+    "No database-backed post/query/menu/widget/customizer/global-styles state, media asset existence, generated overlay, or generated original-path adapter ownership.",
+    "The oracle and candidate roots both contain regenerated copies of selected upstream WordPress default-theme pattern PHP files. This is copied-oracle bridge evidence only.",
+    "The deterministic translation/escaping/theme-URI stubs are fixture scaffolding, not WordPress runtime ownership."
+  ]
+}
