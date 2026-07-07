@@ -1,0 +1,1371 @@
+{
+  "schema": "wphx.wp-core.pclzip-archive-api-security-gate.v1",
+  "issue": {
+    "id": "wordpresshx-rq2t",
+    "external_ref": "WPHX-323.20",
+    "title": "Add PclZip archive API and security gate"
+  },
+  "generated_at": "2026-07-08T07:00:00.000Z",
+  "generator": "tools/wp-core/run-pclzip-archive-api-security-gate.mjs",
+  "evidence_class": "preserved_pclzip_archive_api_ziparchive_security_gate",
+  "boundary_id": "pclzip",
+  "source_path": "src/wp-admin/includes/class-pclzip.php",
+  "distribution_path": "wp-admin/includes/class-pclzip.php",
+  "inputs": {
+    "vendor_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "media_security_archive_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+      "bytes": 180582,
+      "sha256": "sha256:5ef686d53564ee79efa724fba0647b9191868e039b73e5d2d2203d6ca958aee5"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "wphx_319_surface_manifest": {
+      "path": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+      "bytes": 154356,
+      "sha256": "sha256:69a8b2cfb3c26b4c60e0da459e70fd84f57413d20253f576d312c98cb22fdbb2"
+    },
+    "wphx_319_oracle_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-319-03-updates-installers-recovery-oracle-fixture.v1.json",
+      "bytes": 20069,
+      "sha256": "sha256:f14a7218473d59fcbcf8019846690437b98d7f261bea77cc05952bd40a94d0b0"
+    }
+  },
+  "replacement_strategy": {
+    "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+    "planned_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+    "parent_gate_id": "pclzip-api-ziparchive-security",
+    "fallback_policy": "Preserve upstream PclZip whenever ZipArchive is unavailable, legacy options/callbacks diverge, or archive-security evidence is incomplete.",
+    "removal_gate": "Do not retire copied class-pclzip.php until WPHX-323.20 records API/security/differential evidence and WPHX-323.22 accepts the decision."
+  },
+  "source_files": [
+    {
+      "path": "src/wp-admin/includes/class-pclzip.php",
+      "distribution_path": "wp-admin/includes/class-pclzip.php",
+      "repo_path": "../wordpress-develop/src/wp-admin/includes/class-pclzip.php",
+      "bytes": 196695,
+      "sha256": "sha256:74e844d42c1cbe89b43e9df36453f82632c2eaa800dcf17fc53a7822e808cbc4"
+    }
+  ],
+  "artifact_provenance": [
+    {
+      "path": "wp-admin/includes/class-pclzip.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "package_markers": {
+    "source_tree_file_count": 1,
+    "php_source_count": 1,
+    "distribution_artifact_count": 1,
+    "license_provenance": {
+      "package_notice_files": [],
+      "notice_files_recorded_in_license_manifest": [],
+      "header_notice_markers": {
+        "copyright": false,
+        "license": true,
+        "public_domain": false
+      },
+      "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+    },
+    "source_markers": {
+      "path": "src/wp-admin/includes/class-pclzip.php",
+      "distribution_path": "wp-admin/includes/class-pclzip.php",
+      "pclzip_version_marker": true,
+      "lgpl_header_marker": true,
+      "warning_header_marker": true,
+      "traversal_restriction_marker": true,
+      "chmod_marker": true,
+      "overwrite_marker": true,
+      "symlink_marker": false,
+      "callback_marker": true
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "pclzip:api-reflection-constants",
+        "focus": "PclZip class, public methods, public fields, helper functions, constants, and host ZipArchive support"
+      },
+      {
+        "id": "pclzip:create-add-list-ziparchive",
+        "focus": "create/add/list/properties behavior compared with ZipArchive names and content summaries"
+      },
+      {
+        "id": "pclzip:extract-callbacks-index-string",
+        "focus": "extract, extractByIndex, EXTRACT_AS_STRING, named callback skip behavior, and callback event shape"
+      },
+      {
+        "id": "pclzip:delete-duplicate-merge",
+        "focus": "delete by name, deprecated deleteByIndex, duplicate, merge, and resulting archive contents"
+      },
+      {
+        "id": "pclzip:malformed-error-shape",
+        "focus": "malformed archive handling and ZipArchive open-code comparison"
+      },
+      {
+        "id": "pclzip:traversal-restriction",
+        "focus": "PCLZIP_OPT_EXTRACT_DIR_RESTRICTION blocks traversal archive extraction in a sandbox"
+      },
+      {
+        "id": "pclzip:overwrite-permissions-security",
+        "focus": "default overwrite behavior and SET_CHMOD extraction permissions in a sandbox"
+      },
+      {
+        "id": "pclzip:callback-closure-boundary",
+        "focus": "legacy callback option rejects closures on this PHP host, preserving named-function callback requirements"
+      }
+    ],
+    "covered_symbols": [
+      "PclZip",
+      "PclZip::__construct",
+      "PclZip::PclZip",
+      "PclZip::create",
+      "PclZip::add",
+      "PclZip::listContent",
+      "PclZip::extract",
+      "PclZip::extractByIndex",
+      "PclZip::delete",
+      "PclZip::deleteByIndex",
+      "PclZip::duplicate",
+      "PclZip::merge",
+      "PclZip::properties",
+      "PclZip::errorCode",
+      "PclZip::errorName",
+      "PclZip::errorInfo",
+      "PCLZIP_OPT_PATH",
+      "PCLZIP_OPT_ADD_PATH",
+      "PCLZIP_OPT_REMOVE_PATH",
+      "PCLZIP_OPT_REMOVE_ALL_PATH",
+      "PCLZIP_OPT_EXTRACT_AS_STRING",
+      "PCLZIP_OPT_EXTRACT_DIR_RESTRICTION",
+      "PCLZIP_OPT_SET_CHMOD",
+      "PCLZIP_OPT_BY_NAME",
+      "PCLZIP_OPT_BY_INDEX",
+      "PCLZIP_OPT_REPLACE_NEWER",
+      "PCLZIP_CB_PRE_ADD",
+      "PCLZIP_CB_POST_ADD",
+      "PCLZIP_CB_PRE_EXTRACT",
+      "PCLZIP_CB_POST_EXTRACT",
+      "PCLZIP_ERR_INVALID_ZIP",
+      "PCLZIP_ERR_DIRECTORY_RESTRICTION",
+      "PclZipUtilPathInclusion",
+      "PclZipUtilPathReduction",
+      "PclZipUtilTranslateWinPath"
+    ],
+    "normalization": [
+      "Archive entry filenames are normalized relative to the fixture root.",
+      "Extracted contents are recorded by length and SHA-256 digest.",
+      "PclZip errorInfo strings are hashed after fixture-root normalization.",
+      "ZipArchive is used as a host primitive differential oracle only when available."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "command": "php build/wp-core/wphx-323-20/pclzip-archive-api-security-probe.php build/wp-core/wphx-323-20/oracle",
+      "raw_output_sha256": "sha256:299b957f6b6fc8119fdaa838ac186729e7d0cce80ae106e8275bba04158a54db",
+      "result": {
+        "observations": {
+          "pclzip:api-reflection-constants": {
+            "php_version": "8.4.7",
+            "zlib_loaded": true,
+            "ziparchive_available": true,
+            "class_exists": true,
+            "public_properties": [
+              "zipname",
+              "zip_fd",
+              "error_code",
+              "error_string",
+              "magic_quotes_status"
+            ],
+            "methods": [
+              {
+                "name": "create",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "add",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "listContent",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "extract",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "extractByIndex",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "delete",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "deleteByIndex",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "duplicate",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "merge",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "properties",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorCode",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorName",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorInfo",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 0
+              }
+            ],
+            "constants": {
+              "PCLZIP_READ_BLOCK_SIZE": 2048,
+              "PCLZIP_SEPARATOR": ",",
+              "PCLZIP_OPT_PATH": 77001,
+              "PCLZIP_OPT_ADD_PATH": 77002,
+              "PCLZIP_OPT_REMOVE_PATH": 77003,
+              "PCLZIP_OPT_EXTRACT_AS_STRING": 77006,
+              "PCLZIP_OPT_EXTRACT_DIR_RESTRICTION": 77019,
+              "PCLZIP_CB_PRE_ADD": 78003,
+              "PCLZIP_CB_PRE_EXTRACT": 78001,
+              "PCLZIP_ERR_DIRECTORY_RESTRICTION": -21
+            }
+          },
+          "pclzip:create-add-list-ziparchive": {
+            "create": [
+              {
+                "filename": "<root>/fixture-work/src/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "<root>/fixture-work/src/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "<root>/fixture-work/src/skip.txt",
+                "stored_filename": "pkg/skip.txt",
+                "size": 12,
+                "compressed_size": 0,
+                "folder": false,
+                "index": -1,
+                "status": "skipped",
+                "crc": 0
+              }
+            ],
+            "add": [
+              {
+                "filename": "<root>/fixture-work/src/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "list": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "pkg/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "properties": {
+              "comment": "",
+              "nb": 3,
+              "status": "ok"
+            },
+            "error": {
+              "code": 0,
+              "name": "PCLZIP_ERR_NO_ERROR (0)",
+              "info_sha256": "sha256:66625c821e7a3cb583e131a71c34a21a6a4d581bf46c9287c276651740e72831"
+            },
+            "ziparchive_differential": {
+              "available": true,
+              "pclzip_archive": {
+                "available": true,
+                "open": true,
+                "entries": [
+                  {
+                    "name": "pkg/alpha.txt",
+                    "size": 13,
+                    "compressed_size": 15,
+                    "crc": 2274983696,
+                    "content": {
+                      "length": 13,
+                      "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                    }
+                  },
+                  {
+                    "name": "pkg/nested/beta.txt",
+                    "size": 12,
+                    "compressed_size": 14,
+                    "crc": 727656151,
+                    "content": {
+                      "length": 12,
+                      "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                    }
+                  },
+                  {
+                    "name": "pkg/overwrite.txt",
+                    "size": 15,
+                    "compressed_size": 17,
+                    "crc": 1011459281,
+                    "content": {
+                      "length": 15,
+                      "sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a"
+                    }
+                  }
+                ]
+              },
+              "ziparchive_archive": {
+                "available": true,
+                "open": true,
+                "entries": [
+                  {
+                    "name": "pkg/alpha.txt",
+                    "size": 13,
+                    "compressed_size": 13,
+                    "crc": 2274983696,
+                    "content": {
+                      "length": 13,
+                      "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                    }
+                  },
+                  {
+                    "name": "pkg/nested/beta.txt",
+                    "size": 12,
+                    "compressed_size": 12,
+                    "crc": 727656151,
+                    "content": {
+                      "length": 12,
+                      "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                    }
+                  },
+                  {
+                    "name": "pkg/overwrite.txt",
+                    "size": 15,
+                    "compressed_size": 15,
+                    "crc": 1011459281,
+                    "content": {
+                      "length": 15,
+                      "sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "pclzip:extract-callbacks-index-string": {
+            "extract": [
+              {
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "skipped",
+                "crc": 727656151
+              },
+              {
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "extract_by_index_string": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696,
+                "content": {
+                  "length": 13,
+                  "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                }
+              }
+            ],
+            "alpha_exists": true,
+            "beta_skipped": true,
+            "callback_events": [
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/alpha.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/alpha.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/nested/beta.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/nested/beta.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/skip.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/skip.txt",
+                "status": "skipped"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt",
+                "status": "skipped"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt",
+                "status": "ok"
+              }
+            ]
+          },
+          "pclzip:delete-duplicate-merge": {
+            "duplicate_result": 1,
+            "merge_result": 1,
+            "delete_result": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 3,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "delete_by_index_result": [
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "final_list": [
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "ziparchive_final": {
+              "available": true,
+              "open": true,
+              "entries": [
+                {
+                  "name": "pkg/nested/beta.txt",
+                  "size": 12,
+                  "compressed_size": 14,
+                  "crc": 727656151,
+                  "content": {
+                    "length": 12,
+                    "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                  }
+                },
+                {
+                  "name": "virtual-gamma.txt",
+                  "size": 13,
+                  "compressed_size": 15,
+                  "crc": 983098283,
+                  "content": {
+                    "length": 13,
+                    "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                  }
+                }
+              ]
+            }
+          },
+          "pclzip:malformed-error-shape": {
+            "pclzip_list_result": 0,
+            "pclzip_error": {
+              "code": -10,
+              "name": "PCLZIP_ERR_BAD_FORMAT (-10)",
+              "info_sha256": "sha256:d96e49ad6b510c32e6ea189d7237f954c5d9491676449483f0ffdd7d5c836a40"
+            },
+            "ziparchive_open_result": 19
+          },
+          "pclzip:traversal-restriction": {
+            "ziparchive_available": true,
+            "extract_result": 0,
+            "error": {
+              "code": -21,
+              "name": "PCLZIP_ERR_DIRECTORY_RESTRICTION (-21)",
+              "info_sha256": "sha256:19a5fb2c93cbc5ca1d2f83a9e8c94224fe78d8fff6f51f0404698d575bb46af3"
+            },
+            "outside_file_preserved": true,
+            "safe_file_not_written_after_stop": true
+          },
+          "pclzip:overwrite-permissions-security": {
+            "extract_result": [
+              {
+                "filename": "<root>/fixture-work/overwrite-out/overwrite.txt",
+                "stored_filename": "overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "overwritten_content_sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a",
+            "overwritten_content_length": 15,
+            "permissions": "0640",
+            "set_chmod_honored": true
+          },
+          "pclzip:callback-closure-boundary": {
+            "ok": false,
+            "error_class": "TypeError",
+            "message_sha256": "sha256:e8f25bec7bfcc207a7d2b7724ff2be2afc9a2ed644499f020f49aa2e793c55a7"
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": {
+        "command": "php -l build/wp-core/wphx-323-20/oracle/wp-admin/includes/class-pclzip.php",
+        "output_sha256": "sha256:5c15490208677d09d388b8cba7b7d61aa9def6ea5216c9ebe8ebb712c4f43c11",
+        "ok": true
+      }
+    },
+    "candidate": {
+      "command": "php build/wp-core/wphx-323-20/pclzip-archive-api-security-probe.php build/wp-core/wphx-323-20/candidate",
+      "raw_output_sha256": "sha256:299b957f6b6fc8119fdaa838ac186729e7d0cce80ae106e8275bba04158a54db",
+      "result": {
+        "observations": {
+          "pclzip:api-reflection-constants": {
+            "php_version": "8.4.7",
+            "zlib_loaded": true,
+            "ziparchive_available": true,
+            "class_exists": true,
+            "public_properties": [
+              "zipname",
+              "zip_fd",
+              "error_code",
+              "error_string",
+              "magic_quotes_status"
+            ],
+            "methods": [
+              {
+                "name": "create",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "add",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "listContent",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "extract",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "extractByIndex",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "delete",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "deleteByIndex",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "duplicate",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "merge",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "properties",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorCode",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorName",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 0
+              },
+              {
+                "name": "errorInfo",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 0
+              }
+            ],
+            "constants": {
+              "PCLZIP_READ_BLOCK_SIZE": 2048,
+              "PCLZIP_SEPARATOR": ",",
+              "PCLZIP_OPT_PATH": 77001,
+              "PCLZIP_OPT_ADD_PATH": 77002,
+              "PCLZIP_OPT_REMOVE_PATH": 77003,
+              "PCLZIP_OPT_EXTRACT_AS_STRING": 77006,
+              "PCLZIP_OPT_EXTRACT_DIR_RESTRICTION": 77019,
+              "PCLZIP_CB_PRE_ADD": 78003,
+              "PCLZIP_CB_PRE_EXTRACT": 78001,
+              "PCLZIP_ERR_DIRECTORY_RESTRICTION": -21
+            }
+          },
+          "pclzip:create-add-list-ziparchive": {
+            "create": [
+              {
+                "filename": "<root>/fixture-work/src/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "<root>/fixture-work/src/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "<root>/fixture-work/src/skip.txt",
+                "stored_filename": "pkg/skip.txt",
+                "size": 12,
+                "compressed_size": 0,
+                "folder": false,
+                "index": -1,
+                "status": "skipped",
+                "crc": 0
+              }
+            ],
+            "add": [
+              {
+                "filename": "<root>/fixture-work/src/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": -1,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "list": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "pkg/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "properties": {
+              "comment": "",
+              "nb": 3,
+              "status": "ok"
+            },
+            "error": {
+              "code": 0,
+              "name": "PCLZIP_ERR_NO_ERROR (0)",
+              "info_sha256": "sha256:66625c821e7a3cb583e131a71c34a21a6a4d581bf46c9287c276651740e72831"
+            },
+            "ziparchive_differential": {
+              "available": true,
+              "pclzip_archive": {
+                "available": true,
+                "open": true,
+                "entries": [
+                  {
+                    "name": "pkg/alpha.txt",
+                    "size": 13,
+                    "compressed_size": 15,
+                    "crc": 2274983696,
+                    "content": {
+                      "length": 13,
+                      "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                    }
+                  },
+                  {
+                    "name": "pkg/nested/beta.txt",
+                    "size": 12,
+                    "compressed_size": 14,
+                    "crc": 727656151,
+                    "content": {
+                      "length": 12,
+                      "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                    }
+                  },
+                  {
+                    "name": "pkg/overwrite.txt",
+                    "size": 15,
+                    "compressed_size": 17,
+                    "crc": 1011459281,
+                    "content": {
+                      "length": 15,
+                      "sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a"
+                    }
+                  }
+                ]
+              },
+              "ziparchive_archive": {
+                "available": true,
+                "open": true,
+                "entries": [
+                  {
+                    "name": "pkg/alpha.txt",
+                    "size": 13,
+                    "compressed_size": 13,
+                    "crc": 2274983696,
+                    "content": {
+                      "length": 13,
+                      "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                    }
+                  },
+                  {
+                    "name": "pkg/nested/beta.txt",
+                    "size": 12,
+                    "compressed_size": 12,
+                    "crc": 727656151,
+                    "content": {
+                      "length": 12,
+                      "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                    }
+                  },
+                  {
+                    "name": "pkg/overwrite.txt",
+                    "size": 15,
+                    "compressed_size": 15,
+                    "crc": 1011459281,
+                    "content": {
+                      "length": 15,
+                      "sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a"
+                    }
+                  }
+                ]
+              }
+            }
+          },
+          "pclzip:extract-callbacks-index-string": {
+            "extract": [
+              {
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "skipped",
+                "crc": 727656151
+              },
+              {
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt",
+                "stored_filename": "pkg/overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "extract_by_index_string": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696,
+                "content": {
+                  "length": 13,
+                  "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                }
+              }
+            ],
+            "alpha_exists": true,
+            "beta_skipped": true,
+            "callback_events": [
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/alpha.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/alpha.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/nested/beta.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/nested/beta.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_add",
+                "event": 78003,
+                "filename": "<root>/fixture-work/src/skip.txt"
+              },
+              {
+                "callback": "post_add",
+                "event": 78004,
+                "stored_filename": "pkg/skip.txt",
+                "status": "skipped"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/alpha.txt",
+                "status": "ok"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/nested/beta.txt",
+                "status": "skipped"
+              },
+              {
+                "callback": "pre_extract",
+                "event": 78001,
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt"
+              },
+              {
+                "callback": "post_extract",
+                "event": 78002,
+                "filename": "<root>/fixture-work/extract/pkg/overwrite.txt",
+                "status": "ok"
+              }
+            ]
+          },
+          "pclzip:delete-duplicate-merge": {
+            "duplicate_result": 1,
+            "merge_result": 1,
+            "delete_result": [
+              {
+                "filename": "pkg/alpha.txt",
+                "stored_filename": "pkg/alpha.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 2274983696
+              },
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 3,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "delete_by_index_result": [
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 2,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "final_list": [
+              {
+                "filename": "pkg/nested/beta.txt",
+                "stored_filename": "pkg/nested/beta.txt",
+                "size": 12,
+                "compressed_size": 14,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 727656151
+              },
+              {
+                "filename": "virtual-gamma.txt",
+                "stored_filename": "virtual-gamma.txt",
+                "size": 13,
+                "compressed_size": 15,
+                "folder": false,
+                "index": 1,
+                "status": "ok",
+                "crc": 983098283
+              }
+            ],
+            "ziparchive_final": {
+              "available": true,
+              "open": true,
+              "entries": [
+                {
+                  "name": "pkg/nested/beta.txt",
+                  "size": 12,
+                  "compressed_size": 14,
+                  "crc": 727656151,
+                  "content": {
+                    "length": 12,
+                    "sha256": "sha256:5b82c9a41b8b6317b969af2e006157c2b1f8c09ede07846ce83ee4e0a5ccbbc1"
+                  }
+                },
+                {
+                  "name": "virtual-gamma.txt",
+                  "size": 13,
+                  "compressed_size": 15,
+                  "crc": 983098283,
+                  "content": {
+                    "length": 13,
+                    "sha256": "sha256:3b867bbfe4d276005ffae3db17950428a12f1f61dd8ea55cd1eed11ea02b85a2"
+                  }
+                }
+              ]
+            }
+          },
+          "pclzip:malformed-error-shape": {
+            "pclzip_list_result": 0,
+            "pclzip_error": {
+              "code": -10,
+              "name": "PCLZIP_ERR_BAD_FORMAT (-10)",
+              "info_sha256": "sha256:d96e49ad6b510c32e6ea189d7237f954c5d9491676449483f0ffdd7d5c836a40"
+            },
+            "ziparchive_open_result": 19
+          },
+          "pclzip:traversal-restriction": {
+            "ziparchive_available": true,
+            "extract_result": 0,
+            "error": {
+              "code": -21,
+              "name": "PCLZIP_ERR_DIRECTORY_RESTRICTION (-21)",
+              "info_sha256": "sha256:19a5fb2c93cbc5ca1d2f83a9e8c94224fe78d8fff6f51f0404698d575bb46af3"
+            },
+            "outside_file_preserved": true,
+            "safe_file_not_written_after_stop": true
+          },
+          "pclzip:overwrite-permissions-security": {
+            "extract_result": [
+              {
+                "filename": "<root>/fixture-work/overwrite-out/overwrite.txt",
+                "stored_filename": "overwrite.txt",
+                "size": 15,
+                "compressed_size": 17,
+                "folder": false,
+                "index": 0,
+                "status": "ok",
+                "crc": 1011459281
+              }
+            ],
+            "overwritten_content_sha256": "sha256:d73cae86bfc3f53e358cfa5d8d2a7e13cc6d26772824c374290fbe3988946f2a",
+            "overwritten_content_length": 15,
+            "permissions": "0640",
+            "set_chmod_honored": true
+          },
+          "pclzip:callback-closure-boundary": {
+            "ok": false,
+            "error_class": "TypeError",
+            "message_sha256": "sha256:e8f25bec7bfcc207a7d2b7724ff2be2afc9a2ed644499f020f49aa2e793c55a7"
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": {
+        "command": "php -l build/wp-core/wphx-323-20/candidate/wp-admin/includes/class-pclzip.php",
+        "output_sha256": "sha256:1cb3288d65bac232d7e49f2c0b56839348558f7c0f4adb16f7c4c2e4a65e4916",
+        "ok": true
+      }
+    }
+  },
+  "behavior_floors": [
+    {
+      "id": "wphx-319-01-updates-installers-recovery-surface",
+      "manifest": "manifests/wp-core/wphx-319-01-updates-installers-recovery-surface.v1.json",
+      "role": "updates/installers/recovery surface inventory that records PclZip archive handoffs"
+    },
+    {
+      "id": "wphx-319-03-updates-installers-recovery-oracle-fixture",
+      "manifest": "manifests/wp-core/wphx-319-03-updates-installers-recovery-oracle-fixture.v1.json",
+      "role": "updater/recovery copied-oracle fixture floor adjacent to archive extraction behavior"
+    }
+  ],
+  "blocked_conditions": [
+    {
+      "id": "ziparchive-backed-replacement-runtime",
+      "status": "blocked",
+      "reason": "ZipArchive is used only as a host primitive differential oracle. No ZipArchive-backed generated WPHX adapter, Haxe-owned runtime, or public PHP replacement is introduced."
+    },
+    {
+      "id": "installer-upgrader-installed-integration",
+      "status": "blocked",
+      "reason": "The gate reconciles WPHX-319 installer/upgrader floors but does not execute installed update, plugin/theme install, filesystem transport, credential, rollback, or recovery flows."
+    },
+    {
+      "id": "symlink-and-platform-permission-matrix",
+      "status": "blocked",
+      "reason": "The gate records traversal, overwrite, chmod, and source-review markers. Symlink preservation/extraction semantics, Windows path behavior, umask variance, and archive permission portability need a dedicated platform matrix before replacement."
+    },
+    {
+      "id": "copied-pclzip-retirement",
+      "status": "blocked",
+      "reason": "Copied class-pclzip.php stays preserved until WPHX-323.22 accepts a provenance/replacement decision with generated-overlay, installer/upgrader, security, and ecosystem evidence."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 1,
+    "artifact_provenance_record_count": 1,
+    "covered_symbol_count": 35,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "ziparchive_available": true,
+    "zlib_loaded": true,
+    "captured_error_count": 0,
+    "traversal_restriction_recorded": true,
+    "chmod_case_recorded": true,
+    "closure_callback_boundary_recorded": true
+  },
+  "claims": {
+    "copied_pclzip_file_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "ziparchive_host_primitive_differential_recorded": true,
+    "installer_upgrader_installed_parity_claimed": false,
+    "haxe_owned_archive_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_pclzip_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned PclZip or archive runtime implementation.",
+    "This gate does not claim a ZipArchive-backed WPHX replacement implementation.",
+    "This gate does not claim generated public PHP replacement for wp-admin/includes/class-pclzip.php.",
+    "This gate does not claim copied class-pclzip.php artifact retirement.",
+    "This gate does not execute installed WordPress update, plugin/theme install, filesystem transport, rollback, recovery, credential, or browser flows.",
+    "This gate does not complete symlink, Windows-path, umask, permission portability, or broad ecosystem archive compatibility review."
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-20-pclzip-archive-api-security-gate",
+  "issue": {
+    "id": "wordpresshx-rq2t",
+    "external_ref": "WPHX-323.20",
+    "title": "Add PclZip archive API and security gate"
+  },
+  "recorded_at": "2026-07-08T07:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_pclzip_archive_api_ziparchive_security_gate",
+  "artifact_scope": "wordpress-7.0-pclzip-preserved-library-ziparchive-differential-security",
+  "commands": [
+    "npm run wp:core:wphx-323-pclzip-archive-api-security",
+    "npm run wp:core:wphx-323-pclzip-archive-api-security:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-20-pclzip-archive-api-security-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-20-pclzip-archive-api-security-gate.v1.json",
+    "parent_media_security_archive_gate_manifest": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "parent_vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:d0457f473345f647e819899af9b0550f5b3a6451681303149f7b7ebb2e57ca83",
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 1,
+    "artifact_provenance_record_count": 1,
+    "covered_symbol_count": 35,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "ziparchive_available": true,
+    "zlib_loaded": true,
+    "captured_error_count": 0,
+    "traversal_restriction_recorded": true,
+    "chmod_case_recorded": true,
+    "closure_callback_boundary_recorded": true
+  },
+  "claims": {
+    "copied_pclzip_file_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "ziparchive_host_primitive_differential_recorded": true,
+    "installer_upgrader_installed_parity_claimed": false,
+    "haxe_owned_archive_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_pclzip_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned PclZip or archive runtime implementation.",
+    "This gate does not claim a ZipArchive-backed WPHX replacement implementation.",
+    "This gate does not claim generated public PHP replacement for wp-admin/includes/class-pclzip.php.",
+    "This gate does not claim copied class-pclzip.php artifact retirement.",
+    "This gate does not execute installed WordPress update, plugin/theme install, filesystem transport, rollback, recovery, credential, or browser flows.",
+    "This gate does not complete symlink, Windows-path, umask, permission portability, or broad ecosystem archive compatibility review."
+  ]
+}

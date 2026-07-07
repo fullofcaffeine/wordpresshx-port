@@ -1,0 +1,40 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-20-pclzip-archive-api-security-gate",
+  "issue": {
+    "id": "wordpresshx-rq2t",
+    "external_ref": "WPHX-323.20",
+    "title": "Add PclZip archive API and security gate"
+  },
+  "generated_at": "2026-07-08T07:00:00.000Z",
+  "generator": "tools/wp-core/run-pclzip-archive-api-security-gate.mjs",
+  "ownership_state": "preserved_upstream_pclzip_archive_api_ziparchive_security_gate",
+  "boundary_id": "pclzip",
+  "source_paths": [
+    "src/wp-admin/includes/class-pclzip.php"
+  ],
+  "distribution_paths": [
+    "wp-admin/includes/class-pclzip.php"
+  ],
+  "emission_strategy": "copied_upstream_legacy_library_file_with_ziparchive_differential_probe",
+  "durable_haxe_runtime_claimed": false,
+  "public_php_replacement_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "generated_overlay_manifest_present": false,
+  "security_review_complete": false,
+  "notes": [
+    "Oracle and candidate roots execute copied upstream WordPress 7.0 class-pclzip.php.",
+    "ZipArchive is used only as a host primitive comparison for archive names/content and malformed-open behavior.",
+    "Keep upstream PclZip preserved until WPHX-323.22 records an accepted provenance/replacement decision."
+  ],
+  "removal_gates": [
+    "non-empty generated overlay manifest for any candidate divergence",
+    "generated ZipArchive-backed or Haxe-owned adapter evidence with PclZip API compatibility",
+    "archive security matrix for traversal, symlink, overwrite, chmod/umask, malformed archives, and platform paths",
+    "WPHX-319 installer/upgrader installed integration pass with candidate overlays",
+    "WPHX-323.22 media/security/archive provenance decision acceptance"
+  ],
+  "receipt_refs": [
+    "receipt:wphx-323-20-pclzip-archive-api-security-gate"
+  ]
+}
