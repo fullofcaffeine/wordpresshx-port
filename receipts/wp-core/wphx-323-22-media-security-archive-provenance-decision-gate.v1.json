@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-22-media-security-archive-provenance-decision-gate",
+  "issue": {
+    "id": "wordpresshx-9626",
+    "external_ref": "WPHX-323.22",
+    "title": "Add media security archive provenance decision gate"
+  },
+  "recorded_at": "2026-07-08T10:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_media_security_archive_provenance_and_replacement_decision",
+  "artifact_scope": "wordpress-7.0-media-security-archive-vendor-provenance-security-ecosystem-decision",
+  "commands": [
+    "npm run wp:core:wphx-323-media-security-archive-provenance-decision",
+    "npm run wp:core:wphx-323-media-security-archive-provenance-decision:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-22-media-security-archive-provenance-decision-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-22-media-security-archive-provenance-decision-gate.v1.json",
+    "parent_media_security_archive_gate_manifest": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+    "sodium_compat_gate_manifest": "manifests/wp-core/wphx-323-18-sodium-compat-native-fallback-security-gate.v1.json",
+    "getid3_gate_manifest": "manifests/wp-core/wphx-323-19-getid3-media-metadata-corpus-gate.v1.json",
+    "pclzip_gate_manifest": "manifests/wp-core/wphx-323-20-pclzip-archive-api-security-gate.v1.json",
+    "phpass_gate_manifest": "manifests/wp-core/wphx-323-21-phpass-password-compatibility-gate.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json"
+  },
+  "manifest_sha256": "sha256:e043c1d9d8d670ad7e4491cc6f747ca15dd31e1b8acf3b2bd267cd31f6805ec4",
+  "validation_result": {
+    "status": "passed",
+    "boundary_count": 4,
+    "source_php_file_count": 122,
+    "artifact_provenance_record_count": 122,
+    "prior_gate_count": 4,
+    "prior_gates_passing": true,
+    "decision_gate_routed_to_wphx_323_22": true,
+    "caller_scan_php_file_count": 1855,
+    "caller_scan_match_file_count": 131,
+    "required_replacement_evidence_count": 28,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_vendor_runtime_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "preserved_upstream_exceptions_renewed": true,
+    "boundary_decisions": {
+      "sodium_compat": "preserve_upstream_sodium_compat_package_with_native_sodium_compatibility_floor",
+      "getid3": "renew_preserved_getid3_exception",
+      "pclzip": "preserve_upstream_pclzip_file_with_ziparchive_differential_floor",
+      "phpass": "preserve_upstream_phpass_file_with_password_hash_compatibility_floor"
+    }
+  },
+  "decision": "renew_preserved_media_security_archive_vendor_exceptions",
+  "claims": [
+    "Media/security/archive vendor provenance, artifact records, license/notice treatment, caller pressure, fallback matrix, and replacement decision criteria are recorded for WPHX-323.22.",
+    "The current distribution decision renews preserved upstream exceptions/fallbacks for sodium_compat, getID3, PclZip, and phpass.",
+    "Host-primitive-backed or bounded replacement paths remain conditional future paths only after explicit generated-overlay, security, installed, ecosystem, and provenance evidence passes."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned sodium_compat, getID3, PclZip, or phpass runtime logic.",
+    "This gate does not generate, validate, distribute, or admit current generated public PHP replacement files for these boundaries.",
+    "This gate does not retire copied sodium_compat, getID3, PclZip, or phpass artifacts.",
+    "This gate does not prove constant-time cryptographic/password behavior, hostile binary media parser safety, archive platform-security parity, installed auth/media/updater behavior, unsupported-host behavior, or broad plugin ecosystem compatibility.",
+    "This gate does not broaden official WordPress distribution dependency assumptions."
+  ]
+}
