@@ -1,0 +1,64 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-314-15-block-wrapper-support-candidate",
+  "issue": {
+    "id": "wordpresshx-l76.20.10",
+    "external_ref": "WPHX-314.15",
+    "title": "WPHX-314.15 - Promote selected block PHP decisions to Haxe candidates"
+  },
+  "recorded_at": "2026-07-08T00:00:00.000Z",
+  "command": "npm run wp:core:wphx-314-block-wrapper-support-candidate",
+  "evidence_class": "targeted_semantic_parity",
+  "artifact_scope": "helper",
+  "behavior_parity_claimed": true,
+  "public_php_replacement_claimed": false,
+  "installed_wordpress_route_execution_claimed": false,
+  "durable_original_path_adapter_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-314-15-block-wrapper-support-candidate.v1.json",
+      "role": "block wrapper support Haxe candidate manifest",
+      "sha256": "sha256:690f5c707d10b1614f94dec80767a700558d33bcaa2c8e1caff58a2f8410f2fe"
+    },
+    {
+      "path": "manifests/ownership/wphx-314-15-block-wrapper-support-candidate.v1.json",
+      "role": "ownership manifest for block wrapper support Haxe candidate"
+    },
+    {
+      "path": "src/wphx/wp/blocks/BlockWrapperSupportCandidate.hx",
+      "role": "typed Haxe block wrapper support decision source"
+    },
+    {
+      "path": "fixtures/wp-core/block-wrapper-support-candidate.hxml",
+      "role": "Haxe compile target for block wrapper support candidate"
+    },
+    {
+      "path": "tools/wp-core/run-block-wrapper-support-candidate.mjs",
+      "role": "deterministic block wrapper support candidate runner"
+    }
+  ],
+  "verification_commands": [
+    "npm run wp:core:wphx-314-block-wrapper-support-candidate",
+    "npm run wp:core:wphx-314-block-wrapper-support-candidate:check",
+    "npm run haxe:escape-hatches:check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "cases": 12,
+    "oracle_candidate_match": true,
+    "generated_php_file_count": 17,
+    "haxe_escape_audit_passed": true,
+    "behavior_parity_claimed": true,
+    "public_php_replacement_claimed": false,
+    "durable_original_path_adapter_claimed": false
+  },
+  "scope_summary": "Promotes the bounded block wrapper support branch/class/style/attribute shaping cluster from bridge-only evidence into typed Haxe-owned candidate source with deterministic oracle/candidate observations. The public WordPress PHP support APIs remain unclaimed.",
+  "non_claims": [
+    "No generated public PHP replacement for get_block_wrapper_attributes(), WP_Block_Supports, blocks.php, or any original WordPress public file.",
+    "No full WP_Block_Supports ownership, support registry ownership, theme.json/global-styles ownership, filter execution ownership, or installed block rendering parity.",
+    "No database-backed post/template/theme behavior, REST controller dispatch, browser/editor/Gutenberg package behavior, generated overlay, or durable original-path adapter ownership.",
+    "The generated PHP output is private candidate evidence from typed Haxe source, not a distributable WordPress runtime file."
+  ]
+}
