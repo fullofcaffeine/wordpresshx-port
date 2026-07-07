@@ -1,0 +1,2188 @@
+{
+  "schema": "wphx.wp-core.getid3-media-metadata-corpus-gate.v1",
+  "issue": {
+    "id": "wordpresshx-h571",
+    "external_ref": "WPHX-323.19",
+    "title": "Add getID3 media metadata corpus gate"
+  },
+  "generated_at": "2026-07-08T09:00:00.000Z",
+  "generator": "tools/wp-core/run-getid3-media-metadata-corpus-gate.mjs",
+  "evidence_class": "preserved_getid3_media_metadata_corpus_gate",
+  "boundary_id": "getid3",
+  "source_root": "src/wp-includes/ID3",
+  "distribution_root": "wp-includes/ID3",
+  "inputs": {
+    "vendor_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "media_security_archive_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+      "bytes": 180582,
+      "sha256": "sha256:5ef686d53564ee79efa724fba0647b9191868e039b73e5d2d2203d6ca958aee5"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "wphx_313_media_surface_manifest": {
+      "path": "manifests/wp-core/wphx-313-01-media-filesystem-upload-surface.v1.json",
+      "bytes": 65832,
+      "sha256": "sha256:69fc7e4719ba45ccbea0c7e7d52cf2af1927cf485f48f69f81bbfa126df6fec6"
+    },
+    "wphx_313_image_metadata_editor_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-313-04-image-metadata-editor-oracle-fixture.v1.json",
+      "bytes": 34800,
+      "sha256": "sha256:c57871ef3b895c5c16b76d20440582ab526b90c2d104f9b5224254a6908bdd40"
+    },
+    "wphx_313_media_upload_installed_gate_manifest": {
+      "path": "manifests/wp-core/wphx-313-08-media-upload-installed-gate.v1.json",
+      "bytes": 27564,
+      "sha256": "sha256:6aded787260ce027e0f415f32711dcb9479994334aabf3beae4588c99fd4e9c2"
+    }
+  },
+  "replacement_strategy": {
+    "current_strategy": "preserved_upstream_vendor_boundary",
+    "planned_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+    "parent_gate_id": "getid3-media-metadata-corpus",
+    "gate_kind": "media_metadata_corpus_and_exception_review",
+    "fallback_policy": "Preserve upstream getID3 for formats, binary edge cases, and metadata behavior outside the admitted subset.",
+    "removal_gate": "Do not retire copied getID3 artifacts until WPHX-323.19 records corpus/provenance evidence and WPHX-323.22 accepts a replacement decision."
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/ID3/getid3.lib.php",
+      "distribution_path": "wp-includes/ID3/getid3.lib.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/getid3.lib.php",
+      "bytes": 55371,
+      "sha256": "sha256:564b966339ed18d7e65dbddfe8852e274cb73458c34901227cc2a890c01f52e1"
+    },
+    {
+      "path": "src/wp-includes/ID3/getid3.php",
+      "distribution_path": "wp-includes/ID3/getid3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/getid3.php",
+      "bytes": 81242,
+      "sha256": "sha256:cfb84ed7624486c527ab8126dbc1503a7a448fd8577f8b13fb6ecf769fda6c9f"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio-video.asf.php",
+      "distribution_path": "wp-includes/ID3/module.audio-video.asf.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio-video.asf.php",
+      "bytes": 136815,
+      "sha256": "sha256:045a6053550022cdc7e2d5508c1e99ac680372cda9532bfb0ac59811f6a4d85e"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio-video.flv.php",
+      "distribution_path": "wp-includes/ID3/module.audio-video.flv.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio-video.flv.php",
+      "bytes": 27132,
+      "sha256": "sha256:9b6581ab40baa538dae84ffc055ff111ab67b16ea2da919890d2491ef057a91b"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio-video.matroska.php",
+      "distribution_path": "wp-includes/ID3/module.audio-video.matroska.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio-video.matroska.php",
+      "bytes": 112016,
+      "sha256": "sha256:d90f2d9db3938373228febc1d96b1292d0fe8bc0da5c75afdf01c08a2ec0d0b1"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio-video.quicktime.php",
+      "distribution_path": "wp-includes/ID3/module.audio-video.quicktime.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio-video.quicktime.php",
+      "bytes": 172638,
+      "sha256": "sha256:1795add5fe254d5c158af0b1d7914bc7bb8b2267049ef2fb7a2edd139e3540fe"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio-video.riff.php",
+      "distribution_path": "wp-includes/ID3/module.audio-video.riff.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio-video.riff.php",
+      "bytes": 140115,
+      "sha256": "sha256:d282d4335a252ec8af44e570bc7943c89c8629996c8cfdbd76a64e18a0902c6a"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio.ac3.php",
+      "distribution_path": "wp-includes/ID3/module.audio.ac3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio.ac3.php",
+      "bytes": 39384,
+      "sha256": "sha256:9da50e3a352229ee185230f171da91f086e1006c368d3f9a9d2731cdfe2fca0d"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio.dts.php",
+      "distribution_path": "wp-includes/ID3/module.audio.dts.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio.dts.php",
+      "bytes": 10886,
+      "sha256": "sha256:5a169c187a4c7bb0c5c8a8028f2989265cecf5486bb6cb449e0735ab7d4303b2"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio.flac.php",
+      "distribution_path": "wp-includes/ID3/module.audio.flac.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio.flac.php",
+      "bytes": 19797,
+      "sha256": "sha256:278a814ddc023de7e24f98bef17797a2125b08a722a930392295fa92739737fc"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio.mp3.php",
+      "distribution_path": "wp-includes/ID3/module.audio.mp3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio.mp3.php",
+      "bytes": 107012,
+      "sha256": "sha256:d8240510da9b7011848f2c45fbcaaba2ecfa9bd10ca6d0e1212fc09078ac84b7"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.audio.ogg.php",
+      "distribution_path": "wp-includes/ID3/module.audio.ogg.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.audio.ogg.php",
+      "bytes": 43761,
+      "sha256": "sha256:6c20143e9e2a958f3546fed41941ddc90a3faab20888a8bab13a7b0a4591b7ad"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.tag.apetag.php",
+      "distribution_path": "wp-includes/ID3/module.tag.apetag.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.tag.apetag.php",
+      "bytes": 19076,
+      "sha256": "sha256:52727cc041d8205c2d61de3f02f3784dce28cba65bf596e736bedf53484bbdea"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.tag.id3v1.php",
+      "distribution_path": "wp-includes/ID3/module.tag.id3v1.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.tag.id3v1.php",
+      "bytes": 15178,
+      "sha256": "sha256:de1af4b3774c570583cba427a2bfab39f3f2025d75538d688949aca8abff9aa8"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.tag.id3v2.php",
+      "distribution_path": "wp-includes/ID3/module.tag.id3v2.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.tag.id3v2.php",
+      "bytes": 154826,
+      "sha256": "sha256:951c3efaacbcab2137cdb0078461e695fa7f5378d2f69ca9aac34a9a3426a659"
+    },
+    {
+      "path": "src/wp-includes/ID3/module.tag.lyrics3.php",
+      "distribution_path": "wp-includes/ID3/module.tag.lyrics3.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/module.tag.lyrics3.php",
+      "bytes": 12036,
+      "sha256": "sha256:26bb5443a3420c8d8d6d5981bd06722c3e48eb874b1a7e551fa3246ba3e58be1"
+    }
+  ],
+  "notice_files": [
+    {
+      "path": "src/wp-includes/ID3/license.txt",
+      "distribution_path": "wp-includes/ID3/license.txt",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/license.txt",
+      "bytes": 1396,
+      "sha256": "sha256:f45a8e3db72f9de7d596b43b0c71eca219857d732387c7781505c181e97bdec1"
+    },
+    {
+      "path": "src/wp-includes/ID3/readme.txt",
+      "distribution_path": "wp-includes/ID3/readme.txt",
+      "repo_path": "../wordpress-develop/src/wp-includes/ID3/readme.txt",
+      "bytes": 26330,
+      "sha256": "sha256:13ff52823440b0df2cc53b2746729a3f7148529ca2fef4c9ce0f3b937996dec5"
+    }
+  ],
+  "artifact_provenance": [
+    {
+      "path": "wp-includes/ID3/getid3.lib.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/getid3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio-video.asf.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio-video.flv.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio-video.matroska.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio-video.quicktime.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio-video.riff.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio.ac3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio.dts.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio.flac.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio.mp3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.audio.ogg.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.tag.apetag.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.tag.id3v1.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.tag.id3v2.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/ID3/module.tag.lyrics3.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "package_markers": {
+    "source_tree_file_count": 18,
+    "php_source_count": 16,
+    "distribution_artifact_count": 16,
+    "license_provenance": {
+      "package_notice_files": [
+        "wp-includes/ID3/license.txt",
+        "wp-includes/ID3/readme.txt"
+      ],
+      "notice_files_recorded_in_license_manifest": [
+        "wp-includes/ID3/license.txt",
+        "wp-includes/ID3/readme.txt"
+      ],
+      "header_notice_markers": {
+        "copyright": false,
+        "license": false,
+        "public_domain": false
+      },
+      "treatment": "Preserve recorded package notice files plus WordPress project notice while this remains a preserved upstream artifact."
+    },
+    "source_markers": {
+      "getid3": {
+        "path": "src/wp-includes/ID3/getid3.php",
+        "version_marker": true,
+        "analyze_marker": true,
+        "include_module_marker": true,
+        "warning_marker": true,
+        "error_marker": true,
+        "temp_dir_marker": true,
+        "php_memory_marker": true
+      },
+      "getid3_lib": {
+        "path": "src/wp-includes/ID3/getid3.lib.php",
+        "copy_tags_to_comments_marker": true,
+        "image_size_marker": true,
+        "safe_parse_marker": true
+      },
+      "wordpress_wrappers": {
+        "media_path": "src/wp-admin/includes/media.php",
+        "image_path": "src/wp-admin/includes/image.php",
+        "audio_wrapper_marker": true,
+        "video_wrapper_marker": true,
+        "wrapper_getid3_marker": true,
+        "wrapper_analyze_marker": true,
+        "wrapper_copy_tags_marker": false,
+        "image_metadata_marker": true
+      }
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "getid3:api-reflection-package",
+        "focus": "getID3 class, library helpers, module files, package notices, and runtime options"
+      },
+      {
+        "id": "getid3:mp3-id3v1",
+        "focus": "MP3/ID3 path with deterministic ID3v1 tag and malformed MPEG payload warnings"
+      },
+      {
+        "id": "getid3:mp3-id3v2-truncated",
+        "focus": "truncated ID3v2 header and warning/error normalization"
+      },
+      {
+        "id": "getid3:wav-riff-pcm",
+        "focus": "minimal RIFF/WAVE PCM metadata, bitrate, duration, and audio format fields"
+      },
+      {
+        "id": "getid3:mp4-quicktime-minimal",
+        "focus": "minimal QuickTime/MP4 atom structure and empty-track warning shape"
+      },
+      {
+        "id": "getid3:flac-streaminfo",
+        "focus": "minimal FLAC STREAMINFO marker and parser warning/error behavior"
+      },
+      {
+        "id": "getid3:ogg-vorbis-truncated",
+        "focus": "truncated Ogg page and parser warning/error behavior"
+      },
+      {
+        "id": "getid3:webm-matroska-truncated",
+        "focus": "minimal EBML/WebM marker and Matroska parser warning/error behavior"
+      },
+      {
+        "id": "getid3:image-jpeg",
+        "focus": "image file-format detection and image handoff boundary"
+      },
+      {
+        "id": "getid3:empty-malformed",
+        "focus": "empty, random, and truncated binary hostile-input error normalization"
+      },
+      {
+        "id": "getid3:wp-media-wrapper-handoff",
+        "focus": "source-level wp_read_audio_metadata/wp_read_video_metadata handoff through WPHX-313 media surfaces"
+      },
+      {
+        "id": "getid3:risk-license-review",
+        "focus": "parser-breadth, malformed binary, memory-risk, and license/readme preservation review"
+      }
+    ],
+    "covered_symbols": [
+      "getID3",
+      "getID3::__construct",
+      "getID3::analyze",
+      "getID3::openfile",
+      "getID3::include_module",
+      "getID3::error",
+      "getID3::warning",
+      "getid3_lib",
+      "getid3_lib::CopyTagsToComments",
+      "getid3_mp3",
+      "getid3_id3v1",
+      "getid3_id3v2",
+      "getid3_riff",
+      "getid3_quicktime",
+      "getid3_flac",
+      "getid3_ogg",
+      "getid3_matroska",
+      "getid3_flv",
+      "getid3_asf",
+      "getid3_apetag",
+      "wp_read_audio_metadata",
+      "wp_read_video_metadata",
+      "wp_read_image_metadata"
+    ],
+    "normalization": [
+      "Tiny binary fixtures are generated under build/ at probe time; media blobs are not committed.",
+      "Raw metadata values, paths, warnings, errors, and tags are summarized by stable keys, counts, primitive fields, and SHA-256 digests.",
+      "Malformed and truncated fixture observations are expected parser behavior, not replacement readiness for hostile binary input.",
+      "WordPress wp_read_audio_metadata/wp_read_video_metadata wrapper execution is not claimed; wrapper source handoff markers and WPHX-313 floors are recorded."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "command": "php build/wp-core/wphx-323-19/getid3-media-metadata-corpus-probe.php build/wp-core/wphx-323-19/oracle",
+      "raw_output_sha256": "sha256:4f6955959480e9499547f0fc593fc7fcf94a718ba7b6e0c78e256455188c6cb0",
+      "result": {
+        "observations": {
+          "getid3:api-reflection-package": {
+            "php_version": "8.4.7",
+            "class_exists": true,
+            "lib_class_exists": false,
+            "version": null,
+            "temp_dir_defined": true,
+            "temp_dir_basename": "getid3-temp",
+            "methods": [
+              {
+                "name": "__construct",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "analyze",
+                "public": true,
+                "static": false,
+                "parameters": 4,
+                "required_parameters": 1
+              },
+              {
+                "name": "openfile",
+                "public": true,
+                "static": false,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              {
+                "name": "include_module",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "error",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "warning",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              }
+            ],
+            "fixture_count": 11
+          },
+          "getid3:mp3-id3v1": {
+            "getid3:mp3-id3v1": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp3-id3v1",
+              "comments": {
+                "album": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "artist": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "comment": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "genre": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "title": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "year": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                }
+              },
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:d86d3cd97a56fde9ed5b486df3883c4fbe6118a613a9fd832331447bcc98d4c6"
+              ],
+              "fileformat": null,
+              "filesize": 256,
+              "fixture": "id3v1.mp3",
+              "fixture_sha256": "sha256:80ce5425e486a62e2f3ad8ccffcb5977ba73d47f1b326a74b31b4d2afd9927e6",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "audio/mpeg",
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": {
+                "id3v1": {
+                  "keys": [
+                    "album",
+                    "artist",
+                    "comment",
+                    "genre",
+                    "title",
+                    "year"
+                  ],
+                  "count": 6
+                }
+              },
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "comments",
+                "comments_html",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "id3v1",
+                "mime_type",
+                "tags",
+                "tags_html"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:mp3-id3v2-truncated": {
+            "getid3:mp3-id3v2-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp3-id3v2-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:ec42a31915c555123540297084e77cb030fd01aa31f8daa17e3b8529dd9b2f8d"
+              ],
+              "fileformat": null,
+              "filesize": 14,
+              "fixture": "truncated-id3v2.mp3",
+              "fixture_sha256": "sha256:99d10c177a562fb591112c0fb61806881c137fa1c104c376f6bddc4b402e3464",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "id3v2",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 2,
+              "warnings_sha256": [
+                "sha256:0cacfaf47db4df133640b9d2fb0f3e104df18d206f97d48e511ffb960bbdb610",
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:wav-riff-pcm": {
+            "getid3:wav-riff-pcm": {
+              "audio": {
+                "present": true,
+                "dataformat": "wav",
+                "codec": "Pulse Code Modulation (PCM)",
+                "sample_rate": 8000,
+                "channels": 1,
+                "bits_per_sample": 16
+              },
+              "bitrate": 128000,
+              "case_id": "getid3:wav-riff-pcm",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 0,
+              "errors_sha256": [],
+              "fileformat": "wav",
+              "filesize": 364,
+              "fixture": "pcm.wav",
+              "fixture_sha256": "sha256:5341a0da3824f5be899ff8ba691f9bf28b9702de7c27752043c69e60a96ffa1c",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "audio/wav",
+              "ogg": null,
+              "playtime_seconds": 0.02,
+              "quicktime": null,
+              "riff": {
+                "kind": "array",
+                "keys": [
+                  "WAVE",
+                  "audio",
+                  "encoding",
+                  "header_size",
+                  "raw"
+                ],
+                "count": 5
+              },
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "audio",
+                "avdataend",
+                "avdataoffset",
+                "bitrate",
+                "encoding",
+                "fileformat",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "mime_type",
+                "playtime_seconds",
+                "playtime_string",
+                "riff"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:mp4-quicktime-minimal": {
+            "getid3:mp4-quicktime-minimal": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp4-quicktime-minimal",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:524a050b8c4d967d396d0df2b93b4b1164b8f019167c49f40f6dd4d3c7e41789"
+              ],
+              "fileformat": null,
+              "filesize": 36,
+              "fixture": "minimal.mp4",
+              "fixture_sha256": "sha256:951ac42711c5d324cfaab68f1a40feae0f5de610dd32437f6d909c26c1967188",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:flac-streaminfo": {
+            "getid3:flac-streaminfo": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:flac-streaminfo",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:31d132203fb07b880c3dffd49c7047da985322cf04a1433427689931bd0689c4"
+              ],
+              "fileformat": null,
+              "filesize": 42,
+              "fixture": "minimal.flac",
+              "fixture_sha256": "sha256:d844a1b78501822aea150b780dedf2d0e9bec2fb44cdc5b14e34c42444326b4e",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:ogg-vorbis-truncated": {
+            "getid3:ogg-vorbis-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:ogg-vorbis-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:f573c1511dc3616b341e77d3da4f1109de0b90c15a704dbca69f674e83d546b5"
+              ],
+              "fileformat": null,
+              "filesize": 29,
+              "fixture": "truncated.ogg",
+              "fixture_sha256": "sha256:085ed6ab4e130ad441715249fb3ed6960fe86d659ca44c7d87692c2d5b325eed",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:webm-matroska-truncated": {
+            "getid3:webm-matroska-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:webm-matroska-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:3b0135ce4b66a3c5c0d3a410552cd1e476e615e35a2905f8cd170c5708a834f3"
+              ],
+              "fileformat": null,
+              "filesize": 21,
+              "fixture": "truncated.webm",
+              "fixture_sha256": "sha256:ccd03fbdef273a57e0f30675562cb856598c31e034f651dbc7c7285e2f107b87",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:image-jpeg": {
+            "getid3:image-jpeg": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:image-jpeg",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:28b95cebd7b0c56c94b12a65685b01846f321598b8ab3a06e39865619b68bafe"
+              ],
+              "fileformat": null,
+              "filesize": 516,
+              "fixture": "tiny.jpg",
+              "fixture_sha256": "sha256:b1fc0119ac25d83c52c8ce8238477d32099b1d82e36902366931d7d2a175b182",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "image/jpeg",
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "mime_type"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:empty-malformed": {
+            "getid3:empty-bin": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:empty-bin",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:e408c5b3eb1655c4406b78f631e7b6e62ceb412944ab550c9fa35d07947641c3"
+              ],
+              "fileformat": null,
+              "filesize": 0,
+              "fixture": "empty.bin",
+              "fixture_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            },
+            "getid3:random-malformed": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:random-malformed",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:cf3cea43541e71f4d6a7ae6890a7fda97691e7673ebb484d567b8bb02ead2196"
+              ],
+              "fileformat": null,
+              "filesize": 31,
+              "fixture": "random.bin",
+              "fixture_sha256": "sha256:fccc6fa6a0a3cd98318dfab410ddedfa9a8a27e055beab3b23437613969cd5e7",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            },
+            "getid3:truncated-binary": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:truncated-binary",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:b2ebd9995ed13e16ddf0861c50112e00d0004435a0fb33d1b396a5c752cdfeab"
+              ],
+              "fileformat": null,
+              "filesize": 8,
+              "fixture": "truncated.bin",
+              "fixture_sha256": "sha256:3b47a05cc0f7b533587c3d898599fbff587465e8e43547090b24e9bdacafcd68",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:wp-media-wrapper-handoff": {
+            "wrappers_executed": false,
+            "wrapper_source_markers_recorded_in_manifest": true,
+            "wphx_313_floor_reconciled_by_runner": true,
+            "claim": "This gate records getID3 corpus behavior and wrapper handoff markers only; installed attachment metadata generation is out of scope."
+          },
+          "getid3:risk-license-review": {
+            "preserve_upstream_getid3_fallback": true,
+            "bounded_haxe_parser_subset_admitted": false,
+            "upstream_equivalent_dependency_wrapper_admitted": false,
+            "hostile_binary_input_review_required_before_replacement": true,
+            "license_and_readme_notice_preservation_required": true
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": {
+        "file_count": 16,
+        "results": [
+          {
+            "path": "wp-includes/ID3/getid3.lib.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/getid3.lib.php",
+            "output_sha256": "sha256:828e1cc8d98f39f1c4888afcc2c94ae536305b0afbdd0b463374205ca0dfc647",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/getid3.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/getid3.php",
+            "output_sha256": "sha256:d8a47eb5d0190ee8a11d6b239e9c4750c2e2d1d107644f66286a163a5fe23b94",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.asf.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio-video.asf.php",
+            "output_sha256": "sha256:caa1f9b8dbca8a871d5de74dfff3a344dc70cb13044986e39c10a92fe3dd7965",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.flv.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio-video.flv.php",
+            "output_sha256": "sha256:2488e77c673a6288c1d38082084ccf7ca8ba84103fa5dcb1cde7541c231437cb",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.matroska.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio-video.matroska.php",
+            "output_sha256": "sha256:7074e24536eb24cd9b0c5a6aa7848641aec0833a3b28d776fadd7ce198eb46a6",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.quicktime.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio-video.quicktime.php",
+            "output_sha256": "sha256:f94ad150e958a954c0f699c040eb797c2db1eefaa960a9dc28416732d3b9acb4",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.riff.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio-video.riff.php",
+            "output_sha256": "sha256:a3e801d416e46ee0b82cb2cf7fe70d3ef9bc4b6e4b0b97fbacf294baf18fa80c",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.ac3.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio.ac3.php",
+            "output_sha256": "sha256:91e385caf5069178337b2599fc7cc97e50c3546661ceee51b121892e749322b3",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.dts.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio.dts.php",
+            "output_sha256": "sha256:a68e92374db439ff5ce9cecc4b2777400b2f71ff4431ff87e744f636249ba79f",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.flac.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio.flac.php",
+            "output_sha256": "sha256:b7ae88b4b44acb9c6e5af796eb93626e93ccfa80f2386639a7698ea0331573e0",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.mp3.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio.mp3.php",
+            "output_sha256": "sha256:e36f034e4545e3d072c0803eecc63cf3192f508666daf963386b12addaf5bcdc",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.ogg.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.audio.ogg.php",
+            "output_sha256": "sha256:40e65b8e52e4fa817a4226cc6b373dbcd13093da9efede9f9311532510b6d544",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.apetag.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.tag.apetag.php",
+            "output_sha256": "sha256:273c96c304e90f18bb9546f29786134dbd9e5302d9e79e11f8b21b93aabb5472",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.id3v1.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.tag.id3v1.php",
+            "output_sha256": "sha256:e433c8e33ae14eeb422cb697be2bd62a7db84d8917d1fcdb424269fd927eed0b",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.id3v2.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.tag.id3v2.php",
+            "output_sha256": "sha256:44cba608d7a0fd34b9544d7b91bb5525a17f6270222a84d7b6765a346a455ce7",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.lyrics3.php",
+            "command": "php -l build/wp-core/wphx-323-19/oracle/wp-includes/ID3/module.tag.lyrics3.php",
+            "output_sha256": "sha256:9bc068bfd7fc72e04d270d1486228c2112a79a36b54b3a58b31d171b69fcd166",
+            "ok": true
+          }
+        ]
+      }
+    },
+    "candidate": {
+      "command": "php build/wp-core/wphx-323-19/getid3-media-metadata-corpus-probe.php build/wp-core/wphx-323-19/candidate",
+      "raw_output_sha256": "sha256:4f6955959480e9499547f0fc593fc7fcf94a718ba7b6e0c78e256455188c6cb0",
+      "result": {
+        "observations": {
+          "getid3:api-reflection-package": {
+            "php_version": "8.4.7",
+            "class_exists": true,
+            "lib_class_exists": false,
+            "version": null,
+            "temp_dir_defined": true,
+            "temp_dir_basename": "getid3-temp",
+            "methods": [
+              {
+                "name": "__construct",
+                "public": true,
+                "static": false,
+                "parameters": 0,
+                "required_parameters": 0
+              },
+              {
+                "name": "analyze",
+                "public": true,
+                "static": false,
+                "parameters": 4,
+                "required_parameters": 1
+              },
+              {
+                "name": "openfile",
+                "public": true,
+                "static": false,
+                "parameters": 3,
+                "required_parameters": 1
+              },
+              {
+                "name": "include_module",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "error",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              },
+              {
+                "name": "warning",
+                "public": true,
+                "static": false,
+                "parameters": 1,
+                "required_parameters": 1
+              }
+            ],
+            "fixture_count": 11
+          },
+          "getid3:mp3-id3v1": {
+            "getid3:mp3-id3v1": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp3-id3v1",
+              "comments": {
+                "album": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "artist": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "comment": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "genre": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "title": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                },
+                "year": {
+                  "keys": [
+                    0
+                  ],
+                  "count": 1
+                }
+              },
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:d86d3cd97a56fde9ed5b486df3883c4fbe6118a613a9fd832331447bcc98d4c6"
+              ],
+              "fileformat": null,
+              "filesize": 256,
+              "fixture": "id3v1.mp3",
+              "fixture_sha256": "sha256:80ce5425e486a62e2f3ad8ccffcb5977ba73d47f1b326a74b31b4d2afd9927e6",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "audio/mpeg",
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": {
+                "id3v1": {
+                  "keys": [
+                    "album",
+                    "artist",
+                    "comment",
+                    "genre",
+                    "title",
+                    "year"
+                  ],
+                  "count": 6
+                }
+              },
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "comments",
+                "comments_html",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "id3v1",
+                "mime_type",
+                "tags",
+                "tags_html"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:mp3-id3v2-truncated": {
+            "getid3:mp3-id3v2-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp3-id3v2-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:ec42a31915c555123540297084e77cb030fd01aa31f8daa17e3b8529dd9b2f8d"
+              ],
+              "fileformat": null,
+              "filesize": 14,
+              "fixture": "truncated-id3v2.mp3",
+              "fixture_sha256": "sha256:99d10c177a562fb591112c0fb61806881c137fa1c104c376f6bddc4b402e3464",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "id3v2",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 2,
+              "warnings_sha256": [
+                "sha256:0cacfaf47db4df133640b9d2fb0f3e104df18d206f97d48e511ffb960bbdb610",
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:wav-riff-pcm": {
+            "getid3:wav-riff-pcm": {
+              "audio": {
+                "present": true,
+                "dataformat": "wav",
+                "codec": "Pulse Code Modulation (PCM)",
+                "sample_rate": 8000,
+                "channels": 1,
+                "bits_per_sample": 16
+              },
+              "bitrate": 128000,
+              "case_id": "getid3:wav-riff-pcm",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 0,
+              "errors_sha256": [],
+              "fileformat": "wav",
+              "filesize": 364,
+              "fixture": "pcm.wav",
+              "fixture_sha256": "sha256:5341a0da3824f5be899ff8ba691f9bf28b9702de7c27752043c69e60a96ffa1c",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "audio/wav",
+              "ogg": null,
+              "playtime_seconds": 0.02,
+              "quicktime": null,
+              "riff": {
+                "kind": "array",
+                "keys": [
+                  "WAVE",
+                  "audio",
+                  "encoding",
+                  "header_size",
+                  "raw"
+                ],
+                "count": 5
+              },
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "audio",
+                "avdataend",
+                "avdataoffset",
+                "bitrate",
+                "encoding",
+                "fileformat",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "mime_type",
+                "playtime_seconds",
+                "playtime_string",
+                "riff"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:mp4-quicktime-minimal": {
+            "getid3:mp4-quicktime-minimal": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:mp4-quicktime-minimal",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:524a050b8c4d967d396d0df2b93b4b1164b8f019167c49f40f6dd4d3c7e41789"
+              ],
+              "fileformat": null,
+              "filesize": 36,
+              "fixture": "minimal.mp4",
+              "fixture_sha256": "sha256:951ac42711c5d324cfaab68f1a40feae0f5de610dd32437f6d909c26c1967188",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:flac-streaminfo": {
+            "getid3:flac-streaminfo": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:flac-streaminfo",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:31d132203fb07b880c3dffd49c7047da985322cf04a1433427689931bd0689c4"
+              ],
+              "fileformat": null,
+              "filesize": 42,
+              "fixture": "minimal.flac",
+              "fixture_sha256": "sha256:d844a1b78501822aea150b780dedf2d0e9bec2fb44cdc5b14e34c42444326b4e",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:ogg-vorbis-truncated": {
+            "getid3:ogg-vorbis-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:ogg-vorbis-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:f573c1511dc3616b341e77d3da4f1109de0b90c15a704dbca69f674e83d546b5"
+              ],
+              "fileformat": null,
+              "filesize": 29,
+              "fixture": "truncated.ogg",
+              "fixture_sha256": "sha256:085ed6ab4e130ad441715249fb3ed6960fe86d659ca44c7d87692c2d5b325eed",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:webm-matroska-truncated": {
+            "getid3:webm-matroska-truncated": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:webm-matroska-truncated",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:3b0135ce4b66a3c5c0d3a410552cd1e476e615e35a2905f8cd170c5708a834f3"
+              ],
+              "fileformat": null,
+              "filesize": 21,
+              "fixture": "truncated.webm",
+              "fixture_sha256": "sha256:ccd03fbdef273a57e0f30675562cb856598c31e034f651dbc7c7285e2f107b87",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:image-jpeg": {
+            "getid3:image-jpeg": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:image-jpeg",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:28b95cebd7b0c56c94b12a65685b01846f321598b8ab3a06e39865619b68bafe"
+              ],
+              "fileformat": null,
+              "filesize": 516,
+              "fixture": "tiny.jpg",
+              "fixture_sha256": "sha256:b1fc0119ac25d83c52c8ce8238477d32099b1d82e36902366931d7d2a175b182",
+              "flac": null,
+              "matroska": null,
+              "mime_type": "image/jpeg",
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "mime_type"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 0,
+              "warnings_sha256": []
+            }
+          },
+          "getid3:empty-malformed": {
+            "getid3:empty-bin": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:empty-bin",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:e408c5b3eb1655c4406b78f631e7b6e62ceb412944ab550c9fa35d07947641c3"
+              ],
+              "fileformat": null,
+              "filesize": 0,
+              "fixture": "empty.bin",
+              "fixture_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            },
+            "getid3:random-malformed": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:random-malformed",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:cf3cea43541e71f4d6a7ae6890a7fda97691e7673ebb484d567b8bb02ead2196"
+              ],
+              "fileformat": null,
+              "filesize": 31,
+              "fixture": "random.bin",
+              "fixture_sha256": "sha256:fccc6fa6a0a3cd98318dfab410ddedfa9a8a27e055beab3b23437613969cd5e7",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            },
+            "getid3:truncated-binary": {
+              "audio": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "sample_rate": null,
+                "channels": null,
+                "bits_per_sample": null
+              },
+              "bitrate": null,
+              "case_id": "getid3:truncated-binary",
+              "comments": [],
+              "encoding": "UTF-8",
+              "errors_count": 1,
+              "errors_sha256": [
+                "sha256:b2ebd9995ed13e16ddf0861c50112e00d0004435a0fb33d1b396a5c752cdfeab"
+              ],
+              "fileformat": null,
+              "filesize": 8,
+              "fixture": "truncated.bin",
+              "fixture_sha256": "sha256:3b47a05cc0f7b533587c3d898599fbff587465e8e43547090b24e9bdacafcd68",
+              "flac": null,
+              "matroska": null,
+              "mime_type": null,
+              "ogg": null,
+              "playtime_seconds": null,
+              "quicktime": null,
+              "riff": null,
+              "tags": [],
+              "top_level_keys": [
+                "GETID3_VERSION",
+                "encoding",
+                "error",
+                "filename",
+                "filenamepath",
+                "filepath",
+                "filesize",
+                "warning"
+              ],
+              "video": {
+                "present": false,
+                "dataformat": null,
+                "codec": null,
+                "resolution_x": null,
+                "resolution_y": null
+              },
+              "warnings_count": 1,
+              "warnings_sha256": [
+                "sha256:6ed5921ea264def4e6ae8344ad724c02b06cbecf6b12a7cf50c540e67c99f9ff"
+              ]
+            }
+          },
+          "getid3:wp-media-wrapper-handoff": {
+            "wrappers_executed": false,
+            "wrapper_source_markers_recorded_in_manifest": true,
+            "wphx_313_floor_reconciled_by_runner": true,
+            "claim": "This gate records getID3 corpus behavior and wrapper handoff markers only; installed attachment metadata generation is out of scope."
+          },
+          "getid3:risk-license-review": {
+            "preserve_upstream_getid3_fallback": true,
+            "bounded_haxe_parser_subset_admitted": false,
+            "upstream_equivalent_dependency_wrapper_admitted": false,
+            "hostile_binary_input_review_required_before_replacement": true,
+            "license_and_readme_notice_preservation_required": true
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": {
+        "file_count": 16,
+        "results": [
+          {
+            "path": "wp-includes/ID3/getid3.lib.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/getid3.lib.php",
+            "output_sha256": "sha256:e85adc39d60c0fa5be5ba420e00e93860760385dfdea043d5a51b2c81fea08c4",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/getid3.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/getid3.php",
+            "output_sha256": "sha256:643c1432fb41df6596cbc28c359726d5f9f100372ecd55b59854e2fdb1875fca",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.asf.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio-video.asf.php",
+            "output_sha256": "sha256:b3694abbbfb699cc436631d78ef354d33a8a5833cae701ba7be25e85ebac3d86",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.flv.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio-video.flv.php",
+            "output_sha256": "sha256:ec5b5bec0cf2c2627740dd6eb67777b1d051b1563b8c8ee23b54566fccba97d6",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.matroska.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio-video.matroska.php",
+            "output_sha256": "sha256:de4468f3c1f2ee5e71f9bbb99336e18ac5bf7b1b2f0e3afe68fd139ecb907ddc",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.quicktime.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio-video.quicktime.php",
+            "output_sha256": "sha256:efdec3da43b4b44ec081d627912e1a954387bd4efb7dbe89233803e3aafa78f3",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio-video.riff.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio-video.riff.php",
+            "output_sha256": "sha256:95daf6944a90eef3d20f81a94e2acd1090112be8dbdbfa476c0686b1c582a4a1",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.ac3.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio.ac3.php",
+            "output_sha256": "sha256:5e1a43499d591928b6afdf6162daaa978664711b62a9936ba4656ed12b4bf6b7",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.dts.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio.dts.php",
+            "output_sha256": "sha256:9f4ec3a7f14122c261affcca232219638ed448b991e7e418d3845f53c82eaa6a",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.flac.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio.flac.php",
+            "output_sha256": "sha256:fcb130ad969cea2f104eccbb84f582c0a2d284aea30939544ef94a373061a277",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.mp3.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio.mp3.php",
+            "output_sha256": "sha256:300d6c81f481dd34eeba0f8e61a9d142bac5257e37b898567e7d538b6c557d85",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.audio.ogg.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.audio.ogg.php",
+            "output_sha256": "sha256:26b1416db8939d264da5e8302037c131410b995821571d5bbefd9f01f02e23dd",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.apetag.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.tag.apetag.php",
+            "output_sha256": "sha256:a3e1733190e6b82c00bd6009fa9daa7b29446683ebe180a11cc07fee07e28ddc",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.id3v1.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.tag.id3v1.php",
+            "output_sha256": "sha256:d4ca0cbf5c2c1d5fea569cb79769676a9756b0830a867797f24bfb71563dcc35",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.id3v2.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.tag.id3v2.php",
+            "output_sha256": "sha256:82fb2cbfdbb5f6dc28b16b676f96fb6ab38b75b929bffeafaff17b9fd0759938",
+            "ok": true
+          },
+          {
+            "path": "wp-includes/ID3/module.tag.lyrics3.php",
+            "command": "php -l build/wp-core/wphx-323-19/candidate/wp-includes/ID3/module.tag.lyrics3.php",
+            "output_sha256": "sha256:17fd59a383a5f4f6aa49241d984fff4336302381cdaab1cd59c7190e0188fb69",
+            "ok": true
+          }
+        ]
+      }
+    }
+  },
+  "behavior_floors": [
+    {
+      "id": "wphx-313-01-media-filesystem-upload-surface",
+      "manifest": "manifests/wp-core/wphx-313-01-media-filesystem-upload-surface.v1.json",
+      "role": "media/upload source inventory that records wp_read_audio_metadata and wp_read_video_metadata wrapper ownership"
+    },
+    {
+      "id": "wphx-313-04-image-metadata-editor-oracle-fixture",
+      "manifest": "manifests/wp-core/wphx-313-04-image-metadata-editor-oracle-fixture.v1.json",
+      "role": "image metadata/editor fixture floor for wp_read_image_metadata and image handoff behavior"
+    },
+    {
+      "id": "wphx-313-08-media-upload-installed-gate",
+      "manifest": "manifests/wp-core/wphx-313-08-media-upload-installed-gate.v1.json",
+      "role": "installed-style media/upload bridge floor; referenced as package context, not installed getID3 route execution"
+    }
+  ],
+  "risk_review": {
+    "parser_breadth": "getID3 covers many binary container, audio, video, and tag formats beyond the deterministic corpus; preserve upstream outside any later admitted subset.",
+    "malformed_binary_inputs": "Malformed/truncated observations are recorded, but this is not a fuzzing campaign, memory-safety proof, or hostile-input security audit.",
+    "memory_and_resource_use": "Source markers record filesize/memory-sensitive paths. Replacement requires bounded resource policy and adversarial media corpus evidence.",
+    "license_and_notice": "Preserve wp-includes/ID3/license.txt and wp-includes/ID3/readme.txt plus WordPress project notice while this remains a preserved artifact."
+  },
+  "blocked_conditions": [
+    {
+      "id": "bounded-haxe-parser-subset",
+      "status": "blocked",
+      "reason": "The gate records upstream getID3 corpus behavior and parser risk only. No bounded Haxe parser subset for any media format is admitted."
+    },
+    {
+      "id": "upstream-equivalent-dependency-wrapper",
+      "status": "blocked",
+      "reason": "No external upstream-equivalent dependency wrapper is selected, packaged, licensed, or proven against WordPress attachment metadata behavior."
+    },
+    {
+      "id": "installed-attachment-metadata-parity",
+      "status": "blocked",
+      "reason": "WPHX-313 media floors and wrapper source markers are reconciled, but this gate does not execute database-backed installed attachment metadata generation."
+    },
+    {
+      "id": "copied-getid3-retirement",
+      "status": "blocked",
+      "reason": "Copied getID3 artifacts remain preserved until WPHX-323.22 accepts a provenance/replacement decision with generated-overlay, corpus, security, license, and ecosystem evidence."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_tree_file_count": 18,
+    "source_php_file_count": 16,
+    "notice_file_count": 2,
+    "artifact_provenance_record_count": 16,
+    "covered_symbol_count": 23,
+    "case_count": 12,
+    "direct_corpus_fixture_count": 11,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "wav_riff_audio_detected": true,
+    "mp3_id3_tag_path_exercised": true,
+    "malformed_error_or_warning_cases": 3,
+    "wrapper_handoff_markers_recorded": true,
+    "license_notice_preservation_recorded": true,
+    "captured_error_count": 0
+  },
+  "claims": {
+    "copied_getid3_package_mirrored": true,
+    "direct_getid3_corpus_observation_parity_claimed": true,
+    "wphx_313_wrapper_handoff_markers_recorded": true,
+    "behavior_parity_claimed": false,
+    "installed_attachment_metadata_parity_claimed": false,
+    "bounded_haxe_parser_subset_claimed": false,
+    "upstream_equivalent_dependency_wrapper_claimed": false,
+    "haxe_owned_media_parser_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_getid3_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned getID3 or media parser implementation.",
+    "This gate does not claim a bounded Haxe parser subset or an upstream-equivalent dependency wrapper.",
+    "This gate does not claim generated public PHP replacement for wp-includes/ID3 files.",
+    "This gate does not claim copied getID3 artifact retirement.",
+    "This gate does not execute wp_read_audio_metadata, wp_read_video_metadata, or database-backed installed attachment metadata generation.",
+    "This gate does not prove broad media metadata parity, hostile binary input safety, memory-safety, or complete getID3 format coverage."
+  ]
+}

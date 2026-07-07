@@ -1,0 +1,64 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-19-getid3-media-metadata-corpus-gate",
+  "issue": {
+    "id": "wordpresshx-h571",
+    "external_ref": "WPHX-323.19",
+    "title": "Add getID3 media metadata corpus gate"
+  },
+  "recorded_at": "2026-07-08T09:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_getid3_media_metadata_corpus_gate",
+  "artifact_scope": "wordpress-7.0-getid3-preserved-package-media-metadata-corpus",
+  "commands": [
+    "npm run wp:core:wphx-323-getid3-media-metadata-corpus",
+    "npm run wp:core:wphx-323-getid3-media-metadata-corpus:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-19-getid3-media-metadata-corpus-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-19-getid3-media-metadata-corpus-gate.v1.json",
+    "parent_media_security_archive_gate_manifest": "manifests/wp-core/wphx-323-05-media-security-archive-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "parent_vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:d93d49cdffc915973ad9e9f73af2063e3ccdc29d2017d0da7dd26f5bea1054dd",
+  "validation_result": {
+    "status": "passed",
+    "source_tree_file_count": 18,
+    "source_php_file_count": 16,
+    "notice_file_count": 2,
+    "artifact_provenance_record_count": 16,
+    "covered_symbol_count": 23,
+    "case_count": 12,
+    "direct_corpus_fixture_count": 11,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "wav_riff_audio_detected": true,
+    "mp3_id3_tag_path_exercised": true,
+    "malformed_error_or_warning_cases": 3,
+    "wrapper_handoff_markers_recorded": true,
+    "license_notice_preservation_recorded": true,
+    "captured_error_count": 0
+  },
+  "claims": {
+    "copied_getid3_package_mirrored": true,
+    "direct_getid3_corpus_observation_parity_claimed": true,
+    "wphx_313_wrapper_handoff_markers_recorded": true,
+    "behavior_parity_claimed": false,
+    "installed_attachment_metadata_parity_claimed": false,
+    "bounded_haxe_parser_subset_claimed": false,
+    "upstream_equivalent_dependency_wrapper_claimed": false,
+    "haxe_owned_media_parser_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_getid3_artifact_retirement_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned getID3 or media parser implementation.",
+    "This gate does not claim a bounded Haxe parser subset or an upstream-equivalent dependency wrapper.",
+    "This gate does not claim generated public PHP replacement for wp-includes/ID3 files.",
+    "This gate does not claim copied getID3 artifact retirement.",
+    "This gate does not execute wp_read_audio_metadata, wp_read_video_metadata, or database-backed installed attachment metadata generation.",
+    "This gate does not prove broad media metadata parity, hostile binary input safety, memory-safety, or complete getID3 format coverage."
+  ]
+}
