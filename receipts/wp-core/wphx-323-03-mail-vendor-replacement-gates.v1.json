@@ -1,0 +1,48 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-03-mail-vendor-replacement-gates",
+  "issue": {
+    "id": "wordpresshx-l76.29",
+    "external_ref": "WPHX-323.03",
+    "title": "Plan mail vendor replacement gates"
+  },
+  "recorded_at": "2026-07-07T18:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "mail_vendor_replacement_gate_plan",
+  "artifact_scope": "phpmailer-preserved-vendor-boundary",
+  "commands": [
+    "npm run wp:core:wphx-323-mail-vendor-replacement-gates",
+    "npm run wp:core:wphx-323-mail-vendor-replacement-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-03-mail-vendor-replacement-gates.v1.json",
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:22876ce604df350faf1bad95a754fe2bd2769a61df97edfaf518b6d5231e08df",
+  "validation_result": {
+    "planned_boundary_ids": [
+      "phpmailer"
+    ],
+    "planned_boundary_count": 1,
+    "phpmailer_source_inventory_count": 7,
+    "phpmailer_distribution_artifact_count": 7,
+    "gate_count": 5,
+    "downstream_issue_count": 3,
+    "existing_evidence_count": 4,
+    "required_api_area_count": 10,
+    "required_transport_area_count": 9
+  },
+  "claims": [
+    "PHPMailer now has a machine-readable replacement gate plan linked to WPHX-323.01 and WPHX-323 preserved-vendor closure.",
+    "The selected near-term path is generated wrapper around an upstream-equivalent dependency with preserved upstream fallback until API/reflection, transport, and provenance/replacement decision gates pass.",
+    "Existing WPHX-312 mail setup and controlled SMTP evidence is recorded as prerequisite behavior floor, not copied artifact retirement."
+  ],
+  "non_claims": [
+    "This plan does not implement a Haxe-owned PHPMailer runtime.",
+    "This plan does not generate, validate, or distribute public PHPMailer wrapper files.",
+    "This plan does not replace copied PHPMailer, class-phpmailer.php, class-smtp.php, class-pop3.php, class-wp-phpmailer.php, or wp_mail public PHP artifacts.",
+    "This plan does not claim operational mail delivery, authenticated SMTP, TLS, DNS/MX, remote server, bounce, retry, or installed WordPress mail parity.",
+    "Existing WPHX-312 evidence remains preserved/copy-oracle and controlled-transport evidence, not durable public PHP ownership."
+  ]
+}

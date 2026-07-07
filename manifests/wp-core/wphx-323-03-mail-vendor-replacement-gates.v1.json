@@ -1,0 +1,322 @@
+{
+  "schema": "wphx.wp-core-mail-vendor-replacement-gates.v1",
+  "issue": {
+    "id": "wordpresshx-l76.29",
+    "external_ref": "WPHX-323.03",
+    "title": "Plan mail vendor replacement gates"
+  },
+  "generated_at": "2026-07-07T18:00:00.000Z",
+  "generator": {
+    "runner": "tools/wp-core/run-php-mail-vendor-replacement-gates.mjs",
+    "mode": "deterministic"
+  },
+  "scope": {
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "covered_boundaries": [
+      {
+        "id": "phpmailer",
+        "name": "PHPMailer",
+        "kind": "c3_php_vendor_root",
+        "source_path": "wp-includes/PHPMailer",
+        "distribution_path": "wp-includes/PHPMailer",
+        "current_strategy": "preserved_upstream_vendor_boundary",
+        "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+        "source_inventory_count": 7,
+        "distribution_artifact_count": 7
+      }
+    ],
+    "selected_path": {
+      "decision": "generated_wrapper_around_upstream_equivalent_dependency_with_preserved_upstream_fallback",
+      "rationale": "PHPMailer is a public ecosystem API plus transport surface. The first durable WPHX path should preserve official PHPMailer API/path behavior through generated wrappers or renew the preserved upstream exception; direct Haxe mailer ownership is not admitted by this plan.",
+      "fallback_required_until": [
+        "WPHX-323.11 PHPMailer API/reflection and wrapper-shape fixture",
+        "WPHX-323.12 controlled SMTP/phpmail transport gate",
+        "WPHX-323.13 provenance, dependency, ecosystem, and replacement decision receipt"
+      ]
+    }
+  },
+  "inputs": {
+    "replacement_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "existing_evidence": [
+      {
+        "id": "wphx-312-13-phpmailer-setup",
+        "manifest": "manifests/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+        "role": "wp_mail and PHPMailer setup fixture for headers, attachments, embeds, init hooks, state clearing, and failure behavior without delivery",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+          "bytes": 34458,
+          "sha256": "sha256:fcbb4d21f23eefbb1e75e7eb97bb958cbb7d0396a2f574df3f0499c6215a8f09"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-13-phpmailer-setup-oracle-fixture.v1.json",
+          "bytes": 1566,
+          "sha256": "sha256:83f33b65467f629a3426f8972e4b2f242b16858541dc3980bbbd1a3bd06a6ce5"
+        }
+      },
+      {
+        "id": "wphx-312-93-cron-mail-transport-installed-gate",
+        "manifest": "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+        "role": "controlled installed-style wp_mail/PHPMailer SMTP capture success and controlled SMTP failure evidence",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+          "bytes": 35588,
+          "sha256": "sha256:31b7c35fe3f147ada2e23c2f29aa2e0be7354db1ea2d70d3a2858bdaf6615916"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-93-cron-mail-transport-installed-gate.v1.json",
+          "bytes": 1950,
+          "sha256": "sha256:34e4e65f6b8e46dd1d716a49ccb844b76e8d3c79c1e62c35dd68d4670eaefd20"
+        }
+      },
+      {
+        "id": "wphx-312-07-privacy-request-mail",
+        "manifest": "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+        "role": "privacy request mail wrapper payload and header observations that remain downstream wp_mail callers",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+          "bytes": 20873,
+          "sha256": "sha256:5c88795e06e49ff2fac68353e9f71ad45e27159c15d9339625fa934834114d35"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-07-privacy-request-mail-oracle-fixture.v1.json",
+          "bytes": 1665,
+          "sha256": "sha256:785d8e20c9aed7530db62c0f72662fc58ef4154f13fd2f32f80f5161679b5a35"
+        }
+      },
+      {
+        "id": "wphx-312-100-copied-surface-plan",
+        "manifest": "manifests/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+        "receipt": "receipts/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+        "role": "copied-surface routing plan that assigns PHPMailer copied public surfaces to WPHX-323 preserved-vendor policy",
+        "manifest_record": {
+          "path": "manifests/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+          "bytes": 131672,
+          "sha256": "sha256:f8624597efc5a4738a8f571d3c0843525945b9d8544e887bc5873025d4aa9e2a"
+        },
+        "receipt_record": {
+          "path": "receipts/wp-core/wphx-312-100-copied-surface-plan.v1.json",
+          "bytes": 2399,
+          "sha256": "sha256:34d0dfc5983ce340e008aa0595ddf4dce526f2abfab98f4277bb6fd781570ea2"
+        }
+      }
+    ]
+  },
+  "downstream_issues": {
+    "phpmailer_api_reflection_wrapper_shape": {
+      "issue_id": "wordpresshx-jfwa",
+      "external_ref": "WPHX-323.11",
+      "title": "Add PHPMailer API/reflection and wrapper-shape fixture"
+    },
+    "phpmailer_transport_gate": {
+      "issue_id": "wordpresshx-m1u1",
+      "external_ref": "WPHX-323.12",
+      "title": "Add PHPMailer SMTP and phpmail transport gate"
+    },
+    "phpmailer_provenance_replacement_decision": {
+      "issue_id": "wordpresshx-twwp",
+      "external_ref": "WPHX-323.13",
+      "title": "Add PHPMailer provenance and replacement decision gate"
+    }
+  },
+  "gate_plan": [
+    {
+      "id": "phpmailer-api-reflection-and-wrapper-shape",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-jfwa",
+        "external_ref": "WPHX-323.11",
+        "title": "Add PHPMailer API/reflection and wrapper-shape fixture"
+      },
+      "gate_kind": "api_reflection_and_generated_wrapper_shape",
+      "required_before": [
+        "generated_wrapper_claim",
+        "distribution_divergence",
+        "copied_phpmailer_retirement"
+      ],
+      "required_observations": [
+        "PHPMailer\\PHPMailer\\PHPMailer",
+        "PHPMailer\\PHPMailer\\SMTP",
+        "PHPMailer\\PHPMailer\\POP3",
+        "PHPMailer\\PHPMailer\\Exception",
+        "PHPMailer\\PHPMailer\\DSNConfigurator",
+        "PHPMailer\\PHPMailer\\OAuth",
+        "PHPMailer\\PHPMailer\\OAuthTokenProvider",
+        "WP_PHPMailer extends PHPMailer\\PHPMailer\\PHPMailer",
+        "legacy class-phpmailer.php, class-smtp.php, and class-pop3.php shims",
+        "public constants, properties, method signatures, and reflection-visible paths"
+      ],
+      "acceptance": "PHPMailer public API, reflection-visible classes, legacy shims, WP_PHPMailer inheritance, and generated wrapper/original-path shape are proven before any PHPMailer package divergence.",
+      "fallback_policy": "If generated wrapper emission cannot preserve PHPMailer ecosystem-visible API and path behavior, renew the preserved upstream package exception instead of distributing a wrapper.",
+      "removal_gate": "Do not claim generated PHPMailer wrapper ownership or retire copied PHPMailer artifacts until WPHX-323.11 records passing API/reflection and wrapper-shape evidence."
+    },
+    {
+      "id": "wp-mail-setup-minimized-fixtures",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-jfwa",
+        "external_ref": "WPHX-323.11",
+        "title": "Add PHPMailer API/reflection and wrapper-shape fixture"
+      },
+      "gate_kind": "existing_minimized_mail_setup_fixture",
+      "required_before": [
+        "generated_wrapper_claim",
+        "transport_replacement_claim"
+      ],
+      "existing_evidence_ids": [
+        "wphx-312-13-phpmailer-setup",
+        "wphx-312-07-privacy-request-mail"
+      ],
+      "required_observations": [
+        "wp_mail recipient/header/content-type/charset setup",
+        "attachments and embedded images",
+        "phpmailer_init, wp_mail_succeeded, and wp_mail_failed hooks",
+        "global PHPMailer state clearing and reuse behavior",
+        "privacy/recovery/domain mail caller handoff remains covered by domain-specific fixtures"
+      ],
+      "acceptance": "Existing WPHX-312 no-delivery mail setup evidence remains the minimized behavior floor for any PHPMailer replacement path.",
+      "fallback_policy": "Keep preserved PHPMailer if generated wrapper or transport candidate cannot reproduce these setup observations.",
+      "removal_gate": "Do not cite WPHX-312 setup fixtures as copied artifact retirement; they are prerequisite behavior floors for WPHX-323.11 and WPHX-323.12."
+    },
+    {
+      "id": "phpmailer-controlled-smtp-and-phpmail-transport",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-m1u1",
+        "external_ref": "WPHX-323.12",
+        "title": "Add PHPMailer SMTP and phpmail transport gate"
+      },
+      "gate_kind": "controlled_transport_matrix",
+      "required_before": [
+        "transport_replacement_claim",
+        "copied_phpmailer_retirement",
+        "installed_mail_parity_claim"
+      ],
+      "existing_evidence_ids": [
+        "wphx-312-93-cron-mail-transport-installed-gate"
+      ],
+      "required_observations": [
+        "wp_mail header parsing, From/CC/BCC/Reply-To/custom headers, content type, and charset filters",
+        "attachment and embedded-image setup",
+        "phpmailer_init mutations before send",
+        "wp_mail_succeeded and wp_mail_failed hook payloads",
+        "controlled local SMTP success capture",
+        "controlled local SMTP connection failure",
+        "phpmail/mail() boundary shape without external delivery where host permits",
+        "exceptions and PHPMailer ErrorInfo propagation",
+        "authenticated SMTP, TLS, DNS/MX, remote server policy, bounces, retries, and operational delivery recorded as blocked until dedicated gates exist"
+      ],
+      "acceptance": "Controlled local SMTP and phpmail/mail() boundary evidence records preserved PHPMailer/wp_mail behavior, unsupported host conditions, and WordPress hook/error observations before replacement claims.",
+      "fallback_policy": "Use preserved upstream PHPMailer for all operational delivery paths until deterministic SMTP/phpmail gates and blocked authenticated/TLS/DNS conditions are resolved.",
+      "removal_gate": "Do not retire PHPMailer transport code or claim installed mail parity until WPHX-323.12 passes with explicit blocked-condition records."
+    },
+    {
+      "id": "phpmailer-license-provenance-and-dependency-review",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-twwp",
+        "external_ref": "WPHX-323.13",
+        "title": "Add PHPMailer provenance and replacement decision gate"
+      },
+      "gate_kind": "license_provenance_dependency_review",
+      "required_before": [
+        "distribution_divergence",
+        "external_dependency_wrapper_claim",
+        "copied_phpmailer_retirement"
+      ],
+      "required_observations": [
+        "PHPMailer file headers, package notices, WordPress bundled provenance, and license treatment remain recorded while copied",
+        "Any external dependency or upstream-equivalent package wrapper records source, version, license, notice, update policy, and exact distribution paths",
+        "Official WordPress distribution dependency assumptions are not broadened without an ADR and receipt evidence",
+        "OAuth/dependency-adjacent classes are either preserved, wrapped, or explicitly excluded with fallback"
+      ],
+      "acceptance": "License/provenance and dependency assumptions are accepted before generated wrapper distribution or preserved-package exception renewal becomes durable policy.",
+      "fallback_policy": "Keep the preserved upstream PHPMailer package if provenance, notices, versioning, or dependency assumptions are unsettled.",
+      "removal_gate": "Do not distribute divergent PHPMailer package files without WPHX-323.13 provenance and dependency-decision evidence."
+    },
+    {
+      "id": "phpmailer-ecosystem-fallback-and-replacement-decision",
+      "boundary_id": "phpmailer",
+      "downstream_issue": {
+        "issue_id": "wordpresshx-twwp",
+        "external_ref": "WPHX-323.13",
+        "title": "Add PHPMailer provenance and replacement decision gate"
+      },
+      "gate_kind": "ecosystem_fallback_and_decision",
+      "required_before": [
+        "copied_phpmailer_retirement",
+        "haxe_owned_vendor_runtime_claim",
+        "generated_wrapper_claim"
+      ],
+      "required_observations": [
+        "Plugin-visible class_exists/interface_exists behavior and public PHPMailer API expectations remain preserved",
+        "Stack traces, reflection names, include paths, legacy shims, and WP_PHPMailer subclass behavior remain compatible",
+        "Fallback matrix records when preserved upstream PHPMailer remains active",
+        "Replacement decision chooses generated wrapper, direct Haxe port, host-primitive implementation with fallback, or renewed preserved exception using recorded evidence"
+      ],
+      "acceptance": "A future receipt chooses wrapper or renewed exception based on concrete ecosystem and parity evidence, not aspiration.",
+      "fallback_policy": "Default to preserved upstream PHPMailer until WPHX-323.11, WPHX-323.12, and WPHX-323.13 together prove a safer replacement path.",
+      "removal_gate": "Do not claim Haxe-owned PHPMailer runtime logic or copied artifact retirement without an explicit WPHX-323.13 replacement decision receipt."
+    }
+  ],
+  "fallback_matrix": [
+    {
+      "condition": "generated wrapper shape cannot preserve PHPMailer public API, reflection names, paths, or legacy shims",
+      "required_behavior": "Renew preserved upstream PHPMailer exception; do not distribute divergent package files."
+    },
+    {
+      "condition": "transport behavior reaches authenticated SMTP, TLS, DNS/MX, remote server policy, retries, bounces, or operational delivery",
+      "required_behavior": "Route to preserved PHPMailer until dedicated controlled or installed gates cover the behavior."
+    },
+    {
+      "condition": "host lacks stable PHP mail() boundary or deterministic local SMTP capture support",
+      "required_behavior": "Record unsupported host condition and keep preserved upstream fallback active."
+    },
+    {
+      "condition": "external dependency/version/provenance assumptions are unsettled",
+      "required_behavior": "Do not broaden official WordPress distribution dependency assumptions; preserve upstream package."
+    }
+  ],
+  "wrapper_requirements": [
+    "Generated original-path wrappers must be produced by WPHX PHP, Adapter IR, linker/profile metadata, or accepted compiler/backend evidence.",
+    "Wrappers must preserve PHPMailer namespace, class names, legacy shim entry points, WP_PHPMailer inheritance, public constants/properties/methods, exception classes, include paths, and reflection-visible paths.",
+    "Candidate package divergence requires a non-empty overlay manifest listing each generated wrapper or dependency-backed file and its replaced upstream hash.",
+    "Wrapper bodies must not be hand-authored durable public PHP or JavaScript-runner string replacements."
+  ],
+  "validation_result": {
+    "planned_boundary_ids": [
+      "phpmailer"
+    ],
+    "planned_boundary_count": 1,
+    "phpmailer_source_inventory_count": 7,
+    "phpmailer_distribution_artifact_count": 7,
+    "gate_count": 5,
+    "downstream_issue_count": 3,
+    "existing_evidence_count": 4,
+    "required_api_area_count": 10,
+    "required_transport_area_count": 9
+  },
+  "claims": [
+    "PHPMailer now has a machine-readable replacement gate plan linked to WPHX-323.01 and WPHX-323 preserved-vendor closure.",
+    "The selected near-term path is generated wrapper around an upstream-equivalent dependency with preserved upstream fallback until API/reflection, transport, and provenance/replacement decision gates pass.",
+    "Existing WPHX-312 mail setup and controlled SMTP evidence is recorded as prerequisite behavior floor, not copied artifact retirement."
+  ],
+  "non_claims": [
+    "This plan does not implement a Haxe-owned PHPMailer runtime.",
+    "This plan does not generate, validate, or distribute public PHPMailer wrapper files.",
+    "This plan does not replace copied PHPMailer, class-phpmailer.php, class-smtp.php, class-pop3.php, class-wp-phpmailer.php, or wp_mail public PHP artifacts.",
+    "This plan does not claim operational mail delivery, authenticated SMTP, TLS, DNS/MX, remote server, bounce, retry, or installed WordPress mail parity.",
+    "Existing WPHX-312 evidence remains preserved/copy-oracle and controlled-transport evidence, not durable public PHP ownership."
+  ]
+}
