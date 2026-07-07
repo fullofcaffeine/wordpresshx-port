@@ -1,0 +1,3362 @@
+{
+  "schema": "wphx.wp-core.feed-vendor-provenance-decision-gate.v1",
+  "issue": {
+    "id": "wordpresshx-l76.37",
+    "external_ref": "WPHX-323.17",
+    "title": "Add feed vendor provenance and replacement decision gate"
+  },
+  "generated_at": "2026-07-08T04:00:00.000Z",
+  "generator": "tools/wp-core/run-feed-vendor-provenance-decision-gate.mjs",
+  "evidence_class": "preserved_feed_vendor_provenance_and_replacement_decision",
+  "boundary_ids": [
+    "simplepie",
+    "magpie_rss"
+  ],
+  "behavior_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "copied_feed_vendor_artifact_retirement_claimed": false,
+  "haxe_owned_runtime_claimed": false,
+  "installed_wordpress_feed_parity_claimed": false,
+  "live_external_feed_parity_claimed": false,
+  "generated_simplepie_wrapper_path_admitted_now": false,
+  "preserved_upstream_exceptions_renewed": true,
+  "inputs": {
+    "strategy": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "feed_gates": {
+      "path": "manifests/wp-core/wphx-323-04-feed-vendor-replacement-gates.v1.json",
+      "bytes": 96793,
+      "sha256": "sha256:173c005823acd5b3eaf28037c003c8b7309068c47c2edfb5f09bdbdddf030f86"
+    },
+    "simplepie_api": {
+      "path": "manifests/wp-core/wphx-323-14-simplepie-api-reflection-corpus-fixture.v1.json",
+      "bytes": 2133493,
+      "sha256": "sha256:caf854682dd2e17052cb4e09dda584296c07d188c4caba3c52588d2ab5da86ca"
+    },
+    "simplepie_wrapper": {
+      "path": "manifests/wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+      "bytes": 97077,
+      "sha256": "sha256:4b80aa9bca08d1d982f85b25e98d6a004218bd6f9af1af516d6d65c98079056e"
+    },
+    "magpie_exception": {
+      "path": "manifests/wp-core/wphx-323-16-magpie-rss-legacy-exception-gate.v1.json",
+      "bytes": 24794,
+      "sha256": "sha256:c60877e5f4eddc9d9c21b119b048704639131d19cccb653d279ff2bd03e0c563"
+    },
+    "vendor_closure": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "license_provenance": {
+      "path": "manifests/license-provenance.v1.json",
+      "bytes": 8559,
+      "sha256": "sha256:00d55db5838b902b6b04770999dd49b3461378d70f20c92f49a13e994035edfa"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    },
+    "planned_provenance_gate": {
+      "id": "feed-vendor-license-provenance-and-dependency-review",
+      "boundary_ids": [
+        "simplepie",
+        "magpie_rss"
+      ],
+      "downstream_issue": {
+        "issue_id": "wordpresshx-l76.37",
+        "external_ref": "WPHX-323.17",
+        "title": "Add feed vendor provenance and replacement decision gate"
+      },
+      "gate_kind": "license_provenance_dependency_review",
+      "required_before": [
+        "distribution_divergence",
+        "external_dependency_wrapper_claim",
+        "copied_feed_vendor_retirement"
+      ],
+      "required_observations": [
+        "SimplePie BSD-3-Clause source headers, version markers, WordPress bundled provenance, and absence/presence of package notice files",
+        "MagpieRSS GPL/deprecated source header, WordPress project license treatment, and rss-functions.php support wrapper provenance",
+        "Artifact provenance for all SimplePie, rss.php, and rss-functions.php distribution paths",
+        "PSR HTTP/cache interface dependency assumptions and official WordPress distribution dependency policy",
+        "Any upstream-equivalent dependency wrapper records source, version, license, notices, update policy, and exact distribution paths"
+      ],
+      "acceptance": "License/provenance and dependency assumptions are accepted before SimplePie wrapper distribution or MagpieRSS exception renewal becomes durable policy.",
+      "fallback_policy": "Do not broaden official WordPress distribution dependency assumptions or diverge feed vendor files while provenance, notices, or dependency paths are unsettled.",
+      "removal_gate": "Do not distribute divergent SimplePie or rss.php files without WPHX-323.17 provenance and replacement-decision evidence."
+    },
+    "planned_decision_gate": {
+      "id": "feed-vendor-ecosystem-fallback-and-replacement-decision",
+      "boundary_ids": [
+        "simplepie",
+        "magpie_rss"
+      ],
+      "downstream_issue": {
+        "issue_id": "wordpresshx-l76.37",
+        "external_ref": "WPHX-323.17",
+        "title": "Add feed vendor provenance and replacement decision gate"
+      },
+      "gate_kind": "ecosystem_fallback_and_decision",
+      "required_before": [
+        "copied_feed_vendor_retirement",
+        "haxe_owned_feed_vendor_runtime_claim",
+        "generated_feed_wrapper_claim"
+      ],
+      "required_observations": [
+        "plugin-visible SimplePie class_exists/interface_exists, constants, methods, autoload, and reflection behavior",
+        "deprecated MagpieRSS globals, constants, hooks, functions, and class fields used by plugins or legacy callers",
+        "fallback matrix records when preserved upstream SimplePie or rss.php remains active",
+        "replacement decision chooses generated SimplePie wrapper, renewed SimplePie exception, renewed MagpieRSS exception, or direct Haxe port using recorded evidence",
+        "browser/widget/block/database installed evidence is separated from parser/library evidence"
+      ],
+      "acceptance": "A future receipt chooses wrapper or renewed exceptions based on concrete ecosystem, parser, cache, transport, provenance, and installed-route evidence.",
+      "fallback_policy": "Default to preserved upstream SimplePie and renewed MagpieRSS exception until WPHX-323.14, WPHX-323.15, WPHX-323.16, and WPHX-323.17 together prove safer replacement paths.",
+      "removal_gate": "Do not claim Haxe-owned feed vendor runtime logic or copied artifact retirement without an explicit WPHX-323.17 replacement decision receipt."
+    },
+    "vendor_boundaries": {
+      "simplepie": {
+        "source_inventory_count": 82,
+        "distribution_artifact_count": 82,
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence.",
+        "current_strategy": "preserved_upstream_vendor_boundary",
+        "replacement_strategy": "generated_wrapper_around_upstream_equivalent_dependency",
+        "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+      },
+      "magpie_rss": {
+        "source_inventory_count": 1,
+        "distribution_artifact_count": 1,
+        "header_notice_markers": {
+          "copyright": true,
+          "license": true,
+          "public_domain": false
+        },
+        "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence.",
+        "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+        "replacement_strategy": "renewed_preserved_artifact_exception_with_tests_provenance",
+        "removal_gate": "Do not claim Haxe-owned replacement or generated public PHP retirement for this vendor boundary until the follow-up issue records passing evidence for each required gate and updates the WPHX-323 ownership manifest."
+      }
+    },
+    "wordpress_license_record": {
+      "package_license": "GPL-2.0-or-later",
+      "composer_license": "GPL-2.0-or-later",
+      "project_license_file": {
+        "path": "src/license.txt",
+        "sha256": "dec703cdb49042ca367f71c3982dee4552ffef395225f1fe9f14d29a4a0cb0ff"
+      },
+      "bundled_notice_file_count": 4
+    }
+  },
+  "prior_gates": [
+    {
+      "id": "wphx-323-14-simplepie-api-reflection-corpus-fixture",
+      "manifest": "manifests/wp-core/wphx-323-14-simplepie-api-reflection-corpus-fixture.v1.json",
+      "expected_external_ref": "WPHX-323.14",
+      "role": "SimplePie API/reflection and feed corpus floor",
+      "manifest_sha256": "sha256:caf854682dd2e17052cb4e09dda584296c07d188c4caba3c52588d2ab5da86ca",
+      "issue": {
+        "id": "wordpresshx-l76.34",
+        "external_ref": "WPHX-323.14",
+        "title": "Add SimplePie API/reflection and feed corpus fixture"
+      },
+      "validation_result": {
+        "observations_equal": true,
+        "source_file_count": 82,
+        "support_file_count": 1,
+        "linted_php_file_count": 83,
+        "case_count": 7,
+        "corpus_case_count": 4,
+        "modern_symbol_count": 46,
+        "legacy_symbol_count": 36,
+        "reflected_modern_symbol_count": 46,
+        "reflected_legacy_symbol_count": 35,
+        "parsed_success_case_count": 3,
+        "malformed_error_case_count": 1,
+        "generated_overlay_manifest_present": false,
+        "copied_artifact_retirement_claimed": false,
+        "haxe_runtime_ownership_claimed": false
+      },
+      "non_claims": [
+        "This fixture does not implement or claim Haxe-owned SimplePie runtime logic.",
+        "This fixture does not emit generated SimplePie wrappers or original-path public PHP replacements.",
+        "This fixture does not retire copied SimplePie package files or class-simplepie.php.",
+        "This fixture does not claim live external feed, TLS, proxy, DNS, persistent cache, database-backed installed feed state, widget/block browser behavior, or installed WordPress feed parity.",
+        "The mirrored upstream files and probe-local PSR stubs are deterministic test inputs, not distributable WPHX runtime code."
+      ]
+    },
+    {
+      "id": "wphx-323-15-simplepie-wrapper-cache-transport-gate",
+      "manifest": "manifests/wp-core/wphx-323-15-simplepie-wrapper-cache-transport-gate.v1.json",
+      "expected_external_ref": "WPHX-323.15",
+      "role": "WordPress SimplePie wrapper/cache/transport floor",
+      "manifest_sha256": "sha256:4b80aa9bca08d1d982f85b25e98d6a004218bd6f9af1af516d6d65c98079056e",
+      "issue": {
+        "id": "wordpresshx-l76.35",
+        "external_ref": "WPHX-323.15",
+        "title": "Add SimplePie feed wrapper cache and transport gate"
+      },
+      "validation_result": {
+        "status": "passed",
+        "failures": [],
+        "fixture_cases": 8,
+        "covered_symbols": 25,
+        "source_file_count": 89,
+        "behavior_floor_count": 7,
+        "loopback_server_request_count": 12,
+        "observations_match": true,
+        "observations_assert": true,
+        "public_php_replacement_claimed": false,
+        "generated_wrapper_claimed": false,
+        "copied_artifact_retirement_claimed": false,
+        "installed_wordpress_parity_claimed": false,
+        "live_external_feed_claimed": false
+      },
+      "non_claims": [
+        "This gate does not implement or claim Haxe-owned SimplePie runtime logic.",
+        "This gate does not emit generated SimplePie wrappers or original-path public PHP replacements.",
+        "This gate does not retire copied SimplePie package files, class-simplepie.php, class-feed.php, feed.php, or WordPress feed adapter files.",
+        "This gate does not claim live external feed provider behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, browser/editor widget or block parity, or installed WordPress feed parity.",
+        "The deterministic loopback server, PHP probe stubs, and copied roots are replacement-readiness evidence only, not distributable WPHX runtime code."
+      ]
+    },
+    {
+      "id": "wphx-323-16-magpie-rss-legacy-exception-gate",
+      "manifest": "manifests/wp-core/wphx-323-16-magpie-rss-legacy-exception-gate.v1.json",
+      "expected_external_ref": "WPHX-323.16",
+      "role": "MagpieRSS legacy exception and caller-pressure floor",
+      "manifest_sha256": "sha256:c60877e5f4eddc9d9c21b119b048704639131d19cccb653d279ff2bd03e0c563",
+      "issue": {
+        "id": "wordpresshx-l76.36",
+        "external_ref": "WPHX-323.16",
+        "title": "Add MagpieRSS legacy exception gate"
+      },
+      "validation_result": {
+        "status": "passed",
+        "renewed_preserved_exception": true,
+        "planned_boundary_ids": [
+          "magpie_rss"
+        ],
+        "behavior_floor_count": 4,
+        "artifact_provenance_record_count": 2,
+        "source_record_count": 2,
+        "caller_scan_php_file_count": 1855,
+        "caller_match_count": 31,
+        "runtime_magpie_symbol_references_outside_rss_files": 0,
+        "rss_php_gpl_marker": true,
+        "rss_php_deprecated_marker": true,
+        "rss_php_load_feed_engine_marker": true,
+        "rss_functions_deprecated_marker": true,
+        "generated_overlay_manifest_present": false,
+        "generated_public_php_replacement_claimed": false,
+        "copied_artifact_retirement_claimed": false,
+        "haxe_runtime_ownership_claimed": false
+      },
+      "non_claims": [
+        "This gate does not implement or claim Haxe-owned MagpieRSS runtime logic.",
+        "This gate does not emit generated rss.php or rss-functions.php public PHP replacements.",
+        "This gate does not retire copied/preserved rss.php or rss-functions.php artifacts.",
+        "This gate does not claim live external feed behavior, TLS, proxy, DNS, persistent object-cache, database-backed installed feed state, RSS widget/dashboard installed parity, or broad plugin ecosystem compatibility.",
+        "The renewed exception is bounded preserved-artifact evidence, not a precedent that copied PHP is a durable implementation path."
+      ]
+    }
+  ],
+  "source_files": [
+    {
+      "path": "src/wp-includes/SimplePie/autoloader.php",
+      "distribution_path": "wp-includes/SimplePie/autoloader.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/autoloader.php",
+      "bytes": 2053,
+      "sha256": "sha256:cf4d0e5fe1425e42147e16b485dbd0705bd10a1424eac8e9d022127f56e64bf1"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie.php",
+      "bytes": 15353,
+      "sha256": "sha256:3d00b8f54d92ff53b506cb53389752f0af52f2d49597b9f04e52a2f12127c262"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Author.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Author.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Author.php",
+      "bytes": 543,
+      "sha256": "sha256:9bd410ee7741c4685ad159dba28d84bbf5413a067f6d0568046c5b0742923132"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache.php",
+      "bytes": 536,
+      "sha256": "sha256:8c7d1ab14a0a031ccc7bb497262012a0af371696c2052e7051893e94b54b4d84"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+      "bytes": 573,
+      "sha256": "sha256:0b0fdfaa5d958ab92027b4db9f0e5afa77f1793b27632841d1216ac5edd8fb4c"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+      "bytes": 560,
+      "sha256": "sha256:ac3dbfa6d626a710a1d91bbf7883e31cb5b259a4ffd54bcb01a8f072c7049fb0"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+      "bytes": 565,
+      "sha256": "sha256:9c38c3e6ec906a7627ce927dbeaea8dbd4860a744f69dad32fe00430b2c1275f"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+      "bytes": 593,
+      "sha256": "sha256:f8c203932b1ea75f2fdeab3be638fdb01ded14dadc706e592a5bd8857f488770"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+      "bytes": 600,
+      "sha256": "sha256:741e6efba871589f6dcb3890374ca9670326fb8de21368eb840e83d21f347fb6"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+      "bytes": 572,
+      "sha256": "sha256:587c11b37dc05ec1556c4480b943fc36a7fbbf22bdcf0d2c2181ef3fe2af290c"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+      "bytes": 572,
+      "sha256": "sha256:539fa478be742945d48e3f069a324cec958d25867e175a76342e10a797184d9d"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Caption.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Caption.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Caption.php",
+      "bytes": 550,
+      "sha256": "sha256:9db2576afc1d520c8aabc890ab89fabd64d7cb55e0d112837d474dd97872825a"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Category.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Category.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Category.php",
+      "bytes": 557,
+      "sha256": "sha256:41dd16eee7282a46dfb44f09689ccfc7757a587e9d5eafb7f735d23435a6a68c"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+      "bytes": 628,
+      "sha256": "sha256:8c05e045baf97b8cfa2e3ae214326e245708e881add74022630c3be347f1b4d3"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Copyright.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Copyright.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Copyright.php",
+      "bytes": 564,
+      "sha256": "sha256:0306fe5e01aa78e97fe7aa1c56a9e1fe9cff7cec8eea072070efa380ec8be015"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Core.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Core.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Core.php",
+      "bytes": 308,
+      "sha256": "sha256:92b7b9142dd088c9c1606d80dc771038ec333d45f140db5510b7652f58025b83"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Credit.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Credit.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Credit.php",
+      "bytes": 543,
+      "sha256": "sha256:5f2e5791e40c78565d7d0f6911035a35bbfaaa340f3d9b2f6509ca533ec883c5"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+      "bytes": 22661,
+      "sha256": "sha256:a5fce8d0e75126b0a562eca19f8db90df1b7b25bb08aa6c7f17ba2eabb7d0874"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+      "bytes": 564,
+      "sha256": "sha256:cd1838dca239c2fbf0600989a1beb2aac2fad1a3cc36b660f5427f09d60806b1"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Exception.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Exception.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Exception.php",
+      "bytes": 595,
+      "sha256": "sha256:e86703e86e545f6783a50a571f39b7a54d72e16e16e9c0a585242721c2c9c368"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/File.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/File.php",
+      "bytes": 529,
+      "sha256": "sha256:d8f4e47e75173a9cbec524ab3faca086aa80a1f08e71b5de0b0430c1d74e3aff"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+      "bytes": 664,
+      "sha256": "sha256:961db60642f2ed9e1eac0e99dd88c3f84e24737e0571959159293e6d847f1b47"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/IRI.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/IRI.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/IRI.php",
+      "bytes": 522,
+      "sha256": "sha256:dade5507c0b54e82b6d6e65e9a96887a3459d9e8ed170043f8f9a068c594caab"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Item.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Item.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Item.php",
+      "bytes": 529,
+      "sha256": "sha256:a2d5f76f92dee827ddb6c427c3b0c94c98ca03212ae2b5f477a4fe47dd888ea9"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Locator.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Locator.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Locator.php",
+      "bytes": 550,
+      "sha256": "sha256:6f67021017614b9708516b6f700086d1483254fa778990fb9796b8e67c2f80b5"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Misc.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Misc.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Misc.php",
+      "bytes": 529,
+      "sha256": "sha256:efec3a5f100dab41de94bf08ceea1b560fdc03bbb066ebc6d756e79a6b52a890"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+      "bytes": 553,
+      "sha256": "sha256:9f2e45839ae648052385d89f998cdf4643f27cd02a9762c4181f09af9a58b2ec"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+      "bytes": 565,
+      "sha256": "sha256:9f760e92a21f6fd858af22b83d74cceebc570a0c5ebca9d424c35c66dda1e7f3"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Parser.php",
+      "bytes": 543,
+      "sha256": "sha256:7c3c778f27c60fd1bc53073beab2205c37892a81a5ba6abd2774cef273d25065"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Rating.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Rating.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Rating.php",
+      "bytes": 543,
+      "sha256": "sha256:9845e162a829cb235ba7b07f7bbc0892eee4298b625bc1de744a128cdd9ee3f4"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Registry.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Registry.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Registry.php",
+      "bytes": 557,
+      "sha256": "sha256:d97ffe8d444a9deb6281cbb14b3f4e626c0ccd187ed71f875af4f030158f5862"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Restriction.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Restriction.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Restriction.php",
+      "bytes": 578,
+      "sha256": "sha256:d2c2a35ad6af9c14485b4c0ce1686c98bb4bf7d907184087e1c5a1b0a69762b0"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+      "bytes": 557,
+      "sha256": "sha256:5cbd9375ff366bd84ff9bfc8e85a1e15c699cb2dbda6f74a52c58126d4319f06"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/Source.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/Source.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/Source.php",
+      "bytes": 543,
+      "sha256": "sha256:b9b15522874b8df50be914c1d42fb813b43fc892a14029f822d3b09e4f53c542"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+      "bytes": 639,
+      "sha256": "sha256:654006ca65935251ca1d3d8ce083af2cbc213614bafa89c987efc8b253772fb6"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+      "distribution_path": "wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+      "bytes": 557,
+      "sha256": "sha256:0b77325e1fb7afbd5fa87d35d3ee9bca696ec456f1a41ef549639e17ab6e12b6"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Author.php",
+      "distribution_path": "wp-includes/SimplePie/src/Author.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Author.php",
+      "bytes": 1906,
+      "sha256": "sha256:ec14505d2f3a7639488d6bf7be1fc75f6bae501c2a3cc89a239a1bc62d05a66a"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache.php",
+      "bytes": 3248,
+      "sha256": "sha256:b4095ce1911410521640332e33d803fdfa7a956df75b2c32d7fb0e5e4645a545"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/Base.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/Base.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/Base.php",
+      "bytes": 1878,
+      "sha256": "sha256:445705018f4a73ae592b98ca2fa3032e2dcc716033294e2501b07649a8d5a8ce"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+      "bytes": 3587,
+      "sha256": "sha256:1cb5ce864bc143a6e091ec2028ff5a2b58c4a1d3394b30dab8bc6407c07b55e4"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+      "bytes": 1518,
+      "sha256": "sha256:450f3ccf32ee1229e384b013e72b38ca723580798ba1899a031a659ec653905c"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/DB.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/DB.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/DB.php",
+      "bytes": 3705,
+      "sha256": "sha256:fcbe6794aa06c433013861c44afed9a0ba75d830684ad3dfd864e00dcb45a193"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/DataCache.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/DataCache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/DataCache.php",
+      "bytes": 2799,
+      "sha256": "sha256:42e8adc8734148d163c9bd1f97987eb28d16fbd971ff14ae15cd69870122333d"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/File.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/File.php",
+      "bytes": 2977,
+      "sha256": "sha256:d047ceae38ea4329176506e91f0451dd9364a1345fd57af73af216d26850c287"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/Memcache.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/Memcache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/Memcache.php",
+      "bytes": 3712,
+      "sha256": "sha256:4e94c099353efcc18c98d48e4e5f586d6f8ec1003a90228a82485e7dd7a98ec0"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/Memcached.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/Memcached.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/Memcached.php",
+      "bytes": 3829,
+      "sha256": "sha256:a086b3c128fb29ddc1c2e41757561c3fa6a94c1fb11983c972dbe9d1a6755426"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/MySQL.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/MySQL.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/MySQL.php",
+      "bytes": 13703,
+      "sha256": "sha256:765f05a8b6c955bec472de45b3e6378f31758f2667ce8a387e6dcdeb6e2a2d75"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/NameFilter.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/NameFilter.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/NameFilter.php",
+      "bytes": 1175,
+      "sha256": "sha256:c2749481b524804cd587cc3101754d7d96234c24175b8d2f3b62b7142c66603e"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/Psr16.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/Psr16.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/Psr16.php",
+      "bytes": 3256,
+      "sha256": "sha256:d991394aff4754f941cde402ddb4883ee93b33bca805276a124f2611434da458"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Cache/Redis.php",
+      "distribution_path": "wp-includes/SimplePie/src/Cache/Redis.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Cache/Redis.php",
+      "bytes": 4305,
+      "sha256": "sha256:47131036b35c488c0b56e088b922dd69e56446ac3ba6f99a909d70f548ad0bdc"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Caption.php",
+      "distribution_path": "wp-includes/SimplePie/src/Caption.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Caption.php",
+      "bytes": 3099,
+      "sha256": "sha256:d32af0f40bbab53eb7417b6043c8e06c7af26d2950139ea071c0f407199d44b0"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Category.php",
+      "distribution_path": "wp-includes/SimplePie/src/Category.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Category.php",
+      "bytes": 2472,
+      "sha256": "sha256:5c7e267355083bbe9b78bb629a3ac69e5f6d6bceebaafd49e56a85aa781796b7"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+      "distribution_path": "wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+      "bytes": 7646,
+      "sha256": "sha256:a9d01c701511448b5733f68ea990c3aada4ad543b21788d3b0bbdbe0eec342cb"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Copyright.php",
+      "distribution_path": "wp-includes/SimplePie/src/Copyright.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Copyright.php",
+      "bytes": 1714,
+      "sha256": "sha256:40f0c0616c6c494541cf4529f88330b1215b88cf979efa094c7213f63aaeaddb"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Credit.php",
+      "distribution_path": "wp-includes/SimplePie/src/Credit.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Credit.php",
+      "bytes": 2144,
+      "sha256": "sha256:59295bed2cc8f45b98a6c9f708741ac97eec349e5795773eb2470b6cdf5a9cac"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Enclosure.php",
+      "distribution_path": "wp-includes/SimplePie/src/Enclosure.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Enclosure.php",
+      "bytes": 32142,
+      "sha256": "sha256:39420edbfc83485cb562dc7b096fe0e13d65b3ae286a9ef0eb224d813f85a6b3"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Exception.php",
+      "distribution_path": "wp-includes/SimplePie/src/Exception.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Exception.php",
+      "bytes": 355,
+      "sha256": "sha256:2ee0aaa13f0319d8868a9883867015b2ca5aaf1e157ea576621d1dc5bf123cd9"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/File.php",
+      "distribution_path": "wp-includes/SimplePie/src/File.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/File.php",
+      "bytes": 19394,
+      "sha256": "sha256:7c4fc2bc550b36d1d7869ae4dc27197cef50557fadb4ae23e4afdf87c7300e33"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Gzdecode.php",
+      "distribution_path": "wp-includes/SimplePie/src/Gzdecode.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Gzdecode.php",
+      "bytes": 8512,
+      "sha256": "sha256:c7908d464e9db96d56bb6fc36e5fe4765b52f63b430453e1564c725baf5938a2"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/Client.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/Client.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/Client.php",
+      "bytes": 607,
+      "sha256": "sha256:39a5263e18c28a3e0b9f78ce6361c7bb3331ba7920961dc34780bafafe00d646"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/ClientException.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/ClientException.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/ClientException.php",
+      "bytes": 333,
+      "sha256": "sha256:0eed18f70db77df7c10d07ff9b2c743b1e95031d7b23dfc377a75c8a2e40090a"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/FileClient.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/FileClient.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/FileClient.php",
+      "bytes": 2267,
+      "sha256": "sha256:699c62ad6504885b6e3b855abd3b2b31644c850cb2f7d31a39609f7e3f19b7a4"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/Parser.php",
+      "bytes": 15209,
+      "sha256": "sha256:3e5bcc975dc45b379b32529aa57ef5a7288811ab2bc5c8e2fce195f5e15ed770"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+      "bytes": 4447,
+      "sha256": "sha256:aa1f31bf719121789c73d92799a2404dada5eedc5ffbccaa8d96ea96982a3fb0"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+      "bytes": 2177,
+      "sha256": "sha256:4e4c50281872554a3554c3d5c79783f5b272efa80b553c504f6c81162a02226d"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+      "bytes": 2071,
+      "sha256": "sha256:d3a390bc5d6dd77968672f366eb5afe630ad8135a7b708714c250d52d5e616c9"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/HTTP/Response.php",
+      "distribution_path": "wp-includes/SimplePie/src/HTTP/Response.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/HTTP/Response.php",
+      "bytes": 6941,
+      "sha256": "sha256:cab84fce2fd999add45a2483018a9e7989dbcca703d424849ef52a9c601ed463"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/IRI.php",
+      "distribution_path": "wp-includes/SimplePie/src/IRI.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/IRI.php",
+      "bytes": 34807,
+      "sha256": "sha256:9e8a6df8df4837f83255625b34a61dd2219841fdf93cd7cad2a51e89fee63541"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Item.php",
+      "distribution_path": "wp-includes/SimplePie/src/Item.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Item.php",
+      "bytes": 131621,
+      "sha256": "sha256:8269eea9c2eeb5b949109a1342af1217aa263eab489359b134c8ab80e32dddfc"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Locator.php",
+      "distribution_path": "wp-includes/SimplePie/src/Locator.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Locator.php",
+      "bytes": 16699,
+      "sha256": "sha256:27921d78ee3d37e7d3f77fdfa85a41c99d8dba57d3d9b7b97336bc8ed39ca9bc"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Misc.php",
+      "distribution_path": "wp-includes/SimplePie/src/Misc.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Misc.php",
+      "bytes": 69797,
+      "sha256": "sha256:d0d6e4e006d140b3e0dc97124c8d89f24e4433d3d0edac910d7b3c124018f3df"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Net/IPv6.php",
+      "distribution_path": "wp-includes/SimplePie/src/Net/IPv6.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Net/IPv6.php",
+      "bytes": 7380,
+      "sha256": "sha256:59563b59c0b40197063b5006b1abde0d858ab688ffb316852d628ebdb33312f1"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Parse/Date.php",
+      "distribution_path": "wp-includes/SimplePie/src/Parse/Date.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Parse/Date.php",
+      "bytes": 25734,
+      "sha256": "sha256:8a995ca13d2f1d476f60cba0aea6ab2d04b2e205d297e472740d80c9f366d128"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/src/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Parser.php",
+      "bytes": 34868,
+      "sha256": "sha256:7de0aa16ec8c0b341ff39584ac35625ae1b95dfc968944a43f68aabf1a7868ba"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Rating.php",
+      "distribution_path": "wp-includes/SimplePie/src/Rating.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Rating.php",
+      "bytes": 1794,
+      "sha256": "sha256:3e9fb0d346ac9a8784a8b1823d06138fbdbef6a35f5be17a3c97413c8f3623c2"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Registry.php",
+      "distribution_path": "wp-includes/SimplePie/src/Registry.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Registry.php",
+      "bytes": 7896,
+      "sha256": "sha256:affc911aefd677e1fc88ef1ee5a6289874da63ffbde3411febd85f4212321273"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/RegistryAware.php",
+      "distribution_path": "wp-includes/SimplePie/src/RegistryAware.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/RegistryAware.php",
+      "bytes": 447,
+      "sha256": "sha256:6fbe26601a9d1d3bf8523417da0f6ce9c17bda7a76b64f17b09c9112e2b1c7d8"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Restriction.php",
+      "distribution_path": "wp-includes/SimplePie/src/Restriction.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Restriction.php",
+      "bytes": 2369,
+      "sha256": "sha256:2a6a499c1335e86e3c26eae11899934db8dbc8d4ec819cbb40e27a6fb182daa9"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Sanitize.php",
+      "distribution_path": "wp-includes/SimplePie/src/Sanitize.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Sanitize.php",
+      "bytes": 30353,
+      "sha256": "sha256:0f8d2f4d5b24674340cf6256c3ca2421c02701d87e4c61b6ccc2c607dcd78b8c"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/SimplePie.php",
+      "distribution_path": "wp-includes/SimplePie/src/SimplePie.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/SimplePie.php",
+      "bytes": 128052,
+      "sha256": "sha256:14adaf4bd50fa87f3b7af39f022eb52b1fa82a25b4f6ede99af9083a60408e96"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/Source.php",
+      "distribution_path": "wp-includes/SimplePie/src/Source.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/Source.php",
+      "bytes": 23738,
+      "sha256": "sha256:599970679da6cd5c0efe68e69999a9444114ffc2e0cc555303051780bf6d14fb"
+    },
+    {
+      "path": "src/wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+      "distribution_path": "wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+      "bytes": 7744,
+      "sha256": "sha256:39d1babccd44dbd60e2e46dc43e1f011500b03785a8d8bcee1239c45c7a0c80a"
+    },
+    {
+      "path": "src/wp-includes/class-feed.php",
+      "distribution_path": "wp-includes/class-feed.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-feed.php",
+      "bytes": 539,
+      "sha256": "sha256:f0f421421068a098bf29e8b08ae16886be635b298aa4221f6c42fe5509b3d01c"
+    },
+    {
+      "path": "src/wp-includes/class-simplepie.php",
+      "distribution_path": "wp-includes/class-simplepie.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-simplepie.php",
+      "bytes": 453,
+      "sha256": "sha256:ed208689fcf1f49977e9c5c9ae315e425720b30e515ac3791fec31af338490f5"
+    },
+    {
+      "path": "src/wp-includes/class-wp-feed-cache-transient.php",
+      "distribution_path": "wp-includes/class-wp-feed-cache-transient.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-feed-cache-transient.php",
+      "bytes": 3304,
+      "sha256": "sha256:516553579a3d4afabaf4cc046416fa9edb2ab491ef499fd4a0f073a1acc78c38"
+    },
+    {
+      "path": "src/wp-includes/class-wp-feed-cache.php",
+      "distribution_path": "wp-includes/class-wp-feed-cache.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-feed-cache.php",
+      "bytes": 969,
+      "sha256": "sha256:bd6dc9a019a5485b66a0c6ae404071e8dec3d69e45e03d460155870f5bd8e7a3"
+    },
+    {
+      "path": "src/wp-includes/class-wp-simplepie-file.php",
+      "distribution_path": "wp-includes/class-wp-simplepie-file.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-simplepie-file.php",
+      "bytes": 3552,
+      "sha256": "sha256:f41391177074bfdadd2264bd916496b1e60ab4aeba5896c46a29defbfefb6ca4"
+    },
+    {
+      "path": "src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "distribution_path": "wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "bytes": 1910,
+      "sha256": "sha256:9d2575c139f2e85b0c505623e2ef887b02c93b1d30dbc23312b9603e48f155ca"
+    },
+    {
+      "path": "src/wp-includes/feed.php",
+      "distribution_path": "wp-includes/feed.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/feed.php",
+      "bytes": 25189,
+      "sha256": "sha256:db032afed0fbc3b0841d0133b11ee6a7819d0572640aa22aa4f74687a4f28036"
+    },
+    {
+      "path": "src/wp-includes/rss-functions.php",
+      "distribution_path": "wp-includes/rss-functions.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/rss-functions.php",
+      "bytes": 255,
+      "sha256": "sha256:831880b7e8d307ce67f19f7477f4de3c2ad19320d94246bba31c6b708ac3742f"
+    },
+    {
+      "path": "src/wp-includes/rss.php",
+      "distribution_path": "wp-includes/rss.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/rss.php",
+      "bytes": 23203,
+      "sha256": "sha256:fcb3b96531a3688acf02a57c226c4245401a9943e6981c14ff76f976c951c0b2"
+    }
+  ],
+  "artifact_provenance_records": [
+    {
+      "path": "wp-includes/class-feed.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-simplepie.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-wp-feed-cache-transient.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-wp-feed-cache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-wp-simplepie-file.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/class-wp-simplepie-sanitize-kses.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/feed.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/rss-functions.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/rss.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/autoloader.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Author.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Caption.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Category.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Copyright.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Core.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Credit.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Exception.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/IRI.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Item.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Locator.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Misc.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Rating.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Registry.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Restriction.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/Source.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Author.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/Base.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/DataCache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/DB.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/Memcache.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/Memcached.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/MySQL.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/NameFilter.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/Psr16.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Cache/Redis.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Caption.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Category.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Copyright.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Credit.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Enclosure.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Exception.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/File.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Gzdecode.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/Client.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/ClientException.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/FileClient.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/HTTP/Response.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/IRI.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Item.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Locator.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Misc.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Net/IPv6.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Parse/Date.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Rating.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Registry.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/RegistryAware.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Restriction.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Sanitize.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/SimplePie.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/Source.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "provenance_review": {
+    "wordpress_project_license": "GPL-2.0-or-later",
+    "simplepie_package_license": "BSD-3-Clause SPDX markers in bundled SimplePie source headers",
+    "magpie_rss_license": "GPL marker in deprecated rss.php header, under WordPress project distribution treatment",
+    "package_notice_files_recorded_in_wordpress_license_manifest": [],
+    "required_notice_treatment": [
+      "Preserve WordPress project notice for distributions derived from WordPress 7.0.",
+      "Preserve SimplePie BSD-3-Clause SPDX/file headers while the bundled package remains copied or wrapped.",
+      "Preserve MagpieRSS GPL/deprecated file header while rss.php remains copied/preserved.",
+      "Record source/version/license/notices/update policy for any future upstream-equivalent SimplePie dependency wrapper."
+    ],
+    "header_evidence": [
+      {
+        "path": "src/wp-includes/SimplePie/autoloader.php",
+        "distribution_path": "wp-includes/SimplePie/autoloader.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Author.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Author.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Base.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/DB.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/File.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Memcached.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/MySQL.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Cache/Redis.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Caption.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Caption.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Category.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Category.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Content/Type/Sniffer.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Copyright.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Copyright.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Core.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Core.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Credit.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Credit.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Decode/HTML/Entities.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Enclosure.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Exception.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Exception.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/File.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/File.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/HTTP/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/IRI.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/IRI.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Item.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Item.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Locator.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Locator.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Misc.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Misc.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Net/IPv6.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Parse/Date.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Rating.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Rating.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Registry.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Registry.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Restriction.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Restriction.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Sanitize.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/Source.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/Source.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/XML/Declaration/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+        "distribution_path": "wp-includes/SimplePie/library/SimplePie/gzdecode.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Author.php",
+        "distribution_path": "wp-includes/SimplePie/src/Author.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/Base.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/Base.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/CallableNameFilter.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/DB.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/DB.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/DataCache.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/DataCache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/File.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/File.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/Memcache.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/Memcache.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/Memcached.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/Memcached.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/MySQL.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/MySQL.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/NameFilter.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/NameFilter.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/Psr16.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/Psr16.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Cache/Redis.php",
+        "distribution_path": "wp-includes/SimplePie/src/Cache/Redis.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Caption.php",
+        "distribution_path": "wp-includes/SimplePie/src/Caption.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Category.php",
+        "distribution_path": "wp-includes/SimplePie/src/Category.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+        "distribution_path": "wp-includes/SimplePie/src/Content/Type/Sniffer.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Copyright.php",
+        "distribution_path": "wp-includes/SimplePie/src/Copyright.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Credit.php",
+        "distribution_path": "wp-includes/SimplePie/src/Credit.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Enclosure.php",
+        "distribution_path": "wp-includes/SimplePie/src/Enclosure.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Exception.php",
+        "distribution_path": "wp-includes/SimplePie/src/Exception.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/File.php",
+        "distribution_path": "wp-includes/SimplePie/src/File.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Gzdecode.php",
+        "distribution_path": "wp-includes/SimplePie/src/Gzdecode.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/Client.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/Client.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/ClientException.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/ClientException.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/FileClient.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/FileClient.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/HTTP/Response.php",
+        "distribution_path": "wp-includes/SimplePie/src/HTTP/Response.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/IRI.php",
+        "distribution_path": "wp-includes/SimplePie/src/IRI.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Item.php",
+        "distribution_path": "wp-includes/SimplePie/src/Item.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Locator.php",
+        "distribution_path": "wp-includes/SimplePie/src/Locator.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Misc.php",
+        "distribution_path": "wp-includes/SimplePie/src/Misc.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Net/IPv6.php",
+        "distribution_path": "wp-includes/SimplePie/src/Net/IPv6.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Parse/Date.php",
+        "distribution_path": "wp-includes/SimplePie/src/Parse/Date.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/src/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Rating.php",
+        "distribution_path": "wp-includes/SimplePie/src/Rating.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Registry.php",
+        "distribution_path": "wp-includes/SimplePie/src/Registry.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/RegistryAware.php",
+        "distribution_path": "wp-includes/SimplePie/src/RegistryAware.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Restriction.php",
+        "distribution_path": "wp-includes/SimplePie/src/Restriction.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Sanitize.php",
+        "distribution_path": "wp-includes/SimplePie/src/Sanitize.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/SimplePie.php",
+        "distribution_path": "wp-includes/SimplePie/src/SimplePie.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": true,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": [
+          "1.9.0"
+        ]
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/Source.php",
+        "distribution_path": "wp-includes/SimplePie/src/Source.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+        "distribution_path": "wp-includes/SimplePie/src/XML/Declaration/Parser.php",
+        "package_family": "simplepie",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": true,
+        "gpl_marker": false,
+        "spdx_marker": true,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": false,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-feed.php",
+        "distribution_path": "wp-includes/class-feed.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-simplepie.php",
+        "distribution_path": "wp-includes/class-simplepie.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache-transient.php",
+        "distribution_path": "wp-includes/class-wp-feed-cache-transient.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-wp-feed-cache.php",
+        "distribution_path": "wp-includes/class-wp-feed-cache.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-file.php",
+        "distribution_path": "wp-includes/class-wp-simplepie-file.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "distribution_path": "wp-includes/class-wp-simplepie-sanitize-kses.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": true,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": false,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/feed.php",
+        "distribution_path": "wp-includes/feed.php",
+        "package_family": "wordpress_feed_wrapper",
+        "simplepie_marker": false,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/rss-functions.php",
+        "distribution_path": "wp-includes/rss-functions.php",
+        "package_family": "magpie_rss",
+        "simplepie_marker": false,
+        "magpie_marker": false,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": false,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": false,
+        "version_markers": []
+      },
+      {
+        "path": "src/wp-includes/rss.php",
+        "distribution_path": "wp-includes/rss.php",
+        "package_family": "magpie_rss",
+        "simplepie_marker": true,
+        "magpie_marker": true,
+        "bsd_3_clause_marker": false,
+        "gpl_marker": true,
+        "spdx_marker": false,
+        "deprecated_marker": true,
+        "psr_dependency_marker": false,
+        "wordpress_package_marker": true,
+        "load_feed_engine_marker": true,
+        "version_markers": []
+      }
+    ],
+    "simplepie_bsd_3_clause_header_count": 81,
+    "simplepie_version_markers": [
+      "1.9.0"
+    ],
+    "magpie_gpl_header_count": 1,
+    "magpie_deprecated_header_count": 2,
+    "wordpress_feed_wrapper_marker_count": 7
+  },
+  "dependency_review": {
+    "official_wordpress_distribution_dependency_broadening_allowed": false,
+    "simplepie_psr_dependency_files": [
+      "wp-includes/SimplePie/src/Cache/Base.php",
+      "wp-includes/SimplePie/src/Cache/BaseDataCache.php",
+      "wp-includes/SimplePie/src/Cache/DB.php",
+      "wp-includes/SimplePie/src/Cache/DataCache.php",
+      "wp-includes/SimplePie/src/Cache/File.php",
+      "wp-includes/SimplePie/src/Cache/Memcache.php",
+      "wp-includes/SimplePie/src/Cache/Memcached.php",
+      "wp-includes/SimplePie/src/Cache/MySQL.php",
+      "wp-includes/SimplePie/src/Cache/Psr16.php",
+      "wp-includes/SimplePie/src/Cache/Redis.php",
+      "wp-includes/SimplePie/src/HTTP/Psr18Client.php",
+      "wp-includes/SimplePie/src/HTTP/Psr7Response.php",
+      "wp-includes/SimplePie/src/HTTP/RawTextResponse.php",
+      "wp-includes/SimplePie/src/HTTP/Response.php",
+      "wp-includes/SimplePie/src/Locator.php",
+      "wp-includes/SimplePie/src/Sanitize.php",
+      "wp-includes/SimplePie/src/SimplePie.php"
+    ],
+    "simplepie_psr_dependency_status": "WordPress 7.0 bundles the SimplePie source tree, including PSR-adjacent interfaces/usages required by that source. Generated wrapper work must not silently change official distribution dependency assumptions or require Composer-installed PSR packages.",
+    "generated_wrapper_dependency_requirements": [
+      "Record whether the wrapper targets bundled upstream SimplePie source, an upstream-equivalent external package, or Haxe-owned implementation.",
+      "If using an external package, lock exact version/source/license/notices and prove the official WordPress distribution dependency assumption is accepted.",
+      "Keep preserved upstream SimplePie fallback active for PSR, parser, cache, HTTP, and dependency-adjacent behavior until dedicated evidence exists."
+    ]
+  },
+  "ecosystem_review": {
+    "plugin_visible_surfaces": [
+      "SimplePie\\SimplePie and SimplePie modern namespace classes",
+      "legacy SimplePie_* aliases and SIMPLEPIE_* constants",
+      "SimplePie_Autoloader and wp_simplepie_autoload",
+      "fetch_feed",
+      "WP_Feed_Cache and WP_Feed_Cache_Transient",
+      "WP_SimplePie_File",
+      "WP_SimplePie_Sanitize_KSES",
+      "wp_feed_options and wp_feed_cache_transient_lifetime hooks",
+      "wp_widget_rss_output/wp_widget_rss_process/wp_widget_rss_form",
+      "WP_Widget_RSS",
+      "render_block_core_rss",
+      "MagpieRSS, RSSCache, fetch_rss, wp_rss, get_rss, and load_feed_engine"
+    ],
+    "core_caller_review": {
+      "php_file_count": 1855,
+      "match_file_count": 100,
+      "outside_owned_boundary_match_file_count": 8,
+      "pattern_totals": {
+        "fetch_feed": 9,
+        "load_feed_engine": 1,
+        "magpie_cache": 3,
+        "magpie_class": 18,
+        "magpie_display_helpers": 3,
+        "magpie_fetch_rss": 4,
+        "rss_block_renderer": 1,
+        "simplepie_global_class": 2464,
+        "simplepie_legacy_prefix": 111,
+        "simplepie_namespace": 1162,
+        "wp_widget_rss": 12,
+        "wp_widget_rss_class": 4
+      },
+      "outside_owned_boundary_matches": [
+        {
+          "path": "wp-admin/includes/dashboard.php",
+          "pattern_counts": {
+            "fetch_feed": 1,
+            "wp_widget_rss": 6
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-admin/includes/deprecated.php",
+          "pattern_counts": {
+            "fetch_feed": 1
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-admin/includes/update-core.php",
+          "pattern_counts": {
+            "simplepie_global_class": 31
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-includes/class-requests.php",
+          "pattern_counts": {
+            "simplepie_legacy_prefix": 2
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-includes/default-widgets.php",
+          "pattern_counts": {
+            "wp_widget_rss_class": 1
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-includes/Requests/src/Iri.php",
+          "pattern_counts": {
+            "simplepie_global_class": 1
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-includes/Requests/src/Requests.php",
+          "pattern_counts": {
+            "simplepie_legacy_prefix": 2
+          },
+          "owned_feed_boundary_file": false
+        },
+        {
+          "path": "wp-includes/widgets.php",
+          "pattern_counts": {
+            "fetch_feed": 3,
+            "wp_widget_rss": 3,
+            "wp_widget_rss_class": 1
+          },
+          "owned_feed_boundary_file": false
+        }
+      ]
+    },
+    "current_evidence": [
+      "WPHX-323.14 records preserved SimplePie API/reflection and local feed corpus floors.",
+      "WPHX-323.15 records preserved WordPress SimplePie wrapper/cache/transport floors.",
+      "WPHX-323.16 records a MagpieRSS preserved-artifact exception, provenance, and core caller-pressure review.",
+      "No generated feed vendor wrapper, broad plugin ecosystem scan, or installed database-backed feed parity is present yet."
+    ],
+    "required_future_evidence": [
+      "class_exists/interface_exists and include-order compatibility over SimplePie modern and legacy symbols",
+      "reflection-visible file names, class names, methods, constants, properties, inheritance, exceptions, and aliases",
+      "stack traces and error messages with acceptable original-path behavior",
+      "plugin/caller ecosystem scan before replacing SimplePie, MagpieRSS, feed wrappers, widget helpers, or block renderer handoffs",
+      "installed route/browser/database evidence before installed feed/widget/block parity claims"
+    ]
+  },
+  "replacement_decision": {
+    "current_distribution_decision": "renew_preserved_feed_vendor_exceptions",
+    "simplepie_decision": {
+      "current_distribution_decision": "preserve_upstream_simplepie_package_and_wordpress_feed_wrappers",
+      "generated_wrapper_path_status": "conditionally_admitted_but_blocked",
+      "rationale": "WPHX-323.14 and WPHX-323.15 establish preserved-package API/corpus and WordPress wrapper/cache/transport floors, but no generated overlay, upstream-equivalent dependency policy, installed feed parity, live provider policy, or ecosystem compatibility scan sufficient for distribution divergence exists yet."
+    },
+    "magpie_rss_decision": {
+      "current_distribution_decision": "renew_preserved_upstream_rss_php_exception",
+      "generated_or_direct_port_status": "blocked",
+      "rationale": "WPHX-323.16 renews the MagpieRSS preserved-artifact exception because MagpieRSS is deprecated compatibility code, SimplePie is the preferred feed path, and WordPress 7.0 core runtime symbol pressure is contained to rss.php/rss-functions.php."
+    },
+    "allowed_now": [
+      "Keep upstream WordPress 7.0 SimplePie package files, WordPress feed wrapper files, rss.php, and rss-functions.php as preserved fallback artifacts.",
+      "Use WPHX-323.14, WPHX-323.15, and WPHX-323.16 as golden floors for future generated wrapper or direct replacement work.",
+      "Continue planning generated WPHX PHP wrapper overlays for WordPress feed wrapper files only with explicit overlay manifests and prerequisite gates."
+    ],
+    "forbidden_now": [
+      "Do not claim Haxe-owned SimplePie or MagpieRSS runtime implementation.",
+      "Do not claim generated SimplePie wrapper or MagpieRSS public PHP replacement ownership.",
+      "Do not retire copied SimplePie, rss.php, rss-functions.php, or WordPress feed wrapper artifacts.",
+      "Do not broaden official WordPress distribution dependency assumptions for PSR HTTP/cache or external SimplePie packages without ADR/provenance evidence.",
+      "Do not claim live external feed, TLS, proxy, DNS, persistent cache, database-backed installed state, browser/editor widget/block, installed WordPress feed parity, or broad ecosystem compatibility."
+    ]
+  },
+  "required_replacement_evidence": [
+    "non-empty generated candidate overlay manifest for every diverged SimplePie, MagpieRSS, or WordPress feed wrapper path",
+    "generated original-path wrapper evidence for WordPress feed.php/class-simplepie/class-feed/cache/file/sanitize adapter boundaries",
+    "SimplePie upstream-equivalent dependency record with exact source, version, license, notices, update policy, and accepted WordPress distribution dependency assumptions",
+    "PHP lint plus generated-shape/AST contracts for every generated wrapper and public adapter path",
+    "WPHX-323.14 SimplePie API/reflection and feed corpus fixture remains passing after divergence",
+    "WPHX-323.15 SimplePie wrapper/cache/transport gate remains passing after divergence",
+    "WPHX-323.16 MagpieRSS parser/cache/display/deprecated-wrapper floors remain passing after divergence",
+    "selected upstream PHPUnit feed-simplepie-core and relevant widget/block/feed groups pass with candidate overlays",
+    "installed database-backed feed, RSS widget, RSS block, dashboard, and route evidence appropriate to the claimed boundary",
+    "live external provider, TLS, proxy, DNS, persistent object-cache, and fallback policy gates for any broadened transport/provider claim",
+    "ecosystem/caller scan covering plugin-visible SimplePie APIs, deprecated MagpieRSS symbols, hooks, include timing, reflection, stack traces, and file paths",
+    "license/provenance receipt preserving WordPress GPL project notice, SimplePie BSD-3-Clause SPDX headers, MagpieRSS GPL/deprecated headers, and any external dependency notices"
+  ],
+  "fallback_matrix": [
+    {
+      "condition": "generated wrapper cannot preserve SimplePie namespaced classes, legacy aliases, constants, reflection-visible methods/properties, parser corpus, autoload behavior, or PSR dependency assumptions",
+      "decision": "preserve_upstream_simplepie_package_and_wordpress_wrappers"
+    },
+    {
+      "condition": "generated wrapper would introduce a new external dependency assumption not already accepted by the official WordPress distribution",
+      "decision": "preserve_upstream_simplepie_package_until_ADR_and_dependency_receipt"
+    },
+    {
+      "condition": "replacement cannot preserve fetch_feed, WP_Feed_Cache_Transient, WP_SimplePie_File, WP_SimplePie_Sanitize_KSES, RSS widget, RSS block, or installed feed route behavior",
+      "decision": "keep_preserved_wordpress_feed_wrapper_files_active"
+    },
+    {
+      "condition": "direct MagpieRSS replacement cannot preserve parser fields, cache quirks, display helper output, deprecated wrappers, load_feed_engine timing, or legacy symbol pressure",
+      "decision": "renew_preserved_upstream_rss_php_exception"
+    },
+    {
+      "condition": "live provider/TLS/proxy/DNS/persistent-cache/database/browser/editor/installed behavior is outside deterministic evidence",
+      "decision": "use_preserved_upstream_fallback_for_uncovered_runtime_conditions"
+    },
+    {
+      "condition": "license/provenance, generated overlay records, package notices, or ecosystem evidence are incomplete",
+      "decision": "do_not_diverge_feed_vendor_distribution_files"
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "simplepie_source_file_count": 82,
+    "magpie_source_file_count": 2,
+    "wordpress_feed_support_file_count": 7,
+    "source_file_count": 91,
+    "artifact_provenance_record_count": 91,
+    "header_evidence_record_count": 91,
+    "simplepie_bsd_3_clause_header_count": 81,
+    "simplepie_psr_dependency_file_count": 17,
+    "simplepie_version_markers": [
+      "1.9.0"
+    ],
+    "magpie_gpl_header_count": 1,
+    "magpie_deprecated_header_count": 2,
+    "wordpress_feed_wrapper_marker_count": 7,
+    "prior_gate_count": 3,
+    "prior_gates_passing": true,
+    "caller_scan_php_file_count": 1855,
+    "caller_match_file_count": 100,
+    "outside_owned_boundary_match_file_count": 8,
+    "required_replacement_evidence_count": 12,
+    "fallback_condition_count": 6,
+    "generated_overlay_manifest_present": false,
+    "generated_simplepie_wrapper_path_admitted_now": false,
+    "preserved_upstream_exceptions_renewed": true,
+    "copied_feed_vendor_artifact_retirement_claimed": false,
+    "haxe_owned_runtime_claimed": false
+  },
+  "claims": [
+    "Feed vendor provenance, bundled-file artifact records, header license markers, dependency assumptions, ecosystem-visible surfaces, fallback matrix, and replacement decision criteria are recorded for WPHX-323.17.",
+    "The current distribution decision renews preserved upstream feed vendor exceptions and keeps copied WordPress 7.0 SimplePie, MagpieRSS, and feed wrapper artifacts as fallback evidence.",
+    "A generated SimplePie wrapper path remains conditionally possible only after explicit overlay, API/reflection, wrapper/cache/transport, provenance, ecosystem, upstream PHPUnit, installed-route, and live/fallback gates pass."
+  ],
+  "non_claims": [
+    "This gate does not implement Haxe-owned SimplePie or MagpieRSS runtime logic.",
+    "This gate does not generate, validate, distribute, or admit current generated SimplePie wrapper or MagpieRSS replacement files.",
+    "This gate does not retire copied SimplePie, rss.php, rss-functions.php, or WordPress feed wrapper artifacts.",
+    "This gate does not broaden official WordPress distribution dependency assumptions.",
+    "This gate does not prove live external feed provider behavior, TLS, proxy, DNS, persistent object-cache behavior, database-backed installed feed state, browser/editor widget or block parity, installed WordPress feed parity, or broad plugin ecosystem compatibility."
+  ]
+}
