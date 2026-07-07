@@ -1,0 +1,134 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-07-ai-client-tinymce-vendor-gates",
+  "issue": {
+    "id": "wordpresshx-l76.33",
+    "external_ref": "WPHX-323.07",
+    "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+  },
+  "recorded_at": "2026-07-07T18:45:00.000Z",
+  "status": "closed",
+  "evidence_class": "ai_client_tinymce_boundary_classification_and_future_gate_plan",
+  "artifact_scope": "wordpress-7.0-ai-client-tinymce-boundary-classification-and-future-gate-plan",
+  "commands": [
+    "npm run wp:core:wphx-323-ai-client-tinymce-vendor-gates",
+    "npm run wp:core:wphx-323-ai-client-tinymce-vendor-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "ai_http_fixture_manifest": "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json",
+    "beads_export": ".beads/issues.jsonl"
+  },
+  "manifest_sha256": "sha256:8cccbaec8caa3932b260fc361e1a53ba6f835c786b6b3fe340183f642e5d74b4",
+  "validation_result": {
+    "status": "passed",
+    "php_ai_client_php_file_count": 146,
+    "wordpress_ai_wrapper_file_count": 7,
+    "tinymce_loader_file_count": 1,
+    "source_inventory_record_count": 154,
+    "artifact_provenance_record_count": 154,
+    "child_issue_count": 8,
+    "all_child_issues_open": true,
+    "wphx_312_05_ai_http_fixture_present": true,
+    "php_ai_client_preserved_exception_renewed": true,
+    "wordpress_ai_wrapper_generated_adapter_path_chosen_first": true,
+    "tinymce_loader_preserved_exception_renewed": true,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "tinymce_browser_runtime_claimed": false,
+    "live_provider_behavior_claimed": false
+  },
+  "decision": {
+    "php_ai_client": "renew_preserved_bundled_library_exception_and_subdivide_before_porting",
+    "wordpress_ai_wrappers": "move_first_to_generated_wphx_php_original_path_adapter_candidates_over_preserved_internals",
+    "tinymce_php_loader": "renew_preserved_browser_vendor_php_loader_exception_with_direct_loader_fixture"
+  },
+  "child_work": [
+    {
+      "issue_id": "wordpresshx-l76.33.1",
+      "external_ref": "WPHX-323.23",
+      "title": "WPHX-323.23 - Classify php-ai-client sub-boundaries",
+      "status": "open",
+      "dependency_refs": []
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.2",
+      "external_ref": "WPHX-323.24",
+      "title": "WPHX-323.24 - Gate WordPress AI wrapper API surface",
+      "status": "open",
+      "dependency_refs": []
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.3",
+      "external_ref": "WPHX-323.25",
+      "title": "WPHX-323.25 - Emit first generated AI wrapper adapter",
+      "status": "open",
+      "dependency_refs": [
+        "WPHX-323.24"
+      ]
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.4",
+      "external_ref": "WPHX-323.26",
+      "title": "WPHX-323.26 - Add php-ai-client DTO schema corpus gate",
+      "status": "open",
+      "dependency_refs": [
+        "WPHX-323.23"
+      ]
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.5",
+      "external_ref": "WPHX-323.27",
+      "title": "WPHX-323.27 - Add php-ai-client transport provider discovery gate",
+      "status": "open",
+      "dependency_refs": [
+        "WPHX-323.23",
+        "WPHX-323.26"
+      ]
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.6",
+      "external_ref": "WPHX-323.28",
+      "title": "WPHX-323.28 - Add TinyMCE PHP loader preserved-exception fixture",
+      "status": "open",
+      "dependency_refs": []
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.7",
+      "external_ref": "WPHX-323.29",
+      "title": "WPHX-323.29 - Add TinyMCE browser-vendor coordination gate",
+      "status": "open",
+      "dependency_refs": [
+        "WPHX-323.28"
+      ]
+    },
+    {
+      "issue_id": "wordpresshx-l76.33.8",
+      "external_ref": "WPHX-323.30",
+      "title": "WPHX-323.30 - Add AI provider privacy security provenance ADR",
+      "status": "open",
+      "dependency_refs": []
+    }
+  ],
+  "claims": [
+    "WPHX-323.07 integrates oracle review into a boundary strategy for php-ai-client, WordPress AI wrappers, and the TinyMCE PHP loader.",
+    "php-ai-client internals remain a preserved bundled-library dependency with sub-boundary fixtures required before any bounded Haxe-owned subset claim.",
+    "WordPress AI wrapper files are classified as WordPress API/adapter surfaces and routed toward generated WPHX PHP original-path adapter evidence first.",
+    "TinyMCE wp-tinymce.php remains a preserved browser-vendor PHP loader pending direct loader fixtures and browser asset coordination.",
+    "Eight Beads child issues WPHX-323.23 through WPHX-323.30 record the execution split."
+  ],
+  "non_claims": [
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ runtime.",
+    "This gate does not claim generated public PHP replacement for php-ai-client, WordPress AI wrappers, or the TinyMCE PHP loader.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution for WordPress\\AiClientDependencies or any shaded dependency.",
+    "This gate does not claim TinyMCE JavaScript, CSS, font, browser-editor, Gutenberg, or browser package ownership.",
+    "This gate does not retire copied or preserved upstream artifacts.",
+    "This gate does not admit hand-edited generated PHP as an implementation strategy."
+  ]
+}
