@@ -197,7 +197,7 @@ function main() {
       fallback_policy:
         "Keep wp-includes/Requests copied from upstream until this fixture exists and passes for both preserved upstream and candidate replacement paths.",
       removal_gate:
-        "Do not replace the Requests package or cite generated wrapper ownership until WPHX-323.02.1 records passing API/reflection evidence."
+        "Do not replace the Requests package or cite generated wrapper ownership until WPHX-323.08 records passing API/reflection evidence."
     },
     {
       id: "requests-live-transport-matrix",
@@ -218,7 +218,7 @@ function main() {
       fallback_policy:
         "Preserved upstream Requests remains the runtime fallback for unsupported host capability, divergent transport behavior, or unmodeled live network/TLS/proxy cases.",
       removal_gate:
-        "Do not retire copied Requests artifacts until WPHX-323.02.2 records live/local transport parity and an explicit fallback matrix."
+        "Do not retire copied Requests artifacts until WPHX-323.09 records live/local transport parity and an explicit fallback matrix."
     },
     {
       id: "requests-generated-public-wrapper",
@@ -269,7 +269,7 @@ function main() {
       fallback_policy:
         "Keep upstream class-snoopy.php preserved unless a plugin/ecosystem audit proves real replacement pressure and the replacement preserves legacy property/method behavior.",
       removal_gate:
-        "Do not replace Snoopy or claim Haxe-owned legacy HTTP behavior until WPHX-323.02.3 records passing legacy API evidence."
+        "Do not replace Snoopy or claim Haxe-owned legacy HTTP behavior until WPHX-323.10 records passing legacy API evidence."
     },
     {
       id: "snoopy-caller-ecosystem-review",

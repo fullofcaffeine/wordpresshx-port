@@ -1,0 +1,46 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-08-requests-api-reflection-fixture",
+  "issue": {
+    "id": "wordpresshx-wgwq",
+    "external_ref": "WPHX-323.08",
+    "title": "Add Requests API and reflection fixture"
+  },
+  "recorded_at": "2026-07-07T15:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_requests_api_reflection_fixture",
+  "artifact_scope": "wordpress-7.0-preserved-requests-package",
+  "commands": [
+    "npm run wp:core:wphx-323-requests-api-reflection",
+    "npm run wp:core:wphx-323-requests-api-reflection:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-08-requests-api-reflection-fixture.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-08-requests-api-reflection-fixture.v1.json",
+    "parent_http_vendor_gate_manifest": "manifests/wp-core/wphx-323-02-http-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json"
+  },
+  "manifest_sha256": "sha256:c51422219f08e65180592ca4376f1e3a73c97de331d53d3b874d45f63c709bb0",
+  "validation_result": {
+    "requests_source_inventory_count": 65,
+    "requests_distribution_artifact_count": 65,
+    "upstream_requests_php_file_count": 65,
+    "modern_symbol_count": 64,
+    "legacy_alias_count": 57,
+    "fixture_case_count": 5,
+    "linted_file_count": 66,
+    "observations_equal": true,
+    "captured_error_count": 0
+  },
+  "claims": [
+    "The preserved WordPress 7.0 Requests package loads through its bundled autoloader in regenerated oracle and candidate roots.",
+    "Modern WpOrg\\Requests symbols, legacy Requests_* aliases, representative object surfaces, and ReflectionClass signatures match between the two preserved package snapshots.",
+    "This fixture records the golden API/reflection surface that future generated wrappers or host-primitive-backed replacements must preserve."
+  ],
+  "non_claims": [
+    "This fixture does not implement Haxe-owned Requests runtime logic.",
+    "This fixture does not execute live HTTP, DNS, TLS, proxy, curl, streams/fsockopen, redirect-following, or installed WordPress transport behavior.",
+    "This fixture does not generate or validate replacement public PHP wrappers.",
+    "The mirrored candidate root is copied upstream Requests evidence only and must not be cited as copied artifact retirement."
+  ]
+}
