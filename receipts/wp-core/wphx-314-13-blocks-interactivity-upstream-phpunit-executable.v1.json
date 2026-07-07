@@ -1,0 +1,89 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-314-13-blocks-interactivity-upstream-phpunit-executable",
+  "issue": {
+    "id": "wordpresshx-l76.20.9",
+    "external_ref": "WPHX-314.13",
+    "title": "WPHX-314.13 - Unblock blocks/interactivity upstream PHPUnit ratchet"
+  },
+  "recorded_at": "2026-07-07T23:00:00.000Z",
+  "command": "node tools/wp-core/run-blocks-interactivity-upstream-phpunit-executable.mjs",
+  "evidence_class": "selected_upstream_phpunit_executable_ratchet",
+  "artifact_scope": "packaged_distribution",
+  "behavior_parity_claimed": false,
+  "complete_upstream_block_suite_parity_claimed": false,
+  "artifacts": [
+    {
+      "path": "manifests/wp-core/wphx-314-13-blocks-interactivity-upstream-phpunit-executable.v1.json",
+      "role": "WPHX-314 executable selected upstream PHPUnit ratchet manifest",
+      "sha256": "sha256:4188bb83ee30c0fd4e2d47a14ab233457d243e73220300d4db6826f39bffb3b6"
+    },
+    {
+      "path": "manifests/operations/wphx-700-05-upstream-phpunit-ratchet.v1.json",
+      "role": "global upstream PHPUnit ratchet manifest with WPHX-314 executable classifications",
+      "sha256": "sha256:dc6d5f63e0519eca6f40986906f76e544053597b300c52dd08f92fe223444211"
+    },
+    {
+      "path": "manifests/operations/wphx-700-09-phpunit-ratchet-env.v1.json",
+      "role": "provisioned upstream PHPUnit runtime environment manifest",
+      "sha256": "sha256:71d84d9807d5b4f6eec9cce067a144b3bf4853d630d80ee39106b7a0305cef74"
+    },
+    {
+      "path": "build/upstream-phpunit/wphx-700-05/reports/upstream-phpunit-ratchet.json",
+      "role": "runtime upstream PHPUnit report with vanilla/candidate JUnit and logs",
+      "sha256": "sha256:93b26ff9e7436c29f48f45d83851f62d35e537566b36221d7c30fe3dc1fd48cf"
+    },
+    {
+      "path": "receipts/wp-core/wphx-314-11-blocks-interactivity-upstream-phpunit-ratchet-groups.v1.json",
+      "role": "prior WPHX-314.11 selected ratchet group declaration receipt",
+      "sha256": "sha256:0cc127bbcab89abfcd667234669cf9ee65721dec6ab9465e4e251ba1c0fce915"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "bounded WPHX-314.13 progress interpretation"
+    }
+  ],
+  "verification_commands": [
+    "npm run upstream:phpunit-ratchet:provision:check",
+    "npm run upstream:phpunit-ratchet:check",
+    "node tools/wp-core/run-blocks-interactivity-upstream-phpunit-executable.mjs",
+    "node tools/wp-core/run-blocks-interactivity-upstream-phpunit-executable.mjs --check",
+    "npm run receipts:validate",
+    "npm run beads:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "environment_ready": true,
+    "ratchet_runs_executed": 88,
+    "selected_wphx_314_run_count": 12,
+    "selected_wphx_314_group_count": 6,
+    "selected_wphx_314_test_file_count": 89,
+    "pass_pass_groups": [
+      "blocks-parser-render-core",
+      "blocks-hooks-patterns-core",
+      "html-api-core"
+    ],
+    "accepted_baseline_failure_groups": [
+      "blocks-supports-bindings-core",
+      "style-engine-core",
+      "interactivity-api-core"
+    ],
+    "unowned_candidate_regression_count": 0,
+    "rejects_new_vanilla_pass_candidate_fail": true,
+    "behavior_parity_claimed": false,
+    "complete_upstream_block_suite_parity_claimed": false
+  },
+  "summary": "Records executable upstream PHPUnit ratchet evidence for the six selected WPHX-314 block/style/HTML/interactivity groups. Three groups classify vanilla pass / candidate pass; three classify vanilla fail / candidate fail as accepted upstream-baseline failures with zero unowned candidate regressions.",
+  "remaining_gates": [
+    "Resolve or own the upstream-baseline failures in blocks-supports-bindings-core, style-engine-core, and interactivity-api-core before claiming complete selected WPHX-314 pass/pass parity.",
+    "Add generated Haxe/WPHX PHP candidates or generated original-path adapters before claiming WPHX-owned blocks/interactivity runtime behavior.",
+    "Expand installed, database-backed, REST/admin-adjacent, browser/editor, theme/template/global-styles, and Gutenberg package evidence before broad block rendering parity claims."
+  ],
+  "non_claims": [
+    "This records executable upstream PHPUnit classifications for the selected WPHX-314 groups; it does not claim complete upstream block PHPUnit pass/pass parity.",
+    "The three baseline-failure groups are accepted only because vanilla and candidate both fail and the ratchet reports zero unowned candidate regressions.",
+    "No generated public PHP replacement, generated original-path adapter ownership, or Haxe-owned blocks/interactivity runtime logic is claimed.",
+    "No installed WordPress route execution, database-backed block rendering, theme/template/global-styles integration, browser/editor execution, or Gutenberg package ownership is claimed.",
+    "The candidate assembly remains the pinned WordPress 7.0 worktree without generated/Haxe overlays, so pass/pass groups are ratchet evidence rather than Haxe runtime ownership."
+  ]
+}
