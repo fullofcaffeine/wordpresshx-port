@@ -1,0 +1,159 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-26-php-ai-client-dto-schema-corpus",
+  "issue": {
+    "id": "wordpresshx-l76.33.4",
+    "external_ref": "WPHX-323.26",
+    "title": "Add php-ai-client DTO schema corpus gate"
+  },
+  "generated_at": "2026-07-08T23:30:00.000Z",
+  "generator": "tools/wp-core/run-php-ai-client-dto-schema-corpus-gate.mjs",
+  "unit": {
+    "kind": "executable_corpus_gate",
+    "name": "php-ai-client DTO/schema/enum corpus gate",
+    "area": "wp-includes/php-ai-client/src DTO, enum, schema, message, result, tool, provider model, and HTTP DTO surfaces",
+    "public_contract": "Copied oracle php-ai-client package remains preserved bundled-library support while this gate records executable DTO/schema behavior for later generated subset work."
+  },
+  "ownership_state": "preserved_bundled_library_fixture_gate",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-corpus-for-future-generated-subset",
+    "removal_gate": "Replace only after a generated php-ai-client subset receipt exists, names the exact subset, passes this corpus and follow-up provider/transport gates where relevant, and records an ownership-state transition."
+  },
+  "behavior_parity_claimed": false,
+  "public_php_replacement_claimed": false,
+  "haxe_owned_php_ai_client_runtime_claimed": false,
+  "generated_subset_receipt_present": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "owned_paths": [
+    "tools/wp-core/run-php-ai-client-dto-schema-corpus-gate.mjs",
+    "manifests/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+    "manifests/ownership/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+    "receipts/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+    "manifests/ownership/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+    "receipts/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+    "build/wp-core/wphx-323-26"
+  ],
+  "preserved_paths": [
+    "src/wp-includes/php-ai-client"
+  ],
+  "subset_candidate_list": [
+    {
+      "id": "enum_value_objects",
+      "sequence": 1,
+      "candidate_state": "candidate_after_generated_subset_receipt",
+      "refs": [
+        "WPHX-323.26",
+        "WPHX-COMP-PHP-USABLE"
+      ],
+      "classes": [
+        "WordPress\\AiClient\\Files\\Enums\\FileTypeEnum",
+        "WordPress\\AiClient\\Files\\Enums\\MediaOrientationEnum",
+        "WordPress\\AiClient\\Messages\\Enums\\MessagePartChannelEnum",
+        "WordPress\\AiClient\\Messages\\Enums\\MessagePartTypeEnum",
+        "WordPress\\AiClient\\Messages\\Enums\\MessageRoleEnum",
+        "WordPress\\AiClient\\Messages\\Enums\\ModalityEnum",
+        "WordPress\\AiClient\\Operations\\Enums\\OperationStateEnum",
+        "WordPress\\AiClient\\Providers\\Enums\\ProviderTypeEnum",
+        "WordPress\\AiClient\\Providers\\Enums\\ToolTypeEnum",
+        "WordPress\\AiClient\\Providers\\Http\\Enums\\HttpMethodEnum",
+        "WordPress\\AiClient\\Providers\\Http\\Enums\\RequestAuthenticationMethod",
+        "WordPress\\AiClient\\Providers\\Models\\Enums\\CapabilityEnum",
+        "WordPress\\AiClient\\Providers\\Models\\Enums\\OptionEnum",
+        "WordPress\\AiClient\\Results\\Enums\\FinishReasonEnum"
+      ],
+      "required_followup_before_claim": "Generate PHP enum-like value objects from typed Haxe or Adapter IR, prove singleton/static-magic/json/reflection behavior, and record a generated subset receipt."
+    },
+    {
+      "id": "leaf_dtos",
+      "sequence": 2,
+      "candidate_state": "candidate_after_enum_value_objects",
+      "classes": [
+        "WordPress\\AiClient\\Results\\DTO\\TokenUsage",
+        "WordPress\\AiClient\\Tools\\DTO\\FunctionDeclaration",
+        "WordPress\\AiClient\\Tools\\DTO\\FunctionCall",
+        "WordPress\\AiClient\\Tools\\DTO\\FunctionResponse",
+        "WordPress\\AiClient\\Tools\\DTO\\WebSearch",
+        "WordPress\\AiClient\\Providers\\Models\\DTO\\RequiredOption",
+        "WordPress\\AiClient\\Providers\\Models\\DTO\\SupportedOption",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\RequestOptions",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\Response",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\ApiKeyRequestAuthentication"
+      ],
+      "required_followup_before_claim": "Generated leaf DTOs must preserve constructor/default/type reflection, toArray/fromArray/jsonSerialize/schema behavior, clone behavior where present, and namespace/autoload identity."
+    },
+    {
+      "id": "nested_message_result_graph",
+      "sequence": 3,
+      "candidate_state": "candidate_after_leaf_dtos",
+      "classes": [
+        "WordPress\\AiClient\\Files\\DTO\\File",
+        "WordPress\\AiClient\\Messages\\DTO\\MessagePart",
+        "WordPress\\AiClient\\Messages\\DTO\\Message",
+        "WordPress\\AiClient\\Messages\\DTO\\UserMessage",
+        "WordPress\\AiClient\\Messages\\DTO\\ModelMessage",
+        "WordPress\\AiClient\\Results\\DTO\\Candidate",
+        "WordPress\\AiClient\\Results\\DTO\\GenerativeAiResult",
+        "WordPress\\AiClient\\Operations\\DTO\\GenerativeAiOperation"
+      ],
+      "required_followup_before_claim": "Generated nested DTOs must preserve role/type validation failures, file MIME/base64/url handling, result convenience extractors, and deep clone behavior."
+    },
+    {
+      "id": "provider_model_metadata_graph",
+      "sequence": 4,
+      "candidate_state": "candidate_after_model_registry_gate_floor",
+      "refs": [
+        "WPHX-323.27"
+      ],
+      "classes": [
+        "WordPress\\AiClient\\Providers\\DTO\\ProviderMetadata",
+        "WordPress\\AiClient\\Providers\\DTO\\ProviderModelsMetadata",
+        "WordPress\\AiClient\\Providers\\Models\\DTO\\ModelConfig",
+        "WordPress\\AiClient\\Providers\\Models\\DTO\\ModelMetadata",
+        "WordPress\\AiClient\\Providers\\Models\\DTO\\ModelRequirements"
+      ],
+      "required_followup_before_claim": "Generated provider/model metadata must preserve list validation, dynamic OptionEnum values, requirements matching, prompt-derived requirements, and fake-provider registry fixtures."
+    },
+    {
+      "id": "transport_and_auth_request_graph",
+      "sequence": 5,
+      "candidate_state": "deferred_until_fake_transport_gate",
+      "refs": [
+        "WPHX-312.05",
+        "WPHX-323.27"
+      ],
+      "classes": [
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\Request",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\RequestOptions",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\Response",
+        "WordPress\\AiClient\\Providers\\Http\\DTO\\ApiKeyRequestAuthentication"
+      ],
+      "required_followup_before_claim": "Generated HTTP DTO ownership must be paired with fake transport/discovery fixtures for headers, JSON/form body generation, options, authentication insertion, and PSR conversions."
+    }
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-php-ai-client-dto-schema-corpus",
+      "npm run wp:core:wphx-323-php-ai-client-dto-schema-corpus:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-26-php-ai-client-dto-schema-corpus"
+    ],
+    "manifest_digest": "sha256:c91fdf916be694944b31ae419deff96ba6ee78ea451d4f84e567bdae077e398c"
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ runtime.",
+    "This gate does not claim generated public PHP replacement for any wp-includes/php-ai-client/ file.",
+    "This gate does not include a generated php-ai-client subset receipt; all php-ai-client files remain copied oracle artifacts inside the executable corpus.",
+    "This gate does not claim provider registry behavior, live provider behavior, network transport behavior, external provider discovery parity, credential handling safety, prompt/file privacy, installed WordPress AI behavior, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not authorize broad hand-written PHP shells or inline raw-block implementations for php-ai-client; later ownership must cite generated PHP evidence and the shell-retirement ladder.",
+    "This gate records subset candidates only; no candidate is owned until a generated subset receipt and differential fixture manifest exists."
+  ]
+}
