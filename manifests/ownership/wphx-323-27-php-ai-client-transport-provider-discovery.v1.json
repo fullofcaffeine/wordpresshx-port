@@ -1,0 +1,67 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-27-php-ai-client-transport-provider-discovery",
+  "issue": {
+    "id": "wordpresshx-l76.33.5",
+    "external_ref": "WPHX-323.27",
+    "title": "Add php-ai-client transport provider discovery gate"
+  },
+  "generated_at": "2026-07-08T23:55:00.000Z",
+  "generator": "tools/wp-core/run-php-ai-client-transport-provider-discovery-gate.mjs",
+  "unit": {
+    "kind": "executable_corpus_gate",
+    "name": "php-ai-client fake provider/transport/discovery gate",
+    "area": "wp-includes/php-ai-client provider registry, model support, fake transport, fake discovery, auth, and HTTP exception mapping",
+    "public_contract": "Copied oracle php-ai-client package remains preserved bundled-library support while this gate records executable provider/transport behavior for later generated subset work."
+  },
+  "ownership_state": "preserved_bundled_library_fixture_gate",
+  "bridge": {
+    "exists": true,
+    "kind": "copied-oracle-provider-transport-fixture-for-future-generated-subset",
+    "removal_gate": "Replace only after a generated php-ai-client provider/transport subset receipt exists, passes WPHX-323.26 plus this gate, preserves fake provider/transport/discovery behavior, and records an ownership-state transition. Live provider/privacy/security behavior remains separately gated."
+  },
+  "behavior_parity_claimed": false,
+  "public_php_replacement_claimed": false,
+  "haxe_owned_php_ai_client_runtime_claimed": false,
+  "live_provider_behavior_claimed": false,
+  "external_discovery_claimed": false,
+  "network_io_claimed": false,
+  "credential_privacy_security_claimed": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "owned_paths": [
+    "tools/wp-core/run-php-ai-client-transport-provider-discovery-gate.mjs",
+    "manifests/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+    "manifests/ownership/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+    "receipts/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+    "manifests/ownership/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+    "receipts/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+    "build/wp-core/wphx-323-27"
+  ],
+  "preserved_paths": [
+    "src/wp-includes/php-ai-client"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-php-ai-client-transport-provider-discovery",
+      "npm run wp:core:wphx-323-php-ai-client-transport-provider-discovery:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-27-php-ai-client-transport-provider-discovery"
+    ],
+    "manifest_digest": "sha256:a7b8b06cceedb28155cf089526bb0f8a2027465f8bea6eb8803e85bef55cd1a3"
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ runtime.",
+    "This gate does not claim generated public PHP replacement for any wp-includes/php-ai-client/ file.",
+    "This gate uses a fake provider, fake transport, and fake discovery strategy only; it does not execute live providers, live model APIs, network I/O, TLS, DNS, proxy, redirect, or external HTTPlug discovery.",
+    "This gate does not claim credential storage safety, prompt/file privacy, provider data-retention policy, live authentication behavior, user consent behavior, or AI security policy closure.",
+    "This gate does not claim installed WordPress AI behavior, plugin ecosystem compatibility, third-party dependency substitution, Composer replacement, shaded dependency retirement, or copied php-ai-client artifact retirement.",
+    "This gate records provider/transport behavior as a preserved bundled-library fixture floor only; later generated subset ownership must pass this gate with explicit generated-source receipts."
+  ]
+}
