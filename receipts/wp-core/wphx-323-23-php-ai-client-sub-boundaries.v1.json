@@ -1,0 +1,92 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-23-php-ai-client-sub-boundaries",
+  "issue": {
+    "id": "wordpresshx-l76.33.1",
+    "external_ref": "WPHX-323.23",
+    "title": "Classify php-ai-client sub-boundaries"
+  },
+  "recorded_at": "2026-07-08T19:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "php_ai_client_source_api_reflection_inventory_and_subboundary_classification",
+  "artifact_scope": "wordpress-7.0-php-ai-client-sub-boundary-classification",
+  "commands": [
+    "npm run wp:core:wphx-323-php-ai-client-sub-boundaries",
+    "npm run wp:core:wphx-323-php-ai-client-sub-boundaries:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "ai_tinymce_gate_manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json",
+    "source_inventory_manifest": "manifests/source-inventory.jsonl",
+    "artifact_provenance_manifest": "manifests/artifact-provenance.jsonl"
+  },
+  "manifest_sha256": "sha256:053c15ad1ee0bbf832683f27bffcd0668228fd64fc613d1051025821fa714529",
+  "validation_result": {
+    "status": "passed",
+    "php_ai_client_php_file_count": 146,
+    "primary_sub_boundary_total": 146,
+    "primary_sub_boundary_counts": {
+      "autoload_bootstrap": 1,
+      "live_provider_behavior_boundary": 3,
+      "dto_schema_enum_core_contracts": 32,
+      "event_cache_contracts": 4,
+      "provider_model_registry": 38,
+      "transport_discovery_http": 24,
+      "shaded_third_party_dependencies": 44
+    },
+    "tagged_sub_boundary_counts": {
+      "dto_schema_enum_core_contracts": 58,
+      "provider_model_registry": 66,
+      "transport_discovery_http": 66,
+      "event_cache_contracts": 8,
+      "shaded_third_party_dependencies": 54,
+      "autoload_bootstrap": 1,
+      "live_provider_behavior_boundary": 65
+    },
+    "source_inventory_record_count": 146,
+    "artifact_provenance_record_count": 146,
+    "declared_symbol_count": 145,
+    "static_class_count": 90,
+    "static_interface_count": 49,
+    "static_trait_count": 7,
+    "static_enum_keyword_count": 0,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "live_provider_behavior_claimed": false,
+    "dependency_substitution_claimed": false,
+    "executable_behavior_parity_claimed": false
+  },
+  "sub_boundary_counts": {
+    "autoload_bootstrap": 1,
+    "live_provider_behavior_boundary": 3,
+    "dto_schema_enum_core_contracts": 32,
+    "event_cache_contracts": 4,
+    "provider_model_registry": 38,
+    "transport_discovery_http": 24,
+    "shaded_third_party_dependencies": 44
+  },
+  "decision": {
+    "php_ai_client_current_state": "preserved_bundled_library_exception",
+    "bounded_future_candidate": "dto_schema_enum_core_contracts_after_wphx_323_26",
+    "provider_transport_candidate": "fake_provider_transport_discovery_after_wphx_323_27",
+    "live_provider_behavior": "non_claim_until_wphx_323_30_policy_and_opt_in_evidence"
+  },
+  "claims": [
+    "WPHX-323.23 records a deterministic 146-file source/API/static-reflection inventory for wp-includes/php-ai-client/.",
+    "Every php-ai-client PHP file now has one primary sub-boundary and additional cross-boundary tags where applicable.",
+    "The manifest records license/provenance status, artifact/source inventory coverage, shaded dependency policy, and generated/Haxe ownership requirements.",
+    "The gate keeps php-ai-client as a preserved bundled-library exception while routing bounded future evidence to WPHX-323.26, WPHX-323.27, and WPHX-323.30."
+  ],
+  "non_claims": [
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ runtime.",
+    "This gate does not claim generated public PHP replacement for wp-includes/php-ai-client/.",
+    "This gate does not claim generated WordPress AI wrapper adapter replacement; WPHX-323.24 and WPHX-323.25 own that path.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not treat static symbol inventory as executable behavior parity; WPHX-323.26 and WPHX-323.27 own the first executable php-ai-client fixture gates.",
+    "This gate does not admit hand-edited generated PHP or broad inline raw-block adapters as an implementation strategy."
+  ]
+}
