@@ -1,0 +1,1525 @@
+{
+  "schema": "wphx.wp-core.wordpress-ai-wrapper-api-surface.v1",
+  "issue": {
+    "id": "wordpresshx-l76.33.2",
+    "external_ref": "WPHX-323.24",
+    "title": "Gate WordPress AI wrapper API surface"
+  },
+  "generated_at": "2026-07-08T21:30:00.000Z",
+  "generator": "tools/wp-core/run-wordpress-ai-wrapper-api-surface-gate.mjs",
+  "evidence_class": "wordpress_ai_wrapper_api_adapter_fixture_gate",
+  "behavior_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "haxe_owned_wordpress_ai_wrapper_runtime_claimed": false,
+  "haxe_owned_php_ai_client_runtime_claimed": false,
+  "live_provider_behavior_claimed": false,
+  "dependency_substitution_claimed": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-wordpress-ai-wrapper-api-surface-gate.mjs",
+      "bytes": 44434,
+      "sha256": "sha256:8a718130057d333acde4139425518a96ce91cd51b8f37afd05f7d083eaa8cc50"
+    },
+    "upstream_lock": {
+      "path": "upstream.lock.json",
+      "bytes": 7266,
+      "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+    },
+    "ai_tinymce_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+      "bytes": 48784,
+      "sha256": "sha256:8cccbaec8caa3932b260fc361e1a53ba6f835c786b6b3fe340183f642e5d74b4"
+    },
+    "php_ai_client_sub_boundaries_manifest": {
+      "path": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+      "bytes": 475098,
+      "sha256": "sha256:053c15ad1ee0bbf832683f27bffcd0668228fd64fc613d1051025821fa714529"
+    },
+    "ai_http_fixture_manifest": {
+      "path": "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json",
+      "bytes": 80319,
+      "sha256": "sha256:56d8339fb652af9bd53d9a56b97872e2d3b2077e32c6c34af373cdfccae2d1e5"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "source_inventory_manifest": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance_manifest": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    }
+  },
+  "upstream_authority": {
+    "relative_path": "../wordpress-develop",
+    "authority": "WordPress 7.0 distribution and behavior oracle",
+    "role": "wordpress-7.0-oracle",
+    "locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "locked_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "locked_tag": "7.0.0",
+    "current_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "current_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "observed_dirty_state_from_lock": "Untracked repomix-output.wordpress.xml and repomix-output.wordpress.xml.zip",
+    "current_status_short": [
+      "?? repomix-output.wordpress.xml",
+      "?? repomix-output.wordpress.xml.zip"
+    ]
+  },
+  "source_surface": {
+    "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+    "wrapper_files": [
+      {
+        "path": "src/wp-includes/ai-client.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client.php",
+        "bytes": 2549,
+        "sha256": "sha256:20dea40ca6d32079b28e17c671abf7943e472ff5410b7f04beb23030348d350f",
+        "distribution_path": "wp-includes/ai-client.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "public_function_api",
+        "covered_cases": [
+          "wordpress-ai-wrapper:wp-supports-ai-filter",
+          "wordpress-ai-wrapper:wp-supports-ai-disabled-constant",
+          "wordpress-ai-wrapper:prompt-builder-prevent-filter",
+          "wordpress-ai-wrapper:prompt-builder-disabled-ai"
+        ],
+        "first_generated_adapter_candidate": true,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [],
+          "declared_symbol_fqns": [],
+          "functions": [
+            "wp_ai_client_prompt",
+            "wp_supports_ai"
+          ],
+          "public_methods": [],
+          "uses": [
+            "WordPress\\AiClient\\AiClient",
+            "WordPress\\AiClient\\Messages\\DTO\\Message",
+            "WordPress\\AiClient\\Messages\\DTO\\MessagePart"
+          ],
+          "counts": {
+            "class_count": 0,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 2,
+            "public_method_count": 0,
+            "use_statement_count": 3
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "bytes": 6066,
+        "sha256": "sha256:d7be5d691f2c74ef1ef48f841bb3e5794a2bd5894d2af906feefde37aa52e8a2",
+        "distribution_path": "wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_object_cache_adapter",
+        "covered_cases": [
+          "wordpress-ai-wrapper:cache-adapter"
+        ],
+        "first_generated_adapter_candidate": true,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_Cache",
+              "fqn": "WP_AI_Client_Cache"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_Cache"
+          ],
+          "functions": [
+            "clear",
+            "delete",
+            "deleteMultiple",
+            "get",
+            "getMultiple",
+            "has",
+            "iterable_to_array",
+            "set",
+            "setMultiple",
+            "ttl_to_seconds"
+          ],
+          "public_methods": [
+            "clear",
+            "delete",
+            "deleteMultiple",
+            "get",
+            "getMultiple",
+            "has",
+            "set",
+            "setMultiple"
+          ],
+          "uses": [
+            "WordPress\\AiClientDependencies\\Psr\\SimpleCache\\CacheInterface"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 10,
+            "public_method_count": 8,
+            "use_statement_count": 1
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "bytes": 1167,
+        "sha256": "sha256:74d19142b3dd8426cd5b2fe9e1a9d8d1489e5f4210ce2123404cf284dec8a3f7",
+        "distribution_path": "wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_http_discovery_adapter",
+        "covered_cases": [
+          "wordpress-ai-wrapper:http-client-expanded"
+        ],
+        "first_generated_adapter_candidate": false,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_Discovery_Strategy",
+              "fqn": "WP_AI_Client_Discovery_Strategy"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_Discovery_Strategy"
+          ],
+          "functions": [
+            "createClient"
+          ],
+          "public_methods": [],
+          "uses": [
+            "WordPress\\AiClient\\Providers\\Http\\Abstracts\\AbstractClientDiscoveryStrategy",
+            "WordPress\\AiClientDependencies\\Nyholm\\Psr7\\Factory\\Psr17Factory",
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Client\\ClientInterface"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 1,
+            "public_method_count": 0,
+            "use_statement_count": 3
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "bytes": 2555,
+        "sha256": "sha256:47b1bb193255ab0d9c75f25bfb53cc667618ef4f8462904964c01d0f85c909d6",
+        "distribution_path": "wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_hook_adapter",
+        "covered_cases": [
+          "wordpress-ai-wrapper:event-dispatcher"
+        ],
+        "first_generated_adapter_candidate": true,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_Event_Dispatcher",
+              "fqn": "WP_AI_Client_Event_Dispatcher"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_Event_Dispatcher"
+          ],
+          "functions": [
+            "dispatch",
+            "get_hook_name_portion_for_event"
+          ],
+          "public_methods": [
+            "dispatch"
+          ],
+          "uses": [
+            "WordPress\\AiClientDependencies\\Psr\\EventDispatcher\\EventDispatcherInterface"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 2,
+            "public_method_count": 1,
+            "use_statement_count": 1
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "bytes": 6703,
+        "sha256": "sha256:06f0b8c3c3386f57a42caf6e394888903dfec6e3981e12dfbcf31bd17d8a8cef",
+        "distribution_path": "wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_http_adapter",
+        "covered_cases": [
+          "wordpress-ai-wrapper:http-client-expanded"
+        ],
+        "first_generated_adapter_candidate": false,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_HTTP_Client",
+              "fqn": "WP_AI_Client_HTTP_Client"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_HTTP_Client"
+          ],
+          "functions": [
+            "__construct",
+            "create_psr_response",
+            "prepare_body",
+            "prepare_headers",
+            "prepare_wp_args",
+            "sendRequest",
+            "sendRequestWithOptions"
+          ],
+          "public_methods": [
+            "__construct",
+            "sendRequest",
+            "sendRequestWithOptions"
+          ],
+          "uses": [
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Client\\ClientInterface",
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Message\\RequestInterface",
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Message\\ResponseInterface",
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Message\\ResponseFactoryInterface",
+            "WordPress\\AiClientDependencies\\Psr\\Http\\Message\\StreamFactoryInterface",
+            "WordPress\\AiClient\\Providers\\Http\\Contracts\\ClientWithOptionsInterface",
+            "WordPress\\AiClient\\Providers\\Http\\DTO\\RequestOptions",
+            "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 7,
+            "public_method_count": 3,
+            "use_statement_count": 8
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "bytes": 6265,
+        "sha256": "sha256:c501b4f306525b89b1b84849d85c276389478e9a0951bf34a750cfb607e08985",
+        "distribution_path": "wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_ability_function_adapter",
+        "covered_cases": [],
+        "first_generated_adapter_candidate": false,
+        "note": "Classified as WordPress wrapper/API surface; executable ability function-call fixtures remain future work outside WPHX-323.24 acceptance.",
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_Ability_Function_Resolver",
+              "fqn": "WP_AI_Client_Ability_Function_Resolver"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_Ability_Function_Resolver"
+          ],
+          "functions": [
+            "__construct",
+            "ability_name_to_function_name",
+            "execute_abilities",
+            "execute_ability",
+            "function_name_to_ability_name",
+            "has_ability_calls",
+            "is_ability_call"
+          ],
+          "public_methods": [
+            "__construct",
+            "ability_name_to_function_name",
+            "execute_abilities",
+            "execute_ability",
+            "function_name_to_ability_name",
+            "has_ability_calls",
+            "is_ability_call"
+          ],
+          "uses": [
+            "WordPress\\AiClient\\Messages\\DTO\\Message",
+            "WordPress\\AiClient\\Messages\\DTO\\MessagePart",
+            "WordPress\\AiClient\\Messages\\DTO\\UserMessage",
+            "WordPress\\AiClient\\Tools\\DTO\\FunctionCall",
+            "WordPress\\AiClient\\Tools\\DTO\\FunctionResponse"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 7,
+            "public_method_count": 7,
+            "use_statement_count": 5
+          }
+        }
+      },
+      {
+        "path": "src/wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "repo_path": "../wordpress-develop/src/wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "bytes": 19787,
+        "sha256": "sha256:5f4262e964cf3331b936317deb1fccace990f63b32451f97b3b6fff59636c760",
+        "distribution_path": "wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "classification": "wordpress_public_api_and_adapter_surface_not_bundled_library_internal",
+        "role": "wordpress_prompt_builder_facade",
+        "covered_cases": [
+          "wordpress-ai-wrapper:prompt-builder-prevent-filter",
+          "wordpress-ai-wrapper:prompt-builder-disabled-ai"
+        ],
+        "first_generated_adapter_candidate": false,
+        "api_inventory": {
+          "namespace": null,
+          "declared_symbols": [
+            {
+              "kind": "class",
+              "name": "WP_AI_Client_Prompt_Builder",
+              "fqn": "WP_AI_Client_Prompt_Builder"
+            }
+          ],
+          "declared_symbol_fqns": [
+            "WP_AI_Client_Prompt_Builder"
+          ],
+          "functions": [
+            "__call",
+            "__construct",
+            "exception_to_wp_error",
+            "get_builder_callable",
+            "is_generating_method",
+            "is_support_check_method",
+            "snake_to_camel_case",
+            "using_abilities"
+          ],
+          "public_methods": [
+            "__call",
+            "__construct",
+            "using_abilities"
+          ],
+          "uses": [
+            "WordPress\\AiClient\\AiClient",
+            "WordPress\\AiClient\\Builders\\PromptBuilder",
+            "WordPress\\AiClient\\Common\\Exception\\InvalidArgumentException",
+            "WordPress\\AiClient\\Common\\Exception\\TokenLimitReachedException",
+            "WordPress\\AiClient\\Files\\DTO\\File",
+            "WordPress\\AiClient\\Files\\Enums\\FileTypeEnum",
+            "WordPress\\AiClient\\Files\\Enums\\MediaOrientationEnum",
+            "WordPress\\AiClient\\Messages\\DTO\\Message",
+            "WordPress\\AiClient\\Messages\\DTO\\MessagePart",
+            "WordPress\\AiClient\\Messages\\Enums\\ModalityEnum",
+            "WordPress\\AiClient\\Providers\\Http\\DTO\\RequestOptions",
+            "WordPress\\AiClient\\Providers\\Http\\Exception\\ClientException",
+            "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException",
+            "WordPress\\AiClient\\Providers\\Http\\Exception\\ServerException",
+            "WordPress\\AiClient\\Providers\\Models\\Contracts\\ModelInterface",
+            "WordPress\\AiClient\\Providers\\Models\\DTO\\ModelConfig",
+            "WordPress\\AiClient\\Providers\\Models\\Enums\\CapabilityEnum",
+            "WordPress\\AiClient\\Providers\\ProviderRegistry",
+            "WordPress\\AiClient\\Results\\DTO\\GenerativeAiResult",
+            "WordPress\\AiClient\\Tools\\DTO\\FunctionDeclaration",
+            "WordPress\\AiClient\\Tools\\DTO\\FunctionResponse",
+            "WordPress\\AiClient\\Tools\\DTO\\WebSearch"
+          ],
+          "counts": {
+            "class_count": 1,
+            "interface_count": 0,
+            "trait_count": 0,
+            "function_or_method_count": 8,
+            "public_method_count": 3,
+            "use_statement_count": 22
+          }
+        }
+      }
+    ],
+    "declared_symbol_count": 6,
+    "declared_symbols": [
+      "WP_AI_Client_Ability_Function_Resolver",
+      "WP_AI_Client_Cache",
+      "WP_AI_Client_Discovery_Strategy",
+      "WP_AI_Client_Event_Dispatcher",
+      "WP_AI_Client_HTTP_Client",
+      "WP_AI_Client_Prompt_Builder"
+    ],
+    "preserved_php_ai_client_support": {
+      "source_root": "src/wp-includes/php-ai-client",
+      "php_file_count": 146,
+      "current_state": "preserved_bundled_library_exception",
+      "sub_boundary_manifest": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+      "vendor_closure": "verified_and_explicitly_excepted_as_preserved_bundled_library_boundary"
+    }
+  },
+  "fixture_cases": [
+    {
+      "id": "wordpress-ai-wrapper:wp-supports-ai-filter",
+      "focus": "wp_supports_ai default, filter coercion, and filter short-circuit behavior"
+    },
+    {
+      "id": "wordpress-ai-wrapper:wp-supports-ai-disabled-constant",
+      "focus": "WP_AI_SUPPORT false bypasses filters and returns false"
+    },
+    {
+      "id": "wordpress-ai-wrapper:prompt-builder-prevent-filter",
+      "focus": "wp_ai_client_prompt returns wrapper builder and prompt-prevent filter blocks generation without live provider calls"
+    },
+    {
+      "id": "wordpress-ai-wrapper:prompt-builder-disabled-ai",
+      "focus": "wp_ai_client_prompt returns disabled-environment WP_Error for generation when AI support is off"
+    },
+    {
+      "id": "wordpress-ai-wrapper:event-dispatcher",
+      "focus": "PSR event dispatch maps event class names to WordPress action hooks and returns the same event object"
+    },
+    {
+      "id": "wordpress-ai-wrapper:cache-adapter",
+      "focus": "PSR-16 cache adapter bridges get/set/delete/multiple/clear/has to WordPress cache functions and TTL conversion"
+    },
+    {
+      "id": "wordpress-ai-wrapper:http-client-expanded",
+      "focus": "WordPress HTTP client adapter covers duplicate headers, empty/non-empty bodies, options, WP_HTTP_Requests_Response headers, and WP_Error mapping"
+    }
+  ],
+  "observations": {
+    "oracle_root": "build/wp-core/wphx-323-24/oracle",
+    "candidate_root": "build/wp-core/wphx-323-24/candidate",
+    "modes": [
+      "support_filter",
+      "support_disabled_constant",
+      "prompt_prevent_filter",
+      "prompt_disabled_constant",
+      "event_dispatcher",
+      "cache_adapter",
+      "http_client_expanded"
+    ],
+    "oracle": {
+      "support_filter": {
+        "mode": "support_filter",
+        "case": {
+          "default": true,
+          "filtered_false": false,
+          "filtered_true": true,
+          "filter_log": [
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "support_disabled_constant": {
+        "mode": "support_disabled_constant",
+        "case": {
+          "wp_ai_support_defined": true,
+          "wp_ai_support_value": false,
+          "result": false,
+          "filter_log_count": 0
+        },
+        "php_errors": []
+      },
+      "prompt_prevent_filter": {
+        "mode": "prompt_prevent_filter",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "builder_id": 5,
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "Prompt execution was prevented by a filter.",
+            "data": {
+              "status": 503
+            }
+          },
+          "chain_returns_same_instance": true,
+          "timeout_filter_values": [
+            30
+          ],
+          "prevent_payloads": [
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            },
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            }
+          ],
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            }
+          ],
+          "doing_it_wrong": []
+        },
+        "php_errors": []
+      },
+      "prompt_disabled_constant": {
+        "mode": "prompt_disabled_constant",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "AI features are not supported in this environment.",
+            "data": {
+              "status": 503
+            }
+          },
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "event_dispatcher": {
+        "mode": "event_dispatcher",
+        "case": {
+          "before_same_object": true,
+          "before_log": [
+            "before-action"
+          ],
+          "plain_same_object": true,
+          "plain_log": [
+            "plain-action"
+          ],
+          "action_log": [
+            {
+              "tag": "wp_ai_client_before_generate_result",
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WPHXAIWrapperFixture\\BeforeGenerateResultEvent",
+                  "id": 4
+                }
+              ]
+            },
+            {
+              "tag": "wp_ai_client_plain_lifecycle",
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WPHXAIWrapperFixture\\PlainLifecycle",
+                  "id": 5
+                }
+              ]
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "cache_adapter": {
+        "mode": "cache_adapter",
+        "case": {
+          "missing": "fallback",
+          "set_false": true,
+          "get_false": false,
+          "has_false": true,
+          "set_ttl": true,
+          "set_interval": true,
+          "set_multiple": false,
+          "get_multiple": {
+            "one": 1,
+            "two": 2,
+            "missing": "fallback",
+            "false-value": false
+          },
+          "delete_multiple": false,
+          "clear_supported": true,
+          "clear_unsupported": false,
+          "cache_log": [
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "set",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "expire": 0,
+              "value": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "set",
+              "key": "ttl-value",
+              "group": "wp_ai_client",
+              "expire": 12,
+              "value": "value"
+            },
+            {
+              "fn": "set",
+              "key": "interval-value",
+              "group": "wp_ai_client",
+              "expire": 2,
+              "value": "value"
+            },
+            {
+              "fn": "set",
+              "key": "one",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 1
+            },
+            {
+              "fn": "set",
+              "key": "two",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 2
+            },
+            {
+              "fn": "set",
+              "key": "fail-three",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 3
+            },
+            {
+              "fn": "get",
+              "key": "one",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "two",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get_multiple",
+              "keys": [
+                "one",
+                "two",
+                "missing",
+                "false-value"
+              ],
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "delete",
+              "key": "one",
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "delete",
+              "key": "missing",
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "flush_group",
+              "group": "wp_ai_client"
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "http_client_expanded": {
+        "mode": "http_client_expanded",
+        "case": {
+          "success_call": {
+            "url": "https://wp.example/ai?x=1",
+            "args": {
+              "method": "PATCH",
+              "headers": {
+                "Host": "wp.example",
+                "X-Multi": "one, two",
+                "X-Numeric": "10, 20"
+              },
+              "body": "{\"prompt\":\"hello\"}",
+              "httpversion": "1.1",
+              "blocking": true,
+              "timeout": 9.5,
+              "redirection": 4
+            }
+          },
+          "success_response": {
+            "status": 207,
+            "reason": "Multi-Status",
+            "headers": {
+              "x-object": [
+                "alpha",
+                "beta"
+              ],
+              "content-type": [
+                "application/json"
+              ]
+            },
+            "body": "{\"ok\":true}"
+          },
+          "empty_call": {
+            "url": "https://wp.example/empty",
+            "args": {
+              "method": "GET",
+              "headers": {
+                "Host": "wp.example"
+              },
+              "body": null,
+              "httpversion": "1.1",
+              "blocking": true
+            }
+          },
+          "empty_response": {
+            "status": 204,
+            "reason": "No Content",
+            "headers": {
+              "x-empty": [
+                "yes"
+              ]
+            },
+            "body": ""
+          },
+          "options_error": {
+            "threw": true,
+            "class": "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException",
+            "message": "Network error occurred while sending request to https://wp.example/fail-options: Numeric transport code",
+            "code": 17
+          },
+          "plain_error": {
+            "threw": true,
+            "class": "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException",
+            "message": "Network error occurred while sending GET request to https://wp.example/fail: Connection refused",
+            "code": 0
+          },
+          "remote_request_count": 4
+        },
+        "php_errors": []
+      }
+    },
+    "candidate": {
+      "support_filter": {
+        "mode": "support_filter",
+        "case": {
+          "default": true,
+          "filtered_false": false,
+          "filtered_true": true,
+          "filter_log": [
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "support_disabled_constant": {
+        "mode": "support_disabled_constant",
+        "case": {
+          "wp_ai_support_defined": true,
+          "wp_ai_support_value": false,
+          "result": false,
+          "filter_log_count": 0
+        },
+        "php_errors": []
+      },
+      "prompt_prevent_filter": {
+        "mode": "prompt_prevent_filter",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "builder_id": 5,
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "Prompt execution was prevented by a filter.",
+            "data": {
+              "status": 503
+            }
+          },
+          "chain_returns_same_instance": true,
+          "timeout_filter_values": [
+            30
+          ],
+          "prevent_payloads": [
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            },
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            }
+          ],
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            }
+          ],
+          "doing_it_wrong": []
+        },
+        "php_errors": []
+      },
+      "prompt_disabled_constant": {
+        "mode": "prompt_disabled_constant",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "AI features are not supported in this environment.",
+            "data": {
+              "status": 503
+            }
+          },
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "event_dispatcher": {
+        "mode": "event_dispatcher",
+        "case": {
+          "before_same_object": true,
+          "before_log": [
+            "before-action"
+          ],
+          "plain_same_object": true,
+          "plain_log": [
+            "plain-action"
+          ],
+          "action_log": [
+            {
+              "tag": "wp_ai_client_before_generate_result",
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WPHXAIWrapperFixture\\BeforeGenerateResultEvent",
+                  "id": 4
+                }
+              ]
+            },
+            {
+              "tag": "wp_ai_client_plain_lifecycle",
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WPHXAIWrapperFixture\\PlainLifecycle",
+                  "id": 5
+                }
+              ]
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "cache_adapter": {
+        "mode": "cache_adapter",
+        "case": {
+          "missing": "fallback",
+          "set_false": true,
+          "get_false": false,
+          "has_false": true,
+          "set_ttl": true,
+          "set_interval": true,
+          "set_multiple": false,
+          "get_multiple": {
+            "one": 1,
+            "two": 2,
+            "missing": "fallback",
+            "false-value": false
+          },
+          "delete_multiple": false,
+          "clear_supported": true,
+          "clear_unsupported": false,
+          "cache_log": [
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "set",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "expire": 0,
+              "value": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "set",
+              "key": "ttl-value",
+              "group": "wp_ai_client",
+              "expire": 12,
+              "value": "value"
+            },
+            {
+              "fn": "set",
+              "key": "interval-value",
+              "group": "wp_ai_client",
+              "expire": 2,
+              "value": "value"
+            },
+            {
+              "fn": "set",
+              "key": "one",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 1
+            },
+            {
+              "fn": "set",
+              "key": "two",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 2
+            },
+            {
+              "fn": "set",
+              "key": "fail-three",
+              "group": "wp_ai_client",
+              "expire": 5,
+              "value": 3
+            },
+            {
+              "fn": "get",
+              "key": "one",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "two",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "get_multiple",
+              "keys": [
+                "one",
+                "two",
+                "missing",
+                "false-value"
+              ],
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "get",
+              "key": "missing",
+              "group": "wp_ai_client",
+              "found": false
+            },
+            {
+              "fn": "get",
+              "key": "false-value",
+              "group": "wp_ai_client",
+              "found": true
+            },
+            {
+              "fn": "delete",
+              "key": "one",
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "delete",
+              "key": "missing",
+              "group": "wp_ai_client"
+            },
+            {
+              "fn": "flush_group",
+              "group": "wp_ai_client"
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "http_client_expanded": {
+        "mode": "http_client_expanded",
+        "case": {
+          "success_call": {
+            "url": "https://wp.example/ai?x=1",
+            "args": {
+              "method": "PATCH",
+              "headers": {
+                "Host": "wp.example",
+                "X-Multi": "one, two",
+                "X-Numeric": "10, 20"
+              },
+              "body": "{\"prompt\":\"hello\"}",
+              "httpversion": "1.1",
+              "blocking": true,
+              "timeout": 9.5,
+              "redirection": 4
+            }
+          },
+          "success_response": {
+            "status": 207,
+            "reason": "Multi-Status",
+            "headers": {
+              "x-object": [
+                "alpha",
+                "beta"
+              ],
+              "content-type": [
+                "application/json"
+              ]
+            },
+            "body": "{\"ok\":true}"
+          },
+          "empty_call": {
+            "url": "https://wp.example/empty",
+            "args": {
+              "method": "GET",
+              "headers": {
+                "Host": "wp.example"
+              },
+              "body": null,
+              "httpversion": "1.1",
+              "blocking": true
+            }
+          },
+          "empty_response": {
+            "status": 204,
+            "reason": "No Content",
+            "headers": {
+              "x-empty": [
+                "yes"
+              ]
+            },
+            "body": ""
+          },
+          "options_error": {
+            "threw": true,
+            "class": "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException",
+            "message": "Network error occurred while sending request to https://wp.example/fail-options: Numeric transport code",
+            "code": 17
+          },
+          "plain_error": {
+            "threw": true,
+            "class": "WordPress\\AiClient\\Providers\\Http\\Exception\\NetworkException",
+            "message": "Network error occurred while sending GET request to https://wp.example/fail: Connection refused",
+            "code": 0
+          },
+          "remote_request_count": 4
+        },
+        "php_errors": []
+      }
+    },
+    "observations_match": true
+  },
+  "generated_adapter_requirements": [
+    "WPHX PHP compiler/linker output at the original WordPress path.",
+    "Non-empty generated overlay manifest recording replaced upstream path, upstream hash, generated file hash, compiler provenance, and unsupported=[].",
+    "PHP lint across every generated wrapper file.",
+    "ABI/reflection snapshots for functions, classes, methods, visibility, return types, parameter defaults, class constants, interfaces, and implemented interfaces.",
+    "Include/load timing fixture for ABSPATH/WPINC, dependency availability, conditional load assumptions, and repeated include behavior.",
+    "Oracle/candidate behavior fixtures for wp_supports_ai, wp_ai_client_prompt, event dispatcher, cache adapter, HTTP client adapter, prompt builder error conversion, and ability function resolver before claiming those surfaces.",
+    "Explicit non-claims for preserved php-ai-client internals, shaded dependency substitution, live provider behavior, installed AI behavior, and prompt/file/privacy safety unless separate gates pass.",
+    "No hand-edited target PHP or broad inline raw-block body for durable public wrapper ownership."
+  ],
+  "first_generated_adapter_candidate_order": [
+    "wp-includes/ai-client.php",
+    "wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+    "wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+    "wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+    "wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+    "wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+    "wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php"
+  ],
+  "provenance": {
+    "source_inventory_records": [
+      {
+        "path": "src/wp-includes/ai-client.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "src/wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "baseline": "wordpress-7.0.0",
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+        "language": "php",
+        "area": "core",
+        "kind": "runtime_source",
+        "status": "upstream_oracle_unported",
+        "haxe_owners": [],
+        "generated_artifacts": [],
+        "task_external_ref": null,
+        "classified": true,
+        "exceptions": []
+      }
+    ],
+    "artifact_provenance_records": [
+      {
+        "path": "wp-includes/ai-client.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      },
+      {
+        "path": "wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "baseline": "wordpress-7.0.0-distribution",
+        "artifact_kind": "zip",
+        "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+        "origin": "upstream_oracle",
+        "migration_status": "pending_haxe_generation_or_approved_exception",
+        "classified": true,
+        "exceptions": []
+      }
+    ]
+  },
+  "validation_result": {
+    "status": "passed",
+    "wrapper_file_count": 7,
+    "preserved_php_ai_client_support_file_count": 146,
+    "source_inventory_record_count": 7,
+    "artifact_provenance_record_count": 7,
+    "probe_case_count": 7,
+    "oracle_candidate_observations_match": true,
+    "php_lint_file_count": 153,
+    "php_lint_ok": true,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_wordpress_ai_wrapper_runtime_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "live_provider_behavior_claimed": false,
+    "dependency_substitution_claimed": false
+  },
+  "claims": [
+    "WPHX-323.24 classifies wp-includes/ai-client.php and wp-includes/ai-client/* as WordPress public API/adapter surfaces rather than php-ai-client bundled-library internals.",
+    "The fixture records matching copied-oracle observations for wp_supports_ai, wp_ai_client_prompt, event dispatcher, cache adapter, and expanded WordPress HTTP client adapter behavior.",
+    "The gate records generated WPHX PHP original-path adapter requirements before WPHX-323.25 can claim first generated wrapper emission.",
+    "php-ai-client internals remain preserved and live provider behavior remains a non-claim."
+  ],
+  "non_claims": [
+    "This gate does not claim generated public PHP replacement for wp-includes/ai-client.php or wp-includes/ai-client/*.",
+    "This gate does not claim Haxe-owned WordPress AI wrapper runtime logic.",
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ internals.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not run network I/O; all HTTP/provider-adjacent behavior is fake in-process transport.",
+    "This gate does not admit hand-edited generated PHP or broad inline raw-block adapters as an implementation strategy."
+  ]
+}

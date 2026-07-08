@@ -1,0 +1,67 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-24-wordpress-ai-wrapper-api-surface",
+  "issue": {
+    "id": "wordpresshx-l76.33.2",
+    "external_ref": "WPHX-323.24",
+    "title": "Gate WordPress AI wrapper API surface"
+  },
+  "recorded_at": "2026-07-08T21:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "wordpress_ai_wrapper_api_adapter_fixture_gate",
+  "artifact_scope": "wordpress-7.0-wordpress-ai-wrapper-api-adapter-fixture-gate",
+  "commands": [
+    "npm run wp:core:wphx-323-wordpress-ai-wrapper-api-surface",
+    "npm run wp:core:wphx-323-wordpress-ai-wrapper-api-surface:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+    "ai_tinymce_gate_manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "php_ai_client_sub_boundaries_manifest": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+    "ai_http_fixture_manifest": "manifests/wp-core/wphx-312-05-ai-http-oracle-fixture.v1.json"
+  },
+  "manifest_sha256": "sha256:471ce385feca1d1173a3e5c11b1d816b26e5e68b3b0ba13de5cdf5a26c6ac596",
+  "validation_result": {
+    "status": "passed",
+    "wrapper_file_count": 7,
+    "preserved_php_ai_client_support_file_count": 146,
+    "source_inventory_record_count": 7,
+    "artifact_provenance_record_count": 7,
+    "probe_case_count": 7,
+    "oracle_candidate_observations_match": true,
+    "php_lint_file_count": 153,
+    "php_lint_ok": true,
+    "generated_overlay_manifest_present": false,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_wordpress_ai_wrapper_runtime_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "live_provider_behavior_claimed": false,
+    "dependency_substitution_claimed": false
+  },
+  "generated_adapter_requirements": [
+    "WPHX PHP compiler/linker output at the original WordPress path.",
+    "Non-empty generated overlay manifest recording replaced upstream path, upstream hash, generated file hash, compiler provenance, and unsupported=[].",
+    "PHP lint across every generated wrapper file.",
+    "ABI/reflection snapshots for functions, classes, methods, visibility, return types, parameter defaults, class constants, interfaces, and implemented interfaces.",
+    "Include/load timing fixture for ABSPATH/WPINC, dependency availability, conditional load assumptions, and repeated include behavior.",
+    "Oracle/candidate behavior fixtures for wp_supports_ai, wp_ai_client_prompt, event dispatcher, cache adapter, HTTP client adapter, prompt builder error conversion, and ability function resolver before claiming those surfaces.",
+    "Explicit non-claims for preserved php-ai-client internals, shaded dependency substitution, live provider behavior, installed AI behavior, and prompt/file/privacy safety unless separate gates pass.",
+    "No hand-edited target PHP or broad inline raw-block body for durable public wrapper ownership."
+  ],
+  "claims": [
+    "WPHX-323.24 classifies wp-includes/ai-client.php and wp-includes/ai-client/* as WordPress public API/adapter surfaces rather than php-ai-client bundled-library internals.",
+    "The fixture records matching copied-oracle observations for wp_supports_ai, wp_ai_client_prompt, event dispatcher, cache adapter, and expanded WordPress HTTP client adapter behavior.",
+    "The gate records generated WPHX PHP original-path adapter requirements before WPHX-323.25 can claim first generated wrapper emission.",
+    "php-ai-client internals remain preserved and live provider behavior remains a non-claim."
+  ],
+  "non_claims": [
+    "This gate does not claim generated public PHP replacement for wp-includes/ai-client.php or wp-includes/ai-client/*.",
+    "This gate does not claim Haxe-owned WordPress AI wrapper runtime logic.",
+    "This gate does not claim Haxe-owned wp-includes/php-ai-client/ internals.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not run network I/O; all HTTP/provider-adjacent behavior is fake in-process transport.",
+    "This gate does not admit hand-edited generated PHP or broad inline raw-block adapters as an implementation strategy."
+  ]
+}
