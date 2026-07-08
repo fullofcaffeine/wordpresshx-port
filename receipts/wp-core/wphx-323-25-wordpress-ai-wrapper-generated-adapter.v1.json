@@ -1,0 +1,162 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-25-wordpress-ai-wrapper-generated-adapter",
+  "issue": {
+    "id": "wordpresshx-l76.33.3",
+    "external_ref": "WPHX-323.25",
+    "title": "Emit first generated AI wrapper adapter"
+  },
+  "recorded_at": "2026-07-08T22:45:00.000Z",
+  "status": "closed",
+  "evidence_class": "wphx_php_generated_original_path_ai_wrapper_adapter",
+  "artifact_scope": "wordpress-7.0-wordpress-ai-wrapper-generated-overlay",
+  "commands": [
+    "npm run wp:core:wphx-323-wordpress-ai-wrapper-generated-adapter",
+    "npm run wp:core:wphx-323-wordpress-ai-wrapper-generated-adapter:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "generated_shell": "build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+    "emission_manifest": "build/wp-core/wphx-323-25/generated/wphx-php-emission.v1.json",
+    "ai_tinymce_gate_manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "wordpress_ai_wrapper_surface_manifest": "manifests/wp-core/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+    "php_ai_client_sub_boundaries_manifest": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json"
+  },
+  "manifest_sha256": "sha256:e4f472a7d369565247c77108e0262d08d1ef6c4e9915b57535ad86998ca0850e",
+  "validation_result": {
+    "status": "passed",
+    "generated_overlay_manifest_present": true,
+    "generated_overlay_count": 1,
+    "generated_shell_php_lint": "No syntax errors detected in build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+    "generated_shell_php_lint_ok": true,
+    "candidate_package_php_lint_file_count": 153,
+    "candidate_package_php_lint_ok": true,
+    "unsupported_empty": true,
+    "abi_reflection_match": true,
+    "include_load_fixture_match": true,
+    "oracle_candidate_observations_match": true,
+    "probe_case_count": 5,
+    "expected_candidate_package_difference_count": 1,
+    "unexpected_candidate_package_differences_empty": true,
+    "copied_candidate_body_used": false,
+    "preserved_php_ai_client_support_file_count": 146,
+    "copied_support_wrapper_file_count": 6,
+    "public_php_replacement_claimed": true,
+    "whole_file_owned": false,
+    "installed_wordpress_parity_claimed": false,
+    "live_provider_behavior_claimed": false,
+    "dependency_substitution_claimed": false
+  },
+  "generated_overlay": {
+    "path": "wp-includes/ai-client.php",
+    "source_path": "src/wp-includes/ai-client.php",
+    "replaced_upstream": {
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "path": "src/wp-includes/ai-client.php",
+      "sha256": "sha256:20dea40ca6d32079b28e17c671abf7943e472ff5410b7f04beb23030348d350f",
+      "bytes": 2549
+    },
+    "generated_candidate": {
+      "path": "build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+      "package_path": "build/wp-core/wphx-323-25/candidate/wp-includes/ai-client.php",
+      "sha256": "sha256:8975cdf33920573967b4883e5c8cdd7157945383d01dcc775e26300d4605858f",
+      "bytes": 377,
+      "expected_patterns": [
+        "function wp_supports_ai(): bool",
+        "defined('WP_AI_SUPPORT')",
+        "boolval(constant('WP_AI_SUPPORT')) == false",
+        "boolval(apply_filters('wp_supports_ai', true))",
+        "function wp_ai_client_prompt($prompt = null): WP_AI_Client_Prompt_Builder",
+        "new WP_AI_Client_Prompt_Builder(\\WordPress\\AiClient\\AiClient::defaultRegistry(), $prompt)"
+      ],
+      "copied_candidate_body_used": false
+    },
+    "compiler_provenance": {
+      "generator": "wphx.compiler.php.WphxPhpCompiler",
+      "runner": "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+      "hxml": "fixtures/wphx-php/ai-client-wrapper.hxml",
+      "compiler_source": [
+        {
+          "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+          "bytes": 77850,
+          "sha256": "sha256:f3d3b91024a9b3fc5450ef0790d0f111114397caf10d26823576dabb209da182"
+        },
+        {
+          "path": "src/wphx/compiler/php/CompilerInit.hx",
+          "bytes": 848,
+          "sha256": "sha256:d77de30e9904a756588607df2d8f9bec72eb9190e45fd88d5fcad6eb5bb46551"
+        },
+        {
+          "path": "src/wphx/wp/ai/AiClientWrapperEntry.hx",
+          "bytes": 329,
+          "sha256": "sha256:bc92d070a65572078756ad1aa65964dce26af1fa04ff7203f14b6ac5f5cf5ab1"
+        },
+        {
+          "path": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+          "bytes": 1990,
+          "sha256": "sha256:8562de30caf83b00bebb0d1dc0f3fc19ff22f9e1be0623e7c6c1455d52af0024"
+        },
+        {
+          "path": "src/wphx/wp/boundary/NativeValue.hx",
+          "bytes": 602,
+          "sha256": "sha256:2f51c83f4eb2eee2851f63257bbf5ad325fe61ad4ea60e4433d383bf03003383"
+        },
+        {
+          "path": "fixtures/wphx-php/ai-client-wrapper.hxml",
+          "bytes": 307,
+          "sha256": "sha256:57ac5ff6b959ed488e6acdd3b006f180896ed8a4a3830db3d462d227aa7a032a"
+        }
+      ],
+      "adapter_source": {
+        "path": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+        "bytes": 1990,
+        "sha256": "sha256:8562de30caf83b00bebb0d1dc0f3fc19ff22f9e1be0623e7c6c1455d52af0024"
+      },
+      "adapter_entry": {
+        "path": "src/wphx/wp/ai/AiClientWrapperEntry.hx",
+        "bytes": 329,
+        "sha256": "sha256:bc92d070a65572078756ad1aa65964dce26af1fa04ff7203f14b6ac5f5cf5ab1"
+      }
+    },
+    "adapter_manifest": {
+      "path": "build/wp-core/wphx-323-25/generated/wphx-php-emission.v1.json",
+      "sha256": "sha256:b8275ed3dba944438af780e44113c94c7a9dddf156d0b4638c9776a09bf1c070",
+      "unsupported": [],
+      "unsupported_empty": true,
+      "declarations": [
+        {
+          "name": "wp_supports_ai",
+          "haxeModule": "wphx.wp.ai.AiClientWrapperSurface",
+          "source": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+          "kind": "global-function",
+          "guarded": false
+        },
+        {
+          "name": "wp_ai_client_prompt",
+          "haxeModule": "wphx.wp.ai.AiClientWrapperSurface",
+          "source": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+          "kind": "global-function",
+          "guarded": false
+        }
+      ]
+    },
+    "unexpected_candidate_package_differences": []
+  },
+  "claims": [
+    "WPHX PHP emits wp-includes/ai-client.php at the original WordPress distribution path for wp_supports_ai and wp_ai_client_prompt.",
+    "The generated candidate has unsupported=[] and passes PHP lint.",
+    "Reflection snapshots match the upstream wrapper ABI for the two generated global functions, including return types.",
+    "Oracle and generated candidate observations match for include/load, wp_supports_ai filters/disabled constant behavior, and wp_ai_client_prompt prompt-builder behavior over preserved php-ai-client internals.",
+    "The candidate package differs from the oracle package only at the expected generated overlay path wp-includes/ai-client.php."
+  ],
+  "non_claims": [
+    "This gate does not claim Haxe-owned php-ai-client internals; wp-includes/php-ai-client/ remains preserved bundled-library support for this adapter.",
+    "This gate does not claim generated replacement for wp-includes/ai-client/* support classes.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not claim whole-file WordPress AI ownership beyond the two generated global functions in wp-includes/ai-client.php.",
+    "This gate does not use a copied candidate body for wp-includes/ai-client.php."
+  ]
+}

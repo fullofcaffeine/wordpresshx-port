@@ -1,0 +1,1592 @@
+{
+  "schema": "wphx.wp-core.generated-overlay.v1",
+  "id": "wphx-323-25-wordpress-ai-wrapper-generated-adapter",
+  "issue": {
+    "id": "wordpresshx-l76.33.3",
+    "external_ref": "WPHX-323.25",
+    "title": "Emit first generated AI wrapper adapter"
+  },
+  "generated_at": "2026-07-08T22:45:00.000Z",
+  "generator": "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+  "evidence_class": "wphx_php_generated_original_path_ai_wrapper_adapter",
+  "behavior_parity_claimed": true,
+  "generated_public_php_replacement_claimed": true,
+  "durable_original_path_adapter_claimed": false,
+  "whole_file_owned": false,
+  "installed_wordpress_parity_claimed": false,
+  "live_provider_behavior_claimed": false,
+  "dependency_substitution_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+      "bytes": 33848,
+      "sha256": "sha256:a16b47676e6697c1df907ee99fb2801627d8b16510a8fb17f6652e23933de758"
+    },
+    "hxml": {
+      "path": "fixtures/wphx-php/ai-client-wrapper.hxml",
+      "bytes": 307,
+      "sha256": "sha256:57ac5ff6b959ed488e6acdd3b006f180896ed8a4a3830db3d462d227aa7a032a"
+    },
+    "upstream_lock": {
+      "path": "upstream.lock.json",
+      "bytes": 7266,
+      "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+    },
+    "ai_tinymce_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+      "bytes": 48784,
+      "sha256": "sha256:8cccbaec8caa3932b260fc361e1a53ba6f835c786b6b3fe340183f642e5d74b4"
+    },
+    "wordpress_ai_wrapper_surface_manifest": {
+      "path": "manifests/wp-core/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+      "bytes": 53198,
+      "sha256": "sha256:471ce385feca1d1173a3e5c11b1d816b26e5e68b3b0ba13de5cdf5a26c6ac596"
+    },
+    "php_ai_client_sub_boundaries_manifest": {
+      "path": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+      "bytes": 475098,
+      "sha256": "sha256:053c15ad1ee0bbf832683f27bffcd0668228fd64fc613d1051025821fa714529"
+    }
+  },
+  "upstream_authority": {
+    "relative_path": "../wordpress-develop",
+    "authority": "WordPress 7.0 distribution and behavior oracle",
+    "role": "wordpress-7.0-oracle",
+    "locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "locked_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "locked_tag": "7.0.0",
+    "current_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "current_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "observed_dirty_state_from_lock": "Untracked repomix-output.wordpress.xml and repomix-output.wordpress.xml.zip",
+    "current_status_short": [
+      "?? repomix-output.wordpress.xml",
+      "?? repomix-output.wordpress.xml.zip"
+    ]
+  },
+  "dependency_context": {
+    "ai_tinymce_gate_state": "passed",
+    "wordpress_ai_wrapper_surface_state": "passed",
+    "php_ai_client_sub_boundary_state": "passed",
+    "preserved_php_ai_client_support_file_count": 146
+  },
+  "generated_overlays": [
+    {
+      "path": "wp-includes/ai-client.php",
+      "source_path": "src/wp-includes/ai-client.php",
+      "replaced_upstream": {
+        "repo": "../wordpress-develop",
+        "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "path": "src/wp-includes/ai-client.php",
+        "sha256": "sha256:20dea40ca6d32079b28e17c671abf7943e472ff5410b7f04beb23030348d350f",
+        "bytes": 2549
+      },
+      "generated_candidate": {
+        "path": "build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+        "package_path": "build/wp-core/wphx-323-25/candidate/wp-includes/ai-client.php",
+        "sha256": "sha256:8975cdf33920573967b4883e5c8cdd7157945383d01dcc775e26300d4605858f",
+        "bytes": 377,
+        "expected_patterns": [
+          "function wp_supports_ai(): bool",
+          "defined('WP_AI_SUPPORT')",
+          "boolval(constant('WP_AI_SUPPORT')) == false",
+          "boolval(apply_filters('wp_supports_ai', true))",
+          "function wp_ai_client_prompt($prompt = null): WP_AI_Client_Prompt_Builder",
+          "new WP_AI_Client_Prompt_Builder(\\WordPress\\AiClient\\AiClient::defaultRegistry(), $prompt)"
+        ],
+        "copied_candidate_body_used": false
+      },
+      "compiler_provenance": {
+        "generator": "wphx.compiler.php.WphxPhpCompiler",
+        "runner": "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+        "hxml": "fixtures/wphx-php/ai-client-wrapper.hxml",
+        "compiler_source": [
+          {
+            "path": "src/wphx/compiler/php/WphxPhpCompiler.hx",
+            "bytes": 77850,
+            "sha256": "sha256:f3d3b91024a9b3fc5450ef0790d0f111114397caf10d26823576dabb209da182"
+          },
+          {
+            "path": "src/wphx/compiler/php/CompilerInit.hx",
+            "bytes": 848,
+            "sha256": "sha256:d77de30e9904a756588607df2d8f9bec72eb9190e45fd88d5fcad6eb5bb46551"
+          },
+          {
+            "path": "src/wphx/wp/ai/AiClientWrapperEntry.hx",
+            "bytes": 329,
+            "sha256": "sha256:bc92d070a65572078756ad1aa65964dce26af1fa04ff7203f14b6ac5f5cf5ab1"
+          },
+          {
+            "path": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+            "bytes": 1990,
+            "sha256": "sha256:8562de30caf83b00bebb0d1dc0f3fc19ff22f9e1be0623e7c6c1455d52af0024"
+          },
+          {
+            "path": "src/wphx/wp/boundary/NativeValue.hx",
+            "bytes": 602,
+            "sha256": "sha256:2f51c83f4eb2eee2851f63257bbf5ad325fe61ad4ea60e4433d383bf03003383"
+          },
+          {
+            "path": "fixtures/wphx-php/ai-client-wrapper.hxml",
+            "bytes": 307,
+            "sha256": "sha256:57ac5ff6b959ed488e6acdd3b006f180896ed8a4a3830db3d462d227aa7a032a"
+          }
+        ],
+        "adapter_source": {
+          "path": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+          "bytes": 1990,
+          "sha256": "sha256:8562de30caf83b00bebb0d1dc0f3fc19ff22f9e1be0623e7c6c1455d52af0024"
+        },
+        "adapter_entry": {
+          "path": "src/wphx/wp/ai/AiClientWrapperEntry.hx",
+          "bytes": 329,
+          "sha256": "sha256:bc92d070a65572078756ad1aa65964dce26af1fa04ff7203f14b6ac5f5cf5ab1"
+        }
+      },
+      "adapter_manifest": {
+        "path": "build/wp-core/wphx-323-25/generated/wphx-php-emission.v1.json",
+        "sha256": "sha256:b8275ed3dba944438af780e44113c94c7a9dddf156d0b4638c9776a09bf1c070",
+        "unsupported": [],
+        "unsupported_empty": true,
+        "declarations": [
+          {
+            "name": "wp_supports_ai",
+            "haxeModule": "wphx.wp.ai.AiClientWrapperSurface",
+            "source": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+            "kind": "global-function",
+            "guarded": false
+          },
+          {
+            "name": "wp_ai_client_prompt",
+            "haxeModule": "wphx.wp.ai.AiClientWrapperSurface",
+            "source": "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+            "kind": "global-function",
+            "guarded": false
+          }
+        ]
+      },
+      "unexpected_candidate_package_differences": []
+    }
+  ],
+  "support_package": {
+    "oracle_root": "build/wp-core/wphx-323-25/oracle",
+    "candidate_root": "build/wp-core/wphx-323-25/candidate",
+    "preserved_php_ai_client_root": "wp-includes/php-ai-client",
+    "preserved_php_ai_client_support_file_count": 146,
+    "copied_wordpress_ai_support_files": [
+      "wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+      "wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+      "wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+      "wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+      "wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+      "wp-includes/ai-client/class-wp-ai-client-prompt-builder.php"
+    ],
+    "expected_candidate_package_differences": [
+      {
+        "path": "wp-includes/ai-client.php",
+        "kind": "hash_mismatch",
+        "oracle_sha256": "sha256:20dea40ca6d32079b28e17c671abf7943e472ff5410b7f04beb23030348d350f",
+        "candidate_sha256": "sha256:8975cdf33920573967b4883e5c8cdd7157945383d01dcc775e26300d4605858f"
+      }
+    ],
+    "unexpected_candidate_package_differences": []
+  },
+  "php_lint": {
+    "generated_shell": {
+      "path": "build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+      "output": "No syntax errors detected in build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+      "ok": true
+    },
+    "candidate_package": [
+      {
+        "path": "wp-includes/ai-client.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client.php"
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-cache.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/adapters/class-wp-ai-client-cache.php"
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/adapters/class-wp-ai-client-discovery-strategy.php"
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/adapters/class-wp-ai-client-event-dispatcher.php"
+      },
+      {
+        "path": "wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/adapters/class-wp-ai-client-http-client.php"
+      },
+      {
+        "path": "wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/class-wp-ai-client-ability-function-resolver.php"
+      },
+      {
+        "path": "wp-includes/ai-client/class-wp-ai-client-prompt-builder.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/ai-client/class-wp-ai-client-prompt-builder.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/autoload.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/autoload.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/AiClient.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/AiClient.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Builders/MessageBuilder.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Builders/MessageBuilder.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Builders/PromptBuilder.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Builders/PromptBuilder.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/AbstractDataTransferObject.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/AbstractDataTransferObject.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/AbstractEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/AbstractEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Contracts/AiClientExceptionInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Contracts/AiClientExceptionInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Contracts/CachesDataInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Contracts/CachesDataInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Contracts/WithArrayTransformationInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Contracts/WithArrayTransformationInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Contracts/WithJsonSchemaInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Contracts/WithJsonSchemaInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Exception/InvalidArgumentException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Exception/InvalidArgumentException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Exception/RuntimeException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Exception/RuntimeException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Exception/TokenLimitReachedException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Exception/TokenLimitReachedException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Common/Traits/WithDataCachingTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Common/Traits/WithDataCachingTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Events/AfterGenerateResultEvent.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Events/AfterGenerateResultEvent.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Events/BeforeGenerateResultEvent.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Events/BeforeGenerateResultEvent.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Files/DTO/File.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Files/DTO/File.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Files/Enums/FileTypeEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Files/Enums/FileTypeEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Files/Enums/MediaOrientationEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Files/Enums/MediaOrientationEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Files/ValueObjects/MimeType.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Files/ValueObjects/MimeType.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/DTO/Message.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/DTO/Message.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/DTO/MessagePart.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/DTO/MessagePart.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/DTO/ModelMessage.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/DTO/ModelMessage.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/DTO/UserMessage.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/DTO/UserMessage.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/Enums/MessagePartChannelEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/Enums/MessagePartChannelEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/Enums/MessagePartTypeEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/Enums/MessagePartTypeEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/Enums/MessageRoleEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/Enums/MessageRoleEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Messages/Enums/ModalityEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Messages/Enums/ModalityEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Operations/Contracts/OperationInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Operations/Contracts/OperationInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Operations/DTO/GenerativeAiOperation.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Operations/DTO/GenerativeAiOperation.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Operations/Enums/OperationStateEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Operations/Enums/OperationStateEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/AbstractProvider.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/AbstractProvider.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiBasedModel.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiBasedModel.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiBasedModelMetadataDirectory.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiBasedModelMetadataDirectory.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiProvider.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/AbstractApiProvider.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/Contracts/ApiBasedModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/Contracts/ApiBasedModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/GenerateTextApiBasedProviderAvailability.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/GenerateTextApiBasedProviderAvailability.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/ListModelsApiBasedProviderAvailability.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ApiBasedImplementation/ListModelsApiBasedProviderAvailability.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Contracts/ModelMetadataDirectoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Contracts/ModelMetadataDirectoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Contracts/ProviderAvailabilityInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Contracts/ProviderAvailabilityInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Contracts/ProviderInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Contracts/ProviderInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Contracts/ProviderOperationsHandlerInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Contracts/ProviderOperationsHandlerInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Contracts/ProviderWithOperationsHandlerInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Contracts/ProviderWithOperationsHandlerInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/DTO/ProviderMetadata.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/DTO/ProviderMetadata.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/DTO/ProviderModelsMetadata.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/DTO/ProviderModelsMetadata.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Enums/ProviderTypeEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Enums/ProviderTypeEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Enums/ToolTypeEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Enums/ToolTypeEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Abstracts/AbstractClientDiscoveryStrategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Abstracts/AbstractClientDiscoveryStrategy.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Collections/HeadersCollection.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Collections/HeadersCollection.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Contracts/ClientWithOptionsInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Contracts/ClientWithOptionsInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Contracts/HttpTransporterInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Contracts/HttpTransporterInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Contracts/RequestAuthenticationInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Contracts/RequestAuthenticationInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Contracts/WithHttpTransporterInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Contracts/WithHttpTransporterInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Contracts/WithRequestAuthenticationInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Contracts/WithRequestAuthenticationInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/DTO/ApiKeyRequestAuthentication.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/DTO/ApiKeyRequestAuthentication.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/DTO/Request.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/DTO/Request.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/DTO/RequestOptions.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/DTO/RequestOptions.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/DTO/Response.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/DTO/Response.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Enums/HttpMethodEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Enums/HttpMethodEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Enums/RequestAuthenticationMethod.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Enums/RequestAuthenticationMethod.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Exception/ClientException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Exception/ClientException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Exception/NetworkException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Exception/NetworkException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Exception/RedirectException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Exception/RedirectException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Exception/ResponseException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Exception/ResponseException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Exception/ServerException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Exception/ServerException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/HttpTransporter.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/HttpTransporter.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/HttpTransporterFactory.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/HttpTransporterFactory.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Traits/WithHttpTransporterTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Traits/WithHttpTransporterTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Traits/WithRequestAuthenticationTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Traits/WithRequestAuthenticationTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Util/ErrorMessageExtractor.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Util/ErrorMessageExtractor.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Http/Util/ResponseUtil.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Http/Util/ResponseUtil.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/Contracts/ModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/Contracts/ModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/DTO/ModelConfig.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/DTO/ModelConfig.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/DTO/ModelMetadata.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/DTO/ModelMetadata.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/DTO/ModelRequirements.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/DTO/ModelRequirements.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/DTO/RequiredOption.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/DTO/RequiredOption.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/DTO/SupportedOption.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/DTO/SupportedOption.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/Enums/CapabilityEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/Enums/CapabilityEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/Enums/OptionEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/Enums/OptionEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/ImageGeneration/Contracts/ImageGenerationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/ImageGeneration/Contracts/ImageGenerationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/ImageGeneration/Contracts/ImageGenerationOperationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/ImageGeneration/Contracts/ImageGenerationOperationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/SpeechGeneration/Contracts/SpeechGenerationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/SpeechGeneration/Contracts/SpeechGenerationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/SpeechGeneration/Contracts/SpeechGenerationOperationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/SpeechGeneration/Contracts/SpeechGenerationOperationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/TextGeneration/Contracts/TextGenerationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/TextGeneration/Contracts/TextGenerationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/TextGeneration/Contracts/TextGenerationOperationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/TextGeneration/Contracts/TextGenerationOperationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/TextToSpeechConversion/Contracts/TextToSpeechConversionModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/TextToSpeechConversion/Contracts/TextToSpeechConversionModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/TextToSpeechConversion/Contracts/TextToSpeechConversionOperationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/TextToSpeechConversion/Contracts/TextToSpeechConversionOperationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/VideoGeneration/Contracts/VideoGenerationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/VideoGeneration/Contracts/VideoGenerationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/Models/VideoGeneration/Contracts/VideoGenerationOperationModelInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/Models/VideoGeneration/Contracts/VideoGenerationOperationModelInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleImageGenerationModel.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleImageGenerationModel.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleModelMetadataDirectory.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleModelMetadataDirectory.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleTextGenerationModel.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/OpenAiCompatibleImplementation/AbstractOpenAiCompatibleTextGenerationModel.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Providers/ProviderRegistry.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Providers/ProviderRegistry.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Results/Contracts/ResultInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Results/Contracts/ResultInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Results/DTO/Candidate.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Results/DTO/Candidate.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Results/DTO/GenerativeAiResult.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Results/DTO/GenerativeAiResult.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Results/DTO/TokenUsage.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Results/DTO/TokenUsage.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Results/Enums/FinishReasonEnum.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Results/Enums/FinishReasonEnum.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Tools/DTO/FunctionCall.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Tools/DTO/FunctionCall.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Tools/DTO/FunctionDeclaration.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Tools/DTO/FunctionDeclaration.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Tools/DTO/FunctionResponse.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Tools/DTO/FunctionResponse.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/src/Tools/DTO/WebSearch.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/src/Tools/DTO/WebSearch.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/ClassDiscovery.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/ClassDiscovery.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/ClassInstantiationFailedException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/ClassInstantiationFailedException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/DiscoveryFailedException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/DiscoveryFailedException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/NoCandidateFoundException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/NoCandidateFoundException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/NotFoundException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/NotFoundException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/PuliUnavailableException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/PuliUnavailableException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Exception/StrategyUnavailableException.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Exception/StrategyUnavailableException.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Psr17FactoryDiscovery.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Psr17FactoryDiscovery.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Psr18ClientDiscovery.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Psr18ClientDiscovery.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/CommonClassesStrategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/CommonClassesStrategy.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/CommonPsr17ClassesStrategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/CommonPsr17ClassesStrategy.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/DiscoveryStrategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/DiscoveryStrategy.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/PuliBetaStrategy.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Http/Discovery/Strategy/PuliBetaStrategy.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Factory/HttplugFactory.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Factory/HttplugFactory.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Factory/Psr17Factory.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Factory/Psr17Factory.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/MessageTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/MessageTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Request.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Request.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/RequestTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/RequestTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Response.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Response.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/ServerRequest.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/ServerRequest.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Stream.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Stream.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/StreamTrait.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/StreamTrait.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/UploadedFile.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/UploadedFile.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Nyholm/Psr7/Uri.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Nyholm/Psr7/Uri.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/EventDispatcher/EventDispatcherInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/EventDispatcher/EventDispatcherInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Client/ClientExceptionInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Client/ClientExceptionInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Client/ClientInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Client/ClientInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Client/NetworkExceptionInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Client/NetworkExceptionInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Client/RequestExceptionInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Client/RequestExceptionInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/MessageInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/MessageInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/RequestFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/RequestFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/RequestInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/RequestInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/ResponseFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/ResponseFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/ResponseInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/ResponseInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/ServerRequestFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/ServerRequestFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/ServerRequestInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/ServerRequestInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/StreamFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/StreamFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/StreamInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/StreamInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/UploadedFileFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/UploadedFileFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/UploadedFileInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/UploadedFileInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/UriFactoryInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/UriFactoryInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/Http/Message/UriInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/Http/Message/UriInterface.php"
+      },
+      {
+        "path": "wp-includes/php-ai-client/third-party/Psr/SimpleCache/CacheInterface.php",
+        "ok": true,
+        "output": "No syntax errors detected in build/wp-core/wphx-323-25/candidate/wp-includes/php-ai-client/third-party/Psr/SimpleCache/CacheInterface.php"
+      }
+    ]
+  },
+  "abi_reflection_snapshots": {
+    "oracle": {
+      "wp_supports_ai": {
+        "name": "wp_supports_ai",
+        "numberOfParameters": 0,
+        "numberOfRequiredParameters": 0,
+        "returnsReference": false,
+        "hasReturnType": true,
+        "returnType": {
+          "name": "bool",
+          "allowsNull": false,
+          "isBuiltin": true
+        },
+        "parameters": []
+      },
+      "wp_ai_client_prompt": {
+        "name": "wp_ai_client_prompt",
+        "numberOfParameters": 1,
+        "numberOfRequiredParameters": 0,
+        "returnsReference": false,
+        "hasReturnType": true,
+        "returnType": {
+          "name": "WP_AI_Client_Prompt_Builder",
+          "allowsNull": false,
+          "isBuiltin": false
+        },
+        "parameters": [
+          {
+            "name": "prompt",
+            "position": 0,
+            "isOptional": true,
+            "hasDefault": true,
+            "default": null,
+            "hasType": false,
+            "type": null,
+            "isPassedByReference": false,
+            "isVariadic": false
+          }
+        ]
+      }
+    },
+    "candidate": {
+      "wp_supports_ai": {
+        "name": "wp_supports_ai",
+        "numberOfParameters": 0,
+        "numberOfRequiredParameters": 0,
+        "returnsReference": false,
+        "hasReturnType": true,
+        "returnType": {
+          "name": "bool",
+          "allowsNull": false,
+          "isBuiltin": true
+        },
+        "parameters": []
+      },
+      "wp_ai_client_prompt": {
+        "name": "wp_ai_client_prompt",
+        "numberOfParameters": 1,
+        "numberOfRequiredParameters": 0,
+        "returnsReference": false,
+        "hasReturnType": true,
+        "returnType": {
+          "name": "WP_AI_Client_Prompt_Builder",
+          "allowsNull": false,
+          "isBuiltin": false
+        },
+        "parameters": [
+          {
+            "name": "prompt",
+            "position": 0,
+            "isOptional": true,
+            "hasDefault": true,
+            "default": null,
+            "hasType": false,
+            "type": null,
+            "isPassedByReference": false,
+            "isVariadic": false
+          }
+        ]
+      }
+    },
+    "match": true
+  },
+  "include_load_fixture": {
+    "oracle": {
+      "before": {
+        "wp_supports_ai": false,
+        "wp_ai_client_prompt": false
+      },
+      "afterFirstRequire": {
+        "wp_supports_ai": true,
+        "wp_ai_client_prompt": true
+      },
+      "firstRequire": 1,
+      "secondRequire": true,
+      "reflection": {
+        "wp_supports_ai": {
+          "name": "wp_supports_ai",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": true,
+          "returnType": {
+            "name": "bool",
+            "allowsNull": false,
+            "isBuiltin": true
+          },
+          "parameters": []
+        },
+        "wp_ai_client_prompt": {
+          "name": "wp_ai_client_prompt",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": true,
+          "returnType": {
+            "name": "WP_AI_Client_Prompt_Builder",
+            "allowsNull": false,
+            "isBuiltin": false
+          },
+          "parameters": [
+            {
+              "name": "prompt",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "type": null,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "candidate": {
+      "before": {
+        "wp_supports_ai": false,
+        "wp_ai_client_prompt": false
+      },
+      "afterFirstRequire": {
+        "wp_supports_ai": true,
+        "wp_ai_client_prompt": true
+      },
+      "firstRequire": 1,
+      "secondRequire": true,
+      "reflection": {
+        "wp_supports_ai": {
+          "name": "wp_supports_ai",
+          "numberOfParameters": 0,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": true,
+          "returnType": {
+            "name": "bool",
+            "allowsNull": false,
+            "isBuiltin": true
+          },
+          "parameters": []
+        },
+        "wp_ai_client_prompt": {
+          "name": "wp_ai_client_prompt",
+          "numberOfParameters": 1,
+          "numberOfRequiredParameters": 0,
+          "returnsReference": false,
+          "hasReturnType": true,
+          "returnType": {
+            "name": "WP_AI_Client_Prompt_Builder",
+            "allowsNull": false,
+            "isBuiltin": false
+          },
+          "parameters": [
+            {
+              "name": "prompt",
+              "position": 0,
+              "isOptional": true,
+              "hasDefault": true,
+              "default": null,
+              "hasType": false,
+              "type": null,
+              "isPassedByReference": false,
+              "isVariadic": false
+            }
+          ]
+        }
+      }
+    },
+    "match": true
+  },
+  "behavior_receipt": {
+    "modes": [
+      "support_filter",
+      "support_disabled_constant",
+      "prompt_prevent_filter",
+      "prompt_disabled_constant"
+    ],
+    "oracle": {
+      "include_load": {
+        "mode": "include_load",
+        "case": {
+          "before": {
+            "wp_supports_ai": false,
+            "wp_ai_client_prompt": false
+          },
+          "afterFirstRequire": {
+            "wp_supports_ai": true,
+            "wp_ai_client_prompt": true
+          },
+          "firstRequire": 1,
+          "secondRequire": true,
+          "reflection": {
+            "wp_supports_ai": {
+              "name": "wp_supports_ai",
+              "numberOfParameters": 0,
+              "numberOfRequiredParameters": 0,
+              "returnsReference": false,
+              "hasReturnType": true,
+              "returnType": {
+                "name": "bool",
+                "allowsNull": false,
+                "isBuiltin": true
+              },
+              "parameters": []
+            },
+            "wp_ai_client_prompt": {
+              "name": "wp_ai_client_prompt",
+              "numberOfParameters": 1,
+              "numberOfRequiredParameters": 0,
+              "returnsReference": false,
+              "hasReturnType": true,
+              "returnType": {
+                "name": "WP_AI_Client_Prompt_Builder",
+                "allowsNull": false,
+                "isBuiltin": false
+              },
+              "parameters": [
+                {
+                  "name": "prompt",
+                  "position": 0,
+                  "isOptional": true,
+                  "hasDefault": true,
+                  "default": null,
+                  "hasType": false,
+                  "type": null,
+                  "isPassedByReference": false,
+                  "isVariadic": false
+                }
+              ]
+            }
+          }
+        },
+        "php_errors": []
+      },
+      "support_filter": {
+        "mode": "support_filter",
+        "case": {
+          "default": true,
+          "filtered_false": false,
+          "filtered_true": true,
+          "filter_log": [
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "support_disabled_constant": {
+        "mode": "support_disabled_constant",
+        "case": {
+          "wp_ai_support_defined": true,
+          "wp_ai_support_value": false,
+          "result": false,
+          "filter_log_count": 0
+        },
+        "php_errors": []
+      },
+      "prompt_prevent_filter": {
+        "mode": "prompt_prevent_filter",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "builder_id": 5,
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "Prompt execution was prevented by a filter.",
+            "data": {
+              "status": 503
+            }
+          },
+          "chain_returns_same_instance": true,
+          "timeout_filter_values": [
+            30
+          ],
+          "prevent_payloads": [
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            },
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            }
+          ],
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            }
+          ],
+          "doing_it_wrong": []
+        },
+        "php_errors": []
+      },
+      "prompt_disabled_constant": {
+        "mode": "prompt_disabled_constant",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "AI features are not supported in this environment.",
+            "data": {
+              "status": 503
+            }
+          },
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      }
+    },
+    "candidate": {
+      "include_load": {
+        "mode": "include_load",
+        "case": {
+          "before": {
+            "wp_supports_ai": false,
+            "wp_ai_client_prompt": false
+          },
+          "afterFirstRequire": {
+            "wp_supports_ai": true,
+            "wp_ai_client_prompt": true
+          },
+          "firstRequire": 1,
+          "secondRequire": true,
+          "reflection": {
+            "wp_supports_ai": {
+              "name": "wp_supports_ai",
+              "numberOfParameters": 0,
+              "numberOfRequiredParameters": 0,
+              "returnsReference": false,
+              "hasReturnType": true,
+              "returnType": {
+                "name": "bool",
+                "allowsNull": false,
+                "isBuiltin": true
+              },
+              "parameters": []
+            },
+            "wp_ai_client_prompt": {
+              "name": "wp_ai_client_prompt",
+              "numberOfParameters": 1,
+              "numberOfRequiredParameters": 0,
+              "returnsReference": false,
+              "hasReturnType": true,
+              "returnType": {
+                "name": "WP_AI_Client_Prompt_Builder",
+                "allowsNull": false,
+                "isBuiltin": false
+              },
+              "parameters": [
+                {
+                  "name": "prompt",
+                  "position": 0,
+                  "isOptional": true,
+                  "hasDefault": true,
+                  "default": null,
+                  "hasType": false,
+                  "type": null,
+                  "isPassedByReference": false,
+                  "isVariadic": false
+                }
+              ]
+            }
+          }
+        },
+        "php_errors": []
+      },
+      "support_filter": {
+        "mode": "support_filter",
+        "case": {
+          "default": true,
+          "filtered_false": false,
+          "filtered_true": true,
+          "filter_log": [
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      },
+      "support_disabled_constant": {
+        "mode": "support_disabled_constant",
+        "case": {
+          "wp_ai_support_defined": true,
+          "wp_ai_support_value": false,
+          "result": false,
+          "filter_log_count": 0
+        },
+        "php_errors": []
+      },
+      "prompt_prevent_filter": {
+        "mode": "prompt_prevent_filter",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "builder_id": 5,
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "Prompt execution was prevented by a filter.",
+            "data": {
+              "status": 503
+            }
+          },
+          "chain_returns_same_instance": true,
+          "timeout_filter_values": [
+            30
+          ],
+          "prevent_payloads": [
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            },
+            {
+              "prevent_in": false,
+              "builder_class": "WP_AI_Client_Prompt_Builder",
+              "builder_id": 15
+            }
+          ],
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            },
+            {
+              "tag": "wp_supports_ai",
+              "value": true,
+              "args": []
+            },
+            {
+              "tag": "wp_ai_client_prevent_prompt",
+              "value": false,
+              "args": [
+                {
+                  "kind": "object",
+                  "class": "WP_AI_Client_Prompt_Builder",
+                  "id": 15
+                }
+              ]
+            }
+          ],
+          "doing_it_wrong": []
+        },
+        "php_errors": []
+      },
+      "prompt_disabled_constant": {
+        "mode": "prompt_disabled_constant",
+        "case": {
+          "builder_class": "WP_AI_Client_Prompt_Builder",
+          "supported": false,
+          "generated": {
+            "is_wp_error": true,
+            "code": "prompt_prevented",
+            "message": "AI features are not supported in this environment.",
+            "data": {
+              "status": 503
+            }
+          },
+          "filter_log": [
+            {
+              "tag": "wp_ai_client_default_request_timeout",
+              "value": 30,
+              "args": []
+            }
+          ]
+        },
+        "php_errors": []
+      }
+    },
+    "observation_matches": {
+      "include_load": true,
+      "support_filter": true,
+      "support_disabled_constant": true,
+      "prompt_prevent_filter": true,
+      "prompt_disabled_constant": true
+    }
+  },
+  "validation_result": {
+    "status": "passed",
+    "generated_overlay_manifest_present": true,
+    "generated_overlay_count": 1,
+    "generated_shell_php_lint": "No syntax errors detected in build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+    "generated_shell_php_lint_ok": true,
+    "candidate_package_php_lint_file_count": 153,
+    "candidate_package_php_lint_ok": true,
+    "unsupported_empty": true,
+    "abi_reflection_match": true,
+    "include_load_fixture_match": true,
+    "oracle_candidate_observations_match": true,
+    "probe_case_count": 5,
+    "expected_candidate_package_difference_count": 1,
+    "unexpected_candidate_package_differences_empty": true,
+    "copied_candidate_body_used": false,
+    "preserved_php_ai_client_support_file_count": 146,
+    "copied_support_wrapper_file_count": 6,
+    "public_php_replacement_claimed": true,
+    "whole_file_owned": false,
+    "installed_wordpress_parity_claimed": false,
+    "live_provider_behavior_claimed": false,
+    "dependency_substitution_claimed": false
+  },
+  "claims": [
+    "WPHX PHP emits wp-includes/ai-client.php at the original WordPress distribution path for wp_supports_ai and wp_ai_client_prompt.",
+    "The generated candidate has unsupported=[] and passes PHP lint.",
+    "Reflection snapshots match the upstream wrapper ABI for the two generated global functions, including return types.",
+    "Oracle and generated candidate observations match for include/load, wp_supports_ai filters/disabled constant behavior, and wp_ai_client_prompt prompt-builder behavior over preserved php-ai-client internals.",
+    "The candidate package differs from the oracle package only at the expected generated overlay path wp-includes/ai-client.php."
+  ],
+  "non_claims": [
+    "This gate does not claim Haxe-owned php-ai-client internals; wp-includes/php-ai-client/ remains preserved bundled-library support for this adapter.",
+    "This gate does not claim generated replacement for wp-includes/ai-client/* support classes.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not claim whole-file WordPress AI ownership beyond the two generated global functions in wp-includes/ai-client.php.",
+    "This gate does not use a copied candidate body for wp-includes/ai-client.php."
+  ]
+}

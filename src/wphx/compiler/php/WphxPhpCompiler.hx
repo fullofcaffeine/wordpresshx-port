@@ -1090,7 +1090,7 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 	{
 		final fn = functionOf(pending.expr, "global function " + pending.phpName);
 		final body = hasMetadata(pending.field.meta.get(), "wp.echo") ? emitEchoBody(fn.expr) : emitBody(fn.expr);
-		final header = "function " + pending.phpName + "(" + emitArgs(fn.args) + ")";
+		final header = "function " + pending.phpName + "(" + emitArgs(fn.args) + ")" + emitReturnType(pending.field);
 		final decl = header + "\n{\n" + indent(body) + "\n}";
 		if (!pending.guarded)
 		{
@@ -1669,6 +1669,23 @@ class WphxPhpCompiler extends GenericCompiler<String, String, String, String, St
 	function emitArgs(args:Array<TypedFunctionArg>):String
 	{
 		return args.map(emitArg).join(", ");
+	}
+
+	function emitReturnType(field:ClassField):String
+	{
+		final requested = metadataString(field.meta.get(), "wp.returnType");
+		if (requested == null)
+		{
+			return "";
+		}
+		final trimmed = StringTools.trim(requested);
+		if (trimmed == "")
+		{
+			reportUnsupported("empty @:wp.returnType for " + field.name);
+			return "";
+		}
+		recordCoreIrFeatures(["typed.function.return-type"]);
+		return ": " + trimmed;
 	}
 
 	function emitArg(arg:TypedFunctionArg):String

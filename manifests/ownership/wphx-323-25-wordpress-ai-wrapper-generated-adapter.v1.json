@@ -1,0 +1,72 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter",
+  "issue": {
+    "id": "wordpresshx-l76.33.3",
+    "external_ref": "WPHX-323.25",
+    "title": "Emit first generated AI wrapper adapter"
+  },
+  "generated_at": "2026-07-08T22:45:00.000Z",
+  "generator": "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+  "unit": {
+    "kind": "generated_original_path_public_adapter",
+    "name": "WordPress AI client wrapper generated adapter",
+    "area": "wp-includes/ai-client.php",
+    "public_contract": "WPHX PHP emits the original-path public functions wp_supports_ai and wp_ai_client_prompt while preserved upstream php-ai-client internals and WordPress AI support classes remain copied support for this gate."
+  },
+  "ownership_state": "compiler_emitted_original_path_shell",
+  "bridge": {
+    "exists": true,
+    "kind": "wphx-php-generated-overlay-over-preserved-php-ai-client-support",
+    "removal_gate": "Promote to durable_public_adapter only after the remaining wp-includes/ai-client/* wrappers have generated overlays or explicit preservation decisions, selected upstream PHPUnit and installed WordPress AI gates pass, and live provider/privacy/security gates are resolved."
+  },
+  "whole_file_owned": false,
+  "behavior_parity_claimed": true,
+  "public_php_replacement_claimed": true,
+  "durable_original_path_adapter_claimed": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "generated_overlay_manifest_present": true,
+  "generated_overlay_paths": [
+    "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json"
+  ],
+  "generated_overlay_count": 1,
+  "preserved_php_ai_client_internals": true,
+  "owned_paths": [
+    "tools/wp-core/run-wordpress-ai-wrapper-generated-adapter.mjs",
+    "fixtures/wphx-php/ai-client-wrapper.hxml",
+    "src/wphx/wp/ai/AiClientWrapperEntry.hx",
+    "src/wphx/wp/ai/AiClientWrapperSurface.hx",
+    "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "manifests/ownership/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "receipts/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "manifests/ownership/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "receipts/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+    "build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+    "build/wp-core/wphx-323-25/generated/wphx-php-emission.v1.json",
+    "build/wp-core/wphx-323-25"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-wordpress-ai-wrapper-generated-adapter",
+      "npm run wp:core:wphx-323-wordpress-ai-wrapper-generated-adapter:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-25-wordpress-ai-wrapper-generated-adapter"
+    ],
+    "manifest_digest": "sha256:e4f472a7d369565247c77108e0262d08d1ef6c4e9915b57535ad86998ca0850e"
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned php-ai-client internals; wp-includes/php-ai-client/ remains preserved bundled-library support for this adapter.",
+    "This gate does not claim generated replacement for wp-includes/ai-client/* support classes.",
+    "This gate does not claim live provider behavior, external provider discovery parity, model generation parity, installed WordPress AI behavior, credential handling safety, prompt/file privacy, or plugin ecosystem compatibility.",
+    "This gate does not claim third-party dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This gate does not claim whole-file WordPress AI ownership beyond the two generated global functions in wp-includes/ai-client.php.",
+    "This gate does not use a copied candidate body for wp-includes/ai-client.php."
+  ]
+}
