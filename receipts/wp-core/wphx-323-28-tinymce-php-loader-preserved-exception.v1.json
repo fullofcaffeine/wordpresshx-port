@@ -1,0 +1,68 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-28-tinymce-php-loader-preserved-exception",
+  "issue": {
+    "id": "wordpresshx-l76.33.6",
+    "external_ref": "WPHX-323.28",
+    "title": "Add TinyMCE PHP loader preserved-exception fixture"
+  },
+  "recorded_at": "2026-07-08T21:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "tinymce_php_loader_direct_http_preserved_exception_fixture_gate",
+  "artifact_scope": "wordpress-7.0-tinymce-wp-tinymce-php-loader-preserved-exception",
+  "commands": [
+    "npm run wp:core:wphx-323-tinymce-php-loader-preserved-exception",
+    "npm run wp:core:wphx-323-tinymce-php-loader-preserved-exception:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-28-tinymce-php-loader-preserved-exception.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-28-tinymce-php-loader-preserved-exception.v1.json",
+    "ai_tinymce_gate_manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json"
+  },
+  "manifest_sha256": "sha256:3a111e143fe4571f6689fa027097d51e82aea4b15c259a8278ad8fa82098ad0d",
+  "validation_result": {
+    "status": "passed",
+    "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "tinymce_loader_source_path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+    "tinymce_loader_distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+    "tinymce_loader_source_sha256": "sha256:f6d4537829d35aeddad02d7ce1e33b037f43b7d6363243430cb911a85c9ea0bf",
+    "source_distribution_fixture_hashes_match": true,
+    "source_inventory_record_present": true,
+    "artifact_provenance_record_present": true,
+    "request_fixture_count": 12,
+    "source_path_request_count": 6,
+    "distribution_path_request_count": 6,
+    "exit_behavior_request_count": 2,
+    "missing_asset_request_count": 4,
+    "warning_leakage_count": 0,
+    "header_failure_count": 0,
+    "cwd_decoy_leak_count": 0,
+    "fixture_failures_empty": true,
+    "oracle_candidate_package_diffs_empty": true,
+    "oracle_candidate_observations_match": true,
+    "oracle_php_lint_count": 12,
+    "candidate_php_lint_count": 12,
+    "php_lint_failures_empty": true,
+    "tiny_fake_asset_tree_only": true,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_tinymce_loader_runtime_claimed": false,
+    "tinymce_browser_runtime_claimed": false,
+    "tinymce_js_css_font_editor_ownership_claimed": false,
+    "installed_wordpress_parity_claimed": false,
+    "copied_artifact_retirement_claimed": false
+  },
+  "claims": [
+    "TinyMCE wp-tinymce.php remains a preserved browser-vendor PHP-loader exception with direct HTTP fixture coverage.",
+    "The fixture covers c=1 bundle output, fallback concatenation, c=1 fallback when wp-tinymce.js is missing, missing fallback assets without warning leakage, Content-Type/Vary/Expires/Cache-Control headers, __DIR__ path behavior, exit behavior, and source/distribution path mirrors.",
+    "The fixture records upstream source/distribution provenance and a tiny fake asset tree as a prerequisite floor for any later generated loader adapter."
+  ],
+  "non_claims": [
+    "This gate renews the TinyMCE wp-tinymce.php preserved browser-vendor PHP-loader exception; it does not claim generated replacement.",
+    "This gate does not claim Haxe-owned TinyMCE PHP loader runtime logic.",
+    "This gate does not claim TinyMCE JavaScript, CSS, font, browser-editor, plugin, skin, theme, Gutenberg, or browser package ownership.",
+    "This gate uses a tiny fake asset tree and does not execute real TinyMCE browser behavior.",
+    "This gate does not retire copied or preserved upstream TinyMCE artifacts.",
+    "This gate does not claim installed WordPress browser/editor parity or plugin ecosystem compatibility.",
+    "A generated loader replacement remains blocked on browser-vendor coordination, asset path/hash contracts, and a generated direct-script adapter receipt."
+  ]
+}
