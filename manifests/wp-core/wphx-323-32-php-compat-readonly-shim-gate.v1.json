@@ -1,0 +1,867 @@
+{
+  "schema": "wphx.wp-core.php-compat-readonly-shim-gate.v1",
+  "issue": {
+    "id": "wordpresshx-l76.32.2",
+    "external_ref": "WPHX-323.32",
+    "title": "Add php-compat readonly shim gate"
+  },
+  "generated_at": "2026-07-09T04:30:00.000Z",
+  "generator": "tools/wp-core/run-php-compat-readonly-shim-gate.mjs",
+  "evidence_class": "preserved_php_compat_readonly_shim_gate",
+  "boundary_id": "php_compat",
+  "source_path": "src/wp-includes/php-compat/readonly.php",
+  "distribution_path": "wp-includes/php-compat/readonly.php",
+  "inputs": {
+    "vendor_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "localization_legacy_vendor_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json",
+      "bytes": 91745,
+      "sha256": "sha256:3ff3cfd6763a7850b51cccd9e370fe919d85d33770c0b66fbab2e3f89ed6a7f9"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    }
+  },
+  "replacement_strategy": {
+    "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+    "planned_strategy": "host_primitive_backed_reimplementation_with_preserved_fallback",
+    "parent_gate_id": "php-compat-readonly-shim",
+    "fallback_policy": "Preserve upstream readonly.php whenever host version behavior, deprecated signaling, include timing, or wp_readonly handoff evidence is incomplete.",
+    "removal_gate": "Do not retire copied php-compat/readonly.php until WPHX-323.32 records passing shim evidence and WPHX-323.36 accepts the replacement decision.",
+    "generated_public_wrapper_requirements": "Any generated replacement must stay narrowed to wp-includes/php-compat/readonly.php, preserve conditional declaration timing, and must not pull compat.php or compat-utf8.php into the WPHX-323 php_compat boundary."
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/php-compat/readonly.php",
+      "distribution_path": "wp-includes/php-compat/readonly.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/php-compat/readonly.php",
+      "bytes": 1253,
+      "sha256": "sha256:b528bf0a74ea9cb280347ca11224759cfe277cbc7de93f34817490fe661df94f"
+    }
+  ],
+  "source_inventory_records": [
+    {
+      "path": "src/wp-includes/php-compat/readonly.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    }
+  ],
+  "artifact_provenance_records": [
+    {
+      "path": "wp-includes/php-compat/readonly.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "package_markers": {
+    "source_tree_file_count": 1,
+    "php_source_count": 1,
+    "distribution_artifact_count": 1,
+    "license_provenance": {
+      "package_notice_files": [],
+      "notice_files_recorded_in_license_manifest": [],
+      "header_notice_markers": {
+        "copyright": false,
+        "license": false,
+        "public_domain": false
+      },
+      "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+    },
+    "source_markers": {
+      "readonly_path": "src/wp-includes/php-compat/readonly.php",
+      "distribution_path": "wp-includes/php-compat/readonly.php",
+      "package_wordpress_marker": true,
+      "since_590_marker": true,
+      "deprecated_function_marker": true,
+      "wp_readonly_handoff_marker": true,
+      "php81_reserved_keyword_comment_marker": true,
+      "general_template_php_version_guard_marker": true,
+      "function_exists_guard_present": false,
+      "compat_php_boundary_excluded": true,
+      "compat_utf8_boundary_excluded": true
+    }
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "php-compat-readonly:source-boundary",
+        "focus": "readonly.php is the only WPHX-323 php_compat boundary file; compat.php and compat-utf8.php are excluded"
+      },
+      {
+        "id": "php-compat-readonly:host-version-include-policy",
+        "focus": "WordPress general-template.php conditionally includes readonly.php only on PHP_VERSION_ID < 80100"
+      },
+      {
+        "id": "php-compat-readonly:api-reflection",
+        "focus": "readonly() reflection-visible name, parameters, defaults, and source body markers"
+      },
+      {
+        "id": "php-compat-readonly:deprecated-handoff",
+        "focus": "readonly() emits _deprecated_function and delegates to wp_readonly()"
+      },
+      {
+        "id": "php-compat-readonly:return-echo-shape",
+        "focus": "return and echo behavior for matching, nonmatching, display=true, and display=false cases"
+      },
+      {
+        "id": "php-compat-readonly:repeated-include",
+        "focus": "require_once repeated include and raw require redeclaration behavior on the current PHP host"
+      },
+      {
+        "id": "php-compat-readonly:generated-replacement-fallback-policy",
+        "focus": "generated replacement requirements, preserved fallback conditions, and explicit non-claims"
+      }
+    ],
+    "covered_symbols": [
+      "readonly",
+      "readonly::__FUNCTION__ deprecation payload",
+      "wp_readonly",
+      "__checked_selected_helper",
+      "_deprecated_function",
+      "PHP_VERSION_ID < 80100 include guard",
+      "wp-includes/php-compat/readonly.php"
+    ],
+    "normalization": [
+      "Oracle and candidate roots both execute copied upstream WordPress 7.0 php-compat/readonly.php.",
+      "The current PHP host is recorded; current-host behavior does not supersede WordPress's PHP_VERSION_ID < 80100 include policy.",
+      "php-compat is narrowed to wp-includes/php-compat/readonly.php; wp-includes/compat.php and wp-includes/compat-utf8.php are excluded.",
+      "Repeated raw require behavior is captured by exit status and stderr digest, not by embedding full fatal output.",
+      "No generated replacement or host-primitive implementation is introduced."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "command": "php build/wp-core/wphx-323-32/php-compat-readonly-shim-probe.php build/wp-core/wphx-323-32/oracle",
+      "raw_output_sha256": "sha256:e833e491840bdf8b09b1b062b25683350ca2629987ebef25069fee1a5cd71b5e",
+      "result": {
+        "observations": {
+          "php-compat-readonly:api-reflection": {
+            "function_exists": true,
+            "name": "readonly",
+            "parameter_count": 3,
+            "required_parameter_count": 1,
+            "parameters": [
+              {
+                "name": "readonly_value",
+                "position": 0,
+                "optional": false,
+                "default_available": false,
+                "default": null,
+                "by_reference": false
+              },
+              {
+                "name": "current",
+                "position": 1,
+                "optional": true,
+                "default_available": true,
+                "default": true,
+                "by_reference": false
+              },
+              {
+                "name": "display",
+                "position": 2,
+                "optional": true,
+                "default_available": true,
+                "default": true,
+                "by_reference": false
+              }
+            ],
+            "return_type": null
+          },
+          "php-compat-readonly:deprecated-handoff": {
+            "call_count": 5,
+            "deprecated_functions": [
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              }
+            ],
+            "helper_calls": [
+              {
+                "helper_type": "boolean",
+                "helper_value": "1",
+                "current_type": "boolean",
+                "current_value": "1",
+                "display": true,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "boolean",
+                "helper_value": "1",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": true,
+                "type": "readonly",
+                "result": ""
+              },
+              {
+                "helper_type": "string",
+                "helper_value": "1",
+                "current_type": "integer",
+                "current_value": "1",
+                "display": false,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "boolean",
+                "helper_value": "",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": false,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "integer",
+                "helper_value": "0",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": false,
+                "type": "readonly",
+                "result": ""
+              }
+            ],
+            "all_deprecation_replacements": [
+              "wp_readonly()"
+            ],
+            "all_helper_types": [
+              "readonly"
+            ]
+          },
+          "php-compat-readonly:generated-replacement-fallback-policy": {
+            "host_primitive_backed_candidate": true,
+            "haxe_owned_php_compat_runtime_claimed": false,
+            "generated_public_php_replacement_claimed": false,
+            "copied_readonly_artifact_retirement_claimed": false,
+            "installed_bootstrap_parity_claimed": false,
+            "fallback_policy": "Preserve upstream readonly.php whenever host version behavior, deprecated signaling, include timing, or wp_readonly handoff evidence is incomplete."
+          },
+          "php-compat-readonly:return-echo-shape": {
+            "calls": [
+              {
+                "id": "match-display-true",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "1",
+                  "display": true
+                },
+                "return": " readonly='readonly'",
+                "echo": " readonly='readonly'",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "1",
+                  "display": true,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "nomatch-display-true",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": true
+                },
+                "return": "",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": true,
+                  "type": "readonly",
+                  "result": ""
+                }
+              },
+              {
+                "id": "string-int-match-display-false",
+                "args": {
+                  "readonly_value_type": "string",
+                  "readonly_value": "1",
+                  "current_type": "integer",
+                  "current_value": "1",
+                  "display": false
+                },
+                "return": " readonly='readonly'",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "string",
+                  "helper_value": "1",
+                  "current_type": "integer",
+                  "current_value": "1",
+                  "display": false,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "false-false-display-false",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false
+                },
+                "return": " readonly='readonly'",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "zero-false-display-false",
+                "args": {
+                  "readonly_value_type": "integer",
+                  "readonly_value": "0",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false
+                },
+                "return": "",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "integer",
+                  "helper_value": "0",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false,
+                  "type": "readonly",
+                  "result": ""
+                }
+              }
+            ],
+            "matching_returns": [
+              " readonly='readonly'",
+              "",
+              " readonly='readonly'",
+              " readonly='readonly'",
+              ""
+            ]
+          }
+        }
+      },
+      "lint": {
+        "command": "php \"-l\" \"<root>/wp-includes/php-compat/readonly.php\"",
+        "status": 0,
+        "signal": null,
+        "stdout_sha256": "sha256:f780b4515878b658c2b7afb42c159e0cb4bf44e2409e8c1f365285eedff492b2",
+        "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_preview": "No syntax errors detected in <root>/wp-includes/php-compat/readonly.php",
+        "stderr_preview": ""
+      },
+      "include_behavior": {
+        "require_once_twice": {
+          "command": "php \"-r\" \"\\nfunction _deprecated_function($function, $version, $replacement = '') {}\\nfunction __checked_selected_helper($helper, $current, $display, $type) { return ((string) $helper === (string) $current) ? \\\" $type='$type'\\\" : ''; }\\nfunction wp_readonly($readonly_value, $current = true, $display = true) { return __checked_selected_helper($readonly_value, $current, $display, 'readonly'); }\\n require_once \\\"<root>/wp-includes/php-compat/readonly.php\\\"; require_once \\\"<root>/wp-includes/php-compat/readonly.php\\\"; echo function_exists('readonly') ? 'readonly-present' : 'readonly-missing';\"",
+          "status": 0,
+          "signal": null,
+          "stdout_sha256": "sha256:dd977c03237deeb9ccc0246be8a370290957c1d8c3b78a92a283d2be92b123bb",
+          "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_preview": "readonly-present",
+          "stderr_preview": ""
+        },
+        "raw_require_twice": {
+          "command": "php \"-r\" \"\\nfunction _deprecated_function($function, $version, $replacement = '') {}\\nfunction __checked_selected_helper($helper, $current, $display, $type) { return ((string) $helper === (string) $current) ? \\\" $type='$type'\\\" : ''; }\\nfunction wp_readonly($readonly_value, $current = true, $display = true) { return __checked_selected_helper($readonly_value, $current, $display, 'readonly'); }\\n require \\\"<root>/wp-includes/php-compat/readonly.php\\\"; require \\\"<root>/wp-includes/php-compat/readonly.php\\\"; echo 'unexpected-ok';\"",
+          "status": 255,
+          "signal": null,
+          "stdout_sha256": "sha256:93ccc8422522ccf21b1c094e0a68e055ec48943b5a794353c52abf5dcd590252",
+          "stderr_sha256": "sha256:0cec74407e58fbe0abe8d73cd75367f484a1ed7a767182088f0b55095352716f",
+          "stdout_preview": "Fatal error: Cannot redeclare function readonly() (previously declared in <repo>/<root>/wp-includes/php-compat/readonly.php:34) in <repo>/<root>/wp-includes/php",
+          "stderr_preview": "PHP Fatal error:  Cannot redeclare function readonly() (previously declared in <repo>/<root>/wp-includes/php-compat/readonly.php:34) in <repo>/<root>/wp-includes/php-compat/readonly.php on line 34"
+        }
+      }
+    },
+    "candidate": {
+      "command": "php build/wp-core/wphx-323-32/php-compat-readonly-shim-probe.php build/wp-core/wphx-323-32/candidate",
+      "raw_output_sha256": "sha256:e833e491840bdf8b09b1b062b25683350ca2629987ebef25069fee1a5cd71b5e",
+      "result": {
+        "observations": {
+          "php-compat-readonly:api-reflection": {
+            "function_exists": true,
+            "name": "readonly",
+            "parameter_count": 3,
+            "required_parameter_count": 1,
+            "parameters": [
+              {
+                "name": "readonly_value",
+                "position": 0,
+                "optional": false,
+                "default_available": false,
+                "default": null,
+                "by_reference": false
+              },
+              {
+                "name": "current",
+                "position": 1,
+                "optional": true,
+                "default_available": true,
+                "default": true,
+                "by_reference": false
+              },
+              {
+                "name": "display",
+                "position": 2,
+                "optional": true,
+                "default_available": true,
+                "default": true,
+                "by_reference": false
+              }
+            ],
+            "return_type": null
+          },
+          "php-compat-readonly:deprecated-handoff": {
+            "call_count": 5,
+            "deprecated_functions": [
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              },
+              {
+                "function": "readonly",
+                "version": "5.9.0",
+                "replacement": "wp_readonly()"
+              }
+            ],
+            "helper_calls": [
+              {
+                "helper_type": "boolean",
+                "helper_value": "1",
+                "current_type": "boolean",
+                "current_value": "1",
+                "display": true,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "boolean",
+                "helper_value": "1",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": true,
+                "type": "readonly",
+                "result": ""
+              },
+              {
+                "helper_type": "string",
+                "helper_value": "1",
+                "current_type": "integer",
+                "current_value": "1",
+                "display": false,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "boolean",
+                "helper_value": "",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": false,
+                "type": "readonly",
+                "result": " readonly='readonly'"
+              },
+              {
+                "helper_type": "integer",
+                "helper_value": "0",
+                "current_type": "boolean",
+                "current_value": "",
+                "display": false,
+                "type": "readonly",
+                "result": ""
+              }
+            ],
+            "all_deprecation_replacements": [
+              "wp_readonly()"
+            ],
+            "all_helper_types": [
+              "readonly"
+            ]
+          },
+          "php-compat-readonly:generated-replacement-fallback-policy": {
+            "host_primitive_backed_candidate": true,
+            "haxe_owned_php_compat_runtime_claimed": false,
+            "generated_public_php_replacement_claimed": false,
+            "copied_readonly_artifact_retirement_claimed": false,
+            "installed_bootstrap_parity_claimed": false,
+            "fallback_policy": "Preserve upstream readonly.php whenever host version behavior, deprecated signaling, include timing, or wp_readonly handoff evidence is incomplete."
+          },
+          "php-compat-readonly:return-echo-shape": {
+            "calls": [
+              {
+                "id": "match-display-true",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "1",
+                  "display": true
+                },
+                "return": " readonly='readonly'",
+                "echo": " readonly='readonly'",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "1",
+                  "display": true,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "nomatch-display-true",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": true
+                },
+                "return": "",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "1",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": true,
+                  "type": "readonly",
+                  "result": ""
+                }
+              },
+              {
+                "id": "string-int-match-display-false",
+                "args": {
+                  "readonly_value_type": "string",
+                  "readonly_value": "1",
+                  "current_type": "integer",
+                  "current_value": "1",
+                  "display": false
+                },
+                "return": " readonly='readonly'",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "string",
+                  "helper_value": "1",
+                  "current_type": "integer",
+                  "current_value": "1",
+                  "display": false,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "false-false-display-false",
+                "args": {
+                  "readonly_value_type": "boolean",
+                  "readonly_value": "",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false
+                },
+                "return": " readonly='readonly'",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "boolean",
+                  "helper_value": "",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false,
+                  "type": "readonly",
+                  "result": " readonly='readonly'"
+                }
+              },
+              {
+                "id": "zero-false-display-false",
+                "args": {
+                  "readonly_value_type": "integer",
+                  "readonly_value": "0",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false
+                },
+                "return": "",
+                "echo": "",
+                "deprecated_delta": 1,
+                "helper_delta": 1,
+                "latest_deprecated": {
+                  "function": "readonly",
+                  "version": "5.9.0",
+                  "replacement": "wp_readonly()"
+                },
+                "latest_helper": {
+                  "helper_type": "integer",
+                  "helper_value": "0",
+                  "current_type": "boolean",
+                  "current_value": "",
+                  "display": false,
+                  "type": "readonly",
+                  "result": ""
+                }
+              }
+            ],
+            "matching_returns": [
+              " readonly='readonly'",
+              "",
+              " readonly='readonly'",
+              " readonly='readonly'",
+              ""
+            ]
+          }
+        }
+      },
+      "lint": {
+        "command": "php \"-l\" \"<root>/wp-includes/php-compat/readonly.php\"",
+        "status": 0,
+        "signal": null,
+        "stdout_sha256": "sha256:f780b4515878b658c2b7afb42c159e0cb4bf44e2409e8c1f365285eedff492b2",
+        "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_preview": "No syntax errors detected in <root>/wp-includes/php-compat/readonly.php",
+        "stderr_preview": ""
+      },
+      "include_behavior": {
+        "require_once_twice": {
+          "command": "php \"-r\" \"\\nfunction _deprecated_function($function, $version, $replacement = '') {}\\nfunction __checked_selected_helper($helper, $current, $display, $type) { return ((string) $helper === (string) $current) ? \\\" $type='$type'\\\" : ''; }\\nfunction wp_readonly($readonly_value, $current = true, $display = true) { return __checked_selected_helper($readonly_value, $current, $display, 'readonly'); }\\n require_once \\\"<root>/wp-includes/php-compat/readonly.php\\\"; require_once \\\"<root>/wp-includes/php-compat/readonly.php\\\"; echo function_exists('readonly') ? 'readonly-present' : 'readonly-missing';\"",
+          "status": 0,
+          "signal": null,
+          "stdout_sha256": "sha256:dd977c03237deeb9ccc0246be8a370290957c1d8c3b78a92a283d2be92b123bb",
+          "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdout_preview": "readonly-present",
+          "stderr_preview": ""
+        },
+        "raw_require_twice": {
+          "command": "php \"-r\" \"\\nfunction _deprecated_function($function, $version, $replacement = '') {}\\nfunction __checked_selected_helper($helper, $current, $display, $type) { return ((string) $helper === (string) $current) ? \\\" $type='$type'\\\" : ''; }\\nfunction wp_readonly($readonly_value, $current = true, $display = true) { return __checked_selected_helper($readonly_value, $current, $display, 'readonly'); }\\n require \\\"<root>/wp-includes/php-compat/readonly.php\\\"; require \\\"<root>/wp-includes/php-compat/readonly.php\\\"; echo 'unexpected-ok';\"",
+          "status": 255,
+          "signal": null,
+          "stdout_sha256": "sha256:93ccc8422522ccf21b1c094e0a68e055ec48943b5a794353c52abf5dcd590252",
+          "stderr_sha256": "sha256:0cec74407e58fbe0abe8d73cd75367f484a1ed7a767182088f0b55095352716f",
+          "stdout_preview": "Fatal error: Cannot redeclare function readonly() (previously declared in <repo>/<root>/wp-includes/php-compat/readonly.php:34) in <repo>/<root>/wp-includes/php",
+          "stderr_preview": "PHP Fatal error:  Cannot redeclare function readonly() (previously declared in <repo>/<root>/wp-includes/php-compat/readonly.php:34) in <repo>/<root>/wp-includes/php-compat/readonly.php on line 34"
+        }
+      }
+    },
+    "current_host": {
+      "php_version": "8.4.7",
+      "php_version_id": 80407,
+      "readonly_function_name_allowed_probe": {
+        "command": "php \"-r\" \"function readonly(){return 'ok';} echo readonly();\"",
+        "status": 0,
+        "signal": null,
+        "stdout_sha256": "sha256:2689367b205c16ce32ed4200942b8b8b1e262dfc70d9bc9fbc77c49699a4f1df",
+        "stderr_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout_preview": "ok",
+        "stderr_preview": ""
+      }
+    }
+  },
+  "blocked_conditions": [
+    {
+      "id": "host-primitive-readonly-replacement-runtime",
+      "status": "blocked",
+      "reason": "The gate executes copied upstream readonly.php under deterministic stubs. No Haxe-owned or host-primitive-backed generated replacement is introduced."
+    },
+    {
+      "id": "php-version-matrix",
+      "status": "blocked",
+      "reason": "The gate records current-host PHP behavior and the WordPress PHP_VERSION_ID < 80100 include policy. A cross-version PHP 7.4/8.0/8.1+ matrix is still required before replacement."
+    },
+    {
+      "id": "bootstrap-integration",
+      "status": "blocked",
+      "reason": "The gate records general-template.php include policy but does not execute full WordPress bootstrap, admin, localization, deprecation hooks, or installed distribution behavior."
+    },
+    {
+      "id": "copied-readonly-retirement",
+      "status": "blocked",
+      "reason": "Copied php-compat/readonly.php stays preserved until WPHX-323.36 accepts a provenance/replacement decision with generated-overlay, version matrix, bootstrap, deprecation, and fallback evidence."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 1,
+    "source_inventory_record_count": 1,
+    "artifact_provenance_record_count": 1,
+    "covered_symbol_count": 7,
+    "case_count": 7,
+    "oracle_candidate_observations_match": true,
+    "oracle_candidate_include_observations_match": true,
+    "oracle_lint_exit_status": 0,
+    "candidate_lint_exit_status": 0,
+    "current_php_version": "8.4.7",
+    "current_php_version_id": 80407,
+    "current_host_readonly_function_name_allowed": true,
+    "upstream_php81_reserved_keyword_blocker_recorded": true,
+    "wordpress_general_template_guard_recorded": true,
+    "readonly_function_exists": true,
+    "readonly_required_parameter_count": 1,
+    "deprecated_handoff_count": 5,
+    "wp_readonly_helper_type_only": true,
+    "require_once_twice_ok": true,
+    "raw_require_twice_redeclares_or_blocks": true,
+    "php_compat_boundary_limited_to_readonly": true,
+    "compat_php_or_compat_utf8_included": false,
+    "fallback_policy_recorded": true
+  },
+  "claims": {
+    "copied_readonly_file_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "readonly_api_reflection_recorded": true,
+    "deprecated_wp_readonly_handoff_recorded": true,
+    "wordpress_include_policy_recorded": true,
+    "php_compat_boundary_limited_to_readonly": true,
+    "installed_bootstrap_parity_claimed": false,
+    "haxe_owned_php_compat_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_readonly_artifact_retirement_claimed": false,
+    "legal_review_completed_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned php-compat runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/php-compat/readonly.php.",
+    "This gate does not claim copied readonly.php artifact retirement.",
+    "This gate does not include wp-includes/compat.php or wp-includes/compat-utf8.php in the WPHX-323 php_compat boundary.",
+    "This gate does not execute full WordPress bootstrap, admin, localization, deprecation hook, or installed distribution behavior.",
+    "This gate does not claim legal review completion; it preserves upstream headers/project notice and records future provenance gates."
+  ]
+}

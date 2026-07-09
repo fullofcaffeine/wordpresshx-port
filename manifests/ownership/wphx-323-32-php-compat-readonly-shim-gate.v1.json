@@ -1,0 +1,42 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-32-php-compat-readonly-shim-gate",
+  "issue": {
+    "id": "wordpresshx-l76.32.2",
+    "external_ref": "WPHX-323.32",
+    "title": "Add php-compat readonly shim gate"
+  },
+  "generated_at": "2026-07-09T04:30:00.000Z",
+  "generator": "tools/wp-core/run-php-compat-readonly-shim-gate.mjs",
+  "ownership_state": "preserved_upstream_php_compat_readonly_shim_gate",
+  "boundary_id": "php_compat",
+  "source_paths": [
+    "src/wp-includes/php-compat/readonly.php"
+  ],
+  "distribution_paths": [
+    "wp-includes/php-compat/readonly.php"
+  ],
+  "emission_strategy": "copied_upstream_php_compat_readonly_shim_with_host_version_probe",
+  "durable_haxe_runtime_claimed": false,
+  "public_php_replacement_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "generated_overlay_manifest_present": false,
+  "installed_bootstrap_parity_claimed": false,
+  "legal_review_complete": false,
+  "notes": [
+    "Oracle and candidate roots execute copied upstream WordPress 7.0 php-compat/readonly.php.",
+    "The php_compat boundary is limited to wp-includes/php-compat/readonly.php.",
+    "Current-host readonly function-name behavior is recorded as host evidence and does not supersede the WordPress PHP_VERSION_ID < 80100 include policy.",
+    "Keep upstream readonly.php preserved until WPHX-323.36 records an accepted provenance/replacement decision."
+  ],
+  "removal_gates": [
+    "non-empty generated overlay manifest for any candidate divergence",
+    "generated WPHX PHP original-path readonly.php preserving conditional declaration timing, deprecation payload, and wp_readonly handoff",
+    "cross-version PHP 7.4/8.0/8.1+ host-version matrix",
+    "bootstrap/admin/deprecation hook evidence with candidate overlays",
+    "license/provenance review and WPHX-323.36 localization legacy provenance decision acceptance"
+  ],
+  "receipt_refs": [
+    "receipt:wphx-323-32-php-compat-readonly-shim-gate"
+  ]
+}

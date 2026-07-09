@@ -1,0 +1,72 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-32-php-compat-readonly-shim-gate",
+  "issue": {
+    "id": "wordpresshx-l76.32.2",
+    "external_ref": "WPHX-323.32",
+    "title": "Add php-compat readonly shim gate"
+  },
+  "recorded_at": "2026-07-09T04:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_php_compat_readonly_shim_gate",
+  "artifact_scope": "wordpress-7.0-php-compat-readonly-preserved-library-shim",
+  "commands": [
+    "npm run wp:core:wphx-323-php-compat-readonly-shim",
+    "npm run wp:core:wphx-323-php-compat-readonly-shim:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-32-php-compat-readonly-shim-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-32-php-compat-readonly-shim-gate.v1.json",
+    "parent_localization_legacy_gate_manifest": "manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "parent_vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:6db06282513210e416ddf7908e566267a33e47d41589d1ec4fc452b7aa41d55f",
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 1,
+    "source_inventory_record_count": 1,
+    "artifact_provenance_record_count": 1,
+    "covered_symbol_count": 7,
+    "case_count": 7,
+    "oracle_candidate_observations_match": true,
+    "oracle_candidate_include_observations_match": true,
+    "oracle_lint_exit_status": 0,
+    "candidate_lint_exit_status": 0,
+    "current_php_version": "8.4.7",
+    "current_php_version_id": 80407,
+    "current_host_readonly_function_name_allowed": true,
+    "upstream_php81_reserved_keyword_blocker_recorded": true,
+    "wordpress_general_template_guard_recorded": true,
+    "readonly_function_exists": true,
+    "readonly_required_parameter_count": 1,
+    "deprecated_handoff_count": 5,
+    "wp_readonly_helper_type_only": true,
+    "require_once_twice_ok": true,
+    "raw_require_twice_redeclares_or_blocks": true,
+    "php_compat_boundary_limited_to_readonly": true,
+    "compat_php_or_compat_utf8_included": false,
+    "fallback_policy_recorded": true
+  },
+  "claims": {
+    "copied_readonly_file_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "readonly_api_reflection_recorded": true,
+    "deprecated_wp_readonly_handoff_recorded": true,
+    "wordpress_include_policy_recorded": true,
+    "php_compat_boundary_limited_to_readonly": true,
+    "installed_bootstrap_parity_claimed": false,
+    "haxe_owned_php_compat_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_readonly_artifact_retirement_claimed": false,
+    "legal_review_completed_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned php-compat runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/php-compat/readonly.php.",
+    "This gate does not claim copied readonly.php artifact retirement.",
+    "This gate does not include wp-includes/compat.php or wp-includes/compat-utf8.php in the WPHX-323 php_compat boundary.",
+    "This gate does not execute full WordPress bootstrap, admin, localization, deprecation hook, or installed distribution behavior.",
+    "This gate does not claim legal review completion; it preserves upstream headers/project notice and records future provenance gates."
+  ]
+}
