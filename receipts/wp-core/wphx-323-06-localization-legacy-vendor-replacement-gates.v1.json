@@ -1,0 +1,84 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-06-localization-legacy-vendor-replacement-gates",
+  "issue": {
+    "id": "wordpresshx-l76.32",
+    "external_ref": "WPHX-323.06",
+    "title": "Plan localization and legacy data vendor gates"
+  },
+  "recorded_at": "2026-07-09T03:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "localization_legacy_vendor_replacement_gate_plan",
+  "artifact_scope": "pomo-php-compat-readonly-text-diff-services-json-ixr-preserved-vendor-boundaries",
+  "commands": [
+    "npm run wp:core:wphx-323-localization-legacy-vendor-replacement-gates",
+    "npm run wp:core:wphx-323-localization-legacy-vendor-replacement-gates:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json",
+    "parent_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+    "license_provenance_manifest": "manifests/license-provenance.v1.json",
+    "source_inventory": "manifests/source-inventory.jsonl",
+    "artifact_provenance": "manifests/artifact-provenance.jsonl",
+    "beads_export": ".beads/issues.jsonl"
+  },
+  "manifest_sha256": "sha256:3ff3cfd6763a7850b51cccd9e370fe919d85d33770c0b66fbab2e3f89ed6a7f9",
+  "validation_result": {
+    "status": "passed",
+    "planned_boundary_ids": [
+      "pomo",
+      "php_compat",
+      "text_diff",
+      "services_json",
+      "ixr"
+    ],
+    "planned_boundary_count": 5,
+    "source_record_count": 26,
+    "source_inventory_record_count": 26,
+    "artifact_provenance_record_count": 26,
+    "gate_count": 6,
+    "downstream_issue_count": 6,
+    "pomo_php_file_count": 6,
+    "php_compat_php_file_count": 1,
+    "text_diff_php_file_count": 8,
+    "services_json_php_file_count": 1,
+    "ixr_php_file_count": 10,
+    "direct_haxe_port_candidate_count": 3,
+    "host_primitive_backed_candidate_count": 2,
+    "renewed_preserved_fallback_boundary_count": 5,
+    "php_compat_boundary_limited_to_readonly": true,
+    "compat_php_or_compat_utf8_included": false,
+    "haxe_owned_vendor_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_artifact_retirement_claimed": false,
+    "localization_installed_parity_claimed": false,
+    "admin_diff_installed_parity_claimed": false,
+    "legacy_json_behavior_parity_claimed": false,
+    "xmlrpc_installed_parity_claimed": false,
+    "host_version_support_closed_claimed": false,
+    "legal_review_completed_claimed": false
+  },
+  "downstream_issue_refs": [
+    "WPHX-323.31",
+    "WPHX-323.32",
+    "WPHX-323.33",
+    "WPHX-323.34",
+    "WPHX-323.35",
+    "WPHX-323.36"
+  ],
+  "claims": [
+    "POMO, php-compat/readonly.php, Text_Diff, Services_JSON, and IXR now have a machine-readable replacement gate plan linked to WPHX-323.01 and WPHX-323 preserved-vendor closure.",
+    "POMO, Text_Diff, and IXR are direct Haxe port candidates only after public API/reflection, fixture corpus, generated original-path PHP, integration, fallback, and provenance gates pass.",
+    "php-compat/readonly.php and Services_JSON are host-primitive-backed replacement candidates with preserved upstream fallback until host-version, deprecation, legacy behavior, and provenance gates pass.",
+    "Concrete downstream gates WPHX-323.31 through WPHX-323.36 are recorded for localization, readonly shim, diff, legacy JSON, XML-RPC, and final provenance decision evidence.",
+    "The WPHX-323.06 php_compat boundary is explicitly limited to wp-includes/php-compat/readonly.php; wp-includes/compat.php and wp-includes/compat-utf8.php remain outside this vendor gate."
+  ],
+  "non_claims": [
+    "This plan does not implement Haxe-owned POMO, php-compat, Text_Diff, Services_JSON, or IXR runtime logic.",
+    "This plan does not generate, validate, or distribute public replacement PHP for localization, diff, legacy JSON, XML-RPC, or php-compat boundaries.",
+    "This plan does not retire copied or preserved POMO, php-compat/readonly.php, Text_Diff, Services_JSON, or IXR artifacts.",
+    "This plan does not claim installed localization parity, admin diff/revision parity, legacy JSON behavior parity, XML-RPC route parity, host-version support closure, or broad plugin ecosystem compatibility.",
+    "This plan does not claim legal review completion; it records the required license/provenance gates before any distribution divergence."
+  ]
+}

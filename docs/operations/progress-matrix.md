@@ -4,8 +4,8 @@ This document is the durable human-readable rollup for progress toward a WordPre
 
 Beads remains the task database. This matrix is a status ledger over Beads issues, receipts, manifests, and PRD milestones. Update it in the same change whenever milestone status, scope, evidence gates, Gutenberg split policy, or completion estimates change.
 
-Last updated: 2026-07-08
-Source checkpoint: `WPHX-323.30`
+Last updated: 2026-07-09
+Source checkpoint: `WPHX-323.06`
 Tracking issue: `WPHX-000.02`
 
 Date note: this matrix is updated on the local project date. Some existing checkpoint paragraphs preserve receipt-recorded UTC dates from prior evidence artifacts rather than being rewritten during later planning updates.
@@ -26,6 +26,8 @@ This is an evidence-weighted program estimate, not source-line completion. It gi
 | Security, performance, reliability, and release closure | 5 | 0 | 0.0 | early security corpus exists, full nonfunctional closure is later-stage work |
 
 The score should move only when evidence moves. A closed task can increase confidence in a slice without implying that the whole source area is ported.
+
+2026-07-09 WPHX-323 checkpoint: `WPHX-323.06` adds the localization and legacy data vendor replacement gate plan at `manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json` and `receipts/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json`. The plan covers the 26 preserved PHP artifacts for POMO, php-compat/readonly.php, Text_Diff, Services_JSON, and IXR, validates source inventory and artifact provenance records, keeps POMO/Text_Diff/IXR as direct Haxe port candidates only behind API/reflection/corpus/integration/provenance gates, keeps php-compat/readonly.php and Services_JSON as host-primitive-backed candidates with preserved fallback, and records follow-ups `WPHX-323.31` through `WPHX-323.36`. The super-progress score stays unchanged because this is replacement planning and downstream gate routing, not Haxe-owned localization/diff/legacy JSON/XML-RPC runtime logic, generated public PHP replacement, copied artifact retirement, installed localization/admin/XML-RPC parity, host-version support closure, or legal review completion.
 
 2026-07-08 WPHX-323 checkpoint: `WPHX-323.30` adds ADR-018 and the AI provider privacy/security/provenance policy gate at `docs/adr/ADR-018-ai-provider-privacy-security-provenance.md`, `docs/operations/oracle-ai-provider-privacy-security-provenance-review.md`, `manifests/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json`, `manifests/ownership/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json`, and `receipts/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json`. The runner validates seven ADR policy areas, six prerequisite AI gates, GPL-compatible WordPress license provenance, the preserved `WordPress\AiClientDependencies` shaded namespace, and explicit blockers for live-provider behavior, credential-bearing tests, prompt/file privacy, hook/log/cache leakage, provider cassettes, dependency divergence, and copied artifact retirement. The super-progress score stays unchanged because this is privacy/security/provenance claim discipline, not live provider parity, credential safety proof, installed AI behavior, Haxe-owned php-ai-client runtime logic, generated php-ai-client replacement, dependency substitution, or copied artifact retirement.
 
