@@ -1,0 +1,3180 @@
+{
+  "schema": "wphx.wp-core.pomo-localization-corpus-gate.v1",
+  "issue": {
+    "id": "wordpresshx-l76.32.1",
+    "external_ref": "WPHX-323.31",
+    "title": "Add POMO localization corpus gate"
+  },
+  "generated_at": "2026-07-09T04:00:00.000Z",
+  "generator": "tools/wp-core/run-pomo-localization-corpus-gate.mjs",
+  "evidence_class": "preserved_pomo_localization_corpus_gate",
+  "boundary_id": "pomo",
+  "source_root": "src/wp-includes/pomo",
+  "distribution_root": "wp-includes/pomo",
+  "inputs": {
+    "vendor_strategy_manifest": {
+      "path": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+      "bytes": 33522,
+      "sha256": "sha256:1b67e2e844008a0bf756be34ab4df2709ea2381a9e19d93709b1f01aa05ee40f"
+    },
+    "localization_legacy_vendor_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json",
+      "bytes": 91745,
+      "sha256": "sha256:3ff3cfd6763a7850b51cccd9e370fe919d85d33770c0b66fbab2e3f89ed6a7f9"
+    },
+    "vendor_closure_manifest": {
+      "path": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json",
+      "bytes": 60433,
+      "sha256": "sha256:32c8e456507f2a7372de676f5a30c1d0c323323c70b74a70fffede135dde6319"
+    },
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    }
+  },
+  "replacement_strategy": {
+    "current_strategy": "temporary_upstream_library_exception_with_removal_gate",
+    "planned_strategy": "direct_haxe_port_preserving_vendor_api",
+    "parent_gate_id": "pomo-localization-corpus",
+    "fallback_policy": "Preserve upstream POMO for all catalog parsing, plural evaluation, stream handling, malformed input, and localization bootstrap behavior outside the admitted corpus.",
+    "removal_gate": "Do not retire copied POMO artifacts until WPHX-323.31 records passing corpus/API/provenance evidence and WPHX-323.36 accepts the replacement decision.",
+    "generated_public_wrapper_requirements": "WPHX PHP must emit original-path public PHP preserving POMO class names, include timing, reflection-visible properties/methods, binary stream behavior, and native arrays before the copied library can retire."
+  },
+  "source_files": [
+    {
+      "path": "src/wp-includes/pomo/entry.php",
+      "distribution_path": "wp-includes/pomo/entry.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/entry.php",
+      "bytes": 3863,
+      "sha256": "sha256:3d503be0ce77eb150f9e7452d2f098b517e9ff9773c310024956719b16d8e5fc"
+    },
+    {
+      "path": "src/wp-includes/pomo/mo.php",
+      "distribution_path": "wp-includes/pomo/mo.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/mo.php",
+      "bytes": 9539,
+      "sha256": "sha256:fbdc17701234e5012fbf7433426ce99f1ef115a2fc247bd80f57d3d51455bf49"
+    },
+    {
+      "path": "src/wp-includes/pomo/plural-forms.php",
+      "distribution_path": "wp-includes/pomo/plural-forms.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/plural-forms.php",
+      "bytes": 7641,
+      "sha256": "sha256:5eb291837c007827515a72bcd5ba793d0f22702468beed34746375ded232027f"
+    },
+    {
+      "path": "src/wp-includes/pomo/po.php",
+      "distribution_path": "wp-includes/pomo/po.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/po.php",
+      "bytes": 15344,
+      "sha256": "sha256:9e4b73829fe5053e84df4dc1f7134856e6f7e84c8cce1163c9fc295931ec77e1"
+    },
+    {
+      "path": "src/wp-includes/pomo/streams.php",
+      "distribution_path": "wp-includes/pomo/streams.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/streams.php",
+      "bytes": 7934,
+      "sha256": "sha256:43124129774bd52561ff27834c6771bd141299a69b57abb6cab378344550b28b"
+    },
+    {
+      "path": "src/wp-includes/pomo/translations.php",
+      "distribution_path": "wp-includes/pomo/translations.php",
+      "repo_path": "../wordpress-develop/src/wp-includes/pomo/translations.php",
+      "bytes": 12743,
+      "sha256": "sha256:9aa073438aafe5a4ea0d4f60fea9bd40a1f153653cea3e7567135e25e5099b34"
+    }
+  ],
+  "source_inventory_records": [
+    {
+      "path": "src/wp-includes/pomo/entry.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    },
+    {
+      "path": "src/wp-includes/pomo/mo.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    },
+    {
+      "path": "src/wp-includes/pomo/plural-forms.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    },
+    {
+      "path": "src/wp-includes/pomo/po.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    },
+    {
+      "path": "src/wp-includes/pomo/streams.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    },
+    {
+      "path": "src/wp-includes/pomo/translations.php",
+      "baseline": "wordpress-7.0.0",
+      "repo": "../wordpress-develop",
+      "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+      "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+      "language": "php",
+      "area": "core",
+      "kind": "runtime_source",
+      "status": "upstream_oracle_unported",
+      "classified": true
+    }
+  ],
+  "artifact_provenance_records": [
+    {
+      "path": "wp-includes/pomo/entry.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/pomo/mo.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/pomo/plural-forms.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/pomo/po.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/pomo/streams.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    },
+    {
+      "path": "wp-includes/pomo/translations.php",
+      "baseline": "wordpress-7.0.0-distribution",
+      "artifact_kind": "zip",
+      "artifact_digest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+      "origin": "upstream_oracle",
+      "migration_status": "pending_haxe_generation_or_approved_exception",
+      "classified": true
+    }
+  ],
+  "package_markers": {
+    "source_tree_file_count": 6,
+    "php_source_count": 6,
+    "distribution_artifact_count": 6,
+    "license_provenance": {
+      "package_notice_files": [],
+      "notice_files_recorded_in_license_manifest": [],
+      "header_notice_markers": {
+        "copyright": false,
+        "license": false,
+        "public_domain": false
+      },
+      "treatment": "No package-level notice file is recorded in the WordPress license manifest for this boundary; preserve upstream file headers and WordPress project notice, and run license/provenance review before generated replacement or distribution divergence."
+    },
+    "source_markers": [
+      {
+        "path": "src/wp-includes/pomo/entry.php",
+        "distribution_path": "wp-includes/pomo/entry.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": true,
+        "allow_dynamic_properties_marker": true,
+        "gettext_marker": true,
+        "po_marker": false,
+        "mo_binary_marker": false,
+        "stream_marker": false,
+        "license_or_package_marker": true
+      },
+      {
+        "path": "src/wp-includes/pomo/mo.php",
+        "distribution_path": "wp-includes/pomo/mo.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": false,
+        "allow_dynamic_properties_marker": false,
+        "gettext_marker": true,
+        "po_marker": true,
+        "mo_binary_marker": true,
+        "stream_marker": true,
+        "license_or_package_marker": true
+      },
+      {
+        "path": "src/wp-includes/pomo/plural-forms.php",
+        "distribution_path": "wp-includes/pomo/plural-forms.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": false,
+        "allow_dynamic_properties_marker": true,
+        "gettext_marker": true,
+        "po_marker": false,
+        "mo_binary_marker": false,
+        "stream_marker": false,
+        "license_or_package_marker": false
+      },
+      {
+        "path": "src/wp-includes/pomo/po.php",
+        "distribution_path": "wp-includes/pomo/po.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": false,
+        "allow_dynamic_properties_marker": false,
+        "gettext_marker": true,
+        "po_marker": true,
+        "mo_binary_marker": true,
+        "stream_marker": false,
+        "license_or_package_marker": true
+      },
+      {
+        "path": "src/wp-includes/pomo/streams.php",
+        "distribution_path": "wp-includes/pomo/streams.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": true,
+        "allow_dynamic_properties_marker": true,
+        "gettext_marker": true,
+        "po_marker": false,
+        "mo_binary_marker": true,
+        "stream_marker": true,
+        "license_or_package_marker": true
+      },
+      {
+        "path": "src/wp-includes/pomo/translations.php",
+        "distribution_path": "wp-includes/pomo/translations.php",
+        "conditional_declaration_marker": true,
+        "deprecated_constructor_marker": true,
+        "allow_dynamic_properties_marker": true,
+        "gettext_marker": true,
+        "po_marker": false,
+        "mo_binary_marker": false,
+        "stream_marker": false,
+        "license_or_package_marker": true
+      }
+    ]
+  },
+  "fixture": {
+    "cases": [
+      {
+        "id": "pomo:api-reflection-load",
+        "focus": "POMO classes, methods, constants, public state, conditional declarations, and deprecated constructor shape"
+      },
+      {
+        "id": "pomo:entry-translations",
+        "focus": "Translation_Entry keys, references, flags, comments, merges, context translation, plural fallback, and NOOP behavior"
+      },
+      {
+        "id": "pomo:plural-forms",
+        "focus": "Plural-Forms header parsing, ternary plural expressions, invalid-header fallback, and translated plural selection"
+      },
+      {
+        "id": "pomo:po-import-export",
+        "focus": "PO headers, comments, contexts, plural entries, multiline strings, export_to_file, and invalid PO handling"
+      },
+      {
+        "id": "pomo:mo-roundtrip",
+        "focus": "MO binary export/import, headers, context/plural entries, filename recording, byte order, and malformed MO rejection"
+      },
+      {
+        "id": "pomo:stream-readers",
+        "focus": "POMO string, file, cached file, and cached int file readers, endian reads, seeks, read_all, and ASCII length behavior"
+      },
+      {
+        "id": "pomo:malformed-inputs",
+        "focus": "missing files, empty files, truncated MO files, unsupported MO revisions, and PO unpoify line-ending normalization"
+      },
+      {
+        "id": "pomo:generated-replacement-fallback-policy",
+        "focus": "generated original-path PHP requirements, preserved fallback conditions, and explicit non-claims"
+      }
+    ],
+    "covered_symbols": [
+      "Translation_Entry",
+      "Translation_Entry::__construct",
+      "Translation_Entry::Translation_Entry",
+      "Translation_Entry::key",
+      "Translation_Entry::merge_with",
+      "Translations",
+      "Translations::add_entry",
+      "Translations::add_entry_or_merge",
+      "Translations::set_header",
+      "Translations::set_headers",
+      "Translations::get_header",
+      "Translations::translate_entry",
+      "Translations::translate",
+      "Translations::select_plural_form",
+      "Translations::get_plural_forms_count",
+      "Translations::translate_plural",
+      "Translations::merge_with",
+      "Translations::merge_originals_with",
+      "Gettext_Translations",
+      "Gettext_Translations::gettext_select_plural_form",
+      "Gettext_Translations::nplurals_and_expression_from_header",
+      "Gettext_Translations::make_plural_form_function",
+      "Gettext_Translations::parenthesize_plural_exression",
+      "Gettext_Translations::make_headers",
+      "NOOP_Translations",
+      "Plural_Forms",
+      "Plural_Forms::get",
+      "Plural_Forms::execute",
+      "Plural_Forms::OP_CHARS",
+      "Plural_Forms::NUM_CHARS",
+      "PO",
+      "PO::export_headers",
+      "PO::export_entries",
+      "PO::export",
+      "PO::export_to_file",
+      "PO::set_comment_before_headers",
+      "PO::poify",
+      "PO::unpoify",
+      "PO::prepend_each_line",
+      "PO::comment_block",
+      "PO::export_entry",
+      "PO::match_begin_and_end_newlines",
+      "PO::import_from_file",
+      "PO::read_entry",
+      "PO::read_line",
+      "PO::add_comment_to_entry",
+      "PO::trim_quotes",
+      "PO_MAX_LINE_LEN",
+      "MO",
+      "MO::get_filename",
+      "MO::import_from_file",
+      "MO::export_to_file",
+      "MO::export",
+      "MO::is_entry_good_for_export",
+      "MO::export_to_file_handle",
+      "MO::export_original",
+      "MO::export_translations",
+      "MO::export_headers",
+      "MO::get_byteorder",
+      "MO::import_from_reader",
+      "MO::make_entry",
+      "POMO_Reader",
+      "POMO_Reader::readint32",
+      "POMO_Reader::readint32array",
+      "POMO_Reader::substr",
+      "POMO_Reader::strlen",
+      "POMO_Reader::str_split",
+      "POMO_FileReader",
+      "POMO_StringReader",
+      "POMO_CachedFileReader",
+      "POMO_CachedIntFileReader"
+    ],
+    "normalization": [
+      "Oracle and candidate roots both execute copied upstream WordPress 7.0 POMO files.",
+      "Generated PO and MO bytes are recorded by SHA-256/length, not by embedding full binary output in the receipt.",
+      "File paths in PHP warnings are normalized before JSON output.",
+      "Deprecated constructor calls are captured through a probe-local _deprecated_constructor stub.",
+      "The fixture records local POMO behavior only; installed WordPress localization bootstrap remains blocked."
+    ]
+  },
+  "runs": {
+    "oracle": {
+      "command": "php build/wp-core/wphx-323-31/pomo-localization-corpus-probe.php build/wp-core/wphx-323-31/oracle build/wp-core/wphx-323-31/oracle-work",
+      "raw_output_sha256": "sha256:b0392330b73aa373f2a67d6bb3534cb0048844347d4e0572ffa3924de47b7956",
+      "result": {
+        "observations": {
+          "pomo:api-reflection-load": {
+            "class_count": 12,
+            "classes": [
+              {
+                "name": "Translation_Entry",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "Translation_Entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "key",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "context",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "extracted_comments",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "flags",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "is_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "references",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "singular",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "translations",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "translator_comments",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Translations",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "add_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "add_entry_or_merge",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_originals_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "set_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 4,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Gettext_Translations",
+                "parent": "Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "gettext_select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_plural_form_function",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "nplurals_and_expression_from_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "parenthesize_plural_exression",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_gettext_select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "_nplurals",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "NOOP_Translations",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "add_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "set_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 4,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Plural_Forms",
+                "parent": null,
+                "constants": {
+                  "OP_CHARS": "|&><!=%?:",
+                  "NUM_CHARS": "0123456789"
+                },
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "execute",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "parse",
+                    "public": false,
+                    "protected": true,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "cache",
+                    "public": false,
+                    "protected": true,
+                    "static": false
+                  },
+                  {
+                    "name": "op_precedence",
+                    "public": false,
+                    "protected": true,
+                    "static": true
+                  },
+                  {
+                    "name": "tokens",
+                    "public": false,
+                    "protected": true,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "PO",
+                "parent": "Gettext_Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "add_comment_to_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "comment_block",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_to_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "import_from_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "is_final",
+                    "public": false,
+                    "protected": true,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "match_begin_and_end_newlines",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "poify",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "prepend_each_line",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "read_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_line",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_comment_before_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "trim_quotes",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "unpoify",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "comments_before_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "MO",
+                "parent": "Gettext_Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_original",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_to_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_to_file_handle",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_translations",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_byteorder",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_filename",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "import_from_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "import_from_reader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "is_entry_good_for_export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_nplurals",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "filename",
+                    "public": false,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_Reader",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "POMO_Reader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "close",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "is_resource",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "pos",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "readint32",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "readint32array",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "setEndian",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "str_split",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "strlen",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "substr",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 3,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_pos",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "endian",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "is_overloaded",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_FileReader",
+                "parent": "POMO_Reader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_FileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "close",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "feof",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "is_resource",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "read",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_all",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "seekto",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_f",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_StringReader",
+                "parent": "POMO_Reader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_StringReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "length",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "read",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_all",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "seekto",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_str",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_CachedFileReader",
+                "parent": "POMO_StringReader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_CachedFileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": []
+              },
+              {
+                "name": "POMO_CachedIntFileReader",
+                "parent": "POMO_CachedFileReader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_CachedIntFileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": []
+              }
+            ],
+            "po_max_line_len": 79,
+            "legacy_entry_key": "legacy",
+            "legacy_reader_pos": 0,
+            "deprecated_constructor_count": 2,
+            "deprecated_constructors": [
+              {
+                "class": "Translation_Entry",
+                "version": "5.4.0",
+                "parent_class": "Translation_Entry"
+              },
+              {
+                "class": "POMO_Reader",
+                "version": "5.4.0",
+                "parent_class": "POMO_Reader"
+              }
+            ]
+          },
+          "pomo:entry-translations": {
+            "header_project": "WPHX POMO",
+            "missing_header": false,
+            "translate_hello": "Hola",
+            "translate_missing": "Missing",
+            "translate_context_save": "Guardar",
+            "translate_context_missing": "Save",
+            "translate_plural_1": "archivo",
+            "translate_plural_2": "archivos",
+            "merge_key": "line\nbreak",
+            "merge_references": [
+              "a.php:1",
+              "b.php:2"
+            ],
+            "merge_flags": {
+              "0": "php-format",
+              "2": "fuzzy"
+            },
+            "merge_comments_sha256": "sha256:da83f63e1a473003712c18f5afc5a79044221943d1083c7c5a7ac7236d85e8d2",
+            "noop_add_entry": true,
+            "noop_translate": "Noop",
+            "noop_plural": "items"
+          },
+          "pomo:generated-replacement-fallback-policy": {
+            "direct_haxe_port_candidate": true,
+            "generated_public_php_replacement_claimed": false,
+            "haxe_owned_pomo_runtime_claimed": false,
+            "copied_pomo_artifact_retirement_claimed": false,
+            "installed_localization_parity_claimed": false,
+            "fallback_policy": "Preserve upstream POMO for catalog parsing, plural evaluation, stream handling, malformed input, and localization bootstrap behavior outside the admitted corpus.",
+            "required_future_gates": [
+              "generated original-path WPHX PHP preserving POMO class names and public properties",
+              "translation cache/bootstrap/admin localization integration",
+              "theme/plugin language file and textdomain handoff coverage",
+              "license/provenance review before distribution divergence",
+              "WPHX-323.36 accepted replacement decision"
+            ]
+          },
+          "pomo:malformed-inputs": {
+            "missing_po_import_ok": false,
+            "missing_po_warning_count": 1,
+            "missing_po_warnings": [
+              {
+                "errno": 2,
+                "message_sha256": "sha256:20e2536862fd80c03c715544c5123ae10bf6c818095ac48c8ddd54ae797625cb",
+                "file": "po.php",
+                "line": 287
+              }
+            ],
+            "empty_po_import_ok": false,
+            "missing_mo_import_ok": false,
+            "missing_mo_warning_count": 1,
+            "missing_mo_warnings": [
+              {
+                "errno": 2,
+                "message_sha256": "sha256:9bc9462c1cf7f7907f22d7133c7e9ee07e2510b075a6433d0faf78b940d49423",
+                "file": "streams.php",
+                "line": 169
+              }
+            ],
+            "unsupported_revision_mo_import_ok": false,
+            "unpoify_crlf": "line\nnext",
+            "match_newline_begin_end": "\ntranslated\n",
+            "trim_quotes": "quoted"
+          },
+          "pomo:mo-roundtrip": {
+            "export_to_file_ok": true,
+            "export": {
+              "length": 314,
+              "sha256": "sha256:871628c14ebed4c024f5bc7172c513583af3886046962c92fd1f5ae0a0b06a96"
+            },
+            "file": {
+              "length": 314,
+              "sha256": "sha256:871628c14ebed4c024f5bc7172c513583af3886046962c92fd1f5ae0a0b06a96"
+            },
+            "import_ok": true,
+            "imported_filename_basename": "fixture.mo",
+            "imported_entry_count": 2,
+            "imported_headers": {
+              "Project-Id-Version": "WPHX POMO 1.0",
+              "Content-Type": "text/plain; charset=UTF-8",
+              "Plural-Forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "imported_context_translation": "Guardar",
+            "imported_plural_1": "one",
+            "imported_plural_2": "few",
+            "imported_plural_5": "many",
+            "byteorder_little": "little",
+            "byteorder_big": "big",
+            "byteorder_invalid": false,
+            "malformed_import_ok": false,
+            "truncated_import_ok": false
+          },
+          "pomo:plural-forms": {
+            "parsed_header": [
+              3,
+              "n%3;"
+            ],
+            "nplurals_property": 3,
+            "inherited_plural_forms_count": 2,
+            "inherited_select_forms": {
+              "0": 1,
+              "1": 0,
+              "2": 1,
+              "5": 1,
+              "11": 1,
+              "21": 1,
+              "22": 1,
+              "25": 1
+            },
+            "gettext_select_forms": {
+              "0": 0,
+              "1": 1,
+              "2": 2,
+              "5": 2,
+              "11": 2,
+              "21": 0,
+              "22": 1,
+              "25": 1
+            },
+            "translations": {
+              "0": "few",
+              "1": "one",
+              "2": "few",
+              "5": "few",
+              "11": "few",
+              "21": "few",
+              "22": "few",
+              "25": "few"
+            },
+            "translations_by_selected_index": {
+              "0": "one",
+              "1": "few",
+              "2": "many",
+              "5": "many",
+              "11": "many",
+              "21": "one",
+              "22": "few",
+              "25": "few"
+            },
+            "invalid_fallback_1": 0,
+            "invalid_fallback_2": 1,
+            "direct_get_0": 1,
+            "direct_get_1": 0,
+            "direct_get_2_cached": [
+              1,
+              1
+            ],
+            "parenthesized": "n  ? ( 1 ) : ( n  ? ( 2 ) : ( 3))"
+          },
+          "pomo:po-import-export": {
+            "import_ok": true,
+            "entry_count": 3,
+            "headers": {
+              "Project-Id-Version": "WPHX POMO 1.0",
+              "Content-Type": "text/plain; charset=UTF-8",
+              "Plural-Forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "comments_before_headers_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "button_translation": "Guardar",
+            "button_comments": {
+              "translator": "Translator comment one",
+              "extracted": "Extracted comment one",
+              "references": [
+                "src/file.php:10",
+                "src/other.php:20"
+              ],
+              "flags": [
+                "php-format",
+                "fuzzy"
+              ]
+            },
+            "plural_1": "one",
+            "plural_2": "few",
+            "plural_5": "few",
+            "multiline_translation": "multi-translated",
+            "poify_multiline": {
+              "length": 30,
+              "sha256": "sha256:87144954f000a590501692c607c2fd50b4b576664d43f1203ea3015bd408983d"
+            },
+            "unpoify_multiline": "alpha\nbeta\t",
+            "export": {
+              "length": 507,
+              "sha256": "sha256:5fe9fd261a9a85d1acda027c54a16b8789314f2ee07483317148951db5c9eaec"
+            },
+            "export_to_file_ok": true,
+            "export_file": {
+              "length": 507,
+              "sha256": "sha256:5fe9fd261a9a85d1acda027c54a16b8789314f2ee07483317148951db5c9eaec"
+            },
+            "invalid_import_ok": false
+          },
+          "pomo:stream-readers": {
+            "string_read_ab": "AB",
+            "string_pos_after_ab": 2,
+            "string_little_int": 16909060,
+            "string_read_all": {
+              "length": 12,
+              "sha256": "sha256:19b03eb7c01380ee41145b4914284836f4a77dc603e34a992b3d0eebfb71203e"
+            },
+            "big_int": 16909060,
+            "file_is_resource": true,
+            "file_read_4": "ABCD",
+            "file_seekto_4": true,
+            "file_readint32": 16909060,
+            "file_read_all": {
+              "length": 4,
+              "sha256": "sha256:0c62f876ef1dea830de9f32c2f4b46dd6d74d50d15896e09ef5a2fcd4ac7e1d7"
+            },
+            "cached_length": 12,
+            "cached_read_all": {
+              "length": 12,
+              "sha256": "sha256:19b03eb7c01380ee41145b4914284836f4a77dc603e34a992b3d0eebfb71203e"
+            },
+            "cached_int_length": 12,
+            "str_split": [
+              "ab",
+              "cd",
+              "ef"
+            ]
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": [
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/entry.php",
+          "source_path": "src/wp-includes/pomo/entry.php",
+          "output_sha256": "sha256:789a49484557fc9970740a81cfc5ef6d1b148286270ec8e120c850d9239ce344",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/mo.php",
+          "source_path": "src/wp-includes/pomo/mo.php",
+          "output_sha256": "sha256:a8d5e34451a81e78dcb0f65c91bcbf8c8578a52b3d74f140674892c1332f69dd",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/plural-forms.php",
+          "source_path": "src/wp-includes/pomo/plural-forms.php",
+          "output_sha256": "sha256:be99e139f934a1a98a91cbf62511fa8969801e452141f567a1dc382f946eb907",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/po.php",
+          "source_path": "src/wp-includes/pomo/po.php",
+          "output_sha256": "sha256:d2b00cc33c8f8f1210ff0217b3bba9c76f9b1ee4827b0fbf5803254d2b002ea5",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/streams.php",
+          "source_path": "src/wp-includes/pomo/streams.php",
+          "output_sha256": "sha256:8446ec4c369fd9aab5f243576991451eda6b7a4db575f4a169cb2409d3f94fae",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/oracle/wp-includes/pomo/translations.php",
+          "source_path": "src/wp-includes/pomo/translations.php",
+          "output_sha256": "sha256:cd02b296ca0ccf885d88df68ff3be64772119518ad115486b43241b8ffdab0c0",
+          "ok": true
+        }
+      ]
+    },
+    "candidate": {
+      "command": "php build/wp-core/wphx-323-31/pomo-localization-corpus-probe.php build/wp-core/wphx-323-31/candidate build/wp-core/wphx-323-31/candidate-work",
+      "raw_output_sha256": "sha256:b0392330b73aa373f2a67d6bb3534cb0048844347d4e0572ffa3924de47b7956",
+      "result": {
+        "observations": {
+          "pomo:api-reflection-load": {
+            "class_count": 12,
+            "classes": [
+              {
+                "name": "Translation_Entry",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "Translation_Entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "key",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "context",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "extracted_comments",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "flags",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "is_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "references",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "singular",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "translations",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "translator_comments",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Translations",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "add_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "add_entry_or_merge",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_originals_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "set_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 4,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Gettext_Translations",
+                "parent": "Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "gettext_select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_plural_form_function",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "nplurals_and_expression_from_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "parenthesize_plural_exression",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_gettext_select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "_nplurals",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "NOOP_Translations",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "add_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "merge_with",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_header",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "set_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "translate_plural",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 4,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "Plural_Forms",
+                "parent": null,
+                "constants": {
+                  "OP_CHARS": "|&><!=%?:",
+                  "NUM_CHARS": "0123456789"
+                },
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "execute",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "parse",
+                    "public": false,
+                    "protected": true,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "cache",
+                    "public": false,
+                    "protected": true,
+                    "static": false
+                  },
+                  {
+                    "name": "op_precedence",
+                    "public": false,
+                    "protected": true,
+                    "static": true
+                  },
+                  {
+                    "name": "tokens",
+                    "public": false,
+                    "protected": true,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "PO",
+                "parent": "Gettext_Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "add_comment_to_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "comment_block",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_entries",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_to_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "import_from_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "is_final",
+                    "public": false,
+                    "protected": true,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "match_begin_and_end_newlines",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "poify",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "prepend_each_line",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "read_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_line",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "set_comment_before_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "trim_quotes",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "unpoify",
+                    "public": true,
+                    "protected": false,
+                    "static": true,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "comments_before_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "MO",
+                "parent": "Gettext_Translations",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_headers",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "export_original",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_to_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_to_file_handle",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "export_translations",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_byteorder",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "get_filename",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "get_plural_forms_count",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "import_from_file",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "import_from_reader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "is_entry_good_for_export",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "make_entry",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "select_plural_form",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_nplurals",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "filename",
+                    "public": false,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_Reader",
+                "parent": null,
+                "constants": [],
+                "attributes": [
+                  "AllowDynamicProperties"
+                ],
+                "methods": [
+                  {
+                    "name": "POMO_Reader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "close",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "is_resource",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "pos",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "readint32",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "readint32array",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "setEndian",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "str_split",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 2,
+                    "required_parameters": 2
+                  },
+                  {
+                    "name": "strlen",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "substr",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 3,
+                    "required_parameters": 3
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_pos",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "endian",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  },
+                  {
+                    "name": "is_overloaded",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_FileReader",
+                "parent": "POMO_Reader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_FileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "close",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "feof",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "is_resource",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "read",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_all",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "seekto",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_f",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_StringReader",
+                "parent": "POMO_Reader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_StringReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "length",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "read",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "read_all",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 0,
+                    "required_parameters": 0
+                  },
+                  {
+                    "name": "seekto",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": [
+                  {
+                    "name": "_str",
+                    "public": true,
+                    "protected": false,
+                    "static": false
+                  }
+                ]
+              },
+              {
+                "name": "POMO_CachedFileReader",
+                "parent": "POMO_StringReader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_CachedFileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": []
+              },
+              {
+                "name": "POMO_CachedIntFileReader",
+                "parent": "POMO_CachedFileReader",
+                "constants": [],
+                "attributes": [],
+                "methods": [
+                  {
+                    "name": "POMO_CachedIntFileReader",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  },
+                  {
+                    "name": "__construct",
+                    "public": true,
+                    "protected": false,
+                    "static": false,
+                    "parameters": 1,
+                    "required_parameters": 1
+                  }
+                ],
+                "properties": []
+              }
+            ],
+            "po_max_line_len": 79,
+            "legacy_entry_key": "legacy",
+            "legacy_reader_pos": 0,
+            "deprecated_constructor_count": 2,
+            "deprecated_constructors": [
+              {
+                "class": "Translation_Entry",
+                "version": "5.4.0",
+                "parent_class": "Translation_Entry"
+              },
+              {
+                "class": "POMO_Reader",
+                "version": "5.4.0",
+                "parent_class": "POMO_Reader"
+              }
+            ]
+          },
+          "pomo:entry-translations": {
+            "header_project": "WPHX POMO",
+            "missing_header": false,
+            "translate_hello": "Hola",
+            "translate_missing": "Missing",
+            "translate_context_save": "Guardar",
+            "translate_context_missing": "Save",
+            "translate_plural_1": "archivo",
+            "translate_plural_2": "archivos",
+            "merge_key": "line\nbreak",
+            "merge_references": [
+              "a.php:1",
+              "b.php:2"
+            ],
+            "merge_flags": {
+              "0": "php-format",
+              "2": "fuzzy"
+            },
+            "merge_comments_sha256": "sha256:da83f63e1a473003712c18f5afc5a79044221943d1083c7c5a7ac7236d85e8d2",
+            "noop_add_entry": true,
+            "noop_translate": "Noop",
+            "noop_plural": "items"
+          },
+          "pomo:generated-replacement-fallback-policy": {
+            "direct_haxe_port_candidate": true,
+            "generated_public_php_replacement_claimed": false,
+            "haxe_owned_pomo_runtime_claimed": false,
+            "copied_pomo_artifact_retirement_claimed": false,
+            "installed_localization_parity_claimed": false,
+            "fallback_policy": "Preserve upstream POMO for catalog parsing, plural evaluation, stream handling, malformed input, and localization bootstrap behavior outside the admitted corpus.",
+            "required_future_gates": [
+              "generated original-path WPHX PHP preserving POMO class names and public properties",
+              "translation cache/bootstrap/admin localization integration",
+              "theme/plugin language file and textdomain handoff coverage",
+              "license/provenance review before distribution divergence",
+              "WPHX-323.36 accepted replacement decision"
+            ]
+          },
+          "pomo:malformed-inputs": {
+            "missing_po_import_ok": false,
+            "missing_po_warning_count": 1,
+            "missing_po_warnings": [
+              {
+                "errno": 2,
+                "message_sha256": "sha256:20e2536862fd80c03c715544c5123ae10bf6c818095ac48c8ddd54ae797625cb",
+                "file": "po.php",
+                "line": 287
+              }
+            ],
+            "empty_po_import_ok": false,
+            "missing_mo_import_ok": false,
+            "missing_mo_warning_count": 1,
+            "missing_mo_warnings": [
+              {
+                "errno": 2,
+                "message_sha256": "sha256:9bc9462c1cf7f7907f22d7133c7e9ee07e2510b075a6433d0faf78b940d49423",
+                "file": "streams.php",
+                "line": 169
+              }
+            ],
+            "unsupported_revision_mo_import_ok": false,
+            "unpoify_crlf": "line\nnext",
+            "match_newline_begin_end": "\ntranslated\n",
+            "trim_quotes": "quoted"
+          },
+          "pomo:mo-roundtrip": {
+            "export_to_file_ok": true,
+            "export": {
+              "length": 314,
+              "sha256": "sha256:871628c14ebed4c024f5bc7172c513583af3886046962c92fd1f5ae0a0b06a96"
+            },
+            "file": {
+              "length": 314,
+              "sha256": "sha256:871628c14ebed4c024f5bc7172c513583af3886046962c92fd1f5ae0a0b06a96"
+            },
+            "import_ok": true,
+            "imported_filename_basename": "fixture.mo",
+            "imported_entry_count": 2,
+            "imported_headers": {
+              "Project-Id-Version": "WPHX POMO 1.0",
+              "Content-Type": "text/plain; charset=UTF-8",
+              "Plural-Forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "imported_context_translation": "Guardar",
+            "imported_plural_1": "one",
+            "imported_plural_2": "few",
+            "imported_plural_5": "many",
+            "byteorder_little": "little",
+            "byteorder_big": "big",
+            "byteorder_invalid": false,
+            "malformed_import_ok": false,
+            "truncated_import_ok": false
+          },
+          "pomo:plural-forms": {
+            "parsed_header": [
+              3,
+              "n%3;"
+            ],
+            "nplurals_property": 3,
+            "inherited_plural_forms_count": 2,
+            "inherited_select_forms": {
+              "0": 1,
+              "1": 0,
+              "2": 1,
+              "5": 1,
+              "11": 1,
+              "21": 1,
+              "22": 1,
+              "25": 1
+            },
+            "gettext_select_forms": {
+              "0": 0,
+              "1": 1,
+              "2": 2,
+              "5": 2,
+              "11": 2,
+              "21": 0,
+              "22": 1,
+              "25": 1
+            },
+            "translations": {
+              "0": "few",
+              "1": "one",
+              "2": "few",
+              "5": "few",
+              "11": "few",
+              "21": "few",
+              "22": "few",
+              "25": "few"
+            },
+            "translations_by_selected_index": {
+              "0": "one",
+              "1": "few",
+              "2": "many",
+              "5": "many",
+              "11": "many",
+              "21": "one",
+              "22": "few",
+              "25": "few"
+            },
+            "invalid_fallback_1": 0,
+            "invalid_fallback_2": 1,
+            "direct_get_0": 1,
+            "direct_get_1": 0,
+            "direct_get_2_cached": [
+              1,
+              1
+            ],
+            "parenthesized": "n  ? ( 1 ) : ( n  ? ( 2 ) : ( 3))"
+          },
+          "pomo:po-import-export": {
+            "import_ok": true,
+            "entry_count": 3,
+            "headers": {
+              "Project-Id-Version": "WPHX POMO 1.0",
+              "Content-Type": "text/plain; charset=UTF-8",
+              "Plural-Forms": "nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);"
+            },
+            "comments_before_headers_sha256": "sha256:e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "button_translation": "Guardar",
+            "button_comments": {
+              "translator": "Translator comment one",
+              "extracted": "Extracted comment one",
+              "references": [
+                "src/file.php:10",
+                "src/other.php:20"
+              ],
+              "flags": [
+                "php-format",
+                "fuzzy"
+              ]
+            },
+            "plural_1": "one",
+            "plural_2": "few",
+            "plural_5": "few",
+            "multiline_translation": "multi-translated",
+            "poify_multiline": {
+              "length": 30,
+              "sha256": "sha256:87144954f000a590501692c607c2fd50b4b576664d43f1203ea3015bd408983d"
+            },
+            "unpoify_multiline": "alpha\nbeta\t",
+            "export": {
+              "length": 507,
+              "sha256": "sha256:5fe9fd261a9a85d1acda027c54a16b8789314f2ee07483317148951db5c9eaec"
+            },
+            "export_to_file_ok": true,
+            "export_file": {
+              "length": 507,
+              "sha256": "sha256:5fe9fd261a9a85d1acda027c54a16b8789314f2ee07483317148951db5c9eaec"
+            },
+            "invalid_import_ok": false
+          },
+          "pomo:stream-readers": {
+            "string_read_ab": "AB",
+            "string_pos_after_ab": 2,
+            "string_little_int": 16909060,
+            "string_read_all": {
+              "length": 12,
+              "sha256": "sha256:19b03eb7c01380ee41145b4914284836f4a77dc603e34a992b3d0eebfb71203e"
+            },
+            "big_int": 16909060,
+            "file_is_resource": true,
+            "file_read_4": "ABCD",
+            "file_seekto_4": true,
+            "file_readint32": 16909060,
+            "file_read_all": {
+              "length": 4,
+              "sha256": "sha256:0c62f876ef1dea830de9f32c2f4b46dd6d74d50d15896e09ef5a2fcd4ac7e1d7"
+            },
+            "cached_length": 12,
+            "cached_read_all": {
+              "length": 12,
+              "sha256": "sha256:19b03eb7c01380ee41145b4914284836f4a77dc603e34a992b3d0eebfb71203e"
+            },
+            "cached_int_length": 12,
+            "str_split": [
+              "ab",
+              "cd",
+              "ef"
+            ]
+          }
+        },
+        "captured_errors": []
+      },
+      "lint": [
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/entry.php",
+          "source_path": "src/wp-includes/pomo/entry.php",
+          "output_sha256": "sha256:61b48d2b69a4335144c204a2ddfab9afd6fb0fe50cde4493a1bc16e618ab2688",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/mo.php",
+          "source_path": "src/wp-includes/pomo/mo.php",
+          "output_sha256": "sha256:486cd82147e037727bc111852f41c5edcd5c0708c83ef82475cb0a5f26232f24",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/plural-forms.php",
+          "source_path": "src/wp-includes/pomo/plural-forms.php",
+          "output_sha256": "sha256:bf5069b72cfdee9fe4dadce7a42d18b597a994c6f6244582e708ca76407ad477",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/po.php",
+          "source_path": "src/wp-includes/pomo/po.php",
+          "output_sha256": "sha256:0ecb6e8cbce7dbda3fc86855bb66bc46d474bcddbb9b8b5da2bd4613c8ed7eac",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/streams.php",
+          "source_path": "src/wp-includes/pomo/streams.php",
+          "output_sha256": "sha256:5ebaad429c6fc2cc7166dcd6e01cd1150a92bcb65feaf9e89673ffb3ac2fc6d4",
+          "ok": true
+        },
+        {
+          "path": "build/wp-core/wphx-323-31/candidate/wp-includes/pomo/translations.php",
+          "source_path": "src/wp-includes/pomo/translations.php",
+          "output_sha256": "sha256:aaf11fc4e66b3dcee316c6bb80b6d8408750a020f9392f00804c7489d5c8f4bc",
+          "ok": true
+        }
+      ]
+    }
+  },
+  "blocked_conditions": [
+    {
+      "id": "direct-haxe-pomo-runtime",
+      "status": "blocked",
+      "reason": "This gate executes copied upstream POMO in oracle and candidate roots only. No Haxe-owned catalog parser, plural evaluator, stream reader, or public PHP replacement is introduced."
+    },
+    {
+      "id": "generated-original-path-pomo-shells",
+      "status": "blocked",
+      "reason": "Future replacement must emit original-path WPHX PHP preserving POMO class names, conditional declarations, public properties, include timing, native arrays, binary streams, and reflection-visible methods."
+    },
+    {
+      "id": "installed-localization-bootstrap",
+      "status": "blocked",
+      "reason": "This corpus covers POMO library behavior but does not execute installed WordPress textdomain loading, locale switching, translation caches, admin localization, theme/plugin language files, or database-backed bootstrap."
+    },
+    {
+      "id": "copied-pomo-retirement",
+      "status": "blocked",
+      "reason": "Copied POMO artifacts stay preserved until WPHX-323.36 accepts a provenance/replacement decision with generated-overlay, bootstrap/admin integration, fallback, and ecosystem evidence."
+    }
+  ],
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 6,
+    "source_inventory_record_count": 6,
+    "artifact_provenance_record_count": 6,
+    "covered_symbol_count": 71,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "reflection_class_count": 12,
+    "po_import_ok": true,
+    "po_invalid_import_rejected": true,
+    "mo_roundtrip_import_ok": true,
+    "mo_malformed_rejected": true,
+    "stream_reader_int_ok": true,
+    "plural_header_count_ok": true,
+    "fallback_policy_recorded": true,
+    "captured_error_count": 0
+  },
+  "claims": {
+    "copied_pomo_files_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "po_import_export_corpus_recorded": true,
+    "mo_import_export_corpus_recorded": true,
+    "plural_forms_corpus_recorded": true,
+    "stream_reader_corpus_recorded": true,
+    "installed_localization_parity_claimed": false,
+    "haxe_owned_pomo_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_pomo_artifact_retirement_claimed": false,
+    "legal_review_completed_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned POMO runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/pomo/*.php.",
+    "This gate does not claim copied POMO artifact retirement.",
+    "This gate does not execute installed WordPress textdomain loading, locale switching, translation caches, admin localization, theme/plugin language files, or database-backed bootstrap.",
+    "This gate does not claim legal review completion; it preserves upstream headers/project notice and records future provenance gates."
+  ]
+}

@@ -1,0 +1,65 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-31-pomo-localization-corpus-gate",
+  "issue": {
+    "id": "wordpresshx-l76.32.1",
+    "external_ref": "WPHX-323.31",
+    "title": "Add POMO localization corpus gate"
+  },
+  "recorded_at": "2026-07-09T04:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "preserved_pomo_localization_corpus_gate",
+  "artifact_scope": "wordpress-7.0-pomo-preserved-library-po-mo-plural-stream-corpus",
+  "commands": [
+    "npm run wp:core:wphx-323-pomo-localization-corpus",
+    "npm run wp:core:wphx-323-pomo-localization-corpus:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-31-pomo-localization-corpus-gate.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-31-pomo-localization-corpus-gate.v1.json",
+    "parent_localization_legacy_gate_manifest": "manifests/wp-core/wphx-323-06-localization-legacy-vendor-replacement-gates.v1.json",
+    "parent_vendor_strategy_manifest": "manifests/wp-core/wphx-323-01-php-vendor-replacement-strategy.v1.json",
+    "parent_vendor_closure_manifest": "manifests/wp-core/wphx-323-php-vendor-manifest-closure.v1.json"
+  },
+  "manifest_sha256": "sha256:981ac514ebc981ebfb64433457b0d43df5ac1a966f648b64b23e01d7199672a5",
+  "validation_result": {
+    "status": "passed",
+    "source_php_file_count": 6,
+    "source_inventory_record_count": 6,
+    "artifact_provenance_record_count": 6,
+    "covered_symbol_count": 71,
+    "case_count": 8,
+    "oracle_candidate_observations_match": true,
+    "oracle_lint_ok": true,
+    "candidate_lint_ok": true,
+    "reflection_class_count": 12,
+    "po_import_ok": true,
+    "po_invalid_import_rejected": true,
+    "mo_roundtrip_import_ok": true,
+    "mo_malformed_rejected": true,
+    "stream_reader_int_ok": true,
+    "plural_header_count_ok": true,
+    "fallback_policy_recorded": true,
+    "captured_error_count": 0
+  },
+  "claims": {
+    "copied_pomo_files_mirrored": true,
+    "oracle_candidate_observation_parity_claimed": true,
+    "po_import_export_corpus_recorded": true,
+    "mo_import_export_corpus_recorded": true,
+    "plural_forms_corpus_recorded": true,
+    "stream_reader_corpus_recorded": true,
+    "installed_localization_parity_claimed": false,
+    "haxe_owned_pomo_runtime_claimed": false,
+    "generated_public_php_replacement_claimed": false,
+    "copied_pomo_artifact_retirement_claimed": false,
+    "legal_review_completed_claimed": false
+  },
+  "non_claims": [
+    "This gate does not claim Haxe-owned POMO runtime implementation.",
+    "This gate does not claim generated public PHP replacement for wp-includes/pomo/*.php.",
+    "This gate does not claim copied POMO artifact retirement.",
+    "This gate does not execute installed WordPress textdomain loading, locale switching, translation caches, admin localization, theme/plugin language files, or database-backed bootstrap.",
+    "This gate does not claim legal review completion; it preserves upstream headers/project notice and records future provenance gates."
+  ]
+}
