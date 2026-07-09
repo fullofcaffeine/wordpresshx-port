@@ -1,0 +1,77 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-30-ai-provider-privacy-security-provenance-policy",
+  "issue": {
+    "id": "wordpresshx-l76.33.8",
+    "external_ref": "WPHX-323.30",
+    "title": "Add AI provider privacy security provenance ADR"
+  },
+  "recorded_at": "2026-07-08T22:00:00.000Z",
+  "status": "closed",
+  "evidence_class": "ai_provider_privacy_security_provenance_policy_gate",
+  "artifact_scope": "wordpress-7.0-ai-provider-privacy-security-provenance-policy",
+  "commands": [
+    "npm run wp:core:wphx-323-ai-provider-privacy-security-provenance-policy",
+    "npm run wp:core:wphx-323-ai-provider-privacy-security-provenance-policy:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "adr": "docs/adr/ADR-018-ai-provider-privacy-security-provenance.md",
+    "oracle_review_prompt": "docs/operations/oracle-ai-provider-privacy-security-provenance-review.md",
+    "php_ai_client_sub_boundaries": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+    "php_ai_client_transport_provider": "manifests/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json"
+  },
+  "manifest_sha256": "sha256:e6e9fc56dd6f843f28a5d27bafb4e9e144e28dfc44e407ba623426598973d17d",
+  "validation_result": {
+    "status": "passed",
+    "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "adr_present": true,
+    "oracle_review_prompt_present": true,
+    "required_adr_section_count": 14,
+    "required_adr_sections_present": true,
+    "policy_check_count": 7,
+    "policy_checks_passed": true,
+    "prerequisite_gate_count": 6,
+    "prerequisite_gates_passed": true,
+    "wordpress_license_gpl_compatible_recorded": true,
+    "shaded_dependency_namespace": "WordPress\\AiClientDependencies",
+    "shaded_dependency_primary_file_count": 44,
+    "shaded_dependency_tagged_file_count": 54,
+    "shaded_dependency_package_family_count": 5,
+    "credential_handling_policy_recorded": true,
+    "prompt_file_privacy_policy_recorded": true,
+    "hook_log_cache_leakage_policy_recorded": true,
+    "provider_cassette_opt_in_policy_recorded": true,
+    "license_sbom_dependency_provenance_policy_recorded": true,
+    "live_provider_claim_gates_recorded": true,
+    "dependency_divergence_claim_gates_recorded": true,
+    "oracle_review_prompt_recorded": true,
+    "live_provider_behavior_claimed": false,
+    "credential_privacy_security_claimed": false,
+    "prompt_file_privacy_claimed": false,
+    "provider_cassette_safety_claimed": false,
+    "dependency_substitution_claimed": false,
+    "installed_wordpress_ai_parity_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "generated_public_php_replacement_for_php_ai_client_claimed": false,
+    "copied_artifact_retirement_claimed": false
+  },
+  "claims": [
+    "ADR-018 records the AI provider privacy, security, cassette, credential, hook/log/cache leakage, and dependency provenance policy for future live-provider and dependency-divergence work.",
+    "Live provider behavior remains opt-in and blocked from default precommit, pre-push, and default CI.",
+    "Dependency substitution for WordPress\\AiClientDependencies remains blocked until license/notice/SBOM, API/reflection, fake transport/discovery/cache/event, fallback, ecosystem visibility, and accepted distribution-strategy evidence pass.",
+    "An oracle review prompt is recorded for second-pass privacy/security architecture review before the first live-provider or dependency-divergence claim."
+  ],
+  "non_claims": [
+    "This policy gate does not claim live provider behavior parity.",
+    "This policy gate does not prove credential handling safety with executable live-provider tests.",
+    "This policy gate does not prove prompt/file privacy for installed WordPress data.",
+    "This policy gate does not claim provider cassette safety has been proven.",
+    "This policy gate does not claim installed WordPress AI behavior parity.",
+    "This policy gate does not claim Haxe-owned php-ai-client runtime logic.",
+    "This policy gate does not claim generated public PHP replacement for php-ai-client internals.",
+    "This policy gate does not claim dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This policy gate is not legal advice."
+  ]
+}

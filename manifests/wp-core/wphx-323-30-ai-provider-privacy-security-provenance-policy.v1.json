@@ -1,0 +1,726 @@
+{
+  "schema": "wphx.wp-core.ai-provider-privacy-security-provenance-policy.v1",
+  "issue": {
+    "id": "wordpresshx-l76.33.8",
+    "external_ref": "WPHX-323.30",
+    "title": "Add AI provider privacy security provenance ADR"
+  },
+  "generated_at": "2026-07-08T22:00:00.000Z",
+  "generator": "tools/wp-core/run-ai-provider-privacy-security-provenance-policy.mjs",
+  "evidence_class": "ai_provider_privacy_security_provenance_policy_gate",
+  "behavior_parity_claimed": false,
+  "live_provider_behavior_claimed": false,
+  "credential_privacy_security_claimed": false,
+  "prompt_file_privacy_claimed": false,
+  "provider_cassette_safety_claimed": false,
+  "dependency_substitution_claimed": false,
+  "installed_wordpress_ai_parity_claimed": false,
+  "haxe_owned_php_ai_client_runtime_claimed": false,
+  "generated_public_php_replacement_for_php_ai_client_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-ai-provider-privacy-security-provenance-policy.mjs",
+      "bytes": 26513,
+      "sha256": "sha256:0d70b73be64777610cc2d8772de9d0134c2706f9ed2101707f39ab678ed3a439"
+    },
+    "upstream_lock": {
+      "path": "upstream.lock.json",
+      "bytes": 7266,
+      "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+    },
+    "adr": {
+      "path": "docs/adr/ADR-018-ai-provider-privacy-security-provenance.md",
+      "bytes": 11067,
+      "sha256": "sha256:186a8103dd462544b1ba7599a37a953ca6f059378f219daf07366920006f408f"
+    },
+    "oracle_review_prompt": {
+      "path": "docs/operations/oracle-ai-provider-privacy-security-provenance-review.md",
+      "bytes": 2940,
+      "sha256": "sha256:3cb868e49e59e6b0f0f0b9adae5e39d250925e36d5fcd5a8e07c0b1b7184c5ed"
+    },
+    "license_provenance": {
+      "path": "manifests/license-provenance.v1.json",
+      "bytes": 8559,
+      "sha256": "sha256:00d55db5838b902b6b04770999dd49b3461378d70f20c92f49a13e994035edfa"
+    },
+    "ai_tinymce_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+      "bytes": 48784,
+      "sha256": "sha256:8cccbaec8caa3932b260fc361e1a53ba6f835c786b6b3fe340183f642e5d74b4"
+    },
+    "php_ai_client_sub_boundaries": {
+      "path": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+      "bytes": 475098,
+      "sha256": "sha256:053c15ad1ee0bbf832683f27bffcd0668228fd64fc613d1051025821fa714529"
+    },
+    "wordpress_ai_wrapper_api_surface": {
+      "path": "manifests/wp-core/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+      "bytes": 53198,
+      "sha256": "sha256:471ce385feca1d1173a3e5c11b1d816b26e5e68b3b0ba13de5cdf5a26c6ac596"
+    },
+    "wordpress_ai_wrapper_generated_adapter": {
+      "path": "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+      "bytes": 72697,
+      "sha256": "sha256:e4f472a7d369565247c77108e0262d08d1ef6c4e9915b57535ad86998ca0850e"
+    },
+    "php_ai_client_dto_schema": {
+      "path": "manifests/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+      "bytes": 525353,
+      "sha256": "sha256:c91fdf916be694944b31ae419deff96ba6ee78ea451d4f84e567bdae077e398c"
+    },
+    "php_ai_client_transport_provider": {
+      "path": "manifests/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+      "bytes": 47535,
+      "sha256": "sha256:a7b8b06cceedb28155cf089526bb0f8a2027465f8bea6eb8803e85bef55cd1a3"
+    }
+  },
+  "upstream_authority": {
+    "relative_path": "../wordpress-develop",
+    "authority": "WordPress 7.0 distribution and behavior oracle",
+    "role": "wordpress-7.0-oracle",
+    "locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "locked_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "locked_tag": "7.0.0",
+    "current_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "current_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "observed_dirty_state_from_lock": "Untracked repomix-output.wordpress.xml and repomix-output.wordpress.xml.zip",
+    "current_status_short": [
+      "?? repomix-output.wordpress.xml",
+      "?? repomix-output.wordpress.xml.zip"
+    ]
+  },
+  "prerequisite_gates": [
+    {
+      "id": "WPHX-323.07",
+      "path": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "evidence_class": "ai_client_tinymce_boundary_classification_and_future_gate_plan",
+      "validation_result": {
+        "status": "passed",
+        "php_ai_client_php_file_count": 146,
+        "wordpress_ai_wrapper_file_count": 7,
+        "tinymce_loader_file_count": 1,
+        "source_inventory_record_count": 154,
+        "artifact_provenance_record_count": 154,
+        "child_issue_count": 8,
+        "all_child_issues_open": true,
+        "wphx_312_05_ai_http_fixture_present": true,
+        "php_ai_client_preserved_exception_renewed": true,
+        "wordpress_ai_wrapper_generated_adapter_path_chosen_first": true,
+        "tinymce_loader_preserved_exception_renewed": true,
+        "generated_overlay_manifest_present": false,
+        "generated_public_php_replacement_claimed": false,
+        "haxe_owned_php_ai_client_runtime_claimed": false,
+        "tinymce_browser_runtime_claimed": false,
+        "live_provider_behavior_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "haxe_owned_php_ai_client_runtime_claimed"
+      ],
+      "failures": []
+    },
+    {
+      "id": "WPHX-323.23",
+      "path": "manifests/wp-core/wphx-323-23-php-ai-client-sub-boundaries.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33.1",
+        "external_ref": "WPHX-323.23",
+        "title": "Classify php-ai-client sub-boundaries"
+      },
+      "evidence_class": "php_ai_client_source_api_reflection_inventory_and_subboundary_classification",
+      "validation_result": {
+        "status": "passed",
+        "php_ai_client_php_file_count": 146,
+        "primary_sub_boundary_total": 146,
+        "primary_sub_boundary_counts": {
+          "autoload_bootstrap": 1,
+          "live_provider_behavior_boundary": 3,
+          "dto_schema_enum_core_contracts": 32,
+          "event_cache_contracts": 4,
+          "provider_model_registry": 38,
+          "transport_discovery_http": 24,
+          "shaded_third_party_dependencies": 44
+        },
+        "tagged_sub_boundary_counts": {
+          "dto_schema_enum_core_contracts": 58,
+          "provider_model_registry": 66,
+          "transport_discovery_http": 66,
+          "event_cache_contracts": 8,
+          "shaded_third_party_dependencies": 54,
+          "autoload_bootstrap": 1,
+          "live_provider_behavior_boundary": 65
+        },
+        "source_inventory_record_count": 146,
+        "artifact_provenance_record_count": 146,
+        "declared_symbol_count": 145,
+        "static_class_count": 90,
+        "static_interface_count": 49,
+        "static_trait_count": 7,
+        "static_enum_keyword_count": 0,
+        "generated_public_php_replacement_claimed": false,
+        "haxe_owned_php_ai_client_runtime_claimed": false,
+        "live_provider_behavior_claimed": false,
+        "dependency_substitution_claimed": false,
+        "executable_behavior_parity_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "dependency_substitution_claimed",
+        "haxe_owned_php_ai_client_runtime_claimed",
+        "generated_public_php_replacement_claimed"
+      ],
+      "failures": []
+    },
+    {
+      "id": "WPHX-323.24",
+      "path": "manifests/wp-core/wphx-323-24-wordpress-ai-wrapper-api-surface.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33.2",
+        "external_ref": "WPHX-323.24",
+        "title": "Gate WordPress AI wrapper API surface"
+      },
+      "evidence_class": "wordpress_ai_wrapper_api_adapter_fixture_gate",
+      "validation_result": {
+        "status": "passed",
+        "wrapper_file_count": 7,
+        "preserved_php_ai_client_support_file_count": 146,
+        "source_inventory_record_count": 7,
+        "artifact_provenance_record_count": 7,
+        "probe_case_count": 7,
+        "oracle_candidate_observations_match": true,
+        "php_lint_file_count": 153,
+        "php_lint_ok": true,
+        "generated_overlay_manifest_present": false,
+        "generated_public_php_replacement_claimed": false,
+        "haxe_owned_wordpress_ai_wrapper_runtime_claimed": false,
+        "haxe_owned_php_ai_client_runtime_claimed": false,
+        "live_provider_behavior_claimed": false,
+        "dependency_substitution_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "dependency_substitution_claimed",
+        "haxe_owned_php_ai_client_runtime_claimed"
+      ],
+      "failures": []
+    },
+    {
+      "id": "WPHX-323.25",
+      "path": "manifests/wp-core/wphx-323-25-wordpress-ai-wrapper-generated-adapter.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33.3",
+        "external_ref": "WPHX-323.25",
+        "title": "Emit first generated AI wrapper adapter"
+      },
+      "evidence_class": "wphx_php_generated_original_path_ai_wrapper_adapter",
+      "validation_result": {
+        "status": "passed",
+        "generated_overlay_manifest_present": true,
+        "generated_overlay_count": 1,
+        "generated_shell_php_lint": "No syntax errors detected in build/wp-core/wphx-323-25/generated/wp-includes/ai-client.php",
+        "generated_shell_php_lint_ok": true,
+        "candidate_package_php_lint_file_count": 153,
+        "candidate_package_php_lint_ok": true,
+        "unsupported_empty": true,
+        "abi_reflection_match": true,
+        "include_load_fixture_match": true,
+        "oracle_candidate_observations_match": true,
+        "probe_case_count": 5,
+        "expected_candidate_package_difference_count": 1,
+        "unexpected_candidate_package_differences_empty": true,
+        "copied_candidate_body_used": false,
+        "preserved_php_ai_client_support_file_count": 146,
+        "copied_support_wrapper_file_count": 6,
+        "public_php_replacement_claimed": true,
+        "whole_file_owned": false,
+        "installed_wordpress_parity_claimed": false,
+        "live_provider_behavior_claimed": false,
+        "dependency_substitution_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "dependency_substitution_claimed",
+        "installed_wordpress_parity_claimed"
+      ],
+      "failures": []
+    },
+    {
+      "id": "WPHX-323.26",
+      "path": "manifests/wp-core/wphx-323-26-php-ai-client-dto-schema-corpus.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33.4",
+        "external_ref": "WPHX-323.26",
+        "title": "Add php-ai-client DTO schema corpus gate"
+      },
+      "evidence_class": "php_ai_client_dto_schema_enum_roundtrip_reflection_corpus_gate",
+      "validation_result": {
+        "status": "passed",
+        "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "php_ai_client_php_file_count": 146,
+        "expected_php_ai_client_php_file_count": 146,
+        "dto_schema_fixture_file_count": 45,
+        "dto_schema_fixture_counts_by_kind": {
+          "abstract_class": 2,
+          "interface": 5,
+          "dto": 24,
+          "enum": 14
+        },
+        "dto_schema_fixture_counts_by_group": {
+          "schema_base": 1,
+          "enum_base": 1,
+          "schema_contract": 2,
+          "file_dto": 1,
+          "enum": 14,
+          "message_dto": 4,
+          "operation_contract": 1,
+          "operation_dto": 1,
+          "provider_model_dto": 7,
+          "http_contract": 1,
+          "http_dto": 4,
+          "result_contract": 1,
+          "result_dto": 3,
+          "tool_dto": 4
+        },
+        "enum_fixture_count": 14,
+        "reflection_fixture_count": 45,
+        "schema_summary_count": 24,
+        "roundtrip_fixture_count": 28,
+        "exception_fixture_count": 8,
+        "autoload_check_count": 45,
+        "namespace_autoload_checks_pass": true,
+        "roundtrip_failures_empty": true,
+        "exception_failures_empty": true,
+        "oracle_candidate_package_diffs_empty": true,
+        "oracle_candidate_observations_match": true,
+        "candidate_php_lint_count": 146,
+        "oracle_php_lint_count": 146,
+        "candidate_php_lint_failures_empty": true,
+        "generated_subset_receipt_present": false,
+        "haxe_owned_php_ai_client_runtime_claimed": false,
+        "generated_public_php_replacement_claimed": false,
+        "live_provider_behavior_claimed": false,
+        "dependency_substitution_claimed": false,
+        "installed_wordpress_parity_claimed": false,
+        "copied_artifact_retirement_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "dependency_substitution_claimed",
+        "haxe_owned_php_ai_client_runtime_claimed",
+        "generated_public_php_replacement_claimed"
+      ],
+      "failures": []
+    },
+    {
+      "id": "WPHX-323.27",
+      "path": "manifests/wp-core/wphx-323-27-php-ai-client-transport-provider-discovery.v1.json",
+      "issue": {
+        "id": "wordpresshx-l76.33.5",
+        "external_ref": "WPHX-323.27",
+        "title": "Add php-ai-client transport provider discovery gate"
+      },
+      "evidence_class": "php_ai_client_fake_provider_transport_discovery_fixture_gate",
+      "validation_result": {
+        "status": "passed",
+        "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "php_ai_client_php_file_count": 146,
+        "expected_php_ai_client_php_file_count": 146,
+        "provider_transport_source_fixture_count": 32,
+        "provider_transport_source_fixture_counts_by_group": {
+          "provider_registry": 3,
+          "provider_model_runtime": 3,
+          "provider_contract": 5,
+          "provider_model_dto": 5,
+          "transport_discovery": 11,
+          "exception_mapping": 5
+        },
+        "registered_provider_count": 1,
+        "metadata_model_count": 2,
+        "provider_local_model_match_count": 1,
+        "registry_provider_match_count": 1,
+        "fake_transport_request_count": 9,
+        "metadata_discovery_request_count": 1,
+        "exception_fixture_count": 9,
+        "exception_failures_empty": true,
+        "fake_discovery_client_candidate_count": 1,
+        "fake_discovery_request_factory_candidate_count": 1,
+        "fake_discovery_failures_empty": true,
+        "assertion_failures_empty": true,
+        "oracle_candidate_package_diffs_empty": true,
+        "oracle_candidate_observations_match": true,
+        "candidate_php_lint_count": 146,
+        "oracle_php_lint_count": 146,
+        "candidate_php_lint_failures_empty": true,
+        "fake_provider_fixture_only": true,
+        "fake_transport_fixture_only": true,
+        "fake_discovery_fixture_only": true,
+        "live_provider_behavior_claimed": false,
+        "external_discovery_claimed": false,
+        "network_io_claimed": false,
+        "credential_privacy_security_claimed": false,
+        "haxe_owned_php_ai_client_runtime_claimed": false,
+        "generated_public_php_replacement_claimed": false,
+        "dependency_substitution_claimed": false,
+        "installed_wordpress_parity_claimed": false,
+        "copied_artifact_retirement_claimed": false
+      },
+      "required_false": [
+        "live_provider_behavior_claimed",
+        "external_discovery_claimed",
+        "network_io_claimed",
+        "credential_privacy_security_claimed",
+        "dependency_substitution_claimed",
+        "haxe_owned_php_ai_client_runtime_claimed",
+        "generated_public_php_replacement_claimed"
+      ],
+      "failures": []
+    }
+  ],
+  "adr_validation": {
+    "section_results": [
+      {
+        "section": "# ADR-018: AI Provider Privacy, Security, And Provenance Policy",
+        "present": true
+      },
+      {
+        "section": "Status: Accepted",
+        "present": true
+      },
+      {
+        "section": "## Context",
+        "present": true
+      },
+      {
+        "section": "## Decision",
+        "present": true
+      },
+      {
+        "section": "## Credential Handling",
+        "present": true
+      },
+      {
+        "section": "## Prompt And File Privacy",
+        "present": true
+      },
+      {
+        "section": "## Hooks Logs And Cache Leakage",
+        "present": true
+      },
+      {
+        "section": "## Provider Cassettes And Live Opt-In",
+        "present": true
+      },
+      {
+        "section": "## License SBOM And Dependency Provenance",
+        "present": true
+      },
+      {
+        "section": "## Claim Gates",
+        "present": true
+      },
+      {
+        "section": "## Oracle Review",
+        "present": true
+      },
+      {
+        "section": "## Consequences",
+        "present": true
+      },
+      {
+        "section": "## Non-Claims",
+        "present": true
+      },
+      {
+        "section": "## Supersession",
+        "present": true
+      }
+    ],
+    "policy_results": [
+      {
+        "id": "credential_handling",
+        "required_terms": [
+          "real provider credentials must never be committed",
+          "local environment variables",
+          "WPHX_AI_LIVE_PROVIDER_OPT_IN=1",
+          "must not record credential values",
+          "revocable, least-privilege, test-only provider credentials"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "prompt_file_privacy",
+        "required_terms": [
+          "synthetic prompts and synthetic files are the default",
+          "must not send real user content",
+          "prompt and file fixtures must classify every payload",
+          "provider cassettes and receipts may store synthetic prompt/file bodies only",
+          "prompt-builder hooks"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "hook_log_cache_leakage",
+        "required_terms": [
+          "leakage boundary",
+          "must not record raw credentials",
+          "cache keys and cache values must not contain raw credentials",
+          "hook and event fixtures must prove"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "provider_cassette_opt_in",
+        "required_terms": [
+          "fake transport remains the normal oracle",
+          "live provider gates are disabled",
+          "provider cassettes are allowed only",
+          "replayable without network access",
+          "provider terms/data-retention review"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "license_sbom_dependency_provenance",
+        "required_terms": [
+          "WordPress\\AiClientDependencies",
+          "exact package name, version, source URL or locked ref, artifact digest, license, notice files, and SBOM entry",
+          "GPL compatibility",
+          "scoped namespace collision review",
+          "security-advisory and update-policy review"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "live_provider_claim_gates",
+        "required_terms": [
+          "A future gate may claim live provider behavior only after all of these are true",
+          "WPHX-323.24, WPHX-323.26, WPHX-323.27, and this ADR have passed",
+          "explicitly opt-in for network behavior",
+          "Secrets scanning passes"
+        ],
+        "missing_terms": []
+      },
+      {
+        "id": "dependency_divergence_claim_gates",
+        "required_terms": [
+          "A future gate may claim dependency divergence only after all of these are true",
+          "WPHX-323.23, WPHX-323.26, WPHX-323.27, and this ADR have passed",
+          "License, notice, SBOM, source, version, hash, and update-policy evidence",
+          "No shaded dependency artifact is retired"
+        ],
+        "missing_terms": []
+      }
+    ],
+    "missing_sections": [],
+    "failed_policy_checks": []
+  },
+  "wordpress_license_record": {
+    "package_license": "GPL-2.0-or-later",
+    "composer_license": "GPL-2.0-or-later",
+    "project_license_file": {
+      "path": "src/license.txt",
+      "sha256": "dec703cdb49042ca367f71c3982dee4552ffef395225f1fe9f14d29a4a0cb0ff"
+    }
+  },
+  "shaded_dependency_policy_input": {
+    "scoped_namespace": "WordPress\\AiClientDependencies",
+    "primary_file_count": 44,
+    "tagged_file_count": 54,
+    "package_families_from_paths": [
+      "Http\\Discovery",
+      "Nyholm\\Psr7",
+      "Psr\\EventDispatcher",
+      "Psr\\Http",
+      "Psr\\SimpleCache"
+    ],
+    "current_policy": "Preserve the scoped dependency tree exactly as bundled. Do not unscope, deduplicate, substitute Composer packages, change PSR implementations, or claim dependency replacement from this gate.",
+    "divergence_requirements": [
+      "License and SBOM provenance review for every substituted dependency family.",
+      "Scoped namespace collision and plugin/ecosystem visibility scan.",
+      "API/reflection snapshots for interfaces, classes, traits, constants, constructors, methods, parameter defaults, and thrown exception surfaces.",
+      "Deterministic fake transport/discovery/cache/event behavior fixtures covering both success and failure paths.",
+      "Fallback policy for hosts lacking expected native extensions or Composer packages.",
+      "Accepted WPHX-323.30 privacy/security/provenance policy before live provider or credential-bearing tests."
+    ]
+  },
+  "policy": {
+    "status": "accepted",
+    "adr": "docs/adr/ADR-018-ai-provider-privacy-security-provenance.md",
+    "oracle_review_prompt": "docs/operations/oracle-ai-provider-privacy-security-provenance-review.md",
+    "default_provider_evidence": "fake_provider_fake_transport_no_network",
+    "live_provider_policy": {
+      "default_enabled": false,
+      "opt_in_required": true,
+      "opt_in_environment_variable": "WPHX_AI_LIVE_PROVIDER_OPT_IN=1",
+      "default_ci_allowed": false,
+      "precommit_allowed": false,
+      "prepush_allowed": false,
+      "offline_replay_or_fake_provider_required": true
+    },
+    "credential_policy": {
+      "real_credentials_in_repo_allowed": false,
+      "credentials_in_manifests_or_receipts_allowed": false,
+      "secret_derived_hashes_in_evidence_allowed": false,
+      "allowed_source": "explicit local environment variables only",
+      "evidence_may_record": [
+        "provider family",
+        "model family",
+        "region class",
+        "fixture id",
+        "credential presence boolean"
+      ],
+      "evidence_must_not_record": [
+        "credential values",
+        "partial credential values",
+        "secret-derived hashes",
+        "account ids",
+        "project ids",
+        "organization ids",
+        "bearer tokens",
+        "refresh tokens",
+        "signed URLs",
+        "authorization headers"
+      ]
+    },
+    "prompt_file_privacy_policy": {
+      "default_payloads": "synthetic_prompts_and_synthetic_files",
+      "installed_user_data_blocked": true,
+      "required_payload_classes": [
+        "synthetic",
+        "public_fixture",
+        "redacted_cassette",
+        "installed_user_data_blocked"
+      ],
+      "blocked_without_later_installed_privacy_gate": [
+        "real user content",
+        "database content",
+        "media library files",
+        "uploads",
+        "plugin/theme files",
+        "site configuration",
+        "email addresses",
+        "names",
+        "IP addresses",
+        "cookies",
+        "nonces",
+        "personal data"
+      ]
+    },
+    "hook_log_cache_leakage_policy": {
+      "hooks_logs_cache_events_and_exceptions_are_leakage_boundaries": true,
+      "raw_sensitive_payloads_in_logs_receipts_manifests_beads_or_cassettes_allowed": false,
+      "cache_must_record": [
+        "ttl",
+        "invalidation",
+        "namespace",
+        "redaction policy"
+      ],
+      "plugin_visible_callback_payload_shape_must_be_tested": true
+    },
+    "cassette_policy": {
+      "cassettes_default_allowed": false,
+      "cassettes_allowed_for_explicit_live_provider_gates": true,
+      "redaction_manifest_required": true,
+      "no_credentials_personal_data_raw_user_prompts_raw_uploads_account_ids_or_secret_headers": true,
+      "provider_terms_may_block_required_ci_replay": true
+    },
+    "dependency_provenance_policy": {
+      "preserved_shaded_namespace": "WordPress\\AiClientDependencies",
+      "dependency_divergence_default_allowed": false,
+      "required_before_divergence": [
+        "license notice SBOM source version hash and update policy evidence",
+        "GPL compatibility and WordPress distribution policy review",
+        "source and distribution path/hash mapping",
+        "scoped namespace collision and plugin/ecosystem visibility scan",
+        "API/reflection snapshots",
+        "deterministic fake provider/transport/discovery/cache/event fixtures",
+        "fallback policy for hosts lacking expected native extensions or Composer packages",
+        "security-advisory and update-policy review",
+        "Beads follow-up for unresolved notice/license/SBOM/compatibility gaps"
+      ],
+      "shaded_dependency_package_families": [
+        "Http\\Discovery",
+        "Nyholm\\Psr7",
+        "Psr\\EventDispatcher",
+        "Psr\\Http",
+        "Psr\\SimpleCache"
+      ]
+    },
+    "claim_gates": {
+      "live_provider_behavior": [
+        "WPHX-323.24, WPHX-323.26, WPHX-323.27, and ADR-018 have passed",
+        "network behavior is explicitly opt-in and disabled from default precommit/pre-push/default CI",
+        "credentials come only from local environment variables and are never written to evidence",
+        "synthetic or approved redacted payloads are used",
+        "hook/log/cache/event/exception/cassette redaction checks pass",
+        "provider terms, retention, model drift, network, retry, TLS/proxy/DNS, and failure behavior are recorded",
+        "offline replay or fake-provider fallback evidence exists",
+        "secrets scanning passes after cassette or live-gate evidence changes"
+      ],
+      "dependency_divergence": [
+        "WPHX-323.23, WPHX-323.26, WPHX-323.27, and ADR-018 have passed",
+        "license/notice/SBOM/source/version/hash/update-policy evidence is recorded",
+        "API/reflection, fake transport/discovery/cache/event, fallback, and ecosystem visibility fixtures pass",
+        "a Beads issue or ADR accepts the distribution dependency strategy",
+        "copied artifact retirement evidence names the replacement and rollback path"
+      ]
+    }
+  },
+  "validation_result": {
+    "status": "passed",
+    "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "adr_present": true,
+    "oracle_review_prompt_present": true,
+    "required_adr_section_count": 14,
+    "required_adr_sections_present": true,
+    "policy_check_count": 7,
+    "policy_checks_passed": true,
+    "prerequisite_gate_count": 6,
+    "prerequisite_gates_passed": true,
+    "wordpress_license_gpl_compatible_recorded": true,
+    "shaded_dependency_namespace": "WordPress\\AiClientDependencies",
+    "shaded_dependency_primary_file_count": 44,
+    "shaded_dependency_tagged_file_count": 54,
+    "shaded_dependency_package_family_count": 5,
+    "credential_handling_policy_recorded": true,
+    "prompt_file_privacy_policy_recorded": true,
+    "hook_log_cache_leakage_policy_recorded": true,
+    "provider_cassette_opt_in_policy_recorded": true,
+    "license_sbom_dependency_provenance_policy_recorded": true,
+    "live_provider_claim_gates_recorded": true,
+    "dependency_divergence_claim_gates_recorded": true,
+    "oracle_review_prompt_recorded": true,
+    "live_provider_behavior_claimed": false,
+    "credential_privacy_security_claimed": false,
+    "prompt_file_privacy_claimed": false,
+    "provider_cassette_safety_claimed": false,
+    "dependency_substitution_claimed": false,
+    "installed_wordpress_ai_parity_claimed": false,
+    "haxe_owned_php_ai_client_runtime_claimed": false,
+    "generated_public_php_replacement_for_php_ai_client_claimed": false,
+    "copied_artifact_retirement_claimed": false
+  },
+  "claims": [
+    "ADR-018 records the AI provider privacy, security, cassette, credential, hook/log/cache leakage, and dependency provenance policy for future live-provider and dependency-divergence work.",
+    "Live provider behavior remains opt-in and blocked from default precommit, pre-push, and default CI.",
+    "Dependency substitution for WordPress\\AiClientDependencies remains blocked until license/notice/SBOM, API/reflection, fake transport/discovery/cache/event, fallback, ecosystem visibility, and accepted distribution-strategy evidence pass.",
+    "An oracle review prompt is recorded for second-pass privacy/security architecture review before the first live-provider or dependency-divergence claim."
+  ],
+  "non_claims": [
+    "This policy gate does not claim live provider behavior parity.",
+    "This policy gate does not prove credential handling safety with executable live-provider tests.",
+    "This policy gate does not prove prompt/file privacy for installed WordPress data.",
+    "This policy gate does not claim provider cassette safety has been proven.",
+    "This policy gate does not claim installed WordPress AI behavior parity.",
+    "This policy gate does not claim Haxe-owned php-ai-client runtime logic.",
+    "This policy gate does not claim generated public PHP replacement for php-ai-client internals.",
+    "This policy gate does not claim dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This policy gate is not legal advice."
+  ]
+}

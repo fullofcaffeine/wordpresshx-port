@@ -1,0 +1,74 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy",
+  "issue": {
+    "id": "wordpresshx-l76.33.8",
+    "external_ref": "WPHX-323.30",
+    "title": "Add AI provider privacy security provenance ADR"
+  },
+  "generated_at": "2026-07-08T22:00:00.000Z",
+  "generator": "tools/wp-core/run-ai-provider-privacy-security-provenance-policy.mjs",
+  "unit": {
+    "kind": "policy_gate",
+    "name": "AI provider privacy/security/provenance policy",
+    "area": "wp-includes/ai-client.php, wp-includes/ai-client/*, wp-includes/php-ai-client/, and WordPress\\AiClientDependencies",
+    "public_contract": "Live AI provider behavior and php-ai-client dependency divergence remain blocked until ADR-018 policy gates are satisfied with redacted, opt-in, provenance-backed evidence."
+  },
+  "ownership_state": "ai_provider_privacy_security_provenance_policy_gate",
+  "bridge": {
+    "exists": true,
+    "kind": "policy-and-claim-gate-for-preserved-ai-client-boundaries",
+    "removal_gate": "Replace this policy only with a later ADR or live-provider/dependency-divergence gate that preserves or strengthens credential, prompt/file, cassette, hook/log/cache leakage, license/SBOM, and oracle-review safeguards."
+  },
+  "behavior_parity_claimed": false,
+  "live_provider_behavior_claimed": false,
+  "credential_privacy_security_claimed": false,
+  "prompt_file_privacy_claimed": false,
+  "provider_cassette_safety_claimed": false,
+  "dependency_substitution_claimed": false,
+  "installed_wordpress_ai_parity_claimed": false,
+  "haxe_owned_php_ai_client_runtime_claimed": false,
+  "generated_public_php_replacement_for_php_ai_client_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "owned_paths": [
+    "docs/adr/ADR-018-ai-provider-privacy-security-provenance.md",
+    "docs/operations/oracle-ai-provider-privacy-security-provenance-review.md",
+    "tools/wp-core/run-ai-provider-privacy-security-provenance-policy.mjs",
+    "manifests/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "manifests/ownership/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "receipts/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "manifests/ownership/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json",
+    "receipts/wp-core/wphx-323-30-ai-provider-privacy-security-provenance-policy.v1.json"
+  ],
+  "preserved_paths": [
+    "wp-includes/php-ai-client/",
+    "wp-includes/ai-client.php",
+    "wp-includes/ai-client/"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-ai-provider-privacy-security-provenance-policy",
+      "npm run wp:core:wphx-323-ai-provider-privacy-security-provenance-policy:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-30-ai-provider-privacy-security-provenance-policy"
+    ],
+    "manifest_digest": "sha256:e6e9fc56dd6f843f28a5d27bafb4e9e144e28dfc44e407ba623426598973d17d"
+  },
+  "non_claims": [
+    "This policy gate does not claim live provider behavior parity.",
+    "This policy gate does not prove credential handling safety with executable live-provider tests.",
+    "This policy gate does not prove prompt/file privacy for installed WordPress data.",
+    "This policy gate does not claim provider cassette safety has been proven.",
+    "This policy gate does not claim installed WordPress AI behavior parity.",
+    "This policy gate does not claim Haxe-owned php-ai-client runtime logic.",
+    "This policy gate does not claim generated public PHP replacement for php-ai-client internals.",
+    "This policy gate does not claim dependency substitution, unscoping, deduplication, Composer replacement, or copied artifact retirement for WordPress\\AiClientDependencies.",
+    "This policy gate is not legal advice."
+  ]
+}
