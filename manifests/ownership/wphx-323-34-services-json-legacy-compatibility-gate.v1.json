@@ -1,0 +1,43 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-34-services-json-legacy-compatibility-gate",
+  "issue": {
+    "id": "wordpresshx-l76.32.4",
+    "external_ref": "WPHX-323.34",
+    "title": "Add Services_JSON legacy compatibility gate"
+  },
+  "generated_at": "2026-07-09T05:00:00.000Z",
+  "generator": "tools/wp-core/run-services-json-legacy-compatibility-gate.mjs",
+  "ownership_state": "preserved_upstream_services_json_legacy_compatibility_gate",
+  "boundary_id": "services_json",
+  "source_paths": [
+    "src/wp-includes/class-json.php"
+  ],
+  "distribution_paths": [
+    "wp-includes/class-json.php"
+  ],
+  "emission_strategy": "copied_upstream_services_json_with_legacy_host_json_differential_probe",
+  "durable_haxe_runtime_claimed": false,
+  "host_json_primitive_replacement_claimed": false,
+  "public_php_replacement_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "generated_overlay_manifest_present": false,
+  "installed_legacy_json_parity_claimed": false,
+  "legal_review_complete": false,
+  "notes": [
+    "Oracle and candidate roots execute copied upstream WordPress 7.0 wp-includes/class-json.php.",
+    "Services_JSON is deprecated compatibility code and is only a host-primitive-backed replacement candidate after edge-case evidence is accepted.",
+    "Native json_encode/json_decode observations are differential evidence and do not supersede legacy behavior or fallback policy.",
+    "Keep upstream class-json.php preserved until WPHX-323.36 records an accepted provenance/replacement decision."
+  ],
+  "removal_gates": [
+    "non-empty generated overlay manifest for any candidate divergence",
+    "generated WPHX PHP original-path class-json.php preserving class names, constants, flags, deprecation payloads, warning/error shape, and reflection/API shape",
+    "native json_encode/json_decode handoff proof for admitted safe subset plus preserved upstream fallback for edge cases",
+    "installed XML-RPC/deprecated/plugin/theme legacy JSON caller evidence",
+    "license/provenance review and WPHX-323.36 localization legacy provenance decision acceptance"
+  ],
+  "receipt_refs": [
+    "receipt:wphx-323-34-services-json-legacy-compatibility-gate"
+  ]
+}
