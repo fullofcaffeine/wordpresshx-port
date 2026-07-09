@@ -1,0 +1,68 @@
+{
+  "schema": "wphx.ownership-manifest.v1",
+  "manifest_id": "ownership:wp-core/wphx-323-29-tinymce-browser-vendor-coordination",
+  "issue": {
+    "id": "wordpresshx-l76.33.7",
+    "external_ref": "WPHX-323.29",
+    "title": "Add TinyMCE browser-vendor coordination gate"
+  },
+  "generated_at": "2026-07-08T21:30:00.000Z",
+  "generator": "tools/wp-core/run-tinymce-browser-vendor-coordination-gate.mjs",
+  "unit": {
+    "kind": "coordination_gate",
+    "name": "TinyMCE browser-vendor coordination gate for wp-tinymce.php",
+    "area": "src/js/_enqueues/vendor/tinymce and wp-includes/js/tinymce",
+    "public_contract": "The preserved TinyMCE PHP loader cannot be replaced or broadened into ownership until browser-vendor asset path/hash, script/resource, and WPHX-609-style gates agree on the TinyMCE browser asset contract."
+  },
+  "ownership_state": "browser_vendor_coordination_gate",
+  "bridge": {
+    "exists": true,
+    "kind": "preserved-upstream-browser-vendor-coordination-with-loader-replacement-blockers",
+    "removal_gate": "A generated direct-script adapter must pass the WPHX-323.28 direct HTTP loader fixture at both src/js/_enqueues/vendor/tinymce/wp-tinymce.php and wp-includes/js/tinymce/wp-tinymce.php. WPHX-609 browser-vendor manifest closure, or an equivalent accepted browser-vendor asset ownership gate, must record TinyMCE JS/CSS/font/image/plugin/theme/skin paths, hashes, provenance, licenses, build-only artifacts, and script/resource handles. The generated loader must consume the same asset contract recorded here: wp-tinymce.js is a distribution-only build artifact in the current evidence, while tinymce.min.js and plugins/compat3x/plugin.min.js are source/distribution fallback assets. If wp-tinymce.js remains absent from the source oracle, generated loader evidence must continue to preserve c=1 fallback behavior and missing-file warning suppression. Replacement evidence must keep TinyMCE browser/editor/package behavior non-owned unless separate WPHX-609-style browser gates claim it with executable browser/package evidence. Any path, hash, script-handle, source-map, package-export, or license/provenance drift must be recorded before replacing or retiring preserved upstream TinyMCE artifacts."
+  },
+  "behavior_parity_claimed": false,
+  "public_php_replacement_claimed": false,
+  "haxe_owned_tinymce_loader_runtime_claimed": false,
+  "tinymce_browser_runtime_claimed": false,
+  "tinymce_js_css_font_editor_ownership_claimed": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "owned_paths": [
+    "tools/wp-core/run-tinymce-browser-vendor-coordination-gate.mjs",
+    "manifests/wp-core/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "manifests/ownership/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "receipts/wp-core/wphx-323-29-tinymce-browser-vendor-coordination.v1.json"
+  ],
+  "generated_paths": [
+    "manifests/wp-core/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "manifests/ownership/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "receipts/wp-core/wphx-323-29-tinymce-browser-vendor-coordination.v1.json"
+  ],
+  "preserved_paths": [
+    "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+    "wp-includes/js/tinymce/wp-tinymce.php",
+    "src/js/_enqueues/vendor/tinymce",
+    "wp-includes/js/tinymce"
+  ],
+  "verification": {
+    "oracle_commands": [
+      "npm run wp:core:wphx-323-tinymce-browser-vendor-coordination",
+      "npm run wp:core:wphx-323-tinymce-browser-vendor-coordination:check",
+      "npm run receipts:validate",
+      "npm run beads:validate"
+    ],
+    "receipt_refs": [
+      "receipt:wphx-323-29-tinymce-browser-vendor-coordination"
+    ],
+    "manifest_digest": "sha256:2fcfcde2973837003d2d4b1829097af65774f62c0bbcdb5917c34dcd5ef5b99a"
+  },
+  "non_claims": [
+    "This gate records TinyMCE browser-vendor coordination for the preserved wp-tinymce.php loader; it does not claim generated loader replacement.",
+    "This gate does not claim Haxe-owned TinyMCE PHP loader runtime logic.",
+    "This gate does not claim TinyMCE JavaScript, CSS, font, image, browser-editor, plugin, skin, theme, package, or Gutenberg ownership.",
+    "This gate does not execute real TinyMCE browser/editor behavior or installed WordPress editor flows.",
+    "This gate does not retire copied or preserved upstream TinyMCE browser artifacts.",
+    "This gate does not substitute TinyMCE dependencies, change WordPress script handles, or claim source-map/package-export parity.",
+    "A generated loader replacement remains blocked on WPHX-609 browser-vendor manifest closure or equivalent asset ownership evidence plus the WPHX-323.28 direct-loader fixture."
+  ]
+}

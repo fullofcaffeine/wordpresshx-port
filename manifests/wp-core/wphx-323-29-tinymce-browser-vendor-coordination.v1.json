@@ -1,0 +1,1329 @@
+{
+  "schema": "wphx.wp-core.tinymce-browser-vendor-coordination.v1",
+  "issue": {
+    "id": "wordpresshx-l76.33.7",
+    "external_ref": "WPHX-323.29",
+    "title": "Add TinyMCE browser-vendor coordination gate"
+  },
+  "generated_at": "2026-07-08T21:30:00.000Z",
+  "generator": "tools/wp-core/run-tinymce-browser-vendor-coordination-gate.mjs",
+  "evidence_class": "tinymce_browser_vendor_coordination_gate",
+  "behavior_parity_claimed": false,
+  "generated_public_php_replacement_claimed": false,
+  "haxe_owned_tinymce_loader_runtime_claimed": false,
+  "tinymce_browser_runtime_claimed": false,
+  "tinymce_js_css_font_editor_ownership_claimed": false,
+  "installed_wordpress_parity_claimed": false,
+  "copied_artifact_retirement_claimed": false,
+  "inputs": {
+    "runner": {
+      "path": "tools/wp-core/run-tinymce-browser-vendor-coordination-gate.mjs",
+      "bytes": 28074,
+      "sha256": "sha256:d6ca70df758aab6d29e3c9ad93a5a48e1b1dfec519d0afa42525ceff91f6440d"
+    },
+    "upstream_lock": {
+      "path": "upstream.lock.json",
+      "bytes": 7266,
+      "sha256": "sha256:5eab07f4ce7d63765e30a8229e025d2d595a5a5fef4426e79292db2ad1315778"
+    },
+    "product_requirements": {
+      "path": "docs/prd/wordpress-haxe-port.md",
+      "bytes": 129624,
+      "sha256": "sha256:43f31b476d035ba87adfef9f42f7f2aecd686b92c70eba4fb62fd9b2ea6dcf63"
+    },
+    "ai_tinymce_gate_manifest": {
+      "path": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+      "bytes": 48784,
+      "sha256": "sha256:8cccbaec8caa3932b260fc361e1a53ba6f835c786b6b3fe340183f642e5d74b4"
+    },
+    "loader_preserved_exception_manifest": {
+      "path": "manifests/wp-core/wphx-323-28-tinymce-php-loader-preserved-exception.v1.json",
+      "bytes": 27273,
+      "sha256": "sha256:3a111e143fe4571f6689fa027097d51e82aea4b15c259a8278ad8fa82098ad0d"
+    },
+    "source_inventory": {
+      "path": "manifests/source-inventory.jsonl",
+      "bytes": 11207179,
+      "sha256": "sha256:69d3f94f72d7c955a55c46991f81331522f0e306a89af9e037ce216a5263aff3"
+    },
+    "artifact_provenance": {
+      "path": "manifests/artifact-provenance.jsonl",
+      "bytes": 1829830,
+      "sha256": "sha256:b5855fd8ea57e1712b332514e4e2f46b0f5bf70b176c7657bf0e592fa56229d4"
+    }
+  },
+  "upstream_authority": {
+    "relative_path": "../wordpress-develop",
+    "authority": "WordPress 7.0 distribution and behavior oracle",
+    "role": "wordpress-7.0-oracle",
+    "locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "locked_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "locked_tag": "7.0.0",
+    "current_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "current_tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+    "observed_dirty_state_from_lock": "Untracked repomix-output.wordpress.xml and repomix-output.wordpress.xml.zip",
+    "current_status_short": [
+      "?? repomix-output.wordpress.xml",
+      "?? repomix-output.wordpress.xml.zip"
+    ]
+  },
+  "prior_gate_context": {
+    "ai_tinymce_gate": {
+      "issue": {
+        "id": "wordpresshx-l76.33",
+        "external_ref": "WPHX-323.07",
+        "title": "Plan AI client and TinyMCE PHP loader vendor gates"
+      },
+      "evidence_class": "ai_client_tinymce_boundary_classification_and_future_gate_plan",
+      "tinymce_loader_preserved_exception_renewed": true,
+      "tinymce_loader_requirements": [
+        "c=1 and wp-tinymce.js exists emits only wp-tinymce.js contents",
+        "no c emits tinymce.min.js plus plugins/compat3x/plugin.min.js",
+        "c=1 with wp-tinymce.js missing falls back to concatenated loader behavior",
+        "missing fallback files suppress warning leakage",
+        "headers match Content-Type, Vary, Expires, and Cache-Control behavior",
+        "uses __DIR__ rather than current working directory",
+        "exits without trailing framework output",
+        "source and distribution paths are both covered"
+      ]
+    },
+    "loader_preserved_exception_gate": {
+      "issue": {
+        "id": "wordpresshx-l76.33.6",
+        "external_ref": "WPHX-323.28",
+        "title": "Add TinyMCE PHP loader preserved-exception fixture"
+      },
+      "evidence_class": "tinymce_php_loader_direct_http_preserved_exception_fixture_gate",
+      "validation_result": {
+        "status": "passed",
+        "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+        "tinymce_loader_source_path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+        "tinymce_loader_distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+        "tinymce_loader_source_sha256": "sha256:f6d4537829d35aeddad02d7ce1e33b037f43b7d6363243430cb911a85c9ea0bf",
+        "source_distribution_fixture_hashes_match": true,
+        "source_inventory_record_present": true,
+        "artifact_provenance_record_present": true,
+        "request_fixture_count": 12,
+        "source_path_request_count": 6,
+        "distribution_path_request_count": 6,
+        "exit_behavior_request_count": 2,
+        "missing_asset_request_count": 4,
+        "warning_leakage_count": 0,
+        "header_failure_count": 0,
+        "cwd_decoy_leak_count": 0,
+        "fixture_failures_empty": true,
+        "oracle_candidate_package_diffs_empty": true,
+        "oracle_candidate_observations_match": true,
+        "oracle_php_lint_count": 12,
+        "candidate_php_lint_count": 12,
+        "php_lint_failures_empty": true,
+        "tiny_fake_asset_tree_only": true,
+        "generated_public_php_replacement_claimed": false,
+        "haxe_owned_tinymce_loader_runtime_claimed": false,
+        "tinymce_browser_runtime_claimed": false,
+        "tinymce_js_css_font_editor_ownership_claimed": false,
+        "installed_wordpress_parity_claimed": false,
+        "copied_artifact_retirement_claimed": false
+      }
+    },
+    "prd_browser_vendor_closure": {
+      "task": {
+        "id": "WPHX-609",
+        "title": "Browser vendor manifest closure",
+        "dependency": "WPHX-607",
+        "acceptance": "C3 browser portion verified",
+        "source": {
+          "path": "docs/prd/wordpress-haxe-port.md",
+          "line": 1831,
+          "text": "| WPHX-609 | Browser vendor manifest closure | 607 | C3 browser portion verified |"
+        }
+      },
+      "workset": {
+        "id": "ws:browser-vendors",
+        "source": {
+          "path": "docs/prd/wordpress-haxe-port.md",
+          "line": 1888,
+          "text": "- `ws:browser-vendors`"
+        }
+      }
+    }
+  },
+  "tinymce_browser_vendor_tree": {
+    "source_root": "src/js/_enqueues/vendor/tinymce",
+    "distribution_root": "wp-includes/js/tinymce",
+    "source_tree": {
+      "root": "../wordpress-develop/src/js/_enqueues/vendor/tinymce",
+      "summary": {
+        "file_count": 81,
+        "by_extension": {
+          ".js": 47,
+          ".txt": 1,
+          ".css": 5,
+          ".eot": 2,
+          ".svg": 4,
+          ".ttf": 2,
+          ".woff": 2,
+          ".gif": 4,
+          ".png": 13,
+          ".php": 1
+        },
+        "by_top_level": {
+          "langs": 1,
+          "(root)": 5,
+          "plugins": 36,
+          "skins": 31,
+          "themes": 4,
+          "utils": 4
+        },
+        "by_surface": {
+          "javascript": 47,
+          "notice": 1,
+          "css": 5,
+          "font": 10,
+          "image": 17,
+          "php_loader": 1
+        },
+        "by_kind": {
+          "tinymce_language_asset": 1,
+          "license_notice": 1,
+          "tinymce_plugin_asset": 36,
+          "tinymce_skin_or_font_asset": 31,
+          "tinymce_theme_asset": 4,
+          "tinymce_browser_vendor_asset": 2,
+          "tinymce_core_minified_js": 1,
+          "tinymce_legacy_utility_asset": 4,
+          "preserved_php_loader": 1
+        }
+      },
+      "files": [
+        {
+          "relative_path": "langs/wp-langs-en.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/langs/wp-langs-en.js",
+          "distribution_path": "wp-includes/js/tinymce/langs/wp-langs-en.js",
+          "kind": "tinymce_language_asset",
+          "browser_surface": "javascript",
+          "bytes": 15529,
+          "sha256": "sha256:8af9e2730cc064da54c5f0e2b746f56bc7cd96e3eadcbfac009ebc668078cc1e"
+        },
+        {
+          "relative_path": "license.txt",
+          "source_path": "src/js/_enqueues/vendor/tinymce/license.txt",
+          "distribution_path": "wp-includes/js/tinymce/license.txt",
+          "kind": "license_notice",
+          "browser_surface": "notice",
+          "bytes": 26441,
+          "sha256": "sha256:47a9dcd2574891a5a465112fd9dfcebcc7e61844edec27fa936a64642008fe66"
+        },
+        {
+          "relative_path": "plugins/charmap/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/charmap/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/charmap/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 23210,
+          "sha256": "sha256:ff3ed2bcd6d444849fe3d52399973c4050c30dd23e0a60c59436ac28949e24b6"
+        },
+        {
+          "relative_path": "plugins/charmap/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/charmap/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/charmap/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 8601,
+          "sha256": "sha256:f7f129649dd03e78c621e54ce7cb2642acc80f52e8114b5dc3e3bb42b35e02b0"
+        },
+        {
+          "relative_path": "plugins/colorpicker/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/colorpicker/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/colorpicker/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 3561,
+          "sha256": "sha256:385c08da4f466b753c803f6bc981498b5085803b67f4f3838c9434a3e891c193"
+        },
+        {
+          "relative_path": "plugins/colorpicker/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/colorpicker/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/colorpicker/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 1349,
+          "sha256": "sha256:44b45ab8b7d470cb166bd4a3fde9994dbb7305d9274b4b470c91f98e4b14c9d1"
+        },
+        {
+          "relative_path": "plugins/compat3x/css/dialog.css",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/css/dialog.css",
+          "distribution_path": "wp-includes/js/tinymce/plugins/compat3x/css/dialog.css",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "css",
+          "bytes": 8179,
+          "sha256": "sha256:48ff43089a1058bc227a219ede4a08ff89a20fdcebd07a916d508d7636caae31"
+        },
+        {
+          "relative_path": "plugins/compat3x/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/compat3x/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 9450,
+          "sha256": "sha256:c32aaf1dccfb6e82ffdce5a30bcedf6f30791418e48497317f9f93e77edd7ceb"
+        },
+        {
+          "relative_path": "plugins/compat3x/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/compat3x/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 4129,
+          "sha256": "sha256:d8cd42778a4a221b675737a295cb352cfe7cc874f6113e84dad416485ecc246e"
+        },
+        {
+          "relative_path": "plugins/directionality/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/directionality/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/directionality/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 1892,
+          "sha256": "sha256:fb3bf589c5ebbff300f5e40ccf52f506a007467cf1eeb6ddface8425da4c4f51"
+        },
+        {
+          "relative_path": "plugins/directionality/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/directionality/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/directionality/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 857,
+          "sha256": "sha256:f0aabb563087feac0b0cad11c6aaeed03489244d6a77d83c0d9deb81ff099c27"
+        },
+        {
+          "relative_path": "plugins/fullscreen/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/fullscreen/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/fullscreen/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 5595,
+          "sha256": "sha256:5c39e559671ad99d8a213e78c1aba4de60fa4d76470f2675e1eba08ce5ae29a1"
+        },
+        {
+          "relative_path": "plugins/fullscreen/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/fullscreen/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/fullscreen/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 2184,
+          "sha256": "sha256:22fdf660a5955b036bd037db797408d4c3461f4ac7c097a3b057240e9bfb4ba0"
+        },
+        {
+          "relative_path": "plugins/hr/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/hr/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/hr/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 919,
+          "sha256": "sha256:257a8af0f16d52aadf6348c6caefa64ecf5683910b19bc718b652e9edf3e809e"
+        },
+        {
+          "relative_path": "plugins/hr/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/hr/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/hr/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 428,
+          "sha256": "sha256:043194ef7f5efece27728e81e821df49586aaac13e006346236b4d5fa627d109"
+        },
+        {
+          "relative_path": "plugins/image/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/image/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/image/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 40022,
+          "sha256": "sha256:4a6a22af778d6c5f81fdecf9a42c4d40507954d454d65f9f0724d189fd9b90c5"
+        },
+        {
+          "relative_path": "plugins/image/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/image/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/image/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 15852,
+          "sha256": "sha256:a4a31f63fd4ca7b642c74adf53687dc80af5d172009cc4ad81d75ea485af337c"
+        },
+        {
+          "relative_path": "plugins/link/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/link/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/link/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 24009,
+          "sha256": "sha256:988448af8f43f3a52d84f504994899e6421095387c45f6a58add680095b7c9e1"
+        },
+        {
+          "relative_path": "plugins/link/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/link/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/link/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 8940,
+          "sha256": "sha256:b4e1a80902e2aa4cc79fd483a8b787687396419c12d7411e15b7135a69bb2b48"
+        },
+        {
+          "relative_path": "plugins/lists/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/lists/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/lists/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 70415,
+          "sha256": "sha256:18161cce6c8bef17c17d44eff981dafedb64c50c13997971455db4dee394b2ef"
+        },
+        {
+          "relative_path": "plugins/lists/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/lists/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/lists/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 26968,
+          "sha256": "sha256:b916e1ec06e7e50dea51b744991c5bd142a7e28fdeac451678bd6a8b56d2672f"
+        },
+        {
+          "relative_path": "plugins/media/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/media/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/media/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 41338,
+          "sha256": "sha256:d9a4c1ee8989fb79ae0469bc6c5dde7aa41b3f3d6cd228c0572c65d2cf37b0b0"
+        },
+        {
+          "relative_path": "plugins/media/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/media/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/media/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 16576,
+          "sha256": "sha256:dfcd9e6e1a24dfe869481a6dff0c1919439c9aa44d7487bdc823b36389ce57a6"
+        },
+        {
+          "relative_path": "plugins/paste/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/paste/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/paste/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 82356,
+          "sha256": "sha256:c80a344c6de8360021a58182df651d140f28cacb937dba9c2f7e1c96a0e24e7f"
+        },
+        {
+          "relative_path": "plugins/paste/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/paste/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/paste/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 30837,
+          "sha256": "sha256:26d131b5a88e878ed52573b651cf8c4c78ff40952920952b4eff3cd8e8d22265"
+        },
+        {
+          "relative_path": "plugins/tabfocus/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/tabfocus/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/tabfocus/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 3722,
+          "sha256": "sha256:ad875c946f8f0a8c45c34e05bf830e3d374c72e61d41e17b2edf2eabaca7a40f"
+        },
+        {
+          "relative_path": "plugins/tabfocus/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/tabfocus/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/tabfocus/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 1614,
+          "sha256": "sha256:19be5837567054ccc84016a2e1903bf5d4b7ab6c81e426be2272f2d67408e3fb"
+        },
+        {
+          "relative_path": "plugins/textcolor/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/textcolor/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/textcolor/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 11310,
+          "sha256": "sha256:8b0f2ad648a2b55432d9ae1b52c4e22703eeb97bc5a05f1ba0b62ba4b28ee1eb"
+        },
+        {
+          "relative_path": "plugins/textcolor/plugin.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/textcolor/plugin.min.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/textcolor/plugin.min.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 4927,
+          "sha256": "sha256:22462f794e6941a18a19c6e92f1192a2a4768524c2755c3fec4478ac51afdd1c"
+        },
+        {
+          "relative_path": "plugins/wordpress/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wordpress/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wordpress/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 34146,
+          "sha256": "sha256:aaebe2f2aba0d302c8c6ffc069d21f91a5318ec8583c0a5b057a20493cb63506"
+        },
+        {
+          "relative_path": "plugins/wpautoresize/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpautoresize/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpautoresize/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 5988,
+          "sha256": "sha256:53b6d2d49321648859ee074135a5572e2e36add4bf89f9048715b07e48aca754"
+        },
+        {
+          "relative_path": "plugins/wpdialogs/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpdialogs/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpdialogs/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 2439,
+          "sha256": "sha256:61e367f4d42f030c74ea044cd7a0ea7f7b47c7d119eab04a38d0c241f90735ab"
+        },
+        {
+          "relative_path": "plugins/wpeditimage/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpeditimage/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpeditimage/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 25642,
+          "sha256": "sha256:8838b632abb00b12078f3715bf6e8c41ce2e109d941ad580d3c4f26f7651b583"
+        },
+        {
+          "relative_path": "plugins/wpemoji/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpemoji/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpemoji/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 3580,
+          "sha256": "sha256:0d1dbfcfe975812d39edb297e05fb98d678a3feea2dc55892ac68343cb7f7c16"
+        },
+        {
+          "relative_path": "plugins/wpgallery/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpgallery/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpgallery/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 3183,
+          "sha256": "sha256:456fb448cbb9214d7b81511d0fb79d566a224b2502213363600fcfdd1483fc8c"
+        },
+        {
+          "relative_path": "plugins/wplink/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wplink/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wplink/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 17798,
+          "sha256": "sha256:2a2cf4a1aec30eb5168ad303ec2bb439daed7120b7ca6470ba7475f6f957f4ed"
+        },
+        {
+          "relative_path": "plugins/wptextpattern/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wptextpattern/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wptextpattern/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 8802,
+          "sha256": "sha256:809de15c4a7ff341085ed38a7862b85440bcfa2e856b47802908ebf4bc0172d9"
+        },
+        {
+          "relative_path": "plugins/wpview/plugin.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/plugins/wpview/plugin.js",
+          "distribution_path": "wp-includes/js/tinymce/plugins/wpview/plugin.js",
+          "kind": "tinymce_plugin_asset",
+          "browser_surface": "javascript",
+          "bytes": 6083,
+          "sha256": "sha256:4ab71979bcce4b2a59c76ee2b2d63d56004337751ffa4f3606ff89e416a4172d"
+        },
+        {
+          "relative_path": "skins/lightgray/content.inline.min.css",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/content.inline.min.css",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/content.inline.min.css",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "css",
+          "bytes": 3611,
+          "sha256": "sha256:2a76959e34ca54b5c4e6324a83791e12d41277aa2fb0041f9375bb4049dc388c"
+        },
+        {
+          "relative_path": "skins/lightgray/content.min.css",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/content.min.css",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/content.min.css",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "css",
+          "bytes": 4017,
+          "sha256": "sha256:3da49497491a6c1ffbf956ca3e951075db847d42fdf315d19752035ddc0f6629"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce-small.eot",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.eot",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce-small.eot",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 9492,
+          "sha256": "sha256:a10fc4343d95b716c16d77463d475be5c079599ea67e1cd2bd3a94d5e7f508f9"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce-small.svg",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.svg",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce-small.svg",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 24727,
+          "sha256": "sha256:e7773001446ab937e1d8d4bd5e8dbd9b31d112037353a14b319e36dd010ed8ee"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce-small.ttf",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.ttf",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce-small.ttf",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 9304,
+          "sha256": "sha256:2f657502906d6f5c3fc8df3a82969114ebe030addfdc061c60c974b0f515fd09"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce-small.woff",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.woff",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce-small.woff",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 9380,
+          "sha256": "sha256:d3efbb678ca6de5632902bd93772746ba2f8e4e2322b953936e12694a183aa31"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce.eot",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.eot",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce.eot",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 18912,
+          "sha256": "sha256:d7d36b21dc4b2dd2e4252b2b71f7b57d2d828359f2936af6e3fe8e2f913a0498"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce.svg",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.svg",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce.svg",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 46373,
+          "sha256": "sha256:e17f0683d5785645d10307971450b94e62b86f062e92fcea6a055c2443bdef5f"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce.ttf",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.ttf",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce.ttf",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 18748,
+          "sha256": "sha256:8c8effbf1b373e7bd3f8f291264eaefeed933fea8fe91637d81f3fc9574c3592"
+        },
+        {
+          "relative_path": "skins/lightgray/fonts/tinymce.woff",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.woff",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/fonts/tinymce.woff",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 18824,
+          "sha256": "sha256:84d35201689d08969a92a8ccdc5a0002da01eac30651fef23e79e1993ace2ebf"
+        },
+        {
+          "relative_path": "skins/lightgray/img/anchor.gif",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/anchor.gif",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/img/anchor.gif",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 53,
+          "sha256": "sha256:2861666fd107d278d4449970615136d06d7f746be9bb19072cf9c8f30e565e1e"
+        },
+        {
+          "relative_path": "skins/lightgray/img/loader.gif",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/loader.gif",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/img/loader.gif",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 2608,
+          "sha256": "sha256:eb7cfd3d959b2e09c170f532e29f8b825f9bc770b2279fde58e595617753e244"
+        },
+        {
+          "relative_path": "skins/lightgray/img/object.gif",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/object.gif",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/img/object.gif",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 152,
+          "sha256": "sha256:e6a15e52bc4a17b085073ba8debd4708ead6ae3d4cbeb3880c65cb7afc489777"
+        },
+        {
+          "relative_path": "skins/lightgray/img/trans.gif",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/trans.gif",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/img/trans.gif",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 43,
+          "sha256": "sha256:9cf020d7c3bba7f5ab10cda54aabef934f906d4f9a3acf99e9e7dc6c98579635"
+        },
+        {
+          "relative_path": "skins/lightgray/skin.min.css",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/lightgray/skin.min.css",
+          "distribution_path": "wp-includes/js/tinymce/skins/lightgray/skin.min.css",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "css",
+          "bytes": 44010,
+          "sha256": "sha256:09aa34fa71f3d670ad40d8a7238a02411a7ee4e97614d166b1573300dcbd2709"
+        },
+        {
+          "relative_path": "skins/wordpress/images/audio.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/audio.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/audio.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 412,
+          "sha256": "sha256:15ceab89286fa44c5918a6366f37ebf82360226eb5a9ec34aa908fcdea7a35e1"
+        },
+        {
+          "relative_path": "skins/wordpress/images/dashicon-edit.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/dashicon-edit.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/dashicon-edit.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 368,
+          "sha256": "sha256:10902480df9e5b6003b65f1138b52ed14c6d5c5d94da161068110e56d66ed588"
+        },
+        {
+          "relative_path": "skins/wordpress/images/dashicon-no.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/dashicon-no.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/dashicon-no.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 339,
+          "sha256": "sha256:2ae4a898d3f5c13f0d3cfa492ffd2424fb9ee95b63e90d2e4a35f312930b4dc9"
+        },
+        {
+          "relative_path": "skins/wordpress/images/embedded.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/embedded.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/embedded.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 8177,
+          "sha256": "sha256:d571991e8b7e7803413dced3658bf5b6aab0567310be8dff996c7ddfe2841051"
+        },
+        {
+          "relative_path": "skins/wordpress/images/gallery-2x.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/gallery-2x.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/gallery-2x.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 447,
+          "sha256": "sha256:411a4e3ebbddf2750107fc92af8197d45cbb59d77235e01a835592626b886280"
+        },
+        {
+          "relative_path": "skins/wordpress/images/gallery.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/gallery.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/gallery.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 379,
+          "sha256": "sha256:4de5c698aa2f724d00a935f2959ae4a1dd8f74095807f852e8a3408267231007"
+        },
+        {
+          "relative_path": "skins/wordpress/images/more-2x.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/more-2x.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/more-2x.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 603,
+          "sha256": "sha256:91a638095ea606358fce4fe872095287687c21cbaebfb890b51693ff47344075"
+        },
+        {
+          "relative_path": "skins/wordpress/images/more.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/more.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/more.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 414,
+          "sha256": "sha256:5b1434ee310b36b5fd7f63e32a0d4a33d677acf068b2b81ef204b545fcecef3a"
+        },
+        {
+          "relative_path": "skins/wordpress/images/pagebreak-2x.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/pagebreak-2x.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/pagebreak-2x.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 835,
+          "sha256": "sha256:63289e02808ca02df566508524fa9ec982c56e6e4b932c42ba6026b20c5a81b3"
+        },
+        {
+          "relative_path": "skins/wordpress/images/pagebreak.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/pagebreak.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/pagebreak.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 1140,
+          "sha256": "sha256:cb43c8ce6939857315f0d1493edc2a281915b20818bc58583ad9963fcbe0cecc"
+        },
+        {
+          "relative_path": "skins/wordpress/images/playlist-audio.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/playlist-audio.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/playlist-audio.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 440,
+          "sha256": "sha256:5f3e806a12f67c224120da81517ccf10de615055cbe9da76a908a0f8491ee7a0"
+        },
+        {
+          "relative_path": "skins/wordpress/images/playlist-video.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/playlist-video.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/playlist-video.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 290,
+          "sha256": "sha256:3d476ba18eaa0dae0a9c76133e3bfd1580f126cb51c3b1ec1da50e1d111bcc70"
+        },
+        {
+          "relative_path": "skins/wordpress/images/script.svg",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/script.svg",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/script.svg",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 930,
+          "sha256": "sha256:3f256d8be33988def7460cd97b128e54ae32431b2bbcf6958f1016f01f2d60c7"
+        },
+        {
+          "relative_path": "skins/wordpress/images/style.svg",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/style.svg",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/style.svg",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "font",
+          "bytes": 1516,
+          "sha256": "sha256:42a73e0f3f9a70ce4c0a7e0809bf2975611fb98c848d71c9616980d9efbb8b3c"
+        },
+        {
+          "relative_path": "skins/wordpress/images/video.png",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/video.png",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/images/video.png",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "image",
+          "bytes": 363,
+          "sha256": "sha256:9d1558585b0ef4653553fd95111ee010ddc27e6a016ec2908eb69380c666f8fa"
+        },
+        {
+          "relative_path": "skins/wordpress/wp-content.css",
+          "source_path": "src/js/_enqueues/vendor/tinymce/skins/wordpress/wp-content.css",
+          "distribution_path": "wp-includes/js/tinymce/skins/wordpress/wp-content.css",
+          "kind": "tinymce_skin_or_font_asset",
+          "browser_surface": "css",
+          "bytes": 8760,
+          "sha256": "sha256:59dbd092a17ab5b77ad76d9e20955838432e69cd7cc166e24da1ecd69f8500db"
+        },
+        {
+          "relative_path": "themes/inlite/theme.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/themes/inlite/theme.js",
+          "distribution_path": "wp-includes/js/tinymce/themes/inlite/theme.js",
+          "kind": "tinymce_theme_asset",
+          "browser_surface": "javascript",
+          "bytes": 320767,
+          "sha256": "sha256:f2e64b7c550a9d7758145b947e76ea9fb2294805c0b6340d73a1e0d308b94af3"
+        },
+        {
+          "relative_path": "themes/inlite/theme.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/themes/inlite/theme.min.js",
+          "distribution_path": "wp-includes/js/tinymce/themes/inlite/theme.min.js",
+          "kind": "tinymce_theme_asset",
+          "browser_surface": "javascript",
+          "bytes": 131875,
+          "sha256": "sha256:9d7bf1dcdd3e0b76dd3ff09d713b4df72a7fe33e3e35339fb4f3d59f06ae76cc"
+        },
+        {
+          "relative_path": "themes/modern/theme.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/themes/modern/theme.js",
+          "distribution_path": "wp-includes/js/tinymce/themes/modern/theme.js",
+          "kind": "tinymce_theme_asset",
+          "browser_surface": "javascript",
+          "bytes": 315475,
+          "sha256": "sha256:a0916a38795206b32215c30e90850bc868108799020788eb66d2e959c2375f78"
+        },
+        {
+          "relative_path": "themes/modern/theme.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/themes/modern/theme.min.js",
+          "distribution_path": "wp-includes/js/tinymce/themes/modern/theme.min.js",
+          "kind": "tinymce_theme_asset",
+          "browser_surface": "javascript",
+          "bytes": 130746,
+          "sha256": "sha256:cde16bbc126b91b95d00f6c87b736609fbc343f515bbee32d951b018e023c4e7"
+        },
+        {
+          "relative_path": "tiny_mce_popup.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/tiny_mce_popup.js",
+          "distribution_path": "wp-includes/js/tinymce/tiny_mce_popup.js",
+          "kind": "tinymce_browser_vendor_asset",
+          "browser_surface": "javascript",
+          "bytes": 15988,
+          "sha256": "sha256:077ef2ae2230f4b513674211342a7c38fd3c07a837d2b1dc0d06bf3d35a99a33"
+        },
+        {
+          "relative_path": "tinymce.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/tinymce.js",
+          "distribution_path": "wp-includes/js/tinymce/tinymce.js",
+          "kind": "tinymce_browser_vendor_asset",
+          "browser_surface": "javascript",
+          "bytes": 983025,
+          "sha256": "sha256:13a3874bb961dcdb532e0b8fcbf3db7607ebeebe211989eda5f59f09fc8b4575"
+        },
+        {
+          "relative_path": "tinymce.min.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/tinymce.min.js",
+          "distribution_path": "wp-includes/js/tinymce/tinymce.min.js",
+          "kind": "tinymce_core_minified_js",
+          "browser_surface": "javascript",
+          "bytes": 365570,
+          "sha256": "sha256:4a74739272c2951dc668dc3da0de287df3061623db5d04cfeead3214b3cfc206"
+        },
+        {
+          "relative_path": "utils/editable_selects.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/utils/editable_selects.js",
+          "distribution_path": "wp-includes/js/tinymce/utils/editable_selects.js",
+          "kind": "tinymce_legacy_utility_asset",
+          "browser_surface": "javascript",
+          "bytes": 2125,
+          "sha256": "sha256:893cddd26a55aec15932aa25799af427abbb0151704b004f7d5ee01727e41213"
+        },
+        {
+          "relative_path": "utils/form_utils.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/utils/form_utils.js",
+          "distribution_path": "wp-includes/js/tinymce/utils/form_utils.js",
+          "kind": "tinymce_legacy_utility_asset",
+          "browser_surface": "javascript",
+          "bytes": 6075,
+          "sha256": "sha256:8ca158f20dccb049342231727174cd584bde0824c577b6ea9a74596a8eac1bb3"
+        },
+        {
+          "relative_path": "utils/mctabs.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/utils/mctabs.js",
+          "distribution_path": "wp-includes/js/tinymce/utils/mctabs.js",
+          "kind": "tinymce_legacy_utility_asset",
+          "browser_surface": "javascript",
+          "bytes": 4160,
+          "sha256": "sha256:7d1d7284f6ad34791f6c03d3f04e3681ff711f3ff5610afce54c1d8024fa71ec"
+        },
+        {
+          "relative_path": "utils/validate.js",
+          "source_path": "src/js/_enqueues/vendor/tinymce/utils/validate.js",
+          "distribution_path": "wp-includes/js/tinymce/utils/validate.js",
+          "kind": "tinymce_legacy_utility_asset",
+          "browser_surface": "javascript",
+          "bytes": 6466,
+          "sha256": "sha256:138e9f73e6a3c3953783fca5894d396ee18a9a248ae87db1cb6bbe18bdf3e0a8"
+        },
+        {
+          "relative_path": "wp-tinymce.php",
+          "source_path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+          "distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+          "kind": "preserved_php_loader",
+          "browser_surface": "php_loader",
+          "bytes": 1042,
+          "sha256": "sha256:f6d4537829d35aeddad02d7ce1e33b037f43b7d6363243430cb911a85c9ea0bf"
+        }
+      ]
+    },
+    "source_inventory": {
+      "record_count": 48,
+      "records_by_surface": {
+        "javascript": 47,
+        "php_loader": 1
+      },
+      "records_by_language": {
+        "javascript": 47,
+        "php": 1
+      },
+      "missing_source_tree_record_count": 33,
+      "note": "The source inventory currently records executable/source TinyMCE units, while several CSS/font/image/browser assets are tracked here from the upstream tree for WPHX-609-style browser-vendor closure."
+    },
+    "distribution_artifacts": {
+      "record_count": 57,
+      "records_by_surface": {
+        "javascript": 56,
+        "php_loader": 1
+      },
+      "records_by_language": {
+        "javascript": 56,
+        "php": 1
+      },
+      "migration_status_counts": {
+        "pending_haxe_generation_or_approved_exception": 57
+      }
+    },
+    "source_paths_without_distribution_provenance_record": [
+      "src/js/_enqueues/vendor/tinymce/license.txt",
+      "src/js/_enqueues/vendor/tinymce/plugins/compat3x/css/dialog.css",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/content.inline.min.css",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/content.min.css",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.eot",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.svg",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.ttf",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce-small.woff",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.eot",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.svg",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.ttf",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/fonts/tinymce.woff",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/anchor.gif",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/loader.gif",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/object.gif",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/img/trans.gif",
+      "src/js/_enqueues/vendor/tinymce/skins/lightgray/skin.min.css",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/audio.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/dashicon-edit.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/dashicon-no.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/embedded.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/gallery-2x.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/gallery.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/more-2x.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/more.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/pagebreak-2x.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/pagebreak.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/playlist-audio.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/playlist-video.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/script.svg",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/style.svg",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/images/video.png",
+      "src/js/_enqueues/vendor/tinymce/skins/wordpress/wp-content.css",
+      "src/js/_enqueues/vendor/tinymce/tinymce.js"
+    ],
+    "distribution_provenance_records_without_source_path": [
+      "wp-includes/js/tinymce/plugins/wordpress/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpautoresize/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpdialogs/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpeditimage/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpemoji/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpgallery/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wplink/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wptextpattern/plugin.min.js",
+      "wp-includes/js/tinymce/plugins/wpview/plugin.min.js",
+      "wp-includes/js/tinymce/wp-tinymce.js"
+    ]
+  },
+  "asset_path_hash_contract": {
+    "required_assets": [
+      {
+        "relative_path": "wp-tinymce.php",
+        "kind": "preserved_php_loader",
+        "browser_surface": "php_loader",
+        "source_path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+        "distribution_path": "wp-includes/js/tinymce/wp-tinymce.php",
+        "exists_in_wordpress_develop_source": true,
+        "exists_in_source_inventory": true,
+        "exists_in_distribution_provenance": true,
+        "source_file": {
+          "path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+          "bytes": 1042,
+          "sha256": "sha256:f6d4537829d35aeddad02d7ce1e33b037f43b7d6363243430cb911a85c9ea0bf"
+        },
+        "source_inventory_record": {
+          "schema": "wphx.source-unit.v1alpha",
+          "id": "source:wordpress-7.0.0:src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+          "baseline": "wordpress-7.0.0",
+          "repo": "../wordpress-develop",
+          "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+          "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+          "path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+          "language": "php",
+          "area": "vendor",
+          "kind": "vendor_source",
+          "gitObject": "3b51ea266cfaccc710268e854d9a1e93b240e51d",
+          "mode": "100644",
+          "status": "upstream_oracle_unported",
+          "haxeOwners": [],
+          "generatedArtifacts": [],
+          "taskExternalRef": null,
+          "classified": true,
+          "exceptions": []
+        },
+        "distribution_artifact_provenance_record": {
+          "schema": "wphx.artifact-provenance.v1alpha",
+          "id": "artifact:wordpress-7.0.0-distribution:wp-includes/js/tinymce/wp-tinymce.php",
+          "baseline": "wordpress-7.0.0-distribution",
+          "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+          "artifactKind": "zip",
+          "artifactDigest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+          "rawPath": "wordpress/wp-includes/js/tinymce/wp-tinymce.php",
+          "path": "wp-includes/js/tinymce/wp-tinymce.php",
+          "language": "php",
+          "area": "core",
+          "kind": "shipped_executable_artifact",
+          "origin": "upstream_oracle",
+          "migrationStatus": "pending_haxe_generation_or_approved_exception",
+          "classified": true,
+          "exceptions": []
+        },
+        "source_to_distribution_contract": "source-relative TinyMCE asset maps to wp-includes/js/tinymce with the same relative path"
+      },
+      {
+        "relative_path": "wp-tinymce.js",
+        "kind": "built_tinymce_bundle",
+        "browser_surface": "javascript",
+        "source_path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.js",
+        "distribution_path": "wp-includes/js/tinymce/wp-tinymce.js",
+        "exists_in_wordpress_develop_source": false,
+        "exists_in_source_inventory": false,
+        "exists_in_distribution_provenance": true,
+        "source_file": null,
+        "source_inventory_record": null,
+        "distribution_artifact_provenance_record": {
+          "schema": "wphx.artifact-provenance.v1alpha",
+          "id": "artifact:wordpress-7.0.0-distribution:wp-includes/js/tinymce/wp-tinymce.js",
+          "baseline": "wordpress-7.0.0-distribution",
+          "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+          "artifactKind": "zip",
+          "artifactDigest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+          "rawPath": "wordpress/wp-includes/js/tinymce/wp-tinymce.js",
+          "path": "wp-includes/js/tinymce/wp-tinymce.js",
+          "language": "javascript",
+          "area": "core",
+          "kind": "shipped_executable_artifact",
+          "origin": "upstream_oracle",
+          "migrationStatus": "pending_haxe_generation_or_approved_exception",
+          "classified": true,
+          "exceptions": []
+        },
+        "source_to_distribution_contract": "distribution build artifact; absent from wordpress-develop source tree and must be supplied only by a verified build/provenance contract"
+      },
+      {
+        "relative_path": "tinymce.min.js",
+        "kind": "tinymce_core_minified_js",
+        "browser_surface": "javascript",
+        "source_path": "src/js/_enqueues/vendor/tinymce/tinymce.min.js",
+        "distribution_path": "wp-includes/js/tinymce/tinymce.min.js",
+        "exists_in_wordpress_develop_source": true,
+        "exists_in_source_inventory": true,
+        "exists_in_distribution_provenance": true,
+        "source_file": {
+          "path": "src/js/_enqueues/vendor/tinymce/tinymce.min.js",
+          "bytes": 365570,
+          "sha256": "sha256:4a74739272c2951dc668dc3da0de287df3061623db5d04cfeead3214b3cfc206"
+        },
+        "source_inventory_record": {
+          "schema": "wphx.source-unit.v1alpha",
+          "id": "source:wordpress-7.0.0:src/js/_enqueues/vendor/tinymce/tinymce.min.js",
+          "baseline": "wordpress-7.0.0",
+          "repo": "../wordpress-develop",
+          "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+          "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+          "path": "src/js/_enqueues/vendor/tinymce/tinymce.min.js",
+          "language": "javascript",
+          "area": "vendor",
+          "kind": "vendor_source",
+          "gitObject": "e9681abaaf3dd552eaa1e9e579773c05947ab152",
+          "mode": "100644",
+          "status": "upstream_oracle_unported",
+          "haxeOwners": [],
+          "generatedArtifacts": [],
+          "taskExternalRef": null,
+          "classified": true,
+          "exceptions": []
+        },
+        "distribution_artifact_provenance_record": {
+          "schema": "wphx.artifact-provenance.v1alpha",
+          "id": "artifact:wordpress-7.0.0-distribution:wp-includes/js/tinymce/tinymce.min.js",
+          "baseline": "wordpress-7.0.0-distribution",
+          "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+          "artifactKind": "zip",
+          "artifactDigest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+          "rawPath": "wordpress/wp-includes/js/tinymce/tinymce.min.js",
+          "path": "wp-includes/js/tinymce/tinymce.min.js",
+          "language": "javascript",
+          "area": "core",
+          "kind": "shipped_executable_artifact",
+          "origin": "upstream_oracle",
+          "migrationStatus": "pending_haxe_generation_or_approved_exception",
+          "classified": true,
+          "exceptions": []
+        },
+        "source_to_distribution_contract": "source-relative TinyMCE asset maps to wp-includes/js/tinymce with the same relative path"
+      },
+      {
+        "relative_path": "plugins/compat3x/plugin.min.js",
+        "kind": "tinymce_plugin_asset",
+        "browser_surface": "javascript",
+        "source_path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.min.js",
+        "distribution_path": "wp-includes/js/tinymce/plugins/compat3x/plugin.min.js",
+        "exists_in_wordpress_develop_source": true,
+        "exists_in_source_inventory": true,
+        "exists_in_distribution_provenance": true,
+        "source_file": {
+          "path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.min.js",
+          "bytes": 4129,
+          "sha256": "sha256:d8cd42778a4a221b675737a295cb352cfe7cc874f6113e84dad416485ecc246e"
+        },
+        "source_inventory_record": {
+          "schema": "wphx.source-unit.v1alpha",
+          "id": "source:wordpress-7.0.0:src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.min.js",
+          "baseline": "wordpress-7.0.0",
+          "repo": "../wordpress-develop",
+          "commit": "26b68024931348d267b70e2a29910e1320d0094f",
+          "tree": "f3ad96f2357d2309f64a8d42a5808be502639c70",
+          "path": "src/js/_enqueues/vendor/tinymce/plugins/compat3x/plugin.min.js",
+          "language": "javascript",
+          "area": "vendor",
+          "kind": "vendor_source",
+          "gitObject": "8562cb7c761111e9696b30956e50e21c25d1cc7a",
+          "mode": "100644",
+          "status": "upstream_oracle_unported",
+          "haxeOwners": [],
+          "generatedArtifacts": [],
+          "taskExternalRef": null,
+          "classified": true,
+          "exceptions": []
+        },
+        "distribution_artifact_provenance_record": {
+          "schema": "wphx.artifact-provenance.v1alpha",
+          "id": "artifact:wordpress-7.0.0-distribution:wp-includes/js/tinymce/plugins/compat3x/plugin.min.js",
+          "baseline": "wordpress-7.0.0-distribution",
+          "artifact": "/tmp/wordpresshx-upstream/wordpress-7.0.zip",
+          "artifactKind": "zip",
+          "artifactDigest": "sha256:b2b6827eb7b2b51f4610893e1a6ad02466e76fe0a307bd40ca2a8ba821c40d0b",
+          "rawPath": "wordpress/wp-includes/js/tinymce/plugins/compat3x/plugin.min.js",
+          "path": "wp-includes/js/tinymce/plugins/compat3x/plugin.min.js",
+          "language": "javascript",
+          "area": "core",
+          "kind": "shipped_executable_artifact",
+          "origin": "upstream_oracle",
+          "migrationStatus": "pending_haxe_generation_or_approved_exception",
+          "classified": true,
+          "exceptions": []
+        },
+        "source_to_distribution_contract": "source-relative TinyMCE asset maps to wp-includes/js/tinymce with the same relative path"
+      },
+      {
+        "relative_path": "license.txt",
+        "kind": "license_notice",
+        "browser_surface": "notice",
+        "source_path": "src/js/_enqueues/vendor/tinymce/license.txt",
+        "distribution_path": "wp-includes/js/tinymce/license.txt",
+        "exists_in_wordpress_develop_source": true,
+        "exists_in_source_inventory": false,
+        "exists_in_distribution_provenance": false,
+        "source_file": {
+          "path": "src/js/_enqueues/vendor/tinymce/license.txt",
+          "bytes": 26441,
+          "sha256": "sha256:47a9dcd2574891a5a465112fd9dfcebcc7e61844edec27fa936a64642008fe66"
+        },
+        "source_inventory_record": null,
+        "distribution_artifact_provenance_record": null,
+        "source_to_distribution_contract": "source-relative TinyMCE asset maps to wp-includes/js/tinymce with the same relative path"
+      }
+    ],
+    "source_to_distribution_mapping": "For source-tree TinyMCE assets, src/js/_enqueues/vendor/tinymce/<relative> maps to wp-includes/js/tinymce/<relative>. wp-tinymce.js is currently distribution-only provenance and must be treated as a build artifact until WPHX-609-style evidence records its source/build contract.",
+    "loader_paths": {
+      "source": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+      "distribution": "wp-includes/js/tinymce/wp-tinymce.php",
+      "source_record": {
+        "path": "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+        "bytes": 1042,
+        "sha256": "sha256:f6d4537829d35aeddad02d7ce1e33b037f43b7d6363243430cb911a85c9ea0bf"
+      }
+    },
+    "fallback_runtime_assets": [
+      "wp-includes/js/tinymce/wp-tinymce.js",
+      "wp-includes/js/tinymce/tinymce.min.js",
+      "wp-includes/js/tinymce/plugins/compat3x/plugin.min.js"
+    ]
+  },
+  "script_resource_path_contract": {
+    "php_loader_direct_script_paths": [
+      "src/js/_enqueues/vendor/tinymce/wp-tinymce.php",
+      "wp-includes/js/tinymce/wp-tinymce.php"
+    ],
+    "browser_resource_root_contract": {
+      "source_root": "src/js/_enqueues/vendor/tinymce",
+      "distribution_root": "wp-includes/js/tinymce",
+      "relative_path_preservation_required": true
+    },
+    "wordpress_script_handle_coordination_required": true,
+    "required_future_evidence": [
+      "WordPress script-loader/resource handle inventory for TinyMCE and adjacent editor handles.",
+      "Distribution/source asset path and hash closure including build-only wp-tinymce.js.",
+      "License and notice treatment for TinyMCE browser assets and bundled skins/fonts/images.",
+      "Source-map, minified/source relationship, package export, and global object contracts where present.",
+      "Browser/editor executable parity gates before any TinyMCE JS/CSS/font/editor ownership claim."
+    ]
+  },
+  "browser_vendor_coordination": {
+    "task_dependency": {
+      "external_ref": "WPHX-609",
+      "state": "required_before_generated_loader_replacement_claim_can_broaden",
+      "prd_context": {
+        "id": "WPHX-609",
+        "title": "Browser vendor manifest closure",
+        "dependency": "WPHX-607",
+        "acceptance": "C3 browser portion verified",
+        "source": {
+          "path": "docs/prd/wordpress-haxe-port.md",
+          "line": 1831,
+          "text": "| WPHX-609 | Browser vendor manifest closure | 607 | C3 browser portion verified |"
+        }
+      }
+    },
+    "workset": {
+      "id": "ws:browser-vendors",
+      "source": {
+        "path": "docs/prd/wordpress-haxe-port.md",
+        "line": 1888,
+        "text": "- `ws:browser-vendors`"
+      }
+    },
+    "wphx_609_style_gate_requirements": [
+      "Inventory all TinyMCE browser vendor JS/CSS/font/image/plugin/theme/skin artifacts in source and distribution paths.",
+      "Record path/hash/provenance/license contracts for source assets and distribution-only build artifacts.",
+      "Reconcile WordPress script/resource handle registration and loader path behavior with the PHP direct-loader gate.",
+      "Keep browser package/editor behavior ownership separate from the PHP loader boundary until executable browser gates pass.",
+      "Document copied/preserved artifact retirement blockers for every TinyMCE browser asset class."
+    ]
+  },
+  "generated_loader_replacement_conditions": [
+    "A generated direct-script adapter must pass the WPHX-323.28 direct HTTP loader fixture at both src/js/_enqueues/vendor/tinymce/wp-tinymce.php and wp-includes/js/tinymce/wp-tinymce.php.",
+    "WPHX-609 browser-vendor manifest closure, or an equivalent accepted browser-vendor asset ownership gate, must record TinyMCE JS/CSS/font/image/plugin/theme/skin paths, hashes, provenance, licenses, build-only artifacts, and script/resource handles.",
+    "The generated loader must consume the same asset contract recorded here: wp-tinymce.js is a distribution-only build artifact in the current evidence, while tinymce.min.js and plugins/compat3x/plugin.min.js are source/distribution fallback assets.",
+    "If wp-tinymce.js remains absent from the source oracle, generated loader evidence must continue to preserve c=1 fallback behavior and missing-file warning suppression.",
+    "Replacement evidence must keep TinyMCE browser/editor/package behavior non-owned unless separate WPHX-609-style browser gates claim it with executable browser/package evidence.",
+    "Any path, hash, script-handle, source-map, package-export, or license/provenance drift must be recorded before replacing or retiring preserved upstream TinyMCE artifacts."
+  ],
+  "validation_result": {
+    "status": "passed",
+    "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "tinymce_source_file_count": 81,
+    "tinymce_source_inventory_record_count": 48,
+    "tinymce_distribution_artifact_record_count": 57,
+    "source_inventory_missing_count": 33,
+    "source_paths_without_distribution_provenance_record_count": 34,
+    "distribution_provenance_records_without_source_path_count": 10,
+    "required_asset_contract_count": 5,
+    "wphx_323_28_gate_validated": true,
+    "wphx_609_prd_task_present": true,
+    "browser_vendor_workset_present": true,
+    "asset_path_hash_contract_recorded": true,
+    "script_resource_path_contract_recorded": true,
+    "browser_vendor_coordination_recorded": true,
+    "generated_loader_replacement_conditions_recorded": true,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_tinymce_loader_runtime_claimed": false,
+    "tinymce_browser_runtime_claimed": false,
+    "tinymce_js_css_font_editor_ownership_claimed": false,
+    "installed_wordpress_parity_claimed": false,
+    "copied_artifact_retirement_claimed": false
+  },
+  "claims": [
+    "TinyMCE wp-tinymce.php remains linked to a browser-vendor asset contract rather than a standalone PHP ownership claim.",
+    "The gate records source/distribution path and hash contracts for the loader, tinymce.min.js, compat3x fallback asset, license notice, and distribution-only wp-tinymce.js.",
+    "Generated loader replacement is blocked on both the WPHX-323.28 direct-loader fixture and WPHX-609-style browser-vendor asset ownership evidence."
+  ],
+  "non_claims": [
+    "This gate records TinyMCE browser-vendor coordination for the preserved wp-tinymce.php loader; it does not claim generated loader replacement.",
+    "This gate does not claim Haxe-owned TinyMCE PHP loader runtime logic.",
+    "This gate does not claim TinyMCE JavaScript, CSS, font, image, browser-editor, plugin, skin, theme, package, or Gutenberg ownership.",
+    "This gate does not execute real TinyMCE browser/editor behavior or installed WordPress editor flows.",
+    "This gate does not retire copied or preserved upstream TinyMCE browser artifacts.",
+    "This gate does not substitute TinyMCE dependencies, change WordPress script handles, or claim source-map/package-export parity.",
+    "A generated loader replacement remains blocked on WPHX-609 browser-vendor manifest closure or equivalent asset ownership evidence plus the WPHX-323.28 direct-loader fixture."
+  ]
+}

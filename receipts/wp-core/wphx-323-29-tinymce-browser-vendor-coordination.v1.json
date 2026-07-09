@@ -1,0 +1,62 @@
+{
+  "schema": "wphx.wp-core-receipt.v1",
+  "id": "wphx-323-29-tinymce-browser-vendor-coordination",
+  "issue": {
+    "id": "wordpresshx-l76.33.7",
+    "external_ref": "WPHX-323.29",
+    "title": "Add TinyMCE browser-vendor coordination gate"
+  },
+  "recorded_at": "2026-07-08T21:30:00.000Z",
+  "status": "closed",
+  "evidence_class": "tinymce_browser_vendor_coordination_gate",
+  "artifact_scope": "wordpress-7.0-tinymce-browser-vendor-coordination",
+  "commands": [
+    "npm run wp:core:wphx-323-tinymce-browser-vendor-coordination",
+    "npm run wp:core:wphx-323-tinymce-browser-vendor-coordination:check"
+  ],
+  "artifacts": {
+    "manifest": "manifests/wp-core/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "ownership_manifest": "manifests/ownership/wphx-323-29-tinymce-browser-vendor-coordination.v1.json",
+    "ai_tinymce_gate_manifest": "manifests/wp-core/wphx-323-07-ai-client-tinymce-vendor-gates.v1.json",
+    "loader_preserved_exception_manifest": "manifests/wp-core/wphx-323-28-tinymce-php-loader-preserved-exception.v1.json"
+  },
+  "manifest_sha256": "sha256:2fcfcde2973837003d2d4b1829097af65774f62c0bbcdb5917c34dcd5ef5b99a",
+  "validation_result": {
+    "status": "passed",
+    "wordpress_oracle_locked_commit": "26b68024931348d267b70e2a29910e1320d0094f",
+    "tinymce_source_file_count": 81,
+    "tinymce_source_inventory_record_count": 48,
+    "tinymce_distribution_artifact_record_count": 57,
+    "source_inventory_missing_count": 33,
+    "source_paths_without_distribution_provenance_record_count": 34,
+    "distribution_provenance_records_without_source_path_count": 10,
+    "required_asset_contract_count": 5,
+    "wphx_323_28_gate_validated": true,
+    "wphx_609_prd_task_present": true,
+    "browser_vendor_workset_present": true,
+    "asset_path_hash_contract_recorded": true,
+    "script_resource_path_contract_recorded": true,
+    "browser_vendor_coordination_recorded": true,
+    "generated_loader_replacement_conditions_recorded": true,
+    "generated_public_php_replacement_claimed": false,
+    "haxe_owned_tinymce_loader_runtime_claimed": false,
+    "tinymce_browser_runtime_claimed": false,
+    "tinymce_js_css_font_editor_ownership_claimed": false,
+    "installed_wordpress_parity_claimed": false,
+    "copied_artifact_retirement_claimed": false
+  },
+  "claims": [
+    "TinyMCE wp-tinymce.php remains linked to a browser-vendor asset contract rather than a standalone PHP ownership claim.",
+    "The gate records source/distribution path and hash contracts for the loader, tinymce.min.js, compat3x fallback asset, license notice, and distribution-only wp-tinymce.js.",
+    "Generated loader replacement is blocked on both the WPHX-323.28 direct-loader fixture and WPHX-609-style browser-vendor asset ownership evidence."
+  ],
+  "non_claims": [
+    "This gate records TinyMCE browser-vendor coordination for the preserved wp-tinymce.php loader; it does not claim generated loader replacement.",
+    "This gate does not claim Haxe-owned TinyMCE PHP loader runtime logic.",
+    "This gate does not claim TinyMCE JavaScript, CSS, font, image, browser-editor, plugin, skin, theme, package, or Gutenberg ownership.",
+    "This gate does not execute real TinyMCE browser/editor behavior or installed WordPress editor flows.",
+    "This gate does not retire copied or preserved upstream TinyMCE browser artifacts.",
+    "This gate does not substitute TinyMCE dependencies, change WordPress script handles, or claim source-map/package-export parity.",
+    "A generated loader replacement remains blocked on WPHX-609 browser-vendor manifest closure or equivalent asset ownership evidence plus the WPHX-323.28 direct-loader fixture."
+  ]
+}
