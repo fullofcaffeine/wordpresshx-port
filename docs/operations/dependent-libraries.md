@@ -18,6 +18,8 @@ Create it when these are true:
 
 Recommended trigger: after `WPHX-403` and `WPHX-404` pass, or earlier only if an ADR explicitly accepts the coordination cost.
 
+Current status: WPHX-402 satisfies the locked package/workspace/module/export/artifact inventory prerequisite. WPHX-403/F8 leaf-package and WPHX-404/F9 React/TSX feasibility remain the gating evidence before a `gutenberghx` bootstrap.
+
 Do not bootstrap `gutenberghx` yet just to make the repository tree look tidy. Before those gates, Gutenberg package work remains in `wordpress-hx` as inventory, feasibility fixtures, and task packets against `../gutenberg`.
 
 ## Relationship Between Repos
