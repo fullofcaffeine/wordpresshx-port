@@ -101,8 +101,8 @@ function runFullCi(state) {
     "No issues found",
     "OK: version=1.13.0",
     "288 Assertions   288 Success   0 Failure   0 Error",
-    "Snapshots OK (45 files)",
-    "Roundtrip OK (2 fixtures)",
+    "Snapshots OK (47 files)",
+    "Roundtrip OK (3 fixtures)",
     "3 passed"
   ];
   const missingMarkers = requiredMarkers.filter((marker) => !output.includes(marker));
