@@ -33,6 +33,7 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
   - Role: Haxe-to-TypeScript/TSX/JavaScript compiler work.
   - Rule: fixes must be generic genes-ts improvements, never WordPress-specific hacks.
   - WPHX-401/WPHX-403 evidence: the full compiler CI gate passes classic Genes JavaScript, genes-ts TypeScript snapshots/typechecks/runtime, todoapp Playwright, security/version checks, and ts2hx roundtrips; the current pin includes the generic `genes-798` module-local binding and RegExp lowering fix required by the F8 leaf-package spike. Local `genes-ts.xml` and `repomix-output-genes-ts.xml.zip` remain untracked report artifacts outside the pin.
+  - ts2hx status: `@genes-ts/ts2hx` still declares version `0.0.0` and describes itself as experimental. WPHX-409 explicitly owns its unsupported-construct inventory, minimized generic fixtures, deterministic snapshots, strict roundtrips, runtime evidence, and version/maturity decision before broad package work relies on it.
 - `../haxe.compilerdev.reference/haxe` - Haxe compiler source reference.
   - Current observed ref: `e0b355c6b`, tag `4.3.7`, branch reference `origin/4.3_bugfix`.
   - Role: Haxe 4.3.7 compiler and PHP generator reference.
