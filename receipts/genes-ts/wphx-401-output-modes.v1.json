@@ -1,0 +1,108 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-401-genes-ts-output-modes",
+  "issue": {
+    "id": "wordpresshx-w91.2.1",
+    "external_ref": "WPHX-401",
+    "title": "WPHX-401 — Pin and build genes-ts in both output modes"
+  },
+  "recorded_at": "2026-07-10T03:45:00.000Z",
+  "generator": "tools/genes-ts/run-output-mode-gate.mjs",
+  "command": "locked genes-ts full CI across classic JavaScript and TypeScript output modes",
+  "evidence_class": "compiler_platform_full_ci",
+  "artifact_scope": "locked_sibling_compiler_checkout",
+  "artifacts": [
+    {
+      "path": "toolchain.lock.json",
+      "role": "toolchain and genes-ts compiler pin",
+      "bytes": 7755,
+      "sha256": "sha256:9b3f57b6f0d25b34b165f49416ef136a352417d4cd32483890235abcf0a6a708"
+    },
+    {
+      "path": "upstream.lock.json",
+      "role": "sibling checkout authority and dirty-state record",
+      "bytes": 7402,
+      "sha256": "sha256:505b9286e1547343ac291b5e2aea5841aed63938c495ccfe9ddf687676d9aa06"
+    },
+    {
+      "path": "manifests/genes-ts/wphx-401-output-modes.v1.json",
+      "role": "both-output-mode full CI result",
+      "bytes": 2149,
+      "sha256": "sha256:30429f57947c8d3d8ae346694591570c856855da386be808bab56272e1700e09"
+    }
+  ],
+  "verification_commands": [
+    "npm run genes-ts:output-modes",
+    "npm run genes-ts:output-modes:check",
+    "yarn test:ci (in ../genes at the pinned commit with locked Node 20.19.3)"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "both_output_modes_green": true,
+    "deterministic_snapshots_green": true,
+    "runtime_smoke_green": true,
+    "security_gate_green": true,
+    "compiler_change_required_by_wordpresshx": false
+  },
+  "compiler": {
+    "repo": "../genes",
+    "commit": "35f920579f1649f5712b2a258971d0876d6dd82f",
+    "tree": "c99ecccbe15141839055a34c5affceee05b63c40",
+    "describe": "v1.13.0-10-g35f9205",
+    "declared_version": "1.13.0",
+    "package_manager": "yarn@1.22.22",
+    "typescript": "5.5.4",
+    "observed_status": [
+      "?? genes-ts.xml",
+      "?? repomix-output-genes-ts.xml.zip"
+    ]
+  },
+  "runtime": {
+    "node": "v20.19.3",
+    "node_pin": "20.19.3"
+  },
+  "output_modes": [
+    {
+      "id": "classic_genes_js",
+      "selector": "omit -D genes.ts",
+      "output": "split ESM JavaScript with optional declarations",
+      "validation": "classic compiler build plus 288/288 Node runtime assertions"
+    },
+    {
+      "id": "genes_ts_typescript",
+      "selector": "-D genes.ts",
+      "output": "split TypeScript/TSX source",
+      "validation": "standard/minimal/full/TSX builds, strict typechecks, snapshots, source maps, runtime and Playwright smoke"
+    }
+  ],
+  "full_ci": {
+    "command": "yarn test:ci",
+    "exit_code": 0,
+    "output_sha256": "sha256:591fe3b810c9e791be092715d11b0f5b4d532107d67f71d9aefe24f10a84181a",
+    "output_bytes": 93892,
+    "required_markers": [
+      "No issues found",
+      "OK: version=1.13.0",
+      "288 Assertions   288 Success   0 Failure   0 Error",
+      "Snapshots OK (45 files)",
+      "Roundtrip OK (2 fixtures)",
+      "3 passed"
+    ],
+    "stages": [
+      "secret scan",
+      "OSV vulnerability scan",
+      "version consistency",
+      "classic Genes JavaScript compile and Node runtime assertions",
+      "genes-ts TypeScript standard/minimal/full/TSX output",
+      "TypeScript source-map and snapshot checks",
+      "todoapp API and Playwright runtime smoke",
+      "ts2hx snapshots and roundtrips"
+    ]
+  },
+  "non_claims": [
+    "WPHX-401 proves the pinned compiler platform and its two output modes, not a WordPress or Gutenberg package port.",
+    "The F8 leaf-package and F9 React/TSX feasibility spikes remain WPHX-403 and WPHX-404.",
+    "No WordPress-specific compiler change was added to genes-ts.",
+    "Browser, Gutenberg, classic-script, installed-distribution, and release parity remain open."
+  ]
+}

@@ -2,7 +2,7 @@
 import { execFileSync } from "node:child_process";
 
 function bd(args) {
-  return JSON.parse(execFileSync("bd", args, { encoding: "utf8" }));
+  return JSON.parse(execFileSync("bd", args, { encoding: "utf8", maxBuffer: 1024 * 1024 * 50 }));
 }
 
 const all = bd(["list", "--all", "--json", "--limit", "0"]);

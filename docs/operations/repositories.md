@@ -29,9 +29,10 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
 ## Compiler and Tooling References
 
 - `../genes` - active genes-ts checkout.
-  - Current observed ref: `8acd106`, branch `main`.
+  - Current pinned ref: `35f920579f1649f5712b2a258971d0876d6dd82f` (`v1.13.0-10-g35f9205`), branch `main`.
   - Role: Haxe-to-TypeScript/TSX/JavaScript compiler work.
   - Rule: fixes must be generic genes-ts improvements, never WordPress-specific hacks.
+  - WPHX-401 evidence: the full compiler CI gate passes classic Genes JavaScript, genes-ts TypeScript snapshots/typechecks/runtime, todoapp Playwright, security/version checks, and ts2hx roundtrips; local `genes-ts.xml` and `repomix-output-genes-ts.xml.zip` remain untracked report artifacts outside the pin.
 - `../haxe.compilerdev.reference/haxe` - Haxe compiler source reference.
   - Current observed ref: `e0b355c6b`, tag `4.3.7`, branch reference `origin/4.3_bugfix`.
   - Role: Haxe 4.3.7 compiler and PHP generator reference.

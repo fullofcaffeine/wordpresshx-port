@@ -15,6 +15,16 @@
       "acceptance_criteria": null
     },
     {
+      "external_ref": "WPHX-000.07",
+      "title": "WPHX-000.07 — Reconcile remaining PRD browser and release worksets into Beads",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-000",
+      "blocks": [],
+      "description": "Seed the PRD-defined browser platform, Gutenberg package, classic browser/vendor, and validation/release worksets that are currently absent from the authoritative Beads graph. Preserve stable external references, parentage, dependencies, and acceptance criteria so parent completion reflects the PRD rather than only the initial bootstrap subset.",
+      "acceptance_criteria": "WPHX-400 has WPHX-401 through WPHX-409 children; WPHX-500 and WPHX-600 plus their PRD child worksets exist with PRD dependencies; WPHX-700 has WPHX-701 through WPHX-714 children; deterministic seed validation, graph validation, export, receipts, and progress-matrix documentation pass."
+    },
+    {
       "external_ref": "WPHX-001",
       "title": "WPHX-001 — Initialize repository, licenses, contribution rules, generated-file policy",
       "issue_type": "task",
@@ -496,6 +506,471 @@
       "acceptance_criteria": null
     },
     {
+      "external_ref": "WPHX-401",
+      "title": "WPHX-401 — Pin and build genes-ts in both output modes",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-002"
+      ],
+      "description": "Verify the locked genes-ts checkout and build it in both supported output modes before package translation begins.",
+      "acceptance_criteria": "Both genes-ts output modes have deterministic CI snapshots and runtime smoke evidence."
+    },
+    {
+      "external_ref": "WPHX-402",
+      "title": "WPHX-402 — Generate JS/TS package, module, and API inventory",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-005",
+        "WPHX-006",
+        "WPHX-007"
+      ],
+      "description": "Generate the browser-side package, module, export, artifact, and API inventory for the locked WordPress and Gutenberg baselines.",
+      "acceptance_criteria": "All relevant workspaces, modules, exports, and shipped browser artifacts are classified."
+    },
+    {
+      "external_ref": "WPHX-403",
+      "title": "WPHX-403 — F8 ts2hx leaf-package spike",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-401",
+        "WPHX-402"
+      ],
+      "description": "Run the F8 feasibility spike on a selected real leaf package using the locked genes-ts compiler.",
+      "acceptance_criteria": "The selected leaf package builds with strict types and passes differential runtime tests, or minimized generic compiler blockers are recorded."
+    },
+    {
+      "external_ref": "WPHX-404",
+      "title": "WPHX-404 — F9 React/TSX spike",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-401",
+        "WPHX-402"
+      ],
+      "description": "Run the F9 React/TSX feasibility spike over a representative WordPress package slice.",
+      "acceptance_criteria": "Browser, visual, accessibility, and source-map parity pass, or minimized generic compiler blockers are recorded."
+    },
+    {
+      "external_ref": "WPHX-405",
+      "title": "WPHX-405 — WordPress package, export, and script-handle profile",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-401",
+        "WPHX-402",
+        "WPHX-403",
+        "WPHX-404"
+      ],
+      "description": "Define the compiler/linker profile that preserves WordPress package exports, script handles, globals, and Core asset metadata.",
+      "acceptance_criteria": "Generated package and WordPress Core asset metadata match the locked oracle contracts."
+    },
+    {
+      "external_ref": "WPHX-406",
+      "title": "WPHX-406 — JS-native boundary types and extern policy",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405"
+      ],
+      "description": "Define typed browser-native boundaries and extern policy without normalizing broad Dynamic or generated any use.",
+      "acceptance_criteria": "Null, undefined, object, callable, and async boundary fixtures pass with documented narrow escape hatches."
+    },
+    {
+      "external_ref": "WPHX-407",
+      "title": "WPHX-407 — Browser differential harness",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405",
+        "WPHX-406"
+      ],
+      "description": "Build deterministic Node and browser oracle/candidate comparisons for generated browser packages.",
+      "acceptance_criteria": "Node and Playwright comparisons emit attributable deterministic parity reports."
+    },
+    {
+      "external_ref": "WPHX-408",
+      "title": "WPHX-408 — Bundle, source-map, and determinism pipeline",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407"
+      ],
+      "description": "Produce reproducible development and minified browser outputs with source maps and WordPress-compatible package topology.",
+      "acceptance_criteria": "Development and minified bundles plus source maps reproduce byte-for-byte under the locked toolchain."
+    },
+    {
+      "external_ref": "WPHX-409",
+      "title": "WPHX-409 — genes-ts compiler-pressure CI",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-400",
+      "blocks": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408"
+      ],
+      "description": "Gate genes-ts changes with minimized generic fixtures discovered by the WordPress and Gutenberg browser spikes.",
+      "acceptance_criteria": "Minimized fixtures and compiler receipts gate every relied-on genes-ts change."
+    },
+    {
+      "external_ref": "WPHX-500",
+      "title": "WPHX-500 — Gutenberg packages",
+      "issue_type": "epic",
+      "priority": 2,
+      "parent": null,
+      "blocks": [
+        "WPHX-400"
+      ],
+      "description": "Port the locked WordPress distribution and forward Gutenberg package waves after browser feasibility passes.",
+      "acceptance_criteria": "Applicable Gutenberg package, API, runtime, integration, and artifact manifests reach their PRD ownership gates."
+    },
+    {
+      "external_ref": "WPHX-501",
+      "title": "WPHX-501 — Wave J1 pure leaf packages",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-403",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408",
+        "WPHX-409"
+      ],
+      "description": "Port the first wave of pure Gutenberg leaf packages selected by the package inventory.",
+      "acceptance_criteria": "Selected J1 packages have package API and runtime parity records."
+    },
+    {
+      "external_ref": "WPHX-502",
+      "title": "WPHX-502 — Wave J2 foundational packages",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-501"
+      ],
+      "description": "Port foundational Gutenberg packages after the pure leaf wave is proven.",
+      "acceptance_criteria": "Selected J2 packages have package API and runtime parity records."
+    },
+    {
+      "external_ref": "WPHX-503",
+      "title": "WPHX-503 — Wave J3 data, composition, and router packages",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-502"
+      ],
+      "description": "Port the data, composition, and router package wave.",
+      "acceptance_criteria": "Selected J3 packages pass package and integration parity gates."
+    },
+    {
+      "external_ref": "WPHX-504",
+      "title": "WPHX-504 — Wave J4 UI, components, and blocks foundations",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-503"
+      ],
+      "description": "Port the Gutenberg UI, component, and block foundation wave.",
+      "acceptance_criteria": "Selected J4 packages pass package, React, visual, and accessibility parity gates."
+    },
+    {
+      "external_ref": "WPHX-505",
+      "title": "WPHX-505 — Wave J5 core-data, interface, and global services",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-503",
+        "WPHX-504"
+      ],
+      "description": "Port core-data, interface, and global service packages.",
+      "acceptance_criteria": "Selected J5 packages pass data, API, and editor integration parity gates."
+    },
+    {
+      "external_ref": "WPHX-506",
+      "title": "WPHX-506 — @wordpress/block-editor",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-504",
+        "WPHX-505"
+      ],
+      "description": "Port the @wordpress/block-editor package against the locked distribution baseline.",
+      "acceptance_criteria": "Package and editor integration parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-507",
+      "title": "WPHX-507 — @wordpress/block-library JS and PHP joint workset",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-314",
+        "WPHX-506"
+      ],
+      "description": "Port the block-library browser surface while preserving its joint PHP registration and rendering contracts.",
+      "acceptance_criteria": "Block registration, edit, save, and render parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-508",
+      "title": "WPHX-508 — @wordpress/editor and global styles",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507"
+      ],
+      "description": "Port @wordpress/editor and the browser-side global styles integration.",
+      "acceptance_criteria": "Editor data and UI parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-509",
+      "title": "WPHX-509 — edit-post, edit-site, widgets, customize, and fields",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-508"
+      ],
+      "description": "Port the major Gutenberg application roots after the editor package wave.",
+      "acceptance_criteria": "Application end-to-end, visual, and accessibility gates pass."
+    },
+    {
+      "external_ref": "WPHX-510",
+      "title": "WPHX-510 — Boot, build, initialization, routes, and integration roots",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-509"
+      ],
+      "description": "Port Gutenberg boot, build, initialization, routing, and integration roots needed by the WordPress distribution.",
+      "acceptance_criteria": "Core integration artifacts match the locked WordPress distribution contracts."
+    },
+    {
+      "external_ref": "WPHX-511",
+      "title": "WPHX-511 — Gutenberg build, test, and development packages",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510"
+      ],
+      "description": "Close the Gutenberg build, test, and development package workspaces after runtime package waves establish the required compiler surface.",
+      "acceptance_criteria": "Applicable non-runtime workspaces satisfy the C4 workspace closure contract."
+    },
+    {
+      "external_ref": "WPHX-512",
+      "title": "WPHX-512 — Forward Gutenberg 23.4 manifest closure",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-500",
+      "blocks": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510",
+        "WPHX-511"
+      ],
+      "description": "Reconcile every locked forward Gutenberg 23.4 package record with its ownership and parity state.",
+      "acceptance_criteria": "All 123 forward Gutenberg package records are resolved."
+    },
+    {
+      "external_ref": "WPHX-600",
+      "title": "WPHX-600 — WordPress classic JS and browser vendors",
+      "issue_type": "epic",
+      "priority": 2,
+      "parent": null,
+      "blocks": [
+        "WPHX-400"
+      ],
+      "description": "Port first-party classic WordPress browser code and govern bundled browser-vendor replacement after browser feasibility passes.",
+      "acceptance_criteria": "First-party browser and bundled browser-vendor manifests reach their PRD ownership gates."
+    },
+    {
+      "external_ref": "WPHX-601",
+      "title": "WPHX-601 — Inventory classic WordPress enqueued scripts and globals",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-006",
+        "WPHX-402"
+      ],
+      "description": "Inventory classic WordPress browser scripts, handles, globals, dependencies, and build outputs.",
+      "acceptance_criteria": "The classic script handle, global, and build graph is complete."
+    },
+    {
+      "external_ref": "WPHX-602",
+      "title": "WPHX-602 — Common and admin classic scripts",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408",
+        "WPHX-409",
+        "WPHX-601"
+      ],
+      "description": "Port common and admin classic WordPress scripts against their PHP request and screen contracts.",
+      "acceptance_criteria": "Selected common and admin request and end-to-end parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-603",
+      "title": "WPHX-603 — Media JavaScript",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-313",
+        "WPHX-602"
+      ],
+      "description": "Port the WordPress media browser runtime and preserve its PHP/media integration behavior.",
+      "acceptance_criteria": "Media end-to-end parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-604",
+      "title": "WPHX-604 — Customizer, widgets, and legacy editor scripts",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-310",
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-602"
+      ],
+      "description": "Port Customizer, widget, and legacy editor browser scripts with their PHP integration surfaces.",
+      "acceptance_criteria": "Customizer, widget, and legacy editor end-to-end parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-605",
+      "title": "WPHX-605 — Dependency extraction and Core asset copy integration",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-405",
+        "WPHX-408",
+        "WPHX-510",
+        "WPHX-601",
+        "WPHX-602",
+        "WPHX-603",
+        "WPHX-604"
+      ],
+      "description": "Integrate generated browser outputs into WordPress dependency extraction and official distribution asset paths.",
+      "acceptance_criteria": "Official asset paths, dependency metadata, and script handles match the WordPress distribution."
+    },
+    {
+      "external_ref": "WPHX-606",
+      "title": "WPHX-606 — Bundled browser-vendor provenance and source acquisition",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-006",
+        "WPHX-011",
+        "WPHX-601"
+      ],
+      "description": "Resolve source and provenance for browser vendors shipped by the vanilla WordPress distribution.",
+      "acceptance_criteria": "No bundled browser vendor has an unknown or minified-only origin."
+    },
+    {
+      "external_ref": "WPHX-607",
+      "title": "WPHX-607 — Bundled browser-vendor Haxe ports",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-606"
+      ],
+      "description": "Port bundled browser vendors only where the provenance and replacement gates choose direct Haxe ownership.",
+      "acceptance_criteria": "Selected browser-vendor ports pass vendor tests and consumer parity gates."
+    },
+    {
+      "external_ref": "WPHX-608",
+      "title": "WPHX-608 — First-party browser manifest closure",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510",
+        "WPHX-601",
+        "WPHX-602",
+        "WPHX-603",
+        "WPHX-604",
+        "WPHX-605"
+      ],
+      "description": "Reconcile the WordPress distribution's first-party browser records after Gutenberg and classic browser worksets close.",
+      "acceptance_criteria": "The C2 first-party browser ownership tier is verified."
+    },
+    {
+      "external_ref": "WPHX-609",
+      "title": "WPHX-609 — Browser-vendor manifest closure",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-600",
+      "blocks": [
+        "WPHX-607"
+      ],
+      "description": "Reconcile every bundled browser-vendor record after vendor replacement and exception gates close.",
+      "acceptance_criteria": "The C3 browser-vendor ownership portion is verified."
+    },
+    {
       "external_ref": "WPHX-700",
       "title": "WPHX-700 — Parity, security, performance, and distribution",
       "issue_type": "epic",
@@ -504,6 +979,211 @@
       "blocks": [],
       "description": null,
       "acceptance_criteria": null
+    },
+    {
+      "external_ref": "WPHX-701",
+      "title": "WPHX-701 — Upstream PHP test integration",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-008",
+        "WPHX-208",
+        "WPHX-210"
+      ],
+      "description": "Expand selected upstream PHP ratchets into an attributable normalized comparison lane for generated WordPress PHP outputs.",
+      "acceptance_criteria": "Upstream PHP results have deterministic attribution and normalized oracle/candidate comparison."
+    },
+    {
+      "external_ref": "WPHX-702",
+      "title": "WPHX-702 — Upstream Gutenberg test integration",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-008",
+        "WPHX-409"
+      ],
+      "description": "Run applicable upstream Gutenberg package and end-to-end suites against generated Haxe-owned browser outputs.",
+      "acceptance_criteria": "Applicable package and end-to-end suites execute against Haxe outputs with attributable results."
+    },
+    {
+      "external_ref": "WPHX-703",
+      "title": "WPHX-703 — PHP ABI and file-topology comparator",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-201",
+        "WPHX-205"
+      ],
+      "description": "Compare the generated PHP distribution's public ABI and original-path file topology with the WordPress 7.0 oracle.",
+      "acceptance_criteria": "There are zero unexplained critical PHP ABI or file-topology deltas."
+    },
+    {
+      "external_ref": "WPHX-704",
+      "title": "WPHX-704 — JS package, API, and artifact comparator",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-402",
+        "WPHX-405",
+        "WPHX-408"
+      ],
+      "description": "Compare generated browser packages, APIs, exports, and shipped artifacts with the locked WordPress and Gutenberg oracles.",
+      "acceptance_criteria": "There are zero unexplained critical JS package, API, or artifact deltas."
+    },
+    {
+      "external_ref": "WPHX-705",
+      "title": "WPHX-705 — Differential HTTP, DB, and hook trace runner",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-008",
+        "WPHX-301",
+        "WPHX-322"
+      ],
+      "description": "Generalize bounded PHP parity runners into deterministic installed HTTP, database, and hook trace comparisons.",
+      "acceptance_criteria": "A deterministic trace schema and oracle/candidate comparisons cover the admitted critical slices."
+    },
+    {
+      "external_ref": "WPHX-706",
+      "title": "WPHX-706 — Plugin compatibility fixture suite",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-302",
+        "WPHX-705"
+      ],
+      "description": "Exercise representative plugins against generated WordPress distributions without hidden upstream core fallback.",
+      "acceptance_criteria": "Fixture plugins pass install, activation, runtime, deactivation, and ABI compatibility gates."
+    },
+    {
+      "external_ref": "WPHX-707",
+      "title": "WPHX-707 — Theme compatibility fixture suite",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-309",
+        "WPHX-310",
+        "WPHX-705"
+      ],
+      "description": "Exercise representative classic and block themes against generated WordPress distributions.",
+      "acceptance_criteria": "Classic and block theme compatibility and rendering parity gates pass."
+    },
+    {
+      "external_ref": "WPHX-708",
+      "title": "WPHX-708 — Curated ecosystem corpus",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-705",
+        "WPHX-706",
+        "WPHX-707"
+      ],
+      "description": "Define and execute a reproducible ecosystem corpus after the core installed trace and fixture suites establish the harness.",
+      "acceptance_criteria": "The ecosystem corpus is declared, reproducible, and emits attributable compatibility results."
+    },
+    {
+      "external_ref": "WPHX-709",
+      "title": "WPHX-709 — Visual and accessibility regression suite",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-404",
+        "WPHX-509"
+      ],
+      "description": "Build visual and accessibility regression coverage for critical admin, editor, and front-end flows.",
+      "acceptance_criteria": "Critical flows remain within accepted visual and accessibility baselines."
+    },
+    {
+      "external_ref": "WPHX-710",
+      "title": "WPHX-710 — Security equivalence review and fuzz/property suites",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-322",
+        "WPHX-323",
+        "WPHX-608",
+        "WPHX-609"
+      ],
+      "description": "Review the complete generated distribution security boundary and run fuzz/property suites over parity-sensitive inputs.",
+      "acceptance_criteria": "No unresolved critical or high security issues remain at the replacement gate."
+    },
+    {
+      "external_ref": "WPHX-711",
+      "title": "WPHX-711 — Performance and memory benchmark suite",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-301",
+        "WPHX-322",
+        "WPHX-408"
+      ],
+      "description": "Measure generated distribution performance and memory from the walking skeleton through release candidates.",
+      "acceptance_criteria": "Budgets are measured and every material regression is attributed."
+    },
+    {
+      "external_ref": "WPHX-712",
+      "title": "WPHX-712 — Reproducible distribution builder and SBOM",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-322",
+        "WPHX-323",
+        "WPHX-608",
+        "WPHX-609"
+      ],
+      "description": "Build the complete WordPress-compatible distribution reproducibly with provenance, notices, and an SBOM.",
+      "acceptance_criteria": "The generated distribution is checksummed and reproducible, with complete provenance, notices, and SBOM output."
+    },
+    {
+      "external_ref": "WPHX-713",
+      "title": "WPHX-713 — Experimental update and rollback channel",
+      "issue_type": "task",
+      "priority": 2,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-319",
+        "WPHX-712"
+      ],
+      "description": "Prove an experimental update channel that cannot be silently overwritten by vanilla Core and has a tested rollback path.",
+      "acceptance_criteria": "Vanilla overwrite is prevented and the rollback drill passes."
+    },
+    {
+      "external_ref": "WPHX-714",
+      "title": "WPHX-714 — Release dossier and parity scorecard",
+      "issue_type": "task",
+      "priority": 1,
+      "parent": "WPHX-700",
+      "blocks": [
+        "WPHX-701",
+        "WPHX-702",
+        "WPHX-703",
+        "WPHX-704",
+        "WPHX-705",
+        "WPHX-706",
+        "WPHX-707",
+        "WPHX-708",
+        "WPHX-709",
+        "WPHX-710",
+        "WPHX-711",
+        "WPHX-712",
+        "WPHX-713"
+      ],
+      "description": "Assemble the release dossier and parity scorecard only after all required technical and operational gate tasks close.",
+      "acceptance_criteria": "The dossier links reproducible evidence for every compatibility contract and PRD gate."
     },
     {
       "external_ref": "WPHX-800",

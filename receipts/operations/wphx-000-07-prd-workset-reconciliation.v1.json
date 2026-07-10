@@ -1,0 +1,720 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-07-prd-workset-reconciliation",
+  "issue": {
+    "id": "wordpresshx-w91.25",
+    "external_ref": "WPHX-000.07",
+    "title": "WPHX-000.07 — Reconcile remaining PRD browser and release worksets into Beads"
+  },
+  "recorded_at": "2026-07-10T03:30:49.000Z",
+  "generator": "tools/beads/run-prd-workset-reconciliation.mjs",
+  "command": "reconcile PRD browser, package, vendor, and validation/release worksets into Beads",
+  "evidence_class": "program_task_graph_reconciliation",
+  "artifact_scope": "beads_prd_seed_and_dependency_graph",
+  "artifacts": [
+    {
+      "path": "manifests/beads/prd-seed.v1.json",
+      "role": "deterministic WPHX external-reference seed manifest",
+      "bytes": 47077,
+      "sha256": "sha256:c6c89a1d92c03a9b9b3b47ef4ab97225b19b7096046fce3161152f3b4a4bd635"
+    },
+    {
+      "path": "docs/prd/wordpress-haxe-port.md",
+      "role": "product and architecture authority defining the seeded worksets",
+      "bytes": 129624,
+      "sha256": "sha256:43f31b476d035ba87adfef9f42f7f2aecd686b92c70eba4fb62fd9b2ea6dcf63"
+    },
+    {
+      "path": ".beads/issues.jsonl",
+      "role": "tracked authoritative Beads interchange export"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program matrix recording activation of the browser and release worksets"
+    }
+  ],
+  "groups": {
+    "browser_platform": {
+      "count": 9,
+      "refs": [
+        "WPHX-401",
+        "WPHX-402",
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408",
+        "WPHX-409"
+      ]
+    },
+    "gutenberg_packages": {
+      "count": 13,
+      "refs": [
+        "WPHX-500",
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510",
+        "WPHX-511",
+        "WPHX-512"
+      ]
+    },
+    "classic_browser": {
+      "count": 10,
+      "refs": [
+        "WPHX-600",
+        "WPHX-601",
+        "WPHX-602",
+        "WPHX-603",
+        "WPHX-604",
+        "WPHX-605",
+        "WPHX-606",
+        "WPHX-607",
+        "WPHX-608",
+        "WPHX-609"
+      ]
+    },
+    "validation_release": {
+      "count": 14,
+      "refs": [
+        "WPHX-701",
+        "WPHX-702",
+        "WPHX-703",
+        "WPHX-704",
+        "WPHX-705",
+        "WPHX-706",
+        "WPHX-707",
+        "WPHX-708",
+        "WPHX-709",
+        "WPHX-710",
+        "WPHX-711",
+        "WPHX-712",
+        "WPHX-713",
+        "WPHX-714"
+      ]
+    }
+  },
+  "seeded_records": [
+    {
+      "external_ref": "WPHX-401",
+      "id": "wordpresshx-w91.2.1",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-002"
+      ]
+    },
+    {
+      "external_ref": "WPHX-402",
+      "id": "wordpresshx-w91.2.2",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-005",
+        "WPHX-006",
+        "WPHX-007"
+      ]
+    },
+    {
+      "external_ref": "WPHX-403",
+      "id": "wordpresshx-w91.2.3",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-401",
+        "WPHX-402"
+      ]
+    },
+    {
+      "external_ref": "WPHX-404",
+      "id": "wordpresshx-w91.2.4",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-401",
+        "WPHX-402"
+      ]
+    },
+    {
+      "external_ref": "WPHX-405",
+      "id": "wordpresshx-w91.2.5",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-401",
+        "WPHX-402",
+        "WPHX-403",
+        "WPHX-404"
+      ]
+    },
+    {
+      "external_ref": "WPHX-406",
+      "id": "wordpresshx-w91.2.6",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405"
+      ]
+    },
+    {
+      "external_ref": "WPHX-407",
+      "id": "wordpresshx-w91.2.7",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405",
+        "WPHX-406"
+      ]
+    },
+    {
+      "external_ref": "WPHX-408",
+      "id": "wordpresshx-w91.2.8",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407"
+      ]
+    },
+    {
+      "external_ref": "WPHX-409",
+      "id": "wordpresshx-w91.2.9",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-400",
+      "blockers": [
+        "WPHX-403",
+        "WPHX-404",
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408"
+      ]
+    },
+    {
+      "external_ref": "WPHX-500",
+      "id": "wordpresshx-1klg",
+      "issue_type": "epic",
+      "status": "open",
+      "parent": null,
+      "blockers": [
+        "WPHX-400"
+      ]
+    },
+    {
+      "external_ref": "WPHX-501",
+      "id": "wordpresshx-1klg.1",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-403",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408",
+        "WPHX-409"
+      ]
+    },
+    {
+      "external_ref": "WPHX-502",
+      "id": "wordpresshx-1klg.2",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-501"
+      ]
+    },
+    {
+      "external_ref": "WPHX-503",
+      "id": "wordpresshx-1klg.3",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-502"
+      ]
+    },
+    {
+      "external_ref": "WPHX-504",
+      "id": "wordpresshx-1klg.4",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-503"
+      ]
+    },
+    {
+      "external_ref": "WPHX-505",
+      "id": "wordpresshx-1klg.5",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-503",
+        "WPHX-504"
+      ]
+    },
+    {
+      "external_ref": "WPHX-506",
+      "id": "wordpresshx-1klg.6",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-504",
+        "WPHX-505"
+      ]
+    },
+    {
+      "external_ref": "WPHX-507",
+      "id": "wordpresshx-1klg.7",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-314",
+        "WPHX-506"
+      ]
+    },
+    {
+      "external_ref": "WPHX-508",
+      "id": "wordpresshx-1klg.8",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507"
+      ]
+    },
+    {
+      "external_ref": "WPHX-509",
+      "id": "wordpresshx-1klg.9",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-508"
+      ]
+    },
+    {
+      "external_ref": "WPHX-510",
+      "id": "wordpresshx-1klg.10",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-509"
+      ]
+    },
+    {
+      "external_ref": "WPHX-511",
+      "id": "wordpresshx-1klg.11",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510"
+      ]
+    },
+    {
+      "external_ref": "WPHX-512",
+      "id": "wordpresshx-1klg.12",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-500",
+      "blockers": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510",
+        "WPHX-511"
+      ]
+    },
+    {
+      "external_ref": "WPHX-600",
+      "id": "wordpresshx-cjsz",
+      "issue_type": "epic",
+      "status": "open",
+      "parent": null,
+      "blockers": [
+        "WPHX-400"
+      ]
+    },
+    {
+      "external_ref": "WPHX-601",
+      "id": "wordpresshx-cjsz.1",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-006",
+        "WPHX-402"
+      ]
+    },
+    {
+      "external_ref": "WPHX-602",
+      "id": "wordpresshx-cjsz.2",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-405",
+        "WPHX-406",
+        "WPHX-407",
+        "WPHX-408",
+        "WPHX-409",
+        "WPHX-601"
+      ]
+    },
+    {
+      "external_ref": "WPHX-603",
+      "id": "wordpresshx-cjsz.3",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-313",
+        "WPHX-602"
+      ]
+    },
+    {
+      "external_ref": "WPHX-604",
+      "id": "wordpresshx-cjsz.4",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-310",
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-602"
+      ]
+    },
+    {
+      "external_ref": "WPHX-605",
+      "id": "wordpresshx-cjsz.5",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-405",
+        "WPHX-408",
+        "WPHX-510",
+        "WPHX-601",
+        "WPHX-602",
+        "WPHX-603",
+        "WPHX-604"
+      ]
+    },
+    {
+      "external_ref": "WPHX-606",
+      "id": "wordpresshx-cjsz.6",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-006",
+        "WPHX-011",
+        "WPHX-601"
+      ]
+    },
+    {
+      "external_ref": "WPHX-607",
+      "id": "wordpresshx-cjsz.7",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-606"
+      ]
+    },
+    {
+      "external_ref": "WPHX-608",
+      "id": "wordpresshx-cjsz.8",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-501",
+        "WPHX-502",
+        "WPHX-503",
+        "WPHX-504",
+        "WPHX-505",
+        "WPHX-506",
+        "WPHX-507",
+        "WPHX-508",
+        "WPHX-509",
+        "WPHX-510",
+        "WPHX-601",
+        "WPHX-602",
+        "WPHX-603",
+        "WPHX-604",
+        "WPHX-605"
+      ]
+    },
+    {
+      "external_ref": "WPHX-609",
+      "id": "wordpresshx-cjsz.9",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-600",
+      "blockers": [
+        "WPHX-607"
+      ]
+    },
+    {
+      "external_ref": "WPHX-701",
+      "id": "wordpresshx-w91.3.11",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-008",
+        "WPHX-208",
+        "WPHX-210"
+      ]
+    },
+    {
+      "external_ref": "WPHX-702",
+      "id": "wordpresshx-w91.3.12",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-008",
+        "WPHX-409"
+      ]
+    },
+    {
+      "external_ref": "WPHX-703",
+      "id": "wordpresshx-w91.3.13",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-201",
+        "WPHX-205"
+      ]
+    },
+    {
+      "external_ref": "WPHX-704",
+      "id": "wordpresshx-w91.3.14",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-402",
+        "WPHX-405",
+        "WPHX-408"
+      ]
+    },
+    {
+      "external_ref": "WPHX-705",
+      "id": "wordpresshx-w91.3.15",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-008",
+        "WPHX-301",
+        "WPHX-322"
+      ]
+    },
+    {
+      "external_ref": "WPHX-706",
+      "id": "wordpresshx-w91.3.16",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-302",
+        "WPHX-705"
+      ]
+    },
+    {
+      "external_ref": "WPHX-707",
+      "id": "wordpresshx-w91.3.17",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-309",
+        "WPHX-310",
+        "WPHX-705"
+      ]
+    },
+    {
+      "external_ref": "WPHX-708",
+      "id": "wordpresshx-w91.3.18",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-705",
+        "WPHX-706",
+        "WPHX-707"
+      ]
+    },
+    {
+      "external_ref": "WPHX-709",
+      "id": "wordpresshx-w91.3.19",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-315",
+        "WPHX-316",
+        "WPHX-404",
+        "WPHX-509"
+      ]
+    },
+    {
+      "external_ref": "WPHX-710",
+      "id": "wordpresshx-w91.3.20",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-322",
+        "WPHX-323",
+        "WPHX-608",
+        "WPHX-609"
+      ]
+    },
+    {
+      "external_ref": "WPHX-711",
+      "id": "wordpresshx-w91.3.21",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-301",
+        "WPHX-322",
+        "WPHX-408"
+      ]
+    },
+    {
+      "external_ref": "WPHX-712",
+      "id": "wordpresshx-w91.3.22",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-322",
+        "WPHX-323",
+        "WPHX-608",
+        "WPHX-609"
+      ]
+    },
+    {
+      "external_ref": "WPHX-713",
+      "id": "wordpresshx-w91.3.23",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-319",
+        "WPHX-712"
+      ]
+    },
+    {
+      "external_ref": "WPHX-714",
+      "id": "wordpresshx-w91.3.24",
+      "issue_type": "task",
+      "status": "open",
+      "parent": "WPHX-700",
+      "blockers": [
+        "WPHX-701",
+        "WPHX-702",
+        "WPHX-703",
+        "WPHX-704",
+        "WPHX-705",
+        "WPHX-706",
+        "WPHX-707",
+        "WPHX-708",
+        "WPHX-709",
+        "WPHX-710",
+        "WPHX-711",
+        "WPHX-712",
+        "WPHX-713"
+      ]
+    }
+  ],
+  "supplemental_early_wphx_700_refs": [
+    "WPHX-700.01",
+    "WPHX-700.02",
+    "WPHX-700.03",
+    "WPHX-700.04",
+    "WPHX-700.05",
+    "WPHX-700.06",
+    "WPHX-700.07",
+    "WPHX-700.08",
+    "WPHX-700.09",
+    "WPHX-700.10"
+  ],
+  "verification_commands": [
+    "npm run beads:seed",
+    "npm run beads:validate",
+    "npm run beads:prd-worksets:check",
+    "npm run receipts:validate"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "deterministic_seed_count": 94,
+    "reconciled_workset_count": 46,
+    "browser_platform_task_count": 9,
+    "gutenberg_epic_and_task_count": 13,
+    "classic_browser_epic_and_task_count": 10,
+    "validation_release_task_count": 14,
+    "supplemental_early_wphx_700_task_count": 10,
+    "parent_closure_claimed": false,
+    "implementation_parity_claimed": false
+  },
+  "non_claims": [
+    "Seeding a PRD workset does not implement or close it.",
+    "WPHX-400, WPHX-500, WPHX-600, WPHX-700, and WPHX-000 remain open until their technical acceptance gates pass.",
+    "The existing WPHX-700.01 through WPHX-700.10 tasks remain bounded early evidence and do not replace WPHX-701 through WPHX-714.",
+    "The super-progress score remains unchanged because this receipt repairs task authority rather than adding Haxe ownership or installed parity."
+  ]
+}
