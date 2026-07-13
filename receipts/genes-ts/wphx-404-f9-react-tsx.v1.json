@@ -1,0 +1,44 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-404-f9-react-tsx",
+  "issue": {
+    "id": "wordpresshx-w91.2.4",
+    "external_ref": "WPHX-404",
+    "title": "WPHX-404 — F9 React/TSX spike"
+  },
+  "recorded_at": "2026-07-13T04:12:54.000Z",
+  "generator": "tools/genes-ts/run-f9-react-tsx-spike.mjs",
+  "evidence_class": "bounded_react_tsx_browser_parity_feasibility",
+  "artifact_scope": "gutenberg_table_of_contents_list_component",
+  "artifacts": [
+    {
+      "path": "manifests/genes-ts/wphx-404-f9-react-tsx.v1.json",
+      "role": "F9 browser, visual, accessibility, and source-map evidence",
+      "sha256": "sha256:eed26db918ee64005ce145f377edea5f197f960c03c00a9bbb88b696b280925a"
+    },
+    {
+      "path": "fixtures/genes-ts/react-table-of-contents/src/wphx/fixtures/genes/react/TableOfContentsList.hx",
+      "role": "Haxe-owned component candidate",
+      "sha256": "sha256:f0f6477b019c57d4f53baa7f0a0107c381325ef93a7314596f90e4110a34dde9"
+    }
+  ],
+  "verification_commands": [
+    "npm run genes-ts:f9-react-tsx",
+    "npm run genes-ts:f9-react-tsx:check"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "strict_types": true,
+    "browser_parity": true,
+    "visual_parity": true,
+    "accessibility_parity": true,
+    "source_map_chain": true,
+    "ts2hx_status": "passed"
+  },
+  "non_claims": [
+    "This is one bounded React/TSX feasibility slice, not broad Gutenberg package translation or ownership.",
+    "The Haxe candidate proves observable component parity only for the recorded fixture data and interactions.",
+    "Automatic Haxe-to-TSX-to-JavaScript source-map composition is not claimed; both source-map stages are validated independently.",
+    "No gutenberghx repository split or WordPress 7.0 distribution baseline change is authorized by this receipt alone."
+  ]
+}

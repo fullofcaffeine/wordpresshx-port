@@ -18,9 +18,9 @@ Create it when these are true:
 
 Recommended trigger: after `WPHX-403` and `WPHX-404` pass, or earlier only if an ADR explicitly accepts the coordination cost.
 
-Current status: WPHX-402 satisfies the locked package/workspace/module/export/artifact inventory prerequisite, and WPHX-403 passes the F8 real leaf-package roundtrip for `@wordpress/escape-html`. WPHX-404/F9 React/TSX feasibility remains the gating evidence before a `gutenberghx` bootstrap.
+Current status: WPHX-402 satisfies the locked package/workspace/module/export/artifact inventory prerequisite, WPHX-403 passes the F8 real leaf-package roundtrip for `@wordpress/escape-html`, and WPHX-404 passes the bounded F9 React/TSX browser, visual, accessibility, source-map, and maintained-ts2hx roundtrip gate. The technical trigger is now satisfied, but repository creation still requires an explicit bootstrap/ADR decision and a documented cross-repo receipt flow. WPHX-405 is the next browser-platform task; WPHX-501 remains blocked by WPHX-406 through WPHX-409, so broad Gutenberg translation has not started.
 
-Do not bootstrap `gutenberghx` yet just to make the repository tree look tidy. Before those gates, Gutenberg package work remains in `wordpress-hx` as inventory, feasibility fixtures, and task packets against `../gutenberg`.
+Do not bootstrap `gutenberghx` merely because the feasibility trigger passed. Until the explicit split decision is recorded, Gutenberg package work remains in `wordpress-hx` as inventory, feasibility fixtures, and task packets against `../gutenberg`.
 
 ## Relationship Between Repos
 

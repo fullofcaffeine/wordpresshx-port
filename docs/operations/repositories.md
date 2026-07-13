@@ -29,10 +29,10 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
 ## Compiler and Tooling References
 
 - `../genes` - active genes-ts checkout.
-  - Current pinned ref: `b7012fa42bac67dbc08546b5acd29aec6181bdfc` (`v1.13.0-11-gb7012fa`), branch `main`.
+  - Current pinned ref: `45a020e0e9abb9d335020be014afff09b6f8c02f` (`v1.13.0-13-g45a020e`), branch `main`.
   - Role: Haxe-to-TypeScript/TSX/JavaScript compiler work.
   - Rule: fixes must be generic genes-ts improvements, never WordPress-specific hacks.
-  - WPHX-401/WPHX-403 evidence: the full compiler CI gate passes classic Genes JavaScript, genes-ts TypeScript snapshots/typechecks/runtime, todoapp Playwright, security/version checks, and ts2hx roundtrips; the current pin includes the generic `genes-798` module-local binding and RegExp lowering fix required by the F8 leaf-package spike. Local `genes-ts.xml` and `repomix-output-genes-ts.xml.zip` remain untracked report artifacts outside the pin.
+  - WPHX-401/WPHX-403/WPHX-404 evidence: the full compiler CI gate passes classic Genes JavaScript, genes-ts TypeScript snapshots/typechecks/runtime, todoapp Playwright, security/version checks, and ts2hx roundtrips; the current pin includes generic `genes-798` module-local binding and RegExp lowering for F8 plus generic `genes-je4` typed React/TSX migration support for F9. Local `genes-ts.xml` and `repomix-output-genes-ts.xml.zip` remain untracked report artifacts outside the pin.
   - ts2hx status: `@genes-ts/ts2hx` still declares version `0.0.0` and describes itself as experimental. WPHX-409 explicitly owns its unsupported-construct inventory, minimized generic fixtures, deterministic snapshots, strict roundtrips, runtime evidence, and version/maturity decision before broad package work relies on it.
 - `../haxe.compilerdev.reference/haxe` - Haxe compiler source reference.
   - Current observed ref: `e0b355c6b`, tag `4.3.7`, branch reference `origin/4.3_bugfix`.
