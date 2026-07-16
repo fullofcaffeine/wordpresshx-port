@@ -1,0 +1,74 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-08-project-identity-rename",
+  "issue": {
+    "id": "wordpresshx-w91.26",
+    "external_ref": "WPHX-000.08",
+    "title": "WPHX-000.08 — Rename program repository to wordpresshx-port"
+  },
+  "recorded_at": "2026-07-16T19:45:24.000Z",
+  "command": "rename full-port project, GitHub repository, package metadata, active documentation, Git/Dolt remotes, and local checkout to wordpresshx-port",
+  "evidence_class": "program_governance_and_repository_identity",
+  "artifact_scope": "full_port_project_identity_and_sdk_boundary",
+  "artifacts": [
+    {
+      "path": "manifests/operations/wphx-000-08-project-identity-rename.v1.json",
+      "role": "machine-readable old/new identity, remote, preserved-identifier, and product-boundary record"
+    },
+    {
+      "path": "docs/adr/ADR-019-wordpresshx-port-project-identity.md",
+      "role": "accepted repository identity and SDK separation decision"
+    },
+    {
+      "path": "README.md",
+      "role": "canonical public WordPressHx Port product identity"
+    },
+    {
+      "path": "package.json",
+      "role": "canonical private workspace package and repository metadata"
+    },
+    {
+      "path": ".beads/config.yaml",
+      "role": "canonical Beads Dolt sync coordinate"
+    },
+    {
+      "path": "tools/operations/check-project-identity.mjs",
+      "role": "deterministic canonical identity and stable legacy identifier guard"
+    },
+    {
+      "path": "docs/operations/progress-matrix.md",
+      "role": "program checkpoint and unchanged full-port progress claim"
+    }
+  ],
+  "verification_commands": [
+    "gh repo view fullofcaffeine/wordpresshx-port --json nameWithOwner,url,description,visibility,defaultBranchRef",
+    "git remote get-url origin",
+    "bd dolt remote list",
+    "bd dolt push --remote origin-ssh",
+    "git ls-remote origin refs/dolt/data",
+    "npm run operations:project-identity:check",
+    "npm run beads:validate",
+    "npm run receipts:build",
+    "npm run receipts:validate",
+    "npm run operations:bridge-claim-guardrails:check",
+    "npm run precommit"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "canonical_repository": "fullofcaffeine/wordpresshx-port",
+    "canonical_package": "wordpresshx-port",
+    "canonical_checkout": "wordpresshx-port",
+    "git_remote": "passed",
+    "beads_dolt_remotes": "passed",
+    "dolt_push": "passed",
+    "dolt_ref": "passed",
+    "identity_manifest": "passed",
+    "sdk_separation_recorded": true,
+    "legacy_identifier_preservation": "passed"
+  },
+  "non_claims": [
+    "This is a project-identity migration, not implementation or parity evidence.",
+    "No wordpress-hx-sdk repository or SDK runtime is created here.",
+    "Historical receipts and stable schema identifiers are not rewritten."
+  ]
+}

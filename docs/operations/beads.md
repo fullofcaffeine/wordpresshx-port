@@ -1,6 +1,6 @@
 # Beads Operations
 
-`wordpress-hx` uses the root `.beads` directory as the issue database for this porting program. Run `bd prime` before taking work, then claim the specific issue you are changing.
+`wordpresshx-port` uses the root `.beads` directory as the issue database for this porting program. Run `bd prime` before taking work, then claim the specific issue you are changing.
 
 ## Version Pin
 
@@ -25,12 +25,12 @@ Sibling repositories may have their own `.beads` directories. Treat them as loca
 
 ## Sync Discipline
 
-WPHX-807 configured a Dolt remote at `git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git`. Beads state syncs through Dolt refs; `.beads/issues.jsonl` remains a tracked export for review and interchange. Use SSH because the prior HTTPS GitHub remote repeatedly failed during Dolt pack transfer with HTTP 400.
+WPHX-807 established the SSH Dolt sync lane, and WPHX-000.08 moved its active repository coordinate to `git+ssh://git@github.com/fullofcaffeine/wordpresshx-port.git`. Beads state syncs through Dolt refs; `.beads/issues.jsonl` remains a tracked export for review and interchange. Use SSH because the prior HTTPS GitHub remote repeatedly failed during Dolt pack transfer with HTTP 400.
 
 In `1.0.4`, cross-machine sync should use Dolt remotes:
 
 ```bash
-bd dolt remote add origin-ssh git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git
+bd dolt remote add origin-ssh git+ssh://git@github.com/fullofcaffeine/wordpresshx-port.git
 bd dolt push
 bd dolt pull
 ```

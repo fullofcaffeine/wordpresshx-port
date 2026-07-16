@@ -1,6 +1,7 @@
 # PRD: WordPress 7.0 and Gutenberg in Haxe
 
-**Working name:** `wordpress-hx` / `wphx`  
+**Project/repository:** `wordpresshx-port`
+**Stable program prefix:** `wphx` / `WPHX-*`
 **Status:** Proposed experimental migration program  
 **Document date:** 2026-06-20  
 **Primary target:** Haxe 4.3.7 PHP target  
@@ -557,7 +558,7 @@ No vendor disappears from the inventory merely because it is large or minified.
 ### 9.1 Recommended repository topology
 
 ```text
-wordpress-hx/
+wordpresshx-port/
 ├── AGENTS.md                         # concise repository-wide Codex rules
 ├── PLANS.md                          # execution-plan template for large tasks
 ├── README.md
@@ -2435,7 +2436,7 @@ Use `bd remember` for durable facts that should appear in future `bd prime` cont
 For nested repositories or worktrees, use the root explicitly:
 
 ```bash
-export WPHX_ROOT=/absolute/path/to/wordpress-hx
+export WPHX_ROOT=/absolute/path/to/wordpresshx-port
 export BEADS_DIR="$WPHX_ROOT/.beads"
 # Or invoke the repository wrapper from any nested checkout:
 tools/bd-wphx ready --json

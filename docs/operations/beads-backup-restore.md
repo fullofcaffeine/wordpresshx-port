@@ -7,7 +7,7 @@ WPHX-807 configured Beads 1.0.4 sync and backup for the program database.
 The root `.beads/config.yaml` now contains:
 
 ```yaml
-sync.remote: "git+ssh://git@github.com/fullofcaffeine/wordpress-hx.git"
+sync.remote: "git+ssh://git@github.com/fullofcaffeine/wordpresshx-port.git"
 ```
 
 Push and pull Beads state with:

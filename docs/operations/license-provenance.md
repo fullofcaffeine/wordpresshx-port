@@ -49,6 +49,6 @@ Keep license review tied to baselines:
 - WordPress 7.0 distribution claims stay on the WordPress 7.0 baseline and embedded Gutenberg pin.
 - Forward Gutenberg package work may use the Gutenberg `v23.4.0` baseline.
 - `gutenberghx` must carry package receipts back to this program repo before WordPress distribution integration consumes them.
-- Smaller bundled libraries can remain in `wordpress-hx`, but any package-specific license file must be preserved in receipts and generated artifacts.
+- Smaller bundled libraries can remain in `wordpresshx-port`, but any package-specific license file must be preserved in receipts and generated artifacts.
 
 When a port slice touches vendor code, generated bundles, copied assets, or package exceptions, update `manifests/license-provenance.v1.json` or file a follow-up Beads task before closing the slice.

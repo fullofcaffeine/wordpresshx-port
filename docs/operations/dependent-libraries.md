@@ -2,6 +2,14 @@
 
 This project should split dependent work only when the split improves verified parallelism more than it adds coordination cost.
 
+## WordPressHx SDK
+
+`wordpress-hx-sdk` is the planned separate typed-authoring product for Haxe plugins, themes, blocks, editor extensions, and complete WordPress solutions that consume the native WordPress and Gutenberg runtimes. It is not part of the full-port ownership claim and must be useful against unmodified vanilla WordPress without depending on `wordpresshx-port` implementation internals.
+
+The intended dependency direction is one-way: `wordpresshx-port` may pin released SDK contracts and use the same extension examples as compatibility probes, while `wordpress-hx-sdk` depends only on public WordPress/Gutenberg contracts and generic compiler libraries. SDK task authority, releases, examples, and maturity claims should live in its own repository once its PRD and bootstrap ADR are accepted. Cross-repository integration receipts belong here when the full port consumes an SDK release.
+
+The same compiled SDK-authored extension should eventually run against both the vanilla WordPress baseline and a WordPressHx Port distribution. Passing against vanilla is SDK evidence; passing against the generated distribution is port compatibility evidence. Neither claim substitutes for Haxe ownership of WordPress or Gutenberg runtime logic.
+
 ## GutenbergHX
 
 `gutenberghx` is a good future sibling repository, but it should not be created merely because Gutenberg is large.
@@ -20,32 +28,32 @@ Recommended trigger: after `WPHX-403` and `WPHX-404` pass, or earlier only if an
 
 Current status: WPHX-402 satisfies the locked package/workspace/module/export/artifact inventory prerequisite, WPHX-403 passes the F8 real leaf-package roundtrip for `@wordpress/escape-html`, and WPHX-404 passes the bounded F9 React/TSX browser, visual, accessibility, source-map, and maintained-ts2hx roundtrip gate. The technical trigger is now satisfied, but repository creation still requires an explicit bootstrap/ADR decision and a documented cross-repo receipt flow. WPHX-405 is the next browser-platform task; WPHX-501 remains blocked by WPHX-406 through WPHX-409, so broad Gutenberg translation has not started.
 
-Do not bootstrap `gutenberghx` merely because the feasibility trigger passed. Until the explicit split decision is recorded, Gutenberg package work remains in `wordpress-hx` as inventory, feasibility fixtures, and task packets against `../gutenberg`.
+Do not bootstrap `gutenberghx` merely because the feasibility trigger passed. Until the explicit split decision is recorded, Gutenberg package work remains in `wordpresshx-port` as inventory, feasibility fixtures, and task packets against `../gutenberg`.
 
 ## Relationship Between Repos
 
 When created, `gutenberghx` should be a sibling implementation repo, not a vendored subtree:
 
 ```text
-wordpress-hx/      # program root, WordPress distro integration, root Beads authority
+wordpresshx-port/  # full-port root, WordPress distro integration, root Beads authority
 gutenberghx/       # Gutenberg package implementation repo
 gutenberg/         # upstream oracle checkout
 genes/             # compiler checkout
 ```
 
-`wordpress-hx` should reference `gutenberghx` through lock manifests, package artifact manifests, receipts, and integration build inputs. `gutenberghx` should reference `wordpress-hx` as the program authority and distribution consumer.
+`wordpresshx-port` should reference `gutenberghx` through lock manifests, package artifact manifests, receipts, and integration build inputs. `gutenberghx` should reference `wordpresshx-port` as the program authority and distribution consumer.
 
-Until an ADR changes this, `wordpress-hx/.beads` remains the active task authority. Work in `gutenberghx` should use a wrapper or Beads redirect back to the root program database rather than creating an independent issue store.
+Until an ADR changes this, `wordpresshx-port/.beads` remains the active task authority. Work in `gutenberghx` should use a wrapper or Beads redirect back to the root program database rather than creating an independent issue store.
 
 ## Parallel Workflow
 
 When `gutenberghx` is created, parallel work should follow this shape:
 
-- `wordpress-hx` owns the PRD, root Beads database, release claims, WordPress distro integration, and final receipts.
+- `wordpresshx-port` owns the PRD, root Beads database, release claims, WordPress distro integration, and final receipts.
 - `gutenberghx` owns Haxe source for Gutenberg packages, package-level fixtures, package build outputs, and package parity receipts.
 - A GutenbergHX task must still have a root Beads issue or generated task packet with a `WPHX-*` external ref.
-- Every cross-repo receipt must name both commits: the `wordpress-hx` program commit and the `gutenberghx` implementation commit.
-- `wordpress-hx` consumes `gutenberghx` through a lock manifest entry, never through an unpinned sibling checkout.
+- Every cross-repo receipt must name both commits: the `wordpresshx-port` program commit and the `gutenberghx` implementation commit.
+- `wordpresshx-port` consumes `gutenberghx` through a lock manifest entry, never through an unpinned sibling checkout.
 - Generated package artifacts from `gutenberghx` are inputs to WordPress distro integration, not proof that the WordPress 7.0 release profile has changed.
 
 Suggested future manifest fields for a `gutenberghx` lock entry:
@@ -61,7 +69,7 @@ Suggested future manifest fields for a `gutenberghx` lock entry:
 }
 ```
 
-If a package is needed by the WordPress 7.0 distribution, integration remains blocked until `wordpress-hx` records a receipt proving that the package artifact maps back to the embedded Gutenberg baseline or an ADR-approved exception.
+If a package is needed by the WordPress 7.0 distribution, integration remains blocked until `wordpresshx-port` records a receipt proving that the package artifact maps back to the embedded Gutenberg baseline or an ADR-approved exception.
 
 ## What Belongs in GutenbergHX
 
@@ -74,7 +82,7 @@ Move work to `gutenberghx` when it is primarily about:
 - package build, typecheck, source-map, and bundle parity;
 - forward Gutenberg package parity.
 
-Keep WordPress distribution integration in `wordpress-hx`:
+Keep WordPress distribution integration in `wordpresshx-port`:
 
 - Core script handles and asset metadata integration;
 - exact copied paths required by the WordPress 7.0 distribution;
@@ -84,9 +92,9 @@ Keep WordPress distribution integration in `wordpress-hx`:
 
 ## Smaller Libraries
 
-Default: keep smaller dependent libraries inside `wordpress-hx` until evidence says otherwise.
+Default: keep smaller dependent libraries inside `wordpresshx-port` until evidence says otherwise.
 
-Keep a library in `wordpress-hx` when:
+Keep a library in `wordpresshx-port` when:
 
 - it is only needed by the WordPress distribution;
 - it has no independent release or consumer surface;

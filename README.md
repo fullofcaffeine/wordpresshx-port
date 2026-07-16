@@ -1,10 +1,12 @@
-# WordPressHX
+# WordPressHx Port
 
-WordPressHX is an experimental program to port WordPress 7.0 to Haxe while preserving the PHP-facing WordPress ecosystem contract.
+WordPressHx Port is an experimental program to port WordPress 7.0 to Haxe while preserving the PHP-facing WordPress ecosystem contract.
 
 The goal is not a typed wrapper around WordPress. The goal is Haxe-authored runtime logic, typed compatibility contracts, and generated target artifacts that remain usable by existing WordPress plugins, themes, drop-ins, tooling, reflection, and operational workflows.
 
-[![PHP Conformance](https://github.com/fullofcaffeine/wordpress-hx/actions/workflows/php-conformance.yml/badge.svg?branch=main)](https://github.com/fullofcaffeine/wordpress-hx/actions/workflows/php-conformance.yml)
+[![PHP Conformance](https://github.com/fullofcaffeine/wordpresshx-port/actions/workflows/php-conformance.yml/badge.svg?branch=main)](https://github.com/fullofcaffeine/wordpresshx-port/actions/workflows/php-conformance.yml)
+
+This repository owns the full-port program, distribution integration, and evidence control plane. A separate `wordpress-hx-sdk` project is planned for building typed Haxe plugins, themes, blocks, editor extensions, and complete WordPress solutions against the native WordPress/Gutenberg runtimes without requiring this full port. SDK progress and full-port ownership claims remain distinct.
 
 ## Why This Exists
 
@@ -126,7 +128,7 @@ If a scanner flags anything, treat the repository as not publishable until the f
 
 ## License
 
-WordPressHX is licensed as `GPL-2.0-or-later`.
+WordPressHx Port is licensed as `GPL-2.0-or-later`.
 
 You own original contributions you write here, but this project is a WordPress-compatible porting program with WordPress and Gutenberg as GPL-licensed upstream oracles. The runtime/distribution track should therefore be treated as GPL-compatible work. Commercial use, paid distribution, hosted services, support, and embedded deployments are compatible with the project goal, but distributing covered runtime artifacts means preserving GPL rights for recipients.
 

@@ -56,4 +56,4 @@ The coordinator must reject integration when:
 - a worker manually edits coordinator-owned shared outputs;
 - a discovery is omitted from the handoff or lacks a resolution.
 
-For a future `gutenberghx` repository, the same drill applies with `wordpress-hx` as the Beads and receipt authority. Cross-repo receipts must name both the WordPressHX program commit and the GutenbergHX implementation commit.
+For a future `gutenberghx` repository, the same drill applies with `wordpresshx-port` as the Beads and receipt authority. Cross-repo receipts must name both the WordPressHx Port program commit and the GutenbergHX implementation commit.

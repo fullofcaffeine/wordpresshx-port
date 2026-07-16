@@ -4,7 +4,7 @@ This project uses sibling checkouts as upstream or compiler references. Keep thi
 
 ## Program Repository
 
-- `./` - `wordpress-hx`, the control plane and future Haxe implementation repository.
+- `./` - `wordpresshx-port`, the full-port control plane and Haxe implementation repository.
 - Authority: PRD, Beads, manifests, receipts, Haxe source, generated distro tooling.
 - Do not initialize independent Beads databases inside sibling upstream or compiler checkouts for this program.
 
