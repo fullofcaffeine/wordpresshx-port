@@ -1,0 +1,45 @@
+{
+  "schema": "wphx.verification-receipt.v1",
+  "id": "receipt:wphx-000-09-readme-project-boundary",
+  "issue": {
+    "id": "wordpresshx-w91.27",
+    "external_ref": "WPHX-000.09",
+    "title": "Align README with WordPressHx Port identity"
+  },
+  "recorded_at": "2026-07-16T23:39:15.000Z",
+  "command": "align the public README with the WordPressHx Port identity and the separate wordpress-hx-sdk product boundary",
+  "evidence_class": "public_project_documentation",
+  "artifact_scope": "readme_project_identity_and_sdk_boundary",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "role": "canonical public project identity, scope, and SDK boundary"
+    },
+    {
+      "path": "docs/adr/ADR-019-wordpresshx-port-project-identity.md",
+      "role": "accepted authority for the repository rename and product separation"
+    }
+  ],
+  "verification_commands": [
+    "npm run operations:project-identity:check",
+    "if rg -n \"WordPressHX\" README.md; then exit 1; fi",
+    "git diff --check",
+    "npm run receipts:build",
+    "npm run receipts:validate",
+    "npm run precommit"
+  ],
+  "validation_result": {
+    "status": "passed",
+    "canonical_display_name": "WordPressHx Port",
+    "canonical_repository_name": "wordpresshx-port",
+    "planned_sdk_repository": "wordpress-hx-sdk",
+    "legacy_active_readme_branding_count": 0,
+    "sdk_independent_of_port_completion": true,
+    "cross_project_evidence_boundary_recorded": true
+  },
+  "non_claims": [
+    "This documentation change does not create or implement wordpress-hx-sdk.",
+    "This documentation change does not add WordPress or Gutenberg Haxe ownership.",
+    "SDK evidence remains separate from full-port ownership and compatibility evidence."
+  ]
+}

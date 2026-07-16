@@ -1,12 +1,18 @@
 # WordPressHx Port
 
-WordPressHx Port is an experimental program to port WordPress 7.0 to Haxe while preserving the PHP-facing WordPress ecosystem contract.
+WordPressHx Port (`wordpresshx-port`) is an experimental program to port WordPress 7.0 and its distribution-aligned Gutenberg surface to Haxe while preserving the PHP-facing WordPress ecosystem contract.
 
 The goal is not a typed wrapper around WordPress. The goal is Haxe-authored runtime logic, typed compatibility contracts, and generated target artifacts that remain usable by existing WordPress plugins, themes, drop-ins, tooling, reflection, and operational workflows.
 
 [![PHP Conformance](https://github.com/fullofcaffeine/wordpresshx-port/actions/workflows/php-conformance.yml/badge.svg?branch=main)](https://github.com/fullofcaffeine/wordpresshx-port/actions/workflows/php-conformance.yml)
 
-This repository owns the full-port program, distribution integration, and evidence control plane. A separate `wordpress-hx-sdk` project is planned for building typed Haxe plugins, themes, blocks, editor extensions, and complete WordPress solutions against the native WordPress/Gutenberg runtimes without requiring this full port. SDK progress and full-port ownership claims remain distinct.
+## Project Boundary
+
+This repository is **WordPressHx Port**: the complete-port program, Haxe implementation home, distribution-integration surface, and evidence control plane. Its goal is to replace upstream WordPress and Gutenberg runtime logic with Haxe-authored behavior while retaining the native ecosystem contracts.
+
+The separately planned **WordPressHx SDK** repository (`wordpress-hx-sdk`) has a different purpose: typed Haxe APIs and higher-level ergonomics for building plugins, themes, blocks, editor extensions, and complete WordPress solutions against unmodified native WordPress and Gutenberg. Using that SDK will not require adopting this port or waiting for the port to finish.
+
+The projects may share public compatibility contracts and examples, but not ownership claims. An SDK-authored extension passing against vanilla WordPress is SDK evidence; the same extension passing against a WordPressHx Port distribution is port compatibility evidence. The SDK must not depend on this repository's implementation internals.
 
 ## Why This Exists
 
@@ -22,9 +28,9 @@ WordPress is enormous, dynamic, and deeply PHP-shaped. A credible port has to pr
 
 The long-term direction is PHP-hosted, Haxe-authored WordPress for compatibility, with optional future native providers only for narrow pure internal kernels. Unmodified PHP plugin/theme compatibility remains the current priority.
 
-An eventual research goal is a browser/WASM-hosted WordPressHX profile that could complement or, if the evidence becomes strong enough, replace parts of today's WordPress Playground model. `wasmix` is the current reference candidate for this line of investigation because it compiles a subset of Haxe to WebAssembly while preserving Haxe-side authoring and JS interop. This is not part of the current parity milestone: first we need PHP-hosted compatibility, generated adapter evidence, and clear boundaries for what can safely run outside PHP.
+An eventual research goal is a browser/WASM-hosted WordPressHx Port profile that could complement or, if the evidence becomes strong enough, replace parts of today's WordPress Playground model. `wasmix` is the current reference candidate for this line of investigation because it compiles a subset of Haxe to WebAssembly while preserving Haxe-side authoring and JS interop. This is not part of the current parity milestone: first we need PHP-hosted compatibility, generated adapter evidence, and clear boundaries for what can safely run outside PHP.
 
-The broader long-term goal is multi-target WordPressHX: Haxe-authored first-party WordPress semantics should be reusable across any runtime that Haxe supports or that we can make Haxe support. PHP remains the privileged adapter for the existing ecosystem, but it does not have to be the only execution profile forever. In theory, the same Haxe-owned core could produce a PHP-hosted distribution, browser/WASM profile, Go service through `reflaxe.go`, Rust provider through `reflaxe.rust`, native service, CLI tooling, static/export profile, or another target-specific runtime, while still offering PHP plugin/theme compatibility through a generated PHP adapter, an embedded PHP engine, or a deliberately narrower compatibility profile.
+The broader long-term goal is a multi-target WordPressHx Port: Haxe-authored first-party WordPress semantics should be reusable across any runtime that Haxe supports or that we can make Haxe support. PHP remains the privileged adapter for the existing ecosystem, but it does not have to be the only execution profile forever. In theory, the same Haxe-owned core could produce a PHP-hosted distribution, browser/WASM profile, Go service through `reflaxe.go`, Rust provider through `reflaxe.rust`, native service, CLI tooling, static/export profile, or another target-specific runtime, while still offering PHP plugin/theme compatibility through a generated PHP adapter, an embedded PHP engine, or a deliberately narrower compatibility profile.
 
 ## Project Principles
 
@@ -70,13 +76,13 @@ See [docs/operations/dependent-libraries.md](docs/operations/dependent-libraries
 
 ## Future Multi-Target Profiles
 
-WordPressHX should eventually evaluate whether a Haxe-authored runtime can target WebAssembly and other Haxe-supported or custom Haxe targets for non-traditional WordPress use cases. The concrete WASM research question is whether a profile, potentially based on [`back2dos/wasmix`](https://github.com/back2dos/wasmix), can preserve enough WordPress behavior to support Playground-like workflows with less dependence on a full PHP-in-WASM runtime.
+WordPressHx Port should eventually evaluate whether a Haxe-authored runtime can target WebAssembly and other Haxe-supported or custom Haxe targets for non-traditional WordPress use cases. The concrete WASM research question is whether a profile, potentially based on [`back2dos/wasmix`](https://github.com/back2dos/wasmix), can preserve enough WordPress behavior to support Playground-like workflows with less dependence on a full PHP-in-WASM runtime.
 
 The same architectural idea applies to Go, Rust, or other targets. A Go profile could use [`fullofcaffeine/reflaxe.go`](https://github.com/fullofcaffeine/reflaxe.go) for service, CLI, worker, or static-export execution. A Rust profile could use [`fullofcaffeine/reflaxe.rust`](https://github.com/fullofcaffeine/reflaxe.rust) for selected native providers or later runtime experiments. These would be additional evidence-backed profiles, not replacements for the PHP compatibility adapter.
 
 The target model is parallel, not replacement-only:
 
-- PHP-hosted WordPressHX remains the compatibility baseline for unmodified plugins and themes.
+- PHP-hosted WordPressHx Port remains the compatibility baseline for unmodified plugins and themes.
 - Alternate targets may run first-party WordPress semantics when their boundaries are proven.
 - A target can still support third-party PHP plugins/themes if it keeps a real PHP compatibility host available, for example through generated PHP adapters or an embedded PHP engine.
 - A target without PHP plugin support can still be valuable, but it must be named honestly as a narrower profile such as browser-only editing, static rendering, selected admin flows, CLI analysis, or content transformation.
