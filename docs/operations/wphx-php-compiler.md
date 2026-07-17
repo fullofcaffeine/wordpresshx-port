@@ -30,7 +30,7 @@ npm run wphx:php:gap-inventory
 npm run wphx:php:gap-inventory:check
 ```
 
-It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 36 Reflaxe-backed WPHX PHP hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 5 script adapters, 36 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 27 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
+It records `manifests/wphx-php/compiler-gap-inventory.v1.json` and `receipts/compiler/wphx-comp-php-gap-inventory.v1.json`. The current inventory finds 39 Reflaxe-backed WPHX PHP hxmls, 12 stock Haxe PHP private-output hxmls, 59 `@:wp.haxeHelper` metadata sites, 97 `@:wp.haxeBootstrap` sites, 54 WordPress-profile method adapters, 7 script adapters, 37 unsupported typed-lowering report sites, 6 WPHX PHP runner copy/install surfaces, 27 passing WPHX PHP evidence manifests, and 7 available stock Haxe PHP reference files. It also confirms the WordPress profile still has zero `PhpRawBlock` occurrences and zero `renderTemplate` calls.
 
 Use that manifest when moving gaps: reusable expression, statement, array, object, call, loop, cast, and std/php behavior belongs in WPHX PHP core or runtime/std strategy; original-path ABI, pluggable timing, conditional declarations, and WordPress-specific shell compatibility stay in the WordPress profile. Helper/bootstrap bridges are temporary fallbacks until a targeted whole-file or core-lowering gate retires them. Runner copies used as oracle setup are not durable public ownership claims.
 
@@ -41,7 +41,7 @@ npm run wphx:php:profile-core-promotion-audit
 npm run wphx:php:profile-core-promotion-audit:check
 ```
 
-It records `manifests/wphx-php/profile-core-promotion-audit.v1.json` and `receipts/compiler/wphx-comp-php-profile-core-promotion-audit.v1.json`. The audit classifies all 54 WordPress-profile method adapters and all 5 compiler script adapters with rationale, follow-up owner, and promotion gate. The current classification is 31 reusable core-IR candidates, 22 profile-only ABI constraints, 3 temporary bridges, and 3 backend-promotion pressure adapters, with zero unclassified adapters and zero stale classifications. It fails when a method/script adapter is added, removed, or renamed without updating the classification table.
+It records `manifests/wphx-php/profile-core-promotion-audit.v1.json` and `receipts/compiler/wphx-comp-php-profile-core-promotion-audit.v1.json`. The audit classifies all 54 WordPress-profile method adapters and all 7 compiler script adapters with rationale, follow-up owner, and promotion gate. The current classification is 33 reusable core-IR candidates, 22 profile-only ABI constraints, 3 temporary bridges, and 3 backend-promotion pressure adapters, with zero unclassified adapters and zero stale classifications. It fails when a method/script adapter is added, removed, or renamed without updating the classification table.
 
 The runtime/std strategy lane is the second usable-compiler gate:
 
