@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, rmSync, writeFileSync, readdirSync, existsSync, statSync } from "node:fs";
 import { dirname, join } from "node:path";
 import { spawnSync } from "node:child_process";
+import { canonicalSourceMapRecord } from "../evidence/canonical-source-map.mjs";
 
 const check = process.argv.includes("--check");
 const root = process.cwd();
@@ -125,13 +126,7 @@ function parseHaxeComments(file) {
 }
 
 function sourceMapSummary(mapPath) {
-  const map = JSON.parse(readFileSync(mapPath, "utf8"));
-  return {
-    path: normalizePath(mapPath),
-    sha256: sha256File(mapPath),
-    source_count: Array.isArray(map.sources) ? map.sources.length : 0,
-    sources: (map.sources ?? []).map(normalizeSourcePath)
-  };
+  return canonicalSourceMapRecord(mapPath, { repositoryRoot: root, path: normalizePath(mapPath) });
 }
 
 function resolveHaxeFrame(frame, commentMap) {
@@ -347,6 +342,7 @@ const receipt = {
     { path: receiptPath, role: "compiler runtime bootstrap debug receipt" },
     { path: haxeSource, role: "stock Haxe PHP implementation fixture source" },
     { path: shellSource, role: "WPHX original-path public shell fixture source" },
+    { path: "tools/evidence/canonical-source-map.mjs", role: "path-independent source-map evidence helper" },
     { path: "tools/wphx-php/run-bootstrap-debug.mjs", role: "bootstrap debug probe runner" }
   ],
   commands: ["npm run wphx:php:bootstrap-debug", "npm run wphx:php:bootstrap-debug:check"],

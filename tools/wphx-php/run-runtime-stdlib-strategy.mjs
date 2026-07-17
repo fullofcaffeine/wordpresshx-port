@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { spawnSync } from "node:child_process";
 import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join } from "node:path";
+import { canonicalSourceMapRecord } from "../evidence/canonical-source-map.mjs";
 
 const checkOnly = process.argv.includes("--check");
 const RECORDED_AT = "2026-07-02T19:00:00Z";
@@ -181,14 +182,11 @@ function sourceMapRecords(root) {
   return walk(root)
     .filter((path) => path.endsWith(".map"))
     .map((path) => {
-      const parsed = JSON.parse(readFileSync(path, "utf8"));
+      const record = canonicalSourceMapRecord(path, { repositoryRoot: process.cwd(), path });
       return {
-        path,
+        ...record,
         relative_path: relative(root, path),
-        bytes: statSync(path).size,
-        sha256: sha256File(path),
-        source_count: Array.isArray(parsed.sources) ? parsed.sources.length : null,
-        has_runtime_probe_source: Array.isArray(parsed.sources) && parsed.sources.some((source) => source.endsWith("RuntimeStdlibProbe.hx"))
+        has_runtime_probe_source: record.sources.some((source) => source.endsWith("RuntimeStdlibProbe.hx"))
       };
     });
 }
@@ -365,6 +363,10 @@ function main() {
       {
         path: RUNNER,
         role: "deterministic stock Haxe PHP runtime/std strategy probe runner"
+      },
+      {
+        path: "tools/evidence/canonical-source-map.mjs",
+        role: "path-independent source-map evidence helper"
       },
       {
         path: "docs/adr/ADR-017-wphx-php-runtime-stdlib-strategy.md",

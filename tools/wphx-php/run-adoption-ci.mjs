@@ -265,7 +265,8 @@ const REQUIRED_MANIFEST_CHECKS = [
 ];
 
 const EXCLUDED_WPHX_PHP_MANIFESTS = [];
-const REQUIRED_NPM_CHECKS = REQUIRED_MANIFEST_CHECKS.map((record) => record.script);
+const REQUIRED_STANDALONE_CHECKS = ["evidence:canonical-source-map:check"];
+const REQUIRED_NPM_CHECKS = REQUIRED_MANIFEST_CHECKS.map((record) => record.script).concat(REQUIRED_STANDALONE_CHECKS);
 const MANIFESTS = Object.fromEntries(REQUIRED_MANIFEST_CHECKS.map((record) => [record.key, record.path]));
 
 function runNpm(script) {
@@ -424,6 +425,11 @@ function main() {
   const continuousInventory = buildContinuousInventory({ manifests, commandResults, failures });
 
   const checkStatusByScript = new Map(commandResults.map((record) => [record.command.replace(/^npm run /, ""), record.status]));
+  expect(
+    checkStatusByScript.get("evidence:canonical-source-map:check") === "passed",
+    "canonical source-map regression check must pass",
+    failures
+  );
   for (const record of REQUIRED_MANIFEST_CHECKS) {
     expectManifestAcceptable(record.key, manifests[record.key], checkStatusByScript.get(record.script) === "passed", failures);
   }
@@ -548,6 +554,8 @@ function main() {
       manifests.bootstrapAutoload.validation_result.status === "passed" &&
       manifests.bootstrapErrorHandler.validation_result.status === "passed" &&
       manifests.bootstrapDebug.validation_result.status === "passed",
+    canonical_source_map_regression_gate_passed:
+      checkStatusByScript.get("evidence:canonical-source-map:check") === "passed",
     stock_fallback_surfaces_bounded: gap.stock_haxe_php_hxml_count === 12,
     parallel_core_port_work_unblocked: failures.length === 0
   };
@@ -636,6 +644,14 @@ function main() {
         role: "executable WPHX PHP usable-compiler adoption gate"
       },
       {
+        path: "tools/evidence/check-canonical-source-map.mjs",
+        role: "cross-checkout source-map determinism and semantic-sensitivity regression check"
+      },
+      {
+        path: "tools/evidence/canonical-source-map.mjs",
+        role: "canonical source-map evidence implementation"
+      },
+      {
         path: MANIFEST,
         role: "WPHX PHP adoption CI decision manifest"
       },
@@ -652,7 +668,7 @@ function main() {
     validation_result: validationResult,
     claims: [
       "WPHX PHP passes the usable-compiler adoption gate for bounded parallel WordPress Core port slices.",
-      "The gate verifies generated PHP quality, public-shell snapshots, runtime/std and bootstrap/debug probes, raw-block/template debt, unsupported=[] for claimed boundaries, and bounded stock fallback surfaces.",
+      "The gate verifies generated PHP quality, public-shell snapshots, runtime/std and bootstrap/debug probes, canonical source-map path independence, raw-block/template debt, unsupported=[] for claimed boundaries, and bounded stock fallback surfaces.",
       "The gate now includes the profile/core promotion audit so WordPress-profile adapter growth must carry classification, rationale, owner, and promotion gate evidence.",
       "The gate reports all included and excluded WPHX PHP evidence manifests so future public-slice evidence cannot drift outside adoption CI silently.",
       "Parallel Core work may resume when it routes new public PHP gaps into WPHX PHP and keeps oracle/candidate evidence current."
@@ -676,6 +692,10 @@ function main() {
       {
         path: MANIFEST,
         role: "adoption CI manifest with included/excluded WPHX PHP evidence inventory"
+      },
+      {
+        path: "tools/evidence/check-canonical-source-map.mjs",
+        role: "cross-checkout source-map determinism and semantic-sensitivity regression check"
       },
       {
         path: CONTINUOUS_RECEIPT,

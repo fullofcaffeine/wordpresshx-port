@@ -3,6 +3,7 @@ import { createHash } from "node:crypto";
 import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, relative } from "node:path";
 import { spawnSync } from "node:child_process";
+import { canonicalSourceMapRecord, findMachineLocalPaths } from "../evidence/canonical-source-map.mjs";
 
 const checkOnly = process.argv.includes("--check");
 const RECORDED_AT = "2026-07-03T13:00:00Z";
@@ -138,7 +139,7 @@ function copyHaxeLibs() {
 function buildPackage() {
   rmSync(OUT_ROOT, { recursive: true, force: true });
   mkdirSync(PACKAGE_ROOT, { recursive: true });
-  for (const script of SOURCE_COMMANDS) run("npm", ["run", script]);
+  for (const script of SOURCE_COMMANDS) run("npm", ["run", checkOnly ? `${script}:check` : script]);
   for (const shell of SHELLS) copyFileIntoPackage(shell.source, packagePath(shell.package_path));
   copyHaxeLibs();
 }
@@ -256,7 +257,7 @@ try {
 }
 
 $result = array(
-\t'package_root' => $root,
+\t'package_root' => '.',
 \t'plugin_file' => wphx_probe_relative_path( __FILE__, $root ),
 \t'function_reflection' => array(
 \t\t'name' => $add_filter->getName(),
@@ -356,7 +357,7 @@ function packageArtifacts() {
     },
     shells: shellRecords,
     debug_haxe_file: fileRecord(haxeFile),
-    debug_source_map: fileRecord(sourceMap)
+    debug_source_map: canonicalSourceMapRecord(sourceMap, { repositoryRoot: process.cwd(), path: sourceMap })
   };
 }
 
@@ -377,6 +378,8 @@ function validate(observed, artifacts) {
     if (!condition) failures.push(message);
   };
 
+  expect(observed.package_root === ".", "package root evidence must use the stable package-relative root");
+  expect(findMachineLocalPaths(observed).length === 0, "probe evidence must not contain machine-local absolute paths");
   expect(observed.plugin_file === "wp-content/plugins/wphx-ecosystem-probe/wphx-ecosystem-probe.php", "plugin executes from packaged plugin path");
   expect(observed.function_reflection.file === "wp-includes/plugin.php", "add_filter reflection file must be packaged wp-includes/plugin.php");
   expect(observed.function_reflection.params.length === 4, "add_filter must expose four parameters");
@@ -505,6 +508,7 @@ function main() {
     check_command: "npm run wphx:php:plugin-reflection-stacktrace:check",
     artifacts: [
       { path: RUNNER, role: "deterministic plugin/reflection/stacktrace runner" },
+      { path: "tools/evidence/canonical-source-map.mjs", role: "path-independent source-map and probe-path evidence helper" },
       { path: MANIFEST, role: "plugin reflection and packaged stacktrace manifest" },
       { path: PLUGIN, role: "generated package plugin probe artifact", generated: true }
     ],
